@@ -1,4 +1,4 @@
-# 📚 Blueprints
+# 🏛️ Blueprints
 
 🌐 **[Open the library](https://karlesmarin.github.io/blueprints/)**
 
