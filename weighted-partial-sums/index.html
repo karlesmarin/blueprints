@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript">
+</script>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Exact zeros of weighted sums of completely multiplicative functions: blueprint</title>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/amsthm.css" rel="stylesheet"/>
+<link href="styles/blueprint.css" rel="stylesheet"/>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="estilo-blueprint">/* paper-companion: commentary blocks, views bar, Lean seal. Injected into index.html after plasTeX. */
+/* a link target is not hidden under the sticky bar */
+[id], a[name]{scroll-margin-top:64px}
+details.blk{border-radius:8px;margin:.8em 0;padding:.1em .9em .4em;border-left:6px solid}
+details.blk>summary{cursor:pointer;font-weight:600;padding:.35em 0;list-style:none}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:before{content:"▸ ";color:#888}
+details.blk[open]>summary:before{content:"▾ "}
+.b-plain{background:#fff8e1;border-color:#f5b700}
+.b-guar{background:#f5f7f9;border-color:#8a99a8}
+.b-fig{background:#f3e5f5;border-color:#8e24aa}
+.b-set{background:#eceff1;border-color:#546e7a}
+.b-tabs{background:#e3f2fd;border-color:#1e88e5}
+.b-lab{background:#fff3e0;border-color:#ef6c00}
+#vistas{position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;padding:.4em .2em;
+        font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas button{border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;cursor:pointer}
+#vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
+#vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
+.lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
+.lean-check .repro{color:#456}.lean-check code{font-size:.95em}
+.lean-ok{border-left:6px solid #1cac78;padding-left:.6em;background:linear-gradient(90deg,#e9f8f1,transparent 40%)}
+.sello{display:inline-block;background:#1cac78;color:#fff;border-radius:10px;padding:0 .55em;font-size:.8em;
+       margin-left:.5em;vertical-align:middle}
+.theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
+.lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style>
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><meta content="Exact zeros of weighted sums of completely multiplicative functions" name="citation_title"/><meta content="Marín, Carles" name="citation_author"/><meta content="2026/09/19" name="citation_publication_date"/><meta content="https://karlesmarin.github.io/schur-orbit-and-reciprocal-pair/weighted-partial-sums/blueprint/paper.pdf" name="citation_pdf_url"/><meta content="https://karlesmarin.github.io/schur-orbit-and-reciprocal-pair/weighted-partial-sums/blueprint/" name="citation_abstract_html_url"/><meta content="10.5281/zenodo.22847374" name="citation_doi"/><meta content="A completely multiplicative function ε with values ±1 can make the sum of n ε(n) over n ≤ m vanish only when m ≡ 0 or 3 (mod 4). We prove that for every such m there is an ε_m with this sum zero, that ε_m can be chosen with its signs at finitely many primes prescribed in advance once m is large, and that the functions with infinitely many zeros form a dense G_δ set of probability zero. As a consequence, for every prime q ≡ 7 (mod 8) Conrey's sine series of the Legendre symbol modulo q vanishes identically on an interval." name="citation_abstract"/><meta content="completely multiplicative functions; weighted sums; exact zeros; subset sums; Legendre symbol; digit recursion; Conrey's sine series" name="citation_keywords"/><style id="annotate-css">
+p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
+p.usado a{color:#1a4f8b}
+p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
+  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
+header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
+  text-decoration:none;white-space:nowrap;text-shadow:none}
+header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
+header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
+  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
+header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
+  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
+header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600}
+header h1#doc_title{flex:1}
+ul.chapter-list{font-size:1.05em;line-height:1.7}
+/* master-detail: the header and the sidebar stay; the right panel shows one part at a time */
+section.pc-pane[hidden]{display:none !important}
+.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
+nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
+/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
+#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
+  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
+body.vista-explore #explore-banner{display:block}
+body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
+  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
+body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
+body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
+  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
+
+#top.overview{margin:0 0 2.2em}
+#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
+#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
+#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
+#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
+#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
+#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+#top.overview .c-paper{background:#fff;border:1px solid #888}
+#top.overview .nota{font-size:.85em;color:#555}
+#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
+  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
+#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
+#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+</head>
+<body>
+<header>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html" title="Exact zeros of weighted sums of completely multiplicative functions: blueprint">Blueprint</a></h1>
+<nav class="pc-opts"><span id="vistas" class="pc-views"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/schur-orbit-and-reciprocal-pair/atlas/">🗺️📚 Atlas</a></nav>
+</header>
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
+<li class=""><a href="#a0000000003"><span class="toc_ref">1</span> <span class="toc_entry">Statements</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:A"><span class="toc_ref"></span> <span class="toc_entry">Theorem A</span></a></li><li class=""><a href="#thm:dicotomia"><span class="toc_ref"></span> <span class="toc_entry">Theorem B</span></a></li><li class=""><a href="#cor:C"><span class="toc_ref"></span> <span class="toc_entry">Corollary C</span></a></li></ul></li>
+<li class=""><a href="#a0000000017"><span class="toc_ref">2</span> <span class="toc_entry">Theorems A and B</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#lem:momento"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2.1</span></a></li><li class=""><a href="#lem:intervalos"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2.2</span></a></li><li class=""><a href="#lem:intervalos_b" title="Complete sequences (Lemma 2.2 (b), the part formalized)"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2.2(b)</span></a></li><li class=""><a href="#prop:prefijos"><span class="toc_ref"></span> <span class="toc_entry">Proposition 3.1</span></a></li></ul></li>
+<li class=""><a href="#a0000000031"><span class="toc_ref">3</span> <span class="toc_entry">The digit recursion</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:digitos"><span class="toc_ref"></span> <span class="toc_entry">Theorem 4.1</span></a></li><li class=""><a href="#thm:diag" title="Kanemitsu–Kuzumaki, Kučera"><span class="toc_ref"></span> <span class="toc_entry">Theorem 4.2</span></a></li><li class=""><a href="#lem:propagacion" title="Propagation of zeros along digits (first statement of Corollary 4.3 )"><span class="toc_ref"></span> <span class="toc_entry">Corollary 4.3, first statement</span></a></li><li class=""><a href="#cor:digitos"><span class="toc_ref"></span> <span class="toc_entry">Corollary 4.3</span></a></li><li class=""><a href="#prop:bloques"><span class="toc_ref"></span> <span class="toc_entry">Proposition 4.4</span></a></li><li class=""><a href="#cor:orden"><span class="toc_ref"></span> <span class="toc_entry">Corollary 4.5</span></a></li><li class=""><a href="#prop:conrey"><span class="toc_ref"></span> <span class="toc_entry">Proposition 4.6</span></a></li></ul></li>
+<li class=""><a href="#a0000000056"><span class="toc_ref">4</span> <span class="toc_entry">Rows</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:filas"><span class="toc_ref"></span> <span class="toc_entry">Proposition 5.1</span></a></li><li class=""><a href="#cor:filas"><span class="toc_ref"></span> <span class="toc_entry">Corollary 5.2</span></a></li></ul></li>
+<li class=""><a href="#a0000000064"><span class="toc_ref">5</span> <span class="toc_entry">After submission</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:sinceros" title="No zeros at \(q=179\) and \(q=227\)"><span class="toc_ref"></span> <span class="toc_entry">Theorem N1 (new)</span></a></li></ul></li>
+<li class=""><a href="#a0000000068"><span class="toc_ref"></span> <span class="toc_entry">Tables cited</span></a></li>
+<li class=""><a href="#a0000000069"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+<div class="content">
+<div class="content-wrapper">
+<div class="main-text">
+<div id="explore-banner">🔍 <b>Explore view</b>: explanations, figures, other mathematical languages and labs are shown, marked <i>commentary</i>; they are not part of the paper. Switch to <b>Paper</b> for the statements, proofs and evidence only.</div><div class="pc-paneltitle"><div class="titlepage">
+<h1>Exact zeros of weighted sums of completely multiplicative functions</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">Number theory · arithmetic functions</span> <a class="msc msc-p" href="https://zbmath.org/classification/?q=cc:11A25" rel="noopener" target="_blank" title="MSC 2020 11A25: Arithmetic functions; related numbers; inversion formulas">11A25</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:11K65" rel="noopener" target="_blank" title="MSC 2020 11K65: Arithmetic functions in probabilistic number theory">11K65</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:11L40" rel="noopener" target="_blank" title="MSC 2020 11L40: Estimates on character sums">11L40</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:11P70" rel="noopener" target="_blank" title="MSC 2020 11P70: Inverse problems of additive number theory, including sumsets">11P70</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:11R29" rel="noopener" target="_blank" title="MSC 2020 11R29: Class numbers, class groups, discriminants">11R29</a></div>
+<p class="authors">
+<span class="author">Carles Marín</span>
+</p>
+</div></div><section class="pc-pane"><section id="top" class="overview"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2>
+<p>For a completely multiplicative ε with values ±1, the weighted sum S<sub>ε</sub>(m) = Σ<sub>n≤m</sub> n ε(n)
+can vanish only when m ≡ 0 or 3 (mod 4).</p>
+<ul>
+<li><b>Every such length is a zero</b> of some ε, depending on m (Theorem A), even with the signs at finitely many
+primes prescribed in advance, once m is large (Proposition 3.1).</li>
+<li><b>Zeros of one fixed function are rare in measure and generic in category:</b> the ε with infinitely many zeros
+form a dense G<sub>δ</sub> of probability zero (Theorem B). For the unweighted sums the picture is the reverse:
+they vanish infinitely often almost surely, by a theorem of Aymone.</li>
+<li><b>Quadratic characters give explicit zeros.</b> For primes q ≡ 7 (mod 8), S<sub>χ</sub>((q<sup>j</sup>−1)/2) = 0
+for every j, and Conrey's sine series of the Legendre symbol vanishes identically on an interval (Corollary C).
+The case j = 1 is classical (Lebesgue; Aebi–Cairns); the iteration in j and the null interval are the
+corollary's content. They come from a digit recursion in base q (Theorem 4.1) and the weighted half sum
+(Theorem 4.2, due to Kanemitsu–Kuzumaki and Kučera).</li>
+<li><b>Added after submission:</b> for q = 179 and q = 227 the function χ<sub>q,1</sub> has no zero at all
+(Theorem N1), by a finite certificate checked in Lean.</li>
+</ul>
+<p><b>Main tools:</b> a second-moment bound and Sárközy's progressions in subset sums of primes (Theorem A);
+the anticoncentration theorem of Sárközy and Szemerédi (Theorem B).</p></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:A"><b>Theorem A</b></a>: every admissible length is a zero of some ε.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:A"><b>Theorem A</b></a>: every admissible length is a zero of some ε</li><li><a href="index.html#thm:dicotomia"><b>Theorem B</b></a>: infinitely many zeros: dense G_δ, but measure zero</li><li><a href="index.html#cor:C"><b>Corollary C</b></a>: zeros of χ at (q^j−1)/2; Conrey's series vanishes on an interval</li><li><a href="index.html#thm:sinceros"><b>Theorem N1 (new)</b></a>: no zeros at all for q = 179 and q = 227</li></ul><div class="cifras">
+<span class="cifra"><b>17</b> results</span>
+<span class="cifra c-lean">✅ <b>4</b> formalized in Lean</span>
+<span class="cifra c-part">◐ <b>4</b> with a part in Lean</span>
+<span class="cifra c-prog">💻 <b>11</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><details class="ov-map" open><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 1533.00 564.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 559.9)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M621,-101.08C621,-101.08 1389,-101.08 1389,-101.08 1395,-101.08 1401,-107.08 1401,-113.08 1401,-113.08 1401,-209.41 1401,-209.41 1401,-215.41 1395,-221.41 1389,-221.41 1389,-221.41 621,-221.41 621,-221.41 615,-221.41 609,-215.41 609,-209.41 609,-209.41 609,-113.08 609,-113.08 609,-107.08 615,-101.08 621,-101.08" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1005" xml:space="preserve" y="-206">Statements</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M164,-111.58C164,-111.58 589,-111.58 589,-111.58 595,-111.58 601,-117.58 601,-123.58 601,-123.58 601,-316.74 601,-316.74 601,-322.74 595,-328.74 589,-328.74 589,-328.74 164,-328.74 164,-328.74 158,-328.74 152,-322.74 152,-316.74 152,-316.74 152,-123.58 152,-123.58 152,-117.58 158,-111.58 164,-111.58" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="376.5" xml:space="preserve" y="-313.35">Theorems A and B</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M884,-229.41C884,-229.41 1366,-229.41 1366,-229.41 1372,-229.41 1378,-235.41 1378,-241.41 1378,-241.41 1378,-543.9 1378,-543.9 1378,-549.9 1372,-555.9 1366,-555.9 1366,-555.9 884,-555.9 884,-555.9 878,-555.9 872,-549.9 872,-543.9 872,-543.9 872,-241.41 872,-241.41 872,-235.41 878,-229.41 884,-229.41" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1125" xml:space="preserve" y="-540.5">The digit recursion</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M12,0C12,0 132,0 132,0 138,0 144,-6 144,-12 144,-12 144,-198.91 144,-198.91 144,-204.91 138,-210.91 132,-210.91 132,-210.91 12,-210.91 12,-210.91 6,-210.91 0,-204.91 0,-198.91 0,-198.91 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="72" xml:space="preserve" y="-195.51">Rows</text>
+</g>
+<g class="cluster" id="clust5">
+<title>cluster_4</title>
+<path d="M1399,-336.74C1399,-336.74 1513,-336.74 1513,-336.74 1519,-336.74 1525,-342.74 1525,-348.74 1525,-348.74 1525,-430.07 1525,-430.07 1525,-436.07 1519,-442.07 1513,-442.07 1513,-442.07 1399,-442.07 1399,-442.07 1393,-442.07 1387,-436.07 1387,-430.07 1387,-430.07 1387,-348.74 1387,-348.74 1387,-342.74 1393,-336.74 1399,-336.74" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-426.67">After submission</text>
+</g>
+<!-- thm:A -->
+<g class="node" id="node1">
+<title>thm:A</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:A" xlink:title="Theorem A: every admissible length is a zero of some ε">
+<path d="M925.43,-184.03C925.43,-184.03 628.57,-184.03 628.57,-184.03 622.57,-184.03 616.57,-178.03 616.57,-172.03 616.57,-172.03 616.57,-128.21 616.57,-128.21 616.57,-122.21 622.57,-116.21 628.57,-116.21 628.57,-116.21 925.43,-116.21 925.43,-116.21 931.43,-116.21 937.43,-122.21 937.43,-128.21 937.43,-128.21 937.43,-172.03 937.43,-172.03 937.43,-178.03 931.43,-184.03 925.43,-184.03" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="777" xml:space="preserve" y="-167.59">Theorem A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="777" xml:space="preserve" y="-153.34">every admissible length is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="777" xml:space="preserve" y="-139.09">a zero of some ε</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="777" xml:space="preserve" y="-124.84">◐ in Lean: only one ingredient (Lemma 2.2(b)) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:prefijos -->
+<g class="node" id="node7">
+<title>prop:prefijos</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#prop:prefijos" xlink:title="Proposition 3.1: signs at finitely many primes can be prescribed">
+<path d="M581.3,-298.49C581.3,-298.49 478.7,-298.49 478.7,-298.49 472.7,-298.49 466.7,-292.49 466.7,-286.49 466.7,-286.49 466.7,-249.41 466.7,-249.41 466.7,-243.41 472.7,-237.41 478.7,-237.41 478.7,-237.41 581.3,-237.41 581.3,-237.41 587.3,-237.41 593.3,-243.41 593.3,-249.41 593.3,-249.41 593.3,-286.49 593.3,-286.49 593.3,-292.49 587.3,-298.49 581.3,-298.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="530" xml:space="preserve" y="-283.47">Proposition 3.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="530" xml:space="preserve" y="-270.72">signs at finitely many</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="530" xml:space="preserve" y="-257.97">primes can be prescribed</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="530" xml:space="preserve" y="-245.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:A&#45;&gt;prop:prefijos -->
+<g class="edge" id="edge6">
+<title>thm:A-&gt;prop:prefijos</title>
+<path d="M704.43,-185.15C671.9,-200.41 633.65,-218.34 601.28,-233.53" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="600.28,-231.29 594.98,-236.48 602.36,-235.73 600.28,-231.29" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:filas -->
+<g class="node" id="node16">
+<title>cor:filas</title>
+<g id="a_node16"><a target="_top" xlink:href="index.html#cor:filas" xlink:title="Corollary 5.2: each row is empty or infinite">
+<path d="M119.43,-69.08C119.43,-69.08 32.57,-69.08 32.57,-69.08 26.57,-69.08 20.57,-63.08 20.57,-57.08 20.57,-57.08 20.57,-20 20.57,-20 20.57,-14 26.57,-8 32.57,-8 32.57,-8 119.43,-8 119.43,-8 125.43,-8 131.43,-14 131.43,-20 131.43,-20 131.43,-57.08 131.43,-57.08 131.43,-63.08 125.43,-69.08 119.43,-69.08" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-54.06">Corollary 5.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-41.31">each row is empty or</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-28.56">infinite</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-15.81">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:A&#45;&gt;cor:filas -->
+<g class="edge" id="edge15">
+<title>thm:A-&gt;cor:filas</title>
+<path d="M666.06,-115.02C646.51,-109.8 626.26,-104.89 607,-101.08 440.31,-68.09 240.42,-50.81 140.1,-43.64" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="140.55,-41.22 133.39,-43.17 140.2,-46.11 140.55,-41.22" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:dicotomia -->
+<g class="node" id="node2">
+<title>thm:dicotomia</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:dicotomia" xlink:title="Theorem B: infinitely many zeros: dense G_δ, but measure zero">
+<path d="M1085.8,-183.66C1085.8,-183.66 974.2,-183.66 974.2,-183.66 968.2,-183.66 962.2,-177.66 962.2,-171.66 962.2,-171.66 962.2,-128.58 962.2,-128.58 962.2,-122.58 968.2,-116.58 974.2,-116.58 974.2,-116.58 1085.8,-116.58 1085.8,-116.58 1091.8,-116.58 1097.8,-122.58 1097.8,-128.58 1097.8,-128.58 1097.8,-171.66 1097.8,-171.66 1097.8,-177.66 1091.8,-183.66 1085.8,-183.66" fill="#ffffff" stroke="#888888" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1030" xml:space="preserve" y="-167.22">Theorem B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1030" xml:space="preserve" y="-152.97">infinitely many zeros:</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1030" xml:space="preserve" y="-138.72">dense G_δ, but measure</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1030" xml:space="preserve" y="-124.47">zero</text>
+</a>
+</g>
+</g>
+<!-- cor:C -->
+<g class="node" id="node3">
+<title>cor:C</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#cor:C" xlink:title="Corollary C: zeros of χ at (q^j−1)/2; Conrey's series vanishes on an interval">
+<path d="M1381.3,-191.16C1381.3,-191.16 1134.7,-191.16 1134.7,-191.16 1128.7,-191.16 1122.7,-185.16 1122.7,-179.16 1122.7,-179.16 1122.7,-121.08 1122.7,-121.08 1122.7,-115.08 1128.7,-109.08 1134.7,-109.08 1134.7,-109.08 1381.3,-109.08 1381.3,-109.08 1387.3,-109.08 1393.3,-115.08 1393.3,-121.08 1393.3,-121.08 1393.3,-179.16 1393.3,-179.16 1393.3,-185.16 1387.3,-191.16 1381.3,-191.16" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-174.72">Corollary C</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-160.47">zeros of χ at (q^j−1)/2;</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-146.22">Conrey's series vanishes</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-131.97">on an interval</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-117.72">◐ in Lean: only the propagation step · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:momento -->
+<g class="node" id="node4">
+<title>lem:momento</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#lem:momento" xlink:title="Lemma 2.1: second-moment bound for the remainder">
+<path d="M429.68,-298.49C429.68,-298.49 320.32,-298.49 320.32,-298.49 314.32,-298.49 308.32,-292.49 308.32,-286.49 308.32,-286.49 308.32,-249.41 308.32,-249.41 308.32,-243.41 314.32,-237.41 320.32,-237.41 320.32,-237.41 429.68,-237.41 429.68,-237.41 435.68,-237.41 441.68,-243.41 441.68,-249.41 441.68,-249.41 441.68,-286.49 441.68,-286.49 441.68,-292.49 435.68,-298.49 429.68,-298.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="375" xml:space="preserve" y="-283.47">Lemma 2.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="375" xml:space="preserve" y="-270.72">second-moment bound for</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="375" xml:space="preserve" y="-257.97">the remainder</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="375" xml:space="preserve" y="-245.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:momento&#45;&gt;thm:A -->
+<g class="edge" id="edge2">
+<title>lem:momento-&gt;thm:A</title>
+<path d="M431.4,-236.94C438.84,-233.94 446.49,-231.31 454,-229.41 520.01,-212.7 540.58,-236.41 607,-221.41 639.17,-214.14 673.05,-201.3 702.03,-188.56" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="702.89,-190.86 708.29,-185.78 700.9,-186.38 702.89,-190.86" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:intervalos -->
+<g class="node" id="node5">
+<title>lem:intervalos</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#lem:intervalos" xlink:title="Lemma 2.2: subset sums of primes fill an interval">
+<path d="M461.8,-180.66C461.8,-180.66 290.2,-180.66 290.2,-180.66 284.2,-180.66 278.2,-174.66 278.2,-168.66 278.2,-168.66 278.2,-131.58 278.2,-131.58 278.2,-125.58 284.2,-119.58 290.2,-119.58 290.2,-119.58 461.8,-119.58 461.8,-119.58 467.8,-119.58 473.8,-125.58 473.8,-131.58 473.8,-131.58 473.8,-168.66 473.8,-168.66 473.8,-174.66 467.8,-180.66 461.8,-180.66" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="376" xml:space="preserve" y="-165.65">Lemma 2.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="376" xml:space="preserve" y="-152.9">subset sums of primes fill</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="376" xml:space="preserve" y="-140.15">an interval</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="376" xml:space="preserve" y="-127.4">◐ in Lean: only part (b) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:intervalos&#45;&gt;thm:A -->
+<g class="edge" id="edge1">
+<title>lem:intervalos-&gt;thm:A</title>
+<path d="M474.29,-150.12C518.54,-150.12 562.79,-150.12 607.04,-150.12" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="606.79,-152.57 613.79,-150.12 606.79,-147.67 606.79,-152.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:intervalos_b -->
+<g class="node" id="node6">
+<title>lem:intervalos_b</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#lem:intervalos_b" xlink:title="Lemma 2.2(b): complete sequences (the part in Lean)">
+<path d="M271.8,-298.49C271.8,-298.49 172.2,-298.49 172.2,-298.49 166.2,-298.49 160.2,-292.49 160.2,-286.49 160.2,-286.49 160.2,-249.41 160.2,-249.41 160.2,-243.41 166.2,-237.41 172.2,-237.41 172.2,-237.41 271.8,-237.41 271.8,-237.41 277.8,-237.41 283.8,-243.41 283.8,-249.41 283.8,-249.41 283.8,-286.49 283.8,-286.49 283.8,-292.49 277.8,-298.49 271.8,-298.49" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="222" xml:space="preserve" y="-283.47">Lemma 2.2(b)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="222" xml:space="preserve" y="-270.72">complete sequences (the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="222" xml:space="preserve" y="-257.97">part in Lean)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="222" xml:space="preserve" y="-245.22">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- lem:intervalos_b&#45;&gt;lem:intervalos -->
+<g class="edge" id="edge5">
+<title>lem:intervalos_b-&gt;lem:intervalos</title>
+<path d="M262.06,-236.82C282.74,-221.27 308.07,-202.21 329.59,-186.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="330.8,-188.17 334.93,-182.01 327.86,-184.25 330.8,-188.17" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:prefijos&#45;&gt;thm:dicotomia -->
+<g class="edge" id="edge3">
+<title>prop:prefijos-&gt;thm:dicotomia</title>
+<path d="M593.76,-259.51C661.31,-251.71 771.13,-239.23 866,-229.41 884.65,-227.48 932.79,-228.85 950,-221.41 966.48,-214.29 981.97,-202.45 994.8,-190.51" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="996.49,-192.28 999.9,-185.7 993.13,-188.72 996.49,-192.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:digitos -->
+<g class="node" id="node8">
+<title>thm:digitos</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#thm:digitos" xlink:title="Theorem 4.1: the digit recursion for S_χ">
+<path d="M1207.3,-519.27C1207.3,-519.27 1116.7,-519.27 1116.7,-519.27 1110.7,-519.27 1104.7,-513.27 1104.7,-507.27 1104.7,-507.27 1104.7,-470.19 1104.7,-470.19 1104.7,-464.19 1110.7,-458.19 1116.7,-458.19 1116.7,-458.19 1207.3,-458.19 1207.3,-458.19 1213.3,-458.19 1219.3,-464.19 1219.3,-470.19 1219.3,-470.19 1219.3,-507.27 1219.3,-507.27 1219.3,-513.27 1213.3,-519.27 1207.3,-519.27" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1162" xml:space="preserve" y="-504.25">Theorem 4.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1162" xml:space="preserve" y="-491.5">the digit recursion for</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1162" xml:space="preserve" y="-478.75">S_χ</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1162" xml:space="preserve" y="-466">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- lem:propagacion -->
+<g class="node" id="node10">
+<title>lem:propagacion</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#lem:propagacion" xlink:title="Corollary 4.3, first statement: zeros propagate along digits in R_q">
+<path d="M1331.3,-408.82C1331.3,-408.82 1210.7,-408.82 1210.7,-408.82 1204.7,-408.82 1198.7,-402.82 1198.7,-396.82 1198.7,-396.82 1198.7,-359.74 1198.7,-359.74 1198.7,-353.74 1204.7,-347.74 1210.7,-347.74 1210.7,-347.74 1331.3,-347.74 1331.3,-347.74 1337.3,-347.74 1343.3,-353.74 1343.3,-359.74 1343.3,-359.74 1343.3,-396.82 1343.3,-396.82 1343.3,-402.82 1337.3,-408.82 1331.3,-408.82" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1271" xml:space="preserve" y="-393.8">Corollary 4.3, first statement</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1271" xml:space="preserve" y="-381.05">zeros propagate along</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1271" xml:space="preserve" y="-368.3">digits in R_q</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1271" xml:space="preserve" y="-355.55">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;lem:propagacion -->
+<g class="edge" id="edge7">
+<title>thm:digitos-&gt;lem:propagacion</title>
+<path d="M1192.1,-457.81C1205.4,-444.54 1221.2,-428.81 1235.2,-414.93" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1236.73,-416.87 1239.93,-410.18 1233.25,-413.41 1236.73,-416.87" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:digitos -->
+<g class="node" id="node11">
+<title>cor:digitos</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#cor:digitos" xlink:title="Corollary 4.3: families of zeros read off the digits">
+<path d="M1357.68,-298.49C1357.68,-298.49 1158.32,-298.49 1158.32,-298.49 1152.32,-298.49 1146.32,-292.49 1146.32,-286.49 1146.32,-286.49 1146.32,-249.41 1146.32,-249.41 1146.32,-243.41 1152.32,-237.41 1158.32,-237.41 1158.32,-237.41 1357.68,-237.41 1357.68,-237.41 1363.68,-237.41 1369.68,-243.41 1369.68,-249.41 1369.68,-249.41 1369.68,-286.49 1369.68,-286.49 1369.68,-292.49 1363.68,-298.49 1357.68,-298.49" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1258" xml:space="preserve" y="-283.47">Corollary 4.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1258" xml:space="preserve" y="-270.72">families of zeros read off</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1258" xml:space="preserve" y="-257.97">the digits</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1258" xml:space="preserve" y="-245.22">◐ in Lean: only first statement · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;cor:digitos -->
+<g class="edge" id="edge10">
+<title>thm:digitos-&gt;cor:digitos</title>
+<path d="M1215.4,-457.68C1220.9,-455.4 1226.5,-453.38 1232,-451.82 1245.3,-448.05 1346.6,-452.22 1356,-442.07 1387.8,-407.7 1377.7,-378.2 1356,-336.74 1349.2,-323.83 1338.8,-312.89 1327.2,-303.82" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1328.91,-302.04 1321.82,-299.87 1326.01,-305.99 1328.91,-302.04" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:bloques -->
+<g class="node" id="node12">
+<title>prop:bloques</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#prop:bloques" xlink:title="Proposition 4.4: blocks: loops of the recursion give zeros">
+<path d="M1162.18,-408.82C1162.18,-408.82 1079.82,-408.82 1079.82,-408.82 1073.82,-408.82 1067.82,-402.82 1067.82,-396.82 1067.82,-396.82 1067.82,-359.74 1067.82,-359.74 1067.82,-353.74 1073.82,-347.74 1079.82,-347.74 1079.82,-347.74 1162.18,-347.74 1162.18,-347.74 1168.18,-347.74 1174.18,-353.74 1174.18,-359.74 1174.18,-359.74 1174.18,-396.82 1174.18,-396.82 1174.18,-402.82 1168.18,-408.82 1162.18,-408.82" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1121" xml:space="preserve" y="-393.8">Proposition 4.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1121" xml:space="preserve" y="-381.05">blocks: loops of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1121" xml:space="preserve" y="-368.3">recursion give zeros</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1121" xml:space="preserve" y="-355.55">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;prop:bloques -->
+<g class="edge" id="edge11">
+<title>thm:digitos-&gt;prop:bloques</title>
+<path d="M1150.7,-457.81C1145.9,-445.13 1140.3,-430.21 1135.2,-416.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1137.6,-416.21 1132.83,-410.53 1133.01,-417.94 1137.6,-416.21" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:orden -->
+<g class="node" id="node13">
+<title>cor:orden</title>
+<g id="a_node13"><a target="_top" xlink:href="index.html#cor:orden" xlink:title="Corollary 4.5: S_χ((q−1)/2)=0 iff χ(2)=1, for any order">
+<path d="M1030.8,-408.82C1030.8,-408.82 919.2,-408.82 919.2,-408.82 913.2,-408.82 907.2,-402.82 907.2,-396.82 907.2,-396.82 907.2,-359.74 907.2,-359.74 907.2,-353.74 913.2,-347.74 919.2,-347.74 919.2,-347.74 1030.8,-347.74 1030.8,-347.74 1036.8,-347.74 1042.8,-353.74 1042.8,-359.74 1042.8,-359.74 1042.8,-396.82 1042.8,-396.82 1042.8,-402.82 1036.8,-408.82 1030.8,-408.82" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="975" xml:space="preserve" y="-393.8">Corollary 4.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="975" xml:space="preserve" y="-381.05">S_χ((q−1)/2)=0 iff χ(2)=1,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="975" xml:space="preserve" y="-368.3">for any order</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="975" xml:space="preserve" y="-355.55">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;cor:orden -->
+<g class="edge" id="edge13">
+<title>thm:digitos-&gt;cor:orden</title>
+<path d="M1104.3,-466.36C1087.9,-459.44 1070.4,-451.17 1055,-442.07 1041.5,-434.1 1027.8,-424.13 1015.6,-414.49" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1017.17,-412.61 1010.18,-410.14 1014.1,-416.43 1017.17,-412.61" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:sinceros -->
+<g class="node" id="node17">
+<title>thm:sinceros</title>
+<g id="a_node17"><a target="_top" xlink:href="index.html#thm:sinceros" xlink:title="Theorem N1 (new): no zeros at all for q = 179 and q = 227">
+<path d="M1505.05,-411.82C1505.05,-411.82 1406.95,-411.82 1406.95,-411.82 1400.95,-411.82 1394.95,-405.82 1394.95,-399.82 1394.95,-399.82 1394.95,-356.74 1394.95,-356.74 1394.95,-350.74 1400.95,-344.74 1406.95,-344.74 1406.95,-344.74 1505.05,-344.74 1505.05,-344.74 1511.05,-344.74 1517.05,-350.74 1517.05,-356.74 1517.05,-356.74 1517.05,-399.82 1517.05,-399.82 1517.05,-405.82 1511.05,-411.82 1505.05,-411.82" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-395.38">Theorem N1 (new)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-381.13">no zeros at all for q =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-366.88">179 and q = 227</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-352.63">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;thm:sinceros -->
+<g class="edge" id="edge16">
+<title>thm:digitos-&gt;thm:sinceros</title>
+<path d="M1215.4,-457.6C1220.9,-455.34 1226.5,-453.34 1232,-451.82 1264.6,-442.82 1352.7,-454.96 1384,-442.07 1397.1,-436.69 1409.4,-427.92 1420.1,-418.63" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1421.52,-420.64 1425.08,-414.13 1418.24,-417.01 1421.52,-420.64" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:diag -->
+<g class="node" id="node9">
+<title>thm:diag</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#thm:diag" xlink:title="Theorem 4.2: the weighted half sum (Kanemitsu–Kuzumaki, Kučera)">
+<path d="M1007.05,-525.65C1007.05,-525.65 908.95,-525.65 908.95,-525.65 902.95,-525.65 896.95,-519.65 896.95,-513.65 896.95,-513.65 896.95,-463.82 896.95,-463.82 896.95,-457.82 902.95,-451.82 908.95,-451.82 908.95,-451.82 1007.05,-451.82 1007.05,-451.82 1013.05,-451.82 1019.05,-457.82 1019.05,-463.82 1019.05,-463.82 1019.05,-513.65 1019.05,-513.65 1019.05,-519.65 1013.05,-525.65 1007.05,-525.65" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-510.63">Theorem 4.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-497.88">the weighted half sum</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-485.13">(Kanemitsu–Kuzumaki,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-472.38">Kučera)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-459.63">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:diag&#45;&gt;cor:digitos -->
+<g class="edge" id="edge9">
+<title>thm:diag-&gt;cor:digitos</title>
+<path d="M900.93,-451.29C898.67,-448.39 896.66,-445.32 895,-442.07 873.72,-400.37 865.09,-372.75 895,-336.74 925.62,-299.88 1044.3,-282.95 1137.7,-275.25" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1137.81,-277.7 1144.59,-274.69 1137.42,-272.82 1137.81,-277.7" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:diag&#45;&gt;cor:orden -->
+<g class="edge" id="edge12">
+<title>thm:diag-&gt;cor:orden</title>
+<path d="M963.71,-451.32C965.41,-440.43 967.29,-428.47 969.01,-417.47" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="971.4,-418.07 970.06,-410.78 966.56,-417.31 971.4,-418.07" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:propagacion&#45;&gt;cor:digitos -->
+<g class="edge" id="edge8">
+<title>lem:propagacion-&gt;cor:digitos</title>
+<path d="M1267.4,-347.39C1265.9,-334.96 1264.2,-320.38 1262.6,-307.18" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1265.03,-306.91 1261.78,-300.24 1260.17,-307.48 1265.03,-306.91" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:digitos&#45;&gt;cor:C -->
+<g class="edge" id="edge4">
+<title>cor:digitos-&gt;cor:C</title>
+<path d="M1258,-236.82C1258,-225.82 1258,-213.06 1258,-200.81" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1260.45,-200.95 1258,-193.95 1255.55,-200.95 1260.45,-200.95" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:conrey -->
+<g class="node" id="node14">
+<title>prop:conrey</title>
+<g id="a_node14"><a target="_top" xlink:href="index.html#prop:conrey" xlink:title="Proposition 4.6: positivity of a sine series excludes null cells">
+<path d="M1357.55,-512.9C1357.55,-512.9 1256.45,-512.9 1256.45,-512.9 1250.45,-512.9 1244.45,-506.9 1244.45,-500.9 1244.45,-500.9 1244.45,-476.57 1244.45,-476.57 1244.45,-470.57 1250.45,-464.57 1256.45,-464.57 1256.45,-464.57 1357.55,-464.57 1357.55,-464.57 1363.55,-464.57 1369.55,-470.57 1369.55,-476.57 1369.55,-476.57 1369.55,-500.9 1369.55,-500.9 1369.55,-506.9 1363.55,-512.9 1357.55,-512.9" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307" xml:space="preserve" y="-497.88">Proposition 4.6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307" xml:space="preserve" y="-485.13">positivity of a sine</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307" xml:space="preserve" y="-472.38">series excludes null cells</text>
+</a>
+</g>
+</g>
+<!-- prop:filas -->
+<g class="node" id="node15">
+<title>prop:filas</title>
+<g id="a_node15"><a target="_top" xlink:href="index.html#prop:filas" xlink:title="Proposition 5.1: parity: which lengths can vanish">
+<path d="M124.05,-180.66C124.05,-180.66 19.95,-180.66 19.95,-180.66 13.95,-180.66 7.95,-174.66 7.95,-168.66 7.95,-168.66 7.95,-131.58 7.95,-131.58 7.95,-125.58 13.95,-119.58 19.95,-119.58 19.95,-119.58 124.05,-119.58 124.05,-119.58 130.05,-119.58 136.05,-125.58 136.05,-131.58 136.05,-131.58 136.05,-168.66 136.05,-168.66 136.05,-174.66 130.05,-180.66 124.05,-180.66" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="72" xml:space="preserve" y="-165.65">Proposition 5.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="72" xml:space="preserve" y="-152.9">parity: which lengths can</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="72" xml:space="preserve" y="-140.15">vanish</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="72" xml:space="preserve" y="-127.4">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:filas&#45;&gt;cor:filas -->
+<g class="edge" id="edge14">
+<title>prop:filas-&gt;cor:filas</title>
+<path d="M73.09,-119.18C73.56,-106.37 74.11,-91.27 74.61,-77.68" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="77.05,-78.04 74.85,-70.96 72.15,-77.87 77.05,-78.04" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></details></section>
+
+<details class="blk b-set"><summary>📐 Setting (copied from the paper)</summary>
+<p> For a completely multiplicative \(\varepsilon :\mathbb N\to \{ \pm 1\} \), \(S_\varepsilon (m)=\sum _{n\le m}n\, \varepsilon (n)\). Changing one sign changes \(S_\varepsilon (m)\) by an even amount, so \(S_\varepsilon (m)\equiv m(m+1)/2\pmod2\), and a zero is possible only when \(m\equiv 0\) or \(3\pmod4\); call these lengths <em>admissible</em>. A prime \(q\in (m/2,m]\) divides no \(n\le m\) other than \(q\) itself, so its sign enters \(S_\varepsilon (m)\) once, with weight \(q\). For a set \(Q\) of such primes, \(S_\varepsilon (m)=R_Q+\sum _{q\in Q}q\, \varepsilon (q)\), where \(R_Q\) depends only on the signs outside \(Q\); \(P_Q=\sum _{q\in Q}q\). For an odd prime \(q\) and \(s=\pm 1\) let \(\chi _{q,s}\) be the completely multiplicative function equal to the Legendre symbol \((\cdot \mid q)\) on the integers prime to \(q\), with \(\chi _{q,s}(q)=s\). For \(\chi =\chi _{q,s}\), \(C(r)=\sum _{r'\le r}\chi (r')\), \(T(r)=\sum _{r'\le r}r'\chi (r')\) \((0\le r{\lt}q)\), \(T_q=T(q-1)\), and \(R_q=\{ 0\le r{\lt}q:\  T_q+q\, C(r)=0=T(r)\} \). </p>
+</details></section><section class="pc-pane"><h1 id="a0000000003">1 Statements</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:A">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">A</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:A">#</a>
+<a class="icon proof" href="index.html#a0000000004"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#lem:intervalos">Lemma 2.2</a></li>
+<li><a href="index.html#lem:momento">Lemma 2.1</a></li>
+<li><a href="index.html#lem:intervalos">Lemma 2.2</a></li>
+<li><a href="index.html#lem:momento">Lemma 2.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=2" title="Open the paper at page 2">📕 p. 2</a></div>
+<div class="theorem_thmcontent">
+<p>  For every \(m\ge 3\) with \(m\equiv 0\) or \(3\pmod4\) there is a completely multiplicative \(\varepsilon :\mathbb N\to \{ \pm 1\} \) with </p>
+<div class="displaymath" id="a0000000005">
+  \[  \sum _{n\le m}n\, \varepsilon (n)=0.  \]
+</div>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> new. With the weight n the picture of the unweighted sums (Aymone) is reversed. The proof uses Sárközy's progressions in subset sums (Lemma 2.2(c), a cited theorem).</p><p class="usado">↳ Used in: <a href="#prop:prefijos">Proposition 3.1</a>, <a href="#cor:filas">Corollary 5.2</a></p>
+<div class="proof_wrapper" id="a0000000004">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Table <a href="index.html#tab:A">1</a> summarises the three ranges. </p>
+<p><em>Up to \(20000\).</em> For each admissible \(m\le 20000\) a function \(\varepsilon \) with \(S_\varepsilon (m)=0\) is exhibited and the sum is recomputed exactly: for all but four lengths by starting from \(\varepsilon (2)=\varepsilon (3)=-1\) (with at most two signs at primes \(\le 7\) changed), balancing the primes of \((\sqrt m,m/2]\) and solving (2) exactly with the primes of \((m/2,m]\); the lengths \(12,15,19,23\) by exhaustive search. </p>
+<p><em>From \(5000\) to \(10^8\).</em> Cut \([5000,10^8)\) into \(104\) blocks \([a_j,b_j]\), </p>
+<div class="displaymath" id="a0000000006">
+  \[  a_1=5000,\qquad b_j=\min \bigl(\lfloor 11a_j/10\rfloor ,\, 10^8-1\bigr),\qquad a_{j+1}=b_j+1,  \]
+</div>
+<p> and let \(Q\) be the primes of \((b_j/2,a_j]\), which lie in \((m/2,m]\) for every \(m\) in the block; the other primes of \((m/2,m]\) are among the random signs of Lemma <a href="index.html#lem:momento">2.1</a>. Each block carries a certificate: a prime \(q_0\in Q\) and disjoint pairs in \(Q\) as in Lemma <a href="index.html#lem:intervalos">2.2</a>(b), with \(2H-q_0+2\ge b\). Every other prime of \(Q\) is at most \(a\le b\), so Lemma <a href="index.html#lem:intervalos">2.2</a>(a) extends the interval to \([\alpha ,P_Q-\alpha ]\) with \(\alpha =U+q_0-1\). The block is proved for all its \(m\) once \(D=P_Q-2\alpha \) exceeds \(B_*(b)\ge B_*(m)\), which follows from the integer inequality \(90D^2{\gt}b^3(130+7e)\) with \(e=\lceil \log _2b\rceil \) (as \(\log b{\lt}7e/10\)). All \(104\) certificates pass; the bound \(b^3(130+7e)/(90D^2)\) on \(B_*(b)^2/D^2\) is at most \(0.445\), reached at the first block. </p>
+<p><em>From \(10^8\) on.</em> Let \(M\ge 10^8\), \(L=\log M\), \(Q\) the \(N\) primes of \((M/2,M]\). By Dusart’s bounds \(x/(\log x-1)\le \pi (x)\) for \(x\ge 5393\) and \(\pi (x)\le x/(\log x-1.1)\) for \(x\ge 60184\) <span class="cite">
+	[
+	<a href="index.html#Dus10">Dus10</a>
+	, 
+	Thm.
+	
+	6.9, (6.6)
+	]
+</span>, \(N\ge M/(2L)\) and \(P_Q\ge NM/2\ge M^2/(4L)\). Let \(X\subset Q\) have \(n=\lfloor N/8\rfloor \ge M/(17L)\) elements and take \(\ell =4M\): the hypothesis of Lemma <a href="index.html#lem:intervalos">2.2</a>(c) follows from \(n^2\ge 48M\log _2(4M/n)\), which holds once \(M\ge 13872L^2\log _2(68L)\), that is from \(M\approx 4.4\cdot 10^7\). This gives a progression \(a+js\), \(0\le j{\lt}\ell \), of step \(s\le 4M/n\le 68L\) whose terms are sums of distinct elements of \(X\), so \(a\le 24M^2/n\). Add a set \(Y\) of \(s-1\) further primes of \(Q\). (i) As \(s\le 68L{\lt}M/2\), every prime of \(Q\) is a unit modulo \(s\). (ii) The subset sums of \(s-1\) units meet every class modulo \(s\): adding a unit \(u\) to a set \(A\ni 0\) of classes gives \(A\cup (A+u)\), which is strictly larger unless \(A+u=A\), and then \(A\) is invariant under the generator \(u\) of \(\mathbb {Z}/s\mathbb {Z}\), so \(A=\mathbb {Z}/s\mathbb {Z}\); starting from \(\{ 0\} \), \(s-1\) units reach all \(s\) classes. (iii) So for each class \(c\) there is \(y_c\in \Sigma (Y)\), \(y_c\equiv c\), with \(0\le y_c\le B:=(s-1)M\); an integer \(x\in [a+B,a+(\ell -1)s]\) is \(y_c\) plus the term \(x-y_c\) of the progression, with \(c\equiv x-a\), and \(\Sigma (X\cup Y)\) contains the whole interval \([\alpha ,\alpha +w]=[a+B,a+(\ell -1)s]\), with \(\alpha \le 28M^2/n\) and \(w=(\ell -1)s-(s-1)M\ge M\). The remaining primes, each at most \(M\), extend it by Lemma <a href="index.html#lem:intervalos">2.2</a>(a); they are \(N-n-s+1\ge \tfrac 78N-s\) primes above \(M/2\), while \(X\cup Y\) weighs at most \((\tfrac 18N+s)M\). (iv) As \(N\ge M/(2L)\) and \(s\le 68L\), \(5N{\gt}24s\), which is \((\tfrac 78N-s)\tfrac M2{\gt}(\tfrac 18N+s)M\): the remaining primes carry more than half of \(P_Q\), and the symmetry closes the interval to \([\alpha ,P_Q-\alpha ]\). With \(K=2\alpha \le 56M^2/n\) and Lemma <a href="index.html#lem:momento">2.1</a>, </p>
+<div class="displaymath" id="a0000000007">
+  \[  \frac{B_*(M)+K}{P_Q}\  \le \  \frac43\, \frac{L\sqrt{L+13}}{\sqrt M}+\frac{3808\, L^2}{M}\  {\lt}\  0.027 \qquad (M\ge 10^8),  \]
+</div>
+<p> the right side being \(0.02669\) at \(M=10^8\) and both terms decreasing in \(M\). So \(|R_Q|{\lt}P_Q-K\) and a zero exists. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Changing one sign changes \(S_\varepsilon (m)=\sum _{n\le m}n\, \varepsilon (n)\) by an even amount, so a zero is only possible when \(m\equiv 0\) or \(3\pmod4\) (the <em>admissible</em> lengths). The theorem says parity is the only obstruction. The key observation: a prime \(q\in (m/2,m]\) divides no other \(n\le m\), so its sign enters the sum once, with weight \(q\). Choose the other signs so that the rest of the sum is small (Lemma <a href="index.html#lem:momento">2.1</a>), and show that the subset sums of these large primes fill a long interval (Lemma <a href="index.html#lem:intervalos">2.2</a>); then the large primes can cancel the rest exactly. The function depends on \(m\) (\(S_\varepsilon (4)-S_\varepsilon (3)=4\)). The proof runs in three overlapping ranges (Table 1 of the paper): explicit functions up to \(20000\), \(104\) block certificates on \([5000,10^8)\), and Sárközy’s progressions from \(10^8\) on. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<p> <b class="bfseries">Scope at a glance</b> (each row is one range; details below). </p>
+<table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black; border-left:1px solid black">
+<p> <b class="bfseries">Range of \(m\)</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> <b class="bfseries">How it is established</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> <b class="bfseries">Status</b> </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black; border-left:1px solid black">
+<p>\(3\le m\le 20000\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> an explicit \(\varepsilon \) for each of the \(10000\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> proved by exact computation, </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-left:1px solid black"> </td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black">
+<p> admissible lengths, the sum recomputed exactly </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black">
+<p> rechecked by an independent program </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black; border-left:1px solid black">
+<p>\(5000\le m{\lt}10^8\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> \(104\) block certificates applying Lemmas <a href="index.html#lem:momento">2.1</a> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> certificates checked exactly by program; </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-left:1px solid black"> </td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black">
+<p> and <a href="index.html#lem:intervalos">2.2</a>(a,b) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black">
+<p> the lemmas: written proofs, (b) also in Lean </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black; border-left:1px solid black">
+<p>\(m\ge 10^8\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> Lemmas <a href="index.html#lem:momento">2.1</a> and <a href="index.html#lem:intervalos">2.2</a>(c) (a cited theorem) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> written proof; its inequality is evaluated </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-left:1px solid black; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px"> </td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> and Dusart’s prime bounds </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> on a grid, which illustrates but does not prove </p>
+</td>
+</tr>
+</table>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean</b> as a whole. One ingredient, Lemma <a href="index.html#lem:intervalos">2.2</a>(b), is, in a slightly more general form (see Lemma <a href="index.html#lem:intervalos_b">2.2(b)</a>). </p>
+</li>
+<li><p><b class="bfseries">Range \(3\le m\le 20000\), checked by program</b> <span class="ttfamily">II_ruta_A_exacta.py</span> (supplement): an explicit \(\varepsilon \) with \(S_\varepsilon (m)=0\) for each of the \(10000\) admissible lengths, the sum recomputed; \(9996\) by the route of the proof, \(m=12,15,19,23\) by exhaustive search. Output <span class="ttfamily">II_ruta_A_exacta_OUT.txt</span>; witnesses stored in <span class="ttfamily">II_testigos_A.txt</span>. </p>
+</li>
+<li><p><b class="bfseries">Range \(5000\le m{\lt}10^8\), checked by program</b> <span class="ttfamily">II_certificados_A.py</span>: \(104\) blocks, \(2128\) pairs, maximum of \(B_*^2/D^2\) bound \(0.4449\). Output <span class="ttfamily">II_certificados_A_OUT.txt</span>. </p>
+</li>
+<li><p><b class="bfseries">Independent checker</b> <span class="ttfamily">II_comprobador.py</span> (standard library only, imports none of the other programs, reads only the stored files): \(10000\) witnesses recomputed exactly; \(104\) blocks contiguous from \(5000\) to \(99999999\); every hypothesis of Lemma <a href="index.html#lem:intervalos">2.2</a>(a,b) and \(90D^2{\gt}b^3(130+7e)\) in integers; maximum \(0.444939\). Verdict PASS, output <span class="ttfamily">II_comprobador_OUT.txt</span>. </p>
+</li>
+<li><p><b class="bfseries">Range \(m\ge 10^8\): proof on paper</b>, resting on a cited theorem (Lemma <a href="index.html#lem:intervalos">2.2</a>(c)) and Dusart’s prime bounds. Its numerical inequalities are evaluated by <span class="ttfamily">II_cola_analitica.py</span>: \((B_*+K)/P_Q\) bound \(0.026689\) at \(M=10^8\); on a grid of \(641\) points from \(10^8\) to \(10^{40}\) the hypothesis holds and the bounds decrease. Output <span class="ttfamily">II_cola_analitica_OUT.txt</span>. This is a grid evaluation, not a proof for every \(M\); the paper’s argument for all \(M\) is monotonicity. </p>
+</li>
+</ul>
+</details><div class="theorem_thmwrapper theorem-style-plain" id="thm:dicotomia">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">B</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:dicotomia">#</a>
+<a class="icon proof" href="index.html#a0000000010"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#prop:prefijos">Proposition 3.1</a></li>
+<li><a href="index.html#prop:prefijos">Proposition 3.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=2" title="Open the paper at page 2">📕 p. 2</a></div>
+<div class="theorem_thmcontent">
+<p>  On \(\Omega =\{ \pm 1\} ^{\mathcal P}\), the sign patterns on the primes, let \(\mathcal Z_\infty \) be the set of \(\varepsilon \) with \(S_\varepsilon (m)=0\) for infinitely many \(m\). With the product topology, \(\mathcal Z_\infty \) is a dense \(G_\delta \). With independent fair signs, \(\Pr (\mathcal Z_\infty )=0\). </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> new; the measure half uses the anticoncentration theorem of Sárközy and Szemerédi.</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000010">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> The set \(U_M\) of \(\varepsilon \) with a zero at some admissible \(m\ge M\) is open, each condition involving finitely many signs, and dense by Proposition <a href="index.html#prop:prefijos">3.1</a>; \(\mathcal Z_\infty =\bigcap _MU_M\) is a dense \(G_\delta \) by the Baire category theorem, the space of all \(\varepsilon \) being compact and metrizable. For the measure, condition on every sign outside the primes \(Q\) of \((m/2,m]\): by (2), \(S_\varepsilon (m)=R_Q+\sum _{q\in Q}q\, \varepsilon (q)\) with distinct weights, and the theorem of Sárközy and Szemerédi <span class="cite">
+	[
+	<a href="index.html#SSz65">SS65</a>
+	]
+</span>, <span class="cite">
+	[
+	<a href="index.html#Ngu12">Ngu12</a>
+	, 
+	Thm.
+	
+	1.1
+	]
+</span> bounds the probability of any single value by \(O(|Q|^{-3/2})=O\bigl((\log m/m)^{3/2}\bigr)\). The series converges, and the first Borel–Cantelli lemma gives \(\Pr (\mathcal Z_\infty )=0\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Here \(\Omega =\{ \pm 1\} ^{\mathcal P}\) is the set of sign patterns on the primes (each pattern is one completely multiplicative \(\varepsilon \)), and \(\mathcal Z_\infty \) the patterns whose sum \(S_\varepsilon (m)\) vanishes for infinitely many \(m\). For a fixed function, measure and category disagree. Topologically, zeros are generic: a zero at some large \(m\) can be reached from any finite prefix of signs (Proposition <a href="index.html#prop:prefijos">3.1</a>), so “has a zero beyond \(M\)” is open and dense, and Baire gives a dense \(G_\delta \). In probability, zeros are rare: once all other signs are fixed, \(S_\varepsilon (m)\) is a fixed number plus \(\sum _{q}q\, \varepsilon (q)\) over the primes of \((m/2,m]\), with distinct weights, and Sárközy–Szemerédi bound the chance of hitting any single value by \(O\bigl((\log m/m)^{3/2}\bigr)\), which is summable: Borel–Cantelli gives probability \(0\). Without the weight, Aymone’s theorem gives zeros infinitely often almost surely. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Proof on paper only.</b> No program checks the measure or category statement, and it is not formalized. </p>
+</li>
+<li><p>The density step uses Proposition <a href="index.html#prop:prefijos">3.1</a>; see its guarantees. </p>
+</li>
+</ul>
+</details><div class="corollary_thmwrapper theorem-style-plain" id="cor:C">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">C</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#cor:C">#</a>
+<a class="icon proof" href="index.html#a0000000013"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#cor:digitos">Corollary 4.3</a></li>
+<li><a href="index.html#cor:digitos">Corollary 4.3</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=2" title="Open the paper at page 2">📕 p. 2</a></div>
+<div class="corollary_thmcontent">
+<p>  Let \(q\equiv 7\pmod8\) be prime and \(\chi =\chi _{q,s}\) with \(s=\pm 1\). Then \(S_\chi \bigl(\tfrac {q^j-1}{2}\bigr)=0\) for every \(j\ge 1\), and Conrey’s function \(f_q(x)=\sum _{n\ge 1}(\frac nq)\sin (2\pi nx)/n^2\) vanishes identically on the interval \(\bigl[\frac{q-1}{2q},\frac{q+1}{2q}\bigr]\). </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the case j = 1 is classical (Lebesgue; Aebi–Cairns): the equality of the sums of quadratic residues and non-residues below q/2. New: the iteration in j and the null interval of Conrey's series.</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000013">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> The zeros \(S_\chi ((q^j-1)/2)=0\) are Corollary <a href="index.html#cor:digitos">4.3</a>(b). By the same corollary \((q-1)/2\in R_q\), so \(F_q\) vanishes identically on the cell \([(q-1)/2,(q+1)/2]\), and \(f_q\) on \(\bigl[\frac{q-1}{2q},\frac{q+1}{2q}\bigr]\). </p>
+</div>
+</div>
+<details class="blk b-fig"><summary>🖼️ Figure</summary><div class="centered"> <img alt="\includegraphics[width=0.95\textwidth ]{figuras/fig_conrey_celda.png}" src="images/img-0001.png" style="width:95%;max-width:100%"/>
+</div>
+<p> Conreyś sine series \(f_q\) for \(q=23\equiv 7\pmod8\), where it vanishes identically on the central cell, and for the control \(q=59\equiv 3\pmod8\), where it does not. Exact curve from \(F_q\) and the series truncated at \(20000\) terms (<span class="ttfamily">figuras/fig_conrey_celda.py</span>). </p>
+</details><details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> For an odd prime \(q\) and \(s=\pm 1\), \(\chi _{q,s}\) is the completely multiplicative function equal to the Legendre symbol \((\cdot \mid q)\) on integers prime to \(q\), with \(\chi _{q,s}(q)=s\). In base \(q\), \((q^j-1)/2\) is the number with \(j\) digits all equal to \((q-1)/2\). By the digit recursion (Theorem <a href="index.html#thm:digitos">4.1</a>) the sum vanishes along any string of digits from the set \(R_q\) (Lemma <a href="index.html#lem:propagacion">4.3, first statement</a>), so it is enough that \((q-1)/2\in R_q\). That is where \(q\equiv 7\pmod8\) enters: then \(\chi (2)=1\), the Euler factor \(\chi (2)^{-1}-1\) of Theorem <a href="index.html#thm:diag">4.2</a> is \(0\), and the weighted half sum \(T(\frac{q-1}2)\) vanishes; the class number formula, equation (3) of the paper, gives the other condition, \(T_q+q\, C(\frac{q-1}2)=0\). The second half is the same fact read through Conrey’s formula \(f_q(x)=\frac{2\pi ^2}{q^{3/2}}F_q(qx)\) (Section 4.3 of the paper): \(F_q\) is linear on each cell \([r,r+1]\) and vanishes on it exactly when \(r\in R_q\). The case \(j=1\) is classical (Lebesgue; Aebi–Cairns). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<p> <b class="bfseries">Scope at a glance</b> (three different checks, on three different sets of primes; details below). </p>
+<table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black; border-left:1px solid black">
+<p> <b class="bfseries">What is checked</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> <b class="bfseries">On which cases</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> <b class="bfseries">What it shows</b> </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black; border-left:1px solid black">
+<p>\((q-1)/2\in R_q\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> the \(78\) primes \(q\equiv 7\pmod8\), \(q\le 2000\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> finite, exact; for every \(q\): written proof </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-left:1px solid black"> </td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black"> </td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black">
+<p> (Theorem <a href="index.html#thm:diag">4.2</a> and the class number formula) </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black; border-left:1px solid black">
+<p>\(S_\chi \bigl(\frac{q^j-1}{2}\bigr)=0\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> \(j\le 8\), both \(s\), only the \(7\) primes </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> finite, exact; for every \(j\): the propagation </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-left:1px solid black"> </td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black">
+<p> \(q=7,23,31,47,71,79,103\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black">
+<p> step, in Lean, from the membership above </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black; border-left:1px solid black">
+<p>\(f_q=0\) on the central cell </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> interior points for \(q=7,23,31,47\); </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-right:1px solid black">
+<p> an illustration in floating point, not a proof; </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-left:1px solid black; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px"> </td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> controls \(q=59,83\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-right:1px solid black; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> the statement: written proof (Conrey’s Theorem 4) </p>
+</td>
+</tr>
+</table>
+<ul class="itemize">
+<li><p><b class="bfseries">Partly formalized in Lean:</b> the propagation step (digits in \(R_q\) give zeros) is <span class="ttfamily">SegmentoII.zeros_from_digits</span>, which takes as hypotheses membership in \(R_q\) and the properties of \(\chi \) it uses (complete multiplicativity, periodicity modulo \(q\), \(C(q-1)=0\)). The input \((q-1)/2\in R_q\) (Theorem <a href="index.html#thm:diag">4.2</a> and the class number formula) and the statement about \(f_q\) are <b class="bfseries">proof on paper only</b>; the latter rests on Conrey’s Theorem 4, which the paper applies to primes \(q\equiv 7\pmod8\) because its proof uses only that the character is real, odd and primitive. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">II_ceros_R.py</span>: \((q-1)/2\in R_q\) for all \(78\) primes \(q\equiv 7\pmod8\), \(q\le 2000\), \(0\) failures (<span class="ttfamily">II_ceros_R_OUT.txt</span>). </p>
+</li>
+<li><p><b class="bfseries">Checked by</b> <span class="ttfamily">segmento_II.py autotest</span>: \(S_\chi \bigl(\frac{q^j-1}{2}\bigr)=0\) for \(j\le 8\), both \(s\), at \(q=7,23,31,47,71,79,103\) (<span class="ttfamily">autotest_OUT.txt</span>). </p>
+</li>
+<li><p><b class="bfseries">Numerical illustration, not a proof:</b> <span class="ttfamily">II_celdas_nulas_conrey.py</span> evaluates the truncated series at interior points of the central cell for \(q=7,23,31,47\) (values below \(1.4\cdot 10^{-12}\) in absolute value, truncation scale \(5\cdot 10^{-7}\)), with control cells at \(q=59,83\) (\(q\equiv 3\pmod8\)) where it does not vanish identically (values \(\pm 6.5\cdot 10^{-2}\) and \(\pm 3.9\cdot 10^{-2}\) off the midpoint of the cell) (<span class="ttfamily">II_celdas_nulas_conrey_OUT.txt</span>). </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000017">2 Theorems A and B</h1>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:momento">
+<div class="lemma_thmheading">
+<span class="lemma_thmcaption">
+    Lemma
+    </span>
+<span class="lemma_thmlabel">2.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#lem:momento">#</a>
+<a class="icon proof" href="index.html#a0000000018"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=3" title="Open the paper at page 3">📕 p. 3</a></div>
+<div class="lemma_thmcontent">
+<p> Give the primes outside \(Q\) independent uniform signs. Then </p>
+<div class="displaymath" id="a0000000019">
+  \[  \mathbb E\, R_Q^2\le \frac{m^3(\log m+13)}{9},  \]
+</div>
+<p> so some choice has \(|R_Q|\le B_*(m):=\tfrac 13m^{3/2}\sqrt{\log m+13}\). </p>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:A">Theorem A</a></p>
+<div class="proof_wrapper" id="a0000000018">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>\(\mathbb E\, \varepsilon (n)\varepsilon (k)\) is \(1\) if \(nk\) is a square and \(0\) otherwise. Writing \(n=da^2\) with \(d\) squarefree, \(\mathbb E\, S_\varepsilon (m)^2=\sum _db_m(d)^2\) with \(b_m(d)=d\sum _{j\le \sqrt{m/d}}j^2\), and \(\mathbb E\, R_Q^2\) is the same sum without the terms \(d=q\in Q\), whose class contains only \(n=q\). With \(J=\lfloor \sqrt{m/d}\rfloor \), \(\sum _{j\le J}j^2\le J^3/3+J^2/2+J/6\), and \(dJ^2\le m\), \(dJ\le \sqrt{md}\le m\) give \(b_m(d)\le m^{3/2}/(3\sqrt d)+2m/3\). Squaring and summing over \(d\le m\) with \(\sum 1/d\le 1+\log m\), \(\sum d^{-1/2}\le 2\sqrt m\) and at most \(m\) terms gives \(m^3\bigl((1+\log m)+8+4\bigr)/9\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Notation from the paper: \(Q\) is a set of primes in \((m/2,m]\), and equation (2) splits \(S_\varepsilon (m)=R_Q+\sum _{q\in Q}q\, \varepsilon (q)\), where \(R_Q\) depends only on the signs outside \(Q\). The lemma says that a random choice of those signs makes \(R_Q\) small on average, so some choice makes \(|R_Q|\le B_*(m)=\frac13m^{3/2}\sqrt{\log m+13}\). Why: for random signs, \(\mathbb E\, \varepsilon (n)\varepsilon (k)\) is \(1\) when \(nk\) is a square and \(0\) otherwise. Grouping \(n=da^2\) by its squarefree part \(d\) turns the second moment into a sum of squares \(\sum _d b_m(d)^2\), which elementary bounds control. Its role: \(B_*(m)\) is of order \(m^{3/2}\) up to a logarithm, while the primes of \((M/2,M]\) weigh at least \(M^2/(4\log M)\) (the paper’s bound for \(M\ge 10^8\)), so they have room to cancel \(R_Q\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Proof on paper only</b> (not formalized). </p>
+</li>
+<li><p><b class="bfseries">Checked numerically by program</b> <span class="ttfamily">II_segundo_momento.py</span> (supplement): \(\mathbb E\, S_\varepsilon (m)^2\) evaluated from the exact squarefree-kernel formula, in double precision, against the bound, at \(24176\) values of \(m\) up to \(99999999\); maximum ratio \(0.4288\), at \(m=99999999\) (<span class="ttfamily">II_segundo_momento_OUT.txt</span>). The program measures \(\mathbb E\, S_\varepsilon (m)^2\); \(\mathbb E\, R_Q^2\) is the same sum with the terms \(d\in Q\) removed, hence not larger. </p>
+</li>
+</ul>
+</details><div class="lemma_thmwrapper theorem-style-plain" id="lem:intervalos">
+<div class="lemma_thmheading">
+<span class="lemma_thmcaption">
+    Lemma
+    </span>
+<span class="lemma_thmlabel">2.2</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#lem:intervalos">#</a>
+<a class="icon proof" href="index.html#a0000000022"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#lem:intervalos_b">Lemma 2.2(b)</a></li>
+<li><a href="index.html#lem:intervalos_b">Lemma 2.2(b)</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=4" title="Open the paper at page 4">📕 p. 4</a></div>
+<div class="lemma_thmcontent">
+<p>  Write \(\Sigma (A)\) for the set of subset sums of a finite set \(A\) of positive integers. </p>
+<ol class="enumerate">
+<li><p>If \(\Sigma (A)\supseteq [\alpha ,\beta ]\) and \(x\notin A\), \(0{\lt}x\le \beta -\alpha +1\), then \(\Sigma (A\cup \{ x\} )\supseteq [\alpha ,\beta +x]\). As \(\Sigma (A)\) is symmetric under \(x\mapsto P_A-x\), \(\Sigma (A)\supseteq [\alpha ,\beta ]\) with \(\beta \ge P_A/2\) implies \(\Sigma (A)\supseteq [\alpha ,P_A-\alpha ]\). </p>
+</li>
+<li><p><em>(pairs)</em> Let \(q_0,u_1,v_1,\dots ,u_t,v_t\) be distinct positive odd integers, \(d_j=(v_j-u_j)/2\) with \(1\le d_j\le 1+d_1+\dots +d_{j-1}\), \(H=\sum d_j\), \(U=\sum u_j\), and \(q_0\le 2H+1\). Then \(\Sigma (\{ q_0,u_j,v_j\} )\supseteq [U+q_0-1,\  U+2H+1]\). </p>
+</li>
+<li><p><em>(Sárközy, with Lev’s constants <span class="cite">
+	[
+	<a href="index.html#BW21">BW21</a>
+	, 
+	Thm.
+	
+	4.23
+	]
+</span>)</em> If \(X\) is a set of \(n\) positive integers with maximum \(x^*\) and \(4x^*\le \ell \le n^2/(12\log _2(4x^*/n))\), then \(\Sigma (X)\) contains an arithmetic progression of \(\ell \) terms and step \(s\le 4x^*/n\), each term a sum of at most \(6\ell /n\) distinct elements of \(X\). </p>
+</li>
+</ol>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:A">Theorem A</a></p>
+<div class="proof_wrapper" id="a0000000022">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> (a) is immediate. (b) The condition on the \(d_j\) makes their subset sums exactly \(\{ 0,\dots ,H\} \); choosing one element of each pair gives \(U+2\{ 0,\dots ,H\} \), and adding \(q_0\) or not fills the other parity: an integer \(x\) of the interval with \(x-U\) even is \(U+2k\), \(k\le H\), and one with \(x-U\) odd is \(U+q_0+2k\) with \(0\le k\le H\). (c) is the cited theorem: as \(\log _2y\ge \log y\) for \(y\ge 1\), its hypothesis with \(\log _2\) implies the hypothesis with the natural logarithm, so (c) holds whichever logarithm the source intends. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> \(\Sigma (A)\) is the set of subset sums of \(A\), and \(P_A\) the sum of all of \(A\). The signed sums \(\sum _{q\in Q}\pm q\) are exactly the numbers \(P_Q-2x\) with \(x\in \Sigma (Q)\), so a long interval inside \(\Sigma (Q)\) gives every value of the right parity in a long symmetric window, which is what the proof of Theorem <a href="index.html#thm:A">A</a> needs. The lemma collects three ways to get that interval. (a) An element no larger than the interval’s length plus one extends it; and since \(\Sigma (A)\) is symmetric under \(x\mapsto P_A-x\), reaching half of \(P_A\) is enough. (b) Pairs \(u_j{\lt}v_j\) whose half-gaps \(d_j\) grow slowly enough fill an interval; this builds the block certificates. (c) Sárközy’s theorem, with explicit constants, gives a long progression inside \(\Sigma (X)\); it covers all \(m\ge 10^8\). Part (b) needs \(d_1=1\), a pair of twin primes, which no theorem guarantees in every interval: so the certificates alone cannot cover all \(m\), and from \(10^8\) on the proof uses (c), which is available from about \(4.4\cdot 10^7\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Part (b) formalized in Lean</b>, in a slightly more general form (node Lemma <a href="index.html#lem:intervalos_b">2.2(b)</a>). </p>
+</li>
+<li><p><b class="bfseries">Part (a): proof on paper</b> (“immediate”); its hypotheses are checked for every prime of every block by <span class="ttfamily">II_comprobador.py</span> (<span class="ttfamily">II_comprobador_OUT.txt</span>, PASS). </p>
+</li>
+<li><p><b class="bfseries">Part (c): a cited theorem</b> (Bringmann–Wellnitz, Thm. 4.23); not checked. The inequality that verifies its hypothesis in the proof of Theorem <a href="index.html#thm:A">A</a> is evaluated by <span class="ttfamily">II_cola_analitica.py</span> (holds from \(M\approx 4.393\cdot 10^7\)). </p>
+</li>
+<li><p><b class="bfseries">Part (b) against the true subset sums:</b> <span class="ttfamily">II_lema_pares_directo.py</span>, blocks \(1\)–\(8\) (\(m\) from \(5000\) to \(10725\)), all covered (<span class="ttfamily">II_lema_pares_directo_OUT.txt</span>). </p>
+</li>
+</ul>
+</details><div class="lemma_thmwrapper theorem-style-plain lean-ok" id="lem:intervalos_b">
+<div class="lemma_thmheading">
+<span class="lemma_thmcaption">
+    Lemma
+    </span>
+<span class="lemma_thmlabel">2.2(b)</span><span class="sello">✅ Lean</span>
+<span class="lemma_thmtitle">Complete sequences (Lemma <a href="index.html#lem:intervalos">2.2</a>(b), the part formalized)</span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#lem:intervalos_b">#</a>
+<a class="icon proof" href="index.html#a0000000025"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.complete_range">SegmentoII.complete_range</a></li>
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.pairs_subset_sum">SegmentoII.pairs_subset_sum</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="lemma_thmcontent">
+<p>   The subset-sum statement of Lemma <a href="index.html#lem:intervalos">2.2</a>(b), in the form of the Lean theorems <span class="ttfamily">complete_range</span> and <span class="ttfamily">pairs_subset_sum</span>: a sequence with \(d_j\le 1+\sum _{i{\lt}j}d_i\) represents every integer in \([0,\sum d_i]\) as a subset sum, and the pairs version used in the proof of Theorem <a href="index.html#thm:A">A</a>. </p>
+</div>
+</div><p class="lean-check">✅ Checked when this page was built: <a href="lean/SegmentoII.html">SegmentoII.lean</a> compiles with Lean 4.30.0-rc2, no errors, no sorry. Axioms — complete_range, pairs_subset_sum: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.30.0-rc2, Mathlib 701fb6e9c3b9; in that Lean project, <code>lake env lean SegmentoII.lean</code> (SHA-256 of the compiled file: <code>3c5a9eac3055c58e…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="usado">↳ Used in: <a href="#lem:intervalos">Lemma 2.2</a></p>
+<div class="proof_wrapper" id="a0000000025">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> A sequence \(d_1,d_2,\dots \) in which each term is at most one more than the sum of the earlier ones represents every integer from \(0\) to its total as a subset sum: by induction, adding a term \(d_j\) to the interval \([0,H]\) already reached gives \([0,H]\cup [d_j,H+d_j]\), and \(d_j\le H+1\) leaves no gap. The pairs version: pick one element of each pair \((u_j,v_j=u_j+2d_j)\); the choices realise \(U+2y\) for every \(0\le y\le H\), the even offsets from \(U=\sum u_j\), and adding an odd \(q_0\) or not supplies the other parity. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Formalized in Lean 4 + Mathlib:</b> <span class="ttfamily">SegmentoII.complete_range</span> (indexed form; also <span class="ttfamily">complete_list</span>) and <span class="ttfamily">SegmentoII.pairs_subset_sum</span>. No <span class="ttfamily">sorry</span> in the file; the supplement’s README states standard axioms only, and the file ends with <span class="ttfamily">#print axioms</span> for each theorem. </p>
+</li>
+<li><p><b class="bfseries">What the Lean statement is, exactly:</b> <span class="ttfamily">pairs_subset_sum</span> says every \(x\) in \([U+q_0-1,\, U+2H+1]\) equals (\(q_0\) or \(0\)) plus one chosen element of each pair. The step “this is a subset sum of \(\{ q_0,u_j,v_j\} \)” uses that these numbers are distinct, which the paper assumes and the Lean file states only in a comment. The Lean versions assume less than the paper: neither \(d_j\ge 1\) nor \(q_0\le 2H+1\), and of the numbers only that \(q_0\) is odd (not that the \(u_j,v_j\) are odd, positive or distinct). In the proof of Theorem <a href="index.html#thm:A">A</a> the numbers are distinct primes, which <span class="ttfamily">II_comprobador.py</span> checks for every block. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">II_lema_pares_directo.py</span> against the true subset sums of the first \(8\) blocks (<span class="ttfamily">II_lema_pares_directo_OUT.txt</span>). </p>
+</li>
+</ul>
+</details><div class="proposition_thmwrapper theorem-style-plain" id="prop:prefijos">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">3.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:prefijos">#</a>
+<a class="icon proof" href="index.html#a0000000028"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:A">Theorem A</a></li>
+<li><a href="index.html#thm:A">Theorem A</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=6" title="Open the paper at page 6">📕 p. 6</a></div>
+<div class="proposition_thmcontent">
+<p>  Let \(F\) be a finite set of primes and \(\varepsilon _0:F\to \{ \pm 1\} \). There is \(M(F)\) such that for every admissible \(m\ge M(F)\) some \(\varepsilon \) with \(\varepsilon |_F=\varepsilon _0\) has \(S_\varepsilon (m)=0\). For \(F=\{ 2,3,5,7\} \) one may take \(M(F)=60000\). </p>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:dicotomia">Theorem B</a></p>
+<div class="proof_wrapper" id="a0000000028">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> For \(m{\gt}2\max F\) the set \(F\) is disjoint from \(Q\). Conditioning on the event \(\varepsilon |_F=\varepsilon _0\), of probability \(2^{-|F|}\), multiplies \(\mathbb E\, R_Q^2\) by at most \(2^{|F|}\), since \(R_Q^2\ge 0\); the proof of Theorem <a href="index.html#thm:A">A</a> then goes through with \(2^{|F|/2}B_*\) in place of \(B_*\), and both \(B_*/P_Q\) and \(K/P_Q\) tend to \(0\). For \(F=\{ 2,3,5,7\} \) the factor is \(4\): every block with \(b\ge 60000\) satisfies \(90D^2{\gt}16\, b^3(130+7e)\), and beyond \(10^8\), \(4B_*/P_Q+K/P_Q{\lt}0.07\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Fixing the signs of finitely many primes in advance does not prevent zeros, once \(m\) is large. The reason is in the second moment of Lemma <a href="index.html#lem:momento">2.1</a>: conditioning on an event of probability \(2^{-|F|}\) can multiply \(\mathbb E\, R_Q^2\) by at most \(2^{|F|}\), since \(R_Q^2\ge 0\), so \(B_*\) is replaced by \(2^{|F|/2}B_*\), and the proof of Theorem <a href="index.html#thm:A">A</a> still closes for large \(m\), both \(B_*/P_Q\) and \(K/P_Q\) tending to \(0\). For \(F=\{ 2,3,5,7\} \) the factor on \(B_*\) is \(4\), and the paper verifies the strengthened inequalities explicitly, giving \(M(F)=60000\). This proposition is the density half of Theorem <a href="index.html#thm:dicotomia">B</a>: any finite prefix of signs can be continued to a zero at a large length. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">General \(F\): proof on paper only.</b> </p>
+</li>
+<li><p><b class="bfseries">\(F=\{ 2,3,5,7\} \), block range, checked by program:</b> the inequality \(90D^2{\gt}16\, b^3(130+7e)\) at the \(78\) blocks with \(b\ge 60000\), by <span class="ttfamily">II_certificados_A.py</span> and again by the independent <span class="ttfamily">II_comprobador.py</span> (PASS; <span class="ttfamily">II_comprobador_OUT.txt</span>). </p>
+</li>
+<li><p><b class="bfseries">\(F=\{ 2,3,5,7\} \), beyond \(10^8\):</b> <span class="ttfamily">II_cola_analitica.py</span> gives \(4B_*/P_Q+K/P_Q=0.06799\) at \(M=10^8\), and the same maximum on the grid up to \(10^{40}\) (\({\lt}0.07\)). Grid evaluation; the argument for all \(M\) is on paper. </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000031">3 The digit recursion</h1>
+<div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:digitos">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">4.1</span><span class="sello">✅ Lean</span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:digitos">#</a>
+<a class="icon proof" href="index.html#a0000000032"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.digit_recursion">SegmentoII.digit_recursion</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=6" title="Open the paper at page 6">📕 p. 6</a></div>
+<div class="theorem_thmcontent">
+<p>  For \(k\ge 0\) and \(0\le r{\lt}q\), </p>
+<div class="displaymath" id="a0000000033">
+  \[  S_\chi (qk+r)=s\, q\, S_\chi (k)+k\bigl(T_q+q\, C(r)\bigr)+T(r).  \]
+</div>
+</div>
+</div><p class="lean-check">✅ Checked when this page was built: <a href="lean/SegmentoII.html">SegmentoII.lean</a> compiles with Lean 4.30.0-rc2, no errors, no sorry. Axioms — digit_recursion: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.30.0-rc2, Mathlib 701fb6e9c3b9; in that Lean project, <code>lake env lean SegmentoII.lean</code> (SHA-256 of the compiled file: <code>3c5a9eac3055c58e…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> for the unweighted sums the recursion is in Borwein–Choi–Coons and in Klurman–Mangerel–Pohoata–Teräväinen; the weight adds a term, and with it the zeros.</p><p class="usado">↳ Used in: <a href="#lem:propagacion">Corollary 4.3, first statement</a>, <a href="#cor:digitos">Corollary 4.3</a>, <a href="#prop:bloques">Proposition 4.4</a>, <a href="#cor:orden">Corollary 4.5</a>, <a href="#thm:sinceros">Theorem N1 (new)</a></p>
+<div class="proof_wrapper" id="a0000000032">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>The \(n\le qk+r\) prime to \(q\) are \(jq+r'\) with \(j{\lt}k\), \(1\le r'{\lt}q\), and \(kq+r'\) with \(r'\le r\); as \(\chi (jq+r')=\chi (r')\) and \(C(q-1)=0\), they contribute \(kT_q+kq\, C(r)+T(r)\). The multiples \(jq\), \(j\le k\), contribute \(\sum _jjq\, s\chi (j)=sq\, S_\chi (k)\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Notation: \(\chi =\chi _{q,s}\); for \(0\le r{\lt}q\), \(C(r)=\sum _{r'\le r}\chi (r')\), \(T(r)=\sum _{r'\le r}r'\chi (r')\), and \(T_q=T(q-1)\). Split the integers \(n\le qk+r\) into multiples of \(q\) and the rest. The multiples \(jq\), \(j\le k\), give \(sq\, S_\chi (k)\), because \(\chi (jq)=s\, \chi (j)\). The rest come in \(k\) complete blocks of residues plus a partial block up to \(r\); since \(\chi \) only sees the residue and \(C(q-1)=0\), they give \(k(T_q+q\, C(r))+T(r)\). So \(S_\chi \) at \(m\) is determined by \(S_\chi \) at \(m\) with its last base-\(q\) digit removed, plus a term that depends on that digit and, linearly, on the remaining number \(k\). The zeros of Corollary <a href="index.html#cor:C">C</a>, Corollary <a href="index.html#cor:digitos">4.3</a>, Proposition <a href="index.html#prop:bloques">4.4</a> and Corollary <a href="index.html#cor:orden">4.5</a> are all read off this recursion. The unweighted recursion, \(\sum _{n\le qk+r}\chi (n)=s\sum _{n\le k}\chi (n)+C(r)\), is in Borwein–Choi–Coons (for \(s=1\)) and Klurman–Mangerel–Pohoata–Teräväinen (any \(s\)); the weight brings the factor \(q\) and the term \(k(T_q+qC(r))\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Formalized in Lean 4 + Mathlib:</b> <span class="ttfamily">SegmentoII.digit_recursion</span>. Hypotheses in Lean: \(q\ge 2\), \(\chi :\mathbb N\to \mathbb {Z}\) completely multiplicative, \(\chi (jq+r)=\chi (r)\) for \(1\le r{\lt}q\), \(\chi (q)=s\), and \(C(q-1)=0\); neither primality of \(q\) nor values \(\pm 1\) is assumed. No <span class="ttfamily">sorry</span>; standard axioms (supplement README). The file does not prove that \(\chi _{q,s}\) satisfies these hypotheses (elementary properties of the Legendre symbol). </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">II_ceros_digitos.py</span>: the recursion at every \(m\le 10^7\) for the primes \(5\le q\le 73\) and \(q=163\), both signs (<span class="ttfamily">II_ceros_digitos_OUT.txt</span>). </p>
+</li>
+</ul>
+</details><div class="theorem_thmwrapper theorem-style-plain" id="thm:diag">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">4.2</span>
+<span class="theorem_thmtitle">Kanemitsu–Kuzumaki, Kučera</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:diag">#</a>
+<a class="icon proof" href="index.html#a0000000036"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=7" title="Open the paper at page 7">📕 p. 7</a></div>
+<div class="theorem_thmcontent">
+<p>  Let \(f\) be odd, let \(\chi \) be an odd Dirichlet character modulo \(f\), and put \(B_{1,\chi }=f^{-1}\sum _{a=1}^{f}a\, \chi (a)\). Then </p>
+<div class="displaymath" id="a0000000037">
+  \[  \sum _{c=1}^{(f-1)/2}c\, \chi (c)\; =\; \frac f2\, B_{1,\chi }\, \bigl(\chi (2)^{-1}-1\bigr).  \]
+</div>
+<p> If moreover \(\chi \) is primitive, so that \(B_{1,\chi }\neq 0\), the sum vanishes if and only if \(\chi (2)=1\). </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> not new: in Kanemitsu–Kuzumaki and in Kučera.</p><p class="usado">↳ Used in: <a href="#cor:digitos">Corollary 4.3</a>, <a href="#cor:orden">Corollary 4.5</a></p>
+<div class="proof_wrapper" id="a0000000036">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Write \(T=\sum _{c{\lt}f/2}c\chi (c)\), \(U=\sum _{c{\lt}f/2}\chi (c)\), \(W=\sum _{c\  \mathrm{even}}\chi (c)\) and \(X=\sum _{c\  \mathrm{even}}c\chi (c)\), all over \(1\le c{\lt}f\). Pairing \(b\mapsto f-b\) exchanges odd and even residues, since \(f\) is odd, and \(\chi (f-b)=-\chi (b)\); hence \(\sum _{b\  \mathrm{odd}}b\chi (b)=-fW+X\), and adding \(X\) gives \(fB_{1,\chi }=2X-fW\), that is \(X=\tfrac f2(B_{1,\chi }+W)\). Substituting \(c=2c'\) in the even sums, \(W=\chi (2)U\) and \(X=\chi (2)\cdot 2T\). Finally \(\sum _{b}\chi (b)=0\) splits as \(\sum _{\mathrm{odd}}+\sum _{\mathrm{even}}\), and the first equals \((2\chi (2)-1)B_{1,\chi }\) by the same substitution applied to \(\chi (2)fB_{1,\chi }=\sum _a a\chi (2a)\); so \(-\chi (2)U=(2\chi (2)-1)B_{1,\chi }\), i.e. \(U=(\chi (2)^{-1}-2)B_{1,\chi }\). Putting the three together, \(2\chi (2)T=\tfrac f2\bigl(B_{1,\chi }+\chi (2)U\bigr)\) gives the displayed formula. For \(\chi \) primitive and odd, \(B_{1,\chi }=-L(0,\chi )\neq 0\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Here \(B_{1,\chi }=f^{-1}\sum _{a=1}^{f}a\, \chi (a)\). The weighted sum of an odd character over the first half of the residues equals \(B_{1,\chi }\) times \(\frac f2(\chi (2)^{-1}-1)\), that is, half the full weighted sum \(\sum _{a\le f}a\, \chi (a)=f\, B_{1,\chi }\) times \(\chi (2)^{-1}-1\), the Euler factor at \(2\). The proof pairs \(b\) with \(f-b\), which swaps odd and even residues because \(f\) is odd and flips the sign because \(\chi \) is odd, substitutes \(c=2c'\) in the even sums, which brings out \(\chi (2)\), and uses \(\sum _b\chi (b)=0\). For primitive \(\chi \), \(B_{1,\chi }=-L(0,\chi )\neq 0\), so the half sum vanishes exactly when \(\chi (2)=1\). This criterion gives \(T(\frac{q-1}2)=0\) when \(q\equiv 7\pmod8\); with the class number formula it puts the digit \((q-1)/2\) into \(R_q\) (Corollary <a href="index.html#cor:C">C</a>). The identity is not new: it is in Kanemitsu–Kuzumaki and Kučera; the paper gives a short proof for the half sum. Its unweighted twin is the Jacobi–Dirichlet class number formula, equation (3) of the paper. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Proof on paper only</b> (not formalized). </p>
+</li>
+<li><p><b class="bfseries">Checked by</b> <span class="ttfamily">segmento_II.py autotest</span>, exactly in \(\mathbb {Z}[\zeta _N]\): the closed form holds for all \(1510\) odd characters modulo an odd \(f\le 121\); the criterion holds on the \(1236\) primitive ones; without primitivity it fails \(19\) times (imprimitive, \(B_{1,\chi }=0\)), as it must; off-diagonal and even-character decoys (\(f{\lt}60\)) fail (<span class="ttfamily">autotest_OUT.txt</span>). </p>
+</li>
+</ul>
+</details><div class="corollary_thmwrapper theorem-style-plain lean-ok" id="lem:propagacion">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">4.3, first statement</span><span class="sello">✅ Lean</span>
+<span class="corollary_thmtitle">Propagation of zeros along digits (first statement of Corollary <a href="index.html#cor:digitos">4.3</a>)</span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#lem:propagacion">#</a>
+<a class="icon proof" href="index.html#a0000000040"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+</ul>
+</div>
+</div>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.zero_step">SegmentoII.zero_step</a></li>
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.zeros_from_digits">SegmentoII.zeros_from_digits</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="corollary_thmcontent">
+<p>    Let \(R_q=\{ 0\le r{\lt}q:\  T_q+q\, C(r)=0=T(r)\} \). Every \(m\ge 1\) whose base-\(q\) digits all lie in \(R_q\) has \(S_\chi (m)=0\), for both values of \(s\). </p>
+</div>
+</div><p class="lean-check">✅ Checked when this page was built: <a href="lean/SegmentoII.html">SegmentoII.lean</a> compiles with Lean 4.30.0-rc2, no errors, no sorry. Axioms — zero_step, zeros_from_digits: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.30.0-rc2, Mathlib 701fb6e9c3b9; in that Lean project, <code>lake env lean SegmentoII.lean</code> (SHA-256 of the compiled file: <code>3c5a9eac3055c58e…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="usado">↳ Used in: <a href="#cor:digitos">Corollary 4.3</a></p>
+<div class="proof_wrapper" id="a0000000040">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> \(R_q\) is the set of digits \(0\le r{\lt}q\) with \(T_q+q\, C(r)=0\) and \(T(r)=0\): exactly the digits for which both digit-dependent terms of the recursion of Theorem <a href="index.html#thm:digitos">4.1</a> vanish. If \(S_\chi (k)=0\) and \(r\in R_q\), all three terms on the right are \(0\), so \(S_\chi (qk+r)=0\). Starting from \(S_\chi (0)=0\) and appending digits one at a time, every \(m\) written only with digits of \(R_q\) is a zero, whatever the value \(s\) at \(q\). With \(0,q-1\in R_q\) this gives at least \(2^J-1\) zeros below \(q^J\) (Corollary <a href="index.html#cor:digitos">4.3</a>(a)); with the single digit \((q-1)/2\), the chain \((q^j-1)/2\) (Corollary <a href="index.html#cor:C">C</a>). Which digits lie in \(R_q\), and why, is the subject of Corollary <a href="index.html#cor:digitos">4.3</a>, Theorem <a href="index.html#thm:diag">4.2</a> and Proposition <a href="index.html#prop:conrey">4.6</a>. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Formalized in Lean 4 + Mathlib:</b> <span class="ttfamily">SegmentoII.zero_step</span> (one digit) and <span class="ttfamily">SegmentoII.zeros_from_digits</span> (all digits, via Mathlib’s <span class="ttfamily">Nat.digits</span>), under the same hypotheses as <span class="ttfamily">digit_recursion</span>. No <span class="ttfamily">sorry</span>; standard axioms (supplement README). </p>
+</li>
+<li><p><b class="bfseries">Checked by</b> <span class="ttfamily">segmento_II.py autotest</span>: for \(q=5,13,29\) the zeros \(\le 10^6\) are exactly the digit tree (\(255\), \(31\), \(255\) of them), both \(s\) (<span class="ttfamily">autotest_OUT.txt</span>). </p>
+</li>
+</ul>
+</details><div class="corollary_thmwrapper theorem-style-plain" id="cor:digitos">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">4.3</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#cor:digitos">#</a>
+<a class="icon proof" href="index.html#a0000000043"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#lem:propagacion">Corollary 4.3, first statement</a></li>
+<li><a href="index.html#thm:diag">Theorem 4.2</a></li>
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+<li><a href="index.html#lem:propagacion">Corollary 4.3, first statement</a></li>
+<li><a href="index.html#thm:diag">Theorem 4.2</a></li>
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=7" title="Open the paper at page 7">📕 p. 7</a></div>
+<div class="corollary_thmcontent">
+<p>  Let \(R_q=\{ 0\le r{\lt}q:\  T_q+q\, C(r)=0=T(r)\} \). Every \(m\ge 1\) whose base-\(q\) digits all lie in \(R_q\) has \(S_\chi (m)=0\), for both values of \(s\). </p>
+<ol class="enumerate">
+<li><p>If \(q\equiv 1\pmod4\), then \(0,q-1\in R_q\), and \(S_\chi \) has at least \(2^J-1\) zeros below \(q^J\), hence at least \(\tfrac 12X^{\log 2/\log q}-1\) below \(X\). </p>
+</li>
+<li><p>If \(q\equiv 7\pmod8\), then \((q-1)/2\in R_q\), and \(S_\chi \bigl(\tfrac {q^j-1}{2}\bigr)=0\) for every \(j\ge 1\). </p>
+</li>
+<li><p>If \(q\equiv 3\pmod4\), \(q{\gt}3\), \(h(-q)=1\) and \(s=1\), then \(S_\chi (z)=0\) along \(z_0=q\), \(z_{i+1}=q(z_i+1)\). For \(q=3\) and \(s=1\) the same holds with \(27\) in place of \(q\): \(z_0=27\), \(z_{i+1}=27(z_i+1)\). </p>
+</li>
+<li><p>For every \(q\) and \(s\): if \(S_\chi (qk)=0\) and \(C(r)=T(r)=0\), then \(S_\chi (qk+r)=0\). When \(q{\gt}3\) and \(\chi (2)=\chi (3)=-1\) this applies with \(r=4\), since \(1-2-3+4=0\). For \(q=3\) and \(s=-1\), where also \(\chi (2)=\chi (3)=-1\), the conclusion holds as well: \(S_\chi (3k)=0\) implies \(S_\chi (3k+4)=0\). </p>
+</li>
+<li><p>If \(s=-1\), then \(S_\chi (q^2m)=q^2S_\chi (m)\) for every \(m\): a single zero of \(S_\chi \) gives infinitely many. </p>
+</li>
+<li><p>If \(q\equiv 3\pmod8\), then \(S_\chi \bigl(\tfrac {q^j-1}{2}\bigr)=h(-q)\, q^j\, (1+s+\dots +s^{j-1})\) for every \(j\ge 1\), with \(h(-3)\) read as the weighted class number \(1/3\). In particular, for \(s=-1\), \(S_\chi \bigl(\tfrac {q^{2i}-1}{2}\bigr)=0\) for every \(i\ge 1\). </p>
+</li>
+</ol>
+</div>
+</div><p class="usado">↳ Used in: <a href="#cor:C">Corollary C</a></p>
+<div class="proof_wrapper" id="a0000000043">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> By induction on the number of digits, from \(S_\chi (0)=0\) and Theorem <a href="index.html#thm:digitos">4.1</a>. (a) \(\chi \) is even, so \(r\leftrightarrow q-r\) gives \(T_q=0\); with \(C(q-1)=0\), both \(0\) and \(q-1\) lie in \(R_q\). (b) \(\chi \) is odd and \(\chi (2)=1\). Theorem <a href="index.html#thm:diag">4.2</a> gives \(T((q-1)/2)=0\), the Euler factor \(\chi (2)^{-1}-1\) vanishing; the half sum (3) gives \(C((q-1)/2)=(2-\chi (2))\, h(-q)=h(-q)\); and \(T_q=q\, B_{1,\chi }=-q\, h(-q)\). So \(T_q+qC=0\), and \((q^j-1)/2\) is the number whose \(j\) digits are all \((q-1)/2\). (c) With \(r=0\) and \(k=z+1\), Theorem <a href="index.html#thm:digitos">4.1</a> gives \(S_\chi (q(z+1))=q(z+1)\bigl(s\chi (z+1)-h(-q)\bigr)\) when \(S_\chi (z)=0\); \(S_\chi (q)=T_q+qs=q(s-h)=0\), and \(z_i\equiv 0\pmod q\) gives \(\chi (z_i+1)=1\). At \(q=3\), \(T_3=-1\), and three steps with \(r=0\) give \(S_\chi (27k)=27S_\chi (k)-27k\); so \(S_\chi (27)=0\), and \(S_\chi (z)=0\) with \(27\mid z\) gives \(S_\chi (27(z+1))=27(z+1)\chi (z+1)-27(z+1)=0\). (d) Subtracting the cases \(r\) and \(0\) of Theorem <a href="index.html#thm:digitos">4.1</a>, \(S_\chi (qk+r)=S_\chi (qk)+kq\, C(r)+T(r)\); for \(q{\gt}3\) the digit \(r=4\) exists. For \(q=3\), \(s=-1\) it does not, and directly: \(T_3=1-2=-1\), so \(S_\chi (3k)=-3S_\chi (k)-k\) and \(S_\chi (3k)=0\) forces \(3\mid k\); and, as \(\chi (3k+1)=\chi (3k+4)=1\), \(\chi (3k+2)=-1\) and \(\chi (3k+3)=-\chi (k+1)\), \(S_\chi (3k+4)-S_\chi (3k)=(3k+3)\bigl(1-\chi (k+1)\bigr)\), which vanishes because \(k+1\equiv 1\pmod3\) gives \(\chi (k+1)=1\). (e) With \(r=0\) and \(s=-1\), \(S_\chi (qm)=-qS_\chi (m)+mT_q\); applied twice, the terms in \(T_q\) cancel. (f) Put \(c=(q-1)/2\) and \(m_j=(q^j-1)/2\), so that \(m_{j+1}=qm_j+c\). Now \(\chi (2)=-1\), so Theorem <a href="index.html#thm:diag">4.2</a> gives \(T(c)=q\, h(-q)\), (3) gives \(C(c)=3h(-q)\), and \(T_q=-q\, h(-q)\); at \(q=3\), where \(c=1\), directly \(T(1)=C(1)=1\) and \(T_3=-1\), the same values with \(h(-3)=1/3\). Theorem <a href="index.html#thm:digitos">4.1</a> with \(k=m_j\) and \(r=c\) gives \(S_\chi (m_{j+1})=s\, q\, S_\chi (m_j)+q^{j+1}h(-q)\), and \(S_\chi (m_1)=T(c)=q\, h(-q)\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> \(h(-q)\) is the class number, given for prime \(q\equiv 3\pmod4\), \(q{\gt}3\), by the Jacobi–Dirichlet formula \(h(-q)=\frac{1}{2-(2\mid q)}\sum _{0{\lt}n{\lt}q/2}(n\mid q)\) (equation (3) of the paper). The first statement is Lemma <a href="index.html#lem:propagacion">4.3, first statement</a>. The items say where the recursion produces zeros: (a)–(c) and (e) give infinitely many, (d) adds one digit to a zero, and (f) gives the exact value along \((q^j-1)/2\). (a) For \(q\equiv 1\pmod4\) the character is even, and \(0\) and \(q-1\) are always in \(R_q\). (b) For \(q\equiv 7\pmod8\) the Euler factor at \(2\) makes the weighted half sum vanish, and with the class number formula this puts \((q-1)/2\) in \(R_q\). (c) For class number one and \(s=1\) a chain \(z_{i+1}=q(z_i+1)\) of zeros, which works also where \(R_q\) is empty (\(q=11,19,43,67,163\), Table 2 of the paper). (d) A digit \(r\) with \(C(r)=T(r)=0\) can be appended to a zero of the form \(qk\). (e) For \(s=-1\), \(S_\chi (q^2m)=q^2S_\chi (m)\): one zero gives infinitely many. (f) For \(q\equiv 3\pmod8\) the value at \((q^j-1)/2\) is explicit, \(h(-q)\, q^j(1+s+\dots +s^{j-1})\), and vanishes for \(s=-1\) and even \(j\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">First statement formalized in Lean</b> (node Lemma <a href="index.html#lem:propagacion">4.3, first statement</a>). <b class="bfseries">Items (a)–(f): proof on paper only.</b> </p>
+</li>
+<li><p><span class="ttfamily">II_ceros_R.py</span>: for all primes \(5\le q\le 2000\), \(0,q-1\in R_q\) at the \(147\) primes \(q\equiv 1\pmod4\), \((q-1)/2\in R_q\) at the \(78\) primes \(q\equiv 7\pmod8\), \(R_q=\varnothing \) at the \(76\) primes \(q\equiv 3\pmod8\); \(0\) failures. </p>
+</li>
+<li><p><span class="ttfamily">II_ceros_heegner.py</span> (item (c)): the chains for \(q=7,11,19,43,67,163\), \(s=1\), all members listed are zeros by direct summation; \(s=-1\) control nonzero. </p>
+</li>
+<li><p><span class="ttfamily">II_s_menos_y_131.py</span> (item (e)): \(246\) of \(246\) cases at \(q=11,19,23\). </p>
+</li>
+<li><p><span class="ttfamily">II_ceros_menos1.py</span> (item (f)): primes \(q\equiv 3\pmod8\), \(3{\lt}q{\lt}400\): zero at \(j=2\) for \(s=-1\) (and \(j=4\) for \(q=11,19,43\)); \(S\bigl(\frac{q^2-1}{2}\bigr)=2q^2h(-q)\) for \(s=1\); \(0\) failures. </p>
+</li>
+<li><p><span class="ttfamily">segmento_II.py autotest</span>: items (b) and (c) hold where they apply for \(q=3,7,11,19,43,67,163\), \(s=1\), with the recursion checked at every \(m\le 3\cdot 10^5\) (<span class="ttfamily">autotest_OUT.txt</span>). Item (f) is checked by <span class="ttfamily">II_ceros_menos1.py</span> (above); item (d) has no dedicated check in the supplement. </p>
+</li>
+</ul>
+</details><div class="proposition_thmwrapper theorem-style-plain" id="prop:bloques">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">4.4</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:bloques">#</a>
+<a class="icon proof" href="index.html#a0000000046"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=9" title="Open the paper at page 9">📕 p. 9</a></div>
+<div class="proposition_thmcontent">
+<p>  Let \(q\equiv 3\pmod4\), \(q{\gt}3\), \(s=1\), \(h=h(-q)\) and \(D(r)=C(r)-h\). Suppose that \(B\) has base-\(q\) digits \(d_{L-1},\dots ,d_0\) with </p>
+<div class="displaymath" id="a0000000047">
+  \[  \sum _{i{\lt}L}D(d_i)=0\qquad \text{and}\qquad S_\chi (B)=hB .  \]
+</div>
+<p> Then, with \(Q=q^L\), every \(m_t=q\, B\, (1+Q+\dots +Q^{t-1})\), \(t\ge 1\), is a zero of \(S_\chi \). </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000046">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> With \(s=1\) and \(T_q=-qh\), Theorem <a href="index.html#thm:digitos">4.1</a> reads \(S_\chi (qk+r)=qS_\chi (k)+qkD(r)+T(r)\). Appending the digits of \(B\) one at a time, by induction, \(S_\chi (Qk+B)=QS_\chi (k)+Qk\sum _iD(d_i)+S_\chi (B)\), so \(S_\chi (k)=hk\) implies \(S_\chi (Qk+B)=h(Qk+B)\); starting from \(k=0\), \(k_t=B(1+Q+\dots +Q^{t-1})\) has \(S_\chi (k_t)=hk_t\). Appending the digit \(0\), \(S_\chi (qk_t)=q\bigl(S_\chi (k_t)+k_tD(0)\bigr)=q(hk_t-hk_t)=0\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Notation: \(h=h(-q)\) and \(D(r)=C(r)-h\). With \(s=1\) the recursion reads \(S_\chi (qk+r)=q\, S_\chi (k)+qk\, D(r)+T(r)\). When \(R_q\) is empty no single digit carries every zero to a zero, but a word of digits can preserve the weaker relation \(S_\chi (k)=hk\): appending the digits of a block \(B\) with \(\sum D(d_i)=0\) and \(S_\chi (B)=hB\) sends \(S_\chi (k)=hk\) to the same relation at \(q^Lk+B\). Repeating the block keeps the relation; a final digit \(0\), with \(D(0)=-h\), turns it into a zero. At \(q=59\) (\(h=3\)) the block \((1,22,21,0)_{59}=283200\) works, giving zeros from \(16\, 708\, 800\) on; at \(q=347\) a thirteen-digit block. So class number greater than one does not block infinitely many zeros. The first zero at \(q=59\), \(4\, 591\, 439\), is not of this form. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Proof on paper only</b> (not formalized). </p>
+</li>
+<li><p><span class="ttfamily">II_bloques_ceros.py</span>: at \(q=59\), \(B=283200\), \(\sum D=0\), \(S(B)=849600=3B\), \(S(16708800)=0\), and \(t=2,3\) by the recursion; at \(q=347\), \(\sum D=0\), \(S(B)=5B\), \(S(347B)=0\) (<span class="ttfamily">II_bloques_ceros_OUT.txt</span>). </p>
+</li>
+<li><p><span class="ttfamily">segmento_II.py autotest</span>: zeros \(16708800\), \(202466578185600\), \(2453360618309656910400\) from the \(q=59\) block; the \(q=347\) block gives zeros. </p>
+</li>
+</ul>
+</details><div class="corollary_thmwrapper theorem-style-plain" id="cor:orden">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">4.5</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#cor:orden">#</a>
+<a class="icon proof" href="index.html#a0000000050"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:diag">Theorem 4.2</a></li>
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+<li><a href="index.html#thm:diag">Theorem 4.2</a></li>
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=9" title="Open the paper at page 9">📕 p. 9</a></div>
+<div class="corollary_thmcontent">
+<p>  Let \(q\) be an odd prime, \(\chi \) an odd Dirichlet character modulo \(q\) of any order, extended completely multiplicatively by any root of unity \(\chi (q)\), and \(S_\chi (m)=\sum _{n\le m}n\chi (n)\). Then \(S_\chi \bigl(\tfrac {q-1}2\bigr)=0\) if and only if \(\chi (2)=1\), and in that case \(S_\chi \bigl(\tfrac {q^j-1}2\bigr)=0\) for every \(j\ge 1\). The characters for which this happens are the odd characters trivial on \(\langle 2\rangle \). </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000050">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Theorem <a href="index.html#thm:digitos">4.1</a> and its proof hold verbatim for \(\chi \), with \(s=\chi (q)\). By Theorem <a href="index.html#thm:diag">4.2</a>, \(T((q-1)/2)=\tfrac q2B_{1,\chi }(\chi (2)^{-1}-1)\) with \(B_{1,\chi }\ne 0\), which gives the equivalence at \(j=1\). If \(\chi (2)=1\), the proof of Theorem <a href="index.html#thm:diag">4.2</a> gives \(C((q-1)/2)=(\chi (2)^{-1}-2)B_{1,\chi }=-B_{1,\chi }\), and \(T_q=qB_{1,\chi }\), so \((q-1)/2\in R_q\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> The mechanism behind Corollary <a href="index.html#cor:C">C</a> does not use that the character is quadratic. For any odd Dirichlet character modulo an odd prime \(q\), of any order, extended completely multiplicatively with any root of unity as its value at \(q\), the recursion of Theorem <a href="index.html#thm:digitos">4.1</a> holds verbatim, and Theorem <a href="index.html#thm:diag">4.2</a> says the weighted half sum vanishes exactly when \(\chi (2)=1\). When it does, \((q-1)/2\) lies in \(R_q\), and every \((q^j-1)/2\) is a zero. The characters with this property are the odd characters trivial on the subgroup generated by \(2\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Proof on paper only</b> (not formalized; the Lean file is over \(\mathbb {Z}\)-valued functions). </p>
+</li>
+<li><p><span class="ttfamily">II_ceros_orden_r.py</span>, exactly in \(\mathbb {Z}[\zeta _r]\) (README: orders \(2,6,8,18\)): primes \(q\le 130\), \(210\) checks with \(\chi \) odd and \(\chi (2)=1\), \(0\) failures; control: of \(817\) odd characters with \(\chi (2)\ne 1\), none vanishes at \(j=1\) (<span class="ttfamily">II_ceros_orden_r_OUT.txt</span>). </p>
+</li>
+</ul>
+</details><div class="proposition_thmwrapper theorem-style-plain" id="prop:conrey">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">4.6</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:conrey">#</a>
+<a class="icon proof" href="index.html#a0000000053"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=10" title="Open the paper at page 10">📕 p. 10</a></div>
+<div class="proposition_thmcontent">
+<p> Let \(q\equiv 3\pmod8\), \(q{\gt}3\), and let \(\chi _{q,-1}\) be the extension with value \(-1\) at \(q\). If \(\sum _{n\ge 1}\chi _{q,-1}(n)\sin (2\pi nx)/n^2\ge 0\) for \(0\le x\le 1/2\), then \(R_q=\varnothing \). </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000053">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>By the symmetry \(C(q-1-r)=C(r)\), \(T(q-1-r)=q(C(r)-h)-T(r)\) it suffices to exclude \(r\le (q-1)/2\). Suppose such an \(r\) lies in \(R_q\) and put \(u=(rq+1)/q^2\in [0,1/2]\). Splitting \(n\) by its \(q\)-adic valuation, the series at \(u\) is \(\sum _{j\ge 0}(-1)^jq^{-2j}f_q(q^ju)\). The term \(j=0\) vanishes, \(qu\) lying inside the cell of \(r\); the terms \(j\ge 2\) vanish, their arguments being integers; and the term \(j=1\) is \(-q^{-2}f_q(1/q)=-2\pi ^2h/q^{7/2}\), since \(F_q(1)=h\). The series is negative at \(u\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Conrey’s sine series is \(f_q(x)=\sum _{n\ge 1}(n\mid q)\sin (2\pi nx)/n^2\); for prime \(q\equiv 3\pmod4\), \(q{\gt}3\), through his Theorem 4 and the class number formula it equals \(\frac{2\pi ^2}{q^{3/2}}F_q(qx)\) with \(F_q(y)=T(r)+y(h-C(r))\), \(r=\lfloor y\rfloor \), which is linear on each cell and vanishes on the cell of \(r\) exactly when \(r\in R_q\). For \(q\equiv 3\pmod8\), Conrey’s case, a null cell is the first alternative of his Theorem 4, which he remarked would make \(f_q\) vanish on an interval; the paper does not decide whether it occurs. The proposition excludes it under a positivity hypothesis on the series of \(\chi _{q,-1}\) (value \(-1\) at \(q\)), not of \(f_q\). Splitting \(n\) by its power of \(q\), that series at \(u=(rq+1)/q^2\), for \(r\) a putative null cell, is \(\sum _j(-1)^jq^{-2j}f_q(q^ju)\): the term \(j=0\) vanishes, the terms \(j\ge 2\) have integer arguments, and the term \(j=1\) is \(-2\pi ^2h/q^{7/2}{\lt}0\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Proof on paper only.</b> The positivity hypothesis is not verified for any \(q\) in the paper or the supplement. </p>
+</li>
+<li><p><b class="bfseries">Independent of the hypothesis:</b> <span class="ttfamily">II_R_vacio.py</span> finds \(R_q=\varnothing \) for all \(2408\) primes \(q\equiv 3\pmod8\), \(5\le q\le 10^5\) (<span class="ttfamily">II_R_vacio_OUT.txt</span>). A finite computation; whether \(R_q\) is always empty is Question 6.1 of the paper, open. </p>
+</li>
+<li><p><span class="ttfamily">II_automata_y_conrey.py</span> checks the identity \(f_q=\frac{2\pi ^2}{q^{3/2}}F_q(qx)\) numerically at three points for \(q=59\) and \(q=179\) (agreement to the \(8\) digits printed). </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000056">4 Rows</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:filas">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">5.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:filas">#</a>
+<a class="icon proof" href="index.html#a0000000057"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=11" title="Open the paper at page 11">📕 p. 11</a></div>
+<div class="proposition_thmcontent">
+<p> Let \(n=2m+1\) and let \(\varepsilon \) be any function on \(1,\dots ,m\) with values \(\pm 1\). Then </p>
+<div class="displaymath" id="a0000000058">
+  \[  \sum _{c=1}^{m}c\, \varepsilon (c)\equiv \frac{n^2-1}{8}\pmod2,\qquad \text{so it can vanish only if }\  \Bigl(\frac2n\Bigr)=1 .  \]
+</div>
+<p> In particular, if \(\chi \) is a primitive quadratic character of conductor \(f\) with \(\gcd (f,m!)=1\), then \(T(m,\chi )\) does not vanish unless \(\bigl(\tfrac 2n\bigr)=1\). </p>
+</div>
+</div><p class="usado">↳ Used in: <a href="#cor:filas">Corollary 5.2</a></p>
+<div class="proof_wrapper" id="a0000000057">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Changing one sign changes the sum by \(2c\), so its parity is that of \(\sum _{c\le m}c=m(m+1)/2\), and \(m(m+1)/2=(n^2-1)/8\). The second supplementary law of quadratic reciprocity is \(\bigl(\frac2n\bigr)=(-1)^{(n^2-1)/8}\), so the sum is even exactly when that symbol is \(1\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Here \(n=2m+1\) and \((\frac2n)\) is the Jacobi symbol. Any \(\pm 1\) signs on \(1,\dots ,m\) give a sum with the parity of \(1+2+\dots +m=m(m+1)/2=(n^2-1)/8\), since flipping the sign of \(c\) changes the sum by \(2c\). By the second supplementary law, that parity is even exactly when \((\frac2n)=1\), that is \(n\equiv \pm 1\pmod8\), that is \(m\equiv 0,3\pmod4\): the admissible lengths again. For a primitive quadratic character of conductor \(f\) with \(\gcd (f,m!)=1\), the values on \(1,\dots ,m\) are all \(\pm 1\), so \(T(m,\chi )=\sum _{c\le m}c\, \chi (c)\) inherits the obstruction. The coprimality hypothesis is needed: at \(f=35\), \(m=6\), \(\chi (5)=0\) and \(T=0\) although \((\frac2{13})=-1\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Proof on paper only</b> (two lines; not formalized). </p>
+</li>
+<li><p><span class="ttfamily">segmento_II.py autotest</span>: no zero at the \(12\) inadmissible \(m\le 22\), by exhaustive search; the \(f=35\), \(m=6\) example (\(T=0\) with \((2\mid 13)=-1\), because \(\chi (5)=0\)) (<span class="ttfamily">autotest_OUT.txt</span>). </p>
+</li>
+</ul>
+</details><div class="corollary_thmwrapper theorem-style-plain" id="cor:filas">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">5.2</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#cor:filas">#</a>
+<a class="icon proof" href="index.html#a0000000061"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#prop:filas">Proposition 5.1</a></li>
+<li><a href="index.html#thm:A">Theorem A</a></li>
+<li><a href="index.html#prop:filas">Proposition 5.1</a></li>
+<li><a href="index.html#thm:A">Theorem A</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=11" title="Open the paper at page 11">📕 p. 11</a></div>
+<div class="corollary_thmcontent">
+<p>  Let \(n=2m+1\). The row \(m\) is non-empty if and only if \(\bigl(\frac2n\bigr)=1\), and then it is infinite. </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000061">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Necessity is Proposition <a href="index.html#prop:filas">5.1</a>. Conversely, \(\bigl(\frac2n\bigr)=1\) is \(m\equiv 0,3\pmod4\); take \(\varepsilon \) from Theorem <a href="index.html#thm:A">A</a>. For a prime \(f\equiv 3\pmod4\), \(f{\gt}n\), the value \((2\mid f)\) is fixed by \(f\bmod 8\), and for an odd prime \(p\le m\) reciprocity gives \((p\mid f)=(-1)^{(p-1)/2}(f\mid p)\), fixed by \(f\bmod p\) and taking both signs. By the Chinese remainder theorem and Dirichlet’s theorem there are infinitely many primes \(f\equiv 3\pmod4\) with \((p\mid f)=\varepsilon (p)\) for every prime \(p\le m\); for them \(\chi =(\cdot \mid f)\) agrees with \(\varepsilon \) on \(1,\dots ,m\), and \(T(m,\chi )=S_\varepsilon (m)=0\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Row \(m\) is the set of odd primitive quadratic characters \(\chi \) of prime conductor \(f{\gt}2m+1\) with \(T(m,\chi )=\sum _{c\le m}c\, \chi (c)=0\). Parity (Proposition <a href="index.html#prop:filas">5.1</a>) empties the rows with \((\frac2n)=-1\). For the others, Theorem <a href="index.html#thm:A">A</a> gives a sign pattern \(\varepsilon \) with \(S_\varepsilon (m)=0\), and the question is whether a Legendre symbol can copy it on \(1,\dots ,m\). It can: for a prime \(f\equiv 3\pmod4\), \((2\mid f)\) is fixed by \(f\bmod 8\) and, by reciprocity, \((p\mid f)\) by \(f\bmod p\), taking both signs. The Chinese remainder theorem and Dirichlet’s theorem then give infinitely many primes \(f\) whose symbol agrees with \(\varepsilon \) at every prime \(p\le m\), hence on \(1,\dots ,m\). Every admissible length is the length of a vanishing weighted Legendre sum, for infinitely many primes. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Proof on paper only</b> (not formalized); it inherits the guarantees of Theorem <a href="index.html#thm:A">A</a>. </p>
+</li>
+<li><p><span class="ttfamily">segmento_II.py autotest</span>: rows \(2\) to \(40\) occupied iff \((2\mid n)=1\), \(39\) of \(39\); decoy rule \((3\mid n)\) matches only \(19\) of \(39\) (<span class="ttfamily">autotest_OUT.txt</span>). A finite check; “infinite” is on paper. </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000064">5 After submission</h1>
+<div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:sinceros">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">N1 (new)</span><span class="sello">✅ Lean</span>
+<span class="theorem_thmtitle">No zeros at \(q=179\) and \(q=227\)</span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:sinceros">#</a>
+<a class="icon proof" href="index.html#a0000000065"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+<li><a href="index.html#thm:digitos">Theorem 4.1</a></li>
+</ul>
+</div>
+</div>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="./find/#doc/SegmentoIISinCeros.S_ne_zero_179">SegmentoIISinCeros.S_ne_zero_179</a></li>
+<li><a class="lean_decl" href="./find/#doc/SegmentoIISinCeros.S_ne_zero_227">SegmentoIISinCeros.S_ne_zero_227</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="theorem_thmcontent">
+<p>    Let \(q\in \{ 179,227\} \) and \(\chi =\chi _{q,1}\). Then \(S_\chi (m)\ne 0\) for every \(m\ge 1\). This answers the second part of the question on \(q\equiv 3\pmod8\) in the paper: there are primes \(q\equiv 3\pmod8\) for which \(\chi _{q,1}\) has no zero at all. </p>
+</div>
+</div><p class="lean-check">✅ Checked when this page was built: <a href="lean/SegmentoII_SinCeros.html">SegmentoII_SinCeros.lean</a> compiles with Lean 4.30.0-rc2, no errors, no sorry. Axioms — S_ne_zero_179, S_ne_zero_227: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.30.0-rc2, Mathlib 701fb6e9c3b9; in that Lean project, <code>lake env lean SegmentoII_SinCeros.lean</code> (SHA-256 of the compiled file: <code>c72f623ab86fb232…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> added after submission; not part of the manuscript as submitted.</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000065">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> A finite certificate: a forward-invariant cone \(\{ b(a+b)\le 0\} \) of the digit automaton, three rays, and a finite set of \(55\) (resp. \(162\)) states; inside the cone their union is backward-closed, contains every parent of an accepting edge, and does not contain the origin. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Reading the base-\(q\) digits of \(m\) from the least significant one, the relation \(S_\chi (k)+a k=b\) is carried from one state \((a,b)\) to the next by an exact integer transition (Theorem <a href="index.html#thm:digitos">4.1</a>). A positive zero of \(S_\chi \) is a path from \((0,0)\) that ends, after its leading digit, on a state with \(b=0\). The figure shows why no such path exists for \(q=179\): the path can never leave the blue cone, and every state from which the last step could land on \(b=0\) (red circles) lies in a set—the \(55\) grey states and the three green rays—that, inside the cone, can only be entered from a state already in it. The start \((0,0)\) is not in that set, so no path from it ever enters the set, and none reaches a red circle. </p>
+<div class="centered"> <img alt="\includegraphics[width=0.85\textwidth ]{figuras/fig_certificado_179.png}" src="images/img-0002.png" style="width:85%;max-width:100%"/>
+</div>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Formalized in Lean 4 + Mathlib, checked by the kernel:</b> <span class="ttfamily">S_ne_zero_179</span> and <span class="ttfamily">S_ne_zero_227</span> (links above). The finite part is checked by <span class="ttfamily">decide</span> inside the kernel; no <span class="ttfamily">native_decide</span>, no <span class="ttfamily">sorry</span>. Axioms: <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span>. </p>
+</li>
+<li><p><b class="bfseries">The checker can fail:</b> the same Lean file proves that it rejects the backward set computed for \(q=59\) (which has zeros; the set contains the origin), the same set with the origin deleted, and two corrupted certificates for \(q=179\) (one state removed; one table entry changed). </p>
+</li>
+<li><p><b class="bfseries">The hypothesis is the real Legendre symbol:</b> the function <span class="ttfamily">leg</span> of the checker is proved equal to Mathlib’s <span class="ttfamily">legendreSym</span> (<span class="ttfamily">leg_eq_legendreSym</span>), the theorems are restated with <span class="ttfamily">legendreSym</span> (<span class="ttfamily">S_ne_zero_179_legendreSym</span>, <span class="ttfamily">S_ne_zero_227_legendreSym</span>), and a function satisfying all hypotheses is constructed (<span class="ttfamily">chi0_spec</span>, <span class="ttfamily">S_chi0_ne_zero_179</span>, <span class="ttfamily">S_chi0_ne_zero_227</span>), so the theorem is not vacuous. </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000068">Tables cited</h1>
+<div class="table" id="tab:A">
+<div class="centered"><small class="small"><table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> range of \(m\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> method </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> certificate </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> margin</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p>\(3\le m\le 20000\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> explicit \(\varepsilon \) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> \(10000\) lengths </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> exact</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p>\(5000\le m{\lt}10^8\) </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> Lem. <a href="index.html#lem:momento">2.1</a>, <a href="index.html#lem:intervalos">2.2</a>(a,b) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(104\) blocks </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(B_*^2/D^2\le 0.445\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p>\(m\ge 10^8\) </p>
+</td>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> Lem. <a href="index.html#lem:momento">2.1</a>, <a href="index.html#lem:intervalos">2.2</a>(c) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> none </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \((B_*+K)/P_Q{\lt}0.027\)</p>
+</td>
+</tr>
+</table> <figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">1</span>
+<span class="caption_text">The proof of Theorem <a href="index.html#thm:A">A</a>, range by range. The ranges overlap. The \(104\) certificates (\(2128\) pairs) and the \(10000\) explicit functions are generated by programs in the supplementary material and stored there, and a separate program that only reads the stored files checks them in integer arithmetic.</span>
+</figcaption> </small></div>
+</div>
+</section><section class="pc-pane"><h1 id="a0000000069">References</h1>
+<dl class="bibliography">
+<dt><a name="AC15">AC17</a></dt>
+<dd><p>C. Aebi and G. Cairns, <em>Sums of quadratic residues and nonresidues</em>, Amer. Math. Monthly <b class="bfseries">124</b> (2017), 166–169, <a href="https://doi.org/10.4169/amer.math.monthly.124.2.166" rel="noopener" target="_blank">doi:10.4169/amer.math.monthly.124.2.166</a>. </p>
+</dd>
+<dt><a name="Aym24">Aym24</a></dt>
+<dd><p>M. Aymone, <em>Sign changes of the partial sums of a random multiplicative function II</em>, C. R. Math. Acad. Sci. Paris <b class="bfseries">362</b> (2024), 895–901, <a href="https://doi.org/10.5802/crmath.615" rel="noopener" target="_blank">doi:10.5802/crmath.615</a>. </p>
+</dd>
+<dt><a name="Ber76">Ber76</a></dt>
+<dd><p>B. C. Berndt, <em>Classical theorems on quadratic residues</em>, Enseign. Math. (2) <b class="bfseries">22</b> (1976), 261–304.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Classical+theorems+on+quadratic+residues" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="BCC10">BCC10</a></dt>
+<dd><p>P. Borwein, S. K. K. Choi and M. Coons, <em>Completely multiplicative functions taking values in \(\{ -1,1\} \)</em>, Trans. Amer. Math. Soc. <b class="bfseries">362</b> (2010), 6279–6291, <a href="https://doi.org/10.1090/S0002-9947-2010-05235-3" rel="noopener" target="_blank">doi:10.1090/S0002-9947-2010-05235-3</a>. </p>
+</dd>
+<dt><a name="BW21">BW21</a></dt>
+<dd><p>K. Bringmann and P. Wellnitz, <em>On near-linear-time algorithms for dense subset sum</em>, Proceedings of the 2021 ACM-SIAM Symposium on Discrete Algorithms (SODA), 2021, 1777–1796; full version <a href="https://arxiv.org/abs/2010.09096" rel="noopener" target="_blank">arXiv:2010.09096</a>, where the result cited is Theorem 4.23, <a href="https://doi.org/10.1137/1.9781611976465.107" rel="noopener" target="_blank">doi:10.1137/1.9781611976465.107</a>. </p>
+</dd>
+<dt><a name="Con24">Con24</a></dt>
+<dd><p>B. Conrey, <em>Character sums and the Riemann hypothesis</em>, Acta Arith. <b class="bfseries">214</b> (2024), 327–342, <a href="https://doi.org/10.4064/aa230530-13-11" rel="noopener" target="_blank">doi:10.4064/aa230530-13-11</a>. </p>
+</dd>
+<dt><a name="Dir38">Dir38</a></dt>
+<dd><p>P. G. Lejeune Dirichlet, <em>Sur l’usage des séries infinies dans la théorie des nombres</em>, J. Reine Angew. Math. <b class="bfseries">18</b> (1838), 259–274; Werke I (1889), 357–374, <a href="https://doi.org/10.1515/crll.1838.18.259" rel="noopener" target="_blank">doi:10.1515/crll.1838.18.259</a>. </p>
+</dd>
+<dt><a name="Dus10">Dus10</a></dt>
+<dd><p>P. Dusart, <em>Estimates of some functions over primes without R.H.</em>, preprint, 2010, <a href="https://arxiv.org/abs/1002.0442" rel="noopener" target="_blank">arXiv:1002.0442</a>. </p>
+</dd>
+<dt><a name="HL24">HL24</a></dt>
+<dd><p>A. Hussain and Y. Lamzouri, <em>The limiting distribution of Legendre paths</em>, J. Éc. polytech. Math. <b class="bfseries">11</b> (2024), 589–611, <a href="https://doi.org/10.5802/jep.260" rel="noopener" target="_blank">doi:10.5802/jep.260</a>. </p>
+</dd>
+<dt><a name="Jac32">Jac32</a></dt>
+<dd><p>C. G. J. Jacobi, <em>Observatio arithmetica de numero classium divisorum quadraticorum formae \(yy+Azz\), designante \(A\) numerum primum formae \(4n+3\)</em>, J. Reine Angew. Math. <b class="bfseries">9</b> (1832), 189–192, <a href="https://doi.org/10.1515/crll.1832.9.189" rel="noopener" target="_blank">doi:10.1515/crll.1832.9.189</a>. </p>
+</dd>
+<dt><a name="Kal19">Kal19</a></dt>
+<dd><p>A. Kalmynin, <em>Long nonnegative sums of Legendre symbols</em>, preprint, 2019, <a href="https://arxiv.org/abs/1911.10634" rel="noopener" target="_blank">arXiv:1911.10634</a>. </p>
+</dd>
+<dt><a name="KK01">KK01</a></dt>
+<dd><p>S. Kanemitsu and T. Kuzumaki, <em>On a generalization of the Maillet determinant II</em>, Acta Arith. <b class="bfseries">99</b> (2001), 343–361, <a href="https://doi.org/10.4064/aa99-4-4" rel="noopener" target="_blank">doi:10.4064/aa99-4-4</a>. </p>
+</dd>
+<dt><a name="KMPT21">KMPT21</a></dt>
+<dd><p>O. Klurman, A. P. Mangerel, C. Pohoata and J. Teräväinen, <em>Multiplicative functions that are close to their mean</em>, Trans. Amer. Math. Soc. <b class="bfseries">374</b> (2021), 7967–7990, <a href="https://doi.org/10.1090/tran/8427" rel="noopener" target="_blank">doi:10.1090/tran/8427</a>. </p>
+</dd>
+<dt><a name="KMS26">KMS26</a></dt>
+<dd><p>O. Klurman, M. Munsch and Y.-C. Sun, <em>Small values of signed harmonic sums and logarithmic means of multiplicative functions</em>, preprint, 2026, <a href="https://arxiv.org/abs/2605.04694" rel="noopener" target="_blank">arXiv:2605.04694</a>. </p>
+</dd>
+<dt><a name="Kuc01">Kuč01</a></dt>
+<dd><p>R. Kučera, <em>Formulae for the relative class number of an imaginary abelian field in the form of a determinant</em>, Nagoya Math. J. <b class="bfseries">163</b> (2001), 167–191, <a href="https://doi.org/10.1017/S0027763000007959" rel="noopener" target="_blank">doi:10.1017/S0027763000007959</a>. </p>
+</dd>
+<dt><a name="Leb42">Leb42</a></dt>
+<dd><p>V.-A. Lebesgue, <em>Démonstration de quelques théorèmes relatifs aux résidus et aux non-résidus quadratiques</em>, J. Math. Pures Appl. <b class="bfseries">7</b> (1842), 137–159.  <a class="bib-search" href="https://scholar.google.com/scholar?q=D%C3%A9monstration+de+quelques+th%C3%A9or%C3%A8mes+relatifs+aux+r%C3%A9sidus+et+aux+non-r%C3%A9sidus+quadratiques" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Lev03">Lev03</a></dt>
+<dd><p>V. F. Lev, <em>Blocks and progressions in subset sum sets</em>, Acta Arith. <b class="bfseries">106</b> (2003), 123–142, <a href="https://doi.org/10.4064/aa106-2-3" rel="noopener" target="_blank">doi:10.4064/aa106-2-3</a>. </p>
+</dd>
+<dt><a name="Mar26">Mar26</a></dt>
+<dd><p>C. Marín, <em>The ring of character values depends only on the segment: \(\mathrm{SU}(n)\), \(\mathrm{Sp}(2m)\) and \(\mathrm{GL}(n)\) at a torsion element</em>, preprint, 2026, <a href="https://doi.org/10.5281/zenodo.22847476" rel="noopener" target="_blank">doi:10.5281/zenodo.22847476</a>. </p>
+</dd>
+<dt><a name="Ngu12">Ngu12</a></dt>
+<dd><p>H. H. Nguyen, <em>A new approach to an old problem of Erdős and Moser</em>, J. Combin. Theory Ser. A <b class="bfseries">119</b> (2012), 977–993, <a href="https://doi.org/10.1016/j.jcta.2012.01.003" rel="noopener" target="_blank">doi:10.1016/j.jcta.2012.01.003</a>. </p>
+</dd>
+<dt><a name="A360659">OEIS</a></dt>
+<dd><p>OEIS Foundation Inc., <em>The On-Line Encyclopedia of Integer Sequences</em>, sequence <a href="https://oeis.org/A360659" rel="noopener" target="_blank">A360659</a>. </p>
+</dd>
+<dt><a name="Sar94">Sár94</a></dt>
+<dd><p>A. Sárközy, <em>Finite addition theorems II</em>, J. Number Theory <b class="bfseries">48</b> (1994), 197–218, <a href="https://doi.org/10.1006/jnth.1994.1062" rel="noopener" target="_blank">doi:10.1006/jnth.1994.1062</a>. </p>
+</dd>
+<dt><a name="SSz65">SS65</a></dt>
+<dd><p>A. Sárközy and E. Szemerédi, <em>Über ein Problem von Erdős und Moser</em>, Acta Arith. <b class="bfseries">11</b> (1965), 205–208, <a href="https://doi.org/10.4064/aa-11-2-205-208" rel="noopener" target="_blank">doi:10.4064/aa-11-2-205-208</a>. </p>
+</dd>
+</dl>
+</section>
+</div>
+</div>
+</div>
+</div>
+<nav class="prev_up_next">
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+<a href="index.html" title="Exact zeros of weighted sums of completely multiplicative functions: blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+</nav>
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// paper-companion: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
+// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+// event, so that page-specific scripts (labs) can react.
+(function(){
+  function set(v){
+    document.body.classList.toggle('vista-paper', v==='paper');
+    document.querySelectorAll('#vistas button').forEach(function(b){b.classList.toggle('on', b.dataset.v===v)});
+    try{localStorage.setItem('vista', v)}catch(e){}
+    document.dispatchEvent(new CustomEvent('vista', {detail: v}));
+  }
+  document.addEventListener('click', function(e){var b=e.target.closest('#vistas button'); if(b) set(b.dataset.v)});
+  var v='paper'; try{v=localStorage.getItem('vista')||'paper'}catch(e){}
+  set(v);
+})();
+</script><script>
+(function(){
+  var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
+  function apply(v){
+    var ex = v === 'explore';
+    document.body.classList.toggle('vista-explore', ex);
+    document.querySelectorAll(SEL).forEach(function(d){ d.open = ex; });
+  }
+  document.addEventListener('vista', function(e){ apply(e.detail); });
+  apply(document.body.classList.contains('vista-paper') ? 'paper' : 'explore');
+})();
+</script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
+  if (!panes.length) return;
+  var box = document.querySelector('div.content');
+  function find(h){
+    if (!h) return null;
+    try { h = decodeURIComponent(h); } catch (e) {}
+    return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
+  }
+  function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
+  function show(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    panes.forEach(function(x){ x.hidden = x !== p; });
+    document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
+      var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
+      var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
+      li.classList.toggle('current', on);
+      var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
+      if (ul) ul.classList.toggle('active', on);
+      if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+    });
+    if (!t || t === p || t.tagName === 'H1' || t.id === 'top') { if (box) box.scrollTop = 0; }
+    else t.scrollIntoView({block: 'start'});
+  }
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // a link to the hash already in the URL fires no hashchange
+    var a = ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+    if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); show(m[1]); }
+  });
+  show(location.hash.slice(1));
+  // the browser's own jump to the hash, and MathJax, move the page after the first show(): place it again
+  window.addEventListener('load', function(){ show(location.hash.slice(1)); });
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise)
+    MathJax.startup.promise.then(function(){ show(location.hash.slice(1)); });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:none}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600}
+</style></head>
+<body>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/schur-orbit-and-reciprocal-pair/atlas/">🗺️📚 Atlas</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="cor:C_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:C" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">C</span></div>
+<div class="thm_thmcontent"><p>  Let \(q\equiv 7\pmod8\) be prime and \(\chi =\chi _{q,s}\) with \(s=\pm 1\). Then \(S_\chi \bigl(\tfrac {q^j-1}{2}\bigr)=0\) for every \(j\ge 1\), and Conrey’s function \(f_q(x)=\sum _{n\ge 1}(\frac nq)\sin (2\pi nx)/n^2\) vanishes identically on the interval \(\bigl[\frac{q-1}{2q},\frac{q+1}{2q}\bigr]\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:C">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:digitos_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:digitos" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">4.3</span></div>
+<div class="thm_thmcontent"><p>  Let \(R_q=\{ 0\le r{\lt}q:\  T_q+q\, C(r)=0=T(r)\} \). Every \(m\ge 1\) whose base-\(q\) digits all lie in \(R_q\) has \(S_\chi (m)=0\), for both values of \(s\). </p>
+<ol class="enumerate">
+<li><p>If \(q\equiv 1\pmod4\), then \(0,q-1\in R_q\), and \(S_\chi \) has at least \(2^J-1\) zeros below \(q^J\), hence at least \(\tfrac 12X^{\log 2/\log q}-1\) below \(X\). </p>
+</li>
+<li><p>If \(q\equiv 7\pmod8\), then \((q-1)/2\in R_q\), and \(S_\chi \bigl(\tfrac {q^j-1}{2}\bigr)=0\) for every \(j\ge 1\). </p>
+</li>
+<li><p>If \(q\equiv 3\pmod4\), \(q{\gt}3\), \(h(-q)=1\) and \(s=1\), then \(S_\chi (z)=0\) along \(z_0=q\), \(z_{i+1}=q(z_i+1)\). For \(q=3\) and \(s=1\) the same holds with \(27\) in place of \(q\): \(z_0=27\), \(z_{i+1}=27(z_i+1)\). </p>
+</li>
+<li><p>For every \(q\) and \(s\): if \(S_\chi (qk)=0\) and \(C(r)=T(r)=0\), then \(S_\chi (qk+r)=0\). When \(q{\gt}3\) and \(\chi (2)=\chi (3)=-1\) this applies with \(r=4\), since \(1-2-3+4=0\). For \(q=3\) and \(s=-1\), where also \(\chi (2)=\chi (3)=-1\), the conclusion holds as well: \(S_\chi (3k)=0\) implies \(S_\chi (3k+4)=0\). </p>
+</li>
+<li><p>If \(s=-1\), then \(S_\chi (q^2m)=q^2S_\chi (m)\) for every \(m\): a single zero of \(S_\chi \) gives infinitely many. </p>
+</li>
+<li><p>If \(q\equiv 3\pmod8\), then \(S_\chi \bigl(\tfrac {q^j-1}{2}\bigr)=h(-q)\, q^j\, (1+s+\dots +s^{j-1})\) for every \(j\ge 1\), with \(h(-3)\) read as the weighted class number \(1/3\). In particular, for \(s=-1\), \(S_\chi \bigl(\tfrac {q^{2i}-1}{2}\bigr)=0\) for every \(i\ge 1\). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#cor:digitos">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:filas_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:filas" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">5.2</span></div>
+<div class="thm_thmcontent"><p>  Let \(n=2m+1\). The row \(m\) is non-empty if and only if \(\bigl(\frac2n\bigr)=1\), and then it is infinite. </p>
+</div>
+<a class="latex_link" href="index.html#cor:filas">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:orden_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:orden" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">4.5</span></div>
+<div class="thm_thmcontent"><p>  Let \(q\) be an odd prime, \(\chi \) an odd Dirichlet character modulo \(q\) of any order, extended completely multiplicatively by any root of unity \(\chi (q)\), and \(S_\chi (m)=\sum _{n\le m}n\chi (n)\). Then \(S_\chi \bigl(\tfrac {q-1}2\bigr)=0\) if and only if \(\chi (2)=1\), and in that case \(S_\chi \bigl(\tfrac {q^j-1}2\bigr)=0\) for every \(j\ge 1\). The characters for which this happens are the odd characters trivial on \(\langle 2\rangle \). </p>
+</div>
+<a class="latex_link" href="index.html#cor:orden">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:intervalos_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:intervalos" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2.2</span></div>
+<div class="thm_thmcontent"><p>  Write \(\Sigma (A)\) for the set of subset sums of a finite set \(A\) of positive integers. </p>
+<ol class="enumerate">
+<li><p>If \(\Sigma (A)\supseteq [\alpha ,\beta ]\) and \(x\notin A\), \(0{\lt}x\le \beta -\alpha +1\), then \(\Sigma (A\cup \{ x\} )\supseteq [\alpha ,\beta +x]\). As \(\Sigma (A)\) is symmetric under \(x\mapsto P_A-x\), \(\Sigma (A)\supseteq [\alpha ,\beta ]\) with \(\beta \ge P_A/2\) implies \(\Sigma (A)\supseteq [\alpha ,P_A-\alpha ]\). </p>
+</li>
+<li><p><em>(pairs)</em> Let \(q_0,u_1,v_1,\dots ,u_t,v_t\) be distinct positive odd integers, \(d_j=(v_j-u_j)/2\) with \(1\le d_j\le 1+d_1+\dots +d_{j-1}\), \(H=\sum d_j\), \(U=\sum u_j\), and \(q_0\le 2H+1\). Then \(\Sigma (\{ q_0,u_j,v_j\} )\supseteq [U+q_0-1,\  U+2H+1]\). </p>
+</li>
+<li><p><em>(Sárközy, with Lev’s constants <span class="cite">
+	[
+	<a href="index.html#BW21">BW21</a>
+	, 
+	Thm.
+	
+	4.23
+	]
+</span>)</em> If \(X\) is a set of \(n\) positive integers with maximum \(x^*\) and \(4x^*\le \ell \le n^2/(12\log _2(4x^*/n))\), then \(\Sigma (X)\) contains an arithmetic progression of \(\ell \) terms and step \(s\le 4x^*/n\), each term a sum of at most \(6\ell /n\) distinct elements of \(X\). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:intervalos">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:intervalos_b_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:intervalos_b" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2.2(b)</span><span class="lemma_thmtitle">Complete sequences (Lemma <a href="index.html#lem:intervalos">2.2</a>(b), the part formalized)</span></div>
+<div class="thm_thmcontent"><p>   The subset-sum statement of Lemma <a href="index.html#lem:intervalos">2.2</a>(b), in the form of the Lean theorems <span class="ttfamily">complete_range</span> and <span class="ttfamily">pairs_subset_sum</span>: a sequence with \(d_j\le 1+\sum _{i{\lt}j}d_i\) represents every integer in \([0,\sum d_i]\) as a subset sum, and the pairs version used in the proof of Theorem <a href="index.html#thm:A">A</a>. </p>
+</div>
+<a class="latex_link" href="index.html#lem:intervalos_b">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.complete_range">SegmentoII.complete_range</a></li>
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.pairs_subset_sum">SegmentoII.pairs_subset_sum</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:momento_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:momento" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2.1</span></div>
+<div class="thm_thmcontent"><p> Give the primes outside \(Q\) independent uniform signs. Then </p>
+<div class="displaymath" id="a0000000019">
+  \[  \mathbb E\, R_Q^2\le \frac{m^3(\log m+13)}{9},  \]
+</div>
+<p> so some choice has \(|R_Q|\le B_*(m):=\tfrac 13m^{3/2}\sqrt{\log m+13}\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:momento">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:propagacion_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:propagacion" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">4.3, first statement</span><span class="corollary_thmtitle">Propagation of zeros along digits (first statement of Corollary <a href="index.html#cor:digitos">4.3</a>)</span></div>
+<div class="thm_thmcontent"><p>    Let \(R_q=\{ 0\le r{\lt}q:\  T_q+q\, C(r)=0=T(r)\} \). Every \(m\ge 1\) whose base-\(q\) digits all lie in \(R_q\) has \(S_\chi (m)=0\), for both values of \(s\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:propagacion">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.zero_step">SegmentoII.zero_step</a></li>
+<li><a class="lean_decl" href="./find/#doc/SegmentoII.zeros_from_digits">SegmentoII.zeros_from_digits</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:bloques_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:bloques" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">4.4</span></div>
+<div class="thm_thmcontent"><p>  Let \(q\equiv 3\pmod4\), \(q{\gt}3\), \(s=1\), \(h=h(-q)\) and \(D(r)=C(r)-h\). Suppose that \(B\) has base-\(q\) digits \(d_{L-1},\dots ,d_0\) with </p>
+<div class="displaymath" id="a0000000047">
+  \[  \sum _{i{\lt}L}D(d_i)=0\qquad \text{and}\qquad S_\chi (B)=hB .  \]
+</div>
+<p> Then, with \(Q=q^L\), every \(m_t=q\, B\, (1+Q+\dots +Q^{t-1})\), \(t\ge 1\), is a zero of \(S_\chi \). </p>
+</div>
+<a class="latex_link" href="index.html#prop:bloques">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:conrey_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:conrey" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">4.6</span></div>
+<div class="thm_thmcontent"><p> Let \(q\equiv 3\pmod8\), \(q{\gt}3\), and let \(\chi _{q,-1}\) be the extension with value \(-1\) at \(q\). If \(\sum _{n\ge 1}\chi _{q,-1}(n)\sin (2\pi nx)/n^2\ge 0\) for \(0\le x\le 1/2\), then \(R_q=\varnothing \). </p>
+</div>
+<a class="latex_link" href="index.html#prop:conrey">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:filas_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:filas" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">5.1</span></div>
+<div class="thm_thmcontent"><p> Let \(n=2m+1\) and let \(\varepsilon \) be any function on \(1,\dots ,m\) with values \(\pm 1\). Then </p>
+<div class="displaymath" id="a0000000058">
+  \[  \sum _{c=1}^{m}c\, \varepsilon (c)\equiv \frac{n^2-1}{8}\pmod2,\qquad \text{so it can vanish only if }\  \Bigl(\frac2n\Bigr)=1 .  \]
+</div>
+<p> In particular, if \(\chi \) is a primitive quadratic character of conductor \(f\) with \(\gcd (f,m!)=1\), then \(T(m,\chi )\) does not vanish unless \(\bigl(\tfrac 2n\bigr)=1\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:filas">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:prefijos_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:prefijos" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">3.1</span></div>
+<div class="thm_thmcontent"><p>  Let \(F\) be a finite set of primes and \(\varepsilon _0:F\to \{ \pm 1\} \). There is \(M(F)\) such that for every admissible \(m\ge M(F)\) some \(\varepsilon \) with \(\varepsilon |_F=\varepsilon _0\) has \(S_\varepsilon (m)=0\). For \(F=\{ 2,3,5,7\} \) one may take \(M(F)=60000\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:prefijos">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:A_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:A" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">A</span></div>
+<div class="thm_thmcontent"><p>  For every \(m\ge 3\) with \(m\equiv 0\) or \(3\pmod4\) there is a completely multiplicative \(\varepsilon :\mathbb N\to \{ \pm 1\} \) with </p>
+<div class="displaymath" id="a0000000005">
+  \[  \sum _{n\le m}n\, \varepsilon (n)=0.  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:A">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:diag_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:diag" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4.2</span><span class="theorem_thmtitle">Kanemitsu–Kuzumaki, Kučera</span></div>
+<div class="thm_thmcontent"><p>  Let \(f\) be odd, let \(\chi \) be an odd Dirichlet character modulo \(f\), and put \(B_{1,\chi }=f^{-1}\sum _{a=1}^{f}a\, \chi (a)\). Then </p>
+<div class="displaymath" id="a0000000037">
+  \[  \sum _{c=1}^{(f-1)/2}c\, \chi (c)\; =\; \frac f2\, B_{1,\chi }\, \bigl(\chi (2)^{-1}-1\bigr).  \]
+</div>
+<p> If moreover \(\chi \) is primitive, so that \(B_{1,\chi }\neq 0\), the sum vanishes if and only if \(\chi (2)=1\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:diag">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:dicotomia_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:dicotomia" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">B</span></div>
+<div class="thm_thmcontent"><p>  On \(\Omega =\{ \pm 1\} ^{\mathcal P}\), the sign patterns on the primes, let \(\mathcal Z_\infty \) be the set of \(\varepsilon \) with \(S_\varepsilon (m)=0\) for infinitely many \(m\). With the product topology, \(\mathcal Z_\infty \) is a dense \(G_\delta \). With independent fair signs, \(\Pr (\mathcal Z_\infty )=0\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:dicotomia">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:digitos_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:digitos" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4.1</span></div>
+<div class="thm_thmcontent"><p>  For \(k\ge 0\) and \(0\le r{\lt}q\), </p>
+<div class="displaymath" id="a0000000033">
+  \[  S_\chi (qk+r)=s\, q\, S_\chi (k)+k\bigl(T_q+q\, C(r)\bigr)+T(r).  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:digitos">LaTeX</a>
+<a class="lean_link lean_decl" href="./find/#doc/SegmentoII.digit_recursion">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:sinceros_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:sinceros" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">N1 (new)</span><span class="theorem_thmtitle">No zeros at \(q=179\) and \(q=227\)</span></div>
+<div class="thm_thmcontent"><p>    Let \(q\in \{ 179,227\} \) and \(\chi =\chi _{q,1}\). Then \(S_\chi (m)\ne 0\) for every \(m\ge 1\). This answers the second part of the question on \(q\equiv 3\pmod8\) in the paper: there are primes \(q\equiv 3\pmod8\) for which \(\chi _{q,1}\) has no zero at all. </p>
+</div>
+<a class="latex_link" href="index.html#thm:sinceros">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/SegmentoIISinCeros.S_ne_zero_179">SegmentoIISinCeros.S_ne_zero_179</a></li>
+<li><a class="lean_decl" href="./find/#doc/SegmentoIISinCeros.S_ne_zero_227">SegmentoIISinCeros.S_ne_zero_227</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:intervalos_b"	[color=green,		fillcolor="#1CAC78",		label=intervalos_b,		shape=ellipse,		style=filled];	"lem:intervalos"	[color=blue,		fillcolor="#A3D6FF",		label=intervalos,		shape=ellipse,		style=filled];	"lem:intervalos_b" -> "lem:intervalos"	[style=dashed];	"thm:A"	[label=A,		shape=ellipse];	"lem:intervalos" -> "thm:A"	[style=dashed];	"prop:prefijos"	[label=prefijos,		shape=ellipse];	"thm:A" -> "prop:prefijos"	[style=dashed];	"cor:filas"	[label=filas,		shape=ellipse];	"thm:A" -> "cor:filas"	[style=dashed];	"thm:dicotomia"	[label=dicotomia,		shape=ellipse];	"prop:prefijos" -> "thm:dicotomia"	[style=dashed];	"prop:filas"	[color=blue,		fillcolor="#A3D6FF",		label=filas,		shape=ellipse,		style=filled];	"prop:filas" -> "cor:filas"	[style=dashed];	"cor:digitos"	[label=digitos,		shape=ellipse];	"cor:C"	[label=C,		shape=ellipse];	"cor:digitos" -> "cor:C"	[style=dashed];	"cor:orden"	[label=orden,		shape=ellipse];	"lem:propagacion"	[color=green,		fillcolor="#1CAC78",		label=propagacion,		shape=ellipse,		style=filled];	"lem:propagacion" -> "cor:digitos"	[style=dashed];	"lem:momento"	[color=blue,		fillcolor="#A3D6FF",		label=momento,		shape=ellipse,		style=filled];	"lem:momento" -> "thm:A"	[style=dashed];	"prop:bloques"	[color=blue,		fillcolor="#A3D6FF",		label=bloques,		shape=ellipse,		style=filled];	"prop:conrey"	[color=blue,		fillcolor="#A3D6FF",		label=conrey,		shape=ellipse,		style=filled];	"thm:digitos"	[color=green,		fillcolor="#1CAC78",		label=digitos,		shape=ellipse,		style=filled];	"thm:digitos" -> "cor:orden"	[style=dashed];	"thm:digitos" -> "lem:propagacion"	[style=dashed];	"thm:digitos" -> "prop:bloques"	[style=dashed];	"thm:sinceros"	[color=green,		fillcolor="#1CAC78",		label=sinceros,		shape=ellipse,		style=filled];	"thm:digitos" -> "thm:sinceros"	[style=dashed];	"thm:diag"	[color=blue,		fillcolor="#A3D6FF",		label=diag,		shape=ellipse,		style=filled];	"thm:diag" -> "cor:digitos"	[style=dashed];	"thm:diag" -> "cor:orden"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript">
+</script>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Characters of Sp(2m) at the powers of Kostant’s element: blueprint</title>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/amsthm.css" rel="stylesheet"/>
+<link href="styles/blueprint.css" rel="stylesheet"/>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="estilo-blueprint">/* paper-companion: commentary blocks, views bar, Lean seal. Injected into index.html after plasTeX. */
+/* a link target is not hidden under the sticky bar */
+[id], a[name]{scroll-margin-top:64px}
+details.blk{border-radius:8px;margin:.8em 0;padding:.1em .9em .4em;border-left:6px solid}
+details.blk>summary{cursor:pointer;font-weight:600;padding:.35em 0;list-style:none}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:before{content:"▸ ";color:#888}
+details.blk[open]>summary:before{content:"▾ "}
+.b-plain{background:#fff8e1;border-color:#f5b700}
+.b-guar{background:#f5f7f9;border-color:#8a99a8}
+.b-fig{background:#f3e5f5;border-color:#8e24aa}
+.b-set{background:#eceff1;border-color:#546e7a}
+.b-tabs{background:#e3f2fd;border-color:#1e88e5}
+.b-lab{background:#fff3e0;border-color:#ef6c00}
+#vistas{position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;padding:.4em .2em;
+        font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas button{border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;cursor:pointer}
+#vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
+#vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
+.lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
+.lean-check .repro{color:#456}.lean-check code{font-size:.95em}
+.lean-ok{border-left:6px solid #1cac78;padding-left:.6em;background:linear-gradient(90deg,#e9f8f1,transparent 40%)}
+.sello{display:inline-block;background:#1cac78;color:#fff;border-radius:10px;padding:0 .55em;font-size:.8em;
+       margin-left:.5em;vertical-align:middle}
+.theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
+.lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style>
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><meta content="Characters of Sp(2m) at the powers of Kostant's element" name="citation_title"/><meta content="Marín, Carles" name="citation_author"/><meta content="2026/09/10" name="citation_publication_date"/><meta content="https://karlesmarin.github.io/schur-orbit-and-reciprocal-pair/characters-at-aP/blueprint/paper.pdf" name="citation_pdf_url"/><meta content="https://karlesmarin.github.io/schur-orbit-and-reciprocal-pair/characters-at-aP/blueprint/" name="citation_abstract_html_url"/><meta content="10.5281/zenodo.22683560" name="citation_doi"/><meta content="We determine the characters of Sp(2m) at every power of Kostant's element a_P, at which every character takes a value in {0,±1}. A character vanishes exactly when λ+ρ lies on more walls of the modular root arrangement than ρ. Otherwise its value is a signed ratio of root products, and its absolute value is a product of dimensions of representations of general linear, symplectic and odd orthogonal groups, times 1 or 2." name="citation_abstract"/><meta content="symplectic group; Kostant element; characters; root of unity; modular root arrangement" name="citation_keywords"/><style id="annotate-css">
+p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
+p.usado a{color:#1a4f8b}
+p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
+  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
+header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
+  text-decoration:none;white-space:nowrap;text-shadow:none}
+header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
+header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
+  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
+header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
+  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
+header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600}
+header h1#doc_title{flex:1}
+ul.chapter-list{font-size:1.05em;line-height:1.7}
+/* master-detail: the header and the sidebar stay; the right panel shows one part at a time */
+section.pc-pane[hidden]{display:none !important}
+.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
+nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
+/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
+#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
+  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
+body.vista-explore #explore-banner{display:block}
+body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
+  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
+body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
+body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
+  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
+
+#top.overview{margin:0 0 2.2em}
+#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
+#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
+#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
+#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
+#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
+#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+#top.overview .c-paper{background:#fff;border:1px solid #888}
+#top.overview .nota{font-size:.85em;color:#555}
+#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
+  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
+#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
+#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+</head>
+<body>
+<header>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html" title="Characters of Sp(2m) at the powers of Kostant's element: blueprint">Blueprint</a></h1>
+<nav class="pc-opts"><span id="vistas" class="pc-views"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/schur-orbit-and-reciprocal-pair/atlas/">🗺️📚 Atlas</a></nav>
+</header>
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
+<li class=""><a href="#a0000000003"><span class="toc_ref">1</span> <span class="toc_entry">Main theorems</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:A"><span class="toc_ref"></span> <span class="toc_entry">Theorem A</span></a></li><li class=""><a href="#thm:B"><span class="toc_ref"></span> <span class="toc_entry">Theorem B</span></a></li><li class=""><a href="#thm:C"><span class="toc_ref"></span> <span class="toc_entry">Theorem C</span></a></li><li class=""><a href="#thm:D"><span class="toc_ref"></span> <span class="toc_entry">Theorem D</span></a></li></ul></li>
+<li class=""><a href="#a0000000039"><span class="toc_ref">2</span> <span class="toc_entry">The element and the criterion</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:alph"><span class="toc_ref"></span> <span class="toc_entry">Proposition 2.1</span></a></li><li class=""><a href="#prop:crit"><span class="toc_ref"></span> <span class="toc_entry">Proposition 3.1</span></a></li><li class=""><a href="#conj:cap"><span class="toc_ref"></span> <span class="toc_entry">Corollary 4.1</span></a></li></ul></li>
+<li class=""><a href="#a0000000051"><span class="toc_ref">3</span> <span class="toc_entry">The residue lemma</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:res"><span class="toc_ref"></span> <span class="toc_entry">Proposition 5.1</span></a></li></ul></li>
+<li class=""><a href="#a0000000058"><span class="toc_ref">4</span> <span class="toc_entry">Every rational point</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:clasif"><span class="toc_ref"></span> <span class="toc_entry">Proposition 8.1</span></a></li><li class=""><a href="#thm:cuenta"><span class="toc_ref"></span> <span class="toc_entry">Theorem 9.1</span></a></li><li class=""><a href="#thm:todoq"><span class="toc_ref"></span> <span class="toc_entry">Theorem 10.1</span></a></li><li class=""><a href="#cor:todoq"><span class="toc_ref"></span> <span class="toc_entry">Corollary 10.2</span></a></li></ul></li>
+<li class=""><a href="#a0000000082"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+<div class="content">
+<div class="content-wrapper">
+<div class="main-text">
+<div id="explore-banner">🔍 <b>Explore view</b>: explanations, figures, other mathematical languages and labs are shown, marked <i>commentary</i>; they are not part of the paper. Switch to <b>Paper</b> for the statements, proofs and evidence only.</div><div class="pc-paneltitle"><div class="titlepage">
+<h1>Characters of Sp(2m) at the powers of Kostant’s element</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">Representation theory · characters of Lie groups</span> <a class="msc msc-p" href="https://zbmath.org/classification/?q=cc:05E10" rel="noopener" target="_blank" title="MSC 2020 05E10: Combinatorial aspects of representation theory">05E10</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:20G05" rel="noopener" target="_blank" title="MSC 2020 20G05: Representation theory for linear algebraic groups">20G05</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:17B22" rel="noopener" target="_blank" title="MSC 2020 17B22: Root systems">17B22</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:05A15" rel="noopener" target="_blank" title="MSC 2020 05A15: Exact enumeration problems, generating functions">05A15</a></div>
+<p class="authors">
+<span class="author">Carles Marín</span>
+</p>
+</div></div><section class="pc-pane"><section id="top" class="overview"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2>
+<p>Kostant's element a<sub>P</sub> is a point where every irreducible character of a compact simple group takes a
+value in {0, ±1}. The paper determines the irreducible characters of Sp(2m) at <b>every power</b>
+a<sub>P</sub><sup>k</sup>.</p>
+<ul>
+<li><b>When a character vanishes, and its value</b> (Theorem A): it vanishes exactly when λ+ρ lies on more walls
+of the modular root arrangement than ρ does, equivalently when some folded residue class holds more entries than
+its capacity; otherwise the value is an explicit signed ratio of root products.</li>
+<li><b>The absolute value is a product of dimensions</b> of representations of GL, Sp and odd SO, times
+κ ∈ {1, 2} (Theorem B).</li>
+<li><b>Every rational point of the same line:</b> a non-vanishing character is, up to sign and that factor, such a
+product times a character of Sp(2s) or SO(2s), s ≤ m, at a regular element (Theorem 10.1); the points where the
+closed form holds for all weights are listed (Theorem C), and at the points where all characters are integers the
+remaining factor is 1, 2, 3, 4 or 6 (Theorem D).</li>
+</ul>
+<p><b>Known and new, as the paper states it.</b> For k prime to 2m+2, Theorem A is due to Cellini, Möseneder
+Frajria and Papi; for gcd(k, 2m+2) odd, Theorems A and B follow from Albion's factorisations of universal
+characters, with the sign added. New: for gcd(k, 2m+2) even and q ≥ 3, the values on the classes not conjugate to
+that of ρ and the factor κ; the list of points in Theorem C and the exclusion of the others; in Theorem D, the
+constants for q ≥ 4 even with q | 2m, q ∤ m, and for q = 6 with m ≡ 4 (mod 6).</p>
+<p><b>Key tool:</b> an identity of residue multisets (Proposition 5.1), which takes the place of the conjugacy
+hypothesis in the work of Nadimpalli, Pattanayak and Prasad.</p></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:A"><b>Theorem A</b></a>: when the character vanishes, and its value.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:A"><b>Theorem A</b></a>: when the character vanishes, and its value</li><li><a href="index.html#thm:B"><b>Theorem B</b></a>: |value| = κ × product of dimensions</li><li><a href="index.html#thm:C"><b>Theorem C</b></a>: where the closed form holds for all weights</li><li><a href="index.html#thm:D"><b>Theorem D</b></a>: the constant c ∈ {1,2,3,4,6}</li></ul><div class="cifras">
+<span class="cifra"><b>12</b> results</span>
+<span class="cifra c-lean">✅ <b>0</b> formalized in Lean</span>
+<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra c-prog">💻 <b>10</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><details class="ov-map" open><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 720.00 644.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 639.98)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M39.38,0C39.38,0 314.37,0 314.37,0 320.37,0 326.37,-6 326.37,-12 326.37,-12 326.37,-308.24 326.37,-308.24 326.37,-314.24 320.37,-320.24 314.37,-320.24 314.37,-320.24 39.38,-320.24 39.38,-320.24 33.38,-320.24 27.38,-314.24 27.38,-308.24 27.38,-308.24 27.38,-12 27.38,-12 27.38,-6 33.38,0 39.38,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="176.87" xml:space="preserve" y="-304.85">Main theorems</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M31.38,-435.57C31.38,-435.57 304.37,-435.57 304.37,-435.57 310.37,-435.57 316.37,-441.57 316.37,-447.57 316.37,-447.57 316.37,-623.98 316.37,-623.98 316.37,-629.98 310.37,-635.98 304.37,-635.98 304.37,-635.98 31.38,-635.98 31.38,-635.98 25.38,-635.98 19.38,-629.98 19.38,-623.98 19.38,-623.98 19.38,-447.57 19.38,-447.57 19.38,-441.57 25.38,-435.57 31.38,-435.57" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="167.87" xml:space="preserve" y="-620.59">The element and the criterion</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M293.37,-328.24C293.37,-328.24 401.37,-328.24 401.37,-328.24 407.37,-328.24 413.37,-334.24 413.37,-340.24 413.37,-340.24 413.37,-415.57 413.37,-415.57 413.37,-421.57 407.37,-427.57 401.37,-427.57 401.37,-427.57 293.37,-427.57 293.37,-427.57 287.37,-427.57 281.37,-421.57 281.37,-415.57 281.37,-415.57 281.37,-340.24 281.37,-340.24 281.37,-334.24 287.37,-328.24 293.37,-328.24" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="347.37" xml:space="preserve" y="-412.17">The residue lemma</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M347.37,-3.38C347.37,-3.38 700.37,-3.38 700.37,-3.38 706.37,-3.38 712.37,-9.38 712.37,-15.38 712.37,-15.38 712.37,-198.16 712.37,-198.16 712.37,-204.16 706.37,-210.16 700.37,-210.16 700.37,-210.16 347.37,-210.16 347.37,-210.16 341.37,-210.16 335.37,-204.16 335.37,-198.16 335.37,-198.16 335.37,-15.38 335.37,-15.38 335.37,-9.38 341.37,-3.38 347.37,-3.38" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="523.87" xml:space="preserve" y="-194.76">Every rational point</text>
+</g>
+<!-- thm:A -->
+<g class="node" id="node1">
+<title>thm:A</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:A" xlink:title="Theorem A: when the character vanishes, and its value">
+<path d="M304.05,-289.99C304.05,-289.99 200.7,-289.99 200.7,-289.99 194.7,-289.99 188.7,-283.99 188.7,-277.99 188.7,-277.99 188.7,-234.91 188.7,-234.91 188.7,-228.91 194.7,-222.91 200.7,-222.91 200.7,-222.91 304.05,-222.91 304.05,-222.91 310.05,-222.91 316.05,-228.91 316.05,-234.91 316.05,-234.91 316.05,-277.99 316.05,-277.99 316.05,-283.99 310.05,-289.99 304.05,-289.99" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="252.37" xml:space="preserve" y="-273.55">Theorem A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="252.37" xml:space="preserve" y="-259.3">when the character</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="252.37" xml:space="preserve" y="-245.05">vanishes, and its value</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="252.37" xml:space="preserve" y="-230.8">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:B -->
+<g class="node" id="node2">
+<title>thm:B</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:B" xlink:title="Theorem B: |value| = κ × product of dimensions">
+<path d="M306.3,-182.91C306.3,-182.91 198.45,-182.91 198.45,-182.91 192.45,-182.91 186.45,-176.91 186.45,-170.91 186.45,-170.91 186.45,-127.83 186.45,-127.83 186.45,-121.83 192.45,-115.83 198.45,-115.83 198.45,-115.83 306.3,-115.83 306.3,-115.83 312.3,-115.83 318.3,-121.83 318.3,-127.83 318.3,-127.83 318.3,-170.91 318.3,-170.91 318.3,-176.91 312.3,-182.91 306.3,-182.91" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="252.37" xml:space="preserve" y="-166.47">Theorem B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="252.37" xml:space="preserve" y="-152.22">|value| = κ × product of</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="252.37" xml:space="preserve" y="-137.97">dimensions</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="252.37" xml:space="preserve" y="-123.72">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:A&#45;&gt;thm:B -->
+<g class="edge" id="edge4">
+<title>thm:A-&gt;thm:B</title>
+<path d="M252.37,-221.62C252.37,-212.34 252.37,-202.17 252.37,-192.48" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="254.82,-192.64 252.37,-185.64 249.92,-192.64 254.82,-192.64" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:todoq -->
+<g class="node" id="node11">
+<title>thm:todoq</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#thm:todoq" xlink:title="Theorem 10.1: the value at every rational point">
+<path d="M556.67,-179.91C556.67,-179.91 484.07,-179.91 484.07,-179.91 478.07,-179.91 472.07,-173.91 472.07,-167.91 472.07,-167.91 472.07,-130.83 472.07,-130.83 472.07,-124.83 478.07,-118.83 484.07,-118.83 484.07,-118.83 556.67,-118.83 556.67,-118.83 562.67,-118.83 568.67,-124.83 568.67,-130.83 568.67,-130.83 568.67,-167.91 568.67,-167.91 568.67,-173.91 562.67,-179.91 556.67,-179.91" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="520.37" xml:space="preserve" y="-164.9">Theorem 10.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="520.37" xml:space="preserve" y="-152.15">the value at every</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="520.37" xml:space="preserve" y="-139.4">rational point</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="520.37" xml:space="preserve" y="-126.65">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:A&#45;&gt;thm:todoq -->
+<g class="edge" id="edge17">
+<title>thm:A-&gt;thm:todoq</title>
+<path d="M317.19,-239.94C341.09,-234.36 368.42,-228.16 393.37,-222.91 423.04,-216.67 433.57,-224.31 460.37,-210.16 471.68,-204.19 482.23,-195.38 491.23,-186.34" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="492.8,-188.25 495.87,-181.49 489.26,-184.86 492.8,-188.25" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:D -->
+<g class="node" id="node4">
+<title>thm:D</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#thm:D" xlink:title="Theorem D: the constant c ∈ {1,2,3,4,6}">
+<path d="M215.8,-75.83C215.8,-75.83 134.95,-75.83 134.95,-75.83 128.95,-75.83 122.95,-69.83 122.95,-63.83 122.95,-63.83 122.95,-20 122.95,-20 122.95,-14 128.95,-8 134.95,-8 134.95,-8 215.8,-8 215.8,-8 221.8,-8 227.8,-14 227.8,-20 227.8,-20 227.8,-63.83 227.8,-63.83 227.8,-69.83 221.8,-75.83 215.8,-75.83" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="175.37" xml:space="preserve" y="-59.39">Theorem D</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="175.37" xml:space="preserve" y="-45.14">the constant c ∈</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="175.37" xml:space="preserve" y="-30.14">{1,2,3,4,6}</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="175.37" xml:space="preserve" y="-15.89">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:B&#45;&gt;thm:D -->
+<g class="edge" id="edge9">
+<title>thm:B-&gt;thm:D</title>
+<path d="M227.8,-114.71C220.58,-104.82 212.6,-93.9 205.1,-83.62" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="207.25,-82.4 201.14,-78.2 203.29,-85.29 207.25,-82.4" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:B&#45;&gt;thm:todoq -->
+<g class="edge" id="edge18">
+<title>thm:B-&gt;thm:todoq</title>
+<path d="M284.97,-184.03C300.59,-197.72 320.53,-211.41 341.87,-216.54 364.78,-222.04 424.97,-222.04 447.87,-216.54 453.94,-215.08 455.34,-213.84 460.37,-210.16 469.9,-203.19 479.31,-194.67 487.75,-186.25" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="489.22,-188.25 492.37,-181.53 485.72,-184.83 489.22,-188.25" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:todoq -->
+<g class="node" id="node12">
+<title>cor:todoq</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#cor:todoq" xlink:title="Corollary 10.2: the closed form in the integer families">
+<path d="M565.67,-72.45C565.67,-72.45 475.07,-72.45 475.07,-72.45 469.07,-72.45 463.07,-66.45 463.07,-60.45 463.07,-60.45 463.07,-23.38 463.07,-23.38 463.07,-17.38 469.07,-11.37 475.07,-11.37 475.07,-11.37 565.67,-11.37 565.67,-11.37 571.67,-11.37 577.67,-17.37 577.67,-23.37 577.67,-23.37 577.67,-60.45 577.67,-60.45 577.67,-66.45 571.67,-72.45 565.67,-72.45" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="520.37" xml:space="preserve" y="-57.44">Corollary 10.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="520.37" xml:space="preserve" y="-44.69">the closed form in the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="520.37" xml:space="preserve" y="-31.94">integer families</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="520.37" xml:space="preserve" y="-19.19">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:B&#45;&gt;cor:todoq -->
+<g class="edge" id="edge19">
+<title>thm:B-&gt;cor:todoq</title>
+<path d="M319.51,-119.84C322.84,-118.47 326.14,-117.13 329.37,-115.83 370.88,-99.14 417.81,-81.21 454.77,-67.31" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="455.4,-69.69 461.09,-64.94 453.67,-65.11 455.4,-69.69" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:C -->
+<g class="node" id="node3">
+<title>thm:C</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#thm:C" xlink:title="Theorem C: where the closed form holds for all weights">
+<path d="M149.68,-182.91C149.68,-182.91 47.08,-182.91 47.08,-182.91 41.08,-182.91 35.08,-176.91 35.08,-170.91 35.08,-170.91 35.08,-127.83 35.08,-127.83 35.08,-121.83 41.08,-115.83 47.08,-115.83 47.08,-115.83 149.68,-115.83 149.68,-115.83 155.68,-115.83 161.68,-121.83 161.68,-127.83 161.68,-127.83 161.68,-170.91 161.68,-170.91 161.68,-176.91 155.68,-182.91 149.68,-182.91" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="98.38" xml:space="preserve" y="-166.47">Theorem C</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="98.38" xml:space="preserve" y="-152.22">where the closed form</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="98.38" xml:space="preserve" y="-137.97">holds for all weights</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="98.38" xml:space="preserve" y="-123.72">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:C&#45;&gt;thm:D -->
+<g class="edge" id="edge10">
+<title>thm:C-&gt;thm:D</title>
+<path d="M122.95,-114.71C130.17,-104.82 138.15,-93.9 145.65,-83.62" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="147.46,-85.3 149.61,-78.2 143.51,-82.41 147.46,-85.3" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:alph -->
+<g class="node" id="node5">
+<title>prop:alph</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:alph" xlink:title="Proposition 2.1: the spectrum of the powers of a_P">
+<path d="M151.55,-599.36C151.55,-599.36 39.2,-599.36 39.2,-599.36 33.2,-599.36 27.2,-593.36 27.2,-587.36 27.2,-587.36 27.2,-563.03 27.2,-563.03 27.2,-557.03 33.2,-551.03 39.2,-551.03 39.2,-551.03 151.55,-551.03 151.55,-551.03 157.55,-551.03 163.55,-557.03 163.55,-563.03 163.55,-563.03 163.55,-587.36 163.55,-587.36 163.55,-593.36 157.55,-599.36 151.55,-599.36" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="95.38" xml:space="preserve" y="-584.34">Proposition 2.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="95.38" xml:space="preserve" y="-571.59">the spectrum of the powers</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="95.38" xml:space="preserve" y="-558.84">of a_P</text>
+</a>
+</g>
+</g>
+<!-- prop:crit -->
+<g class="node" id="node6">
+<title>prop:crit</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#prop:crit" xlink:title="Proposition 3.1: the vanishing criterion, in every type">
+<path d="M296.3,-605.73C296.3,-605.73 200.45,-605.73 200.45,-605.73 194.45,-605.73 188.45,-599.73 188.45,-593.73 188.45,-593.73 188.45,-556.65 188.45,-556.65 188.45,-550.65 194.45,-544.65 200.45,-544.65 200.45,-544.65 296.3,-544.65 296.3,-544.65 302.3,-544.65 308.3,-550.65 308.3,-556.65 308.3,-556.65 308.3,-593.73 308.3,-593.73 308.3,-599.73 302.3,-605.73 296.3,-605.73" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="248.37" xml:space="preserve" y="-590.72">Proposition 3.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="248.37" xml:space="preserve" y="-577.97">the vanishing criterion,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="248.37" xml:space="preserve" y="-565.22">in every type</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="248.37" xml:space="preserve" y="-552.47">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:crit&#45;&gt;thm:A -->
+<g class="edge" id="edge2">
+<title>prop:crit-&gt;thm:A</title>
+<path d="M212.23,-544.1C201.48,-532.95 191.06,-519.39 185.37,-504.65 158.08,-433.87 196.92,-347.64 225.87,-297.99" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="227.83,-299.5 229.29,-292.23 223.61,-297 227.83,-299.5" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:crit&#45;&gt;thm:C -->
+<g class="edge" id="edge5">
+<title>prop:crit-&gt;thm:C</title>
+<path d="M205.22,-544.35C192.19,-533.3 179.05,-519.75 170.37,-504.65 112.07,-403.2 100.51,-261.63 98.52,-192.17" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="100.98,-192.52 98.36,-185.58 96.08,-192.64 100.98,-192.52" stroke="#9aa8b5"></polygon>
+</g>
+<!-- conj:cap -->
+<g class="node" id="node7">
+<title>conj:cap</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#conj:cap" xlink:title="Corollary 4.1: the criterion as capacities of residue classes">
+<path d="M292.92,-504.65C292.92,-504.65 209.82,-504.65 209.82,-504.65 203.82,-504.65 197.82,-498.65 197.82,-492.65 197.82,-492.65 197.82,-455.57 197.82,-455.57 197.82,-449.57 203.82,-443.57 209.82,-443.57 209.82,-443.57 292.92,-443.57 292.92,-443.57 298.92,-443.57 304.92,-449.57 304.92,-455.57 304.92,-455.57 304.92,-492.65 304.92,-492.65 304.92,-498.65 298.92,-504.65 292.92,-504.65" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="251.37" xml:space="preserve" y="-489.63">Corollary 4.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="251.37" xml:space="preserve" y="-476.88">the criterion as</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="251.37" xml:space="preserve" y="-464.13">capacities of residue</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="251.37" xml:space="preserve" y="-451.38">classes</text>
+</a>
+</g>
+</g>
+<!-- prop:crit&#45;&gt;conj:cap -->
+<g class="edge" id="edge12">
+<title>prop:crit-&gt;conj:cap</title>
+<path d="M249.28,-544.19C249.58,-534.49 249.91,-523.6 250.21,-513.39" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="252.66,-513.59 250.43,-506.51 247.76,-513.43 252.66,-513.59" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:cuenta -->
+<g class="node" id="node10">
+<title>thm:cuenta</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#thm:cuenta" xlink:title="Theorem 9.1: how many characters survive">
+<path d="M692.8,-179.91C692.8,-179.91 605.95,-179.91 605.95,-179.91 599.95,-179.91 593.95,-173.91 593.95,-167.91 593.95,-167.91 593.95,-130.83 593.95,-130.83 593.95,-124.83 599.95,-118.83 605.95,-118.83 605.95,-118.83 692.8,-118.83 692.8,-118.83 698.8,-118.83 704.8,-124.83 704.8,-130.83 704.8,-130.83 704.8,-167.91 704.8,-167.91 704.8,-173.91 698.8,-179.91 692.8,-179.91" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="649.37" xml:space="preserve" y="-164.9">Theorem 9.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="649.37" xml:space="preserve" y="-152.15">how many characters</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="649.37" xml:space="preserve" y="-139.4">survive</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="649.37" xml:space="preserve" y="-126.65">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:crit&#45;&gt;thm:cuenta -->
+<g class="edge" id="edge15">
+<title>prop:crit-&gt;thm:cuenta</title>
+<path d="M306.59,-544.06C355.69,-517.14 426.38,-474.76 480.37,-427.57 527.25,-386.6 536.96,-372.77 570.37,-320.24 597.64,-277.38 621.04,-223.59 635.15,-188.16" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="637.35,-189.26 637.63,-181.85 632.79,-187.47 637.35,-189.26" stroke="#9aa8b5"></polygon>
+</g>
+<!-- conj:cap&#45;&gt;thm:A -->
+<g class="edge" id="edge1">
+<title>conj:cap-&gt;thm:A</title>
+<path d="M251.51,-443.12C251.69,-405.77 251.98,-341.72 252.18,-299.48" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="254.63,-299.61 252.22,-292.59 249.73,-299.58 254.63,-299.61" stroke="#9aa8b5"></polygon>
+</g>
+<!-- conj:cap&#45;&gt;thm:D -->
+<g class="edge" id="edge8">
+<title>conj:cap-&gt;thm:D</title>
+<path d="M211.54,-443.23C156.65,-399.27 60.27,-311.36 22.38,-210.16 7.68,-170.9 0,-151.28 22.38,-115.83 42.52,-83.92 80.86,-65.69 114.12,-55.43" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="114.53,-57.86 120.56,-53.54 113.15,-53.16 114.53,-57.86" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:res -->
+<g class="node" id="node8">
+<title>prop:res</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#prop:res" xlink:title="Proposition 5.1: the residue lemma (no conjugacy needed)">
+<path d="M393.42,-397.32C393.42,-397.32 301.32,-397.32 301.32,-397.32 295.32,-397.32 289.32,-391.32 289.32,-385.32 289.32,-385.32 289.32,-348.24 289.32,-348.24 289.32,-342.24 295.32,-336.24 301.32,-336.24 301.32,-336.24 393.42,-336.24 393.42,-336.24 399.42,-336.24 405.42,-342.24 405.42,-348.24 405.42,-348.24 405.42,-385.32 405.42,-385.32 405.42,-391.32 399.42,-397.32 393.42,-397.32" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="347.37" xml:space="preserve" y="-382.3">Proposition 5.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="347.37" xml:space="preserve" y="-369.55">the residue lemma (no</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="347.37" xml:space="preserve" y="-356.8">conjugacy needed)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="347.37" xml:space="preserve" y="-344.05">💻 program</text>
+</a>
+</g>
+</g>
+<!-- conj:cap&#45;&gt;prop:res -->
+<g class="edge" id="edge13">
+<title>conj:cap-&gt;prop:res</title>
+<path d="M278.63,-443.21C289.77,-430.98 302.77,-416.72 314.44,-403.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="316.13,-405.7 319.03,-398.88 312.51,-402.4 316.13,-405.7" stroke="#9aa8b5"></polygon>
+</g>
+<!-- conj:cap&#45;&gt;thm:cuenta -->
+<g class="edge" id="edge14">
+<title>conj:cap-&gt;thm:cuenta</title>
+<path d="M305.49,-466.99C340.22,-461.09 385.06,-449.63 419.37,-427.57 432.3,-419.26 560.98,-260.28 620.03,-186.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="621.75,-188.68 624.23,-181.69 617.94,-185.61 621.75,-188.68" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:res&#45;&gt;thm:A -->
+<g class="edge" id="edge3">
+<title>prop:res-&gt;thm:A</title>
+<path d="M321.16,-335.89C310.69,-323.94 298.46,-310.01 287.26,-297.23" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="289.31,-295.85 282.85,-292.2 285.62,-299.08 289.31,-295.85" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:res&#45;&gt;thm:todoq -->
+<g class="edge" id="edge16">
+<title>prop:res-&gt;thm:todoq</title>
+<path d="M371.43,-335.83C402.71,-296.87 457.34,-228.86 491.02,-186.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="492.83,-188.58 495.3,-181.59 489.01,-185.51 492.83,-188.58" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:clasif -->
+<g class="node" id="node9">
+<title>thm:clasif</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#thm:clasif" xlink:title="Proposition 8.1: the four families of integer points">
+<path d="M435.42,-179.91C435.42,-179.91 355.32,-179.91 355.32,-179.91 349.32,-179.91 343.32,-173.91 343.32,-167.91 343.32,-167.91 343.32,-130.83 343.32,-130.83 343.32,-124.83 349.32,-118.83 355.32,-118.83 355.32,-118.83 435.42,-118.83 435.42,-118.83 441.42,-118.83 447.42,-124.83 447.42,-130.83 447.42,-130.83 447.42,-167.91 447.42,-167.91 447.42,-173.91 441.42,-179.91 435.42,-179.91" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="395.37" xml:space="preserve" y="-164.9">Proposition 8.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="395.37" xml:space="preserve" y="-152.15">the four families of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="395.37" xml:space="preserve" y="-139.4">integer points</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="395.37" xml:space="preserve" y="-126.65">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:clasif&#45;&gt;thm:C -->
+<g class="edge" id="edge6">
+<title>thm:clasif-&gt;thm:C</title>
+<path d="M372.73,-180.47C359.4,-195.54 341.03,-211.45 319.87,-216.54 291.14,-223.44 215.61,-223.44 186.87,-216.54 168.5,-212.12 151.22,-201.24 136.9,-189.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="138.6,-187.73 131.68,-185.04 135.42,-191.45 138.6,-187.73" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:clasif&#45;&gt;thm:D -->
+<g class="edge" id="edge11">
+<title>thm:clasif-&gt;thm:D</title>
+<path d="M342.86,-121.04C339.32,-119.26 335.8,-117.51 332.37,-115.83 301.04,-100.47 265.83,-84.04 236.7,-70.67" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="237.81,-68.49 230.43,-67.8 235.77,-72.94 237.81,-68.49" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:cuenta&#45;&gt;cor:todoq -->
+<g class="edge" id="edge20">
+<title>thm:cuenta-&gt;cor:todoq</title>
+<path d="M612.75,-118.43C597.37,-105.85 579.36,-91.13 563.35,-78.04" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="565.24,-76.42 558.27,-73.88 562.13,-80.21 565.24,-76.42" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:todoq&#45;&gt;thm:C -->
+<g class="edge" id="edge7">
+<title>thm:todoq-&gt;thm:C</title>
+<path d="M499.23,-180.2C486.5,-195.39 468.73,-211.52 447.87,-216.54 419.68,-223.31 215.07,-223.31 186.87,-216.54 168.5,-212.12 151.22,-201.24 136.9,-189.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="138.6,-187.73 131.68,-185.04 135.42,-191.45 138.6,-187.73" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:todoq&#45;&gt;cor:todoq -->
+<g class="edge" id="edge21">
+<title>thm:todoq-&gt;cor:todoq</title>
+<path d="M520.37,-118.43C520.37,-106.86 520.37,-93.46 520.37,-81.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="522.82,-81.44 520.37,-74.44 517.92,-81.44 522.82,-81.44" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></details></section>
+
+<details class="blk b-set"><summary>📐 Setting (copied from the paper)</summary>
+<p> Let \(\rho =(m,m-1,\dots ,1)\), with the form normalised so that the short roots \(e_i\pm e_j\) have length \(2\). \(g_\theta \in \mathrm{Sp}(2m)\) has eigenvalues \(e^{\pm 2\pi i\theta j}\), \(j=1,\dots ,m\); \(t=2m+2\); Kostant’s element is \(a_P=g_{1/t}\), and \(a_P^{\, k}=g_{p/q}\) with \(d=\gcd (k,t)\), \(q=t/d\), \(p=k/d\). For \(\ell =\lambda +\rho \): \(N_q(x)=\# \{ \alpha {\gt}0: q\mid (x,\alpha )\} \), \(Z_q(x)=\prod _{\alpha {\gt}0,\  q\mid (x,\alpha )}(x,\alpha )\), \(E_{p,q}(\lambda )=\sum _{\alpha {\gt}0}(\lfloor p(\ell ,\alpha )/q\rfloor -\lfloor p(\rho ,\alpha )/q\rfloor )\), over the positive roots \(e_i\pm e_j\) \((i{\lt}j)\) and \(2e_i\). Folded classes \(\{ c,-c\} \) modulo \(q\); fixed if \(2c\equiv 0\). </p>
+</details></section><section class="pc-pane"><h1 id="a0000000003">1 Main theorems</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:A">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">A</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:A">#</a>
+<a class="icon proof" href="index.html#a0000000004"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#conj:cap">Corollary 4.1</a></li>
+<li><a href="index.html#prop:crit">Proposition 3.1</a></li>
+<li><a href="index.html#prop:res">Proposition 5.1</a></li>
+<li><a href="index.html#conj:cap">Corollary 4.1</a></li>
+<li><a href="index.html#prop:crit">Proposition 3.1</a></li>
+<li><a href="index.html#prop:res">Proposition 5.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=2" title="Open the paper at page 2">📕 p. 2</a></div>
+<div class="theorem_thmcontent">
+<p>  Let \(\lambda \) be a dominant weight of \(\mathrm{Sp}(2m)\), \(k\ge 1\), and \(d,q,p\) as above. </p>
+<ol class="enumerate">
+<li><p>\(N_q(\ell )\ge N_q(\rho )\), and \(\chi _\lambda (a_P^{\, k})\neq 0\) if and only if \(N_q(\ell )=N_q(\rho )\). Equivalently, each folded class modulo \(q\) contains at most \(d\) of the entries \(\ell _1,\dots ,\ell _m\), and each fixed class at most \(\lfloor d/2\rfloor \). </p>
+</li>
+<li><p>If \(\chi _\lambda (a_P^{\, k})\neq 0\), then </p>
+<div class="displaymath" id="a0000000005">
+  \[  \chi _\lambda (a_P^{\, k})\; =\; (-1)^{E_{p,q}(\lambda )}\, \frac{Z_q(\lambda +\rho )}{Z_q(\rho )} .  \]
+</div>
+</li>
+</ol>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> for k prime to 2m+2 this is due to Cellini, Möseneder Frajria and Papi; for gcd(k, 2m+2) odd it follows from Albion's factorisations, with the sign (−1)<sup>E</sup> added. New: for gcd(k, 2m+2) even and q ≥ 3, the values on the classes not conjugate to that of ρ.</p><p class="usado">↳ Used in: <a href="#thm:B">Theorem B</a>, <a href="#thm:todoq">Theorem 10.1</a></p>
+<div class="proof_wrapper" id="a0000000004">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Part (1) is Proposition <a href="index.html#prop:crit">3.1</a> together with Corollary <a href="index.html#conj:cap">4.1</a>, since \(a_P^{\, k}=g_{p/q}\). </p>
+<p>For part (2), let \(\theta =p/q+\varepsilon \) with \(\varepsilon \to 0\) in (3); the character is continuous in \(\theta \). For a positive integer \(A\) with \(q\nmid A\) one has \(\operatorname {sgn}\sin (\pi pA/q)=(-1)^{\lfloor pA/q\rfloor }\), and for \(q\mid A\), \(\sin (\pi A\theta )=(-1)^{pA/q}\pi A\varepsilon +O(\varepsilon ^3)\). For \(\lambda \) dominant every \((\ell ,\alpha )\) and every \((\rho ,\alpha )\) with \(\alpha {\gt}0\) is a positive integer. By part (1) the numerator and the denominator of (3) carry the same number \(r_q\) of vanishing factors, so the powers of \(\pi \varepsilon \) cancel, each vanishing factor leaves its exponent, and every factor leaves its sign. Hence </p>
+<div class="displaymath" id="a0000000006">
+  \[  \chi _\lambda (a_P^{\, k})=(-1)^{E_{p,q}(\lambda )}\, \frac{Z_q(\ell )}{Z_q(\rho )}\cdot \frac{\prod _{\alpha {\gt}0,\  q\nmid (\ell ,\alpha )}\bigl|\sin \bigl(\pi p(\ell ,\alpha )/q\bigr)\bigr|}{\prod _{\alpha {\gt}0,\  q\nmid (\rho ,\alpha )}\bigl|\sin \bigl(\pi p(\rho ,\alpha )/q\bigr)\bigr|} .  \]
+</div>
+<p> The quantity \(|\sin (\pi pj/q)|\) depends only on \(j\) modulo \(q\) and up to sign, so by Proposition <a href="index.html#prop:res">5.1</a> and (7) the last quotient is \(1\). </p>
+</div>
+</div>
+<details class="blk b-fig"><summary>🖼️ Figure</summary><div class="centered"> <img alt="\includegraphics[width=0.95\textwidth ]{figuras/fig_reloj_A.png}" src="images/img-0001.png" style="width:95%;max-width:100%"/>
+</div>
+<p> Theorem A at a glance (commentary, not part of the paper): the numbers \(\ell _i\) placed on the residues modulo \(q\); folded classes \(\{ c,-c\} \) share a colour. The character vanishes exactly when some class holds more than its capacity. Values computed exactly in \(\mathbb {Z}[\zeta _q]\) by <span class="ttfamily">figuras/fig_reloj_A.py</span> (a check in the blueprint’s source, published with the blueprint). </p>
+</details><details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> On the line of \(\rho \) the Weyl character formula is, up to the phase \(z^{-(\lambda ,\rho )}\), a product over the positive roots of \((1-z^{(\ell ,\alpha )})/(1-z^{(\rho ,\alpha )})\) (equation (2) of the paper), and at a primitive \(q\)-th root of unity a factor vanishes exactly when \(q\) divides its root value. Part (1): the character survives exactly when \(\ell \) has no more vanishing factors than \(\rho \); in type \(C\) this is a capacity rule on the residues of the \(\ell _i\) (Corollary <a href="index.html#conj:cap">4.1</a>). Part (2): approaching the point along the line, each vanishing factor leaves its root value, which gives \(Z_q(\ell )/Z_q(\rho )\); every factor leaves a sign, which gives \(E_{p,q}\); and the remaining sines cancel, because \(\ell \) and \(\rho \) have the same root values modulo \(q\) up to sign (Proposition <a href="index.html#prop:res">5.1</a>). For \(\gcd (k,2m+2)=1\) this is the type-\(C\) case of Cellini–Möseneder Frajria–Papi; for \(d\) odd the paper says that Theorems A and B are not new in substance (Albion, Ayyer–Kumari), and for \(q\) odd Reeder gives part (2) up to a constant. For \(d\) even and \(q\ge 3\) the values on the classes not Weyl-conjugate to that of \(\rho \), together with \(\kappa \), are new (Example 6.1). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Value and sign, checked by program</b> <span class="ttfamily">signo_Fq.py</span> (supplement): \(18\, 904\) surviving weights, \(m=2,\dots ,8\), every \(k\) with \(1\le k{\lt}2m+2\), \(\lambda _1\le 9\) (\(m\le 4\)), \(\le 7\) (\(m=5,6\)), \(\le 5\) (\(m=7,8\)); this box is in the program, not in the paper. Reference value: the character as an exact integer determinant built from the spectrum of Proposition <a href="index.html#prop:alph">2.1</a>. Exact arithmetic; value, modulus and sign each \(18\, 904\) of \(18\, 904\) (<span class="ttfamily">signo_Fq_OUT.txt</span>). Its only negative control shows that the formula needs the survival hypothesis; there is no mutation of \(E_{p,q}\). </p>
+</li>
+<li><p><b class="bfseries">Additional check, not part of the supplement:</b> <span class="ttfamily">comprueba_traducciones_aP.py</span> (a check in the blueprint’s source, published with the blueprint), run when this blueprint is built: \(2336\) cases, \(m=2,\dots ,5\), every power \(k{\lt}2m+2\), \(\lambda _1\le 4\), character computed exactly in \(\mathbb {Z}[\zeta _q]\) by the principal specialisation (equation (2), the starting point of the proof). Part (1) as the occupancy rule and part (2) as the closed form: \(0\) failures. Mutation (bound of the fixed classes changed to \(d\)): detected in \(567\) cases (<span class="ttfamily">comprueba_traducciones_aP_OUT.txt</span>). </p>
+</li>
+<li><p><b class="bfseries">Sign form of Remark 6.2:</b> <span class="ttfamily">valor_signo_recuento.py</span> V3, \(11\, 972\) surviving weights, exact, \(0\) failures. </p>
+</li>
+<li><p><b class="bfseries">Example 6.1:</b> <span class="ttfamily">cifras_alco.py</span> E1 reproduces \(-2\) and \(+2\), \(Z_3(\ell )=6\), \(Z_3(\rho )=3\); the character is an exact polynomial in \(\mathbb {Z}[z]\), evaluated at the root of unity in double precision (tolerance \(10^{-9}\)). The individual root values and the absence of \(w\) with \(w\ell \equiv \rho \pmod3\) are not printed by any program. </p>
+</li>
+</ul>
+</details><details class="blk b-tabs"><summary>🔤 Read this theorem in another mathematical language</summary><div class="mathtabs"><div class="mtabbar"><span class="mlabel">Read this theorem in:</span><button class="mtab on" data-k="lie" type="button">Lie theory (the paper’s language)</button><button class="mtab" data-k="comb" type="button">Combinatorics (symmetric functions)</button><button class="mtab" data-k="num" type="button">Number theory (roots of unity)</button></div><div class="mpane on" data-k="lie">
+<p> <em>Commentary, not part of the paper.</em> \(\chi _\lambda \) is the character of the irreducible representation of \(\mathrm{Sp}(2m)\) with highest weight \(\lambda \), evaluated at the power \(a_P^{\, k}=g_{p/q}\) of Kostant’s principal element of the maximal torus. The criterion counts the positive roots \(\alpha \) on which \(\ell =\lambda +\rho \) is divisible by \(q\): the character is nonzero exactly when \(\ell \) lies on as few of these root hyperplanes modulo \(q\) as \(\rho \) does, and then its value is a signed ratio of the products of those root values. </p>
+</div><div class="mpane" data-k="comb">
+<p> <em>Commentary, not part of the paper.</em> Let \(\zeta =e^{2\pi i/q}\). Then \(\chi _\lambda (a_P^{\, k})=sp_\lambda (z_1^{\pm 1},\dots ,z_m^{\pm 1})\), the symplectic Schur function at \(z_j=\zeta ^{pj}\). Put \(\ell _i=\lambda _i+m-i+1\), so \(\ell _1{\gt}\dots {\gt}\ell _m\ge 1\), and \(\rho =(m,\dots ,1)\). </p>
+<ul class="itemize">
+<li><p><b class="bfseries">Vanishing.</b> Reduce \(\ell _1,\dots ,\ell _m\) modulo \(q\) and identify each residue \(c\) with \(-c\). The value is nonzero exactly when every class holds at most \(d\) of the \(\ell _i\), and the classes of \(0\) and (for \(q\) even) \(q/2\) hold at most \(\lfloor d/2\rfloor \). </p>
+</li>
+<li><p><b class="bfseries">Value.</b> For \(x=(x_1,\dots ,x_m)\) let \(Z(x)\) be the product of those numbers among \(x_i-x_j,\  x_i+x_j\  (i{\lt}j)\) and \(2x_i\) that are divisible by \(q\). If the value is nonzero, then \(sp_\lambda (\dots )=(-1)^{E}\, Z(\ell )/Z(\rho )\), where \(E\) is the sum, over the same \(m^2\) numbers \(y(x)\), of \(\lfloor p\, y(\ell )/q\rfloor -\lfloor p\, y(\rho )/q\rfloor \). </p>
+</li>
+</ul>
+</div><div class="mpane" data-k="num">
+<p> <em>Commentary, not part of the paper.</em> The \(2m\) eigenvalues of \(a_P^{\, k}\) are the roots of unity \(\zeta ^{\pm pj}\), \(\zeta =e^{2\pi i/q}\); as a multiset they are \(d\) copies of the \(q\)-th roots of unity with two letters removed (Proposition <a href="index.html#prop:alph">2.1</a>). A character value is a priori an element of \(\mathbb {Z}[\zeta ]\); at these points every character value is a rational integer (Proposition <a href="index.html#thm:clasif">8.1</a>). Theorem A identifies that integer. With \(\ell _i=\lambda _i+m-i+1\), count the coincidences \(\zeta ^{p\ell _i}=\zeta ^{\pm p\ell _j}\) \((i{\lt}j)\) and \(\zeta ^{p\ell _i}=\zeta ^{-p\ell _i}\) (that is, \(\zeta ^{p\ell _i}=\pm 1\)). The value is \(0\) exactly when there are more of them than for \(\rho \); otherwise it is \(\pm Z_q(\ell )/Z_q(\rho )\), a ratio of products of the integers \(\ell _i\pm \ell _j\) and \(2\ell _i\) that are divisible by \(q\). Those coincidences are exactly the divisibilities: \(\zeta ^{p\ell _i}=\zeta ^{\mp p\ell _j}\) if and only if \(q\mid \ell _i\pm \ell _j\), and \(\zeta ^{p\ell _i}=\zeta ^{-p\ell _i}\) if and only if \(q\mid 2\ell _i\), because \(p\) is prime to \(q\). </p>
+</div></div></details>
+<details class="blk b-lab"><summary>🧪 Lab: try Theorem A with your own parameters</summary>
+<p class="labnota">Commentary, not part of the paper. The lab runs, in your browser, the same Python file that the
+supplement uses (<code>evlib.py</code>): the Theorem A formula and, independently, the exact character in
+Z[ζ<sub>q</sub>]. It explores cases; it does not prove the theorem. The exact character is evaluated at
+g<sub>1/q</sub>. At the powers of a<sub>P</sub> it equals the value at g<sub>p/q</sub>: by Proposition 2.1,
+χ(a<sub>P</sub><sup>k</sup>) = χ(a<sub>P</sub><sup>d</sup>) = χ(g<sub>1/q</sub>); equivalently, the value is a rational
+integer (Proposition 8.1, m ≥ 2) and is fixed by the automorphism ζ<sub>q</sub> ↦ ζ<sub>q</sub><sup>p</sup>
+that carries g<sub>1/q</sub> to g<sub>p/q</sub>.</p>
+<ol class="labcomo"><li>Click an example, or choose the group, the power and the weight λ.</li>
+<li>The answer appears at once, in one sentence.</li>
+<li>Open “See the computation” to follow it step by step.</li></ol>
+<div class="labej"><button id="labej1" type="button">✅ An example that survives</button>
+<button id="labej2" type="button">💥 An example that vanishes</button>
+<button id="labej3" type="button">🎲 Surprise me</button></div>
+<div class="labform"><label>Group <select id="labm"></select></label>
+  <label>Power of a<sub>P</sub> <select id="labk"></select></label>
+  <label>Weight λ <input id="lablam" size="14" title="a partition, e.g. 2, 1, 0, 0" type="text" value="1, 1, 0, 0"/></label>
+<button disabled="" id="labboton" type="button">Compute</button></div>
+<p class="labestado" id="labestado">⏳ the page is ready; Python will load in the background…</p>
+<div id="labsalida"></div>
+</details>
+<script defer="" src="lab/lab.js"></script>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:B">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">B</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:B">#</a>
+<a class="icon proof" href="index.html#a0000000015"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:A">Theorem A</a></li>
+<li><a href="index.html#thm:A">Theorem A</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=2" title="Open the paper at page 2">📕 p. 2</a></div>
+<div class="theorem_thmcontent">
+<p>  Let \(\lambda \) be as in Theorem <a href="index.html#thm:A">A</a> with \(\chi _\lambda (a_P^{\, k})\neq 0\). Then </p>
+<div class="displaymath" id="a0000000016">
+  \[  \bigl|\chi _\lambda (a_P^{\, k})\bigr|\; =\; \kappa (\lambda )\,  \dim V^{\mathrm{Sp}_{2n_0}}_{\nu ^{(0)}}\; \dim V^{\mathrm{SO}_{2n_{q/2}+1}}_{\nu ^{(q/2)}} \prod _{0{\lt}c{\lt}q/2}\dim V^{\mathrm{GL}_{n_c}}_{\nu ^{(c)}},  \]
+</div>
+<p> where \(n_c\) is the number of \(\ell _i\) in the class \(c\), the factor for \(q/2\) is omitted when \(q\) is odd, and \(\kappa (\lambda )=1\) if \(d\) is odd or if the class \(0\) holds fewer than \(d/2\) of the \(\ell _i\), and \(\kappa (\lambda )=2\) otherwise. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> for gcd(k, 2m+2) odd the absolute values are known (Ayyer–Kumari, Albion). New: the factor κ for gcd(k, 2m+2) even and q ≥ 3.</p><p class="usado">↳ Used in: <a href="#thm:D">Theorem D</a>, <a href="#thm:todoq">Theorem 10.1</a>, <a href="#cor:todoq">Corollary 10.2</a></p>
+<div class="proof_wrapper" id="a0000000015">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> By Theorem <a href="index.html#thm:A">A</a>, \(|\chi _\lambda (a_P^{\, k})|=Z_q(\ell )/Z_q(\rho )\). The roots \(\alpha \) with \(q\mid (\ell ,\alpha )\) join two indices of the same folded class, or are \(2e_i\) with \(\ell _i\) in a fixed class. We compute \(Z_q\) class by class. </p>
+<p><em>A non-fixed class \(c\) with \(n\) entries.</em> For two of its entries exactly one of \((\ell ,e_i-e_j)\), \((\ell ,e_i+e_j)\) is divisible by \(q\), and its absolute value is \(|\varepsilon _i\ell _i-\varepsilon _j\ell _j|=q|y_i-y_j|\); no \(2e_i\) contributes. The \(y_i\) are distinct, and with \(y_1{\gt}\dots {\gt}y_n\) the Weyl dimension formula for \(\mathrm{GL}_n\) gives \(\prod _{i{\lt}j}(y_i-y_j)=V_n\dim V^{\mathrm{GL}_n}_{\nu ^{(c)}}\), where \(V_n=\prod _{j{\lt}n}j!\). The contribution is \(q^{\binom n2}V_n\dim V^{\mathrm{GL}_n}_{\nu ^{(c)}}\). </p>
+<p><em>The class \(0\) with \(n\) entries</em> \(\ell _i=qz_i\), \(z_1{\gt}\dots {\gt}z_n\ge 1\). All of \(e_i\pm e_j\) and \(2e_i\) contribute, with values \(q(z_i\pm z_j)\) and \(2qz_i\). Since \(z=\nu ^{(0)}+\rho _{C_n}\), the Weyl dimension formula for \(\mathrm{Sp}_{2n}\) gives the contribution \(q^{n^2}C_n\dim V^{\mathrm{Sp}_{2n}}_{\nu ^{(0)}}\), where \(C_n=2^n\prod _{i{\lt}j}\bigl((n-i+1)^2-(n-j+1)^2\bigr)\, n!=2^n\prod _{j\le n}(2j-1)!\). </p>
+<p><em>The class \(q/2\) with \(n\) entries</em> \(\ell _i=qz_i\), \(z_i\in \tfrac 12+\mathbb {Z}\). Again all of \(e_i\pm e_j\) and \(2e_i\) contribute, and since \(z=\nu ^{(q/2)}+\rho _{B_n}\) with \(\rho _{B_n}=(n-\tfrac 12,\dots ,\tfrac 12)\), the Weyl dimension formula for \(\mathrm{SO}_{2n+1}\) gives \(q^{n^2}B_n\dim V^{\mathrm{SO}_{2n+1}}_{\nu ^{(q/2)}}\), where \(B_n=\prod _{j\le n}(2j-1)!\). </p>
+<p>The same computation applies to \(\rho \), whose entries in each class form an unbroken run (the class \(c\) receives \(c,q+c,2q+c,\dots \) and \(q-c,2q-c,\dots \), so the \(y_i\) are consecutive integers; the class \(0\) receives \(q,2q,\dots \); the class \(q/2\) receives \(q/2,3q/2,\dots \)), so all its partitions are empty and all its dimensions are \(1\). The powers of \(q\) agree on the two sides, since \(N_q(\ell )=N_q(\rho )\). Hence \(Z_q(\ell )/Z_q(\rho )\) is the product of the dimensions in the statement times the ratio of the constants \(V_{n_c}\), \(C_{n_0}\), \(B_{n_{q/2}}\) for the occupancies of \(\ell \) and of \(\rho \). If \(d\) is odd the occupancies agree (Section 4) and the ratio is \(1\). If \(d\) is even, put \(h=d/2\); the class \(0\) of \(\rho \) holds \(h-1\) entries and every other class is full; if the class of \(\ell \) that falls short is \(0\), the occupancies agree again; otherwise that class holds one entry less and the class \(0\) one entry more than for \(\rho \), and the ratio is </p>
+<div class="displaymath" id="a0000000017">
+  \[  \frac{C_h/C_{h-1}}{V_{2h}/V_{2h-1}}=\frac{2(2h-1)!}{(2h-1)!}=2 \qquad \text{or}\qquad \frac{C_h/C_{h-1}}{B_h/B_{h-1}}=2  \]
+</div>
+<p> according as that class is non-fixed or is \(q/2\). </p>
+</div>
+</div>
+<details class="blk b-fig"><summary>🖼️ Figure</summary><div class="centered"> <img alt="\includegraphics[width=0.95\textwidth ]{figuras/fig_factorizacion_B.png}" src="images/img-0002.png" style="width:95%;max-width:100%"/>
+</div>
+<p> Theorem B at a glance (commentary, not part of the paper): each folded class becomes a factor (\(\mathrm{Sp}\) for the class \(0\), \(\mathrm{SO}\) for \(q/2\), \(\mathrm{GL}\) otherwise) with its partition \(\nu ^{(c)}\); the absolute value of the character is \(\kappa \) times the product of their dimensions. The example is chosen by the script, which computes \(\kappa \) by the rule of the theorem (\(\kappa =1\) if \(d\) is odd or the class \(0\) holds fewer than \(d/2\) entries, else \(2\)), not as \(|\chi |/\Delta \), and checks \(|\chi |=\kappa \, \Delta \) against the exact character in \(\mathbb {Z}[\zeta _q]\) on all \(1232\) weights it examines (<span class="ttfamily">figuras/fig_factorizacion_B.py</span>, a check in the blueprint’s source, published with the blueprint). </p>
+</details><details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> By Theorem <a href="index.html#thm:A">A</a>, \(|\chi _\lambda (a_P^{\, k})|=Z_q(\ell )/Z_q(\rho )\), and the proof computes \(Z_q\) one folded class at a time. A root enters \(Z_q\) only if it joins two entries of the same class, or is \(2e_i\) with \(\ell _i\) in a fixed class. In a non-fixed class the values that enter are \(q\) times differences of the \(y_i\): the Weyl dimension formula of \(\mathrm{GL}_n\). In the class \(0\) they are \(q(z_i\pm z_j)\) and \(2qz_i\): the formula of \(\mathrm{Sp}_{2n}\). In the class \(q/2\), with half-integer \(z_i\): the formula of \(\mathrm{SO}_{2n+1}\). For \(\rho \) every partition is empty. What is left is a ratio of normalising constants, which is \(1\) unless \(d\) is even and the class that falls short is not \(0\); then it is \(2\), and that is \(\kappa \). The groups are not centralisers: at \(m=6\), \(k=7\) the factorisation group is \(\mathrm{Sp}_6\times \mathrm{SO}_7\), the centraliser \(\mathrm{Sp}_6\times \mathrm{Sp}_6\) (Question 12.1). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">dims_recuento.py</span>: \(11\, 972\) surviving weights, \(m=2,\dots ,7\), every \(k\), \(\lambda _1\le 8\) (\(m\le 4\)), \(\le 6\) (\(m\ge 5\)), box not stated in the paper. Exact (rational arithmetic, integer determinant); \(11\, 972\) of \(11\, 972\) (<span class="ttfamily">dims_recuento_OUT.txt</span>). Like <span class="ttfamily">signo_Fq.py</span>, it builds the spectrum from Proposition <a href="index.html#prop:alph">2.1</a>. It has no negative control for \(\kappa \): its column “kappa=1 mal” is not a mutation. A \(\kappa \equiv 1\) mutation exists in <span class="ttfamily">residual_factorizacion.py</span>, in the setting of Theorem <a href="index.html#thm:todoq">10.1</a> (floating point; breaks \(371\) of \(1145\)). </p>
+</li>
+<li><p><b class="bfseries">Example 7.1:</b> <span class="ttfamily">cifras_alco.py</span> E2, \(Z_3(\ell )/Z_3(\rho )=419904/52488=8\) and \(E=17\) exactly, value \(-8\) in double precision (tolerance \(10^{-9}\)). The partitions and the dimensions \(4\) and \(2\) are not printed. </p>
+</li>
+<li><p><b class="bfseries">End of Section 7:</b> <span class="ttfamily">certifica_testigos.py</span>, \(\chi _{(1,1,0,0,0,0)}(a_P^{\, 7})=-7\) exactly; <span class="ttfamily">cifras_alco.py</span> E5, \(d=7\), \(q=2\), eigenvalues \(\pm 1\) six times each. The traces \(0\) and \(-6\) and the absence of a \(7\)-dimensional irreducible of \(\mathrm{Sp}_6\times \mathrm{Sp}_6\) are not checked by any program. </p>
+</li>
+<li><p><b class="bfseries">No program:</b> \(\chi _{jq\rho }(a_P^{\, k})=(jq+1)^{r_q}\) (introduction), and the constants \(C_n\), \(B_n\), \(V_n\) with the ratio \(2\) (proof on paper). </p>
+</li>
+</ul>
+</details><details class="blk b-tabs"><summary>🔤 Read this theorem in another mathematical language</summary><div class="mathtabs"><div class="mtabbar"><span class="mlabel">Read this theorem in:</span><button class="mtab on" data-k="lie" type="button">Lie theory (the paper’s language)</button><button class="mtab" data-k="comb" type="button">Combinatorics (symmetric functions)</button><button class="mtab" data-k="num" type="button">Number theory (integers)</button></div><div class="mpane on" data-k="lie">
+<p> <em>Commentary, not part of the paper.</em> The absolute value of the character is \(\kappa (\lambda )\in \{ 1,2\} \) times the dimension of an irreducible representation of the product group \(\mathrm{Sp}_{2n_0}\times \mathrm{SO}_{2n_{q/2}+1}\times \prod _{0{\lt}c{\lt}q/2}\mathrm{GL}_{n_c}\), one factor for each folded class \(c\) holding \(n_c\) of the entries of \(\ell =\lambda +\rho \), with highest weights the partitions \(\nu ^{(c)}\). This group is not the centraliser of \(a_P^{\, k}\) (the paper gives an example), and Question 12.1 asks for a group that explains the product. </p>
+</div><div class="mpane" data-k="comb">
+<p> <em>Commentary, not part of the paper.</em> With \(\ell _i=\lambda _i+m-i+1\) grouped by folded residue class modulo \(q\): </p>
+<div class="displaymath" id="a0000000024">
+  \[  |sp_\lambda (z^{\pm 1})|=\kappa \cdot sp_{\nu ^{(0)}}(1^{n_0})\cdot so_{\nu ^{(q/2)}}(1^{n_{q/2}}) \cdot \prod _{0{\lt}c{\lt}q/2}s_{\nu ^{(c)}}(1^{n_c}),  \]
+</div>
+<p> a product of principal specialisations at \(1\) of smaller symplectic, odd orthogonal and Schur functions. For a class \(0{\lt}c{\lt}q/2\): choose signs with \(\varepsilon _i\ell _i\equiv c\), list \(y_i=(\varepsilon _i\ell _i-c)/q\) decreasingly and put \(\nu ^{(c)}_i=y_i-y_n-(n-i)\); then \(s_{\nu ^{(c)}}(1^{n_c})\) is the number of semistandard Young tableaux of shape \(\nu ^{(c)}\) with entries at most \(n_c\). For the class \(0\), \(\nu ^{(0)}_i=\ell _i/q-(n_0-i+1)\); for \(q/2\), \(\nu ^{(q/2)}_i=\ell _i/q-(n_{q/2}-i+\frac12)\). </p>
+</div><div class="mpane" data-k="num">
+<p> <em>Commentary, not part of the paper.</em> The character value is a rational integer (Proposition <a href="index.html#thm:clasif">8.1</a>), and Theorem B factors its absolute value: \(\kappa \in \{ 1,2\} \) times a product of integers, one per residue class of the \(\ell _i\) modulo \(q\) up to sign. Each factor is a Weyl dimension, an explicit product of ratios of integers built from the quotients \(\ell _i/q\) (classes \(0\) and \(q/2\)) or from the shifted quotients \((\pm \ell _i-c)/q\) (other classes). So the size of the value is read off from how the \(\ell _i\) distribute among the residues modulo \(q\). </p>
+</div></div></details><p class="lablinea">🧪 <a href="#thm:A">The lab under Theorem A</a> also shows this factorisation: for a surviving character it lists the factor of each class (Sp, SO or GL, its partition and dimension), κ, and checks the product against the exact character.</p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:C">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">C</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:C">#</a>
+<a class="icon proof" href="index.html#a0000000027"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#prop:crit">Proposition 3.1</a></li>
+<li><a href="index.html#thm:clasif">Proposition 8.1</a></li>
+<li><a href="index.html#thm:todoq">Theorem 10.1</a></li>
+<li><a href="index.html#prop:crit">Proposition 3.1</a></li>
+<li><a href="index.html#thm:clasif">Proposition 8.1</a></li>
+<li><a href="index.html#thm:todoq">Theorem 10.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=3" title="Open the paper at page 3">📕 p. 3</a></div>
+<div class="theorem_thmcontent">
+<p>  Let \(m\ge 2\) and \(q\ge 2\). The identity </p>
+<div class="displaymath" id="a0000000028">
+  \[  \chi _\lambda (g_{p/q})=(-1)^{E_{p,q}(\lambda )}\, \frac{Z_q(\lambda +\rho )}{Z_q(\rho )}  \]
+</div>
+<p> holds for every dominant weight \(\lambda \) with \(N_q(\lambda +\rho )=N_q(\rho )\) and every \(p\) prime to \(q\) if and only if \(q\mid m\), \(q\mid 2m+1\), \(q\mid 2m+2\), or \(q=6\) and \(m\equiv 1\pmod6\). Otherwise there is such a \(\lambda \) for which it fails at \(p=1\) even up to sign. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> new: the list of points, and the exclusion of all the others.</p><p class="usado">↳ Used in: <a href="#thm:D">Theorem D</a></p>
+<div class="proof_wrapper" id="a0000000027">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> <em>The four families give the identity.</em> If \(q\mid m\), \(q\mid 2m+1\) or \(q\mid 2m+2\), then \(v\in \{ 0,a,q-1\} \) and \(R_p(b)=1\) by Theorem <a href="index.html#thm:todoq">10.1</a>. If \(q=6\) and \(m\equiv 1\pmod6\), then \(v=1\le a=2\), \(Y=C_1\), \(\rho _Y=(1)\) and \(b=(b_1)\) with \(b_1\in \{ 1,2\} \), so by (9) \(R_p(b)=|\sin (\pi pb_1/3)|/|\sin (\pi p/3)|=1\), since \(p\equiv \pm 1\pmod6\). </p>
+<p><em>No other point does.</em> Suppose that the identity holds up to sign at \(p=1\) for every surviving \(\lambda \). Then every \(\chi _\lambda (g_{1/q})\) is rational, the non-surviving ones being \(0\) by Proposition <a href="index.html#prop:crit">3.1</a>, and an algebraic integer, hence an integer; by Proposition <a href="index.html#thm:clasif">8.1</a>, \(q\) divides \(2m\), \(2m+1\) or \(2m+2\), or \(q=6\) and \(m\equiv 1\pmod3\). The cases not listed in Theorem <a href="index.html#thm:C">C</a> are (i) \(q\ge 4\) even, \(q\mid 2m\) and \(q\nmid m\), that is \(m\equiv q/2\pmod q\), and (ii) \(q=6\) and \(m\equiv 4\pmod6\); for \(q=2\) either \(q\mid m\) or \(q\mid 2m+2\). In both we take the natural representation, \(\lambda =(1,0,\dots ,0)\), and \(\xi =e^{2\pi i/q}\). Its character is \(\sum _{j=1}^{m}(\xi ^{j}+\xi ^{-j})\), and full turns contribute \(0\), so it equals \(\sum _{j=1}^{v}(\xi ^{j}+\xi ^{-j})\). In case (i), \(v=q/2\) and this is \(\sum _{j=1}^{q-1}\xi ^{j}+\xi ^{q/2}=-2\); in case (ii), \(v=4\) and it is \(2\sum _{j=1}^{5}\xi ^{j}-(\xi ^{5}+\xi ^{-5})=-2-1=-3\). In particular \(\lambda \) is surviving. On the other hand \(\ell =\rho +e_1\), the roots not involving the index \(1\) take the same values on \(\ell \) and on \(\rho \), and those involving it take the values \(\{ 1,\dots ,2m\} \smallsetminus \{ m\} \) on \(\rho \) and \(\bigl(\{ 2,\dots ,2m\} \smallsetminus \{ m+1\} \bigr)\cup \{ 2m+2\} \) on \(\ell \). None of \(1\), \(m\), \(m+1\), \(2m+2\) is divisible by \(q\): in case (i) they are congruent to \(1\), \(q/2\), \(q/2+1\), \(2\), and in case (ii) to \(1\), \(4\), \(5\), \(4\). So the two sides have the same multiples of \(q\), \(Z_q(\ell )=Z_q(\rho )\), and the identity would give \(\pm 1\). The failure holds at every \(p\), not only at \(p=1\): since \(\chi _\lambda (g_{p/q})=\sigma _p\bigl(\chi _\lambda (g_{1/q})\bigr)\) for the automorphism \(\sigma _p\) of \(\mathbb {Q}(\xi _q)\), a rational value at \(p\) forces a rational value at \(1\), and the natural representation gives \(-2\), respectively \(-3\), at every \(p\). </p>
+</div>
+</div>
+<details class="blk b-fig"><summary>🖼️ Figure</summary><div class="centered"> <img alt="\includegraphics[width=0.95\textwidth ]{figuras/fig_mapa_C.png}" src="images/img-0003.png" style="width:95%;max-width:100%"/>
+</div>
+<p> Theorem C at a glance (commentary, not part of the paper): each cell \((q,m)\) is coloured when the closed form holds for every surviving weight of the program’s box (\(\lambda _1\le 30,16,11,8,6,5,5\) for \(m=2,\dots ,8\)), by the family that explains it (a cell in several families takes the first one in the legend). Measured, not drawn from the statement: the colours come from the archived output of <span class="ttfamily">formula_pura.py</span> (203 cells; 38017 cases, counted up to the first counterexample in the grey cells), and the script checks that prediction and observation agree in every cell (<span class="ttfamily">figuras/fig_mapa_C.py</span>, a check in the blueprint’s source, published with the blueprint). </p>
+</details><details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> The closed form of Theorem <a href="index.html#thm:A">A</a>(2) can be written at any rational point \(g_{p/q}\). Theorem C says where it is right for every surviving weight and every \(p\): \(q\mid m\), \(q\mid 2m+1\), \(q\mid 2m+2\) (the powers of \(a_P\)), or \(q=6\) with \(m\equiv 1\pmod6\). By equation (8) of the paper the true value is the closed form times a residual factor \(R_p(b)\), so the question is when \(R_p(b)=1\); in the four families it is. Conversely, if the closed form held up to sign at \(p=1\), every character at \(g_{1/q}\) would be an integer, so \(q\) is one of the points of Proposition <a href="index.html#thm:clasif">8.1</a>. That leaves two integer families outside the list, \(q\ge 4\) even with \(q\mid 2m\), \(q\nmid m\), and \(q=6\) with \(m\equiv 4\pmod6\); there the natural representation has value \(-2\), resp. \(-3\), while the closed form gives \(\pm 1\). The paper states that the list and the exclusion are new. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">formula_pura.py</span>: the \(203\) pairs \((m,q)\), \(m=2,\dots ,8\), \(2\le q\le 30\), characters computed exactly in \(\mathbb {Z}[X]/(\Phi _q)\). In every pair the prediction (the pair is in the list) equals the observation (the closed form holds on all surviving \((\lambda ,p)\) of the box); discrepancies: none (<span class="ttfamily">formula_pura_OUT.txt</span>). Box \(\lambda _1\le 30,16,11,8,6,5,5\) for \(m=2,\dots ,8\), in the program, not in the paper. The \(38\, 017\) cases are counted up to the first counterexample in each pair outside the list, not over the whole box. </p>
+</li>
+<li><p><b class="bfseries">Natural representation</b> in cases (i) and (ii) of the proof, \(56\) pairs with \(m\le 30\): survives, \(Z\)-quotient \(1\), value \(-2\), resp. \(-3\); exact. For the other pairs outside the list the program prints a counterexample but does not test the clause “fails even up to sign”. </p>
+</li>
+<li><p><b class="bfseries">One exact implementation:</b> the principal specialisation in <span class="ttfamily">evlib.py</span>, which is equation (2), the starting point of the proof. A second, floating-point evaluator (<span class="ttfamily">carac.py</span>) confirms the closed form only in the families \(q\mid m\) and \(q\mid 2m+1\), on the \(312\) cases of <span class="ttfamily">valor_todo_q.py casos</span>; the converse and the family \(q=6\), \(m\equiv 1\pmod6\) have no second evaluator. </p>
+</li>
+<li><p><b class="bfseries">Section 8 examples:</b> <span class="ttfamily">cifras_alco.py</span> E4, \(\mathrm{Sp}(4)\), \(\lambda =(1,0)\): \(-2\) at \(q=4\) and \(0.8019377358=2\cos \frac{2\pi }7+2\cos \frac{4\pi }7\) at \(q=7\), \(Z\)-quotient \(1\) in both; double precision. The value \(\chi _{(7,7)}(g_{1/7})=1\) is not checked by any program. </p>
+</li>
+</ul>
+</details><div class="theorem_thmwrapper theorem-style-plain" id="thm:D">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">D</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:D">#</a>
+<a class="icon proof" href="index.html#a0000000032"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#conj:cap">Corollary 4.1</a></li>
+<li><a href="index.html#thm:B">Theorem B</a></li>
+<li><a href="index.html#thm:C">Theorem C</a></li>
+<li><a href="index.html#thm:clasif">Proposition 8.1</a></li>
+<li><a href="index.html#conj:cap">Corollary 4.1</a></li>
+<li><a href="index.html#thm:B">Theorem B</a></li>
+<li><a href="index.html#thm:C">Theorem C</a></li>
+<li><a href="index.html#thm:clasif">Proposition 8.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=3" title="Open the paper at page 3">📕 p. 3</a></div>
+<div class="theorem_thmcontent">
+<p>  Let \(m\ge 2\), let \(q\ge 2\) be one of the denominators of Proposition <a href="index.html#thm:clasif">8.1</a>, and let \(\lambda \) be dominant with \(\chi _\lambda (g_{p/q})\ne 0\). Then </p>
+<div class="displaymath" id="a0000000033">
+  \[  \bigl|\chi _\lambda (g_{p/q})\bigr|=c_\lambda \, \Delta _\lambda ,\qquad c_\lambda \in \{ 1,2,3,4,6\} .  \]
+</div>
+<p> More precisely, \(c_\lambda =1\) if \(q\mid m\), \(q\mid 2m+1\), or \(q=6\) and \(m\equiv 1\pmod6\); \(c_\lambda =\kappa (\lambda )\in \{ 1,2\} \) if \(q\mid 2m+2\); \(c_\lambda \in \{ 1,2\} \) if \(q\ge 4\) is even, \(q\mid 2m\) and \(q\nmid m\); and \(c_\lambda \in \{ 1,2,3,4,6\} \) if \(q=6\) and \(m\equiv 4\pmod6\). In the last two cases every listed value occurs. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the families q | m and q | 2m+1, and q | 2m+2 with gcd(k, 2m+2) odd, are known through the references of the paper (Ayyer–Kumari, Albion). New: κ for gcd(k, 2m+2) even and q ≥ 3, and the constants for q ≥ 4 even with q | 2m, q ∤ m, and for q = 6 with m ≡ 4 (mod 6).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000032">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> By Proposition <a href="index.html#thm:clasif">8.1</a>, \(g_{p/q}\) is conjugate to \(g_{1/q}\), so in (8) the value \(|\chi _\lambda |\) and the factor \(\kappa \Delta _\lambda \) do not depend on \(p\), and \(c_\lambda =\kappa \, R_1(b)\). If \(q\mid m\), \(q\mid 2m+1\), or \(q=6\) and \(m\equiv 1\pmod6\), then \(v\le a\), so \(\kappa =1\), and \(R_1(b)=1\) by the proof of Theorem <a href="index.html#thm:C">C</a>. If \(q\mid 2m+2\) this is Theorem <a href="index.html#thm:B">B</a>. Two cases remain. </p>
+<p><em>\(q\ge 4\) even, \(q\mid 2m\), \(q\nmid m\).</em> Put \(h=q/2\). Then \(v=h{\gt}a\), \(s=q-v=h\) and \(Y=D_h\). The folded classes are \(0,1,\dots ,h\), and exactly one of them, say \(j\), holds its full number of entries; \(b\) lists the other \(h\), while \(\rho _Y=(h-1,\dots ,0)\) omits \(j=h\). With \(p=1\) the numbers \(t_k=\cos (\pi k/h)\), \(0\le k\le h\), are distinct, and with \(\omega (x)=\prod _{k=0}^{h}(x-t_k)\) the product of \(|t_i-t_k|\) over the pairs not containing \(j\) is the product over all pairs divided by \(|\omega '(t_j)|\). By (9), </p>
+<div class="displaymath" id="a0000000034">
+  \[  R_1(b)=\frac{|\omega '(t_h)|}{|\omega '(t_j)|} .  \]
+</div>
+<p> The roots of \(\omega \) are \(\pm 1\) and the zeros of the Chebyshev polynomial \(U_{h-1}\), so \(\omega \) is a constant multiple of \((x^2-1)U_{h-1}(x)\), which equals \(-\sin \theta \, \sin h\theta \) at \(x=\cos \theta \). At an interior node \(\theta =\pi k/h\), \(0{\lt}k{\lt}h\), its derivative in \(x\) has absolute value \(h\); at \(x=\pm 1\) it is \(\pm 2U_{h-1}(\pm 1)\), of absolute value \(2h\), since \(U_{h-1}(\pm 1)=(\pm 1)^{h-1}h\). Hence \(R_1(b)=1\) if \(j\in \{ 0,h\} \) and \(R_1(b)=2\) otherwise. Since \(\kappa =2\) exactly when the class \(0\) is full, that is \(j=0\), one gets \(c_\lambda =1\) for \(j=h\) and \(c_\lambda =2\) for every other \(j\). </p>
+<p><em>\(q=6\), \(m\equiv 4\pmod6\).</em> Here \(v=4{\gt}a=2\), \(s=2\), \(Y=D_2\) and \(\rho _Y=(1,0)\); two of the classes \(0,1,2,3\) fall one entry short, and \(b=(b_1,b_2)\) lists them. With \(p=1\), (9) gives \(R_1(b)=2\, |\cos (\pi b_1/3)-\cos (\pi b_2/3)|\), and \(\kappa =2\) exactly when \(0\notin b\): </p>
+<div class="displaymath" id="a0000000035">
+  \[  \begin{array}{c|cccccc} b &amp;  (1,0) &amp;  (2,0) &amp;  (3,0) &amp;  (2,1) &amp;  (3,1) &amp;  (3,2)\\ \hline R_1(b) &amp;  1 &amp;  3 &amp;  4 &amp;  2 &amp;  3 &amp;  1\\ \kappa &amp;  1 &amp;  1 &amp;  1 &amp;  2 &amp;  2 &amp;  2\\ c_\lambda &amp;  1 &amp;  3 &amp;  4 &amp;  4 &amp;  6 &amp;  2\\ \hline \lambda \  (m=4) &amp;  0 &amp;  (1) &amp;  (1,1) &amp;  (2) &amp;  (2,1) &amp;  (2,2)\\ \chi _\lambda (g_{1/6}) &amp;  1 &amp;  -3 &amp;  4 &amp;  4 &amp;  -6 &amp;  2 \end{array}  \]
+</div>
+<p> The last two rows give, for \(m=4\), a weight realising each column, with \(\Delta _\lambda =1\); the values are computed exactly in \(\mathbb {Z}[\zeta _6]\) (<span class="ttfamily">certifica_testigos.py</span>). </p>
+<p>In the last two cases every occupancy pattern of a surviving weight, that is every choice of the classes that fall short, is the pattern of some \(\lambda +\rho \), by the argument in the proof of Corollary <a href="index.html#conj:cap">4.1</a>; so every listed value of \(c_\lambda \) occurs. </p>
+</div>
+</div>
+<details class="blk b-fig"><summary>🖼️ Figure</summary><div class="centered"> <img alt="\includegraphics[width=0.95\textwidth ]{figuras/fig_constantes_D.png}" src="images/img-0004.png" style="width:95%;max-width:100%"/>
+</div>
+<p> Theorem D at a glance (commentary, not part of the paper): left, the values of \(c=|\chi |/\Delta \) observed in each family, for \(m\in \{ 2,\dots ,8,10,13,16\} \) with a box on \(\lambda \) per \(m\); the points that lie in two families (\(q\mid 2m+2\) together with \(q\mid m\), or with \(q\mid 2m\), \(q\nmid m\)) are not shown; right, the exceptional case \(q=6\), \(m\equiv 4\pmod6\), where \(c\) depends on which two classes hold one entry fewer. Data from the archived output of <span class="ttfamily">prefactores.py</span>, exact fractions; the script checks it against the table as the program prints it, transcribed from the paper (<span class="ttfamily">figuras/fig_constantes_D.py</span>, a check in the blueprint’s source, published with the blueprint). </p>
+</details><details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> At the integer points of Proposition <a href="index.html#thm:clasif">8.1</a> every non-vanishing character is \(c_\lambda \) times the product of dimensions \(\Delta _\lambda \) of Theorem <a href="index.html#thm:B">B</a>, with \(c_\lambda \in \{ 1,2,3,4,6\} \). Since \(g_{p/q}\) is conjugate to \(g_{1/q}\) there, \(c_\lambda =\kappa \, R_1(b)\). In the families of Theorem <a href="index.html#thm:C">C</a> other than \(q\mid 2m+2\), \(\kappa =1\) and \(R_1(b)=1\); for \(q\mid 2m+2\) it is Theorem <a href="index.html#thm:B">B</a>. Two cases are left. For \(q\ge 4\) even, \(q\mid 2m\), \(q\nmid m\), the residual group is \(D_{q/2}\) and \(R_1(b)\) is a ratio of derivatives of \((x^2-1)U_{h-1}(x)\) at the nodes \(\cos (\pi k/h)\), \(h=q/2\): \(1\) at the end nodes, \(2\) inside. So \(c_\lambda =1\) when the full class is \(q/2\), and \(2\) otherwise. For \(q=6\), \(m\equiv 4\pmod6\), the group is \(D_2\) and the six choices of the two short classes give the table of the proof: \(c_\lambda =1,3,4,4,6,2\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">prefactores.py</span>: integrality at the points of Proposition <a href="index.html#thm:clasif">8.1</a> on \(52\, 928\) pairs \((\lambda ,q)\), exact in \(\mathbb {Z}[X]/(\Phi _q)\), \(0\) non-integers; the set of \(c=|\chi |/\Delta \) in each family, as exact fractions, equal to the statement, with every listed value occurring in the last two families; \(0\) values outside \(\{ 1,2,3,4,6\} \) (<span class="ttfamily">prefactores_OUT.txt</span>). Range \(m\in \{ 2,\dots ,8,10,13,16\} \) with a box on \(\lambda \) per \(m\), in the program, not in the paper. </p>
+</li>
+<li><p><b class="bfseries">The table:</b> same program, \((\kappa ,c)\) for each pair \(b\), printed next to the row \(c_\lambda \) as transcribed in the program, and equal to it; the end-node/interior rule, \((\kappa ,c)\) by omitted node, for the even \(q\le 32\) that occur in its range (the end node \(0\) only for \(q\le 12\)). Both are printed, not asserted. <span class="ttfamily">certifica_testigos.py</span>: the last two rows (\(m=4\), values \(1,-3,4,4,-6,2\), \(\Delta _\lambda =1\)) exactly in \(\mathbb {Z}[\zeta _6]\). The map from \(\lambda \) to \(b\) in the table is not checked by any program. </p>
+</li>
+<li><p><b class="bfseries">Partial second implementation:</b> <span class="ttfamily">teorema_II.py</span> (b) and <span class="ttfamily">residual_factorizacion.py</span> (V2, V3) find the same set \(\{ 1,2,3,4,6\} \) and the six rows of the table, in floating point, on a smaller range. </p>
+</li>
+<li><p>No negative control in <span class="ttfamily">prefactores.py</span>. </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000039">2 The element and the criterion</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:alph">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">2.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:alph">#</a>
+<a class="icon proof" href="index.html#a0000000040"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=5" title="Open the paper at page 5">📕 p. 5</a></div>
+<div class="proposition_thmcontent">
+<p> Let \(t=2m+2\), \(d=\gcd (k,t)\) and \(q=t/d\). As a multiset, the spectrum \(A=\{ \zeta ^{\pm jk}: j=1,\dots ,m\} \) of \(a_P^{\, k}\) on \(\mathbb C^{2m}\), with \(\zeta \) of order \(t\), satisfies </p>
+<div class="displaymath" id="a0000000041">
+  \[  A \; =\;  d\cdot \mu _q \; -\;  2\cdot \{ 1\}  \quad (d \text{ even}), \qquad A \; =\;  d\cdot \mu _q \; -\; \{ 1\} -\{ -1\}  \quad (d \text{ odd}).  \]
+</div>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000040">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Since \(t=2m+2\), the exponents \(\{ \pm j : j=1,\dots ,m\} \) are exactly \(\mathbb {Z}/t\smallsetminus \{ 0,t/2\} \). The map \(e\mapsto \zeta ^{ke}\) factors through \(\mathbb {Z}/q\), because \(\zeta ^k\) has order \(q\), and every residue mod \(q\) is the image of exactly \(d\) elements of \(\mathbb {Z}/t\); hence \(\{ \zeta ^{ke}: e\in \mathbb {Z}/t\} =d\cdot \mu _q\). It remains to delete the two excluded exponents. For \(e=0\) the element is \(1\). For \(e=t/2=dq/2\): if \(d\) is even this is \(\equiv 0 \pmod q\) and the element is again \(1\); if \(d\) is odd then \(q\) is even, since \(dq=t\) is, and \(dq/2\equiv q/2\), so the element is \(-1\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> The exponents \(\pm j\), \(j=1,\dots ,m\), are all of \(\mathbb {Z}/t\) except \(0\) and \(t/2\), where \(t=2m+2\). Raising to the \(k\)-th power maps \(\mathbb {Z}/t\) onto \(\mathbb {Z}/q\), \(d\) to one, so the whole of \(\mathbb {Z}/t\) gives \(d\) copies of every \(q\)-th root of unity. Removing the two missing exponents: \(0\) gives \(1\), and \(t/2\) gives \(1\) if \(d\) is even and \(-1\) if \(d\) is odd. So the spectrum depends on \(d\) and \(q\) only, \(\chi _\lambda (a_P^{\, k})=\chi _\lambda (a_P^{\, d})\), and one may take \(p=1\). The full multiset \(d\cdot \mu _q\) is the alphabet of Prasad’s character relationship; the paper says the two deleted letters change the occupancies of the fixed classes and produce the factor \(\kappa \) of Theorem <a href="index.html#thm:B">B</a>. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">No direct check.</b> <span class="ttfamily">signo_Fq.py</span>, <span class="ttfamily">valor_signo_recuento.py</span> and <span class="ttfamily">dims_recuento.py</span> build the spectrum from this proposition, so they assume it. <span class="ttfamily">formula_pura.py</span> and <span class="ttfamily">valor_todo_q.py</span> evaluate at the eigenvalues of \(g_{p/q}\) directly; their agreement with Theorem <a href="index.html#thm:A">A</a> is an indirect check. </p>
+</li>
+<li><p><span class="ttfamily">valor_signo_recuento.py</span> V2: the spectra of \(a_P^{\, k}\) and \(a_P^{\, d}\) agree as multisets in \(32\) pairs (\(m\le 5\)), compared numerically with rounding, not in exact arithmetic. </p>
+</li>
+<li><p><span class="ttfamily">cifras_alco.py</span> E5: \(m=6\), \(k=7\) gives \(d=7\), \(q=2\), eigenvalues \(1\) and \(-1\) six times each. </p>
+</li>
+</ul>
+</details><div class="proposition_thmwrapper theorem-style-plain" id="prop:crit">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">3.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:crit">#</a>
+<a class="icon proof" href="index.html#a0000000044"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=5" title="Open the paper at page 5">📕 p. 5</a></div>
+<div class="proposition_thmcontent">
+<p> Let \(G\) be simple and simply connected, \(\lambda \) dominant, \(\ell =\lambda +\rho \), \(\theta =p/q\) in lowest terms, and \(N_q(x)=\# \{ \alpha {\gt}0:\  q\mid (x,\alpha )\} \), \(r_q=N_q(\rho )\). Then \(N_q(\ell )\ge r_q\), and </p>
+<div class="equation" id="a0000000045">
+<p>
+<div class="equation_content">
+    \begin{equation}  \chi _\lambda (g_{p/q})\neq 0 \iff N_q(\ell )=r_q . \end{equation}
+  </div>
+<span class="equation_label">1</span>
+</p>
+</div>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:A">Theorem A</a>, <a href="#thm:C">Theorem C</a>, <a href="#conj:cap">Corollary 4.1</a>, <a href="#thm:cuenta">Theorem 9.1</a></p>
+<div class="proof_wrapper" id="a0000000044">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Each factor \(1-z^{j}\) of (2) has a simple zero at a primitive \(q\)-th root of unity exactly when \(q\mid j\), so at \(z=e^{2\pi ip/q}\) the numerator vanishes to order \(N_q(\ell )\) and the denominator to order \(r_q\). A character has no poles, so the first order is at least the second; and the limit is non-zero exactly when they agree. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Notation: \(r_q=N_q(\rho )\). The statement holds in every simple simply connected group and at every rational point \(g_{p/q}\), not only at the powers of \(a_P\). In the product formula (equation (2) of the paper) each factor \(1-z^j\) has a simple zero at a primitive \(q\)-th root of unity exactly when \(q\mid j\), so the numerator vanishes to order \(N_q(\ell )\) and the denominator to order \(r_q\). A character has no poles, so \(N_q(\ell )\ge r_q\), and the limit is non-zero exactly when the two orders agree. When \(\rho \) is regular, \(r_q=0\) and this is the condition of Cellini–Möseneder Frajria–Papi; on the line of \(\rho ^\vee \), with coroots in place of roots, the same count is due to Nadimpalli–Pattanayak–Prasad, and the paper proves it by the same argument. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. Programs check type \(C\) only; the other types are not checked. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">rho_line_any_q.py</span>: \(27\, 183\) dominant weights, \(m=2,\dots ,6\), \(q=2,\dots ,14\), \(p=1\), \(\lambda _1\le 8\) (\(m\le 4\)), \(\le 6\) (\(m=5,6\)), box not stated in the paper; \(0\) failures, \(19\, 986\) of them with \(q\nmid 2m+2\) (<span class="ttfamily">rho_line_any_q_OUT.txt</span>). <b class="bfseries">Floating point</b>: mpmath, 40 digits, \(\chi \) counted as non-zero when \(|\chi |\ge 10^{-6}\), \(0\) cases in the ambiguous zone; no rigorous error bound. Negative control: the naive rule (“some root value divisible by \(q\)”) fails on \(7968\) weights. </p>
+</li>
+<li><p><b class="bfseries">Exact:</b> <span class="ttfamily">formula_pura.py</span> checks the criterion in \(\mathbb {Z}[X]/(\Phi _q)\) on every weight it visits, \(0\) failures: the whole box at the \(45\) pairs of the list of Theorem <a href="index.html#thm:C">C</a>, and up to the first counterexample of Theorem <a href="index.html#thm:C">C</a> at the other \(158\) pairs; and <span class="ttfamily">comprueba_traducciones_aP.py</span> (a check in the blueprint’s source, published with the blueprint, not part of the supplement) on \(2336\) cases with \(q\mid 2m+2\). </p>
+</li>
+<li><p><span class="ttfamily">valor_todo_q.py</span>: \(0\) violations in the range of Theorem <a href="index.html#thm:todoq">10.1</a> (floating point). </p>
+</li>
+</ul>
+</details><div class="corollary_thmwrapper theorem-style-plain" id="conj:cap">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">4.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#conj:cap">#</a>
+<a class="icon proof" href="index.html#a0000000048"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#prop:crit">Proposition 3.1</a></li>
+<li><a href="index.html#prop:crit">Proposition 3.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=6" title="Open the paper at page 6">📕 p. 6</a></div>
+<div class="corollary_thmcontent">
+<p>  Let \(q\mid 2m+2\) and \(d=(2m+2)/q\). Then \(N_q(\ell )=r_q\) if and only if each folded class modulo \(q\) contains at most \(d\) of the \(\ell _i\), and each fixed class at most \(\lfloor d/2\rfloor \). </p>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:A">Theorem A</a>, <a href="#thm:D">Theorem D</a>, <a href="#prop:res">Proposition 5.1</a>, <a href="#thm:cuenta">Theorem 9.1</a></p>
+<div class="proof_wrapper" id="a0000000048">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> By (5) the marginal cost of one more entry is \(0,1,2,\dots \) in a non-fixed class and \(1,3,5,\dots \) in a fixed one, so the places costing less than \(d\) number exactly \(d\) per non-fixed class and \(\lfloor d/2\rfloor \) per fixed one. There are \(\lfloor q/2\rfloor +1\) folded classes, of which one is fixed when \(q\) is odd and two when \(q\) is even; since \(m=dq/2-1\), the places of cost less than \(d\) number exactly \(m\) if \(d\) is odd and \(m+1\) if \(d\) is even. By Proposition <a href="index.html#prop:crit">3.1</a> the minimum of \(N_q\) over the vectors \(\ell =\lambda +\rho \) is \(r_q\), and it is attained at \(\rho \). It is also the minimum over all of \(\mathbb {Z}^m\), hence over all placements of \(m\) entries in the folded classes: every \(x\in \mathbb {Z}^m\) is congruent modulo \(q\) to a vector \(\lambda +\rho \) with \(\lambda \) dominant, namely \(x_i+(m-i+1)Mq\) for a large integer \(M\), whose entries are positive and strictly decreasing. If \(d\) is odd, reaching the minimum forces occupying all \(m\) cheap places, and any overflow replaces a place of cost \({\lt}d\) by one of cost \(\ge d\). If \(d\) is even, the last admissible place of every class costs \(d-1\), so omitting any one of them gives the same minimum, while exceeding a capacity again costs strictly more. So \(N_q(\ell )=r_q\) if and only if no capacity is exceeded. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Equation (5) of the paper counts the vanishing factors class by class: \(N_q(\ell )=\sum _{c\text{ not fixed}}\binom {n_c}{2}+\sum _{f\text{ fixed}}n_f^{\, 2}\), with \(n_c\) the number of \(\ell _i\) in the class. So one more entry costs \(0,1,2,\dots \) in a non-fixed class and \(1,3,5,\dots \) in a fixed one. The places costing less than \(d\) are \(d\) per non-fixed class and \(\lfloor d/2\rfloor \) per fixed class: \(m\) in all if \(d\) is odd, \(m+1\) if \(d\) is even. The minimum of \(N_q\) is \(r_q\), reached at \(\rho \), and every placement of residues comes from some \(\lambda +\rho \); so a character survives exactly when no class is over capacity. When \(d\) is odd every survivor has the occupancies of \(\rho \); when \(d\) is even exactly one class is one entry short, which for \(\rho \) is the class \(0\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Additional check, not part of the supplement:</b> <span class="ttfamily">comprueba_traducciones_aP.py</span> (a check in the blueprint’s source, published with the blueprint): the occupancy rule against \(\chi \ne 0\), exact, \(2336\) cases, \(0\) failures; with the bound of the fixed classes changed to \(d\) it fails in \(567\) cases. </p>
+</li>
+<li><p><span class="ttfamily">rho_line_any_q.py</span>, column D2: the capacity rule agrees with \(\chi \neq 0\), computed numerically as for Proposition <a href="index.html#prop:crit">3.1</a>, on \(7197\) weights with \(q\mid 2m+2\). The program labels it a negative control, but it is measured only where it must agree: a positive check of Theorem <a href="index.html#thm:A">A</a>(1) in its capacity form. </p>
+</li>
+<li><p><span class="ttfamily">signo_Fq.py</span> O2: in all \(10\, 230\) surviving weights with \(d\) even, exactly one class is one entry short (the remark after the corollary). </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000051">3 The residue lemma</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:res">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">5.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:res">#</a>
+<a class="icon proof" href="index.html#a0000000052"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#conj:cap">Corollary 4.1</a></li>
+<li><a href="index.html#conj:cap">Corollary 4.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=6" title="Open the paper at page 6">📕 p. 6</a></div>
+<div class="proposition_thmcontent">
+<p>  Work in \(\mathbb {Z}[X]/(X^q-1)\). For \(x=(x_1,\dots ,x_m)\in \mathbb {Z}^m\) put </p>
+<div class="displaymath" id="a0000000053">
+  \[  P_x(X)=\sum _{i=1}^{m}\bigl(X^{x_i}+X^{-x_i}\bigr), \qquad \mathscr {R}_x(X)=\sum _{\alpha \in \Phi (C_m)}X^{(x,\alpha )} .  \]
+</div>
+<p> Then </p>
+<div class="equation" id="a0000000054">
+<p>
+<div class="equation_content">
+    \begin{equation}  \mathscr {R}_x(X)\; =\; \frac{P_x(X)^2+P_x(X^2)}{2}\; -\; m , \end{equation}
+  </div>
+<span class="equation_label">2</span>
+</p>
+</div>
+<p> and, for \(q\mid 2m+2\) and every \(\lambda \) satisfying the capacities of Corollary <a href="index.html#conj:cap">4.1</a>, \(\mathscr {R}_{\lambda +\rho }=\mathscr {R}_\rho \). </p>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:A">Theorem A</a>, <a href="#thm:todoq">Theorem 10.1</a></p>
+<div class="proof_wrapper" id="a0000000052">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Expanding \(P_x(X)^2\) collects \(X^{\pm x_i\pm x_j}\) over all ordered pairs. The off-diagonal terms give each root \(\pm e_i\pm e_j\) twice; the diagonal terms give \(X^{\pm 2x_i}\) once each and \(2m\) copies of \(X^0\); and \(P_x(X^2)\) supplies the second copy of each \(X^{\pm 2x_i}\). Halving therefore leaves every root of \(C_m\) exactly once, together with \(m\) copies of \(X^0\), and subtracting \(m\) removes those. That is (6). </p>
+<p>For the second claim write \(T_q(X)=1+X+\dots +X^{q-1}\), so that \(T_q(X)\, X^{c}=T_q(X)\) for every \(c\). If \(d\) is odd the capacities are saturated, the folded occupancies of \(\ell \) are those of \(\rho \), and \(P_\ell =P_\rho \) outright. If \(d\) is even, one class \(c\) falls a single unit below its capacity, and </p>
+<div class="displaymath" id="a0000000055">
+  \[  P_\ell (X)=d\, T_q(X)-X^{c}-X^{-c},\qquad P_\rho (X)=d\, T_q(X)-2 ,  \]
+</div>
+<p> so that \(P_\ell (X)^2-P_\rho (X)^2=X^{2c}+X^{-2c}-2\) while \(P_\ell (X^2)-P_\rho (X^2)=-X^{2c}-X^{-2c}+2\). The two corrections cancel in (6), and \(\mathscr {R}_\ell =\mathscr {R}_\rho \). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Notation: \(P_x=\sum _i(X^{x_i}+X^{-x_i})\) in \(\mathbb {Z}[X]/(X^q-1)\), and \(\mathcal R_x\) the sum of \(X^{(x,\alpha )}\) over all roots of \(C_m\). The identity \(\mathcal R_x=(P_x^2+P_x(X^2))/2-m\) is the adjoint character minus the rank, since in type \(C\) the adjoint representation is the symmetric square of the natural one (Remark 5.2). The second claim: under the capacities of Corollary <a href="index.html#conj:cap">4.1</a>, \(\mathcal R_\ell =\mathcal R_\rho \). For \(d\) odd the occupancies agree, so \(P_\ell =P_\rho \). For \(d\) even one class \(c\) is one entry short; then \(P_\ell ^2-P_\rho ^2=X^{2c}+X^{-2c}-2\) and \(P_\ell (X^2)-P_\rho (X^2)\) is its negative, so they cancel. In words: the root values of \(\ell \) and of \(\rho \) coincide modulo \(q\), up to sign, as multisets. This replaces Weyl conjugacy in the proof of Theorem <a href="index.html#thm:A">A</a>(2) (Example 6.1); outside type \(C\) it is the missing step (Question 12.2). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">valor_signo_recuento.py</span> V1: the identity in \(48\, 669\) cases and \(\mathcal R_\ell =\mathcal R_\rho \) on \(11\, 972\) surviving weights, \(m=2,\dots ,7\), every \(k\), \(\lambda _1\le 8\) (\(m\le 4\)), \(\le 6\) (\(m\ge 5\)), box not stated in the paper; exact integer vectors, \(0\) failures (<span class="ttfamily">valor_signo_recuento_OUT.txt</span>). No negative control (no mutation of the identity). </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000058">4 Every rational point</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="thm:clasif">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">8.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:clasif">#</a>
+<a class="icon proof" href="index.html#a0000000059"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=9" title="Open the paper at page 9">📕 p. 9</a></div>
+<div class="proposition_thmcontent">
+<p> Let \(m\ge 2\) and \(\gcd (p,q)=1\). Then \(\chi _\lambda (g_{1/q})\in \mathbb {Z}\) for every dominant weight \(\lambda \) of \(\mathrm{Sp}(2m)\) if and only if at least one of </p>
+<div class="displaymath" id="a0000000060">
+  \[  q\mid 2m,\qquad q\mid 2m+1,\qquad q\mid 2m+2,\qquad q=6 \text{ and } m\equiv 1 \! \! \pmod3  \]
+</div>
+<p> holds; and in that case \(g_{p/q}\) is conjugate to \(g_{1/q}\) for every \(p\) coprime to \(q\), so no character value depends on the numerator. </p>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:C">Theorem C</a>, <a href="#thm:D">Theorem D</a></p>
+<div class="proof_wrapper" id="a0000000059">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Suppose every \(\chi _\lambda (g_{1/q})\) is an integer. The exterior powers \(\Lambda ^j\mathbb {C}^{2m}\) are direct sums of irreducibles, so their characters are \(\mathbb {Z}\)-combinations of the \(\chi _\lambda \) and are integers as well; those characters are the coefficients of the characteristic polynomial of \(g_{1/q}\) on \(\mathbb {C}^{2m}\), so that polynomial lies in \(\mathbb {Z}[X]\), and the multiplicities of its roots are constant along Galois orbits. Conversely, if the spectrum is carried to itself by every \(\xi _q\mapsto \xi _q^{\, p}\), then \(g_{p/q}\) and \(g_{1/q}\) have the same spectrum and are conjugate in \(\mathrm{Sp}(2m)\); the character values are then algebraic integers fixed by the Galois group of \(\mathbb {Q}(\xi _q)\), hence rational integers. </p>
+<p>Write \(m=uq+v\) with \(0\le v{\lt}q\) and \(a=\lfloor (q-1)/2\rfloor \). The spectrum \(\{ \xi _q^{\pm j}: j=1,\dots ,m\} \) is, as a multiset of \(\mu _q\), </p>
+<div class="displaymath" id="a0000000061">
+  \[  2u\cdot \mu _q \; +\; \{ \pm 1,\dots ,\pm v\}  ,  \]
+</div>
+<p> and the first summand is Galois-stable. So the question is when the segment \(\{ \pm 1,\dots ,\pm v\} \) is. It is stable for \(v=0\), \(v=a\), \(v=q-1\) and, when \(q\) is even, \(v=q/2\). For necessity write \(A_v=\sum _{j=1}^{v}(\xi _q^{\, j}+\xi _q^{-j})\); if the segment is stable then \(A_v\) is fixed by the whole Galois group. A full turn sums to zero, whence \(A_v+A_{q-1-v}=-2\) and \(\mathbb {Q}(A_v)=\mathbb {Q}(A_w)\) for \(w=\min (v,q-1-v)\); the four segments just listed are \(w=0\) and \(w=a\), so only \(1\le w{\lt}a\) is left. There set \(\beta _w=1+A_w=\sum _{j=-w}^{w}\xi _q^{\, j}\), whose conjugates are </p>
+<div class="displaymath" id="a0000000062">
+  \[  \sigma _p(\beta _w)=\frac{\sin \bigl((2w+1)\pi p/q\bigr)}{\sin (\pi p/q)} .  \]
+</div>
+<p> For \(q\ge 4\), \(2\le N\le q-2\) and \(1\le r\le q-1\) with \(r\neq 1,q-1\), one has the strict inequality </p>
+<div class="displaymath" id="a0000000063">
+  \[  \Bigl|\frac{\sin (N\pi r/q)}{\sin (\pi r/q)}\Bigr| \; {\lt}\; \frac{\sin (N\pi /q)}{\sin (\pi /q)} .  \]
+</div>
+<p> Indeed, replacing \(N\) by \(n=\min (N,q-N)\) changes no modulus; on \(0{\lt}x{\lt}\pi /n\) the function \(f(x)=\sin (nx)/\sin x\) is positive and strictly decreasing, since \(f'/f=n\cot (nx)-\cot x{\lt}0\) because \(t\cot t\) decreases on \((0,\pi )\); and on \(\pi /n\le x\le \pi /2\) one has \(|f(x)|\le 1/\sin (\pi /n){\lt}1/\sin (\pi /2n)=f(\pi /2n)\le f(\pi /q)\). Taking \(N=2w+1\), which lies in that range precisely when \(1\le w{\lt}a\), the only automorphisms fixing \(\beta _w\) are the identity and complex conjugation; so \(\mathbb {Q}(\beta _w)=\mathbb {Q}(\xi _q+\xi _q^{-1})\), which is \(\mathbb {Q}\) only when \(\varphi (q)=2\). Inside this range that leaves \(q=6\), \(w=1\), that is \((q,v)=(6,1)\) and \((6,4)\). Translating the surviving residues into divisibilities gives the four conditions. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> When are all the characters at \(g_{1/q}\) integers? If they are, the exterior powers show that the characteristic polynomial on \(\mathbb C^{2m}\) has integer coefficients, so the spectrum is stable under Galois. Conversely a Galois-stable spectrum makes every \(g_{p/q}\) conjugate to \(g_{1/q}\), and the values are rational integers. Writing \(m=uq+v\), the spectrum is \(2u\) full turns of \(\mu _q\) plus the segment \(\{ \pm 1,\dots ,\pm v\} \), so everything rests on the segment. It is stable for \(v=0\), \(v=a\) with \(a=\lfloor (q-1)/2\rfloor \), \(v=q-1\) and, for \(q\) even, \(v=q/2\). For the other \(v\), the sum over the segment has a strictly largest conjugate, so it generates \(\mathbb {Q}(\xi _q+\xi _q^{-1})\), which is \(\mathbb {Q}\) only when \(\varphi (q)=2\); in that range this leaves \(q=6\). The key step is a lemma of Gannon–Schopieray; sufficiency for \(q\mid 2m+1\) and \(q\mid 2m+2\) also follows from Kac. Irrational \(\theta \) never gives integers (Remark 8.2). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">galois.py</span>: Galois stability of the spectrum against the four conditions on \(11\, 800\) pairs \((m,q)\), \(q\le 60\), \(m\le 200\) (the range includes \(m=1\), outside the statement); exact combinatorics, \(0\) disagreements (<span class="ttfamily">galois_OUT.txt</span>). This compares two conditions, not character values. </p>
+</li>
+<li><p>Against the characters themselves, <span class="ttfamily">galois.py</span> part (2): \(44\) pairs, \(0\) disagreements, <b class="bfseries">floating point</b> (mpmath, 40 digits, limit taken at a perturbed point, tolerance \(10^{-12}\), \(\lambda _1\le 5\)). </p>
+</li>
+<li><p><b class="bfseries">Sufficiency, exact:</b> <span class="ttfamily">prefactores.py</span>, integrality in \(\mathbb {Z}[X]/(\Phi _q)\) on \(52\, 928\) pairs \((\lambda ,q)\) at the four families. </p>
+</li>
+<li><p>Necessity against actual character values is checked only by the \(44\)-pair floating-point run. </p>
+</li>
+</ul>
+</details><div class="theorem_thmwrapper theorem-style-plain" id="thm:cuenta">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">9.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:cuenta">#</a>
+<a class="icon proof" href="index.html#a0000000066"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#conj:cap">Corollary 4.1</a></li>
+<li><a href="index.html#prop:crit">Proposition 3.1</a></li>
+<li><a href="index.html#conj:cap">Corollary 4.1</a></li>
+<li><a href="index.html#prop:crit">Proposition 3.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=10" title="Open the paper at page 10">📕 p. 10</a></div>
+<div class="theorem_thmcontent">
+<div class="displaymath" id="a0000000067">
+  \[  S_{C_m}(q)= \begin{cases}  \dfrac {m!\; 2^{\, 2ua+v}\, \binom {a}{v}} {\bigl((2u+1)!\bigr)^{v}\, \bigl((2u)!\bigr)^{a-v}\, (u!)^{f}}, &amp;  v\le a,\\[6mm] \dfrac {m!\; 2^{\, a(2u+1)}\, \binom {a+f}{\, v-a\, }} {\bigl((2u+1)!\bigr)^{a}\, (u!)^{f}\, (u+1)^{\, v-a}}, &amp;  v{\gt}a. \end{cases}  \]
+</div>
+</div>
+</div><p class="usado">↳ Used in: <a href="#cor:todoq">Corollary 10.2</a></p>
+<div class="proof_wrapper" id="a0000000066">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> By (5) the cost of an extra entry is \(0,1,2,\dots \) in a non-fixed class and \(1,3,5,\dots \) in a fixed one, so the minimum of \(N_q\) is attained by filling the cheapest places, and \(\rho =(m,\dots ,1)\) attains it, its residues being \(u\) full turns of \(\mathbb {Z}/q\) followed by \(1,\dots ,v\); by Proposition <a href="index.html#prop:crit">3.1</a>, and since every placement of entries in classes is the residue of some \(\lambda +\rho \) (proof of Corollary <a href="index.html#conj:cap">4.1</a>), that minimum is \(r_q\). When \(v\le a\), each fixed class carries \(u\) entries, \(v\) non-fixed classes carry \(2u+1\) and the remaining \(a-v\) carry \(2u\); the binomial \(\binom {a}{v}\) chooses the \(v\) classes, the multinomial coefficient distributes the \(m\) coordinates, and each entry of a non-fixed class has two possible residues, which gives the power of \(2\). When \(v{\gt}a\) one starts from \(2u+1\) in every non-fixed class and \(u\) in every fixed one and places the remaining \(v-a\) entries in distinct classes, chosen in \(\binom {a+f}{v-a}\) ways; adding an entry multiplies the count by \(1/(u+1)\) whether the class is fixed or not. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> \(S_X(q)\) counts the residues of weights modulo \(qP\) at which the criterion of Proposition <a href="index.html#prop:crit">3.1</a> allows a non-zero character. Notation: \(f=1\) for \(q\) odd and \(2\) for \(q\) even (the number of fixed classes), \(a=(q-f)/2\), \(m=uq+v\). By the costs of Corollary <a href="index.html#conj:cap">4.1</a>, the minimum is reached by filling the cheapest places. When \(v\le a\): \(u\) entries in each fixed class, \(2u+1\) in \(v\) of the non-fixed classes, \(2u\) in the rest. The binomial chooses the \(v\) classes, the multinomial distributes the coordinates, and each entry in a non-fixed class has two residues, hence the power of \(2\); \(v{\gt}a\) is similar. Special values: \(S_{C_m}(2m+2)=2^m m!\), \(S_{C_3}(5)=72\), \(S_{C_3}(6)=96\). It is not a quasi-polynomial: \(S_{C_2}(q)=(q-1)(q-3)\) for large odd \(q\), but \(S_{C_2}(3)=8\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">valor_signo_recuento.py</span> V4: formula against exhaustive enumeration of \((\mathbb {Z}/q)^m\) on \(40\) pairs \((m,q)\), \(m\le 4\), \(q\le 12\); exact, \(0\) discrepancies (<span class="ttfamily">valor_signo_recuento_OUT.txt</span>). </p>
+</li>
+<li><p><span class="ttfamily">cifras_alco.py</span> E6: \(S_{C_3}(5)=72\), \(S_{C_3}(6)=96\), \(S_{C_2}(3)=8\), and formula equal to enumeration on \(36\) pairs (\(m\le 4\), \(q\le 10\)). <span class="ttfamily">signo_Fq.py</span> O3 (the case \(q{\gt}2m\)) and <span class="ttfamily">dims_recuento.py</span> part (2) (the case \(q\mid 2m+2\)) agree with a direct count. All exact. </p>
+</li>
+<li><p>“\((q-1)(q-3)\) for every large odd \(q\)” follows from the formula; enumeration covers odd \(q\le 11\). </p>
+</li>
+<li><p>No negative control. </p>
+</li>
+</ul>
+</details><div class="theorem_thmwrapper theorem-style-plain" id="thm:todoq">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">10.1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:todoq">#</a>
+<a class="icon proof" href="index.html#a0000000070"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#prop:res">Proposition 5.1</a></li>
+<li><a href="index.html#thm:A">Theorem A</a></li>
+<li><a href="index.html#thm:B">Theorem B</a></li>
+<li><a href="index.html#prop:res">Proposition 5.1</a></li>
+<li><a href="index.html#thm:A">Theorem A</a></li>
+<li><a href="index.html#thm:B">Theorem B</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=11" title="Open the paper at page 11">📕 p. 11</a></div>
+<div class="theorem_thmcontent">
+<p>  Let \(\lambda \) be a dominant weight of \(\mathrm{Sp}(2m)\) with \(N_q(\lambda +\rho )=r_q\). Then \(b-\rho _Y\) is a dominant weight of \(Y\), the element \(g^Y_{p/q}\) is regular, and </p>
+<div class="displaymath" id="a0000000071">
+  \[  \chi _\lambda (g_{p/q})\; =\; (-1)^{E_{p,q}(\lambda )}\, \kappa \, \Delta _\lambda \,  \bigl|\chi ^Y_{b-\rho _Y}\bigl(g^Y_{p/q}\bigr)\bigr| .  \]
+</div>
+<p> For \(v\in \{ 0,a,q-1\} \), that is, for \(q\mid m\), \(q\mid 2m+1\) or \(q\mid 2m+2\), the last factor is \(1\) for every such \(\lambda \); for \(q\mid 2m+2\) the theorem is Theorems A(2) and B. </p>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:C">Theorem C</a>, <a href="#cor:todoq">Corollary 10.2</a></p>
+<div class="proof_wrapper" id="a0000000070">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> <em>The class of \(\rho \).</em> The residues of \(\rho \) are \(u\) full turns of \(\mathbb {Z}/q\) followed by \(1,\dots ,v\). If \(v\le a\) the classes with \(2u+1\) entries are \(1,\dots ,v\). If \(v{\gt}a\) the classes with one entry fewer are \(0\) and the non-fixed \(c{\lt}q-v\); the class \(q/2\), for \(q\) even, is full, since \(v\ge q/2\). In both cases these classes are the entries of \(\rho _Y\). </p>
+<p><em>Regularity.</em> The entries of \(b\) are distinct and lie in \(\{ 1,\dots ,a\} \) if \(Y=C_s\), and in \(\{ 0,\dots ,a\} \), together with \(q/2\) when \(q\) is even, if \(Y=D_s\). Hence every \((b,\alpha )\) with \(\alpha \) a positive root of \(Y\), namely \(b_i\pm b_j\) and, for \(C_s\), \(2b_i\), lies strictly between \(0\) and \(q\), since \(2a{\lt}q\) and \(a+q/2{\lt}q\) for \(q\) even. The same holds for \(\rho _Y\), which is one of the possible \(b\). So \(b-\rho _Y\) is dominant and \(g^Y_{p/q}\) is regular. The computation that gives (3) in Section 3 is stated there for \(G\) simple and simply connected, but it uses only the Weyl character formula and the Weyl denominator identity, with \(\rho \) a weight of the group; it therefore applies verbatim to \(\mathrm{Sp}(2s)\) and to \(Y=\mathrm{SO}(2s)\), where \(\rho _Y\) is a weight, including \(D_2\), which is not simple, and \(D_1\), a torus, where both sides are \(1\). It gives for \(Y\) </p>
+<div class="displaymath" id="a0000000072">
+  \[  \bigl|\chi ^Y_{b-\rho _Y}(g^Y_{p/q})\bigr|=\frac{\Pi ^Y(b)}{\Pi ^Y(\rho _Y)},\qquad \Pi ^Y(x)=\prod _{\alpha \in \Phi ^+(Y)}\bigl|\sin \bigl(\pi p(x,\alpha )/q\bigr)\bigr| .  \]
+</div>
+<p><em>Residues.</em> In \(\mathbb {Z}[X]/(X^q-1)\), with \(P_x\) and \(T_q\) as in Proposition <a href="index.html#prop:res">5.1</a>, a non-fixed class \(c\) holding \(n\) entries contributes \(n(X^c+X^{-c})\) to \(P_\ell \), and a fixed class \(c\) contributes \(2nX^c=n(X^c+X^{-c})\). Hence </p>
+<div class="displaymath" id="a0000000073">
+  \[  P_\ell =2u\, T_q+P_b\quad (v\le a),\qquad P_\ell =2(u+1)\, T_q-P_b\quad (v{\gt}a),  \]
+</div>
+<p> and the same holds for \(\rho \) with \(\rho _Y\) in place of \(b\). Since \(T_q^2=q\, T_q\) and \(T_q\, P_x=2s\, T_q\) for \(x\in \mathbb {Z}^s\), every term of (6) that contains \(T_q(X)\) or \(T_q(X^2)\) is the same for \(\ell \) and for \(\rho \), and </p>
+<div class="displaymath" id="a0000000074">
+  \[  \mathscr R_\ell -\mathscr R_\rho =\frac{P_b^2\pm P_b(X^2)}{2}-\frac{P_{\rho _Y}^2\pm P_{\rho _Y}(X^2)}{2} =\mathscr R^Y_b-\mathscr R^Y_{\rho _Y},  \]
+</div>
+<p> with the upper sign for \(v\le a\). Here \(\mathscr R^Y_x=\sum _{\alpha \in \Phi (Y)}X^{(x,\alpha )}\), which is \((P_x^2+P_x(X^2))/2-s\) for \(C_s\) by (6), and \((P_x^2-P_x(X^2))/2-s\) for \(D_s\), whose roots \(\pm e_i\pm e_j\) are those of \(C_s\) without the \(\pm 2e_i\). </p>
+<p><em>The value.</em> The limit in the proof of Theorem <a href="index.html#thm:A">A</a> uses only \(N_q(\ell )=r_q\), so </p>
+<div class="displaymath" id="a0000000075">
+  \[  \chi _\lambda (g_{p/q})=(-1)^{E_{p,q}(\lambda )}\, \frac{Z_q(\ell )}{Z_q(\rho )}\cdot \frac{\Pi (\ell )}{\Pi (\rho )}, \qquad \Pi (x)=\prod _{\alpha {\gt}0,\  q\nmid (x,\alpha )}\bigl|\sin \bigl(\pi p(x,\alpha )/q\bigr)\bigr| .  \]
+</div>
+<p> Now \(\Pi (x)^2\) is the product of \(|\sin (\pi p c/q)|\) over the non-zero residues \(c\) of \(\mathscr R_x\), counted with multiplicity, and \(\Pi ^Y(x)^2\) is the same product for \(\mathscr R^Y_x\), none of whose residues is zero. The identity of residue multisets \(\mathscr R_\ell +\mathscr R^Y_{\rho _Y}=\mathscr R_\rho +\mathscr R^Y_b\) therefore gives \(\Pi (\ell )/\Pi (\rho )=\Pi ^Y(b)/\Pi ^Y(\rho _Y)\). </p>
+<p><em>The dimensions.</em> As in the proof of Theorem <a href="index.html#thm:B">B</a>, \(Z_q(\ell )/Z_q(\rho )\) is \(\Delta _\lambda \) times the ratio of the constants \(V_n\), \(C_n\), \(B_n\) for the occupancies of \(\ell \) and of \(\rho \), since the dimensions for \(\rho \) are \(1\) and the powers of \(q\) agree. If \(v\le a\) the two multisets of occupancies agree class type by class type and the ratio is \(1\). If \(v{\gt}a\), the occupancies agree outside the classes that fall short, a class falling short multiplies the constant by \(V_{2u+1}/V_{2u+2}=1/(2u+1)!\), by \(B_u/B_{u+1}=1/(2u+1)!\) or, for the class \(0\), by \(C_u/C_{u+1}=1/\bigl(2(2u+1)!\bigr)\), and both \(\ell \) and \(\rho \) have \(q-v\) such classes, the class \(0\) among them for \(\rho \). The ratio is \(2\) if the class \(0\) is full for \(\ell \) and \(1\) otherwise, that is, \(\kappa \). </p>
+<p><em>The cases \(v\in \{ 0,a,q-1\} \).</em> If \(v=0\) then \(s=0\) and \(Y=C_0\). If \(v=a\) then \(Y=C_a\), and the \(a\) distinct entries of \(b\) in \(\{ 1,\dots ,a\} \) give \(b=(a,\dots ,1)=\rho _Y\). If \(v=q-1\) then \(Y=D_1\). In the three cases the last factor is \(1\). Now \(v=0\) means \(q\mid m\); \(v=a\) means \(2m+1=(2u+1)q\) for \(q\) odd and \(2m+2=(2u+1)q\) for \(q\) even; and \(v=q-1\) means \(q\mid m+1\). For \(q\mid 2m+2\), with \(d=(2m+2)/q\), the case \(d\) odd is \(v=a\) with \(q\) even, where \(\kappa =1\), and the case \(d\) even is \(v=q-1\), where \(u+1=d/2\); in both, \(\kappa \) is the \(\kappa (\lambda )\) of Theorem <a href="index.html#thm:B">B</a>. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> At a general rational point the residue multisets of \(\ell \) and \(\rho \) differ, and the quotient of sines in the proof of Theorem <a href="index.html#thm:A">A</a> is no longer \(1\). This theorem identifies it. Let \(b\) list the classes holding \(2u+1\) entries when \(v\le a\), or, when \(v{\gt}a\), the classes holding one entry fewer than the full occupancy (\(2u+2\) for a non-fixed class, \(u+1\) for a fixed one). Then \(P_\ell =2uT_q+P_b\) or \(2(u+1)T_q-P_b\), every term containing \(T_q\) is common to \(\ell \) and \(\rho \), and \(\mathcal R_\ell -\mathcal R_\rho =\mathcal R^Y_b-\mathcal R^Y_{\rho _Y}\) for a group \(Y=C_s\) or \(D_s\) of rank \(s\le m\) (equal to \(m\) only for \(q{\gt}2m\), \(Y=C_m\), and \(q=2m\), \(Y=D_m\)). So the quotient of sines is \(|\chi ^Y_{b-\rho _Y}(g^Y_{p/q})|\), a character of \(\mathrm{Sp}(2s)\) or \(\mathrm{SO}(2s)\) at a regular element, and \(\chi _\lambda =\pm \kappa \, \Delta _\lambda \, |\chi ^Y|\). For \(v\in \{ 0,a,q-1\} \) the last factor is \(1\). Known cases: \(v=0\) (Ayyer–Kumari), \(q\mid 2m+1\) (Albion), \(v=1\) (related to Kumari). The paper states that the reduction for \(q\le 2m\), \(2\le v\le q-1\), \(v\ne a\), and its residual factor of type \(D\), are new. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Checked by program</b> <span class="ttfamily">valor_todo_q.py</span>: all \(4507\) surviving \((\lambda ,p)\), \(m=2,\dots ,5\), \(q=2,\dots ,11\), \(p\) prime to \(q\), \(\lambda _1\le 4\) (box stated in the paper); \(0\) failures (<span class="ttfamily">valor_todo_q_OUT.txt</span>). <b class="bfseries">Floating point</b>: characters of \(\mathrm{Sp}(2m)\), \(\mathrm{Sp}(2s)\), \(\mathrm{SO}(2s)\) as Weyl determinant quotients at a perturbation of the element (mpmath, 700 digits), tolerance \(10^{-6}(1+|\chi |)\); no rigorous error bound. The evaluator <span class="ttfamily">carac.py</span> uses no formula of the paper; \(b\), \(Y\), \(\kappa \), \(E\) are transcribed from the statement, which is what is tested. Negative control: \(\rho _{D_s}\to (s,\dots ,1)\) breaks \(1224\) cases. </p>
+</li>
+<li><p><span class="ttfamily">valor_todo_q.py casos</span>: \(600\) cases at six listed \((m,q)\), among them \(192\) with \(u=1\), \(Y=D_3\), \(b\ne \rho _Y\); \(\chi =\chi ^{C_v}\) with \(\Delta _\lambda =1\) on \(164\) weights equal to their \(q\)-core with at most \(v\) parts. Same floating-point method; the control breaks \(192\). </p>
+</li>
+<li><p><span class="ttfamily">prefactores.py</span> (e): \(11\, 244\) cases, \(m\le 6\), \(q\le 16\), \(0\) failures. Second evaluator, independent of <span class="ttfamily">carac.py</span>: the character of \(\mathrm{Sp}(2m)\) exact in <span class="ttfamily">evlib.py</span>, then evaluated to 40 digits; \(\chi ^Y\) by the Weyl determinant; tolerance \(10^{-25}\). Floating point. </p>
+</li>
+<li><p><span class="ttfamily">residual_factorizacion.py</span>: an earlier form of \(|\chi |\), \(p=1\), \(1814\) weights, \(m\le 6\), \(q\le 12\), floating point; four mutations each break \(355\) to \(390\) of \(1145\) cases. </p>
+</li>
+<li><p><b class="bfseries">Gap:</b> away from the integer points of Proposition <a href="index.html#thm:clasif">8.1</a>, every check of the residual factor for \(v\notin \{ 0,a,q-1\} \) is floating point. At the integer points with \(v\notin \{ 0,a,q-1\} \) (\(q=6\), \(m\equiv 1,4\pmod6\); \(q\ge 4\) even, \(q\mid 2m\), \(q\nmid m\)) it is checked exactly at \(p=1\), through \(c_\lambda =\kappa R_1(b)\), by <span class="ttfamily">prefactores.py</span> and <span class="ttfamily">formula_pura.py</span>. The constant ratios \(1/(2u+1)!\) and \(1/(2(2u+1)!)\) have no program. </p>
+</li>
+</ul>
+</details><div class="corollary_thmwrapper theorem-style-plain" id="cor:todoq">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">10.2</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#cor:todoq">#</a>
+<a class="icon proof" href="index.html#a0000000078"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:B">Theorem B</a></li>
+<li><a href="index.html#thm:cuenta">Theorem 9.1</a></li>
+<li><a href="index.html#thm:todoq">Theorem 10.1</a></li>
+<li><a href="index.html#thm:B">Theorem B</a></li>
+<li><a href="index.html#thm:cuenta">Theorem 9.1</a></li>
+<li><a href="index.html#thm:todoq">Theorem 10.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=13" title="Open the paper at page 13">📕 p. 13</a></div>
+<div class="corollary_thmcontent">
+<p>  Let \(q\mid m\) or \(q\mid 2m+1\), let \(\gcd (p,q)=1\), and let \(\lambda \) be a dominant weight of \(\mathrm{Sp}(2m)\). Then \(\chi _\lambda (g_{p/q})\neq 0\) if and only if each non-fixed folded class modulo \(q\) contains at most \(2m/q\), respectively \((2m+1)/q\), of the entries of \(\ell =\lambda +\rho \), and the fixed classes at most \(m/q\), respectively \((2m+1-q)/(2q)\); these bounds are then attained. In that case </p>
+<div class="displaymath" id="a0000000079">
+  \[  \chi _\lambda (g_{p/q})\; =\; (-1)^{E_{p,q}(\lambda )}\, \frac{Z_q(\lambda +\rho )}{Z_q(\rho )}, \qquad \bigl|\chi _\lambda (g_{p/q})\bigr|\; =\; \Delta _\lambda ,  \]
+</div>
+<p> where \(\Delta _\lambda \) is the product of dimensions of Theorem <a href="index.html#thm:B">B</a>. </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000078">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> The two cases are \(v=0\), with \(u=m/q\), and \(v=a\) with \(q\) odd, with \(u=(2m+1-q)/(2q)\). In both \(v\le a\), so the occupancies of the surviving weights, listed before Theorem <a href="index.html#thm:todoq">10.1</a>, are \(2u\) or \(2u+1\) in every non-fixed class and \(u\) in every fixed class; they add up to \(m\), so the bounds are attained, and a placement exceeding one of them costs more than \(r_q\) by (5) and the marginal costs in the proof of Theorem <a href="index.html#thm:cuenta">9.1</a>. Since \(v\le a\), \(\kappa =1\), and the last factor of Theorem <a href="index.html#thm:todoq">10.1</a> is \(1\). Its proof gives \(\chi _\lambda (g_{p/q})=(-1)^{E_{p,q}(\lambda )}\bigl(Z_q(\ell )/Z_q(\rho )\bigr)\, \Pi (\ell )/\Pi (\rho )\) with \(\Pi (\ell )/\Pi (\rho )\) equal to that factor, and \(Z_q(\ell )/Z_q(\rho )=\kappa \Delta _\lambda \). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> The two families \(q\mid m\) (\(v=0\)) and \(q\mid 2m+1\) (\(v=a\), \(q\) odd) are cases of Theorem <a href="index.html#thm:todoq">10.1</a> where nothing is left over, as is \(q\mid 2m+2\) with \(d\) odd: \(v\le a\), so \(\kappa =1\), and the residual factor is \(1\). Survival becomes a pure capacity rule: at most \(2m/q\), resp. \((2m+1)/q\), entries of \(\ell \) in each non-fixed class and \(m/q\), resp. \((2m+1-q)/(2q)\), in each fixed class, and the bounds are then attained. On the survivors the closed form of Theorem <a href="index.html#thm:A">A</a>(2) holds and \(|\chi _\lambda |=\Delta _\lambda \). The paper attributes these values to known results: the case \(v=0\) is Ayyer–Kumari’s factorisation at \(X=(1,\dots ,1)\), and \(q\mid 2m+1\) follows from Albion. The rest of the family \(q\mid 2m\) behaves differently: at \(\mathrm{Sp}(4)\), \(q=4\), \(\lambda =(1,0)\) has \(Z\)-quotient \(1\) and value \(-2\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Not formalized in Lean.</b> Proof on paper. </p>
+</li>
+<li><p><b class="bfseries">Exact:</b> <span class="ttfamily">formula_pura.py</span> finds the closed form on every surviving \((\lambda ,p)\) of its box at each pair of these two families with \(m\le 8\), \(q\le 30\); <span class="ttfamily">prefactores.py</span> finds \(c=1\), that is \(|\chi _\lambda |=\Delta _\lambda \), in both families. </p>
+</li>
+<li><p><span class="ttfamily">valor_todo_q.py casos</span>: \(312\) of \(312\) cases at \((m,q)=(3,3),(5,5),(2,5),(4,3),(6,13)\); floating point, as for Theorem <a href="index.html#thm:todoq">10.1</a>. </p>
+</li>
+<li><p>The capacity bounds are not checked separately; they are covered by the checks of Proposition <a href="index.html#prop:crit">3.1</a>. </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000082">References</h1>
+<dl class="bibliography">
+<dt><a name="AK22">1</a></dt>
+<dd><p>A. Ayyer and N. Kumari, <em>Factorization of classical characters twisted by roots of unity</em>, J. Algebra <b class="bfseries">609</b> (2022), 437–483.  <a class="bib-link" href="https://doi.org/10.1016/j.jalgebra.2022.06.015" rel="noopener" target="_blank">→ doi:10.1016/j.jalgebra.2022.06.015</a></p>
+</dd>
+<dt><a name="AK25">2</a></dt>
+<dd><p>A. Ayyer and N. Kumari, <em>Further results for classical and universal characters twisted by roots of unity</em>, J. Algebraic Combin. <b class="bfseries">63</b> (2026), Paper No. 2; <a href="https://arxiv.org/abs/2501.00275" rel="noopener" target="_blank">arXiv:2501.00275</a>. Statements are cited by their numbering in version 2 of the arXiv preprint. </p>
+</dd>
+<dt><a name="Alb23">3</a></dt>
+<dd><p>S. Albion, <em>Universal characters twisted by roots of unity</em>, Algebr. Comb. <b class="bfseries">6</b> (2023), 1653–1676.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Universal+characters+twisted+by+roots+of+unity" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Alb25">4</a></dt>
+<dd><p>S. Albion, <em>Character factorisations, \(z\)-asymmetric partitions and plethysm</em>, <a href="https://arxiv.org/abs/2501.18520" rel="noopener" target="_blank">arXiv:2501.18520</a>. </p>
+</dd>
+<dt><a name="CMP07">5</a></dt>
+<dd><p>P. Cellini, P. Möseneder Frajria and P. Papi, <em>The \(\widehat W\)-orbit of \(\rho \), Kostant’s formula for powers of the Euler product and affine Weyl groups as permutations of \(\mathbb {Z}\)</em>, J. Pure Appl. Algebra <b class="bfseries">208</b> (2007), 1103–1119.  <a class="bib-search" href="https://scholar.google.com/scholar?q=The+%5C%28%5Cwidehat+W%5C%29-orbit+of+%5C%28%5Crho+%5C%29%2C+Kostant%E2%80%99s+formula+for+powers+of+the+Euler+product+and+affine+Weyl+groups+as+permutations+of+%5C%28%5Cmathbb+%7BZ%7D%5C%29" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="GS19">6</a></dt>
+<dd><p>T. Gannon and A. Schopieray, <em>Algebraic number fields generated by dimensions in fusion rings</em>, Commun. Number Theory Phys. <b class="bfseries">18</b> (2024), no. 4, 705–743; <a href="https://arxiv.org/abs/1912.12260" rel="noopener" target="_blank">arXiv:1912.12260</a>. Statements are cited by their numbering in version 1 of the arXiv preprint. </p>
+</dd>
+<dt><a name="Kac81">7</a></dt>
+<dd><p>V. G. Kac, <em>Simple Lie groups and the Legendre symbol</em>, in: Algebra, Carbondale 1980, Lecture Notes in Math. <b class="bfseries">848</b>, Springer, 1981, 110–123.  <a class="bib-link" href="https://doi.org/10.1007/bfb0090559" rel="noopener" target="_blank">→ doi:10.1007/bfb0090559</a></p>
+</dd>
+<dt><a name="Kar25">8</a></dt>
+<dd><p>C. Karmakar, <em>Character values at elements of order \(2\)</em>, Proc. Indian Acad. Sci. Math. Sci. <b class="bfseries">135</b> (2025), Paper No. 41.  <a class="bib-link" href="https://doi.org/10.1007/s12044-025-00847-0" rel="noopener" target="_blank">→ doi:10.1007/s12044-025-00847-0</a></p>
+</dd>
+<dt><a name="Kostant76">9</a></dt>
+<dd><p>B. Kostant, <em>On Macdonald’s \(\eta \)-function formula, the Laplacian and generalized exponents</em>, Adv. Math. <b class="bfseries">20</b> (1976), 179–212.  <a class="bib-link" href="https://doi.org/10.1016/0001-8708(76)90186-9" rel="noopener" target="_blank">→ doi:10.1016/0001-8708(76)90186-9</a></p>
+</dd>
+<dt><a name="Kostant04">10</a></dt>
+<dd><p>B. Kostant, <em>Powers of the Euler product and commutative subalgebras of a complex simple Lie algebra</em>, Invent. Math. <b class="bfseries">158</b> (2004), 181–226.  <a class="bib-link" href="https://doi.org/10.1007/s00222-004-0370-7" rel="noopener" target="_blank">→ doi:10.1007/s00222-004-0370-7</a></p>
+</dd>
+<dt><a name="KP25">11</a></dt>
+<dd><p>S. Kumar and D. Prasad, <em>Character of irreducible representations restricted to finite order elements: an asymptotic formula</em>, J. Algebra <b class="bfseries">676</b> (2025), 69–81.  <a class="bib-link" href="https://doi.org/10.1016/j.jalgebra.2025.03.030" rel="noopener" target="_blank">→ doi:10.1016/j.jalgebra.2025.03.030</a></p>
+</dd>
+<dt><a name="Kum24">12</a></dt>
+<dd><p>N. Kumari, <em>Factorization of classical characters twisted by roots of unity: II</em>, J. Pure Appl. Algebra <b class="bfseries">228</b> (2024), no. 11, Paper No. 107714; <a href="https://arxiv.org/abs/2212.12477" rel="noopener" target="_blank">arXiv:2212.12477</a>. Statements are cited by their numbering in the arXiv preprint. </p>
+</dd>
+<dt><a name="Lec09">13</a></dt>
+<dd><p>C. Lecouvey, <em>Parabolic Kazhdan–Lusztig polynomials, plethysm and generalized Hall–Littlewood functions for classical types</em>, European J. Combin. <b class="bfseries">30</b> (2009), 157–191.  <a class="bib-link" href="https://doi.org/10.1016/j.ejc.2008.02.007" rel="noopener" target="_blank">→ doi:10.1016/j.ejc.2008.02.007</a></p>
+</dd>
+<dt><a name="Li40">14</a></dt>
+<dd><p>D. E. Littlewood, <em>The Theory of Group Characters and Matrix Representations of Groups</em>, Oxford University Press, 1940; 2nd ed. 1950.  <a class="bib-search" href="https://scholar.google.com/scholar?q=The+Theory+of+Group+Characters+and+Matrix+Representations+of+Groups" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Mar26">15</a></dt>
+<dd><p>C. Marín, <em>Schur polynomials twisted by roots of unity and reciprocal pairs: exactly three factors, and where they vanish</em>, <a href="https://arxiv.org/abs/2608.09619" rel="noopener" target="_blank">arXiv:2608.09619</a>. Statements are cited by their numbering in version 3. </p>
+</dd>
+<dt><a name="MP84">16</a></dt>
+<dd><p>R. V. Moody and J. Patera, <em>Characters of elements of finite order in Lie groups</em>, SIAM J. Algebraic Discrete Methods <b class="bfseries">5</b> (1984), 359–383.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Characters+of+elements+of+finite+order+in+Lie+groups" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Miz03">17</a></dt>
+<dd><p>H. Mizukawa, <em>Factorization of Schur functions of various types</em>, J. Algebra <b class="bfseries">269</b> (2003), 215–226.  <a class="bib-link" href="https://doi.org/10.1016/s0021-8693(03)00527-1" rel="noopener" target="_blank">→ doi:10.1016/s0021-8693(03)00527-1</a></p>
+</dd>
+<dt><a name="NPP25">18</a></dt>
+<dd><p>S. Nadimpalli, S. Pattanayak and D. Prasad, <em>Character theory at a torsion element</em>, <a href="https://arxiv.org/abs/2504.14684" rel="noopener" target="_blank">arXiv:2504.14684</a>. </p>
+</dd>
+<dt><a name="Pia87">19</a></dt>
+<dd><p>A. Pianzola, <em>On the arithmetic of the representation ring and elements of finite order in Lie groups</em>, J. Algebra <b class="bfseries">108</b> (1987), 1–33.  <a class="bib-search" href="https://scholar.google.com/scholar?q=On+the+arithmetic+of+the+representation+ring+and+elements+of+finite+order+in+Lie+groups" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="PW91">20</a></dt>
+<dd><p>A. Pianzola and A. Weiss, <em>The rationality of elements of prime order in compact connected simple Lie groups</em>, J. Algebra <b class="bfseries">144</b> (1991), 510–521.  <a class="bib-search" href="https://scholar.google.com/scholar?q=The+rationality+of+elements+of+prime+order+in+compact+connected+simple+Lie+groups" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Prasad16b">21</a></dt>
+<dd><p>D. Prasad, <em>A character relationship on \(\mathrm{GL}_n(\mathbb {C})\)</em>, Israel J. Math. <b class="bfseries">211</b> (2016), 257–270.  <a class="bib-search" href="https://scholar.google.com/scholar?q=A+character+relationship+on+%5C%28%5Cmathrm%7BGL%7D_n%28%5Cmathbb+%7BC%7D%29%5C%29" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Ree24">22</a></dt>
+<dd><p>M. Reeder, <em>Weyl group characters afforded by zero weight spaces</em>, Transform. Groups <b class="bfseries">29</b> (2024), 1161–1198; <a href="https://arxiv.org/abs/1910.02463" rel="noopener" target="_blank">arXiv:1910.02463</a>. Statements are cited by their numbering in version 2 of the arXiv preprint. </p>
+</dd>
+</dl>
+</section>
+</div>
+</div>
+</div>
+</div>
+<nav class="prev_up_next">
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+<a href="index.html" title="Characters of Sp(2m) at the powers of Kostant's element: blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+</nav>
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>
+(function(){
+  function elige(k){
+    document.querySelectorAll('.mathtabs').forEach(function(b){
+      var hay=b.querySelector('.mpane[data-k="'+k+'"]'); if(!hay) return;
+      b.querySelectorAll('.mtab').forEach(function(x){x.classList.toggle('on',x.dataset.k===k)});
+      b.querySelectorAll('.mpane').forEach(function(x){x.classList.toggle('on',x.dataset.k===k)});
+    });
+    try{localStorage.setItem('mathlang',k)}catch(e){}
+  }
+  document.addEventListener('click',function(e){var b=e.target.closest('.mtab'); if(b) elige(b.dataset.k)});
+  try{var k=localStorage.getItem('mathlang'); if(k) elige(k)}catch(e){}
+})();
+</script><script>// paper-companion: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
+// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+// event, so that page-specific scripts (labs) can react.
+(function(){
+  function set(v){
+    document.body.classList.toggle('vista-paper', v==='paper');
+    document.querySelectorAll('#vistas button').forEach(function(b){b.classList.toggle('on', b.dataset.v===v)});
+    try{localStorage.setItem('vista', v)}catch(e){}
+    document.dispatchEvent(new CustomEvent('vista', {detail: v}));
+  }
+  document.addEventListener('click', function(e){var b=e.target.closest('#vistas button'); if(b) set(b.dataset.v)});
+  var v='paper'; try{v=localStorage.getItem('vista')||'paper'}catch(e){}
+  set(v);
+})();
+</script><script>
+(function(){
+  var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
+  function apply(v){
+    var ex = v === 'explore';
+    document.body.classList.toggle('vista-explore', ex);
+    document.querySelectorAll(SEL).forEach(function(d){ d.open = ex; });
+  }
+  document.addEventListener('vista', function(e){ apply(e.detail); });
+  apply(document.body.classList.contains('vista-paper') ? 'paper' : 'explore');
+})();
+</script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
+  if (!panes.length) return;
+  var box = document.querySelector('div.content');
+  function find(h){
+    if (!h) return null;
+    try { h = decodeURIComponent(h); } catch (e) {}
+    return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
+  }
+  function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
+  function show(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    panes.forEach(function(x){ x.hidden = x !== p; });
+    document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
+      var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
+      var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
+      li.classList.toggle('current', on);
+      var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
+      if (ul) ul.classList.toggle('active', on);
+      if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+    });
+    if (!t || t === p || t.tagName === 'H1' || t.id === 'top') { if (box) box.scrollTop = 0; }
+    else t.scrollIntoView({block: 'start'});
+  }
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // a link to the hash already in the URL fires no hashchange
+    var a = ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+    if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); show(m[1]); }
+  });
+  show(location.hash.slice(1));
+  // the browser's own jump to the hash, and MathJax, move the page after the first show(): place it again
+  window.addEventListener('load', function(){ show(location.hash.slice(1)); });
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise)
+    MathJax.startup.promise.then(function(){ show(location.hash.slice(1)); });
+})();
+</script>
+
+</body>
+</html>

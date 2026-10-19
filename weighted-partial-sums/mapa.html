@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: Exact zeros of weighted sums of completely multiplicative functions</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="pc-map-css">
+html,body{height:100%}
+body.pc-frame{margin:0;display:flex;flex-direction:column;overflow:hidden;background:#e8e8e8}
+body.pc-frame header.pc-head{position:static;width:auto;margin:0;flex-shrink:0}
+.pc-wrap{display:flex;flex:1;overflow:hidden}
+nav.pc-toc{width:28ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0;font-family:serif}
+nav.pc-toc ul{list-style:none;margin:0;padding:0}
+nav.pc-toc a{display:block;padding:.5rem .8rem;color:#fff;text-decoration:none;font-size:1.05rem;
+  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
+nav.pc-toc a:hover{background:#497da5}
+nav.pc-toc li.on>a{background:#89aecb}
+.pc-panel{flex:1;overflow:auto;padding:1rem}
+.pc-panel>.cont{margin:0 auto;max-width:none;padding:0 1rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
+.pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
+.pc-paneltitle .campo{justify-content:center}
+section.pc-pane[hidden]{display:none !important}
+section.pc-pane .mapa{max-width:100%;overflow:auto}
+@media (max-width:900px){nav.pc-toc{display:none}}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:none}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600}
+</style></head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Exact zeros of weighted sums of completely multiplicative functions: blueprint">Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/schur-orbit-and-reciprocal-pair/atlas/">🗺️📚 Atlas</a></nav></header>
+
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Exact zeros of weighted sums of completely multiplicative functions</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Number theory · arithmetic functions</span> <a class="msc msc-p" href="https://zbmath.org/classification/?q=cc:11A25" rel="noopener" target="_blank" title="MSC 2020 11A25: Arithmetic functions; related numbers; inversion formulas">11A25</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:11K65" rel="noopener" target="_blank" title="MSC 2020 11K65: Arithmetic functions in probabilistic number theory">11K65</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:11L40" rel="noopener" target="_blank" title="MSC 2020 11L40: Estimates on character sums">11L40</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:11P70" rel="noopener" target="_blank" title="MSC 2020 11P70: Inverse problems of additive number theory, including sumsets">11P70</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:11R29" rel="noopener" target="_blank" title="MSC 2020 11R29: Class numbers, class groups, discriminants">11R29</a></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>17</b> results</span>
+<span class="cifra c-lean">✅ <b>4</b> formalized in Lean</span>
+<span class="cifra c-part">◐ <b>4</b> with a part in Lean</span>
+<span class="cifra c-prog">💻 <b>11</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="564pt" style="min-width:760px" viewbox="0.00 0.00 1533.00 564.00" width="1533pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 559.9)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M621,-101.08C621,-101.08 1389,-101.08 1389,-101.08 1395,-101.08 1401,-107.08 1401,-113.08 1401,-113.08 1401,-209.41 1401,-209.41 1401,-215.41 1395,-221.41 1389,-221.41 1389,-221.41 621,-221.41 621,-221.41 615,-221.41 609,-215.41 609,-209.41 609,-209.41 609,-113.08 609,-113.08 609,-107.08 615,-101.08 621,-101.08" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1005" xml:space="preserve" y="-206">Statements</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M164,-111.58C164,-111.58 589,-111.58 589,-111.58 595,-111.58 601,-117.58 601,-123.58 601,-123.58 601,-316.74 601,-316.74 601,-322.74 595,-328.74 589,-328.74 589,-328.74 164,-328.74 164,-328.74 158,-328.74 152,-322.74 152,-316.74 152,-316.74 152,-123.58 152,-123.58 152,-117.58 158,-111.58 164,-111.58" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="376.5" xml:space="preserve" y="-313.35">Theorems A and B</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M884,-229.41C884,-229.41 1366,-229.41 1366,-229.41 1372,-229.41 1378,-235.41 1378,-241.41 1378,-241.41 1378,-543.9 1378,-543.9 1378,-549.9 1372,-555.9 1366,-555.9 1366,-555.9 884,-555.9 884,-555.9 878,-555.9 872,-549.9 872,-543.9 872,-543.9 872,-241.41 872,-241.41 872,-235.41 878,-229.41 884,-229.41" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1125" xml:space="preserve" y="-540.5">The digit recursion</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M12,0C12,0 132,0 132,0 138,0 144,-6 144,-12 144,-12 144,-198.91 144,-198.91 144,-204.91 138,-210.91 132,-210.91 132,-210.91 12,-210.91 12,-210.91 6,-210.91 0,-204.91 0,-198.91 0,-198.91 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="72" xml:space="preserve" y="-195.51">Rows</text>
+</g>
+<g class="cluster" id="clust5">
+<title>cluster_4</title>
+<path d="M1399,-336.74C1399,-336.74 1513,-336.74 1513,-336.74 1519,-336.74 1525,-342.74 1525,-348.74 1525,-348.74 1525,-430.07 1525,-430.07 1525,-436.07 1519,-442.07 1513,-442.07 1513,-442.07 1399,-442.07 1399,-442.07 1393,-442.07 1387,-436.07 1387,-430.07 1387,-430.07 1387,-348.74 1387,-348.74 1387,-342.74 1393,-336.74 1399,-336.74" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-426.67">After submission</text>
+</g>
+<!-- thm:A -->
+<g class="node" id="node1">
+<title>thm:A</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:A" xlink:title="Theorem A: every admissible length is a zero of some ε">
+<path d="M925.43,-184.03C925.43,-184.03 628.57,-184.03 628.57,-184.03 622.57,-184.03 616.57,-178.03 616.57,-172.03 616.57,-172.03 616.57,-128.21 616.57,-128.21 616.57,-122.21 622.57,-116.21 628.57,-116.21 628.57,-116.21 925.43,-116.21 925.43,-116.21 931.43,-116.21 937.43,-122.21 937.43,-128.21 937.43,-128.21 937.43,-172.03 937.43,-172.03 937.43,-178.03 931.43,-184.03 925.43,-184.03" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="777" xml:space="preserve" y="-167.59">Theorem A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="777" xml:space="preserve" y="-153.34">every admissible length is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="777" xml:space="preserve" y="-139.09">a zero of some ε</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="777" xml:space="preserve" y="-124.84">◐ in Lean: only one ingredient (Lemma 2.2(b)) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:prefijos -->
+<g class="node" id="node7">
+<title>prop:prefijos</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#prop:prefijos" xlink:title="Proposition 3.1: signs at finitely many primes can be prescribed">
+<path d="M581.3,-298.49C581.3,-298.49 478.7,-298.49 478.7,-298.49 472.7,-298.49 466.7,-292.49 466.7,-286.49 466.7,-286.49 466.7,-249.41 466.7,-249.41 466.7,-243.41 472.7,-237.41 478.7,-237.41 478.7,-237.41 581.3,-237.41 581.3,-237.41 587.3,-237.41 593.3,-243.41 593.3,-249.41 593.3,-249.41 593.3,-286.49 593.3,-286.49 593.3,-292.49 587.3,-298.49 581.3,-298.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="530" xml:space="preserve" y="-283.47">Proposition 3.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="530" xml:space="preserve" y="-270.72">signs at finitely many</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="530" xml:space="preserve" y="-257.97">primes can be prescribed</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="530" xml:space="preserve" y="-245.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:A&#45;&gt;prop:prefijos -->
+<g class="edge" id="edge6">
+<title>thm:A-&gt;prop:prefijos</title>
+<path d="M704.43,-185.15C671.9,-200.41 633.65,-218.34 601.28,-233.53" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="600.28,-231.29 594.98,-236.48 602.36,-235.73 600.28,-231.29" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:filas -->
+<g class="node" id="node16">
+<title>cor:filas</title>
+<g id="a_node16"><a target="_top" xlink:href="index.html#cor:filas" xlink:title="Corollary 5.2: each row is empty or infinite">
+<path d="M119.43,-69.08C119.43,-69.08 32.57,-69.08 32.57,-69.08 26.57,-69.08 20.57,-63.08 20.57,-57.08 20.57,-57.08 20.57,-20 20.57,-20 20.57,-14 26.57,-8 32.57,-8 32.57,-8 119.43,-8 119.43,-8 125.43,-8 131.43,-14 131.43,-20 131.43,-20 131.43,-57.08 131.43,-57.08 131.43,-63.08 125.43,-69.08 119.43,-69.08" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-54.06">Corollary 5.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-41.31">each row is empty or</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-28.56">infinite</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-15.81">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:A&#45;&gt;cor:filas -->
+<g class="edge" id="edge15">
+<title>thm:A-&gt;cor:filas</title>
+<path d="M666.06,-115.02C646.51,-109.8 626.26,-104.89 607,-101.08 440.31,-68.09 240.42,-50.81 140.1,-43.64" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="140.55,-41.22 133.39,-43.17 140.2,-46.11 140.55,-41.22" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:dicotomia -->
+<g class="node" id="node2">
+<title>thm:dicotomia</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:dicotomia" xlink:title="Theorem B: infinitely many zeros: dense G_δ, but measure zero">
+<path d="M1085.8,-183.66C1085.8,-183.66 974.2,-183.66 974.2,-183.66 968.2,-183.66 962.2,-177.66 962.2,-171.66 962.2,-171.66 962.2,-128.58 962.2,-128.58 962.2,-122.58 968.2,-116.58 974.2,-116.58 974.2,-116.58 1085.8,-116.58 1085.8,-116.58 1091.8,-116.58 1097.8,-122.58 1097.8,-128.58 1097.8,-128.58 1097.8,-171.66 1097.8,-171.66 1097.8,-177.66 1091.8,-183.66 1085.8,-183.66" fill="#ffffff" stroke="#888888" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1030" xml:space="preserve" y="-167.22">Theorem B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1030" xml:space="preserve" y="-152.97">infinitely many zeros:</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1030" xml:space="preserve" y="-138.72">dense G_δ, but measure</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1030" xml:space="preserve" y="-124.47">zero</text>
+</a>
+</g>
+</g>
+<!-- cor:C -->
+<g class="node" id="node3">
+<title>cor:C</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#cor:C" xlink:title="Corollary C: zeros of χ at (q^j−1)/2; Conrey's series vanishes on an interval">
+<path d="M1381.3,-191.16C1381.3,-191.16 1134.7,-191.16 1134.7,-191.16 1128.7,-191.16 1122.7,-185.16 1122.7,-179.16 1122.7,-179.16 1122.7,-121.08 1122.7,-121.08 1122.7,-115.08 1128.7,-109.08 1134.7,-109.08 1134.7,-109.08 1381.3,-109.08 1381.3,-109.08 1387.3,-109.08 1393.3,-115.08 1393.3,-121.08 1393.3,-121.08 1393.3,-179.16 1393.3,-179.16 1393.3,-185.16 1387.3,-191.16 1381.3,-191.16" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-174.72">Corollary C</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-160.47">zeros of χ at (q^j−1)/2;</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-146.22">Conrey's series vanishes</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-131.97">on an interval</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1258" xml:space="preserve" y="-117.72">◐ in Lean: only the propagation step · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:momento -->
+<g class="node" id="node4">
+<title>lem:momento</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#lem:momento" xlink:title="Lemma 2.1: second-moment bound for the remainder">
+<path d="M429.68,-298.49C429.68,-298.49 320.32,-298.49 320.32,-298.49 314.32,-298.49 308.32,-292.49 308.32,-286.49 308.32,-286.49 308.32,-249.41 308.32,-249.41 308.32,-243.41 314.32,-237.41 320.32,-237.41 320.32,-237.41 429.68,-237.41 429.68,-237.41 435.68,-237.41 441.68,-243.41 441.68,-249.41 441.68,-249.41 441.68,-286.49 441.68,-286.49 441.68,-292.49 435.68,-298.49 429.68,-298.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="375" xml:space="preserve" y="-283.47">Lemma 2.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="375" xml:space="preserve" y="-270.72">second-moment bound for</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="375" xml:space="preserve" y="-257.97">the remainder</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="375" xml:space="preserve" y="-245.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:momento&#45;&gt;thm:A -->
+<g class="edge" id="edge2">
+<title>lem:momento-&gt;thm:A</title>
+<path d="M431.4,-236.94C438.84,-233.94 446.49,-231.31 454,-229.41 520.01,-212.7 540.58,-236.41 607,-221.41 639.17,-214.14 673.05,-201.3 702.03,-188.56" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="702.89,-190.86 708.29,-185.78 700.9,-186.38 702.89,-190.86" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:intervalos -->
+<g class="node" id="node5">
+<title>lem:intervalos</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#lem:intervalos" xlink:title="Lemma 2.2: subset sums of primes fill an interval">
+<path d="M461.8,-180.66C461.8,-180.66 290.2,-180.66 290.2,-180.66 284.2,-180.66 278.2,-174.66 278.2,-168.66 278.2,-168.66 278.2,-131.58 278.2,-131.58 278.2,-125.58 284.2,-119.58 290.2,-119.58 290.2,-119.58 461.8,-119.58 461.8,-119.58 467.8,-119.58 473.8,-125.58 473.8,-131.58 473.8,-131.58 473.8,-168.66 473.8,-168.66 473.8,-174.66 467.8,-180.66 461.8,-180.66" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="376" xml:space="preserve" y="-165.65">Lemma 2.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="376" xml:space="preserve" y="-152.9">subset sums of primes fill</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="376" xml:space="preserve" y="-140.15">an interval</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="376" xml:space="preserve" y="-127.4">◐ in Lean: only part (b) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:intervalos&#45;&gt;thm:A -->
+<g class="edge" id="edge1">
+<title>lem:intervalos-&gt;thm:A</title>
+<path d="M474.29,-150.12C518.54,-150.12 562.79,-150.12 607.04,-150.12" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="606.79,-152.57 613.79,-150.12 606.79,-147.67 606.79,-152.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:intervalos_b -->
+<g class="node" id="node6">
+<title>lem:intervalos_b</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#lem:intervalos_b" xlink:title="Lemma 2.2(b): complete sequences (the part in Lean)">
+<path d="M271.8,-298.49C271.8,-298.49 172.2,-298.49 172.2,-298.49 166.2,-298.49 160.2,-292.49 160.2,-286.49 160.2,-286.49 160.2,-249.41 160.2,-249.41 160.2,-243.41 166.2,-237.41 172.2,-237.41 172.2,-237.41 271.8,-237.41 271.8,-237.41 277.8,-237.41 283.8,-243.41 283.8,-249.41 283.8,-249.41 283.8,-286.49 283.8,-286.49 283.8,-292.49 277.8,-298.49 271.8,-298.49" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="222" xml:space="preserve" y="-283.47">Lemma 2.2(b)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="222" xml:space="preserve" y="-270.72">complete sequences (the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="222" xml:space="preserve" y="-257.97">part in Lean)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="222" xml:space="preserve" y="-245.22">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- lem:intervalos_b&#45;&gt;lem:intervalos -->
+<g class="edge" id="edge5">
+<title>lem:intervalos_b-&gt;lem:intervalos</title>
+<path d="M262.06,-236.82C282.74,-221.27 308.07,-202.21 329.59,-186.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="330.8,-188.17 334.93,-182.01 327.86,-184.25 330.8,-188.17" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:prefijos&#45;&gt;thm:dicotomia -->
+<g class="edge" id="edge3">
+<title>prop:prefijos-&gt;thm:dicotomia</title>
+<path d="M593.76,-259.51C661.31,-251.71 771.13,-239.23 866,-229.41 884.65,-227.48 932.79,-228.85 950,-221.41 966.48,-214.29 981.97,-202.45 994.8,-190.51" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="996.49,-192.28 999.9,-185.7 993.13,-188.72 996.49,-192.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:digitos -->
+<g class="node" id="node8">
+<title>thm:digitos</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#thm:digitos" xlink:title="Theorem 4.1: the digit recursion for S_χ">
+<path d="M1207.3,-519.27C1207.3,-519.27 1116.7,-519.27 1116.7,-519.27 1110.7,-519.27 1104.7,-513.27 1104.7,-507.27 1104.7,-507.27 1104.7,-470.19 1104.7,-470.19 1104.7,-464.19 1110.7,-458.19 1116.7,-458.19 1116.7,-458.19 1207.3,-458.19 1207.3,-458.19 1213.3,-458.19 1219.3,-464.19 1219.3,-470.19 1219.3,-470.19 1219.3,-507.27 1219.3,-507.27 1219.3,-513.27 1213.3,-519.27 1207.3,-519.27" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1162" xml:space="preserve" y="-504.25">Theorem 4.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1162" xml:space="preserve" y="-491.5">the digit recursion for</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1162" xml:space="preserve" y="-478.75">S_χ</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1162" xml:space="preserve" y="-466">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- lem:propagacion -->
+<g class="node" id="node10">
+<title>lem:propagacion</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#lem:propagacion" xlink:title="Corollary 4.3, first statement: zeros propagate along digits in R_q">
+<path d="M1331.3,-408.82C1331.3,-408.82 1210.7,-408.82 1210.7,-408.82 1204.7,-408.82 1198.7,-402.82 1198.7,-396.82 1198.7,-396.82 1198.7,-359.74 1198.7,-359.74 1198.7,-353.74 1204.7,-347.74 1210.7,-347.74 1210.7,-347.74 1331.3,-347.74 1331.3,-347.74 1337.3,-347.74 1343.3,-353.74 1343.3,-359.74 1343.3,-359.74 1343.3,-396.82 1343.3,-396.82 1343.3,-402.82 1337.3,-408.82 1331.3,-408.82" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1271" xml:space="preserve" y="-393.8">Corollary 4.3, first statement</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1271" xml:space="preserve" y="-381.05">zeros propagate along</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1271" xml:space="preserve" y="-368.3">digits in R_q</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1271" xml:space="preserve" y="-355.55">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;lem:propagacion -->
+<g class="edge" id="edge7">
+<title>thm:digitos-&gt;lem:propagacion</title>
+<path d="M1192.1,-457.81C1205.4,-444.54 1221.2,-428.81 1235.2,-414.93" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1236.73,-416.87 1239.93,-410.18 1233.25,-413.41 1236.73,-416.87" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:digitos -->
+<g class="node" id="node11">
+<title>cor:digitos</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#cor:digitos" xlink:title="Corollary 4.3: families of zeros read off the digits">
+<path d="M1357.68,-298.49C1357.68,-298.49 1158.32,-298.49 1158.32,-298.49 1152.32,-298.49 1146.32,-292.49 1146.32,-286.49 1146.32,-286.49 1146.32,-249.41 1146.32,-249.41 1146.32,-243.41 1152.32,-237.41 1158.32,-237.41 1158.32,-237.41 1357.68,-237.41 1357.68,-237.41 1363.68,-237.41 1369.68,-243.41 1369.68,-249.41 1369.68,-249.41 1369.68,-286.49 1369.68,-286.49 1369.68,-292.49 1363.68,-298.49 1357.68,-298.49" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1258" xml:space="preserve" y="-283.47">Corollary 4.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1258" xml:space="preserve" y="-270.72">families of zeros read off</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1258" xml:space="preserve" y="-257.97">the digits</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1258" xml:space="preserve" y="-245.22">◐ in Lean: only first statement · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;cor:digitos -->
+<g class="edge" id="edge10">
+<title>thm:digitos-&gt;cor:digitos</title>
+<path d="M1215.4,-457.68C1220.9,-455.4 1226.5,-453.38 1232,-451.82 1245.3,-448.05 1346.6,-452.22 1356,-442.07 1387.8,-407.7 1377.7,-378.2 1356,-336.74 1349.2,-323.83 1338.8,-312.89 1327.2,-303.82" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1328.91,-302.04 1321.82,-299.87 1326.01,-305.99 1328.91,-302.04" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:bloques -->
+<g class="node" id="node12">
+<title>prop:bloques</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#prop:bloques" xlink:title="Proposition 4.4: blocks: loops of the recursion give zeros">
+<path d="M1162.18,-408.82C1162.18,-408.82 1079.82,-408.82 1079.82,-408.82 1073.82,-408.82 1067.82,-402.82 1067.82,-396.82 1067.82,-396.82 1067.82,-359.74 1067.82,-359.74 1067.82,-353.74 1073.82,-347.74 1079.82,-347.74 1079.82,-347.74 1162.18,-347.74 1162.18,-347.74 1168.18,-347.74 1174.18,-353.74 1174.18,-359.74 1174.18,-359.74 1174.18,-396.82 1174.18,-396.82 1174.18,-402.82 1168.18,-408.82 1162.18,-408.82" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1121" xml:space="preserve" y="-393.8">Proposition 4.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1121" xml:space="preserve" y="-381.05">blocks: loops of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1121" xml:space="preserve" y="-368.3">recursion give zeros</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1121" xml:space="preserve" y="-355.55">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;prop:bloques -->
+<g class="edge" id="edge11">
+<title>thm:digitos-&gt;prop:bloques</title>
+<path d="M1150.7,-457.81C1145.9,-445.13 1140.3,-430.21 1135.2,-416.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1137.6,-416.21 1132.83,-410.53 1133.01,-417.94 1137.6,-416.21" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:orden -->
+<g class="node" id="node13">
+<title>cor:orden</title>
+<g id="a_node13"><a target="_top" xlink:href="index.html#cor:orden" xlink:title="Corollary 4.5: S_χ((q−1)/2)=0 iff χ(2)=1, for any order">
+<path d="M1030.8,-408.82C1030.8,-408.82 919.2,-408.82 919.2,-408.82 913.2,-408.82 907.2,-402.82 907.2,-396.82 907.2,-396.82 907.2,-359.74 907.2,-359.74 907.2,-353.74 913.2,-347.74 919.2,-347.74 919.2,-347.74 1030.8,-347.74 1030.8,-347.74 1036.8,-347.74 1042.8,-353.74 1042.8,-359.74 1042.8,-359.74 1042.8,-396.82 1042.8,-396.82 1042.8,-402.82 1036.8,-408.82 1030.8,-408.82" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="975" xml:space="preserve" y="-393.8">Corollary 4.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="975" xml:space="preserve" y="-381.05">S_χ((q−1)/2)=0 iff χ(2)=1,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="975" xml:space="preserve" y="-368.3">for any order</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="975" xml:space="preserve" y="-355.55">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;cor:orden -->
+<g class="edge" id="edge13">
+<title>thm:digitos-&gt;cor:orden</title>
+<path d="M1104.3,-466.36C1087.9,-459.44 1070.4,-451.17 1055,-442.07 1041.5,-434.1 1027.8,-424.13 1015.6,-414.49" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1017.17,-412.61 1010.18,-410.14 1014.1,-416.43 1017.17,-412.61" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:sinceros -->
+<g class="node" id="node17">
+<title>thm:sinceros</title>
+<g id="a_node17"><a target="_top" xlink:href="index.html#thm:sinceros" xlink:title="Theorem N1 (new): no zeros at all for q = 179 and q = 227">
+<path d="M1505.05,-411.82C1505.05,-411.82 1406.95,-411.82 1406.95,-411.82 1400.95,-411.82 1394.95,-405.82 1394.95,-399.82 1394.95,-399.82 1394.95,-356.74 1394.95,-356.74 1394.95,-350.74 1400.95,-344.74 1406.95,-344.74 1406.95,-344.74 1505.05,-344.74 1505.05,-344.74 1511.05,-344.74 1517.05,-350.74 1517.05,-356.74 1517.05,-356.74 1517.05,-399.82 1517.05,-399.82 1517.05,-405.82 1511.05,-411.82 1505.05,-411.82" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-395.38">Theorem N1 (new)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-381.13">no zeros at all for q =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-366.88">179 and q = 227</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1456" xml:space="preserve" y="-352.63">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- thm:digitos&#45;&gt;thm:sinceros -->
+<g class="edge" id="edge16">
+<title>thm:digitos-&gt;thm:sinceros</title>
+<path d="M1215.4,-457.6C1220.9,-455.34 1226.5,-453.34 1232,-451.82 1264.6,-442.82 1352.7,-454.96 1384,-442.07 1397.1,-436.69 1409.4,-427.92 1420.1,-418.63" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1421.52,-420.64 1425.08,-414.13 1418.24,-417.01 1421.52,-420.64" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:diag -->
+<g class="node" id="node9">
+<title>thm:diag</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#thm:diag" xlink:title="Theorem 4.2: the weighted half sum (Kanemitsu–Kuzumaki, Kučera)">
+<path d="M1007.05,-525.65C1007.05,-525.65 908.95,-525.65 908.95,-525.65 902.95,-525.65 896.95,-519.65 896.95,-513.65 896.95,-513.65 896.95,-463.82 896.95,-463.82 896.95,-457.82 902.95,-451.82 908.95,-451.82 908.95,-451.82 1007.05,-451.82 1007.05,-451.82 1013.05,-451.82 1019.05,-457.82 1019.05,-463.82 1019.05,-463.82 1019.05,-513.65 1019.05,-513.65 1019.05,-519.65 1013.05,-525.65 1007.05,-525.65" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-510.63">Theorem 4.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-497.88">the weighted half sum</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-485.13">(Kanemitsu–Kuzumaki,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-472.38">Kučera)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="958" xml:space="preserve" y="-459.63">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:diag&#45;&gt;cor:digitos -->
+<g class="edge" id="edge9">
+<title>thm:diag-&gt;cor:digitos</title>
+<path d="M900.93,-451.29C898.67,-448.39 896.66,-445.32 895,-442.07 873.72,-400.37 865.09,-372.75 895,-336.74 925.62,-299.88 1044.3,-282.95 1137.7,-275.25" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1137.81,-277.7 1144.59,-274.69 1137.42,-272.82 1137.81,-277.7" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:diag&#45;&gt;cor:orden -->
+<g class="edge" id="edge12">
+<title>thm:diag-&gt;cor:orden</title>
+<path d="M963.71,-451.32C965.41,-440.43 967.29,-428.47 969.01,-417.47" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="971.4,-418.07 970.06,-410.78 966.56,-417.31 971.4,-418.07" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:propagacion&#45;&gt;cor:digitos -->
+<g class="edge" id="edge8">
+<title>lem:propagacion-&gt;cor:digitos</title>
+<path d="M1267.4,-347.39C1265.9,-334.96 1264.2,-320.38 1262.6,-307.18" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1265.03,-306.91 1261.78,-300.24 1260.17,-307.48 1265.03,-306.91" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:digitos&#45;&gt;cor:C -->
+<g class="edge" id="edge4">
+<title>cor:digitos-&gt;cor:C</title>
+<path d="M1258,-236.82C1258,-225.82 1258,-213.06 1258,-200.81" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1260.45,-200.95 1258,-193.95 1255.55,-200.95 1260.45,-200.95" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:conrey -->
+<g class="node" id="node14">
+<title>prop:conrey</title>
+<g id="a_node14"><a target="_top" xlink:href="index.html#prop:conrey" xlink:title="Proposition 4.6: positivity of a sine series excludes null cells">
+<path d="M1357.55,-512.9C1357.55,-512.9 1256.45,-512.9 1256.45,-512.9 1250.45,-512.9 1244.45,-506.9 1244.45,-500.9 1244.45,-500.9 1244.45,-476.57 1244.45,-476.57 1244.45,-470.57 1250.45,-464.57 1256.45,-464.57 1256.45,-464.57 1357.55,-464.57 1357.55,-464.57 1363.55,-464.57 1369.55,-470.57 1369.55,-476.57 1369.55,-476.57 1369.55,-500.9 1369.55,-500.9 1369.55,-506.9 1363.55,-512.9 1357.55,-512.9" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307" xml:space="preserve" y="-497.88">Proposition 4.6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307" xml:space="preserve" y="-485.13">positivity of a sine</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307" xml:space="preserve" y="-472.38">series excludes null cells</text>
+</a>
+</g>
+</g>
+<!-- prop:filas -->
+<g class="node" id="node15">
+<title>prop:filas</title>
+<g id="a_node15"><a target="_top" xlink:href="index.html#prop:filas" xlink:title="Proposition 5.1: parity: which lengths can vanish">
+<path d="M124.05,-180.66C124.05,-180.66 19.95,-180.66 19.95,-180.66 13.95,-180.66 7.95,-174.66 7.95,-168.66 7.95,-168.66 7.95,-131.58 7.95,-131.58 7.95,-125.58 13.95,-119.58 19.95,-119.58 19.95,-119.58 124.05,-119.58 124.05,-119.58 130.05,-119.58 136.05,-125.58 136.05,-131.58 136.05,-131.58 136.05,-168.66 136.05,-168.66 136.05,-174.66 130.05,-180.66 124.05,-180.66" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="72" xml:space="preserve" y="-165.65">Proposition 5.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="72" xml:space="preserve" y="-152.9">parity: which lengths can</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="72" xml:space="preserve" y="-140.15">vanish</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="72" xml:space="preserve" y="-127.4">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:filas&#45;&gt;cor:filas -->
+<g class="edge" id="edge14">
+<title>prop:filas-&gt;cor:filas</title>
+<path d="M73.09,-119.18C73.56,-106.37 74.11,-91.27 74.61,-77.68" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="77.05,-78.04 74.85,-70.96 72.15,-77.87 77.05,-78.04" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>For a completely multiplicative ε with values ±1, the weighted sum S<sub>ε</sub>(m) = Σ<sub>n≤m</sub> n ε(n)
+can vanish only when m ≡ 0 or 3 (mod 4).</p>
+<ul>
+<li><b>Every such length is a zero</b> of some ε, depending on m (Theorem A), even with the signs at finitely many
+primes prescribed in advance, once m is large (Proposition 3.1).</li>
+<li><b>Zeros of one fixed function are rare in measure and generic in category:</b> the ε with infinitely many zeros
+form a dense G<sub>δ</sub> of probability zero (Theorem B). For the unweighted sums the picture is the reverse:
+they vanish infinitely often almost surely, by a theorem of Aymone.</li>
+<li><b>Quadratic characters give explicit zeros.</b> For primes q ≡ 7 (mod 8), S<sub>χ</sub>((q<sup>j</sup>−1)/2) = 0
+for every j, and Conrey's sine series of the Legendre symbol vanishes identically on an interval (Corollary C).
+The case j = 1 is classical (Lebesgue; Aebi–Cairns); the iteration in j and the null interval are the
+corollary's content. They come from a digit recursion in base q (Theorem 4.1) and the weighted half sum
+(Theorem 4.2, due to Kanemitsu–Kuzumaki and Kučera).</li>
+<li><b>Added after submission:</b> for q = 179 and q = 227 the function χ<sub>q,1</sub> has no zero at all
+(Theorem N1), by a finite certificate checked in Lean.</li>
+</ul>
+<p><b>Main tools:</b> a second-moment bound and Sárközy's progressions in subset sums of primes (Theorem A);
+the anticoncentration theorem of Sárközy and Szemerédi (Theorem B).</p></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#thm:A"><b>Theorem A</b></a>: every admissible length is a zero of some ε.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:A"><b>Theorem A</b></a>: every admissible length is a zero of some ε</li><li><a href="index.html#thm:dicotomia"><b>Theorem B</b></a>: infinitely many zeros: dense G_δ, but measure zero</li><li><a href="index.html#cor:C"><b>Corollary C</b></a>: zeros of χ at (q^j−1)/2; Conrey's series vanishes on an interval</li><li><a href="index.html#thm:sinceros"><b>Theorem N1 (new)</b></a>: no zeros at all for q = 179 and q = 227</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Additive combinatorics</b> → arithmetic progressions in subset sums (Sárközy, with Lev's constants in the form of Bringmann–Wellnitz); complete sequences — <a href="index.html#thm:A">Theorem A</a>, <a href="index.html#lem:intervalos">Lemma 2.2</a></li><li><b>Probability</b> → a second-moment bound; the anticoncentration theorem of Sárközy and Szemerédi — <a href="index.html#lem:momento">Lemma 2.1</a>, <a href="index.html#thm:dicotomia">Theorem B</a></li><li><b>Topology (Baire category)</b> → dense G<sub>δ</sub> sets in the product space of sign patterns — <a href="index.html#thm:dicotomia">Theorem B</a></li><li><b>Algebraic number theory</b> → the class number formula, through the weighted half sum (Kanemitsu–Kuzumaki, Kučera) — <a href="index.html#thm:diag">Theorem 4.2</a>, <a href="index.html#cor:C">Corollary C</a></li><li><b>Formal verification</b> → Lean 4 + Mathlib: the digit recursion, its propagation step, complete sequences, and the finite certificate of Theorem N1 — <a href="index.html#thm:digitos">Theorem 4.1</a>, <a href="index.html#lem:propagacion">Corollary 4.3, first statement</a>, <a href="index.html#thm:sinceros">Theorem N1 (new)</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Probabilistic number theory</b> ← random multiplicative functions: with the weight n the picture of the unweighted sums (Aymone) is reversed — <a href="index.html#thm:A">Theorem A</a>, <a href="index.html#thm:dicotomia">Theorem B</a></li><li><b>Analytic number theory (character sums)</b> ← Conrey's sine series of the Legendre symbol, from his approach to the Riemann hypothesis: it vanishes on an interval for q ≡ 7 (mod 8); for q ≡ 3 (mod 8) the null cells are excluded under a positivity hypothesis — <a href="index.html#cor:C">Corollary C</a>, <a href="index.html#prop:conrey">Proposition 4.6</a></li><li><b>Partial sums of Legendre symbols</b> ← the digit recursion of Borwein–Choi–Coons and of Klurman et al., with the weight added — <a href="index.html#thm:digitos">Theorem 4.1</a>, <a href="index.html#cor:digitos">Corollary 4.3</a></li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  function show(h){
+    var p = document.getElementById('pane-' + h) || panes[0];
+    panes.forEach(function(x){ x.hidden = x !== p; });
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+    box.scrollTop = 0;
+  }
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  show(location.hash.slice(1));
+})();
+</script>
+</body></html>
