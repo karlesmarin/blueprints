@@ -136,12 +136,28 @@ html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
 #lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
 a.lm-tourbtn{cursor:pointer}
 </style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
 </head>
 <body>
 <header>
 <svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
 <h1 id="doc_title"><a href="index.html" title="Exact zeros of weighted sums of completely multiplicative functions: blueprint">Blueprint</a></h1>
-<nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">📚 Blueprints</a><a href="blueprint.pdf" class="lm-dl" download title="The blueprint as a PDF: every statement, as on screen">⬇ PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
+<nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">📚 Blueprints</a><a href="blueprint.pdf" class="lm-dl" download title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
 <div class="wrapper">
 <nav class="toc">
@@ -2040,6 +2056,20 @@ thick border are the main results; click a box to read the statement.</p><div cl
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
 })();
 </script>
 </body>

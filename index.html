@@ -291,6 +291,15 @@ point to a fixed commit.</div>
     });
     if (p.dataset.home) h += '<a href="' + esc(p.dataset.home) + '" target="_blank" rel="noopener">🔗 Record</a>';
     opts.innerHTML = h;
+    opts.dataset.for = u;
+    // the blueprint as a PDF, when the paper's site has one (printpdf): asked, not assumed
+    if (window.fetch) fetch(u + 'blueprint.pdf', {method: 'HEAD'}).then(function(r){
+      if (!r.ok || opts.dataset.for !== u || opts.querySelector('.lm-dl')) return;
+      var a = document.createElement('a');
+      a.href = u + 'blueprint.pdf'; a.className = 'lm-dl'; a.setAttribute('download', '');
+      a.title = 'The blueprint as a PDF: every statement, as on screen'; a.textContent = '⬇ Blueprint PDF';
+      opts.insertBefore(a, opts.querySelector('a[target="_blank"]'));
+    }).catch(function(){});
     opts.querySelectorAll('.vistas button').forEach(function(b){ b.classList.toggle('on', b.dataset.v === vista); });
     actual.textContent = '· ' + p.querySelector('a.pname').textContent.trim();
   }
