@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: Strict hierarchies of subrings of inversion height two in the free field</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="pc-map-css">
+html,body{height:100%}
+body.pc-frame{margin:0;display:flex;flex-direction:column;overflow:hidden;background:#e8e8e8}
+body.pc-frame header.pc-head{position:static;width:auto;margin:0;flex-shrink:0}
+.pc-wrap{display:flex;flex:1;overflow:hidden}
+nav.pc-toc{width:28ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0;font-family:serif}
+nav.pc-toc ul{list-style:none;margin:0;padding:0}
+nav.pc-toc a{display:block;padding:.5rem .8rem;color:#fff;text-decoration:none;font-size:1.05rem;
+  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
+nav.pc-toc a:hover{background:#497da5}
+nav.pc-toc li.on>a{background:#89aecb}
+.pc-panel{flex:1;overflow:auto;padding:1rem}
+.pc-panel>.cont{margin:0 auto;max-width:none;padding:0 1rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
+.pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
+.pc-paneltitle .campo{justify-content:center}
+section.pc-pane[hidden]{display:none !important}
+section.pc-pane .mapa{max-width:100%;overflow:auto}
+@media (max-width:900px){nav.pc-toc{display:none}}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+</style><style id="lm-maphere-css">
+g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
+g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
+g.lm-here{animation:lmhere 1.2s ease-in-out 3}
+@keyframes lmhere{50%{opacity:.35}}
+#lm-herebar{font:13px Arial,sans-serif;background:#fff3f2;border:1px solid #f3b9b4;border-radius:6px;padding:.35em .7em;
+            margin:.4em 0}
+#lm-herebar a{color:#b3261e}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:4804pt 2662pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:4756pt !important;height:2294pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Strict hierarchies of subrings of inversion height two in the free field: blueprint">Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="mapa.pdf" class="lm-dl" download="inversion-height-two-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Strict hierarchies of subrings of inversion height two in the free field</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Associative rings · division rings</span> <a class="msc msc-p" href="https://zbmath.org/classification/?q=cc:16K40" rel="noopener" target="_blank" title="MSC 2020 16K40: Infinite-dimensional and general division rings">16K40</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:16S85" rel="noopener" target="_blank" title="MSC 2020 16S85: Associative rings of fractions and localizations">16S85</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:16S10" rel="noopener" target="_blank" title="MSC 2020 16S10: Associative rings determined by universal properties (free algebras, coproducts, adjunction of inverses, etc.)">16S10</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:16S34" rel="noopener" target="_blank" title="MSC 2020 16S34: Group rings">16S34</a> <a class="msc" href="https://zbmath.org/classification/?q=cc:16E60" rel="noopener" target="_blank" title="MSC 2020 16E60: Semihereditary and hereditary rings, free ideal rings, Sylvester rings, etc.">16E60</a></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>47</b> results</span>
+<span class="cifra c-lean">✅ <b>0</b> formalized in Lean</span>
+<span class="cifra c-part">◐ <b>18</b> with a part in Lean</span>
+<span class="cifra c-prog">💻 <b>22</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="2294pt" style="min-width:760px" viewbox="0.00 0.00 4756.00 2294.00" width="4756pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 2290.2)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M12,-2166.6C12,-2166.6 484,-2166.6 484,-2166.6 490,-2166.6 496,-2172.6 496,-2178.6 496,-2178.6 496,-2274.2 496,-2274.2 496,-2280.2 490,-2286.2 484,-2286.2 484,-2286.2 12,-2286.2 12,-2286.2 6,-2286.2 0,-2280.2 0,-2274.2 0,-2274.2 0,-2178.6 0,-2178.6 0,-2172.6 6,-2166.6 12,-2166.6" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="248" xml:space="preserve" y="-2270.82">Introduction</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M359,-2072C359,-2072 610,-2072 610,-2072 616,-2072 622,-2078 622,-2084 622,-2084 622,-2146.6 622,-2146.6 622,-2152.6 616,-2158.6 610,-2158.6 610,-2158.6 359,-2158.6 359,-2158.6 353,-2158.6 347,-2152.6 347,-2146.6 347,-2146.6 347,-2084 347,-2084 347,-2078 353,-2072 359,-2072" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="484.5" xml:space="preserve" y="-2143.22">Rings and notation</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M49,-1863.6C49,-1863.6 758,-1863.6 758,-1863.6 764,-1863.6 770,-1869.6 770,-1875.6 770,-1875.6 770,-2052 770,-2052 770,-2058 764,-2064 758,-2064 758,-2064 49,-2064 49,-2064 43,-2064 37,-2058 37,-2052 37,-2052 37,-1875.6 37,-1875.6 37,-1869.6 43,-1863.6 49,-1863.6" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="403.5" xml:space="preserve" y="-2048.62">The criterion</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M193,-1566.9C193,-1566.9 717,-1566.9 717,-1566.9 723,-1566.9 729,-1572.9 729,-1578.9 729,-1578.9 729,-1843.6 729,-1843.6 729,-1849.6 723,-1855.6 717,-1855.6 717,-1855.6 193,-1855.6 193,-1855.6 187,-1855.6 181,-1849.6 181,-1843.6 181,-1843.6 181,-1578.9 181,-1578.9 181,-1572.9 187,-1566.9 193,-1566.9" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="455" xml:space="preserve" y="-1840.22">Two evaluations</text>
+</g>
+<g class="cluster" id="clust5">
+<title>cluster_4</title>
+<path d="M197,-827.64C197,-827.64 579,-827.64 579,-827.64 585,-827.64 591,-833.64 591,-839.64 591,-839.64 591,-1546.9 591,-1546.9 591,-1552.9 585,-1558.9 579,-1558.9 579,-1558.9 197,-1558.9 197,-1558.9 191,-1558.9 185,-1552.9 185,-1546.9 185,-1546.9 185,-839.64 185,-839.64 185,-833.64 191,-827.64 197,-827.64" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-1543.42">The binomial hierarchy (Theorem B(i))</text>
+</g>
+<g class="cluster" id="clust6">
+<title>cluster_5</title>
+<path d="M851,-827.64C851,-827.64 1446,-827.64 1446,-827.64 1452,-827.64 1458,-833.64 1458,-839.64 1458,-839.64 1458,-1104.4 1458,-1104.4 1458,-1110.4 1452,-1116.4 1446,-1116.4 1446,-1116.4 851,-1116.4 851,-1116.4 845,-1116.4 839,-1110.4 839,-1104.4 839,-1104.4 839,-839.64 839,-839.64 839,-833.64 845,-827.64 851,-827.64" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1148.5" xml:space="preserve" y="-1101.02">The size chain (Theorem B(ii))</text>
+</g>
+<g class="cluster" id="clust7">
+<title>cluster_6</title>
+<path d="M1092,-6.38C1092,-6.38 2109,-6.38 2109,-6.38 2115,-6.38 2121,-12.38 2121,-18.38 2121,-18.38 2121,-807.64 2121,-807.64 2121,-813.64 2115,-819.64 2109,-819.64 2109,-819.64 1092,-819.64 1092,-819.64 1086,-819.64 1080,-813.64 1080,-807.64 1080,-807.64 1080,-18.38 1080,-18.38 1080,-12.38 1086,-6.38 1092,-6.38" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1600.5" xml:space="preserve" y="-804.24">The Dubrovin–Gräter–Hanke series (Theorem C)</text>
+</g>
+<g class="cluster" id="clust8">
+<title>cluster_7</title>
+<path d="M2365,0C2365,0 2897,0 2897,0 2903,0 2909,-6 2909,-12 2909,-12 2909,-201.16 2909,-201.16 2909,-207.16 2903,-213.16 2897,-213.16 2897,-213.16 2365,-213.16 2365,-213.16 2359,-213.16 2353,-207.16 2353,-201.16 2353,-201.16 2353,-12 2353,-12 2353,-6 2359,0 2365,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="2631" xml:space="preserve" y="-197.76">Remarks and open problems</text>
+</g>
+<!-- thm:A -->
+<g class="node" id="node1">
+<title>thm:A</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:A" xlink:title="Theorem A: the non-membership criterion: one atomic factor against the allowed denominators">
+<path d="M138.18,-2255.97C138.18,-2255.97 19.82,-2255.97 19.82,-2255.97 13.82,-2255.97 7.82,-2249.97 7.82,-2243.97 7.82,-2243.97 7.82,-2186.63 7.82,-2186.63 7.82,-2180.63 13.82,-2174.63 19.82,-2174.63 19.82,-2174.63 138.18,-2174.63 138.18,-2174.63 144.18,-2174.63 150.18,-2180.63 150.18,-2186.63 150.18,-2186.63 150.18,-2243.97 150.18,-2243.97 150.18,-2249.97 144.18,-2255.97 138.18,-2255.97" fill="#ffffff" stroke="#888888" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="79" xml:space="preserve" y="-2239.53">Theorem A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="79" xml:space="preserve" y="-2225.28">the non-membership</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="79" xml:space="preserve" y="-2211.03">criterion: one atomic</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="79" xml:space="preserve" y="-2196.78">factor against the allowed</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="79" xml:space="preserve" y="-2182.53">denominators</text>
+</a>
+</g>
+</g>
+<!-- thm:B -->
+<g class="node" id="node2">
+<title>thm:B</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:B" xlink:title="Theorem B: the binomial hierarchy and the size chain are strict inside E₂">
+<path d="M310.8,-2248.84C310.8,-2248.84 187.2,-2248.84 187.2,-2248.84 181.2,-2248.84 175.2,-2242.84 175.2,-2236.84 175.2,-2236.84 175.2,-2193.76 175.2,-2193.76 175.2,-2187.76 181.2,-2181.76 187.2,-2181.76 187.2,-2181.76 310.8,-2181.76 310.8,-2181.76 316.8,-2181.76 322.8,-2187.76 322.8,-2193.76 322.8,-2193.76 322.8,-2236.84 322.8,-2236.84 322.8,-2242.84 316.8,-2248.84 310.8,-2248.84" fill="#ffffff" stroke="#888888" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="249" xml:space="preserve" y="-2232.4">Theorem B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="249" xml:space="preserve" y="-2218.15">the binomial hierarchy and</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="249" xml:space="preserve" y="-2203.9">the size chain are strict</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="249" xml:space="preserve" y="-2189.65">inside E₂</text>
+</a>
+</g>
+</g>
+<!-- thm:C -->
+<g class="node" id="node3">
+<title>thm:C</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#thm:C" xlink:title="Theorem C: every k[π] is a stopping step of the Dubrovin–Gräter–Hanke series">
+<path d="M476.43,-2255.97C476.43,-2255.97 359.58,-2255.97 359.58,-2255.97 353.58,-2255.97 347.58,-2249.97 347.58,-2243.97 347.58,-2243.97 347.58,-2186.63 347.58,-2186.63 347.58,-2180.63 353.58,-2174.63 359.58,-2174.63 359.58,-2174.63 476.43,-2174.63 476.43,-2174.63 482.43,-2174.63 488.43,-2180.63 488.43,-2186.63 488.43,-2186.63 488.43,-2243.97 488.43,-2243.97 488.43,-2249.97 482.43,-2255.97 476.43,-2255.97" fill="#ffffff" stroke="#888888" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418" xml:space="preserve" y="-2239.53">Theorem C</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418" xml:space="preserve" y="-2225.28">every k[π] is a stopping</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418" xml:space="preserve" y="-2211.03">step of the</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418" xml:space="preserve" y="-2196.78">Dubrovin–Gräter–Hanke</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418" xml:space="preserve" y="-2182.53">series</text>
+</a>
+</g>
+</g>
+<!-- lem:2.1 -->
+<g class="node" id="node4">
+<title>lem:2.1</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#lem:2.1" xlink:title="Lemma 2.1: atom criterion for monic pencils">
+<path d="M469.3,-2128.36C469.3,-2128.36 366.7,-2128.36 366.7,-2128.36 360.7,-2128.36 354.7,-2122.36 354.7,-2116.36 354.7,-2116.36 354.7,-2092.03 354.7,-2092.03 354.7,-2086.03 360.7,-2080.03 366.7,-2080.03 366.7,-2080.03 469.3,-2080.03 469.3,-2080.03 475.3,-2080.03 481.3,-2086.03 481.3,-2092.03 481.3,-2092.03 481.3,-2116.36 481.3,-2116.36 481.3,-2122.36 475.3,-2128.36 469.3,-2128.36" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="418" xml:space="preserve" y="-2113.35">Lemma 2.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="418" xml:space="preserve" y="-2100.6">atom criterion for monic</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="418" xml:space="preserve" y="-2087.85">pencils</text>
+</a>
+</g>
+</g>
+<!-- thm:C&#45;&gt;lem:2.1 -->
+<!-- lem:5.7 -->
+<g class="node" id="node23">
+<title>lem:5.7</title>
+<g id="a_node23"><a target="_top" xlink:href="index.html#lem:5.7" xlink:title="Lemma 5.7: H_{n,p} and Q_r are atoms">
+<path d="M570.55,-1326.46C570.55,-1326.46 259.45,-1326.46 259.45,-1326.46 253.45,-1326.46 247.45,-1320.46 247.45,-1314.46 247.45,-1314.46 247.45,-1290.13 247.45,-1290.13 247.45,-1284.13 253.45,-1278.13 259.45,-1278.13 259.45,-1278.13 570.55,-1278.13 570.55,-1278.13 576.55,-1278.13 582.55,-1284.13 582.55,-1290.13 582.55,-1290.13 582.55,-1314.46 582.55,-1314.46 582.55,-1320.46 576.55,-1326.46 570.55,-1326.46" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="415" xml:space="preserve" y="-1311.45">Lemma 5.7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="415" xml:space="preserve" y="-1298.7">H_{n,p} and Q_r are atoms</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="415" xml:space="preserve" y="-1285.95">◐ in Lean: only the eight conditions of (2) for Q₃ and Q₄ · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:2.1&#45;&gt;lem:5.7 -->
+<g class="edge" id="edge24">
+<title>lem:2.1-&gt;lem:5.7</title>
+<path d="M468.71,-2079.5C477.01,-2076.4 485.63,-2073.8 494,-2072 524.67,-2065.5 746.73,-2075.2 776,-2064 878.39,-2024.8 963,-2012.8 963,-1903.1 963,-1903.1 963,-1903.1 963,-1800.2 963,-1547.4 638.97,-1389.6 489.24,-1330.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="490.19,-1327.84 482.78,-1327.55 488.39,-1332.4 490.19,-1327.84" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:5.8 -->
+<g class="node" id="node24">
+<title>prop:5.8</title>
+<g id="a_node24"><a target="_top" xlink:href="index.html#prop:5.8" xlink:title="Proposition 5.8: n axes: s_n⁻¹ ∉ 𝒰₁">
+<path d="M414.68,-883.98C414.68,-883.98 317.33,-883.98 317.33,-883.98 311.33,-883.98 305.33,-877.98 305.33,-871.98 305.33,-871.98 305.33,-847.65 305.33,-847.65 305.33,-841.65 311.33,-835.65 317.33,-835.65 317.33,-835.65 414.68,-835.65 414.68,-835.65 420.68,-835.65 426.68,-841.65 426.68,-847.65 426.68,-847.65 426.68,-871.98 426.68,-871.98 426.68,-877.98 420.68,-883.98 414.68,-883.98" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-868.96">Proposition 5.8</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-856.21">n axes: s_n⁻¹ ∉ 𝒰₁</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-843.46">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:2.1&#45;&gt;prop:5.8 -->
+<g class="edge" id="edge25">
+<title>lem:2.1-&gt;prop:5.8</title>
+<path d="M468.29,-2079.6C476.71,-2076.5 485.48,-2073.8 494,-2072 577.78,-2054.6 793.93,-2073.2 879,-2064 1062.1,-2044.2 1692,-2087.3 1692,-1903.1 1692,-1903.1 1692,-1903.1 1692,-1800.2 1692,-1501.2 1617.5,-1388.9 1384,-1202.1 1334.1,-1162.2 1323.2,-1144.4 1262,-1126.1 1239.2,-1119.3 853.85,-1127.9 833,-1116.4 790.52,-1092.8 805.24,-1061.4 773,-1025.1 726.71,-972.9 715.54,-954.82 653,-923.97 583.52,-889.69 495.48,-873.85 435.35,-866.64" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="435.8,-864.23 428.56,-865.85 435.24,-869.09 435.8,-864.23" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:6.2 -->
+<g class="node" id="node27">
+<title>lem:6.2</title>
+<g id="a_node27"><a target="_top" xlink:href="index.html#lem:6.2" xlink:title="Lemma 6.2: coranks on the quaternion curve; F̂_d is an atom">
+<path d="M1098.93,-1086.14C1098.93,-1086.14 859.07,-1086.14 859.07,-1086.14 853.07,-1086.14 847.07,-1080.14 847.07,-1074.14 847.07,-1074.14 847.07,-1037.06 847.07,-1037.06 847.07,-1031.06 853.07,-1025.06 859.07,-1025.06 859.07,-1025.06 1098.93,-1025.06 1098.93,-1025.06 1104.93,-1025.06 1110.93,-1031.06 1110.93,-1037.06 1110.93,-1037.06 1110.93,-1074.14 1110.93,-1074.14 1110.93,-1080.14 1104.93,-1086.14 1098.93,-1086.14" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="979" xml:space="preserve" y="-1071.12">Lemma 6.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="979" xml:space="preserve" y="-1058.38">coranks on the quaternion</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="979" xml:space="preserve" y="-1045.62">curve; F̂_d is an atom</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="979" xml:space="preserve" y="-1032.88">◐ in Lean: only the linear algebra of (c) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:2.1&#45;&gt;lem:6.2 -->
+<g class="edge" id="edge41">
+<title>lem:2.1-&gt;lem:6.2</title>
+<path d="M468.26,-2079.5C476.69,-2076.4 485.47,-2073.7 494,-2072 510.57,-2068.7 1698,-2074.8 1711,-2064 1767.2,-2017.6 1743,-1976 1743,-1903.1 1743,-1903.1 1743,-1903.1 1743,-1497.1 1743,-1274 1615.5,-1200 1405,-1126.1 1346,-1105.4 1185.1,-1129.6 1124,-1116.4 1097.6,-1110.7 1069.9,-1100.4 1045.8,-1090" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1046.88,-1087.8 1039.48,-1087.21 1044.9,-1092.28 1046.88,-1087.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.8 -->
+<g class="node" id="node37">
+<title>lem:7.8</title>
+<g id="a_node37"><a target="_top" xlink:href="index.html#lem:7.8" xlink:title="Lemma 7.8: F_ψ is an atom with six parts k+1">
+<path d="M1714.18,-498.9C1714.18,-498.9 1409.83,-498.9 1409.83,-498.9 1403.83,-498.9 1397.83,-492.9 1397.83,-486.9 1397.83,-486.9 1397.83,-449.82 1397.83,-449.82 1397.83,-443.82 1403.83,-437.82 1409.83,-437.82 1409.83,-437.82 1714.18,-437.82 1714.18,-437.82 1720.18,-437.82 1726.18,-443.82 1726.18,-449.82 1726.18,-449.82 1726.18,-486.9 1726.18,-486.9 1726.18,-492.9 1720.18,-498.9 1714.18,-498.9" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1562" xml:space="preserve" y="-483.89">Lemma 7.8</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1562" xml:space="preserve" y="-471.14">F_ψ is an atom with six</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1562" xml:space="preserve" y="-458.39">parts k+1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1562" xml:space="preserve" y="-445.64">◐ in Lean: only the integer data of the certificate of (a) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:2.1&#45;&gt;lem:7.8 -->
+<g class="edge" id="edge63">
+<title>lem:2.1-&gt;lem:7.8</title>
+<path d="M468.26,-2079.5C476.69,-2076.4 485.47,-2073.7 494,-2072 528.18,-2065.2 1717.1,-2078.2 1749,-2064 1837.5,-2024.7 1896,-2000 1896,-1903.1 1896,-1903.1 1896,-1903.1 1896,-757.85 1896,-629.22 1752.4,-545.23 1653.5,-502.65" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1654.69,-500.5 1647.29,-500 1652.77,-505 1654.69,-500.5" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:7.12 -->
+<g class="node" id="node41">
+<title>rem:7.12</title>
+<g id="a_node41"><a target="_top" xlink:href="index.html#rem:7.12" xlink:title="Remark 7.12: dependencies of Theorem 7.1">
+<path d="M2100.8,-283.99C2100.8,-283.99 1995.2,-283.99 1995.2,-283.99 1989.2,-283.99 1983.2,-277.99 1983.2,-271.99 1983.2,-271.99 1983.2,-247.66 1983.2,-247.66 1983.2,-241.66 1989.2,-235.66 1995.2,-235.66 1995.2,-235.66 2100.8,-235.66 2100.8,-235.66 2106.8,-235.66 2112.8,-241.66 2112.8,-247.66 2112.8,-247.66 2112.8,-271.99 2112.8,-271.99 2112.8,-277.99 2106.8,-283.99 2100.8,-283.99" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2048" xml:space="preserve" y="-268.97">Remark 7.12</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2048" xml:space="preserve" y="-256.22">dependencies of Theorem</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2048" xml:space="preserve" y="-243.47">7.1</text>
+</a>
+</g>
+</g>
+<!-- lem:2.1&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge80">
+<title>lem:2.1-&gt;rem:7.12</title>
+<path d="M468.26,-2079.5C476.69,-2076.4 485.47,-2073.7 494,-2072 530.5,-2064.7 1800.1,-2079.4 1834,-2064 2027.2,-1976.6 2151,-1919.5 2151,-1707.5 2151,-1707.5 2151,-1707.5 2151,-467.36 2151,-402.68 2158.8,-379.75 2126,-323.99 2118.2,-310.68 2106.4,-299.02 2094.4,-289.46" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2095.96,-287.57 2088.9,-285.28 2092.99,-291.47 2095.96,-287.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:8.4 -->
+<g class="node" id="node45">
+<title>rem:8.4</title>
+<g id="a_node45"><a target="_top" xlink:href="index.html#rem:8.4" xlink:title="Remark 8.4: strictness of the size chain over any fully atomic semifir">
+<path d="M2456.55,-69.08C2456.55,-69.08 2373.45,-69.08 2373.45,-69.08 2367.45,-69.08 2361.45,-63.08 2361.45,-57.08 2361.45,-57.08 2361.45,-20 2361.45,-20 2361.45,-14 2367.45,-8 2373.45,-8 2373.45,-8 2456.55,-8 2456.55,-8 2462.55,-8 2468.55,-14 2468.55,-20 2468.55,-20 2468.55,-57.08 2468.55,-57.08 2468.55,-63.08 2462.55,-69.08 2456.55,-69.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2415" xml:space="preserve" y="-54.06">Remark 8.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2415" xml:space="preserve" y="-41.31">strictness of the size</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2415" xml:space="preserve" y="-28.56">chain over any fully</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2415" xml:space="preserve" y="-15.81">atomic semifir</text>
+</a>
+</g>
+</g>
+<!-- lem:2.1&#45;&gt;rem:8.4 -->
+<g class="edge lm-aux" id="edge120">
+<title>lem:2.1-&gt;rem:8.4</title>
+<path d="M468.26,-2079.5C476.69,-2076.4 485.47,-2073.7 494,-2072 572.88,-2056.2 1862.2,-2074.3 1942,-2064 2779.6,-1956.5 3195.9,-2009.1 3693,-1326.5 3816.2,-1157.3 4129.9,-605.79 4005,-437.82 3853.8,-234.43 3161.2,-160.36 2913,-109.08 2761.4,-77.76 2720,-92.75 2567,-69.08 2537.4,-64.5 2504.7,-58.31 2477.3,-52.77" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2477.83,-50.38 2470.48,-51.38 2476.85,-55.18 2477.83,-50.38" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:2.2 -->
+<g class="node" id="node5">
+<title>lem:2.2</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#lem:2.2" xlink:title="Lemma 2.2: the first strata of the series">
+<path d="M601.92,-2128.36C601.92,-2128.36 518.08,-2128.36 518.08,-2128.36 512.08,-2128.36 506.07,-2122.36 506.07,-2116.36 506.07,-2116.36 506.07,-2092.03 506.07,-2092.03 506.07,-2086.03 512.08,-2080.03 518.08,-2080.03 518.08,-2080.03 601.92,-2080.03 601.92,-2080.03 607.92,-2080.03 613.92,-2086.03 613.92,-2092.03 613.92,-2092.03 613.92,-2116.36 613.92,-2116.36 613.92,-2122.36 607.92,-2128.36 601.92,-2128.36" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="560" xml:space="preserve" y="-2113.35">Lemma 2.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="560" xml:space="preserve" y="-2100.6">the first strata of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="560" xml:space="preserve" y="-2087.85">series</text>
+</a>
+</g>
+</g>
+<!-- lem:3.1 -->
+<g class="node" id="node6">
+<title>lem:3.1</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#lem:3.1" xlink:title="Lemma 3.1: matrix localization: the atomic factors of H come from Σ">
+<path d="M612.8,-2033.74C612.8,-2033.74 507.2,-2033.74 507.2,-2033.74 501.2,-2033.74 495.2,-2027.74 495.2,-2021.74 495.2,-2021.74 495.2,-1984.66 495.2,-1984.66 495.2,-1978.66 501.2,-1972.66 507.2,-1972.66 507.2,-1972.66 612.8,-1972.66 612.8,-1972.66 618.8,-1972.66 624.8,-1978.66 624.8,-1984.66 624.8,-1984.66 624.8,-2021.74 624.8,-2021.74 624.8,-2027.74 618.8,-2033.74 612.8,-2033.74" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="560" xml:space="preserve" y="-2018.73">Lemma 3.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="560" xml:space="preserve" y="-2005.98">matrix localization: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="560" xml:space="preserve" y="-1993.23">atomic factors of H come</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="560" xml:space="preserve" y="-1980.48">from Σ</text>
+</a>
+</g>
+</g>
+<!-- lem:2.2&#45;&gt;lem:3.1 -->
+<!-- rem:5.9 -->
+<g class="node" id="node25">
+<title>rem:5.9</title>
+<g id="a_node25"><a target="_top" xlink:href="index.html#rem:5.9" xlink:title="Remark 5.9: s_n⁻¹ ∉ Γ′_{n−2}">
+<path d="M571.42,-1073.6C571.42,-1073.6 490.57,-1073.6 490.57,-1073.6 484.57,-1073.6 478.57,-1067.6 478.57,-1061.6 478.57,-1061.6 478.57,-1049.6 478.57,-1049.6 478.57,-1043.6 484.57,-1037.6 490.57,-1037.6 490.57,-1037.6 571.42,-1037.6 571.42,-1037.6 577.42,-1037.6 583.42,-1043.6 583.42,-1049.6 583.42,-1049.6 583.42,-1061.6 583.42,-1061.6 583.42,-1067.6 577.42,-1073.6 571.42,-1073.6" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531" xml:space="preserve" y="-1058.38">Remark 5.9</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531" xml:space="preserve" y="-1045.62">s_n⁻¹ ∉ Γ′_{n−2}</text>
+</a>
+</g>
+</g>
+<!-- lem:2.2&#45;&gt;rem:5.9 -->
+<g class="edge lm-aux" id="edge31">
+<title>lem:2.2-&gt;rem:5.9</title>
+<path d="M614.46,-2101.5C693.41,-2098.2 835.02,-2089 879,-2064 996.9,-1997.1 992.6,-1912.1 982,-1777 978.43,-1731.7 980.25,-1719.1 966,-1675.9 947.62,-1620.2 928.37,-1612.7 905,-1558.9 852.3,-1437.5 879.94,-1387.8 806,-1278.1 738.97,-1178.7 682.68,-1192.5 590,-1116.4 576.59,-1105.4 562.9,-1091.7 552.09,-1080.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="553.96,-1078.62 547.42,-1075.12 550.35,-1081.93 553.96,-1078.62" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.5 -->
+<g class="node" id="node34">
+<title>lem:7.5</title>
+<g id="a_node34"><a target="_top" xlink:href="index.html#lem:7.5" xlink:title="Lemma 7.5: the ring reached at k[π]">
+<path d="M1484.68,-587.22C1484.68,-587.22 1387.33,-587.22 1387.33,-587.22 1381.33,-587.22 1375.33,-581.22 1375.33,-575.22 1375.33,-575.22 1375.33,-550.89 1375.33,-550.89 1375.33,-544.89 1381.33,-538.89 1387.33,-538.89 1387.33,-538.89 1484.68,-538.89 1484.68,-538.89 1490.68,-538.89 1496.68,-544.89 1496.68,-550.89 1496.68,-550.89 1496.68,-575.22 1496.68,-575.22 1496.68,-581.22 1490.68,-587.22 1484.68,-587.22" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1436" xml:space="preserve" y="-572.21">Lemma 7.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1436" xml:space="preserve" y="-559.46">the ring reached at k[π]</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1436" xml:space="preserve" y="-546.71">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:2.2&#45;&gt;lem:7.5 -->
+<g class="edge" id="edge59">
+<title>lem:2.2-&gt;lem:7.5</title>
+<path d="M614.34,-2103.3C841.66,-2103.7 1706.6,-2102.7 1749,-2064 1867,-1956.4 1794,-1867.2 1794,-1707.5 1794,-1707.5 1794,-1707.5 1794,-953.51 1794,-777 1592.2,-646.02 1491.6,-591.69" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1492.96,-589.64 1485.63,-588.48 1490.63,-593.95 1492.96,-589.64" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:7.10 -->
+<g class="node" id="node39">
+<title>cor:7.10</title>
+<g id="a_node39"><a target="_top" xlink:href="index.html#cor:7.10" xlink:title="Corollary 7.10: the size chain is strict inside 𝒰_r for every r ≥ 1 (witness q_d⁻¹); optimality; ⋃ 𝒟_k = 𝒰₂">
+<path d="M2068.93,-195.66C2068.93,-195.66 1619.07,-195.66 1619.07,-195.66 1613.07,-195.66 1607.07,-189.66 1607.07,-183.66 1607.07,-183.66 1607.07,-121.08 1607.07,-121.08 1607.07,-115.08 1613.07,-109.08 1619.07,-109.08 1619.07,-109.08 2068.93,-109.08 2068.93,-109.08 2074.93,-109.08 2080.93,-115.08 2080.93,-121.08 2080.93,-121.08 2080.93,-183.66 2080.93,-183.66 2080.93,-189.66 2074.93,-195.66 2068.93,-195.66" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1844" xml:space="preserve" y="-180.65">Corollary 7.10</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1844" xml:space="preserve" y="-167.9">the size chain is strict</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1844" xml:space="preserve" y="-155.15">inside 𝒰_r for every r ≥ 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1844" xml:space="preserve" y="-142.4">(witness q_d⁻¹);</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1844" xml:space="preserve" y="-129.65">optimality; ⋃ 𝒟_k = 𝒰₂</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1844" xml:space="preserve" y="-116.9">◐ in Lean: only the identities and the two evaluation points of (a); the identity used in (c) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:2.2&#45;&gt;cor:7.10 -->
+<g class="edge" id="edge68">
+<title>lem:2.2-&gt;cor:7.10</title>
+<path d="M614.07,-2102.9C900.89,-2101.1 2234.3,-2091.4 2317,-2064 2555.5,-1985.1 2658.3,-1957.9 2778,-1737 2887.3,-1535.4 2763,-1450.5 2763,-1221.1 2763,-1221.1 2763,-1221.1 2763,-359.9 2763,-282.53 2723.2,-281.19 2542,-235.66 2366.3,-191.5 2314.7,-236.45 2135,-213.16 2104.1,-209.16 2071.6,-203.71 2040,-197.74" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2040.72,-195.38 2033.39,-196.48 2039.81,-200.2 2040.72,-195.38" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:2.2&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge81">
+<title>lem:2.2-&gt;rem:7.12</title>
+<path d="M614.12,-2103C903.99,-2101.8 2261,-2094.7 2291,-2064 2319.4,-2035 2297.5,-2012.8 2291,-1972.7 2271,-1850 2202,-1831.8 2202,-1707.5 2202,-1707.5 2202,-1707.5 2202,-467.36 2202,-402.07 2209.8,-375.71 2170,-323.99 2157.3,-307.48 2139,-294.87 2120.5,-285.44" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2121.83,-283.36 2114.46,-282.51 2119.69,-287.77 2121.83,-283.36" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:3.4 -->
+<g class="node" id="node9">
+<title>thm:3.4</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#thm:3.4" xlink:title="Theorem 3.4: the criterion (Theorem A)">
+<path d="M605.3,-1926.26C605.3,-1926.26 316.7,-1926.26 316.7,-1926.26 310.7,-1926.26 304.7,-1920.26 304.7,-1914.26 304.7,-1914.26 304.7,-1889.93 304.7,-1889.93 304.7,-1883.93 310.7,-1877.93 316.7,-1877.93 316.7,-1877.93 605.3,-1877.93 605.3,-1877.93 611.3,-1877.93 617.3,-1883.93 617.3,-1889.93 617.3,-1889.93 617.3,-1914.26 617.3,-1914.26 617.3,-1920.26 611.3,-1926.26 605.3,-1926.26" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="461" xml:space="preserve" y="-1911.25">Theorem 3.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="461" xml:space="preserve" y="-1898.5">the criterion (Theorem A)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="461" xml:space="preserve" y="-1885.75">◐ in Lean: only with the conclusion of Lemma 3.1 as a hypothesis</text>
+</a>
+</g>
+</g>
+<!-- lem:3.1&#45;&gt;thm:3.4 -->
+<!-- lem:7.9 -->
+<g class="node" id="node38">
+<title>lem:7.9</title>
+<g id="a_node38"><a target="_top" xlink:href="index.html#lem:7.9" xlink:title="Lemma 7.9: f_k is an atom; its one factor G_k not associated with y">
+<path d="M2101.3,-397.82C2101.3,-397.82 1698.7,-397.82 1698.7,-397.82 1692.7,-397.82 1686.7,-391.82 1686.7,-385.82 1686.7,-385.82 1686.7,-335.99 1686.7,-335.99 1686.7,-329.99 1692.7,-323.99 1698.7,-323.99 1698.7,-323.99 2101.3,-323.99 2101.3,-323.99 2107.3,-323.99 2113.3,-329.99 2113.3,-335.99 2113.3,-335.99 2113.3,-385.82 2113.3,-385.82 2113.3,-391.82 2107.3,-397.82 2101.3,-397.82" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1900" xml:space="preserve" y="-382.8">Lemma 7.9</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1900" xml:space="preserve" y="-370.05">f_k is an atom; its one</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1900" xml:space="preserve" y="-357.3">factor G_k not associated</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1900" xml:space="preserve" y="-344.55">with y</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1900" xml:space="preserve" y="-331.8">◐ in Lean: only the two evaluation points of (c) (u and u² evaluate alike there) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:3.1&#45;&gt;lem:7.9 -->
+<g class="edge" id="edge65">
+<title>lem:3.1-&gt;lem:7.9</title>
+<path d="M625.17,-1975.9C629.14,-1974.7 633.11,-1973.6 637,-1972.7 857.73,-1918.6 1429.9,-1899.2 1653,-1855.6 1739.9,-1838.6 1845,-1890.8 1845,-1802.2 1845,-1802.2 1845,-1802.2 1845,-757.85 1845,-629.21 1873.8,-479.28 1889.7,-406.33" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1892.04,-407.08 1891.17,-399.72 1887.26,-406.02 1892.04,-407.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.1&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge82">
+<title>lem:3.1-&gt;rem:7.12</title>
+<path d="M625.12,-1975.7C629.1,-1974.6 633.08,-1973.5 637,-1972.7 912.86,-1912.5 990.39,-1963.9 1271,-1932.7 1486.6,-1908.7 1540.5,-1899.4 1753,-1855.6 1980,-1808.8 2253,-1939.3 2253,-1707.5 2253,-1707.5 2253,-1707.5 2253,-467.36 2253,-402.07 2264.1,-373.07 2221,-323.99 2195.6,-295.05 2155.8,-279.36 2120.8,-270.86" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2121.85,-268.59 2114.47,-269.39 2120.74,-273.36 2121.85,-268.59" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:8.1 -->
+<g class="node" id="node42">
+<title>rem:8.1</title>
+<g id="a_node42"><a target="_top" xlink:href="index.html#rem:8.1" xlink:title="Remark 8.1: characteristic p: the witness fails">
+<path d="M2453.05,-176.53C2453.05,-176.53 2372.95,-176.53 2372.95,-176.53 2366.95,-176.53 2360.95,-170.53 2360.95,-164.53 2360.95,-164.53 2360.95,-140.21 2360.95,-140.21 2360.95,-134.21 2366.95,-128.21 2372.95,-128.21 2372.95,-128.21 2453.05,-128.21 2453.05,-128.21 2459.05,-128.21 2465.05,-134.21 2465.05,-140.21 2465.05,-140.21 2465.05,-164.53 2465.05,-164.53 2465.05,-170.53 2459.05,-176.53 2453.05,-176.53" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2413" xml:space="preserve" y="-161.52">Remark 8.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2413" xml:space="preserve" y="-148.77">characteristic p: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2413" xml:space="preserve" y="-136.02">witness fails</text>
+</a>
+</g>
+</g>
+<!-- lem:3.1&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge93">
+<title>lem:3.1-&gt;rem:8.1</title>
+<path d="M625.1,-1975.6C629.09,-1974.5 633.08,-1973.5 637,-1972.7 826.88,-1933 1315.3,-1942.4 1509,-1932.7 1677.1,-1924.3 3018,-1970.5 3018,-1802.2 3018,-1802.2 3018,-1802.2 3018,-1604.4 3018,-1452.2 3084.5,-335.84 2970,-235.66 2928.7,-199.56 2527.5,-234.44 2477,-213.16 2461.5,-206.63 2447.4,-194.56 2436.5,-182.98" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.56,-181.6 2432.02,-178.1 2434.95,-184.92 2438.56,-181.6" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.1&#45;&gt;rem:8.4 -->
+<g class="edge lm-aux" id="edge121">
+<title>lem:3.1-&gt;rem:8.4</title>
+<path d="M625.08,-1975.5C629.07,-1974.4 633.07,-1973.5 637,-1972.7 985.66,-1903.6 1882.2,-1966.8 2236,-1932.7 2755.5,-1882.6 2922.3,-1960.6 3394,-1737 3502.8,-1685.5 3507.8,-1638.6 3598,-1558.9 3643.6,-1518.6 3648.2,-1499.5 3700,-1467.5 3741.1,-1442.2 3760.3,-1453.6 3801,-1427.5 3834.1,-1406.3 3832.4,-1388.4 3865,-1366.5 3901,-1342.3 3925.1,-1358.8 3954,-1326.5 4016.2,-1256.7 3953.6,-1193.8 4018,-1126.1 4026.5,-1117.2 4036,-1125.8 4044,-1116.4 4157.8,-982.34 4040.1,-884.45 4121,-728.31 4132.3,-706.54 4145.5,-708.79 4159,-688.31 4198.7,-627.97 4176.2,-593.92 4223,-538.9 4244.5,-513.64 4266.5,-525.73 4286,-498.9 4355.1,-403.8 4387.1,-326.11 4312,-235.66 4308.9,-231.98 3639.8,-109.61 3635,-109.08 3162.9,-56.4 3038.9,-123.44 2567,-69.08 2537.2,-65.65 2504.6,-59.61 2477.2,-53.88" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2477.74,-51.49 2470.38,-52.43 2476.72,-56.28 2477.74,-51.49" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:8.5 -->
+<g class="node" id="node46">
+<title>rem:8.5</title>
+<g id="a_node46"><a target="_top" xlink:href="index.html#rem:8.5" xlink:title="Remark 8.5: independent adjunctions in [𝒰_∞, B₂]">
+<path d="M2702.43,-69.08C2702.43,-69.08 2591.57,-69.08 2591.57,-69.08 2585.57,-69.08 2579.57,-63.08 2579.57,-57.08 2579.57,-57.08 2579.57,-20 2579.57,-20 2579.57,-14 2585.57,-8 2591.57,-8 2591.57,-8 2702.43,-8 2702.43,-8 2708.43,-8 2714.43,-14 2714.43,-20 2714.43,-20 2714.43,-57.08 2714.43,-57.08 2714.43,-63.08 2708.43,-69.08 2702.43,-69.08" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2647" xml:space="preserve" y="-54.06">Remark 8.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2647" xml:space="preserve" y="-41.31">independent adjunctions in</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2647" xml:space="preserve" y="-28.56">[𝒰_∞, B₂]</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2647" xml:space="preserve" y="-15.81">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:3.1&#45;&gt;rem:8.5 -->
+<g class="edge lm-aux" id="edge126">
+<title>lem:3.1-&gt;rem:8.5</title>
+<path d="M625.08,-1975.5C629.07,-1974.4 633.07,-1973.5 637,-1972.7 857.97,-1929.5 2438.6,-1950.5 2663,-1932.7 2909.5,-1913.1 2977.4,-1927.5 3214,-1855.6 3444.7,-1785.6 3492,-1723.6 3668,-1558.9 3709.4,-1520.1 3710.2,-1499.5 3757,-1467.5 3794.9,-1441.7 3813.7,-1452.7 3852,-1427.5 3884.9,-1406 3884.5,-1390 3916,-1366.5 3944.7,-1345 3962.3,-1353.3 3986,-1326.5 4049.7,-1254.1 4004.5,-1197.7 4069,-1126.1 4075.1,-1119.4 4081.5,-1123.7 4087,-1116.4 4193.2,-975.29 4110.7,-893.88 4172,-728.31 4180.3,-705.9 4258.6,-557.18 4274,-538.9 4292.6,-516.86 4307.4,-521.69 4325,-498.9 4396.8,-406.05 4427.1,-320.46 4346,-235.66 4213.9,-97.57 4123.5,-140.77 3935,-109.08 3425,-23.33 3284.6,-137.78 2772,-69.08 2756.1,-66.95 2739.3,-63.68 2723.3,-60.09" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2723.85,-57.7 2716.48,-58.52 2722.75,-62.47 2723.85,-57.7" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:8.6 -->
+<g class="node" id="node47">
+<title>rem:8.6</title>
+<g id="a_node47"><a target="_top" xlink:href="index.html#rem:8.6" xlink:title="Remark 8.6: intermediate rings and classes of atoms">
+<path d="M2889.05,-62.7C2889.05,-62.7 2796.95,-62.7 2796.95,-62.7 2790.95,-62.7 2784.95,-56.7 2784.95,-50.7 2784.95,-50.7 2784.95,-26.38 2784.95,-26.38 2784.95,-20.38 2790.95,-14.38 2796.95,-14.38 2796.95,-14.38 2889.05,-14.38 2889.05,-14.38 2895.05,-14.38 2901.05,-20.38 2901.05,-26.38 2901.05,-26.38 2901.05,-50.7 2901.05,-50.7 2901.05,-56.7 2895.05,-62.7 2889.05,-62.7" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2843" xml:space="preserve" y="-47.69">Remark 8.6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2843" xml:space="preserve" y="-34.94">intermediate rings and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2843" xml:space="preserve" y="-22.19">classes of atoms</text>
+</a>
+</g>
+</g>
+<!-- lem:3.1&#45;&gt;rem:8.6 -->
+<g class="edge lm-aux" id="edge128">
+<title>lem:3.1-&gt;rem:8.6</title>
+<path d="M625.07,-1975.5C629.07,-1974.4 633.06,-1973.5 637,-1972.7 888.67,-1923.8 2689.1,-1960.1 2944,-1932.7 3117.9,-1914 3167,-1919.2 3330,-1855.6 3424.5,-1818.8 3443,-1796.7 3525,-1737 3623.2,-1665.7 3640.6,-1638.7 3732,-1558.9 3778.1,-1518.6 3785.5,-1503.5 3835,-1467.5 3863.4,-1446.9 3874.5,-1448 3903,-1427.5 3958.8,-1387.5 3977.3,-1380.3 4020,-1326.5 4085.5,-1243.9 4093.2,-1215.1 4130,-1116.4 4191.9,-950.4 4153.1,-891.93 4221,-728.31 4267.1,-617.35 4308.1,-605.25 4364,-498.9 4418.6,-395.1 4455.8,-326.8 4382,-235.66 4307.6,-143.76 4261.8,-141.14 4148,-109.08 3911.7,-42.51 3142,-38.8 2909.9,-39.24" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2910.01,-36.79 2903.01,-39.25 2910.02,-41.69 2910.01,-36.79" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.2 -->
+<g class="node" id="node7">
+<title>lem:3.2</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#lem:3.2" xlink:title="Lemma 3.2: the Smith counts ν_j do not grow on factors">
+<path d="M211.05,-2033.74C211.05,-2033.74 112.95,-2033.74 112.95,-2033.74 106.95,-2033.74 100.95,-2027.74 100.95,-2021.74 100.95,-2021.74 100.95,-1984.66 100.95,-1984.66 100.95,-1978.66 106.95,-1972.66 112.95,-1972.66 112.95,-1972.66 211.05,-1972.66 211.05,-1972.66 217.05,-1972.66 223.05,-1978.66 223.05,-1984.66 223.05,-1984.66 223.05,-2021.74 223.05,-2021.74 223.05,-2027.74 217.05,-2033.74 211.05,-2033.74" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="162" xml:space="preserve" y="-2018.73">Lemma 3.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="162" xml:space="preserve" y="-2005.98">the Smith counts ν_j do</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="162" xml:space="preserve" y="-1993.23">not grow on factors</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="162" xml:space="preserve" y="-1980.48">💻 program</text>
+</a>
+</g>
+</g>
+<!-- def:3.3 -->
+<g class="node" id="node8">
+<title>def:3.3</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#def:3.3" xlink:title="Definition 3.3: monotone invariant">
+<path d="M742.05,-2021.2C742.05,-2021.2 661.95,-2021.2 661.95,-2021.2 655.95,-2021.2 649.95,-2015.2 649.95,-2009.2 649.95,-2009.2 649.95,-1997.2 649.95,-1997.2 649.95,-1991.2 655.95,-1985.2 661.95,-1985.2 661.95,-1985.2 742.05,-1985.2 742.05,-1985.2 748.05,-1985.2 754.05,-1991.2 754.05,-1997.2 754.05,-1997.2 754.05,-2009.2 754.05,-2009.2 754.05,-2015.2 748.05,-2021.2 742.05,-2021.2" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="702" xml:space="preserve" y="-2005.98">Definition 3.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="702" xml:space="preserve" y="-1993.23">monotone invariant</text>
+</a>
+</g>
+</g>
+<!-- lem:3.2&#45;&gt;def:3.3 -->
+<g class="edge lm-aux" id="edge1">
+<title>lem:3.2-&gt;def:3.3</title>
+<path d="M223.56,-2018.9C290.1,-2034.9 399.51,-2058.8 495.5,-2068 524.03,-2070.8 596.18,-2072.4 624.5,-2068 649.13,-2064.2 670.3,-2044.6 684.26,-2028" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="685.99,-2029.76 688.48,-2022.78 682.17,-2026.68 685.99,-2029.76" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.5 -->
+<g class="node" id="node10">
+<title>lem:3.5</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#lem:3.5" xlink:title="Lemma 3.5: 𝒰_r as U_Σ: one border per element">
+<path d="M267.3,-1932.64C267.3,-1932.64 56.7,-1932.64 56.7,-1932.64 50.7,-1932.64 44.7,-1926.64 44.7,-1920.64 44.7,-1920.64 44.7,-1883.56 44.7,-1883.56 44.7,-1877.56 50.7,-1871.56 56.7,-1871.56 56.7,-1871.56 267.3,-1871.56 267.3,-1871.56 273.3,-1871.56 279.3,-1877.56 279.3,-1883.56 279.3,-1883.56 279.3,-1920.64 279.3,-1920.64 279.3,-1926.64 273.3,-1932.64 267.3,-1932.64" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="162" xml:space="preserve" y="-1917.62">Lemma 3.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="162" xml:space="preserve" y="-1904.88">𝒰_r as U_Σ: one border per</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="162" xml:space="preserve" y="-1892.12">element</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="162" xml:space="preserve" y="-1879.38">◐ in Lean: only the chain inverse · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:3.2&#45;&gt;lem:3.5 -->
+<!-- lem:4.4 -->
+<g class="node" id="node15">
+<title>lem:4.4</title>
+<g id="a_node15"><a target="_top" xlink:href="index.html#lem:4.4" xlink:title="Lemma 4.4: the chain bound on the allowed borders">
+<path d="M629.17,-1629.57C629.17,-1629.57 534.83,-1629.57 534.83,-1629.57 528.83,-1629.57 522.83,-1623.57 522.83,-1617.57 522.83,-1617.57 522.83,-1593.24 522.83,-1593.24 522.83,-1587.24 528.83,-1581.24 534.83,-1581.24 534.83,-1581.24 629.17,-1581.24 629.17,-1581.24 635.17,-1581.24 641.17,-1587.24 641.17,-1593.24 641.17,-1593.24 641.17,-1617.57 641.17,-1617.57 641.17,-1623.57 635.17,-1629.57 629.17,-1629.57" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="582" xml:space="preserve" y="-1614.55">Lemma 4.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="582" xml:space="preserve" y="-1601.8">the chain bound on the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="582" xml:space="preserve" y="-1589.05">allowed borders</text>
+</a>
+</g>
+</g>
+<!-- lem:3.2&#45;&gt;lem:4.4 -->
+<g class="edge" id="edge5">
+<title>lem:3.2-&gt;lem:4.4</title>
+<path d="M100.56,-1985C74.66,-1974.4 47.06,-1957.8 32,-1932.7 16.22,-1906.4 10.41,-1885.4 32,-1863.6 45.69,-1849.8 719.31,-1869.5 733,-1855.6 789.14,-1798.8 776.06,-1743.2 733,-1675.9 714.42,-1646.9 680.33,-1629.9 649.24,-1619.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="650.27,-1617.65 642.86,-1617.94 648.83,-1622.34 650.27,-1617.65" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.6 -->
+<g class="node" id="node22">
+<title>lem:5.6</title>
+<g id="a_node22"><a target="_top" xlink:href="index.html#lem:5.6" xlink:title="Lemma 5.6: the target profile of Q_r">
+<path d="M560.8,-1162.1C560.8,-1162.1 461.2,-1162.1 461.2,-1162.1 455.2,-1162.1 449.2,-1156.1 449.2,-1150.1 449.2,-1150.1 449.2,-1138.1 449.2,-1138.1 449.2,-1132.1 455.2,-1126.1 461.2,-1126.1 461.2,-1126.1 560.8,-1126.1 560.8,-1126.1 566.8,-1126.1 572.8,-1132.1 572.8,-1138.1 572.8,-1138.1 572.8,-1150.1 572.8,-1150.1 572.8,-1156.1 566.8,-1162.1 560.8,-1162.1" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="511" xml:space="preserve" y="-1146.88">Lemma 5.6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="511" xml:space="preserve" y="-1134.12">the target profile of Q_r</text>
+</a>
+</g>
+</g>
+<!-- lem:3.2&#45;&gt;lem:5.6 -->
+<g class="edge" id="edge23">
+<title>lem:3.2-&gt;lem:5.6</title>
+<path d="M223.58,-1996.2C373.88,-1981.5 749.05,-1943.8 774,-1932.7 821.19,-1911.7 839.8,-1902.7 861,-1855.6 905.87,-1755.9 836.15,-1472.1 808,-1366.5 797.21,-1326 802.97,-1309.3 775,-1278.1 723.12,-1220.3 640.23,-1184.3 581.17,-1164.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="582.22,-1162.37 574.81,-1162.48 580.67,-1167.02 582.22,-1162.37" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.6 -->
+<g class="node" id="node11">
+<title>lem:3.6</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#lem:3.6" xlink:title="Lemma 3.6: Γ′₂ as U_Σ: one lift per matrix">
+<path d="M749.55,-1926.26C749.55,-1926.26 654.45,-1926.26 654.45,-1926.26 648.45,-1926.26 642.45,-1920.26 642.45,-1914.26 642.45,-1914.26 642.45,-1889.93 642.45,-1889.93 642.45,-1883.93 648.45,-1877.93 654.45,-1877.93 654.45,-1877.93 749.55,-1877.93 749.55,-1877.93 755.55,-1877.93 761.55,-1883.93 761.55,-1889.93 761.55,-1889.93 761.55,-1914.26 761.55,-1914.26 761.55,-1920.26 755.55,-1926.26 749.55,-1926.26" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="702" xml:space="preserve" y="-1911.25">Lemma 3.6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="702" xml:space="preserve" y="-1898.5">Γ′₂ as U_Σ: one lift per</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="702" xml:space="preserve" y="-1885.75">matrix</text>
+</a>
+</g>
+</g>
+<!-- def:3.3&#45;&gt;lem:3.6 -->
+<!-- def:3.3&#45;&gt;rem:8.5 -->
+<g class="edge lm-aux" id="edge125">
+<title>def:3.3-&gt;rem:8.5</title>
+<path d="M754.5,-2002.2C1136.4,-2001.7 3476.9,-1996.4 3611,-1932.7 3651.7,-1913.3 3651.4,-1892.8 3677,-1855.6 3759.8,-1735.3 3742.9,-1681.1 3834,-1566.9 3934.8,-1440.5 4012.2,-1457.4 4107,-1326.5 4166.6,-1244.2 4168,-1213.7 4197,-1116.4 4246.9,-948.54 4178.1,-880.31 4265,-728.31 4278.6,-704.5 4294,-709 4312,-688.31 4363.7,-628.94 4353.4,-596.49 4407,-538.9 4427.4,-517.04 4447,-525.3 4461,-498.9 4516.6,-393.84 4493,-324.44 4414,-235.66 4351.4,-165.29 4333,-139.93 4244,-109.08 4089.4,-55.51 2934.2,-90.23 2772,-69.08 2756.1,-67.01 2739.2,-63.76 2723.3,-60.17" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2723.85,-57.79 2716.48,-58.61 2722.75,-62.56 2723.85,-57.79" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.1 -->
+<g class="node" id="node17">
+<title>thm:5.1</title>
+<g id="a_node17"><a target="_top" xlink:href="index.html#thm:5.1" xlink:title="Theorem 5.1: s⁻¹ lies in 𝒰₂ but not in 𝒰₁">
+<path d="M480.55,-1528.64C480.55,-1528.64 205.45,-1528.64 205.45,-1528.64 199.45,-1528.64 193.45,-1522.64 193.45,-1516.64 193.45,-1516.64 193.45,-1479.56 193.45,-1479.56 193.45,-1473.56 199.45,-1467.56 205.45,-1467.56 205.45,-1467.56 480.55,-1467.56 480.55,-1467.56 486.55,-1467.56 492.55,-1473.56 492.55,-1479.56 492.55,-1479.56 492.55,-1516.64 492.55,-1516.64 492.55,-1522.64 486.55,-1528.64 480.55,-1528.64" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1513.62">Theorem 5.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1500.88">s⁻¹ lies in 𝒰₂ but not in</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1488.12">𝒰₁</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1475.38">◐ in Lean: only the Woodbury reduction of §5.1 · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;thm:5.1 -->
+<g class="edge" id="edge10">
+<title>thm:3.4-&gt;thm:5.1</title>
+<path d="M366.27,-1877.5C342.18,-1872.2 316.24,-1867.1 292,-1863.6 279.1,-1861.7 184.23,-1864.8 175,-1855.6 83.92,-1764.9 85.49,-1672.3 159,-1566.9 168.62,-1553.1 181.38,-1542.1 195.72,-1533.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="196.7,-1535.56 201.56,-1529.95 194.27,-1531.31 196.7,-1535.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.2 -->
+<g class="node" id="node18">
+<title>thm:5.2</title>
+<g id="a_node18"><a target="_top" xlink:href="index.html#thm:5.2" xlink:title="Theorem 5.2: 𝒰_{r−1} ⊊ 𝒰_r for every r (witness φ_r⁻¹)">
+<path d="M441.68,-1079.76C441.68,-1079.76 290.33,-1079.76 290.33,-1079.76 284.33,-1079.76 278.33,-1073.76 278.33,-1067.76 278.33,-1067.76 278.33,-1043.43 278.33,-1043.43 278.33,-1037.43 284.33,-1031.43 290.33,-1031.43 290.33,-1031.43 441.68,-1031.43 441.68,-1031.43 447.68,-1031.43 453.68,-1037.43 453.68,-1043.43 453.68,-1043.43 453.68,-1067.76 453.68,-1067.76 453.68,-1073.76 447.68,-1079.76 441.68,-1079.76" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-1064.75">Theorem 5.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-1052">𝒰_{r−1} ⊊ 𝒰_r for every r</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-1039.25">(witness φ_r⁻¹)</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;thm:5.2 -->
+<g class="edge" id="edge15">
+<title>thm:3.4-&gt;thm:5.2</title>
+<path d="M553.44,-1877.4C578.15,-1871.9 604.96,-1866.8 630,-1863.6 655.48,-1860.4 838.14,-1867.3 861,-1855.6 993.5,-1787.7 1130,-1678.2 1031,-1566.9 1020.9,-1555.5 974.39,-1569 963,-1558.9 837.91,-1448 978.8,-1300.9 844,-1202.1 747.25,-1131.2 702.95,-1148 585,-1126.1 532.83,-1116.4 516.53,-1132.6 466,-1116.4 444.06,-1109.3 421.86,-1096.7 403.96,-1084.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="405.51,-1082.99 398.33,-1081.14 402.79,-1087.06 405.51,-1082.99" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:5.3 -->
+<g class="node" id="node19">
+<title>cor:5.3</title>
+<g id="a_node19"><a target="_top" xlink:href="index.html#cor:5.3" xlink:title="Corollary 5.3: g_r⁻¹ ∈ 𝒰_{2r} ∖ 𝒰_r">
+<path d="M570.68,-1238.1C570.68,-1238.1 431.33,-1238.1 431.33,-1238.1 425.33,-1238.1 419.33,-1232.1 419.33,-1226.1 419.33,-1226.1 419.33,-1214.1 419.33,-1214.1 419.33,-1208.1 425.33,-1202.1 431.33,-1202.1 431.33,-1202.1 570.68,-1202.1 570.68,-1202.1 576.68,-1202.1 582.68,-1208.1 582.68,-1214.1 582.68,-1214.1 582.68,-1226.1 582.68,-1226.1 582.68,-1232.1 576.68,-1238.1 570.68,-1238.1" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-1222.88">Corollary 5.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-1210.12">g_r⁻¹ ∈ 𝒰_{2r} ∖ 𝒰_r</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;cor:5.3 -->
+<g class="edge" id="edge21">
+<title>thm:3.4-&gt;cor:5.3</title>
+<path d="M553.89,-1877.4C578.48,-1872 605.11,-1866.8 630,-1863.6 640.97,-1862.2 821.33,-1863.6 829,-1855.6 884.32,-1798 837.58,-1755.3 829,-1675.9 819.28,-1586 805.44,-1342.7 742,-1278.1 720.88,-1256.6 650.64,-1241.6 591.41,-1232.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="591.92,-1230 584.63,-1231.33 591.16,-1234.84 591.92,-1230" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:3.4&#45;&gt;rem:5.9 -->
+<g class="edge lm-aux" id="edge36">
+<title>thm:3.4-&gt;rem:5.9</title>
+<path d="M552.08,-1877.4C577.16,-1871.8 604.48,-1866.6 630,-1863.6 642.53,-1862.1 1075.2,-1864.6 1084,-1855.6 1140,-1798.7 1084.7,-1755.8 1084,-1675.9 1083.6,-1627.5 1114.3,-1603.1 1082,-1566.9 1064.1,-1546.8 1041.7,-1577.1 1022,-1558.9 874.89,-1422.7 1070.3,-1223.3 895,-1126.1 865.34,-1109.7 621.07,-1130 590,-1116.4 572.82,-1108.9 558.01,-1093.8 547.53,-1080.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="549.58,-1079.35 543.37,-1075.3 545.7,-1082.34 549.58,-1079.35" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:6.1 -->
+<g class="node" id="node26">
+<title>thm:6.1</title>
+<g id="a_node26"><a target="_top" xlink:href="index.html#thm:6.1" xlink:title="Theorem 6.1: the size chain: ρ_d ∈ A_d ∩ E₂ but not in W_{d−1}">
+<path d="M1119.05,-985.05C1119.05,-985.05 858.95,-985.05 858.95,-985.05 852.95,-985.05 846.95,-979.05 846.95,-973.05 846.95,-973.05 846.95,-935.97 846.95,-935.97 846.95,-929.97 852.95,-923.97 858.95,-923.97 858.95,-923.97 1119.05,-923.97 1119.05,-923.97 1125.05,-923.97 1131.05,-929.97 1131.05,-935.97 1131.05,-935.97 1131.05,-973.05 1131.05,-973.05 1131.05,-979.05 1125.05,-985.05 1119.05,-985.05" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="989" xml:space="preserve" y="-970.03">Theorem 6.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="989" xml:space="preserve" y="-957.28">the size chain: ρ_d ∈ A_d</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="989" xml:space="preserve" y="-944.53">∩ E₂ but not in W_{d−1}</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="989" xml:space="preserve" y="-931.78">◐ in Lean: only the cycle inverse (6.1)–(6.2) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;thm:6.1 -->
+<g class="edge" id="edge40">
+<title>thm:3.4-&gt;thm:6.1</title>
+<path d="M551.18,-1877.4C576.5,-1871.8 604.17,-1866.6 630,-1863.6 643.51,-1862.1 1598.6,-1864.4 1609,-1855.6 1721,-1760.4 1731.5,-1347.7 1711,-1202.1 1699.6,-1121 1722.8,-1077.6 1660,-1025.1 1621,-992.4 1325.6,-972.02 1140,-962.31" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1140.13,-959.86 1133.01,-961.95 1139.88,-964.76 1140.13,-959.86" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:7.2 -->
+<g class="node" id="node31">
+<title>thm:7.2</title>
+<g id="a_node31"><a target="_top" xlink:href="index.html#thm:7.2" xlink:title="Theorem 7.2: ψ⁻¹ ∈ 𝒰₂ ∖ Γ′₂; 𝒰_∞ and Γ₂ are incomparable">
+<path d="M1269.55,-62.7C1269.55,-62.7 1108.45,-62.7 1108.45,-62.7 1102.45,-62.7 1096.45,-56.7 1096.45,-50.7 1096.45,-50.7 1096.45,-26.38 1096.45,-26.38 1096.45,-20.38 1102.45,-14.38 1108.45,-14.38 1108.45,-14.38 1269.55,-14.38 1269.55,-14.38 1275.55,-14.38 1281.55,-20.38 1281.55,-26.38 1281.55,-26.38 1281.55,-50.7 1281.55,-50.7 1281.55,-56.7 1275.55,-62.7 1269.55,-62.7" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1189" xml:space="preserve" y="-47.69">Theorem 7.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1189" xml:space="preserve" y="-34.94">ψ⁻¹ ∈ 𝒰₂ ∖ Γ′₂; 𝒰_∞ and Γ₂</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1189" xml:space="preserve" y="-22.19">are incomparable</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;thm:7.2 -->
+<g class="edge" id="edge52">
+<title>thm:3.4-&gt;thm:7.2</title>
+<path d="M550.74,-1877.5C576.17,-1871.8 604.01,-1866.5 630,-1863.6 731.37,-1852.3 2365.7,-1874.3 2466,-1855.6 2611.8,-1828.5 2676,-1844.8 2778,-1737 2917,-1590.1 2916,-1505.6 2916,-1303.3 2916,-1303.3 2916,-1303.3 2916,-359.9 2916,-298.58 2907.3,-269.28 2856,-235.66 2803.3,-201.09 2341.4,-248.19 2289,-213.16 2246.6,-184.85 2283,-137.94 2241,-109.08 2163.9,-56.05 1538.4,-43.37 1290,-40.41" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1290.24,-37.96 1283.21,-40.33 1290.18,-42.86 1290.24,-37.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:7.3 -->
+<g class="node" id="node32">
+<title>thm:7.3</title>
+<g id="a_node32"><a target="_top" xlink:href="index.html#thm:7.3" xlink:title="Theorem 7.3: f_k⁻¹ ∉ Γ′_{k−2} for every k ≥ 4">
+<path d="M1576.43,-283.99C1576.43,-283.99 1453.57,-283.99 1453.57,-283.99 1447.57,-283.99 1441.57,-277.99 1441.57,-271.99 1441.57,-271.99 1441.57,-247.66 1441.57,-247.66 1441.57,-241.66 1447.57,-235.66 1453.57,-235.66 1453.57,-235.66 1576.43,-235.66 1576.43,-235.66 1582.43,-235.66 1588.43,-241.66 1588.43,-247.66 1588.43,-247.66 1588.43,-271.99 1588.43,-271.99 1588.43,-277.99 1582.43,-283.99 1576.43,-283.99" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1515" xml:space="preserve" y="-268.97">Theorem 7.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1515" xml:space="preserve" y="-256.22">f_k⁻¹ ∉ Γ′_{k−2} for every</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1515" xml:space="preserve" y="-243.47">k ≥ 4</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;thm:7.3 -->
+<g class="edge" id="edge58">
+<title>thm:3.4-&gt;thm:7.3</title>
+<path d="M551.18,-1877.4C576.5,-1871.8 604.17,-1866.5 630,-1863.6 753.99,-1849.6 1629.4,-1872.4 1753,-1855.6 1878.6,-1838.6 2304,-1834.3 2304,-1707.5 2304,-1707.5 2304,-1707.5 2304,-467.36 2304,-365.78 2219.9,-362.66 2126,-323.99 2032.3,-285.43 1741.2,-269.32 1597.3,-263.57" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1597.5,-261.13 1590.41,-263.3 1597.31,-266.02 1597.5,-261.13" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:3.4&#45;&gt;cor:7.10 -->
+<g class="edge" id="edge72">
+<title>thm:3.4-&gt;cor:7.10</title>
+<path d="M551.18,-1877.4C576.49,-1871.7 604.16,-1866.5 630,-1863.6 716.46,-1853.9 2109.7,-1866.9 2196,-1855.6 2325.1,-1838.7 2763,-1837.7 2763,-1707.5 2763,-1707.5 2763,-1707.5 2763,-1497.1 2763,-1372.4 2712,-1345.9 2712,-1221.1 2712,-1221.1 2712,-1221.1 2712,-359.9 2712,-227.6 2265.8,-232.91 2135,-213.16 2106.2,-208.81 2076,-203.48 2046.3,-197.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2046.82,-195.41 2039.49,-196.48 2045.89,-200.22 2046.82,-195.41" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:7.11 -->
+<g class="node" id="node40">
+<title>rem:7.11</title>
+<g id="a_node40"><a target="_top" xlink:href="index.html#rem:7.11" xlink:title="Remark 7.11: matrix size against number of binomial inverses">
+<path d="M1650.05,-391.44C1650.05,-391.44 1473.95,-391.44 1473.95,-391.44 1467.95,-391.44 1461.95,-385.44 1461.95,-379.44 1461.95,-379.44 1461.95,-342.36 1461.95,-342.36 1461.95,-336.36 1467.95,-330.36 1473.95,-330.36 1473.95,-330.36 1650.05,-330.36 1650.05,-330.36 1656.05,-330.36 1662.05,-336.36 1662.05,-342.36 1662.05,-342.36 1662.05,-379.44 1662.05,-379.44 1662.05,-385.44 1656.05,-391.44 1650.05,-391.44" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1562" xml:space="preserve" y="-376.43">Remark 7.11</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1562" xml:space="preserve" y="-363.68">matrix size against number</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1562" xml:space="preserve" y="-350.93">of binomial inverses</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1562" xml:space="preserve" y="-338.18">◐ in Lean: only the compression of (iii)</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;rem:7.11 -->
+<g class="edge lm-aux" id="edge79">
+<title>thm:3.4-&gt;rem:7.11</title>
+<path d="M551.18,-1877.4C576.5,-1871.8 604.17,-1866.5 630,-1863.6 658.24,-1860.4 1626.3,-1865.4 1653,-1855.6 1845.7,-1784.7 1947,-1704.5 1947,-1499.1 1947,-1499.1 1947,-1499.1 1947,-757.85 1947,-588.21 1877.7,-535.5 1739,-437.82 1714.9,-420.84 1686.4,-406.54 1659.4,-395.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1660.6,-392.95 1653.2,-392.53 1658.73,-397.47 1660.6,-392.95" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:3.4&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge88">
+<title>thm:3.4-&gt;rem:7.12</title>
+<path d="M551.18,-1877.4C576.49,-1871.7 604.17,-1866.5 630,-1863.6 706.52,-1855 1940.4,-1870.1 2016,-1855.6 2177.5,-1824.7 2355,-1871.9 2355,-1707.5 2355,-1707.5 2355,-1707.5 2355,-467.36 2355,-355.12 2212,-299.88 2121.2,-276.12" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2121.96,-273.78 2114.57,-274.42 2120.74,-278.53 2121.96,-273.78" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:3.4&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge103">
+<title>thm:3.4-&gt;rem:8.1</title>
+<path d="M550.74,-1877.5C576.17,-1871.8 604.01,-1866.5 630,-1863.6 661.11,-1860.1 2854.5,-1866 2884,-1855.6 2983.3,-1820.5 3069,-1812.8 3069,-1707.5 3069,-1707.5 3069,-1707.5 3069,-1604.4 3069,-1541.9 3068.5,-1520.9 3101,-1467.5 3126.1,-1426.3 3245.8,-1370.3 3266,-1326.5 3275,-1307 3276.9,-1296.6 3266,-1278.1 3247.1,-1246.3 3216.4,-1266.8 3193,-1238.1 3130.3,-1161.4 3169.1,-1114.8 3127,-1025.1 3118,-1005.9 3107.2,-1005.3 3101,-985.05 3058,-844.57 3128.9,-465.39 3089,-323.99 3076.6,-280.15 3076.1,-259.06 3037,-235.66 2983.6,-203.67 2534.5,-237.17 2477,-213.16 2461.5,-206.67 2447.4,-194.61 2436.4,-183.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.52,-181.71 2432.01,-178.15 2434.88,-184.99 2438.52,-181.71" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:8.2 -->
+<g class="node" id="node43">
+<title>rem:8.2</title>
+<g id="a_node43"><a target="_top" xlink:href="index.html#rem:8.2" xlink:title="Remark 8.2: the two-parameter plane 𝒰_r ∩ Γ′_b">
+<path d="M2792.05,-182.91C2792.05,-182.91 2501.95,-182.91 2501.95,-182.91 2495.95,-182.91 2489.95,-176.91 2489.95,-170.91 2489.95,-170.91 2489.95,-133.83 2489.95,-133.83 2489.95,-127.83 2495.95,-121.83 2501.95,-121.83 2501.95,-121.83 2792.05,-121.83 2792.05,-121.83 2798.05,-121.83 2804.05,-127.83 2804.05,-133.83 2804.05,-133.83 2804.05,-170.91 2804.05,-170.91 2804.05,-176.91 2798.05,-182.91 2792.05,-182.91" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2647" xml:space="preserve" y="-167.9">Remark 8.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2647" xml:space="preserve" y="-155.15">the two-parameter plane</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2647" xml:space="preserve" y="-142.4">𝒰_r ∩ Γ′_b</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2647" xml:space="preserve" y="-129.65">◐ in Lean: only the compressions of φ_r (identities) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge112">
+<title>thm:3.4-&gt;rem:8.2</title>
+<path d="M550.73,-1877.5C576.17,-1871.8 604.01,-1866.5 630,-1863.6 662.51,-1860 2955.1,-1868.9 2985,-1855.6 3066.4,-1819.5 3120,-1796.6 3120,-1707.5 3120,-1707.5 3120,-1707.5 3120,-1604.4 3120,-1541.9 3117.9,-1519.9 3152,-1467.5 3168.1,-1442.8 3183.6,-1447.9 3205,-1427.5 3247.3,-1387.2 3269.2,-1381.4 3289,-1326.5 3296.3,-1306.3 3297.8,-1297.7 3289,-1278.1 3278,-1253.7 3259,-1260.3 3244,-1238.1 3176.8,-1139.1 3176.2,-1102.3 3152,-985.05 3092.5,-696.81 3179.8,-610.62 3113,-323.99 3103.3,-282.54 3110.4,-260.75 3076,-235.66 3029.3,-201.61 2873.5,-225.34 2817,-213.16 2787.1,-206.71 2755.2,-196.46 2727.3,-186.26" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2728.34,-184.03 2720.92,-183.9 2726.64,-188.63 2728.34,-184.03" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:8.3 -->
+<g class="node" id="node44">
+<title>rem:8.3</title>
+<g id="a_node44"><a target="_top" xlink:href="index.html#rem:8.3" xlink:title="Remark 8.3: later strata">
+<path d="M2888.55,-170.37C2888.55,-170.37 2841.45,-170.37 2841.45,-170.37 2835.45,-170.37 2829.45,-164.37 2829.45,-158.37 2829.45,-158.37 2829.45,-146.37 2829.45,-146.37 2829.45,-140.37 2835.45,-134.37 2841.45,-134.37 2841.45,-134.37 2888.55,-134.37 2888.55,-134.37 2894.55,-134.37 2900.55,-140.37 2900.55,-146.37 2900.55,-146.37 2900.55,-158.37 2900.55,-158.37 2900.55,-164.37 2894.55,-170.37 2888.55,-170.37" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2865" xml:space="preserve" y="-155.15">Remark 8.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="2865" xml:space="preserve" y="-142.4">later strata</text>
+</a>
+</g>
+</g>
+<!-- thm:3.4&#45;&gt;rem:8.3 -->
+<g class="edge lm-aux" id="edge118">
+<title>thm:3.4-&gt;rem:8.3</title>
+<path d="M550.73,-1877.5C576.17,-1871.8 604.01,-1866.5 630,-1863.6 646.79,-1861.7 3048,-1863.3 3063,-1855.6 3135.6,-1818.6 3171,-1789 3171,-1707.5 3171,-1707.5 3171,-1707.5 3171,-1604.4 3171,-1541.9 3168.9,-1519.9 3203,-1467.5 3219.1,-1442.8 3236.7,-1449.9 3256,-1427.5 3289.4,-1388.8 3298.4,-1376 3311,-1326.5 3340.1,-1212.1 3239.6,-1148.7 3203,-985.05 3138.5,-697 3205.8,-611.5 3139,-323.99 3129.6,-283.74 3139.1,-264.98 3110,-235.66 3055.7,-180.96 2963.9,-162.62 2909.4,-156.47" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2909.72,-154.04 2902.51,-155.74 2909.21,-158.91 2909.72,-154.04" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:3.4&#45;&gt;rem:8.4 -->
+<g class="edge lm-aux" id="edge123">
+<title>thm:3.4-&gt;rem:8.4</title>
+<path d="M551.18,-1877.4C576.49,-1871.7 604.17,-1866.5 630,-1863.6 708.28,-1854.8 1969.3,-1859.8 2048,-1855.6 2447.8,-1834.4 3478.1,-1815.3 3836,-1635.9 4013.5,-1547 4045.1,-1489.7 4158,-1326.5 4215.8,-1242.9 4219.8,-1214 4248,-1116.4 4296.5,-948.6 4220,-878 4310,-728.31 4325.2,-703.02 4343.6,-710.58 4363,-688.31 4412.8,-630.98 4393,-593.27 4446,-538.9 4470.5,-513.8 4496.3,-529.16 4514,-498.9 4553.3,-431.8 4554.9,-391.32 4516,-323.99 4460.4,-227.67 4087.7,-121.48 4024,-109.08 3706.1,-47.14 2889,-104.54 2567,-69.08 2537.2,-65.8 2504.5,-59.78 2477.2,-54.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2477.64,-51.61 2470.28,-52.56 2476.62,-56.4 2477.64,-51.61" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.5&#45;&gt;thm:5.1 -->
+<g class="edge" id="edge7">
+<title>lem:3.5-&gt;thm:5.1</title>
+<path d="M124.74,-1871.2C120.56,-1866.4 116.8,-1861.1 114,-1855.6 56.02,-1741.1 30.99,-1663.9 115,-1566.9 133.52,-1545.5 158.44,-1530.7 185.03,-1520.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="185.79,-1522.83 191.52,-1518.12 184.1,-1518.23 185.79,-1522.83" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.5&#45;&gt;cor:5.3 -->
+<g class="edge" id="edge17">
+<title>lem:3.5-&gt;cor:5.3</title>
+<path d="M255.07,-1871.1C267.38,-1868 279.92,-1865.4 292,-1863.6 305.16,-1861.6 761.67,-1865.1 771,-1855.6 868.91,-1756.1 645.98,-1279.2 645,-1278.1 629.84,-1261.8 609.39,-1250.1 588.68,-1241.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="589.55,-1239.41 582.14,-1239.15 587.77,-1243.98 589.55,-1239.41" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.5&#45;&gt;thm:6.1 -->
+<g class="edge" id="edge37">
+<title>lem:3.5-&gt;thm:6.1</title>
+<path d="M255.07,-1871.1C267.38,-1868 279.92,-1865.4 292,-1863.6 404.1,-1846.9 689.07,-1865.3 802,-1855.6 971.43,-1841.1 1430.6,-1849.6 1558,-1737 1619.7,-1682.5 1597.6,-1640.4 1609,-1558.9 1642.8,-1318.1 1685,-1168.9 1489,-1025.1 1434.9,-985.31 1266.3,-968.23 1139.8,-960.92" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1140.14,-958.49 1133.01,-960.54 1139.86,-963.38 1140.14,-958.49" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.5&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge107">
+<title>lem:3.5-&gt;rem:8.2</title>
+<path d="M254.71,-1871.1C267.13,-1868 279.8,-1865.4 292,-1863.6 387.87,-1849.6 1067.2,-1859.5 1164,-1855.6 1278.5,-1851 3222,-1822.1 3222,-1707.5 3222,-1707.5 3222,-1707.5 3222,-1604.4 3222,-1519.2 3264.9,-1506.9 3296,-1427.5 3313.5,-1383 3324.6,-1373.6 3333,-1326.5 3376.2,-1082.8 3306.9,-385.48 3110,-235.66 3058,-196.12 2880.9,-226.61 2817,-213.16 2786.9,-206.83 2754.9,-196.55 2726.8,-186.29" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2727.83,-184.06 2720.42,-183.92 2726.13,-188.65 2727.83,-184.06" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.1 -->
+<g class="node" id="node12">
+<title>lem:4.1</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#lem:4.1" xlink:title="Lemma 4.1: the exact arc: U_i² = tε·I">
+<path d="M708.68,-1825.37C708.68,-1825.37 353.32,-1825.37 353.32,-1825.37 347.32,-1825.37 341.32,-1819.37 341.32,-1813.37 341.32,-1813.37 341.32,-1789.04 341.32,-1789.04 341.32,-1783.04 347.32,-1777.04 353.32,-1777.04 353.32,-1777.04 708.68,-1777.04 708.68,-1777.04 714.68,-1777.04 720.68,-1783.04 720.68,-1789.04 720.68,-1789.04 720.68,-1813.37 720.68,-1813.37 720.68,-1819.37 714.68,-1825.37 708.68,-1825.37" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531" xml:space="preserve" y="-1810.35">Lemma 4.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531" xml:space="preserve" y="-1797.6">the exact arc: U_i² = tε·I</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531" xml:space="preserve" y="-1784.85">◐ in Lean: only trace, determinant and square (not the Smith parts) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:3.6&#45;&gt;lem:4.1 -->
+<!-- lem:3.6&#45;&gt;rem:5.9 -->
+<g class="edge lm-aux" id="edge32">
+<title>lem:3.6-&gt;rem:5.9</title>
+<path d="M761.92,-1898.9C870.97,-1894.2 1092.8,-1881.5 1116,-1855.6 1134.4,-1835.1 1145.3,-1727.3 1108,-1566.9 1092.7,-1500.9 1068.4,-1491.5 1046,-1427.5 1011.7,-1329.8 1029.1,-1296.7 987,-1202.1 970.55,-1165.2 972.32,-1145.8 937,-1126.1 903.31,-1107.4 625.37,-1131.8 590,-1116.4 572.8,-1108.9 558,-1093.9 547.52,-1080.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="549.57,-1079.35 543.36,-1075.3 545.69,-1082.34 549.57,-1079.35" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.6&#45;&gt;thm:7.2 -->
+<g class="edge" id="edge47">
+<title>lem:3.6-&gt;thm:7.2</title>
+<path d="M761.89,-1900.8C1108.2,-1899 2840.1,-1888 2884,-1855.6 2978,-1786.4 2967,-1723.1 2967,-1606.4 2967,-1606.4 2967,-1606.4 2967,-359.9 2967,-302.88 2979.4,-271.45 2935,-235.66 2884.1,-194.63 2402.5,-247.76 2347,-213.16 2302.4,-185.36 2335.2,-137.43 2291,-109.08 2208,-55.86 1546.5,-43.27 1290.1,-40.37" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1290.34,-37.93 1283.31,-40.3 1290.29,-42.83 1290.34,-37.93" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:3.6&#45;&gt;thm:7.3 -->
+<g class="edge" id="edge55">
+<title>lem:3.6-&gt;thm:7.3</title>
+<path d="M761.74,-1900.5C1056.4,-1897.3 2342.3,-1881.9 2374,-1855.6 2425.8,-1812.6 2406,-1774.8 2406,-1707.5 2406,-1707.5 2406,-1707.5 2406,-467.36 2406,-393.73 2385.3,-363.23 2323,-323.99 2292.6,-304.85 1796.6,-276.06 1597.1,-265.19" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1597.33,-262.75 1590.21,-264.81 1597.07,-267.64 1597.33,-262.75" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.2 -->
+<g class="node" id="node13">
+<title>lem:4.2</title>
+<g id="a_node13"><a target="_top" xlink:href="index.html#lem:4.2" xlink:title="Lemma 4.2: the scalar evaluation γ_k">
+<path d="M302.93,-1724.5C302.93,-1724.5 201.08,-1724.5 201.08,-1724.5 195.08,-1724.5 189.08,-1718.5 189.08,-1712.5 189.08,-1712.5 189.08,-1700.5 189.08,-1700.5 189.08,-1694.5 195.08,-1688.5 201.08,-1688.5 201.08,-1688.5 302.93,-1688.5 302.93,-1688.5 308.93,-1688.5 314.93,-1694.5 314.93,-1700.5 314.93,-1700.5 314.93,-1712.5 314.93,-1712.5 314.93,-1718.5 308.93,-1724.5 302.93,-1724.5" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="252" xml:space="preserve" y="-1709.28">Lemma 4.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="252" xml:space="preserve" y="-1696.53">the scalar evaluation γ_k</text>
+</a>
+</g>
+</g>
+<!-- lem:4.1&#45;&gt;lem:4.2 -->
+<g class="edge" id="edge3">
+<title>lem:4.1-&gt;lem:4.2</title>
+<path d="M455.02,-1776.5C418.35,-1764.9 373.78,-1750.6 334,-1737 325.45,-1734.1 316.42,-1731 307.61,-1727.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="308.45,-1725.5 301.03,-1725.5 306.83,-1730.12 308.45,-1725.5" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.3 -->
+<g class="node" id="node14">
+<title>lem:4.3</title>
+<g id="a_node14"><a target="_top" xlink:href="index.html#lem:4.3" xlink:title="Lemma 4.3: binomials on the arc: invertible, or parts (1,k)">
+<path d="M708.55,-1737.04C708.55,-1737.04 379.45,-1737.04 379.45,-1737.04 373.45,-1737.04 367.45,-1731.04 367.45,-1725.04 367.45,-1725.04 367.45,-1687.96 367.45,-1687.96 367.45,-1681.96 373.45,-1675.96 379.45,-1675.96 379.45,-1675.96 708.55,-1675.96 708.55,-1675.96 714.55,-1675.96 720.55,-1681.96 720.55,-1687.96 720.55,-1687.96 720.55,-1725.04 720.55,-1725.04 720.55,-1731.04 714.55,-1737.04 708.55,-1737.04" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="544" xml:space="preserve" y="-1722.03">Lemma 4.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="544" xml:space="preserve" y="-1709.28">binomials on the arc:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="544" xml:space="preserve" y="-1696.53">invertible, or parts (1,k)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="544" xml:space="preserve" y="-1683.78">◐ in Lean: only the trace of products of the N_j (core of (3)) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:4.1&#45;&gt;lem:4.3 -->
+<g class="edge" id="edge4">
+<title>lem:4.1-&gt;lem:4.3</title>
+<path d="M534.28,-1776.8C535.6,-1767.4 537.15,-1756.3 538.63,-1745.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="541.04,-1746.27 539.57,-1739 536.18,-1745.6 541.04,-1746.27" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.1&#45;&gt;lem:4.4 -->
+<!-- lem:4.1&#45;&gt;prop:5.8 -->
+<g class="edge" id="edge26">
+<title>lem:4.1-&gt;prop:5.8</title>
+<path d="M721.22,-1799.7C1000.3,-1793.8 1488,-1761.3 1488,-1606.4 1488,-1606.4 1488,-1606.4 1488,-1497.1 1488,-1291.1 1393.2,-1220.4 1210,-1126.1 1168.5,-1104.8 831.69,-1137.4 790,-1116.4 744.08,-1093.3 755.35,-1061.4 719,-1025.1 667.25,-973.3 654.3,-957.02 589,-923.97 540.33,-899.34 480.67,-883.08 435.31,-873.24" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="435.86,-870.85 428.5,-871.79 434.83,-875.64 435.86,-870.85" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.1&#45;&gt;lem:7.8 -->
+<g class="edge" id="edge64">
+<title>lem:4.1-&gt;lem:7.8</title>
+<path d="M720.95,-1783.1C746.18,-1781 771.71,-1778.9 796,-1777 930.34,-1766.7 1277.9,-1791.8 1401,-1737 1558.6,-1666.9 1590,-1570.5 1590,-1398 1590,-1398 1590,-1398 1590,-1301.3 1590,-1133.2 1743,-1123.6 1743,-955.51 1743,-955.51 1743,-955.51 1743,-656.77 1743,-588.62 1680.3,-535.77 1628.7,-503.82" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1630.05,-501.77 1622.79,-500.24 1627.51,-505.96 1630.05,-501.77" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.1&#45;&gt;lem:7.9 -->
+<g class="edge" id="edge66">
+<title>lem:4.1-&gt;lem:7.9</title>
+<path d="M720.95,-1795.4C1128.3,-1782.5 2049,-1738.8 2049,-1606.4 2049,-1606.4 2049,-1606.4 2049,-562.06 2049,-497.58 1998.6,-440.41 1956.5,-403.85" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1958.09,-401.99 1951.16,-399.36 1954.94,-405.74 1958.09,-401.99" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.5 -->
+<g class="node" id="node16">
+<title>lem:4.5</title>
+<g id="a_node16"><a target="_top" xlink:href="index.html#lem:4.5" xlink:title="Lemma 4.5: no binomial degenerates on the quaternion curve">
+<path d="M485.43,-1635.94C485.43,-1635.94 200.57,-1635.94 200.57,-1635.94 194.57,-1635.94 188.57,-1629.94 188.57,-1623.94 188.57,-1623.94 188.57,-1586.86 188.57,-1586.86 188.57,-1580.86 194.57,-1574.86 200.57,-1574.86 200.57,-1574.86 485.43,-1574.86 485.43,-1574.86 491.43,-1574.86 497.43,-1580.86 497.43,-1586.86 497.43,-1586.86 497.43,-1623.94 497.43,-1623.94 497.43,-1629.94 491.43,-1635.94 485.43,-1635.94" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1620.93">Lemma 4.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1608.18">no binomial degenerates on</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1595.43">the quaternion curve</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1582.68">◐ in Lean: only the finite part (residues modulo 5) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:4.2&#45;&gt;lem:4.5 -->
+<!-- lem:4.2&#45;&gt;thm:5.1 -->
+<g class="edge" id="edge8">
+<title>lem:4.2-&gt;thm:5.1</title>
+<path d="M223.25,-1688.1C206.03,-1675.9 185.66,-1657.9 176,-1635.9 163.62,-1607.9 158.85,-1592.3 176,-1566.9 185.31,-1553 197.98,-1542 212.21,-1533.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="213.23,-1535.54 218.01,-1529.87 210.74,-1531.33 213.23,-1535.54" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.2&#45;&gt;cor:5.3 -->
+<g class="edge" id="edge18">
+<title>lem:4.2-&gt;cor:5.3</title>
+<path d="M307.49,-1688C322.77,-1683.6 339.43,-1679.2 355,-1675.9 420.62,-1662.2 609.85,-1686.4 654,-1635.9 674.22,-1612.8 655.96,-1597.5 654,-1566.9 649.88,-1502.3 654.63,-1330.8 617,-1278.1 605.64,-1262.2 588.59,-1250.6 571.03,-1242.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="572.24,-1239.96 564.86,-1239.24 570.18,-1244.41 572.24,-1239.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.2&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge94">
+<title>lem:4.2-&gt;rem:8.1</title>
+<path d="M305.22,-1687.9C321.08,-1683.3 338.6,-1678.8 355,-1675.9 1021.3,-1558.9 2751.5,-1653.8 3389,-1427.5 3465.8,-1400.3 3503.4,-1398.2 3542,-1326.5 3552.2,-1307.5 3550.1,-1298 3542,-1278.1 3532.6,-1255.1 3518.2,-1257.8 3503,-1238.1 3426.5,-1139.4 3407.5,-1107.1 3381,-985.05 3355.2,-865.85 3395.8,-545.74 3339,-437.82 3272.3,-311.08 3222.2,-285.77 3088,-235.66 2960.7,-188.12 2602.5,-265.33 2477,-213.16 2461.5,-206.7 2447.4,-194.64 2436.4,-183.04" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.52,-181.73 2432.01,-178.17 2434.88,-185.01 2438.52,-181.73" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.3&#45;&gt;lem:4.4 -->
+<g class="edge" id="edge6">
+<title>lem:4.3-&gt;lem:4.4</title>
+<path d="M555.5,-1675.5C560.09,-1663.5 565.37,-1649.8 570.01,-1637.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="572.2,-1638.83 572.41,-1631.41 567.62,-1637.08 572.2,-1638.83" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.3&#45;&gt;prop:5.8 -->
+<g class="edge" id="edge27">
+<title>lem:4.3-&gt;prop:5.8</title>
+<path d="M720.78,-1678.1C768.53,-1667.7 819.55,-1654 865,-1635.9 1031.9,-1569.7 1111.4,-1576.9 1211,-1427.5 1248,-1372 1232.5,-1344.6 1226,-1278.1 1219,-1206.9 1233.4,-1164.4 1173,-1126.1 1132.3,-1100.3 782.57,-1137.1 739,-1116.4 690.78,-1093.5 700.13,-1061.4 661,-1025.1 605.27,-973.34 589.45,-960.91 523,-923.97 495.3,-908.57 463.07,-894.94 435.05,-884.31" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="436.09,-882.08 428.68,-881.93 434.38,-886.67 436.09,-882.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.3&#45;&gt;rem:5.9 -->
+<g class="edge lm-aux" id="edge33">
+<title>lem:4.3-&gt;rem:5.9</title>
+<path d="M670.86,-1675.4C792,-1639.1 967.64,-1565 1048,-1427.5 1098.6,-1341 1077.2,-1298 1048,-1202.1 1036.2,-1163.2 1032.6,-1145.8 997,-1126.1 961.95,-1106.8 675.56,-1127.1 637,-1116.4 609.32,-1108.7 581.14,-1092.3 560.8,-1078.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="562.36,-1076.7 555.2,-1074.76 559.58,-1080.74 562.36,-1076.7" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.7 -->
+<g class="node" id="node36">
+<title>lem:7.7</title>
+<g id="a_node36"><a target="_top" xlink:href="index.html#lem:7.7" xlink:title="Lemma 7.7: the bound 2a on the allowed lifts">
+<path d="M1343.8,-391.44C1343.8,-391.44 1262.2,-391.44 1262.2,-391.44 1256.2,-391.44 1250.2,-385.44 1250.2,-379.44 1250.2,-379.44 1250.2,-342.36 1250.2,-342.36 1250.2,-336.36 1256.2,-330.36 1262.2,-330.36 1262.2,-330.36 1343.8,-330.36 1343.8,-330.36 1349.8,-330.36 1355.8,-336.36 1355.8,-342.36 1355.8,-342.36 1355.8,-379.44 1355.8,-379.44 1355.8,-385.44 1349.8,-391.44 1343.8,-391.44" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1303" xml:space="preserve" y="-376.43">Lemma 7.7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1303" xml:space="preserve" y="-363.68">the bound 2a on the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1303" xml:space="preserve" y="-350.93">allowed lifts</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1303" xml:space="preserve" y="-338.18">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:4.3&#45;&gt;lem:7.7 -->
+<g class="edge" id="edge62">
+<title>lem:4.3-&gt;lem:7.7</title>
+<path d="M720.84,-1698.5C1108.3,-1681 1998,-1626.7 1998,-1499.1 1998,-1499.1 1998,-1499.1 1998,-562.06 1998,-307.38 1699.1,-445.7 1449,-397.82 1420.9,-392.44 1390.1,-385.08 1364,-378.42" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1364.96,-376.14 1357.57,-376.76 1363.73,-380.88 1364.96,-376.14" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.3&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge83">
+<title>lem:4.3-&gt;rem:7.12</title>
+<path d="M721,-1700.6C1007.3,-1691.7 1559.4,-1670.8 1752,-1635.9 2060.1,-1580.2 2232.2,-1674.2 2425,-1427.5 2502.7,-1328.2 2457,-986.95 2457,-860.81 2457,-860.81 2457,-860.81 2457,-467.36 2457,-402.07 2472.5,-368.82 2425,-323.99 2385.1,-286.26 2235.2,-293.15 2181,-283.99 2161.7,-280.73 2140.8,-277.12 2121.5,-273.75" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2122.11,-271.37 2114.79,-272.58 2121.27,-276.2 2122.11,-271.37" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.3&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge95">
+<title>lem:4.3-&gt;rem:8.1</title>
+<path d="M721,-1704.7C1310.1,-1701.4 3174.2,-1687.2 3292,-1635.9 3468.5,-1559.1 3522.3,-1504.7 3595,-1326.5 3603.1,-1306.6 3604.9,-1297.2 3595,-1278.1 3580.7,-1250.7 3559.3,-1260.5 3538,-1238.1 3464.9,-1161.4 3488.2,-1114.3 3431,-1025.1 3418.1,-1004.9 3403.8,-1007.3 3395,-985.05 3378.5,-943.26 3393.4,-928.9 3393,-883.97 3393,-883.97 3393,-323.99 3393,-323.99 3380.1,-297.83 3363,-303.15 3341,-283.99 3317.9,-263.89 3320.1,-247.66 3292,-235.66 3208.7,-200.13 2560.8,-247.56 2477,-213.16 2461.4,-206.77 2447.4,-194.72 2436.4,-183.11" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.52,-181.8 2432.01,-178.24 2434.87,-185.08 2438.52,-181.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;thm:5.1 -->
+<g class="edge" id="edge9">
+<title>lem:4.4-&gt;thm:5.1</title>
+<path d="M538.16,-1580.7C528.94,-1576 519.21,-1571.1 510,-1566.9 484.02,-1554.9 455.29,-1542.8 429.08,-1532.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="430.21,-1530.01 422.8,-1529.67 428.38,-1534.56 430.21,-1530.01" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;thm:5.2 -->
+<g class="edge" id="edge11">
+<title>lem:4.4-&gt;thm:5.2</title>
+<path d="M641.56,-1594.9C797.26,-1567 1197.7,-1474.8 1099,-1278.1 1048.3,-1177.1 1001.9,-1162.9 895,-1126.1 849.92,-1110.6 511.81,-1129.6 466,-1116.4 443.52,-1109.9 420.95,-1097.1 402.95,-1085" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="404.42,-1083.04 397.27,-1081.06 401.63,-1087.07 404.42,-1083.04" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;cor:5.3 -->
+<g class="edge" id="edge19">
+<title>lem:4.4-&gt;cor:5.3</title>
+<path d="M584.35,-1580.9C591.2,-1510.4 609.73,-1304.3 595,-1278.1 586.39,-1262.8 571.84,-1251.2 556.72,-1242.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="557.94,-1240.37 550.61,-1239.22 555.62,-1244.69 557.94,-1240.37" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:5.4 -->
+<g class="node" id="node20">
+<title>rem:5.4</title>
+<g id="a_node20"><a target="_top" xlink:href="index.html#rem:5.4" xlink:title="Remark 5.4: exact computations on the parabolic arc">
+<path d="M432.93,-1427.54C432.93,-1427.54 325.07,-1427.54 325.07,-1427.54 319.07,-1427.54 313.07,-1421.54 313.07,-1415.54 313.07,-1415.54 313.07,-1378.46 313.07,-1378.46 313.07,-1372.46 319.07,-1366.46 325.07,-1366.46 325.07,-1366.46 432.93,-1366.46 432.93,-1366.46 438.93,-1366.46 444.93,-1372.46 444.93,-1378.46 444.93,-1378.46 444.93,-1415.54 444.93,-1415.54 444.93,-1421.54 438.93,-1427.54 432.93,-1427.54" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-1412.53">Remark 5.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-1399.78">exact computations on the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-1387.03">parabolic arc</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-1374.28">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:4.4&#45;&gt;rem:5.4 -->
+<g class="edge lm-aux" id="edge22">
+<title>lem:4.4-&gt;rem:5.4</title>
+<path d="M570.7,-1580.8C553.93,-1546.5 522.57,-1485 505,-1467.5 490.04,-1452.7 471.27,-1440.1 452.82,-1429.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="454.15,-1427.83 446.83,-1426.63 451.8,-1432.13 454.15,-1427.83" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;prop:5.8 -->
+<g class="edge" id="edge28">
+<title>lem:4.4-&gt;prop:5.8</title>
+<path d="M641.75,-1604.2C788.28,-1603.1 1156.5,-1596.6 1196,-1558.9 1286.3,-1472.7 1225.4,-1400.5 1201,-1278.1 1186.6,-1205.7 1197.9,-1163.1 1134,-1126.1 1091.1,-1101.3 733.62,-1135.8 688,-1116.4 634.97,-1093.8 640.03,-1062.2 596,-1025.1 534.47,-973.13 457.33,-920.29 409.87,-889.04" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="411.26,-887.02 404.07,-885.23 408.57,-891.12 411.26,-887.02" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;rem:5.9 -->
+<g class="edge lm-aux" id="edge34">
+<title>lem:4.4-&gt;rem:5.9</title>
+<path d="M641.55,-1604.2C782.46,-1603.1 1127.2,-1596.5 1162,-1558.9 1228,-1487.5 1184.3,-1172.8 1099,-1126.1 1076.5,-1113.8 661.76,-1123.2 637,-1116.4 609.29,-1108.8 581.12,-1092.4 560.78,-1078.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="562.34,-1076.8 555.18,-1074.86 559.56,-1080.84 562.34,-1076.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;thm:7.2 -->
+<g class="edge" id="edge48">
+<title>lem:4.4-&gt;thm:7.2</title>
+<path d="M641.6,-1603C1001.1,-1593.7 2865,-1534.5 2865,-1303.3 2865,-1303.3 2865,-1303.3 2865,-359.9 2865,-300.71 2865.1,-270.1 2817,-235.66 2766,-199.17 2306.9,-245.23 2253,-213.16 2206.7,-185.63 2236.9,-137.29 2191,-109.08 2115.6,-62.72 1529.9,-46.16 1290.5,-41.29" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1290.66,-38.84 1283.61,-41.15 1290.56,-43.74 1290.66,-38.84" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge84">
+<title>lem:4.4-&gt;rem:7.12</title>
+<path d="M641.61,-1600.3C951.4,-1578.3 2368.2,-1470.3 2494,-1326.5 2576.9,-1231.6 2508,-885.8 2508,-759.85 2508,-759.85 2508,-759.85 2508,-467.36 2508,-402.07 2524.1,-368.16 2476,-323.99 2427.3,-279.24 2246.4,-294.11 2181,-283.99 2161.6,-280.99 2140.8,-277.48 2121.4,-274.12" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2122.01,-271.74 2114.69,-272.95 2121.17,-276.57 2122.01,-271.74" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge96">
+<title>lem:4.4-&gt;rem:8.1</title>
+<path d="M641.61,-1604C966.74,-1601.4 2519.3,-1587.6 2731,-1558.9 2783,-1551.8 3614.8,-1367.9 3647,-1326.5 3660.2,-1309.5 3656.2,-1297.5 3647,-1278.1 3634.9,-1252.7 3619.6,-1256.1 3598,-1238.1 3557.7,-1204.7 3534.2,-1207.4 3508,-1162.1 3477,-1108.5 3519.7,-1075 3483,-1025.1 3460.4,-994.3 3426.7,-1017.7 3407,-985.05 3394.2,-963.83 3398,-561.98 3407,-538.9 3415.8,-516.35 3435.1,-521.41 3444,-498.9 3472.7,-426.65 3477.3,-394.7 3445,-323.99 3438.8,-310.35 3357,-241.08 3343,-235.66 3253.3,-200.87 2566.1,-249.64 2477,-213.16 2461.4,-206.78 2447.3,-194.74 2436.4,-183.12" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.52,-181.81 2432.01,-178.25 2434.87,-185.09 2438.52,-181.81" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.4&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge108">
+<title>lem:4.4-&gt;rem:8.2</title>
+<path d="M641.56,-1604.1C986.59,-1602.4 2721.8,-1592.2 2957,-1558.9 3287,-1512.1 3489.2,-1606.4 3670,-1326.5 3681.7,-1308.4 3678,-1298.1 3670,-1278.1 3643.4,-1211.9 3596.5,-1222.8 3559,-1162.1 3525,-1107.1 3548.1,-1077.4 3510,-1025.1 3492.8,-1001.5 3470.9,-1011.2 3458,-985.05 3370.4,-807.16 3422.6,-734.01 3458,-538.9 3461.4,-520.22 3469.4,-517.55 3473,-498.9 3487.6,-422.55 3503.4,-396.36 3475,-323.99 3455.4,-274.13 3441.7,-258.03 3393,-235.66 3334.8,-208.91 2879.9,-225.17 2817,-213.16 2786.2,-207.29 2753.5,-196.87 2725.1,-186.35" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2726.03,-184.08 2718.62,-183.92 2724.31,-188.67 2726.03,-184.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.5&#45;&gt;thm:5.1 -->
+<!-- lem:4.5&#45;&gt;thm:6.1 -->
+<g class="edge" id="edge38">
+<title>lem:4.5-&gt;thm:6.1</title>
+<path d="M463.82,-1574.3C479.28,-1571.3 494.96,-1568.7 510,-1566.9 588.99,-1557.2 789.92,-1574.2 868,-1558.9 1191,-1495.4 1352.4,-1426.8 1462,-1116.4 1475.5,-1078.1 1488.5,-1055.8 1462,-1025.1 1420.8,-977.39 1262.2,-961.8 1139.9,-957" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1140.1,-954.56 1133.01,-956.75 1139.92,-959.45 1140.1,-954.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.5&#45;&gt;lem:6.2 -->
+<g class="edge" id="edge42">
+<title>lem:4.5-&gt;lem:6.2</title>
+<path d="M468.96,-1574.3C482.76,-1571.5 496.64,-1569 510,-1566.9 548.36,-1560.8 559.08,-1567.2 597,-1558.9 898.69,-1492.6 1073.8,-1578.8 1252,-1326.5 1305,-1251.4 1279.2,-1174.4 1201,-1126.1 1171.6,-1108 1157.3,-1125.2 1124,-1116.4 1099,-1109.8 1072.7,-1099.9 1049.4,-1090" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1050.4,-1087.76 1042.99,-1087.29 1048.49,-1092.27 1050.4,-1087.76" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:4.5&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge97">
+<title>lem:4.5-&gt;rem:8.1</title>
+<path d="M462.9,-1574.4C478.65,-1571.3 494.66,-1568.7 510,-1566.9 627.19,-1553 923.14,-1564.9 1041,-1558.9 1336.4,-1543.7 3493.2,-1544.6 3693,-1326.5 3707.5,-1310.6 3697.9,-1299 3693,-1278.1 3659.9,-1136.6 3587.5,-1124.9 3548,-985.05 3467.7,-700.59 3609.9,-587.02 3475,-323.99 3450.6,-276.32 3441.8,-257.68 3393,-235.66 3300.2,-193.82 2571.2,-251.68 2477,-213.16 2461.4,-206.79 2447.3,-194.75 2436.4,-183.13" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.52,-181.82 2432.01,-178.26 2434.87,-185.1 2438.52,-181.82" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.1&#45;&gt;thm:5.2 -->
+<g class="edge" id="edge16">
+<title>thm:5.1-&gt;thm:5.2</title>
+<path d="M311.86,-1467C273.41,-1426.2 215.37,-1349.9 235,-1278.1 255.6,-1202.8 309.13,-1127.1 341.03,-1086.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="342.74,-1088.38 345.2,-1081.38 338.91,-1085.32 342.74,-1088.38" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.1&#45;&gt;rem:5.4 -->
+<!-- thm:5.1&#45;&gt;prop:5.8 -->
+<g class="edge" id="edge30">
+<title>thm:5.1-&gt;prop:5.8</title>
+<path d="M284.27,-1467C267.85,-1456.4 251.19,-1443.1 239,-1427.5 202.79,-1381.3 194,-1362 194,-1303.3 194,-1303.3 194,-1303.3 194,-1054.6 194,-988.3 220.54,-972.22 266,-923.97 278.82,-910.36 295.17,-898.44 310.92,-888.73" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="312.05,-890.91 316.8,-885.21 309.54,-886.7 312.05,-890.91" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:7.1 -->
+<g class="node" id="node30">
+<title>thm:7.1</title>
+<g id="a_node30"><a target="_top" xlink:href="index.html#thm:7.1" xlink:title="Theorem 7.1: every k[π] is a stopping step (Theorem C)">
+<path d="M1277.05,-789.39C1277.05,-789.39 1178.95,-789.39 1178.95,-789.39 1172.95,-789.39 1166.95,-783.39 1166.95,-777.39 1166.95,-777.39 1166.95,-740.31 1166.95,-740.31 1166.95,-734.31 1172.95,-728.31 1178.95,-728.31 1178.95,-728.31 1277.05,-728.31 1277.05,-728.31 1283.05,-728.31 1289.05,-734.31 1289.05,-740.31 1289.05,-740.31 1289.05,-777.39 1289.05,-777.39 1289.05,-783.39 1283.05,-789.39 1277.05,-789.39" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1228" xml:space="preserve" y="-774.38">Theorem 7.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1228" xml:space="preserve" y="-761.63">every k[π] is a stopping</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1228" xml:space="preserve" y="-748.88">step (Theorem C)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1228" xml:space="preserve" y="-736.13">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:5.1&#45;&gt;thm:7.1 -->
+<g class="edge" id="edge44">
+<title>thm:5.1-&gt;thm:7.1</title>
+<path d="M492.96,-1484.7C814.03,-1454 1539,-1360.8 1539,-1145.1 1539,-1145.1 1539,-1145.1 1539,-953.51 1539,-888.39 1515.6,-867.39 1464,-827.64 1415.9,-790.61 1348.4,-773.8 1297.8,-766.17" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1298.38,-763.78 1291.1,-765.2 1297.67,-768.63 1298.38,-763.78" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.1&#45;&gt;thm:7.2 -->
+<g class="edge" id="edge53">
+<title>thm:5.1-&gt;thm:7.2</title>
+<path d="M493.08,-1494.5C870,-1487.7 1849.3,-1466.5 2173,-1427.5 2470.2,-1391.8 2814,-1520.4 2814,-1221.1 2814,-1221.1 2814,-1221.1 2814,-359.9 2814,-302.88 2826.4,-271.46 2782,-235.66 2731.8,-195.17 2257.3,-246.3 2202,-213.16 2156,-185.61 2186.5,-137.41 2141,-109.08 2070.1,-64.96 1521,-47.21 1290.4,-41.65" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1290.57,-39.21 1283.51,-41.49 1290.45,-44.11 1290.57,-39.21" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.1&#45;&gt;cor:7.10 -->
+<g class="edge" id="edge73">
+<title>thm:5.1-&gt;cor:7.10</title>
+<path d="M492.86,-1492.4C1006,-1475.5 2661,-1412.5 2661,-1303.3 2661,-1303.3 2661,-1303.3 2661,-359.9 2661,-328.98 2304.6,-248.81 2062.6,-197.94" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2063.24,-195.57 2055.88,-196.53 2062.23,-200.37 2063.24,-195.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.1&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge89">
+<title>thm:5.1-&gt;rem:7.12</title>
+<path d="M493.02,-1490.4C965.63,-1467.9 2400.7,-1387.7 2541,-1238.1 2555.9,-1222.2 2559,-1584.4 2559,-759.85 2559,-759.85 2559,-759.85 2559,-467.36 2559,-402.07 2575.5,-367.68 2527,-323.99 2469.5,-272.19 2257.6,-295.08 2181,-283.99 2161.6,-281.18 2140.7,-277.74 2121.4,-274.38" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2122.01,-272 2114.69,-273.2 2121.16,-276.83 2122.01,-272" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.1&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge104">
+<title>thm:5.1-&gt;rem:8.1</title>
+<path d="M492.9,-1497.8C1117.1,-1499.3 3487.3,-1488.3 3693,-1238.1 3703.2,-1225.8 3698.3,-1217.2 3693,-1202.1 3685.5,-1180.6 3670.4,-1182.8 3661,-1162.1 3635.3,-1105.8 3672.7,-1075 3636,-1025.1 3613.4,-994.3 3579.7,-1017.7 3560,-985.05 3547.2,-963.83 3551,-561.98 3560,-538.9 3568.8,-516.35 3588.1,-521.41 3597,-498.9 3625.7,-426.65 3630.3,-394.7 3598,-323.99 3591.8,-310.35 3510,-241.05 3496,-235.66 3390.3,-194.93 2581.9,-255.87 2477,-213.16 2461.3,-206.76 2447.1,-194.59 2436.1,-182.88" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.2,-181.55 2431.71,-177.97 2434.55,-184.82 2438.2,-181.55" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:5.1&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge113">
+<title>thm:5.1-&gt;rem:8.2</title>
+<path d="M492.74,-1496.6C987.94,-1494.5 2570,-1483.4 3077,-1427.5 3371,-1395.1 3579.5,-1501 3715,-1238.1 3745.7,-1178.6 3748.5,-1134 3664,-1025.1 3642.5,-997.3 3613.4,-1015.5 3596,-985.05 3523,-857.38 3681.7,-460.89 3628,-323.99 3623.1,-311.52 3558.2,-241.2 3546,-235.66 3472.2,-202.12 2896.7,-228.03 2817,-213.16 2786.1,-207.39 2753.2,-196.93 2724.7,-186.35" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2725.63,-184.08 2718.22,-183.9 2723.9,-188.67 2725.63,-184.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.5 -->
+<g class="node" id="node21">
+<title>lem:5.5</title>
+<g id="a_node21"><a target="_top" xlink:href="index.html#lem:5.5" xlink:title="Lemma 5.5: Q_r is associated with I ⊕ (−φ_r)">
+<path d="M424.05,-985.05C424.05,-985.05 307.95,-985.05 307.95,-985.05 301.95,-985.05 295.95,-979.05 295.95,-973.05 295.95,-973.05 295.95,-935.97 295.95,-935.97 295.95,-929.97 301.95,-923.97 307.95,-923.97 307.95,-923.97 424.05,-923.97 424.05,-923.97 430.05,-923.97 436.05,-929.97 436.05,-935.97 436.05,-935.97 436.05,-973.05 436.05,-973.05 436.05,-979.05 430.05,-985.05 424.05,-985.05" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-970.03">Lemma 5.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-957.28">Q_r is associated with I ⊕</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-944.53">(−φ_r)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="366" xml:space="preserve" y="-931.78">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:5.2&#45;&gt;lem:5.5 -->
+<!-- thm:5.2&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge114">
+<title>thm:5.2-&gt;rem:8.2</title>
+<path d="M438.7,-1030.9C447.81,-1028.6 457.07,-1026.5 466,-1025.1 903.98,-952.73 1020.9,-1011.1 1464,-985.05 1938.8,-957.14 3216.2,-1103.3 3598,-819.64 3648.3,-782.3 3634.8,-749.3 3649,-688.31 3664.1,-623.39 3635,-599.85 3662,-538.9 3671.8,-516.75 3690.1,-521.41 3699,-498.9 3715.6,-457.15 3699.8,-442.75 3700,-397.82 3700.2,-365.01 3713.6,-353.84 3700,-323.99 3693.8,-310.35 3612,-241.1 3598,-235.66 3517.1,-204.17 2902.4,-229 2817,-213.16 2786.1,-207.42 2753.2,-196.97 2724.7,-186.39" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2725.63,-184.12 2718.22,-183.94 2723.9,-188.71 2725.63,-184.12" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:5.3&#45;&gt;lem:5.6 -->
+<!-- cor:5.3&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge105">
+<title>cor:5.3-&gt;rem:8.2</title>
+<path d="M583.14,-1210.5C749.43,-1193 1137.9,-1151.9 1464,-1116.4 1948.9,-1063.5 3368.4,-1225.5 3639,-819.64 3701,-726.72 3760.2,-428.95 3722,-323.99 3713.3,-299.92 3671.1,-246.8 3648,-235.66 3564.8,-195.46 2907.8,-229.94 2817,-213.16 2786.1,-207.45 2753.2,-197 2724.7,-186.42" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2725.63,-184.15 2718.22,-183.97 2723.9,-188.74 2725.63,-184.15" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:5.4&#45;&gt;lem:5.7 -->
+<!-- lem:5.5&#45;&gt;thm:5.2 -->
+<g class="edge" id="edge12">
+<title>lem:5.5-&gt;thm:5.2</title>
+<path d="M374.69,-985.44C375.55,-997.2 375.6,-1010.6 374.84,-1022.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="372.41,-1022.21 374.27,-1029.39 377.29,-1022.62 372.41,-1022.21" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.5&#45;&gt;prop:5.8 -->
+<!-- lem:5.6&#45;&gt;thm:5.2 -->
+<g class="edge" id="edge13">
+<title>lem:5.6-&gt;thm:5.2</title>
+<path d="M481.46,-1125.6C476.31,-1122.5 471,-1119.4 466,-1116.4 448.52,-1106 429.33,-1094.5 412.48,-1084.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="413.98,-1082.44 406.71,-1080.97 411.48,-1086.65 413.98,-1082.44" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.6&#45;&gt;rem:5.9 -->
+<!-- lem:5.6&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge98">
+<title>lem:5.6-&gt;rem:8.1</title>
+<path d="M573.16,-1142.4C997.1,-1136.8 3453.7,-1095.5 3700,-883.97 3768.2,-825.41 3735.7,-776.87 3751,-688.31 3762.3,-622.63 3737,-599.85 3764,-538.9 3773.8,-516.75 3792.2,-521.45 3801,-498.9 3810.9,-473.62 3812.8,-462.27 3801,-437.82 3738.3,-307.86 3682.7,-284.68 3547,-235.66 3435.2,-195.26 2587.2,-257.95 2477,-213.16 2461.3,-206.77 2447.1,-194.6 2436.1,-182.89" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.2,-181.56 2431.71,-177.98 2434.55,-184.83 2438.2,-181.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.6&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge109">
+<title>lem:5.6-&gt;rem:8.2</title>
+<path d="M572.99,-1143.1C853.75,-1142.7 2008,-1139.6 2369,-1116.4 2880.2,-1083.5 3020.1,-1120.8 3514,-985.05 3619.7,-956 3664,-963.97 3739,-883.97 3785.5,-834.35 3765.7,-779.28 3815,-538.9 3824.1,-494.72 3833.7,-481.86 3824,-437.82 3811.9,-383.33 3808.3,-365.53 3771,-323.99 3720.4,-267.54 3697.8,-257.05 3625,-235.66 3452.7,-184.99 2993.6,-245.85 2817,-213.16 2786.1,-207.43 2753.2,-196.98 2724.7,-186.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2725.63,-184.13 2718.22,-183.95 2723.9,-188.72 2725.63,-184.13" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.7&#45;&gt;thm:5.2 -->
+<g class="edge" id="edge14">
+<title>lem:5.7-&gt;thm:5.2</title>
+<path d="M410.3,-1277.8C401.47,-1233.7 382.39,-1138.4 372.4,-1088.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="374.83,-1088.17 371.06,-1081.78 370.03,-1089.13 374.83,-1088.17" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.7&#45;&gt;cor:5.3 -->
+<g class="edge" id="edge20">
+<title>lem:5.7-&gt;cor:5.3</title>
+<path d="M440.34,-1277.7C451.63,-1267.2 464.88,-1254.8 476.11,-1244.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="477.56,-1246.3 481.01,-1239.73 474.22,-1242.71 477.56,-1246.3" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.7&#45;&gt;prop:5.8 -->
+<g class="edge" id="edge29">
+<title>lem:5.7-&gt;prop:5.8</title>
+<path d="M360.32,-1277.7C311.61,-1252.6 248,-1207.8 248,-1145.1 248,-1145.1 248,-1145.1 248,-1054.6 248,-994.5 249.51,-973.88 283,-923.97 292.02,-910.53 304.87,-898.77 317.76,-889.16" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="319,-891.28 323.26,-885.21 316.14,-887.3 319,-891.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.7&#45;&gt;rem:7.11 -->
+<g class="edge lm-aux" id="edge76">
+<title>lem:5.7-&gt;rem:7.11</title>
+<path d="M583.11,-1294.4C1009.6,-1275.8 2100,-1220.8 2100,-1145.1 2100,-1145.1 2100,-1145.1 2100,-562.06 2100,-495.66 2073.7,-472.47 2017,-437.82 1886.1,-357.73 1824,-430.29 1674,-397.82 1669,-396.73 1663.8,-395.5 1658.7,-394.18" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1659.36,-391.82 1651.96,-392.41 1658.11,-396.56 1659.36,-391.82" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.7&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge99">
+<title>lem:5.7-&gt;rem:8.1</title>
+<path d="M583.04,-1296.5C835.1,-1288.5 1325.9,-1270.2 1742,-1238.1 2198.6,-1202.9 3491.6,-1246 3772,-883.97 3833.5,-804.55 3873.6,-534.14 3845,-437.82 3807.3,-310.51 3752.6,-272.59 3625,-235.66 3502.5,-200.18 2595.2,-261.13 2477,-213.16 2461.3,-206.78 2447.1,-194.61 2436.1,-182.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.2,-181.57 2431.71,-177.99 2434.55,-184.84 2438.2,-181.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:5.7&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge110">
+<title>lem:5.7-&gt;rem:8.2</title>
+<path d="M583.03,-1300.1C1011.6,-1295.4 2180,-1272.6 3146,-1162.1 3408.3,-1132.1 3502,-1143.8 3713,-985.05 3786.4,-929.81 3808.2,-906.9 3837,-819.64 3906,-610.42 3962,-500.35 3830,-323.99 3788.8,-268.95 3768.3,-257.06 3703,-235.66 3609.4,-205.01 2913.9,-230.96 2817,-213.16 2786.1,-207.47 2753.2,-197.03 2724.7,-186.44" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2725.63,-184.17 2718.22,-183.99 2723.9,-188.76 2725.63,-184.17" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:5.8&#45;&gt;rem:5.9 -->
+<g class="edge lm-aux" id="edge35">
+<title>prop:5.8-&gt;rem:5.9</title>
+<path d="M320.06,-884.51C305.47,-894.56 291.04,-907.75 283,-923.97 270.94,-948.29 265.98,-963.9 283,-985.05 335.21,-1049.9 387,-998.8 466,-1025.1 473.5,-1027.5 481.29,-1030.6 488.77,-1033.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="487.35,-1035.85 494.74,-1036.48 489.36,-1031.38 487.35,-1035.85" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:5.9&#45;&gt;thm:6.1 -->
+<!-- rem:6.4 -->
+<g class="node" id="node29">
+<title>rem:6.4</title>
+<g id="a_node29"><a target="_top" xlink:href="index.html#rem:6.4" xlink:title="Remark 6.4: the symmetric curve fails">
+<path d="M1317.17,-883.98C1317.17,-883.98 1138.83,-883.98 1138.83,-883.98 1132.83,-883.98 1126.83,-877.98 1126.83,-871.98 1126.83,-871.98 1126.83,-847.65 1126.83,-847.65 1126.83,-841.65 1132.83,-835.65 1138.83,-835.65 1138.83,-835.65 1317.17,-835.65 1317.17,-835.65 1323.17,-835.65 1329.17,-841.65 1329.17,-847.65 1329.17,-847.65 1329.17,-871.98 1329.17,-871.98 1329.17,-877.98 1323.17,-883.98 1317.17,-883.98" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1228" xml:space="preserve" y="-868.96">Remark 6.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1228" xml:space="preserve" y="-856.21">the symmetric curve fails</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1228" xml:space="preserve" y="-843.46">◐ in Lean: only the commutator identity</text>
+</a>
+</g>
+</g>
+<!-- thm:6.1&#45;&gt;rem:6.4 -->
+<!-- thm:6.1&#45;&gt;thm:7.2 -->
+<g class="edge" id="edge54">
+<title>thm:6.1-&gt;thm:7.2</title>
+<path d="M1131.4,-951.33C1527,-943.39 2610,-908.12 2610,-759.85 2610,-759.85 2610,-759.85 2610,-467.36 2610,-402.07 2623.4,-370.94 2578,-323.99 2441.8,-182.99 2306.1,-333.09 2151,-213.16 2109.1,-180.77 2137.6,-137.64 2093,-109.08 2026.7,-66.62 1512,-48.06 1290.2,-41.97" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1290.28,-39.52 1283.21,-41.78 1290.14,-44.42 1290.28,-39.52" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:6.1&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge115">
+<title>thm:6.1-&gt;rem:8.2</title>
+<path d="M1131.6,-951.62C1696.9,-942.67 3759.4,-895.93 3955,-688.31 4000.7,-639.79 3941,-599.85 3968,-538.9 3977.8,-516.75 3996.1,-521.41 4005,-498.9 4033.7,-426.65 4038.3,-394.7 4006,-323.99 3981.1,-269.44 3960,-257.19 3904,-235.66 3791.2,-192.29 2935.9,-234.72 2817,-213.16 2785.9,-207.52 2752.9,-197.02 2724.3,-186.38" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2725.23,-184.11 2717.81,-183.92 2723.49,-188.69 2725.23,-184.11" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:6.1&#45;&gt;rem:8.4 -->
+<g class="edge lm-aux" id="edge124">
+<title>thm:6.1-&gt;rem:8.4</title>
+<path d="M1131.5,-952.89C1476.7,-950.53 2385.1,-939.12 3141,-883.97 3393.1,-865.58 3456,-857.01 3706,-819.64 4022.5,-772.32 4164.1,-888.24 4414,-688.31 4470.4,-643.18 4427.5,-590.54 4478,-538.9 4508,-508.19 4542.6,-534.91 4566,-498.9 4613.3,-426.19 4610.8,-165.59 4545,-109.08 4503.3,-73.28 2621.6,-74.9 2567,-69.08 2537.2,-65.91 2504.5,-59.9 2477.1,-54.12" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2477.64,-51.73 2470.28,-52.66 2476.61,-56.52 2477.64,-51.73" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:6.2&#45;&gt;thm:6.1 -->
+<g class="edge" id="edge39">
+<title>lem:6.2-&gt;thm:6.1</title>
+<path d="M982.03,-1024.6C983.01,-1014.9 984.11,-1004 985.14,-993.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="987.57,-994.12 985.83,-986.91 982.69,-993.63 987.57,-994.12" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:6.2&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge100">
+<title>lem:6.2-&gt;rem:8.1</title>
+<path d="M1111.2,-1026.6C1115.5,-1026 1119.8,-1025.5 1124,-1025.1 1263.5,-1009.9 3518.3,-1035.9 3649,-985.05 3834.1,-913.04 3878.6,-857.21 3983,-688.31 4093.1,-510.28 4048.5,-310.38 3853,-235.66 3710.2,-181.08 2618.8,-270.43 2477,-213.16 2461.3,-206.81 2447.1,-194.64 2436.1,-182.93" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2438.2,-181.6 2431.71,-178.01 2434.54,-184.86 2438.2,-181.6" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:6.2&#45;&gt;rem:8.4 -->
+<g class="edge lm-aux" id="edge122">
+<title>lem:6.2-&gt;rem:8.4</title>
+<path d="M1111.2,-1026.6C1115.5,-1026 1119.8,-1025.5 1124,-1025.1 1412.1,-993.8 3448.2,-1043.7 3732,-985.05 4069.7,-915.23 4193.3,-919.79 4449,-688.31 4504.8,-637.75 4477,-593.39 4529,-538.9 4552.9,-513.81 4576.2,-527.34 4596,-498.9 4695.2,-356.77 4720.1,-218.92 4586,-109.08 4542.6,-73.53 2622.8,-75.01 2567,-69.08 2537.2,-65.91 2504.5,-59.9 2477.1,-54.13" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2477.64,-51.74 2470.28,-52.66 2476.61,-56.53 2477.64,-51.74" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:6.2&#45;&gt;rem:8.5 -->
+<g class="edge lm-aux" id="edge127">
+<title>lem:6.2-&gt;rem:8.5</title>
+<path d="M1111.2,-1026.6C1115.5,-1026 1119.8,-1025.5 1124,-1025.1 1737.2,-958.76 3289.7,-1080.2 3899,-985.05 4329.5,-917.8 4584.8,-822.08 4684,-397.82 4713.5,-271.73 4748.4,-187.1 4645,-109.08 4561.9,-46.37 2875.2,-82.23 2772,-69.08 2756.1,-67.05 2739.2,-63.83 2723.2,-60.25" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2723.85,-57.88 2716.47,-58.69 2722.74,-62.65 2723.85,-57.88" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:6.3 -->
+<g class="node" id="node28">
+<title>rem:6.3</title>
+<g id="a_node28"><a target="_top" xlink:href="index.html#rem:6.3" xlink:title="Remark 6.3: a candidate second witness (not proved)">
+<path d="M1437.68,-1086.14C1437.68,-1086.14 1148.32,-1086.14 1148.32,-1086.14 1142.32,-1086.14 1136.32,-1080.14 1136.32,-1074.14 1136.32,-1074.14 1136.32,-1037.06 1136.32,-1037.06 1136.32,-1031.06 1142.32,-1025.06 1148.32,-1025.06 1148.32,-1025.06 1437.68,-1025.06 1437.68,-1025.06 1443.68,-1025.06 1449.68,-1031.06 1449.68,-1037.06 1449.68,-1037.06 1449.68,-1074.14 1449.68,-1074.14 1449.68,-1080.14 1443.68,-1086.14 1437.68,-1086.14" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1293" xml:space="preserve" y="-1071.12">Remark 6.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1293" xml:space="preserve" y="-1058.38">a candidate second witness</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1293" xml:space="preserve" y="-1045.62">(not proved)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1293" xml:space="preserve" y="-1032.88">◐ in Lean: only the identities I + X_i + θX_{i+1} = N_i, N_i² = 0</text>
+</a>
+</g>
+</g>
+<!-- rem:6.4&#45;&gt;thm:7.1 -->
+<!-- lem:7.4 -->
+<g class="node" id="node33">
+<title>lem:7.4</title>
+<g id="a_node33"><a target="_top" xlink:href="index.html#lem:7.4" xlink:title="Lemma 7.4: compression at level k: f⁻¹ ∈ Γ′_{k−2}">
+<path d="M1461.68,-688.31C1461.68,-688.31 1154.32,-688.31 1154.32,-688.31 1148.32,-688.31 1142.32,-682.31 1142.32,-676.31 1142.32,-676.31 1142.32,-639.23 1142.32,-639.23 1142.32,-633.23 1148.32,-627.23 1154.32,-627.23 1154.32,-627.23 1461.68,-627.23 1461.68,-627.23 1467.68,-627.23 1473.68,-633.23 1473.68,-639.23 1473.68,-639.23 1473.68,-676.31 1473.68,-676.31 1473.68,-682.31 1467.68,-688.31 1461.68,-688.31" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1308" xml:space="preserve" y="-673.29">Lemma 7.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1308" xml:space="preserve" y="-660.54">compression at level k:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1308" xml:space="preserve" y="-647.79">f⁻¹ ∈ Γ′_{k−2}</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1308" xml:space="preserve" y="-635.04">◐ in Lean: only the inverse identities (fullness assumed) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:7.1&#45;&gt;lem:7.4 -->
+<!-- thm:7.1&#45;&gt;rem:8.3 -->
+<g class="edge lm-aux" id="edge119">
+<title>thm:7.1-&gt;rem:8.3</title>
+<path d="M1289.4,-757.15C1688.8,-751.96 3908.8,-713.57 4107,-498.9 4159.7,-441.78 4142.7,-393.57 4108,-323.99 4094.8,-297.57 4077.3,-303.28 4055,-283.99 4031.9,-263.99 4034,-248.04 4006,-235.66 3964.4,-217.24 3642.4,-216.26 3597,-213.16 3335.8,-195.31 3022.6,-167.62 2908.9,-157.37" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2909.5,-154.96 2902.31,-156.77 2909.06,-159.84 2909.5,-154.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:7.2&#45;&gt;thm:7.1 -->
+<g class="edge" id="edge45">
+<title>thm:7.2-&gt;thm:7.1</title>
+<path d="M1170,-63.24C1140.9,-101.8 1089,-181.63 1089,-258.82 1089,-564.06 1089,-564.06 1089,-564.06 1089,-620.39 1081.7,-642.17 1114,-688.31 1125.5,-704.68 1142.1,-717.91 1159.2,-728.26" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1157.91,-730.34 1165.19,-731.75 1160.38,-726.11 1157.91,-730.34" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:7.2&#45;&gt;lem:7.5 -->
+<!-- thm:7.2&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge90">
+<title>thm:7.2-&gt;rem:7.12</title>
+<path d="M1194.1,-63.14C1204,-108.36 1226.1,-203.63 1238,-213.16 1241.6,-216.03 1775.4,-244.45 1974.4,-254.95" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1974.07,-257.39 1981.19,-255.31 1974.33,-252.49 1974.07,-257.39" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:7.3&#45;&gt;thm:7.1 -->
+<g class="edge" id="edge46">
+<title>thm:7.3-&gt;thm:7.1</title>
+<path d="M1441.2,-267.55C1362.9,-276.16 1246.3,-293.71 1214,-323.99 1130.7,-402.14 1102.3,-634.62 1130,-688.31 1137,-701.84 1148,-713.3 1160.1,-722.79" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1158.61,-724.73 1165.69,-726.95 1161.53,-720.8 1158.61,-724.73" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.6 -->
+<g class="node" id="node35">
+<title>lem:7.6</title>
+<g id="a_node35"><a target="_top" xlink:href="index.html#lem:7.6" xlink:title="Lemma 7.6: D′ ⊆ Γ₂">
+<path d="M1569.68,-176.53C1569.68,-176.53 1262.32,-176.53 1262.32,-176.53 1256.32,-176.53 1250.32,-170.53 1250.32,-164.53 1250.32,-164.53 1250.32,-140.21 1250.32,-140.21 1250.32,-134.21 1256.32,-128.21 1262.32,-128.21 1262.32,-128.21 1569.68,-128.21 1569.68,-128.21 1575.68,-128.21 1581.68,-134.21 1581.68,-140.21 1581.68,-140.21 1581.68,-164.53 1581.68,-164.53 1581.68,-170.53 1575.68,-176.53 1569.68,-176.53" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1416" xml:space="preserve" y="-161.52">Lemma 7.6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1416" xml:space="preserve" y="-148.77">D′ ⊆ Γ₂</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1416" xml:space="preserve" y="-136.02">◐ in Lean: only the inverse identities (fullness assumed) · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:7.3&#45;&gt;lem:7.6 -->
+<!-- thm:7.3&#45;&gt;cor:7.10 -->
+<g class="edge" id="edge74">
+<title>thm:7.3-&gt;cor:7.10</title>
+<path d="M1588.8,-235.16C1622.4,-224.4 1663.3,-211.29 1702.4,-198.75" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1702.84,-201.18 1708.76,-196.71 1701.34,-196.52 1702.84,-201.18" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:7.3&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge91">
+<title>thm:7.3-&gt;rem:7.12</title>
+<path d="M1588.9,-259.82C1717.5,-259.82 1846,-259.82 1974.5,-259.82" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1974.49,-262.27 1981.49,-259.82 1974.49,-257.37 1974.49,-262.27" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:7.3&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge116">
+<title>thm:7.3-&gt;rem:8.2</title>
+<path d="M1588.8,-254.93C1679,-250.2 1836.2,-242.08 1971,-235.66 2083.7,-230.3 2367.3,-234.7 2478,-213.16 2508.4,-207.24 2540.8,-196.87 2568.9,-186.41" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2569.68,-188.73 2575.38,-183.99 2567.97,-184.14 2569.68,-188.73" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.4&#45;&gt;lem:7.5 -->
+<g class="edge" id="edge60">
+<title>lem:7.4-&gt;lem:7.5</title>
+<path d="M1349.6,-626.67C1364.8,-615.67 1381.9,-603.27 1396.9,-592.42" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1398.15,-594.54 1402.37,-588.45 1395.27,-590.58 1398.15,-594.54" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.4&#45;&gt;lem:7.6 -->
+<g class="edge" id="edge61">
+<title>lem:7.4-&gt;lem:7.6</title>
+<path d="M1240.9,-626.75C1225.3,-616.5 1210.4,-603.42 1201,-587.23 1142.2,-485.98 1172.7,-439.8 1190,-323.99 1196.1,-283.39 1189.4,-266.04 1217,-235.66 1240.2,-210.11 1272.6,-192.29 1304.5,-179.94" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1305,-182.37 1310.68,-177.6 1303.27,-177.79 1305,-182.37" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.4&#45;&gt;lem:7.7 -->
+<!-- lem:7.4&#45;&gt;cor:7.10 -->
+<g class="edge" id="edge69">
+<title>lem:7.4-&gt;cor:7.10</title>
+<path d="M1289.3,-626.7C1254.5,-566.34 1187.3,-427.36 1238,-323.99 1310.9,-175.2 1430.5,-240.17 1594,-213.16 1619.2,-208.99 1645.7,-203.69 1671.6,-197.98" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1671.83,-200.44 1678.12,-196.52 1670.76,-195.66 1671.83,-200.44" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.4&#45;&gt;rem:7.11 -->
+<g class="edge lm-aux" id="edge77">
+<title>lem:7.4-&gt;rem:7.11</title>
+<path d="M1310.9,-626.65C1316.9,-580.42 1334.6,-491.68 1385,-437.82 1403.7,-417.79 1428.6,-402.8 1453.8,-391.68" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1454.73,-393.95 1460.21,-388.94 1452.81,-389.44 1454.73,-393.95" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.4&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge85">
+<title>lem:7.4-&gt;rem:7.12</title>
+<path d="M1310.2,-626.63C1316.9,-558.51 1343.8,-393.21 1449,-323.99 1492.1,-295.67 1824,-273.51 1974.4,-264.81" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1974.34,-267.27 1981.19,-264.43 1974.06,-262.38 1974.34,-267.27" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.4&#45;&gt;rem:8.3 -->
+<g class="edge lm-aux" id="edge117">
+<title>lem:7.4-&gt;rem:8.3</title>
+<path d="M1474.2,-654.42C2056.2,-644.51 3977.2,-596.85 4159,-397.82 4216.4,-334.95 4136,-267.34 4057,-235.66 4009.5,-216.62 3648.1,-216.49 3597,-213.16 3336,-196.12 3023.3,-168 2909.3,-157.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2909.8,-155.09 2902.61,-156.88 2909.35,-159.97 2909.8,-155.09" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.5&#45;&gt;thm:7.1 -->
+<g class="edge" id="edge43">
+<title>lem:7.5-&gt;thm:7.1</title>
+<path d="M1461,-587.79C1470.8,-598.74 1480.9,-612.57 1486,-627.23 1494.9,-652.87 1502.5,-666.76 1486,-688.31 1463.2,-718.12 1366,-738.04 1297.7,-748.66" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1297.55,-746.2 1291,-749.67 1298.28,-751.05 1297.55,-746.2" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.5&#45;&gt;lem:7.8 -->
+<!-- lem:7.5&#45;&gt;cor:7.10 -->
+<g class="edge" id="edge70">
+<title>lem:7.5-&gt;cor:7.10</title>
+<path d="M1410.5,-538.42C1400.5,-527.49 1390.2,-513.65 1385,-498.9 1357.4,-420.85 1383.5,-374.61 1449,-323.99 1504.3,-281.27 1536,-309.59 1601,-283.99 1659.1,-261.11 1721,-227.68 1767.8,-200.37" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1768.79,-202.63 1773.59,-196.98 1766.32,-198.4 1768.79,-202.63" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.5&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge86">
+<title>lem:7.5-&gt;rem:7.12</title>
+<path d="M1390.7,-538.39C1312.8,-494.79 1168.3,-399.36 1238,-323.99 1250.5,-310.53 1777.5,-277.24 1974.6,-265.23" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1974.55,-267.69 1981.39,-264.82 1974.25,-262.8 1974.55,-267.69" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.6&#45;&gt;thm:7.2 -->
+<g class="edge" id="edge49">
+<title>lem:7.6-&gt;thm:7.2</title>
+<path d="M1367.9,-127.65C1331.7,-109.86 1282.2,-85.47 1244.5,-66.86" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1245.82,-64.78 1238.46,-63.89 1243.66,-69.18 1245.82,-64.78" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.6&#45;&gt;lem:7.9 -->
+<!-- lem:7.7&#45;&gt;thm:7.2 -->
+<g class="edge" id="edge50">
+<title>lem:7.7-&gt;thm:7.2</title>
+<path d="M1270.1,-329.81C1242.7,-302.45 1205.9,-259.38 1190,-213.16 1173.7,-165.79 1178.2,-106.76 1183.3,-71.17" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1185.67,-71.86 1184.28,-64.58 1180.83,-71.14 1185.67,-71.86" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.7&#45;&gt;thm:7.3 -->
+<g class="edge" id="edge56">
+<title>lem:7.7-&gt;thm:7.3</title>
+<path d="M1356.2,-335.03C1386.9,-320.7 1425.4,-302.68 1456.9,-287.98" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1457.63,-290.34 1462.93,-285.15 1455.55,-285.91 1457.63,-290.34" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.7&#45;&gt;cor:7.10 -->
+<!-- lem:7.7&#45;&gt;rem:7.12 -->
+<g class="edge lm-aux" id="edge87">
+<title>lem:7.7-&gt;rem:7.12</title>
+<path d="M1356.1,-342.51C1378.4,-335.8 1404.8,-328.64 1429,-323.99 1624,-286.55 1858.2,-270.31 1974.7,-264.13" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1974.43,-266.6 1981.29,-263.78 1974.17,-261.7 1974.43,-266.6" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.8&#45;&gt;thm:7.2 -->
+<g class="edge" id="edge51">
+<title>lem:7.8-&gt;thm:7.2</title>
+<path d="M1508.6,-437.31C1489.3,-425.73 1467.7,-411.88 1449,-397.82 1410.1,-368.52 1406.4,-354.01 1368,-323.99 1333.1,-296.66 1224.4,-251.47 1202,-213.16 1195.1,-201.27 1191.4,-118.39 1189.9,-71.57" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1192.36,-71.69 1189.65,-64.79 1187.46,-71.87 1192.36,-71.69" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.8&#45;&gt;lem:7.9 -->
+<g class="edge" id="edge67">
+<title>lem:7.8-&gt;lem:7.9</title>
+<path d="M1658.4,-437.28C1694.8,-425.92 1736.8,-412.84 1775.4,-400.79" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1775.7,-403.26 1781.66,-398.84 1774.24,-398.58 1775.7,-403.26" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.8&#45;&gt;rem:7.11 -->
+<!-- lem:7.8&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge101">
+<title>lem:7.8-&gt;rem:8.1</title>
+<path d="M1726.5,-457.57C1866.8,-447.31 2056.5,-428.36 2126,-397.82 2240.3,-347.59 2343.6,-236.5 2388.8,-183.13" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2390.44,-184.99 2393.12,-178.07 2386.71,-181.81 2390.44,-184.99" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.9&#45;&gt;thm:7.3 -->
+<g class="edge" id="edge57">
+<title>lem:7.9-&gt;thm:7.3</title>
+<path d="M1758.3,-323.43C1704,-309.45 1643.8,-293.98 1596.9,-281.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1597.76,-279.6 1590.37,-280.23 1596.53,-284.35 1597.76,-279.6" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.9&#45;&gt;cor:7.10 -->
+<g class="edge" id="edge71">
+<title>lem:7.9-&gt;cor:7.10</title>
+<path d="M1890.1,-323.46C1881.2,-290.4 1867.9,-241.35 1857.8,-204.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1860.18,-203.82 1855.99,-197.7 1855.45,-205.1 1860.18,-203.82" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.9&#45;&gt;rem:7.11 -->
+<g class="edge lm-aux" id="edge78">
+<title>lem:7.9-&gt;rem:7.11</title>
+<path d="M1686.5,-360.9C1681.2,-360.9 1675.9,-360.9 1670.6,-360.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1670.81,-358.45 1663.81,-360.9 1670.81,-363.35 1670.81,-358.45" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7.9&#45;&gt;rem:7.12 -->
+<!-- lem:7.9&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge102">
+<title>lem:7.9-&gt;rem:8.1</title>
+<path d="M2015.3,-323.49C2050.7,-311.62 2089.7,-297.9 2125,-283.99 2207.1,-251.61 2299.7,-208.38 2357.2,-180.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2358.1,-182.98 2363.34,-177.73 2355.97,-178.57 2358.1,-182.98" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:7.10&#45;&gt;rem:7.11 -->
+<g class="edge lm-aux" id="edge75">
+<title>cor:7.10-&gt;rem:7.11</title>
+<path d="M1674.7,-196.26C1647.8,-202.38 1620.2,-208.25 1594,-213.16 1557.6,-219.97 1453.3,-207.78 1429,-235.66 1414.9,-251.84 1418.2,-265.41 1429,-283.99 1439.1,-301.34 1454.8,-315.06 1471.9,-325.79" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1470.23,-327.65 1477.5,-329.13 1472.74,-323.44 1470.23,-327.65" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:7.10&#45;&gt;rem:8.1 -->
+<g class="edge lm-aux" id="edge92">
+<title>cor:7.10-&gt;rem:8.1</title>
+<path d="M2081.3,-152.37C2171.5,-152.37 2261.8,-152.37 2352.1,-152.37" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2351.99,-154.82 2358.99,-152.37 2351.99,-149.92 2351.99,-154.82" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:7.10&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge106">
+<title>cor:7.10-&gt;rem:8.2</title>
+<path d="M2081.4,-194.73C2224.9,-217.43 2393.6,-238.17 2465.5,-224.41 2504.2,-217.01 2545.2,-201.48 2578.4,-186.73" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2579.04,-189.13 2584.42,-184.02 2577.03,-184.66 2579.04,-189.13" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:7.11&#45;&gt;rem:8.2 -->
+<g class="edge lm-aux" id="edge111">
+<title>rem:7.11-&gt;rem:8.2</title>
+<path d="M1649.6,-329.8C1657.8,-327.6 1666,-325.61 1674,-323.99 1871.2,-284.13 1925.8,-312.72 2125,-283.99 2283.4,-261.15 2323.7,-255.69 2478,-213.16 2505.6,-205.56 2535.1,-195.7 2561.7,-186.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="2562.31,-188.58 2568.08,-183.91 2560.66,-183.97 2562.31,-188.58" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:7.12&#45;&gt;rem:8.1 -->
+<!-- rem:8.1&#45;&gt;rem:8.4 -->
+<!-- rem:8.2&#45;&gt;rem:8.5 -->
+<!-- rem:8.3&#45;&gt;rem:8.6 -->
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>The free field D of A = ℂ[F<sub>3</sub>] is built in stages: E<sub>1</sub> inverts the nonzero elements of A,
+E<sub>2</sub> those of E<sub>1</sub>, and so on. The stages never stabilise (Reutenauer; Herbera–Sánchez). The paper
+works <b>inside the single stage E<sub>2</sub></b>, where one restricts which elements are inverted.</p>
+<ul>
+<li><b>A non-membership criterion</b> (Theorem A = Theorem 3.4). If H<sup>−1</sup> has its entries in the ring
+U<sub>Σ</sub> generated by the inverses of a family Σ of full matrices, each atomic factor of H is stably associated with
+an atomic factor of some Q ∈ Σ (Lemma 3.1). To refute that, it suffices that one atomic factor of H be more singular
+than every Q at some evaluation, measured by an invariant that does not grow on factors: Smith counts along an arc, the
+corank on a curve of integral quaternions, the corank at a character. The allowed denominators may themselves be
+singular there.</li>
+<li><b>Two hierarchies inside E<sub>2</sub>, strict at every step</b> (Theorem B). The rings 𝒰<sub>r</sub> generated
+by inverses of sums of products of at most r inverse binomials: 𝒰<sub>r−1</sub> ⊊ 𝒰<sub>r</sub>, with witness
+(u<sup>−2</sup>+v<sup>−2</sup>+w<sup>−2</sup>)<sup>−1</sup> for r = 2; their union is a proper subring of E<sub>2</sub>.
+The matrix-size chain A<sub>d−1</sub> ∩ E<sub>2</sub> ⊊ A<sub>d</sub> ∩ E<sub>2</sub> for every d ≥ 2. The two
+hierarchies are independent, and the size chain is already strict inside 𝒰<sub>2</sub> (Corollary 7.10).</li>
+<li><b>Infinitely many stopping steps of the Dubrovin–Gräter–Hanke series inside E<sub>2</sub></b> (Theorem C): for every
+k ≥ 3 the stratum of sums of k elements of D<sub>π</sub>, with explicit witnesses f<sub>k</sub>. That there are
+infinitely many stopping steps follows from Herbera–Sánchez, but no infinite family had been located within a fixed
+stage. The rings reached at these steps form a strict chain whose union is 𝒰<sub>2</sub>.</li>
+</ul>
+<p><b>Main tools:</b> Cohn's theory of firs, atoms and stable association, and of rational closures; Smith normal
+forms over ℂ[[t]] along an exact arc of 2×2 matrices; the free group generated by 1+2<b>i</b>, 1+2<b>j</b>,
+1+2<b>k</b>; a grading argument that gives an atom for every k.</p></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#thm:A"><b>Theorem A</b></a>: the non-membership criterion: one atomic factor against the allowed denominators.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:A"><b>Theorem A</b></a>: the non-membership criterion: one atomic factor against the allowed denominators</li><li><a href="index.html#thm:B"><b>Theorem B</b></a>: the binomial hierarchy and the size chain are strict inside E₂</li><li><a href="index.html#thm:C"><b>Theorem C</b></a>: every k[π] is a stopping step of the Dubrovin–Gräter–Hanke series</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Theory of firs (Cohn)</b> → complete factorization into atoms, stable association, torsion modules and rational closures — <a href="index.html#lem:2.1">Lemma 2.1</a>, <a href="index.html#lem:3.1">Lemma 3.1</a>, <a href="index.html#thm:3.4">Theorem 3.4</a></li><li><b>Linear algebra over power series</b> → Smith normal forms over ℂ[[t]] along an exact arc of 2×2 matrices — <a href="index.html#lem:3.2">Lemma 3.2</a>, <a href="index.html#lem:4.1">Lemma 4.1</a>, <a href="index.html#lem:4.4">Lemma 4.4</a>, <a href="index.html#lem:7.7">Lemma 7.7</a></li><li><b>Arithmetic of quaternions</b> → the free group generated by 1+2i, 1+2j, 1+2k (Lubotzky–Phillips–Sarnak), residues modulo 5 — <a href="index.html#lem:4.5">Lemma 4.5</a>, <a href="index.html#thm:6.1">Theorem 6.1</a></li><li><b>Ordered groups</b> → a grading argument and a bi-invariant order on the free group, to obtain an atom for every k — <a href="index.html#lem:7.9">Lemma 7.9</a>, <a href="index.html#thm:7.3">Theorem 7.3</a></li><li><b>Formal verification</b> → Lean 4 + Mathlib: the finite identities and certificates of the appendix — <a href="index.html#lem:4.1">Lemma 4.1</a>, <a href="index.html#lem:5.7">Lemma 5.7</a>, <a href="index.html#lem:7.8">Lemma 7.8</a>, <a href="index.html#cor:7.10">Corollary 7.10</a>, <a href="index.html#rem:8.2"> 8.2</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Inversion height and complexity of rational expressions</b> ← strict hierarchies of subrings inside one stage of the rational closure; stopping steps of the Dubrovin–Gräter–Hanke series — <a href="index.html#thm:B">Theorem B</a>, <a href="index.html#thm:C">Theorem C</a></li><li><b>L²-invariants of groups</b> ← the stages studied here are those of the division ring that carries the L²-invariants of F₃; the paper says nothing new about the Atiyah conjecture</li><li><b>Universal localization</b> ← Malcolmson's chain A_b inside E₂, and already inside 𝒰₁ (Corollary 7.10(a)) — <a href="index.html#thm:6.1">Theorem 6.1</a>, <a href="index.html#cor:7.10">Corollary 7.10</a></li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  function show(h){
+    var p = document.getElementById('pane-' + h) || panes[0];
+    panes.forEach(function(x){ x.hidden = x !== p; });
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+    box.scrollTop = 0;
+  }
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  show(location.hash.slice(1));
+})();
+</script>
+<script src="js/mapzoom.js" defer></script>
+<script id="lm-maphere">
+(function(){
+  var n = new URLSearchParams(location.search).get('n');
+  if (!n) return;
+  function go(){
+    var a = null;
+    document.querySelectorAll('svg a').forEach(function (x) {
+      var h = x.getAttribute('href') || x.getAttribute('xlink:href') || '';
+      if (!a && h.slice(h.indexOf('#') + 1) === n) a = x;
+    });
+    var g = a && (a.closest('g.node') || a.parentNode);
+    if (!g) return;
+    var pane = g.closest('section.pc-pane');
+    if (pane) document.querySelectorAll('section.pc-pane').forEach(function (p) { p.hidden = p !== pane; });
+    g.classList.add('lm-here');
+    var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
+    var bar = document.getElementById('lm-herebar');
+    if (!bar) {
+      bar = document.createElement('div'); bar.id = 'lm-herebar';
+      var host = (pane || document.body);
+      host.insertBefore(bar, host.firstChild);
+    }
+    bar.innerHTML = '📍 <b></b> on the map · <a href="index.html#' + encodeURIComponent(n) + '">← back to the statement</a>';
+    bar.querySelector('b').textContent = name;
+    setTimeout(function () { g.scrollIntoView({block: 'center', inline: 'center'}); }, 300);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+  window.addEventListener('load', go);
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:A": "Theorem A — Theorem 3.4", "thm:B": "Theorem B", "thm:C": "Theorem C", "lem:2.1": "Lemma 2.1 — atom criterion", "lem:2.2": "Lemma 2.2 — the first strata", "lem:3.1": "Lemma 3.1 — matrix localization", "lem:3.2": "Lemma 3.2 — cf. {[}Tho79{]}; we give a direct proof", "def:3.3": "Definition 3.3", "thm:3.4": "Theorem 3.4", "lem:3.5": "Lemma 3.5", "lem:3.6": "Lemma 3.6", "lem:4.1": "Lemma 4.1 — exact arc", "lem:4.2": "Lemma 4.2 — scalar evaluation", "lem:4.3": "Lemma 4.3 — binomials", "lem:4.4": "Lemma 4.4 — chain bound", "lem:4.5": "Lemma 4.5 — no binomial degenerates on \\(\\Theta\\)", "thm:5.1": "Theorem 5.1", "thm:5.2": "Theorem 5.2", "cor:5.3": "Corollary 5.3", "rem:5.4": "Remark 5.4 — computations", "lem:5.5": "Lemma 5.5", "lem:5.6": "Lemma 5.6 — target profile", "lem:5.7": "Lemma 5.7 — atoms", "prop:5.8": "Proposition 5.8", "rem:5.9": "Remark 5.9 — beyond \\(\\mathcal U_1\\)", "thm:6.1": "Theorem 6.1", "lem:6.2": "Lemma 6.2", "rem:6.3": "Remark 6.3 — a candidate second witness for part (1)", "rem:6.4": "Remark 6.4 — the symmetric curve fails", "thm:7.1": "Theorem 7.1", "thm:7.2": "Theorem 7.2", "thm:7.3": "Theorem 7.3", "lem:7.4": "Lemma 7.4 — compression at level \\(k\\)", "lem:7.5": "Lemma 7.5 — the ring reached at \\(k{[}\\pi{]}\\)", "lem:7.6": "Lemma 7.6 — \\(D'\\subseteq\\Gamma_2\\)", "lem:7.7": "Lemma 7.7 — the bound \\(2a\\)", "lem:7.8": "Lemma 7.8", "lem:7.9": "Lemma 7.9", "cor:7.10": "Corollary 7.10", "rem:7.11": "Remark 7.11 — matrix size and number of binomial inverses", "rem:7.12": "Remark 7.12 — dependencies of Theorem 7.1", "rem:8.1": "Remark 8.1 — characteristic \\(p\\)", "rem:8.2": "Remark 8.2 — two parameters", "rem:8.3": "Remark 8.3 — later strata", "rem:8.4": "Remark 8.4 — strictness of the size chain in general", "rem:8.5": "Remark 8.5 — independent adjunctions in \\({[}\\mathcal U_\\infty,B_2{]}\\)", "rem:8.6": "Remark 8.6 — intermediate rings and classes of atoms"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body></html>

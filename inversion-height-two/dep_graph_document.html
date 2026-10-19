@@ -1,0 +1,2012 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+</style></head>
+<body>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="cor:5.3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:5.3" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">5.3</span></div>
+<div class="thm_thmcontent"><p> <em>For every \(r\ge 1\), \(g_r=u^{-2r}+v^{-2r}+w^{-2r}\) satisfies \(g_r^{-1}\in \mathcal U_{2r}\setminus \mathcal U_r\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#cor:5.3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:7.10_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:7.10" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">7.10</span></div>
+<div class="thm_thmcontent"><p> <em>(a) For every \(d\ge 2\) and \(r\ge 1\), \(A_{d-1}\cap \mathcal U_r\subsetneq A_d\cap \mathcal U_r\); a witness is \(e_d=q_d^{-1}\) with \(q_d=w^{-1}+\sum _{i=0}^{d-1}y^iu^{-1}y^{-i}\), and \(e_d\in (A_d\cap \mathcal U_1)\setminus A_{d-1}\). The range \(r\ge 1\) is optimal, since \(A_d\cap \mathcal U_0=E_1\) for every \(d\). (b) The bound of Lemma <a href="index.html#lem:7.4">7.4</a> is optimal: for \(n\ge 3\) there is a sum \(f\) of \(n\) pure elements with \(f^{-1}\notin \Gamma _{n-2}'\). (c) Let \(\mathcal D_k\) be the ring \(D_x\) of Lemma <a href="index.html#lem:7.5">7.5</a>, reached when the inversion pointer reaches \(b_{kXX}\) (it does, §7.7). Then \(\mathcal U_1=\mathcal D_3\subsetneq \mathcal D_4\subsetneq \mathcal D_5\subsetneq \cdots \) and \(\bigcup _k\mathcal D_k=\mathcal U_2\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#cor:7.10">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.BinomialSizeFamily.rankOne_mul_inv">ThreeAxes.BinomialSizeFamily.rankOne_mul_inv</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.BinomialSizeFamily.rankOneInv_mul">ThreeAxes.BinomialSizeFamily.rankOneInv_mul</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.BinomialSizeFamily.inv_q_eq">ThreeAxes.BinomialSizeFamily.inv_q_eq</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.BinomialSizeFamily.conj_add_mul_pow">ThreeAxes.BinomialSizeFamily.conj_add_mul_pow</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.BinomialSizeFamily.det_scalar_point">ThreeAxes.BinomialSizeFamily.det_scalar_point</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.BinomialSizeFamily.idemBlock_isUnit">ThreeAxes.BinomialSizeFamily.idemBlock_isUnit</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.PhiCompression.inv_mul_conj">ThreeAxes.PhiCompression.inv_mul_conj</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def:3.3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:3.3" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">3.3</span></div>
+<div class="thm_thmcontent"><p>  A <em>monotone invariant</em> is a function \(\mu \) from square matrices over \(P\) to \(\mathbb N\cup \{ \infty \} \) such that </p>
+<ol class="enumerate">
+<li><p>\(\mu (F\oplus I)=\mu (F)\) for identity matrices \(I\) of every size, and \(\mu (MFN)=\mu (F)\) for \(M,N\) invertible over \(P\) of the size of \(F\); </p>
+</li>
+<li><p>\(\mu (F)\le \mu (G_1FG_2)\) whenever \(F,G_1,G_2\) are square of the same size. </p>
+</li>
+</ol>
+<p><em>Examples.</em> </p>
+<ul class="itemize">
+<li><ol class="enumerate">
+<li><p>For an arc (a unital ring homomorphism) \(\gamma :P\to M_m(\mathbb C[[t]])\) and \(j\ge 1\), \(\mu (F)=\nu _j(F^\gamma )\). Condition 1 holds because \(M^\gamma ,N^\gamma \) are invertible over \(\mathbb C[[t]]\) and padding does not change \(\nu _j\); condition 2 is Lemma <a href="index.html#lem:3.2">3.2</a>(1). </p>
+</li>
+</ol>
+</li>
+<li><ol class="enumerate">
+<li><p>For a unital ring homomorphism \(\Theta :P\to M_m(K)\) into matrices over a field (not necessarily commutative), \(\mu (F)=\operatorname {corank}F^\Theta \). Condition 1 holds because invertible matrices go to invertible matrices; condition 2 holds because \(\operatorname {rank}(XYZ)\le \operatorname {rank}Y\). </p>
+</li>
+</ol>
+</li>
+</ul>
+<p>Neither example needs the arc or \(\Theta \) to extend to \(D\), or even to \(A\). Example (b) is \(m\) times the nullity of the Sylvester rank function \(F\mapsto \operatorname {rank}F^\Theta /m\), and every Sylvester rank function with values in \(\frac1m\mathbb Z\) gives a monotone invariant in the same way [Mal80], [Sch85, Ch. 7]. Example (a) is a difference of two instances of (b): if \(\Theta _j:P\to M_{mj}(\mathbb C)\) is the reduction of \(\gamma \) modulo \(t^j\) followed by the regular representation of \(\mathbb C[t]/t^j\), then \(\nu _j(F^\gamma )=\operatorname {corank}F^{\Theta _j}-\operatorname {corank}F^{\Theta _{j-1}}\), because multiplication by \(t^\lambda \) on \(\mathbb C[t]/t^j\) has kernel of dimension \(\min (\lambda ,j)\), so \(\operatorname {corank}F^{\Theta _j}=\sum _i\min (\lambda _i,j)\). Its monotonicity is Lemma <a href="index.html#lem:3.2">3.2</a>(1); it does not follow from that of (b). </p>
+</div>
+<a class="latex_link" href="index.html#def:3.3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:2.1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:2.1" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2.1</span><span class="lemma_thmtitle">atom criterion</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(N\ge 1\) and let \(L=A_0+\sum _iA_ix_i\) be an \(N\times N\) monic pencil with \(A_0\) invertible. Then \(L\) is full and not invertible, and \(L\) is an atom iff the matrices \(M_i=A_0^{-1}A_i\) (\(1\le i\le g\)) have no common invariant subspace other than \(0\) and \(k^N\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:2.1">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:2.2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:2.2" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2.2</span><span class="lemma_thmtitle">the first strata</span></div>
+<div class="thm_thmcontent">
+<ol class="enumerate">
+<li><p><em>For \(1\le n{\lt}\omega \), \(D_n\) is the set of sums of at most \(n\) elements of \(D_1\), and \(D_\omega =A\).</em> </p>
+</li>
+<li><p><em>The first Case 3 occurs at \(\alpha '=\omega \), with \(\alpha _1=2\); \(D_{\omega +1}=A\cup D_2^{-1}\), and the nonzero elements of \(D_2^{-1}\) are the monomials and the unit multiples \(\ell ^{-1}m\) of inverse binomials.</em> </p>
+</li>
+<li><p><em>From \(\omega +1\) on, Case 1 applies up to the first index \(\sigma \) at which the set is additively closed, and \(D_\sigma =V_1\).</em> </p>
+</li>
+<li><p><em>If \(D_{\omega +1}D_{\omega +1}\not\subseteq V_1\), Case 2 applies at \(\sigma \) with the multiset \(2[\omega +1]\), so \(\pi =\sigma +1\) and \(D_\pi =V_1\cup D_{\omega +1}D_{\omega +1}\).</em> </p>
+</li>
+<li><p><em>Let \(k\ge 2\) and suppose \(D_\pi ^{+j}\not\subseteq D_\pi ^{+(j-1)}+V_1\) for \(2\le j\le k\). Then the strata born after \(\pi \) and before \(k[\pi ]\) are among the \(j[\pi ]+x\) with \(1\le j{\lt}k\) and \(x\in N(\sigma )\), each contained in \(D_\pi ^{+j}+V_1\), no Case 2 or Case 3 occurs in between, and \(D_{k[\pi ]}=D_\pi ^{+k}\).</em> </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:2.2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:3.1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:3.1" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">3.1</span><span class="lemma_thmtitle">matrix localization</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(R\) be a semifir with universal field of fractions \(D\), and \(\Sigma \) a set of full matrices over \(R\), each with a complete factorization (this holds for every \(\Sigma \) if \(R\) is fully atomic, for instance a fir such as \(P\) or \(A\)). Let \(U_\Sigma \subseteq D\) be the subring generated by \(R\) and the entries of \(Q^{-1}\), \(Q\in \Sigma \). If \(H\) is a full matrix over \(R\) and \(H^{-1}\) has entries in \(U_\Sigma \), then every atomic factor of \(H\) is stably associated with an atomic factor of a complete factorization of a single member \(Q\in \Sigma \). Conversely, if \(H\) has a complete factorization whose factors are all stably associated with atomic factors of members of \(\Sigma \), then \(H^{-1}\) has entries in \(U_\Sigma \).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:3.1">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:3.2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:3.2" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">3.2</span><span class="lemma_thmtitle">cf. [Tho79]; we give a direct proof</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(j\ge 1\).</em> </p>
+<ol class="enumerate">
+<li><p><em>(Factors.) If \(Y=G_1FG_2\) with all matrices square of the same size, then \(\nu _j(F^\gamma )\le \nu _j(Y^\gamma )\), whether or not \(G_1^\gamma ,G_2^\gamma \) are singular.</em> </p>
+</li>
+<li><p><em>(Upper interlacing.) If \(Y=\begin{pmatrix} L
+
+&amp; \boldsymbol \omega 
+
+\\ \boldsymbol \alpha 
+
+&amp; \delta 
+
+\end{pmatrix}\) with a bottom block of size \(m\) after evaluation, then \(\nu _j(Y)\le \nu _j(L)+m\).</em> </p>
+</li>
+<li><p><em>(Lower interlacing.) In the same situation, \(\nu _j(L)-m\le \nu _j(Y)\).</em> </p>
+</li>
+<li><p><em>(Chains.) If \(L\) is block upper triangular with diagonal blocks \(\Delta _1,\dots ,\Delta _q\), each with \(\det \Delta _i\not\equiv 0\) and largest part \(e_i\), then every part of \(L\) is at most \(e_1+\dots +e_q\). If \(L\) is block diagonal, its largest part is the largest over the blocks.</em> </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:3.2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:3.5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:3.5" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">3.5</span></div>
+<div class="thm_thmcontent"><p> <em>\(\mathcal U_r=U_{\Sigma _r}\) with \(\Sigma _r=\Sigma _0\cup \{ \tilde B_f:0\ne f\in \mathcal F_r\} \), one border per \(f\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:3.5">LaTeX</a>
+<a class="lean_link lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.chain_inv_corner">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:3.6_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:3.6" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">3.6</span></div>
+<div class="thm_thmcontent"><p> <em>\(\Gamma _2'=U_{\Sigma _2'}\) with \(\Sigma _2'=\Sigma _1\cup \{ \tilde B_M:M\text{ full over }V_1,\  a\le 2\} \), one lift per \(M\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:3.6">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:4.1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:4.1" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">4.1</span><span class="lemma_thmtitle">exact arc</span></div>
+<div class="thm_thmcontent"><p> <em>\(\operatorname {tr}U_i=0\), \(\det U_i=-t\varepsilon \) and \(U_i^2=t\varepsilon \, I\). In particular \(U_i(t,t^k)^2=t^{k+1}I\), and \(U_i(t,t^k)\) has Smith parts \((1,k)\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:4.1">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.ExactArc.exactArc_trace">ThreeAxes.ExactArc.exactArc_trace</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.ExactArc.exactArc_det">ThreeAxes.ExactArc.exactArc_det</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.ExactArc.exactArc_sq">ThreeAxes.ExactArc.exactArc_sq</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.ExactArc.exactArc_sq_pow">ThreeAxes.ExactArc.exactArc_sq_pow</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.ParabolicFamily.exactArc_eq_conj">ThreeAxes.ParabolicFamily.exactArc_eq_conj</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:4.2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:4.2" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">4.2</span><span class="lemma_thmtitle">scalar evaluation</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(\gamma =\gamma _k\).</em> </p>
+<ol class="enumerate">
+<li><p><em>If \(F\) is a \(d\times d\) matrix with entries in \(\mathcal J^r\), every entry of \(F^\gamma \) is divisible by \(t^{r(k+1)}\); hence \(\nu _{r(k+1)}(F^\gamma )=2d\).</em> </p>
+</li>
+<li><p><em>\(H_{3,2r}^\gamma =t^{r(k+1)}\left(\begin{pmatrix} 2
+
+&amp; 1
+
+\\ 1
+
+&amp; 2
+
+\end{pmatrix}\otimes I_2\right)\). Its four parts all equal \(r(k+1)\).</em> </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:4.2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:4.3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:4.3" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">4.3</span><span class="lemma_thmtitle">binomials</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(\ell =1-\beta h\) be a binomial.</em> </p>
+<ol class="enumerate">
+<li><p><em>If \(\beta \chi (h)\ne 1\), then \(\ell ^{\gamma _k}\) is invertible over \(\mathbb C[[t]]\): no positive parts.</em> </p>
+</li>
+<li><p><em>If \(\ell \) is exceptional, \(\ell ^{\gamma _k}\) has parts \((1,k)\) for every \(k\ge 1\).</em> </p>
+</li>
+<li><p><em>Otherwise \(e_\ell {\lt}\infty \), and for \(k{\gt}e_\ell \) the parts of \(\ell ^{\gamma _k}\) equal those at \(\varepsilon =0\); in particular they are \({\lt}k\).</em> </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:4.3">LaTeX</a>
+<a class="lean_link lean_decl" href="./find/#doc/ThreeAxes.ParabolicFamily.trace_prod_parabolic">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:4.4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:4.4" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">4.4</span><span class="lemma_thmtitle">chain bound</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(0\neq f\in \mathcal F_q\) with border \(B_f\) and \(k{\gt}e(f)\). Then every part of \(L^{\gamma _k}\) is at most \(qk\), and \(\nu _{qk+1}(\tilde B_f^{\gamma _k})\le 2\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:4.4">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:4.5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:4.5" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">4.5</span><span class="lemma_thmtitle">no binomial degenerates on \(\Theta \)</span></div>
+<div class="thm_thmcontent"><p> <em>For every \(h\in F_3\setminus \{ 1\} \) and \(\beta \in \mathbb C^\times \), \(\det \bigl(I-\beta \, h^\Theta \bigr)\ne 0\) in \(\mathbb C(t)\). Hence every binomial, and every element \(\alpha g+\beta h\) of \(A\) with two terms, is invertible at \(\Theta \).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:4.5">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.QuaternionResidues.res_mul_res_eq_zero_iff">ThreeAxes.QuaternionResidues.res_mul_res_eq_zero_iff</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.QuaternionResidues.prod_res_ne_zero">ThreeAxes.QuaternionResidues.prod_res_ne_zero</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:5.5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:5.5" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">5.5</span></div>
+<div class="thm_thmcontent"><p> <em>The Schur complement of \(L\) in \(Q_r\) is \(-\varphi _r\). Over \(\Lambda =\mathbb C[F(u,v,w)]\), \(Q_r\) is associated with \(I\oplus (-\varphi _r)\). For every ring \(\mathcal U\supseteq E_1\): \(\varphi _r^{-1}\in \mathcal U\iff Q_r^{-1}\in M(\mathcal U)\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:5.5">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:5.6_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:5.6" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">5.6</span><span class="lemma_thmtitle">target profile</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(r\ge 3\) and \(k\ge r+1\), \(\gamma =\gamma _k\). Each chain block of \(L^\gamma \) has exactly one part \(\ge (r-1)k+1\). Hence \(\nu _{(r-1)k+1}(L^\gamma )=5\) and \(\nu _{(r-1)k+1}(Q_r^\gamma )\ge 3\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:5.6">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:5.7_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:5.7" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">5.7</span><span class="lemma_thmtitle">atoms</span></div>
+<div class="thm_thmcontent">
+<ol class="enumerate">
+<li><p><em>For \(n\ge 2\) and \(p\ge 1\), \(H_{n,p}\) is an atom of \(\mathbb C\langle u_1,\dots ,u_n\rangle \).</em> </p>
+</li>
+<li><p><em>For \(r\ge 3\), \(Q_r\) is an atom of \(P=\mathbb C\langle u,v,w\rangle \).</em> </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:5.7">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.ChainPencil.R3.eightConditions">ThreeAxes.ChainPencil.R3.eightConditions</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.ChainPencil.R4.eightConditions">ThreeAxes.ChainPencil.R4.eightConditions</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:6.2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:6.2" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">6.2</span></div>
+<div class="thm_thmcontent"><p> <em>(a) For \(Q\in \Sigma ^{(b)}\), \(\operatorname {corank}Q^\Theta \le 2b\). (b) \(\hat F_d^\Theta =0\), so \(\operatorname {corank}\hat F_d^\Theta =2d\); likewise \((F^{(\lambda )})^\Theta =0\) for every \(\lambda \). (c) For \(d\ge 2\), \(\hat F_d\) is a full atom over \(P\); for \(\lambda \in \mathcal T:=\mathbb C\setminus \{ -1,0,1,2\} \), \(F^{(\lambda )}\) is a full atom over \(P\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:6.2">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.SizeChain.adjoin_cyc_diagD_eq_top">ThreeAxes.SizeChain.adjoin_cyc_diagD_eq_top</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.SizeChain.det_matE_ne_zero">ThreeAxes.SizeChain.det_matE_ne_zero</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:7.4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:7.4" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.4</span><span class="lemma_thmtitle">compression at level \(k\)</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(k\ge 3\) and let \(0\ne f\in D_\pi ^{+n}+V_1\) with \(n\le k-1\). Then \(f^{-1}\in \Gamma _{k-2}'\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:7.4">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.compression_inv">ThreeAxes.InverseIdentities.compression_inv</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.three_term_inv">ThreeAxes.InverseIdentities.three_term_inv</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.one_term_inv">ThreeAxes.InverseIdentities.one_term_inv</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:7.5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:7.5" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.5</span><span class="lemma_thmtitle">the ring reached at \(k{[}\pi {]}\)</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(k\ge 3\), and let \(D_x\) be the ring built by the series when the inversion pointer reaches \(b_{kXX}\). Then \(D_x\) is generated by \(\mathcal U_1\) and the inverses of the nonzero elements of \(D_\pi ^{+n}+V_1\), \(n\le k-1\); \(\mathcal U_1\subseteq D_x\subseteq \Gamma _{k-2}'\cap E_2\); and for \(k=3\), \(D_x=\mathcal U_1\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:7.5">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:7.6_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:7.6" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.6</span><span class="lemma_thmtitle">\(D'\subseteq \Gamma _2\)</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(e\in D_\pi ^{+3}\) be nonzero.</em> </p>
+<ol class="enumerate">
+<li><p><em>If \(e=d_1^{-1}+d_2^{-1}+d_3^{-1}\) is a sum of three pure elements, then \(H_3=\begin{pmatrix} d_1+d_2
+
+&amp; d_1
+
+\\ d_1
+
+&amp; d_1+d_3
+
+\end{pmatrix}\in M_2(A)\) is full and \(e^{-1}=d_1-(d_1\  d_1)\, H_3^{-1}\binom {d_1}{d_1}\in \Gamma _2\).</em> </p>
+</li>
+<li><p><em>Otherwise \(e^{-1}\in \mathcal U_1\).</em> </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:7.6">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.woodbury_sum">ThreeAxes.InverseIdentities.woodbury_sum</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.three_term_inv">ThreeAxes.InverseIdentities.three_term_inv</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:7.7_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:7.7" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.7</span><span class="lemma_thmtitle">the bound \(2a\)</span></div>
+<div class="thm_thmcontent"><p> <em>For every \(j\ge 1\), \(\nu _j(B_M^{\gamma _k})\le 2a+\sum _s\nu _j(\ell _s^{\gamma _k})\). In particular \(\nu _{k+1}(\tilde B_M^{\gamma _k})\le 2a\) for \(k{\gt}e(M)\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:7.7">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:7.8_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:7.8" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.8</span></div>
+<div class="thm_thmcontent"><p> <em>(a) \(F_\psi \) is a full atom over \(P\). (b) For every \(k\ge 1\), \(F_\psi ^{\gamma _k}=t^{k+1}\bigl((I_3+J_3)\otimes I_2\bigr)\operatorname {diag}(I,I,Y)\) with \(Y=y^{\gamma _k}\), \(\det Y=1-t^{k+1}\); hence all six parts of \(F_\psi ^{\gamma _k}\) equal \(k+1\) and \(\nu _{k+1}(F_\psi ^{\gamma _k})=6\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:7.8">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.AtomCertificate.Q2_mul_K">ThreeAxes.AtomCertificate.Q2_mul_K</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.AtomCertificate.det_Q2">ThreeAxes.AtomCertificate.det_Q2</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.AtomCertificate.Kv_identity">ThreeAxes.AtomCertificate.Kv_identity</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.AtomCertificate.det_matR">ThreeAxes.AtomCertificate.det_matR</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.AtomCertificate.det_matO">ThreeAxes.AtomCertificate.det_matO</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:7.9_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:7.9" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.9</span></div>
+<div class="thm_thmcontent"><p> <em>(a) \(f_k\) is an atom of \(\Lambda _y\). (b) \(F_k\) is full, and an atom over \(\Lambda _y\). (c) No atomic factor of \(F_k\) over \(P\) is stably associated with \(u\) or with \(w\). (d) In a complete factorization of \(F_k\) over \(P\) exactly one atomic factor \(G_k\) is not stably associated with \(y\), and \(\nu _{\kappa +1}(G_k^{\gamma _\kappa })=2(k-1)\) for every \(\kappa \ge 1\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#lem:7.9">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.BinomialSizeFamily.det_scalar_point">ThreeAxes.BinomialSizeFamily.det_scalar_point</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.BinomialSizeFamily.idemBlock_isUnit">ThreeAxes.BinomialSizeFamily.idemBlock_isUnit</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:5.8_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:5.8" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">5.8</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(N\ge n\ge 3\), \(A=\mathbb C[F_N]\), \(u_i=1+x_i\), and form \(E_1\), \(V_1\) over \(A\). For \(s_n=\sum _{i\le n}u_i^{-2}\) we have \(s_n^{-1}\in \mathcal U_2\) and \(s_n^{-1}\notin E_1[V_1^{-1}]\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#prop:5.8">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:5.4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:5.4" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">5.4</span><span class="remark_thmtitle">computations</span></div>
+<div class="thm_thmcontent"><p>   Computed exactly (rational arithmetic, truncated series) on the parabolic arc with a generic perturbation \(t^kE\); we say a border is <em>excluded</em> when its count at level \(k+1\) is at most \(2\). The border of \(s\) is never excluded and its profile contains that of \(H_0\); the control \((u^{-2}+v^{-2}+w^{-1})^{-1}=u^2\Upsilon ^{-1}v^2\) with \(\Upsilon =u^2+v^2+v^2w^{-1}u^2\in V_1\) has the target \(H_c=\begin{pmatrix} u^2+v^2
+
+&amp; u^2
+
+\\ u^2
+
+&amp; u^2+w
+
+\end{pmatrix}\), and the evaluated matrix \(H_c^{\gamma _k}\) has the four parts \((1,k,k+1,k+1)\), only two at level \(k+1\) (on \(\gamma _k\) this follows from \(H_c^{\gamma _k}\sim \operatorname {diag}(2c\, I_2,\, W+\tfrac c2I_2)\) with \(c=t^{k+1}\), \(W=w^{\gamma _k}\) and \(\det (W+\tfrac c2I_2)=-c+\tfrac {c^2}4\)): as a target it would not exceed the bound on the allowed denominators, consistently with its inverse lying in \(\mathcal U_1\); a border with twelve exceptional binomials, commutators of weight \(2\)–\(4\) that are trivial at \(\chi \), and Engel words is not excluded for \(k=10\) and is excluded for \(k=11,12,14\); here \(e(f)=11\) (the binomials \(1-[x,[x,y]]\) and \(1-[[x,y],[x,z]]\) have parts \((5,11)\) and \((7,11)\) under \(\rho _t\)), so the bound of Lemma <a href="index.html#lem:4.4">4.4</a> (proved on \(\gamma _k\)) predicts exclusion for \(k\ge 12\), and at \(k=11\) the exclusion is a fact of the computation (supplement <a href="index.html#rem:5.4">C07</a>). </p>
+</div>
+<a class="latex_link" href="index.html#rem:5.4">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:5.9_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:5.9" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">5.9</span><span class="remark_thmtitle">beyond \(\mathcal U_1\)</span></div>
+<div class="thm_thmcontent"><p>   In the setting of Proposition <a href="index.html#prop:5.8">5.8</a>, with \(\Gamma _a'\) and \(D'\) formed over \(A=\mathbb C[F_N]\) (§2.4, §7.2), \(s_n^{-1}\notin \Gamma _{n-2}'\) for \(3\le n\le N\); in particular \(s_4^{-1}\notin \Gamma _2'\supseteq D'\) for \(N\ge 4\). The proof is that of Theorem <a href="index.html#thm:7.2">7.2</a> (§7.5) with \(H_{n,2}\) in place of \(F_\psi \). If \(s_n^{-1}\in \Gamma _{n-2}'\), Woodbury with \(\Delta _n=\operatorname {diag}(u_2^2,\dots ,u_n^2)\) gives \(H_{n,2}^{-1}=\Delta _n^{-1}-\Delta _n^{-1}\mathbf1s_n^{-1}\mathbf1^{\mathsf T}\Delta _n^{-1}\in M_{n-1}(U_{\Sigma _{n-2}'})\) (§5.1, and Lemma <a href="index.html#lem:3.6">3.6</a> with \(a=n-2\), §7.2). \(H_{n,2}\) is a full atom of \(P_N\) and its \(2(n-1)\) parts at \(\gamma _k\) all equal \(k+1\) (proof of Proposition <a href="index.html#prop:5.8">5.8</a>). For \(Q\in \Sigma _{n-2}'\) and \(k{\gt}e(Q)\), \(\nu _{k+1}(Q^{\gamma _k})\le 2(n-2)\) (\(\le 2\) for \(Q_s\), \(x_j\) and the borders of \(\mathcal U_1\) by Lemma <a href="index.html#lem:4.4">4.4</a> and the remark after it, \(\le 2(n-2)\) for \(\tilde B_M\) by Lemma <a href="index.html#lem:7.7">7.7</a>; their proofs use only Lemma <a href="index.html#lem:4.3">4.3</a>, which holds on the arc with \(N\) axes), and Theorem <a href="index.html#thm:3.4">3.4</a> gives a contradiction. For \(n=3\) this is Proposition <a href="index.html#prop:5.8">5.8</a>, since \(\Gamma _1'=\mathcal U_1\). Finally \(D'\subseteq \Gamma _2'\) by Lemma <a href="index.html#lem:7.6">7.6</a>, whose proof uses only that each element of \(D_\pi =V_1\cup D_{\omega +1}D_{\omega +1}\) (read as a set, as after Lemma <a href="index.html#lem:7.4">7.4</a>) lies in \(V_1\) or is pure. We do not claim here that \(n[\pi ]\) is a stopping step of the series over \(\mathbb C[F_N]\) for \(n\ge 4\); that would need Lemmas <a href="index.html#lem:2.2">2.2</a>, <a href="index.html#lem:7.4">7.4</a> and <a href="index.html#lem:7.5">7.5</a> over \(F_N\). </p>
+</div>
+<a class="latex_link" href="index.html#rem:5.9">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:6.3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:6.3" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">6.3</span><span class="remark_thmtitle">a candidate second witness for part (1)</span></div>
+<div class="thm_thmcontent"><p>   An earlier route suggests a second witness. Let \(\theta \in \mathbb C\) be transcendental, \(\tau '^{\theta }_i=1+x_i+\theta x_{i+1}\) (indices mod \(3\)) and \(g_\theta =\sum _i(\tau '^{\theta }_i)^{-2}\in E_1\). We expect \(g_\theta ^{-1}\in E_2\setminus \mathcal U_\infty \) but do not prove it; it is not used. The argument would be the same corank comparison (\(4{\gt}2\)) at the point \(X_i=\lambda _\theta I+T_i\), \(\lambda _\theta =-1/(1+\theta )\), \(T_i=(N_i-\theta N_{i+1}+\theta ^2N_{i+2})/(1+\theta ^3)\), \(N_i=\begin{pmatrix} it^2
+
+&amp; -t
+
+\\ i^2t^3
+
+&amp; -it^2
+
+\end{pmatrix}\), where \(I+X_i+\theta X_{i+1}=N_i\) with \(N_i^2=0\), so that the target \(H_{3,2}(\tau '_0,\tau '_1,\tau '_2)\) vanishes; the target is an atom because \((x_0,x_1,x_2)\mapsto (\tau '^{\theta }_0,\tau '^{\theta }_1,\tau '^{\theta }_2)\) is affine with linear part of determinant \(1+\theta ^3\ne 0\). The missing step is that no allowed binomial is identically singular on the curve, \(\det (I-\beta h(X(t)))\not\equiv 0\) for all \(h\ne 1\) and \(\beta \ne 0\); the route assumes \(\theta \) transcendental, and for \(\theta =2,1,\tfrac 14\) some binomials do become singular on the curve. We prefer the integer witness \(\rho _2\). </p>
+</div>
+<a class="latex_link" href="index.html#rem:6.3">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.WeightedTrinomials.weighted_trinomial">ThreeAxes.WeightedTrinomials.weighted_trinomial</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.WeightedTrinomials.N_sq">ThreeAxes.WeightedTrinomials.N_sq</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:6.4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:6.4" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">6.4</span><span class="remark_thmtitle">the symmetric curve fails</span></div>
+<div class="thm_thmcontent"><p>   With \(\theta =1\), i.e. \(\tau '_i=1+x_i+x_{i+1}\), the analogous argument breaks: on the whole variety where \(\tau '_0,\tau '_1,\tau '_2\) are nilpotent, the commutator \(h=[xy,yx]\) (a word with exponent sum \(0\)) is unipotent, so \(1-h\) degenerates. The reason is an identity in \(GL_2\): if \(\operatorname {tr}X=\operatorname {tr}Y=-1\) and \(Z=I+X+Y\) satisfies \(Z^2=0\), then \((XY)(YX)(XY)^{-1}(YX)^{-1}=I+(\det X^{-1}-\det Y^{-1})Z\). If \(\tau '_0,\tau '_1,\tau '_2\) evaluate to nilpotent \(2\times 2\) matrices, then \(\operatorname {tr}(I+X_i+X_{i+1})=0\) for \(i=0,1,2\), so every \(\operatorname {tr}X_i=-1\), and the identity applies with \(X=X_0\), \(Y=X_1\) (supplement C26). </p>
+</div>
+<a class="latex_link" href="index.html#rem:6.4">LaTeX</a>
+<a class="lean_link lean_decl" href="./find/#doc/ThreeAxes.WeightedTrinomials.hidden_commutator">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:7.11_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:7.11" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">7.11</span><span class="remark_thmtitle">matrix size and number of binomial inverses</span></div>
+<div class="thm_thmcontent"><p>    Let \(\operatorname {sz}(e)\) be the least \(b\) with \(e\in A_b\). </p>
+<ol class="enumerate">
+<li><p>For the chain \(A_b\) alone the character \(\chi \) suffices. By §6.2, \(A_b=U_{\Sigma _A^{(b)}}\) with \(\Sigma _A^{(b)}=\Sigma _0\cup \{ \tilde G:G\text{ full over }A\text{ of size }a\le b\} \), \(\tilde G\) the polynomial lift with pivots \(x_j\), and \(\operatorname {corank}\tilde G^\chi =\operatorname {corank}G^\chi \le a\) since \(x_j^\chi =-1\); also \(\operatorname {corank}Q_s^\chi \le 1\). Every entry of \(F_k\) vanishes at \(\chi \) (\(u^\chi =w^\chi =0\)), and the atomic factors of \(F_k\) other than \(G_k\) are stably associated with \(y\), which is invertible at \(\chi \) (Lemma <a href="index.html#lem:7.9">7.9</a>(d)); so \(\operatorname {corank}G_k^\chi =k-1\). For \(k\ge 4\), if \(f_k^{-1}\in A_{k-2}\), then \(F_k^{-1}\in M(A_{k-2})\) by Woodbury (as in §7.6, with \(\Delta _k^{-1}\) over \(E_1=A_1\)), and Theorem <a href="index.html#thm:3.4">3.4</a> with \(\mu \) the corank at \(\chi \) gives a contradiction. Likewise \(H_0^\chi =0\), with \(H_0\) an atom (Lemma <a href="index.html#lem:5.7">5.7</a>(1)), gives \(s^{-1}\notin A_1\), and \(H_{3,2r}^\chi =0\), with \(H_{3,2r}\) an atom, gives \(g_r^{-1}\notin A_1\). So the exclusions \(f_k^{-1}\notin A_{k-2}\), \(s^{-1}\notin A_1\) and \(g_r^{-1}\notin A_1\) do not need the arc either; the proof of Corollary <a href="index.html#cor:7.10">7.10</a>(a) uses this argument. </p>
+</li>
+<li><p>Let \(\operatorname {bin}(e)\) be the least \(r\) with \(e\in \mathcal U_r\), for \(e\in \mathcal U_\infty \) (and \(\operatorname {bin}(e)=\infty \) otherwise). By (i), §5.1 and Woodbury: \(\operatorname {sz}(s^{-1})=\operatorname {sz}(g_r^{-1})=2\), \(\operatorname {sz}(f_k^{-1})=k-1\) (\(k\ge 4\)), \(\operatorname {sz}(e_d)=d\) with \(\operatorname {bin}(e_d)=1\) (\(d\ge 2\), Corollary <a href="index.html#cor:7.10">7.10</a>(a)), \(\operatorname {sz}(\rho _d)=d\) (\(d\ge 2\)) and \(\operatorname {sz}(\varphi _r^{-1})=5\) for every \(r\ge 3\) (Remark <a href="index.html#rem:8.2">8.2</a>). The two complexities are independent: \(\varphi _r^{-1}\in \mathcal U_r\setminus \mathcal U_{r-1}\) has size \(5\) for every \(r\ge 3\), while \(e_d\in \mathcal U_1\setminus \mathcal U_0\) has size \(d\) and \(f_k^{-1}\in \mathcal U_2\setminus \mathcal U_1\) has size \(k-1\): neither of \(\operatorname {sz}\), \(\operatorname {bin}\) is bounded in terms of the other, and the size is unbounded already for \(\operatorname {bin}=1\). </p>
+</li>
+<li><p>For \(n\ge 2\) and \(d_1,\dots ,d_n\in A\setminus 0\) with \(f=\sum _id_i^{-1}\ne 0\), \(f^{-1}\in A_{n-1}\): the compression of Lemma <a href="index.html#lem:7.4">7.4</a> with \(r=0\) is a matrix over \(A\). The size \(n-1\) is attained for every \(n\ge 3\) already by a sum of \(n\) inverse binomials, \(q_{n-1}\) (Corollary <a href="index.html#cor:7.10">7.10</a>(a)), and also by \(s\) for \(n=3\) and by \(f_n\) for \(n\ge 4\), although \(f\) itself lies in \(A_1=E_1\). For \(n=2\), \(f^{-1}=d_2(d_1+d_2)^{-1}d_1\) is the parallel sum of Anderson and Duffin [AD69]; we did not find the compression for general \(n\), or its optimality, stated. When the \(d_i\) are non-units, pairwise totally coprime and contained in a proper ideal \(\mathfrak c\) with \(A/\mathfrak c\) weakly finite, \(f\) has depth \(n\) [Coh06, Prop. 7.7.8] (without the ideal this fails: \((x+1)^{-1}-(x+2)^{-1}=((x+1)(x+2))^{-1}\)), a statement about \(f\) rather than about the size of the matrices needed for \(f^{-1}\). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#rem:7.11">LaTeX</a>
+<a class="lean_link lean_decl" href="./find/#doc/ThreeAxes.PhiCompression.harmonic_compression_inv">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:7.12_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:7.12" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">7.12</span><span class="remark_thmtitle">dependencies of Theorem 7.1</span></div>
+<div class="thm_thmcontent"><p>   The theorem rests on: the reading of [Jak19, Defs. 1.1.4–1.1.5] in §2.3 and Lemma <a href="index.html#lem:2.2">2.2</a>, including the order of the index monoid; Lemmas <a href="index.html#lem:7.4">7.4</a> and <a href="index.html#lem:7.5">7.5</a>; Theorems <a href="index.html#thm:5.1">5.1</a> and <a href="index.html#thm:7.3">7.3</a> (Theorem <a href="index.html#thm:7.2">7.2</a> only for the second witness \(\psi \)), and through them the criterion (Theorem <a href="index.html#thm:3.4">3.4</a>), the localization lemma (Lemma <a href="index.html#lem:3.1">3.1</a>), the binomials on the arc (Lemma <a href="index.html#lem:4.3">4.3</a>), the chain bound (Lemma <a href="index.html#lem:4.4">4.4</a>), the bound \(2a\) (Lemma <a href="index.html#lem:7.7">7.7</a>) and the atom criteria (Lemma <a href="index.html#lem:2.1">2.1</a>, Lemma 7.9). Like the series, it is relative to \(\mathcal M=\mathbb C^\times F_3\) [Jak19, Rem. 1.1.6]. It does not decide whether the intermediate strata \((k-1)[\pi ]+x\) with \(x\ne 0\), \(k\ge 4\), are stopping steps; for \(k=3\) they are not (Remark <a href="index.html#rem:8.3">8.3</a>). </p>
+<p>Figure 5 places these stopping steps in the order of the strata and shows the margin behind each of them. </p>
+</div>
+<a class="latex_link" href="index.html#rem:7.12">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:8.1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:8.1" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">8.1</span><span class="remark_thmtitle">characteristic \(p\)</span></div>
+<div class="thm_thmcontent"><p>   Over a field of characteristic \(p\), \((1+x)^p=1+x^p\), so \(u^{-2}=u^{p-2}(1+x^p)^{-1}\in V_1\), since \(1+x^p\) is a binomial. Hence \(s\in V_1\) and \(s^{-1}\in E_1[V_1^{-1}]\): the witness of Theorem <a href="index.html#thm:5.1">5.1</a> fails in characteristic \(p\). Whether \(\mathcal U_1\subsetneq \mathcal U_2\) holds in characteristic \(p\) is not studied here. For this witness the first step that breaks is Lemma <a href="index.html#lem:4.3">4.3</a>(2): the binomial \(1+x^p=(1+x)^p\) is exceptional but \(1+X^p\) has a multiple root, so its parts on the arc exceed \(k\) (indeed \(U^p=t^{(k+1)(p-1)/2}U\) for odd \(p\)) and the chain bound of Lemma <a href="index.html#lem:4.4">4.4</a> is lost. Characteristic \(0\), or the field \(\mathbb C\), is used at least at the following places: </p>
+<ul class="itemize">
+<li><p>Lemma <a href="index.html#lem:4.2">4.2</a>(2): \(\det \begin{pmatrix} 2
+
+&amp; 1
+
+\\ 1
+
+&amp; 2
+
+\end{pmatrix}=3\) (the consequence \(\nu =4\) survives by Lemma <a href="index.html#lem:4.2">4.2</a>(1)); </p>
+</li>
+<li><p>Lemma <a href="index.html#lem:4.3">4.3</a>(2) (simple roots of \(1-\beta X^n\)) and Lemma <a href="index.html#lem:4.3">4.3</a>(3) (the factors \(\prod n_i\) and \(\prod (j_{i+1}-j_i)\) of the trace law; in characteristic \(2\) the exact arc also identifies \(u\) and \(w\)); </p>
+</li>
+<li><p>Lemma <a href="index.html#lem:5.6">5.6</a>: the differences \(i_j-i_{j+1}=\pm 1,\pm 2\); </p>
+</li>
+<li><p>Lemma <a href="index.html#lem:5.7">5.7</a>(1): \(g_{ji}=\pm 1/n\) and \(\det K=n\); Lemma <a href="index.html#lem:5.7">5.7</a>(2): \(\varphi _r(1)=5\); </p>
+</li>
+<li><p>Lemma <a href="index.html#lem:4.5">4.5</a>: real quaternions at \(t=2\) and \(\sqrt{-1}\); </p>
+</li>
+<li><p>Lemma <a href="index.html#lem:6.2">6.2</a>(c): the distinct eigenvalues \(3,\dots ,d+2\) and the Neumann series; </p>
+</li>
+<li><p>Lemma <a href="index.html#lem:7.8">7.8</a>: \(\det Q(2,2,2)=256\), the factor \(16\), (7.1), (7.2) and \(\det (I_3+J_3)=4\); </p>
+</li>
+<li><p>Lemma <a href="index.html#lem:7.9">7.9</a>(d): \(\det (I_{k-1}+J_{k-1})=k\), for all parts to equal \(\kappa +1\) (if \(p\mid k\), two parts are infinite and the count \(\nu _{\kappa +1}=2(k-1)\) survives, since \(\nu _j\) counts infinite parts; what is lost in characteristic \(p\) is the bound on the allowed denominators, Lemmas <a href="index.html#lem:4.3">4.3</a>–<a href="index.html#lem:4.4">4.4</a>). </p>
+</li>
+</ul>
+<p>By contrast, Lemma <a href="index.html#lem:3.1">3.1</a> holds over any field by its algebraic proof (§3.1), and the proofs of Lemma <a href="index.html#lem:7.9">7.9</a>(a)–(c) and of the first part of (d) (exactly one atomic factor of \(F_k\) not stably associated with \(y\)) use no division by an integer and no property of \(\mathbb C\), the free group algebra \(\Lambda _y\) having trivial units over any field. Computations modulo \(p=2,3,5,7,11\) for \(k=4,5,6\) agree; they are not used, and the tool that produced them miscounts the one-dimensional factors. The same holds for the proof of Corollary <a href="index.html#cor:7.10">7.10</a>(a), whose other inputs are Theorem <a href="index.html#thm:3.4">3.4</a> and the presentation of \(A_b\) in §6.2; we have not restated §§2–3 over a general field. </p>
+</div>
+<a class="latex_link" href="index.html#rem:8.1">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:8.2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:8.2" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">8.2</span><span class="remark_thmtitle">two parameters</span></div>
+<div class="thm_thmcontent"><p>    The hierarchy \(\mathcal U_r\) (number of inverse binomials) and the rings \(\Gamma _b=\mathcal U_1[\text{entries of inverses of full }a\times a\text{ matrices over }A,\  a\le b]\) (matrix size) are not nested: \(\psi ^{-1}\in \mathcal U_2\setminus \Gamma _2\) and \(\rho _2\in \Gamma _2\setminus \mathcal U_\infty \), and more generally, for all \(r,b\ge 2\), \(\mathcal U_r\) is incomparable with \(\Gamma _b\), \(\Gamma _b'\) and \(A_b\cap E_2\) (\(f_{b+2}^{-1}\in \mathcal U_2\setminus \Gamma _b'\) by Theorem <a href="index.html#thm:7.3">7.3</a>, and \(\rho _2\in (A_2\cap E_2)\setminus \mathcal U_\infty \) by Theorem <a href="index.html#thm:6.1">6.1</a>, with \(A_b\subseteq \Gamma _b\subseteq \Gamma _b'\)); while \(s^{-1}\in (\mathcal U_2\cap \Gamma _2)\setminus \mathcal U_1\) by the identity \(s^{-1}=v^2-v^2(H_0^{-1})_{11}v^2\) of §5.1. In the plane of the rings \(\mathcal U_r\cap \Gamma _b'\) (§2.4) the rows \(r\ge 2\) are strict (with \(\Gamma _b\) as well, by the same witnesses). Note \(\Gamma _1'=\mathcal U_1\). For every \(r\ge 2\), \(s^{-1}\in (\mathcal U_r\cap \Gamma _2')\setminus \Gamma _1'\) (Theorem <a href="index.html#thm:5.1">5.1</a>). For \(b\ge 2\) and \(r\ge 2\), \(f_{b+2}^{-1}\in (\mathcal U_r\cap \Gamma _{b+1}')\setminus \Gamma _b'\) by Theorem <a href="index.html#thm:7.3">7.3</a>, because \(f_{b+2}\in \mathcal F_2\) and \(f_{b+2}^{-1}=u^2-u^2\mathbf1^{\mathsf T}H_{b+2}^{-1}\mathbf1\, u^2\) with \(H_{b+2}\) a full \((b+1)\times (b+1)\) matrix over \(A\). So \(\mathcal U_r\cap \Gamma _1'\subsetneq \mathcal U_r\cap \Gamma _2'\subsetneq \cdots \), with union \(\mathcal U_r\), since \(\bigcup _b\Gamma _b'\supseteq \bigcup _bA_b=D\) [Mal84a, Thm 3]. The row \(r=1\) is constant, since \(\Gamma _1'=\mathcal U_1\); the chain \(A_d\cap \mathcal U_1\), which is strict (Corollary <a href="index.html#cor:7.10">7.10</a>(a)), is not visible in this plane, since every \(\Gamma _b'\) contains \(\mathcal U_1\). In the columns (\(b\) fixed) the inclusions are as follows. Since \(\mathcal U_1\subseteq \Gamma _b'\), \(\mathcal U_r\cap \Gamma _1'=\mathcal U_1\) for every \(r\ge 1\), and \(\mathcal U_0\cap \Gamma _b'=E_1\subsetneq \mathcal U_1=\mathcal U_1\cap \Gamma _b'\) for every \(b\) (Theorem <a href="index.html#thm:5.2">5.2</a>, \(r=1\)). For \(b\ge 2\), \(s^{-1}\) separates \(r=1\) from \(r=2\), and \(g_r^{-1}\in (\mathcal U_{2r}\cap \Gamma _2)\setminus \mathcal U_r\) for every \(r\ge 1\) by Corollary <a href="index.html#cor:5.3">5.3</a> and the identity of §5.1 for \(H_{3,2r}\); so no column \(b\ge 2\) is eventually constant. For \(r\ge 3\) let \(d_\tau =\ell _{\tau ,r}\cdots \ell _{\tau ,1}\in P\), so that \(\varphi _r=\sum _\tau \alpha _\tau d_\tau ^{-1}\omega _\tau \), and let \(T=\{ 0,1,3,4\} \), \(D_T=\operatorname {diag}(d_\tau )_{\tau \in T}\), \(\boldsymbol \omega _T\) the column of the \(\omega _\tau \) and \(\boldsymbol \alpha _T\) the row of the \(\alpha _\tau \), \(\tau \in T\). Since \(\omega _2=1\) and \(\alpha _2=w\) (§5.3), the matrix </p>
+<div class="displaymath" id="a0000000086">
+  \[ M_r=\begin{pmatrix} D_T
+
+&amp; -\boldsymbol \omega _Td_2
+
+\\ \boldsymbol \alpha _T
+
+&amp; w
+
+\end{pmatrix}\in M_5(P) \]
+</div>
+<p> has Schur complement \(w+\sum _{\tau \in T}\alpha _\tau d_\tau ^{-1}\omega _\tau d_2=\varphi _rd_2\) with respect to \(D_T\), so it is full and \(\varphi _r^{-1}=d_2(M_r^{-1})_{55}\in A_5\). Pivoting on \(w\) instead leaves \(S_r=D_T+\boldsymbol \omega _Td_2w^{-1}\boldsymbol \alpha _T\in M_4(V_1)\), which is full, and \(\varphi _r^{-1}=d_2w^{-1}-d_2w^{-1}\boldsymbol \alpha _TS_r^{-1}\boldsymbol \omega _Td_2w^{-1}\in \Gamma _4'\). By Theorem <a href="index.html#thm:5.2">5.2</a>, \(\varphi _r^{-1}\in (\mathcal U_r\cap \Gamma _4')\setminus \mathcal U_{r-1}\), so every column \(b\ge 4\) is strict at every step (and every column \(b\ge 5\) with \(\Gamma _b\) in place of \(\Gamma _b'\)). Whether \(\mathcal U_{r-1}\cap \Gamma _b'\subsetneq \mathcal U_r\cap \Gamma _b'\) for \(r\ge 3\) and \(b\in \{ 2,3\} \) is open. </p>
+<p>The same witnesses separate sizes inside \(E_2\). Up to permutations of rows and columns, \(M_r\) is the Schur complement in \(Q_r\) of the square block on the rows and columns of the \(5(r-1)\) entries \(-1\) of the chains and of the entry \(\omega _2=1\); that block is triangular with diagonal \(\pm 1\), hence invertible over \(P\), so \(M_r\) is stably associated with \(Q_r\) and is an atom (Lemma <a href="index.html#lem:5.7">5.7</a>(2)). Every entry of \(M_r\) is a product involving a letter, so \(M_r^\chi =0\) and \(\operatorname {corank}M_r^\chi =5\). Now \(\Gamma _4=U_\Sigma \) with \(\Sigma =\Sigma _1\cup \Sigma _A^{(4)}\) (Lemma <a href="index.html#lem:3.5">3.5</a>, §6.2), and if \(\varphi _r^{-1}\in \Gamma _4\) then \(M_r^{-1}\in M_5(\Gamma _4)\) (block inverse with respect to \(D_T\), whose inverse is over \(E_1\)). Apply Theorem <a href="index.html#thm:3.4">3.4</a> with target \(M_r\) and \(\mu _Q\) depending on \(Q\): for \(Q_s\), \(x_j\) and the lifts in \(\Sigma _A^{(4)}\), the corank at \(\chi \), at most \(4\) (the pivots \(x_j\) evaluate to \(-1\)) against \(5\); for the borders of \(\mathcal U_1\), \(\nu _{(r-1)k+1}\) on \(\gamma _k\) with \(k{\gt}\max (e(Q),r)\), at most \(2\) (Lemma <a href="index.html#lem:4.4">4.4</a>) against at least \(3\) (Lemma <a href="index.html#lem:5.6">5.6</a>; stable association preserves Smith profiles). Hence \(\varphi _r^{-1}\in (A_5\cap \Gamma _4')\setminus \Gamma _4\) for \(r\ge 3\), and in particular \(\varphi _r^{-1}\notin A_4\). So \(\Gamma _4\subsetneq \Gamma _4'\) by elements of inversion height two. Figure 6 shows the plane for \(r,b\le 5\) and places the witnesses by exact matrix size and number of binomial inverses (Remark <a href="index.html#rem:7.11">7.11</a>). </p>
+</div>
+<a class="latex_link" href="index.html#rem:8.2">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.PhiCompression.phi_inv_eq_corner">ThreeAxes.PhiCompression.phi_inv_eq_corner</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.PhiCompression.phi_inv_woodbury">ThreeAxes.PhiCompression.phi_inv_woodbury</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.ArrowMatrix.arrowInv_corner">ThreeAxes.ArrowMatrix.arrowInv_corner</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:8.3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:8.3" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">8.3</span><span class="remark_thmtitle">later strata</span></div>
+<div class="thm_thmcontent"><p>   Theorem <a href="index.html#thm:7.1">7.1</a> settles the steps \(b_{kXX}=k[\pi ]\). The band between \(2[\pi ]\) and \(3[\pi ]\) contains no stopping step: an element of a stratum \(2[\pi ]+x\) is \(d_1^{-1}+d_2^{-1}+r\) with \(r\in V_1\) (or has fewer pure summands), and if a Case 3 selected that stratum, the current ring would already contain \(V_1^{-1}\) (as \(D_\sigma =V_1\) is an earlier stratum) and hence \((d_1^{-1}+d_2^{-1}+r)^{-1}=d_2(d_1rd_2+d_1+d_2)^{-1}d_1\) (Lemma <a href="index.html#lem:7.4">7.4</a>). With one pure summand, \((d_1^{-1}+r)^{-1}=(1+d_1r)^{-1}d_1\) with \(1+d_1r\in V_1\), so \(\pi \) and the strata \([\pi ]+x\) are not stopping steps either. The strata \((k-1)[\pi ]+x\) with \(x\ne 0\) and \(k\ge 4\) are not decided, nor any step involving ordinals born after \(\pi \) (products of three or more binomial inverses, or the inverses adjoined at the stopping steps themselves); nor do we decide which strata before \(\pi \) (sums of \(n\ge 3\) monomials, sums of elements of \(D_{\omega +1}\)) are stopping steps. On the free algebra \(P\) the harmonic matrices need not be atoms. For a related family, not used here (axes \(u^2,v^2,w^2\) and conjugates by single letters with pairwise distinct signed outer letters), we certified atomicity for \(k\le 9\) by computation. The \(k=10\) extensions we tested use a conjugator of length two that repeats an outer letter; exactly over \(\mathbb Q\), their linear pencils have a one-dimensional composition factor of letter type, and so do the targets \(f_k\) of §7.6 already for \(k=4,5\). Theorem <a href="index.html#thm:3.4">3.4</a>, applied to one atomic factor, makes such factors harmless, because letters evaluate to units on the arc. </p>
+</div>
+<a class="latex_link" href="index.html#rem:8.3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:8.4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:8.4" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">8.4</span><span class="remark_thmtitle">strictness of the size chain in general</span></div>
+<div class="thm_thmcontent"><p>   Theorem <a href="index.html#thm:6.1">6.1</a> is specific to \(A=\mathbb C[F_3]\) and uses the quaternion curve. In general, let \(R\) be a fully atomic semifir (for instance a fir) with universal field \(D\), and \(R_b\subseteq D\) the subring generated by \(R\) and the entries of the inverses of full matrices of order \(\le b\). Then \(R_{b-1}\subsetneq R_b\) exactly when some \(b\times b\) atom is not stably associated with a matrix of smaller size. The direction “\(\Leftarrow \)” is Lemma <a href="index.html#lem:3.1">3.1</a>, since the atomic factors of a full \(n\times n\) matrix are square of order \(\le n\) [Coh06, Thms 3.2.3, 3.2.7]. Conversely, a full \(b\times b\) matrix is a product of \(b\times b\) matrices each stably associated with an atom of order \(\le b\) (\(R\) is fully atomic); if every \(b\times b\) atom is stably associated with a matrix of smaller size, each factor has the entries of its inverse in \(R_{b-1}\) (stable association does not change this: converse part of Lemma <a href="index.html#lem:3.1">3.1</a>), so \(R_b=R_{b-1}\). A matrix with all its entries in a proper ideal \(\mathfrak a\) with \(R/\mathfrak a\) weakly finite is not stably associated with a matrix of smaller size [Coh85a, Lemma 3.4.11(i)], [Coh06, Lemma 3.3.11(i)]. This gives a second proof that the chain is strict at every \(b\) in \(\mathbb C\langle x,y,z\rangle \); the first follows from [HS15, Thm 4.5] (§1). There \(P_b=x I+y\operatorname {diag}(1,\dots ,b)+z\, \mathsf C_b\) is an atom: after \(x\mapsto x+1\) it is a monic pencil with invertible constant term whose coefficients generate \(M_b(\mathbb C)\) (\(\operatorname {diag}(1,\dots ,b)\) has distinct eigenvalues and \(\mathsf C_b\) permutes its eigenlines cyclically, as in the proof of Lemma <a href="index.html#lem:6.2">6.2</a>(c)), so Lemma <a href="index.html#lem:2.1">2.1</a> applies. All its entries lie in \((x,y,z)\). In an Ore domain, by contrast, \(R_1=D\). When \(R/\mathfrak a\) is a field this criterion is the analogue over \(R\) of Theorem <a href="index.html#thm:3.4">3.4</a> with \(\mu \) the corank at \(R\to R/\mathfrak a\). It does not locate witnesses inside \(E_2\); Theorem <a href="index.html#thm:6.1">6.1</a> does. The characterization by atoms is a short corollary of published lemmas. </p>
+</div>
+<a class="latex_link" href="index.html#rem:8.4">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:8.5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:8.5" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">8.5</span><span class="remark_thmtitle">independent adjunctions in \({[}\mathcal U_\infty ,B_2{]}\)</span></div>
+<div class="thm_thmcontent"><p>   For \(\lambda \in \mathcal T=\mathbb C\setminus \{ -1,0,1,2\} \) let \(\rho ^{(\lambda )}=((F^{(\lambda )})^{-1})_{11}=(q_\lambda -c\, q_{\lambda +1}^{-1}c)^{-1}\), and for \(J\subseteq \mathcal T\) let \(\mathcal U_J\) be the subring generated by \(\mathcal U_\infty \) and \(\{ \rho ^{(\lambda )}:\lambda \in J\} \). Then \(\mathcal U_\infty \subseteq \mathcal U_J\subseteq B_2\), and \(J\mapsto \mathcal U_J\) is an order embedding \(\mathcal P(\mathcal T)\hookrightarrow [\mathcal U_\infty ,B_2]\): \(\mathcal U_J\subseteq \mathcal U_K\) if and only if \(J\subseteq K\). It preserves finite joins. Restricted to \(J\subseteq \{ 3,4,5,\dots \} \) it gives \(2^{\aleph _0}\) distinct rings generated over \(\mathcal U_\infty \) by elements with integer coefficients; on all of \(\mathcal T\) it gives \(2^{\mathfrak c}\). \(\mathcal T\) is the set where the atom criterion of Lemma <a href="index.html#lem:6.2">6.2</a>(c) applies; it is sufficient, not maximal. Intersections \(\mathcal U_J\cap \mathcal U_K\) are not determined. </p>
+<p><em>Proof.</em> \(\rho ^{(\lambda )}\in B_2\) because \(F^{(\lambda )}\) is a full \(2\times 2\) matrix over \(A\), whose inverse has entries in \(E_2\) (pivot argument of §7.5) and in \(W_2\). \(J\subseteq K\) gives \(\mathcal U_J\subseteq \mathcal U_K\), and \(\mathcal U_{J\cup K}\) is generated by \(\mathcal U_J\cup \mathcal U_K\), by definition; so it suffices to show \(\rho ^{(\lambda ')}\in \mathcal U_J\Rightarrow \lambda '\in J\). Since \(q_{\lambda +1}^{-1}\in E_1\), the entries of \((F^{(\lambda )})^{-1}\) lie in the ring generated by \(E_1\) and \(\rho ^{(\lambda )}\) (block inverse, as in (6.2)); hence \(\mathcal U_J=U_{\Sigma }\) with \(\Sigma =\Sigma ^{(1)}\cup \{ F^{(\lambda )}:\lambda \in J\} \), and \(\rho ^{(\lambda ')}\in \mathcal U_J\) gives \((F^{(\lambda ')})^{-1}\in M_2(U_\Sigma )\). By Lemma <a href="index.html#lem:3.1">3.1</a> the atom \(F^{(\lambda ')}\) (Lemma <a href="index.html#lem:6.2">6.2</a>(c)) is stably associated with an atomic factor of some \(Q\in \Sigma \). It is not a factor of a member of \(\Sigma ^{(1)}\): at \(\Theta \) every such \(Q\) has corank at most \(2\) (Lemma <a href="index.html#lem:6.2">6.2</a>(a)), hence so do its atomic factors (Definition <a href="index.html#def:3.3">3.3</a>, Example (b)), while \(F^{(\lambda ')}\) has corank \(4\) (Lemma <a href="index.html#lem:6.2">6.2</a>(b)). So \(F^{(\lambda ')}\) is stably associated with \(F^{(\lambda )}\) for some \(\lambda \in J\) (an atom, so its only atomic factor). Stable association over \(P\) survives abelianization, and the units of the commutative polynomial ring are the scalars, so \(\det F^{(\lambda ')}=a\det F^{(\lambda )}\) for some \(a\in \mathbb C^\times \). At \((\xi ,\eta ,\zeta )=(\xi ,0,1)\), \(c=0\) and \(\det F^{(\lambda )}=(\lambda -\xi ^2)(\lambda +1-\xi ^2)\), so \(\lambda '=\lambda \in J\). \(\square \) </p>
+</div>
+<a class="latex_link" href="index.html#rem:8.5">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:8.6_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:8.6" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">8.6</span><span class="remark_thmtitle">intermediate rings and classes of atoms</span></div>
+<div class="thm_thmcontent"><p>   The proof of Lemma <a href="index.html#lem:3.1">3.1</a> shows that, when \(H^{-1}\) has entries in \(U_\Sigma \), the cokernel of every atomic factor of \(H\) is a composition factor, in the category of torsion modules, of the cokernel of a matrix built from \(\Sigma \) (Claims A and B). That universal localizations of a hereditary ring correspond to classes of modules is known in general: Schofield gives a bijection between universal localizations and well-placed subcategories of finitely presented modules, and between the localizations into which the ring embeds and Hom-perpendicular sets of finitely presented bound modules [Sch07, Thms 2.3, 2.5]; Krause and Šťovíček give, for a hereditary ring, a bijection between extension-closed abelian subcategories of finitely presented modules and universal localizations [KS10, Thm B]; and for a factor-complete set \(\Sigma \) over a fir, Cohn shows that every matrix atom either becomes a unit or remains an atom in \(R_\Sigma \), and describes the divisor group of \(R_\Sigma \) by the \(\Sigma \)-relevant primes [Coh06, Thm 7.11.9, Prop. 7.11.10, Thm 7.11.11]. The rings \(P\) and \(A\) are firs, hence hereditary. We do not claim this correspondence; Lemma <a href="index.html#lem:3.1">3.1</a> uses only the instance above. Describing the intermediate rings of this paper (\(\mathcal U_r\), \(A_b\cap E_2\), \(\Gamma _b'\), \(D'\)) by the classes of atoms they invert is a programme, not a result of this paper. </p>
+</div>
+<a class="latex_link" href="index.html#rem:8.6">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:3.4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:3.4" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">3.4</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(\Sigma \) be a family of full matrices over \(P\) and \(H\) a full square matrix over \(P\) with an atomic factor \(G\) in a complete factorization. Suppose that for every \(Q\in \Sigma \) there is a monotone invariant \(\mu _Q\) with \(\mu _Q(G){\gt}\mu _Q(Q)\). Then \(H^{-1}\) does not have entries in \(U_\Sigma \).</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:3.4">LaTeX</a>
+<a class="lean_link lean_decl" href="./find/#doc/ThreeAxes.Criterion.not_inverseInU">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:5.1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:5.1" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">5.1</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(s=u^{-2}+v^{-2}+w^{-2}\). Then \(s^{-1}\in \mathcal U_2\) and \(s^{-1}\notin \mathcal U_1=E_1[V_1^{-1}]\), where \(V_1=A+\sum A\ell ^{-1}A\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:5.1">LaTeX</a>
+<a class="lean_link lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.woodbury_corner">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:5.2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:5.2" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">5.2</span></div>
+<div class="thm_thmcontent"><p> <em>For every \(r\ge 1\), \(\mathcal U_{r-1}\subsetneq \mathcal U_r\). For \(r\ge 3\) an explicit witness is \(\varphi _r^{-1}\), where \(\varphi _r\in \mathcal F_r\) is the sum of five products of \(r\) inverses of \(u,v,w\) given in (5.1).</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:5.2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:6.1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:6.1" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">6.1</span></div>
+<div class="thm_thmcontent"><p> <em>For every \(d\ge 2\), \(\rho _d\in A_d\cap E_2\) and \(\rho _d\notin W_{d-1}\). Consequently</em> </p>
+<ol class="enumerate">
+<li><p><em>\(\mathcal U_\infty =W_1\cap E_2\subsetneq E_2\); a witness is \(\rho _2=\bigl(p_1-c\, p_2^{-1}c\bigr)^{-1}\) with \(p_j=\xi ^2+(j+1)\eta ^2-(j+2)\zeta ^2\), the diagonal entries of \(\hat F_d\);</em> </p>
+</li>
+<li><p><em>\(A_{d-1}\cap E_2\subsetneq A_d\cap E_2\) and \(B_{d-1}\subsetneq B_d\) for every \(d\ge 2\), and \(\bigcup _bB_b=E_2\).</em> </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#thm:6.1">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.cycle_inv">ThreeAxes.InverseIdentities.cycle_inv</a></li>
+<li><a class="lean_decl" href="./find/#doc/ThreeAxes.InverseIdentities.cycleMatrix_inv">ThreeAxes.InverseIdentities.cycleMatrix_inv</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:7.1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:7.1" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">7.1</span></div>
+<div class="thm_thmcontent"><p> <em>For every \(k\ge 3\) the step \(b_{kXX}=k[\pi ]\) is a stopping step of the series of §2.3, for \(D\) and \(\mathcal M=\mathbb C^\times F_3\) in Jakobs’ formulation [Jak19, Def. 1.1.4]. When the inversion pointer reaches \(b_{kXX}\), the ring built so far lies in \(\Gamma _{k-2}'\cap E_2\); for \(k=3\) it is exactly \(\mathcal U_1=E_1[V_1^{-1}]\). A witness is \(s=u^{-2}+v^{-2}+w^{-2}\) for \(k=3\), and \(f_k=u^{-2}+w^{-2}+\sum _{i=1}^{k-2}y^iu^{-2}y^{-i}\) for \(k\ge 4\) (\(\psi \) below is a second witness for \(k=4\)). In particular infinitely many stopping steps occur while the ring built by the series is still inside \(E_2\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:7.1">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:7.2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:7.2" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">7.2</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(\psi =u^{-2}+v^{-2}+w^{-2}+y\, u^{-2}y^{-1}\). Then \(\psi ^{-1}\in \mathcal U_2\) and \(\psi ^{-1}\notin \Gamma _2'\). Since \(D'\subseteq \Gamma _2\subseteq \Gamma _2'\), this gives \(\mathcal U_1\subsetneq D'\subsetneq \mathcal U_2\). Moreover \(\mathcal U_\infty \) and \(\Gamma _2\) are incomparable.</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:7.2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:7.3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:7.3" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">7.3</span></div>
+<div class="thm_thmcontent"><p> <em>For every \(k\ge 4\), \(f_k=u^{-2}+w^{-2}+\sum _{i=1}^{k-2}y^iu^{-2}y^{-i}\) is a sum of \(k\) elements of \(D_\pi \), and \(f_k^{-1}\notin \Gamma _{k-2}'\).</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:7.3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:A_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:A" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">A</span><span class="theorem_thmtitle">Theorem 3.4</span></div>
+<div class="thm_thmcontent"><p> <em>Let \(\Sigma \) be a family of full matrices over \(P\) and \(H\) a full square matrix over \(P\) with an atomic factor \(G\) in a complete factorization. If for every \(Q\in \Sigma \) there is a monotone invariant \(\mu _Q\) (Definition <a href="index.html#def:3.3">3.3</a>) with \(\mu _Q(G){\gt}\mu _Q(Q)\), then \(H^{-1}\) does not have entries in \(U_\Sigma \).</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:A">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:B_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:B" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">B</span></div>
+<div class="thm_thmcontent"><p> <em>(i) \(\mathcal U_{r-1}\subsetneq \mathcal U_r\) for every \(r\ge 1\); for \(r=2\) a witness is \((u^{-2}+v^{-2}+w^{-2})^{-1}\) (Theorems <a href="index.html#thm:5.1">5.1</a>, <a href="index.html#thm:5.2">5.2</a>). (ii) \(A_{d-1}\cap E_2\subsetneq A_d\cap E_2\) for every \(d\ge 2\), and \(\bigcup _r\mathcal U_r\subsetneq E_2\) (Theorem <a href="index.html#thm:6.1">6.1</a>).</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:B">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:C_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:C" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">C</span></div>
+<div class="thm_thmcontent"><p> <em>For every \(k\ge 3\), the stratum of sums of \(k\) elements of \(D_\pi \) is a stopping step of the Dubrovin–Gräter–Hanke series of \(D\) for the monoid \(\mathbb C^\times F_3\) of scalar multiples of group elements, in Jakobs’ formulation [Jak19, Def. 1.1.4]. Witnesses are \(u^{-2}+v^{-2}+w^{-2}\) for \(k=3\) and \(f_k=u^{-2}+w^{-2}+\sum _{i=1}^{k-2}y^iu^{-2}y^{-i}\) for \(k\ge 4\) (Theorems <a href="index.html#thm:7.1">7.1</a>, <a href="index.html#thm:7.3">7.3</a>).</em> </p>
+</div>
+<a class="latex_link" href="index.html#thm:C">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:4.2"	[label=4.2,		shape=ellipse];	"cor:5.3"	[label=5.3,		shape=ellipse];	"lem:4.2" -> "cor:5.3"	[style=dashed];	"thm:5.1"	[label=5.1,		shape=ellipse];	"lem:4.2" -> "thm:5.1"	[style=dashed];	"rem:8.2"	[label=8.2,		shape=ellipse];	"cor:5.3" -> "rem:8.2"	[style=dashed];	"thm:5.2"	[label=5.2,		shape=ellipse];	"thm:5.1" -> "thm:5.2"	[style=dashed];	"prop:5.8"	[label=5.8,		shape=ellipse];	"thm:5.1" -> "prop:5.8"	[style=dashed];	"cor:7.10"	[label=7.10,		shape=ellipse];	"thm:5.1" -> "cor:7.10"	[style=dashed];	"thm:7.2"	[label=7.2,		shape=ellipse];	"thm:5.1" -> "thm:7.2"	[style=dashed];	"thm:5.2" -> "rem:8.2"	[style=dashed];	"rem:5.9"	[label=5.9,		shape=ellipse];	"prop:5.8" -> "rem:5.9"	[style=dashed];	"rem:8.1"	[label=8.1,		shape=ellipse];	"cor:7.10" -> "rem:8.1"	[style=dashed];	"rem:7.11"	[label=7.11,		shape=ellipse];	"cor:7.10" -> "rem:7.11"	[style=dashed];	"rem:7.12"	[label=7.12,		shape=ellipse];	"thm:7.2" -> "rem:7.12"	[style=dashed];	"thm:7.1"	[label=7.1,		shape=ellipse];	"thm:7.2" -> "thm:7.1"	[style=dashed];	"lem:5.7"	[label=5.7,		shape=ellipse];	"lem:5.7" -> "cor:5.3"	[style=dashed];	"lem:5.7" -> "thm:5.2"	[style=dashed];	"lem:5.7" -> "prop:5.8"	[style=dashed];	"lem:5.7" -> "rem:8.1"	[style=dashed];	"lem:5.7" -> "rem:7.11"	[style=dashed];	"rem:7.11" -> "rem:8.2"	[style=dashed];	"rem:5.4"	[label=5.4,		shape=ellipse];	"rem:8.4"	[label=8.4,		shape=ellipse];	"lem:2.1"	[color=blue,		fillcolor="#A3D6FF",		label=2.1,		shape=ellipse,		style=filled];	"lem:2.1" -> "lem:5.7"	[style=dashed];	"lem:7.8"	[label=7.8,		shape=ellipse];	"lem:2.1" -> "lem:7.8"	[style=dashed];	"lem:6.2"	[label=6.2,		shape=ellipse];	"lem:2.1" -> "lem:6.2"	[style=dashed];	"lem:7.8" -> "thm:7.2"	[style=dashed];	"lem:7.9"	[label=7.9,		shape=ellipse];	"lem:7.8" -> "lem:7.9"	[style=dashed];	"lem:6.2" -> "rem:8.1"	[style=dashed];	"thm:6.1"	[label=6.1,		shape=ellipse];	"lem:6.2" -> "thm:6.1"	[style=dashed];	"rem:8.5"	[label=8.5,		shape=ellipse];	"lem:6.2" -> "rem:8.5"	[style=dashed];	"thm:7.3"	[label=7.3,		shape=ellipse];	"lem:7.9" -> "thm:7.3"	[style=dashed];	"thm:6.1" -> "rem:8.2"	[style=dashed];	"thm:6.1" -> "thm:7.2"	[style=dashed];	"thm:6.1" -> "rem:8.4"	[style=dashed];	"lem:2.2"	[color=blue,		fillcolor="#A3D6FF",		label=2.2,		shape=ellipse,		style=filled];	"lem:2.2" -> "rem:5.9"	[style=dashed];	"lem:7.5"	[label=7.5,		shape=ellipse];	"lem:2.2" -> "lem:7.5"	[style=dashed];	"lem:7.5" -> "cor:7.10"	[style=dashed];	"lem:7.5" -> "rem:7.12"	[style=dashed];	"lem:7.5" -> "thm:7.1"	[style=dashed];	"rem:8.3"	[label=8.3,		shape=ellipse];	"thm:7.1" -> "rem:8.3"	[style=dashed];	"lem:3.6"	[color=blue,		fillcolor="#A3D6FF",		label=3.6,		shape=ellipse,		style=filled];	"lem:3.6" -> "thm:7.2"	[style=dashed];	"lem:3.6" -> "rem:5.9"	[style=dashed];	"lem:3.6" -> "thm:7.3"	[style=dashed];	"thm:7.3" -> "cor:7.10"	[style=dashed];	"thm:7.3" -> "rem:7.12"	[style=dashed];	"thm:7.3" -> "thm:7.1"	[style=dashed];	"lem:4.3"	[label=4.3,		shape=ellipse];	"lem:4.4"	[label=4.4,		shape=ellipse];	"lem:4.3" -> "lem:4.4"	[style=dashed];	"lem:7.7"	[label=7.7,		shape=ellipse];	"lem:4.3" -> "lem:7.7"	[style=dashed];	"lem:4.4" -> "cor:5.3"	[style=dashed];	"lem:4.4" -> "thm:5.1"	[style=dashed];	"lem:4.4" -> "rem:5.4"	[style=dashed];	"lem:7.7" -> "thm:7.2"	[style=dashed];	"lem:7.7" -> "thm:7.3"	[style=dashed];	"lem:5.5"	[color=blue,		fillcolor="#A3D6FF",		label=5.5,		shape=ellipse,		style=filled];	"lem:5.5" -> "thm:5.2"	[style=dashed];	"thm:B"	[color=blue,		label=B,		shape=ellipse];	"lem:3.2"	[color=blue,		fillcolor="#A3D6FF",		label=3.2,		shape=ellipse,		style=filled];	"lem:3.2" -> "lem:4.4"	[style=dashed];	"lem:5.6"	[label=5.6,		shape=ellipse];	"lem:3.2" -> "lem:5.6"	[style=dashed];	"def:3.3"	[label=3.3,		shape=box];	"lem:3.2" -> "def:3.3"	[style=dashed];	"lem:5.6" -> "thm:5.2"	[style=dashed];	"lem:5.6" -> "rem:8.1"	[style=dashed];	"def:3.3" -> "rem:8.5"	[style=dashed];	"thm:C"	[color=blue,		label=C,		shape=ellipse];	"thm:3.4"	[label=3.4,		shape=ellipse];	"thm:3.4" -> "cor:5.3"	[style=dashed];	"thm:3.4" -> "thm:5.1"	[style=dashed];	"thm:3.4" -> "thm:6.1"	[style=dashed];	"thm:3.4" -> "thm:7.3"	[style=dashed];	"rem:6.4"	[color=blue,		label=6.4,		shape=ellipse];	"rem:8.6"	[label=8.6,		shape=ellipse];	"lem:4.5"	[color=blue,		fillcolor="#A3D6FF",		label=4.5,		shape=ellipse,		style=filled];	"lem:4.5" -> "lem:6.2"	[style=dashed];	"lem:3.5"	[color=blue,		fillcolor="#A3D6FF",		label=3.5,		shape=ellipse,		style=filled];	"lem:3.5" -> "cor:5.3"	[style=dashed];	"lem:3.5" -> "thm:5.1"	[style=dashed];	"lem:3.5" -> "thm:6.1"	[style=dashed];	"rem:6.3"	[color=blue,		label=6.3,		shape=ellipse];	"thm:A"	[color=blue,		label=A,		shape=ellipse];	"lem:3.1"	[color=blue,		fillcolor="#A3D6FF",		label=3.1,		shape=ellipse,		style=filled];	"lem:3.1" -> "lem:7.9"	[style=dashed];	"lem:3.1" -> "rem:8.5"	[style=dashed];	"lem:3.1" -> "thm:3.4"	[style=dashed];	"lem:3.1" -> "rem:8.6"	[style=dashed];	"lem:4.1"	[color=blue,		fillcolor="#A3D6FF",		label=4.1,		shape=ellipse,		style=filled];	"lem:4.1" -> "lem:4.2"	[style=dashed];	"lem:4.1" -> "lem:7.8"	[style=dashed];	"lem:4.1" -> "lem:4.3"	[style=dashed];	"lem:7.4"	[color=blue,		fillcolor="#A3D6FF",		label=7.4,		shape=ellipse,		style=filled];	"lem:7.4" -> "lem:7.5"	[style=dashed];	"lem:7.6"	[label=7.6,		shape=ellipse];	"lem:7.4" -> "lem:7.6"	[style=dashed];	"lem:7.6" -> "thm:7.2"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg width="1132pt" height="477pt"
+ viewBox="0.00 0.00 1132.00 477.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 473.06)">
+<!-- lem:4.2 -->
+<g id="node1" class="node">
+<title>lem:4.2</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="517.1" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="517.1" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">4.2</text>
+</g>
+<!-- cor:5.3 -->
+<g id="node2" class="node">
+<title>cor:5.3</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="500.1" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="500.1" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">5.3</text>
+</g>
+<!-- lem:4.2&#45;&gt;cor:5.3 -->
+<g id="edge1" class="edge">
+<title>lem:4.2&#45;&gt;cor:5.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M514.98,-359.3C512.1,-335.26 506.92,-291.99 503.49,-263.38"/>
+<polygon fill="black" stroke="black" points="502.33,-253.68 507.98,-263.08 502.78,-257.43 503.51,-263.61 503.51,-263.61 503.51,-263.61 502.78,-257.43 499.05,-264.14 502.33,-253.68"/>
+</g>
+<!-- thm:5.1 -->
+<g id="node3" class="node">
+<title>thm:5.1</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="572.1" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="572.1" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">5.1</text>
+</g>
+<!-- lem:4.2&#45;&gt;thm:5.1 -->
+<g id="edge2" class="edge">
+<title>lem:4.2&#45;&gt;thm:5.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M544.74,-375.95C579.06,-372.98 636.32,-362.2 663.1,-324 672.28,-310.9 671.07,-301.87 663.1,-288 656.47,-276.47 627.99,-260.93 604.63,-249.66"/>
+<polygon fill="black" stroke="black" points="595.79,-245.48 606.75,-245.69 599.21,-247.1 604.83,-249.76 604.83,-249.76 604.83,-249.76 599.21,-247.1 602.91,-253.82 595.79,-245.48"/>
+</g>
+<!-- rem:8.2 -->
+<g id="node4" class="node">
+<title>rem:8.2</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="682.1" cy="-18" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="682.1" y="-12.95" font-family="Times New Roman,serif" font-size="14.00">8.2</text>
+</g>
+<!-- cor:5.3&#45;&gt;rem:8.2 -->
+<g id="edge3" class="edge">
+<title>cor:5.3&#45;&gt;rem:8.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M500.33,-215.27C501.35,-196.27 505.26,-165.91 519.1,-144 551.48,-92.74 612.74,-54.44 650.24,-34.48"/>
+<polygon fill="black" stroke="black" points="659.06,-29.91 652.26,-38.51 655.71,-31.65 650.19,-34.51 650.19,-34.51 650.19,-34.51 655.71,-31.65 648.12,-30.51 659.06,-29.91"/>
+</g>
+<!-- thm:5.2 -->
+<g id="node5" class="node">
+<title>thm:5.2</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="710.1" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="710.1" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">5.2</text>
+</g>
+<!-- thm:5.1&#45;&gt;thm:5.2 -->
+<g id="edge4" class="edge">
+<title>thm:5.1&#45;&gt;thm:5.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M593.66,-222.06C616.55,-210.45 652.93,-192 678.93,-178.81"/>
+<polygon fill="black" stroke="black" points="687.6,-174.41 680.72,-182.95 684.23,-176.12 678.68,-178.93 678.68,-178.93 678.68,-178.93 684.23,-176.12 676.65,-174.92 687.6,-174.41"/>
+</g>
+<!-- prop:5.8 -->
+<g id="node6" class="node">
+<title>prop:5.8</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="627.1" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="627.1" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">5.8</text>
+</g>
+<!-- thm:5.1&#45;&gt;prop:5.8 -->
+<g id="edge5" class="edge">
+<title>thm:5.1&#45;&gt;prop:5.8</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M584.58,-217.12C591.47,-208.34 600.18,-197.26 607.91,-187.42"/>
+<polygon fill="black" stroke="black" points="613.91,-179.78 611.27,-190.42 611.58,-182.75 607.73,-187.64 607.73,-187.64 607.73,-187.64 611.58,-182.75 604.2,-184.86 613.91,-179.78"/>
+</g>
+<!-- cor:7.10 -->
+<g id="node7" class="node">
+<title>cor:7.10</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="555.1" cy="-162" rx="27.3" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="555.1" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">7.10</text>
+</g>
+<!-- thm:5.1&#45;&gt;cor:7.10 -->
+<g id="edge6" class="edge">
+<title>thm:5.1&#45;&gt;cor:7.10</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M567.81,-215.34C566.02,-207.98 563.91,-199.27 561.92,-191.08"/>
+<polygon fill="black" stroke="black" points="559.61,-181.6 566.35,-190.26 560.51,-185.28 561.98,-191.32 561.98,-191.32 561.98,-191.32 560.51,-185.28 557.6,-192.38 559.61,-181.6"/>
+</g>
+<!-- thm:7.2 -->
+<g id="node8" class="node">
+<title>thm:7.2</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="115.1" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="115.1" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">7.2</text>
+</g>
+<!-- thm:5.1&#45;&gt;thm:7.2 -->
+<g id="edge7" class="edge">
+<title>thm:5.1&#45;&gt;thm:7.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M551.21,-221.78C546.36,-219.56 541.14,-217.47 536.1,-216 399.18,-176.15 228.63,-166.26 153.58,-163.81"/>
+<polygon fill="black" stroke="black" points="144,-163.53 154.13,-159.32 147.78,-163.64 154,-163.82 154,-163.82 154,-163.82 147.78,-163.64 153.87,-168.32 144,-163.53"/>
+</g>
+<!-- thm:5.2&#45;&gt;rem:8.2 -->
+<g id="edge8" class="edge">
+<title>thm:5.2&#45;&gt;rem:8.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M706.61,-143.3C701.87,-119.26 693.33,-75.99 687.69,-47.38"/>
+<polygon fill="black" stroke="black" points="685.77,-37.67 692.12,-46.61 686.5,-41.38 687.71,-47.48 687.71,-47.48 687.71,-47.48 686.5,-41.38 683.29,-48.35 685.77,-37.67"/>
+</g>
+<!-- rem:5.9 -->
+<g id="node9" class="node">
+<title>rem:5.9</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="373.1" cy="-90" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="373.1" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">5.9</text>
+</g>
+<!-- prop:5.8&#45;&gt;rem:5.9 -->
+<g id="edge9" class="edge">
+<title>prop:5.8&#45;&gt;rem:5.9</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M605.69,-150.03C600.96,-147.84 595.92,-145.7 591.1,-144 529.24,-122.13 454.4,-106.09 410.45,-97.68"/>
+<polygon fill="black" stroke="black" points="400.62,-95.84 411.28,-93.26 404.34,-96.54 410.45,-97.68 410.45,-97.68 410.45,-97.68 404.34,-96.54 409.62,-102.11 400.62,-95.84"/>
+</g>
+<!-- rem:8.1 -->
+<g id="node10" class="node">
+<title>rem:8.1</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="833.1" cy="-90" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="833.1" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">8.1</text>
+</g>
+<!-- cor:7.10&#45;&gt;rem:8.1 -->
+<g id="edge10" class="edge">
+<title>cor:7.10&#45;&gt;rem:8.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M576.47,-149.94C581.21,-147.77 586.26,-145.65 591.1,-144 661.58,-119.99 747.4,-104.21 795.59,-96.52"/>
+<polygon fill="black" stroke="black" points="805.21,-95.01 796.03,-101 801.48,-95.6 795.33,-96.56 795.33,-96.56 795.33,-96.56 801.48,-95.6 794.64,-92.11 805.21,-95.01"/>
+</g>
+<!-- rem:7.11 -->
+<g id="node11" class="node">
+<title>rem:7.11</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="655.1" cy="-90" rx="27.3" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="655.1" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">7.11</text>
+</g>
+<!-- cor:7.10&#45;&gt;rem:7.11 -->
+<g id="edge11" class="edge">
+<title>cor:7.10&#45;&gt;rem:7.11</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M573.44,-148.16C588.57,-137.57 610.27,-122.38 627.49,-110.32"/>
+<polygon fill="black" stroke="black" points="635.53,-104.69 629.92,-114.11 632.43,-106.86 627.34,-110.42 627.34,-110.42 627.34,-110.42 632.43,-106.86 624.76,-106.74 635.53,-104.69"/>
+</g>
+<!-- rem:7.12 -->
+<g id="node12" class="node">
+<title>rem:7.12</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="225.1" cy="-90" rx="27.3" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="225.1" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">7.12</text>
+</g>
+<!-- thm:7.2&#45;&gt;rem:7.12 -->
+<g id="edge12" class="edge">
+<title>thm:7.2&#45;&gt;rem:7.12</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M134.51,-148.65C151.6,-137.77 176.74,-121.77 196.2,-109.39"/>
+<polygon fill="black" stroke="black" points="204.48,-104.12 198.45,-113.29 201.29,-106.15 196.04,-109.49 196.04,-109.49 196.04,-109.49 201.29,-106.15 193.63,-105.69 204.48,-104.12"/>
+</g>
+<!-- thm:7.1 -->
+<g id="node13" class="node">
+<title>thm:7.1</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="153.1" cy="-90" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="153.1" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">7.1</text>
+</g>
+<!-- thm:7.2&#45;&gt;thm:7.1 -->
+<g id="edge13" class="edge">
+<title>thm:7.2&#45;&gt;thm:7.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M124.1,-144.41C128.5,-136.3 133.91,-126.35 138.85,-117.25"/>
+<polygon fill="black" stroke="black" points="143.58,-108.54 142.76,-119.48 141.77,-111.86 138.8,-117.33 138.8,-117.33 138.8,-117.33 141.77,-111.86 134.85,-115.18 143.58,-108.54"/>
+</g>
+<!-- rem:7.11&#45;&gt;rem:8.2 -->
+<g id="edge19" class="edge">
+<title>rem:7.11&#45;&gt;rem:8.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M661.77,-71.7C664.71,-64.07 668.24,-54.92 671.53,-46.4"/>
+<polygon fill="black" stroke="black" points="675.06,-37.24 675.66,-48.19 673.7,-40.77 671.46,-46.57 671.46,-46.57 671.46,-46.57 673.7,-40.77 667.26,-44.95 675.06,-37.24"/>
+</g>
+<!-- rem:8.3 -->
+<g id="node26" class="node">
+<title>rem:8.3</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="153.1" cy="-18" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="153.1" y="-12.95" font-family="Times New Roman,serif" font-size="14.00">8.3</text>
+</g>
+<!-- thm:7.1&#45;&gt;rem:8.3 -->
+<g id="edge37" class="edge">
+<title>thm:7.1&#45;&gt;rem:8.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M153.1,-71.34C153.1,-64.07 153.1,-55.47 153.1,-47.36"/>
+<polygon fill="black" stroke="black" points="153.1,-37.63 157.6,-47.63 153.1,-41.42 153.1,-47.63 153.1,-47.63 153.1,-47.63 153.1,-41.42 148.6,-47.63 153.1,-37.63"/>
+</g>
+<!-- lem:5.7 -->
+<g id="node14" class="node">
+<title>lem:5.7</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="737.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="737.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">5.7</text>
+</g>
+<!-- lem:5.7&#45;&gt;cor:5.3 -->
+<g id="edge14" class="edge">
+<title>lem:5.7&#45;&gt;cor:5.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M711.43,-298.86C664.93,-287.62 568.56,-263.83 536.1,-252 534.6,-251.45 533.07,-250.87 531.54,-250.25"/>
+<polygon fill="black" stroke="black" points="522.64,-246.39 533.61,-246.24 526.11,-247.89 531.82,-250.37 531.82,-250.37 531.82,-250.37 526.11,-247.89 530.02,-254.5 522.64,-246.39"/>
+</g>
+<!-- lem:5.7&#45;&gt;thm:5.2 -->
+<g id="edge15" class="edge">
+<title>lem:5.7&#45;&gt;thm:5.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M733.73,-287.3C729.16,-263.26 720.93,-219.99 715.49,-191.38"/>
+<polygon fill="black" stroke="black" points="713.64,-181.67 719.93,-190.65 714.35,-185.38 715.51,-191.49 715.51,-191.49 715.51,-191.49 714.35,-185.38 711.09,-192.33 713.64,-181.67"/>
+</g>
+<!-- lem:5.7&#45;&gt;prop:5.8 -->
+<g id="edge16" class="edge">
+<title>lem:5.7&#45;&gt;prop:5.8</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M712.73,-297.17C691.81,-289.16 662.51,-274.65 646.1,-252 633.49,-234.6 628.92,-210.57 627.4,-191.86"/>
+<polygon fill="black" stroke="black" points="626.86,-181.96 631.89,-191.7 627.07,-185.73 627.4,-191.94 627.4,-191.94 627.4,-191.94 627.07,-185.73 622.91,-192.18 626.86,-181.96"/>
+</g>
+<!-- lem:5.7&#45;&gt;rem:8.1 -->
+<g id="edge17" class="edge">
+<title>lem:5.7&#45;&gt;rem:8.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M748.39,-289.27C755.47,-278.98 764.48,-265.07 771.1,-252 793.86,-207.07 813.47,-151.69 824.25,-118.98"/>
+<polygon fill="black" stroke="black" points="827.3,-109.57 828.49,-120.47 826.13,-113.17 824.21,-119.08 824.21,-119.08 824.21,-119.08 826.13,-113.17 819.93,-117.69 827.3,-109.57"/>
+</g>
+<!-- lem:5.7&#45;&gt;rem:7.11 -->
+<g id="edge18" class="edge">
+<title>lem:5.7&#45;&gt;rem:7.11</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M743.7,-288.1C754.62,-257.16 772.74,-190.36 746.1,-144 734.2,-123.31 710.78,-109.94 690.67,-101.8"/>
+<polygon fill="black" stroke="black" points="681.38,-98.34 692.32,-97.61 684.92,-99.66 690.75,-101.83 690.75,-101.83 690.75,-101.83 684.92,-99.66 689.18,-106.05 681.38,-98.34"/>
+</g>
+<!-- rem:5.4 -->
+<g id="node15" class="node">
+<title>rem:5.4</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="428.1" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="428.1" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">5.4</text>
+</g>
+<!-- rem:8.4 -->
+<g id="node16" class="node">
+<title>rem:8.4</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="940.1" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="940.1" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">8.4</text>
+</g>
+<!-- lem:2.1 -->
+<g id="node17" class="node">
+<title>lem:2.1</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="737.1" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="737.1" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">2.1</text>
+</g>
+<!-- lem:2.1&#45;&gt;lem:5.7 -->
+<g id="edge20" class="edge">
+<title>lem:2.1&#45;&gt;lem:5.7</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M737.1,-431.3C737.1,-407.26 737.1,-363.99 737.1,-335.38"/>
+<polygon fill="black" stroke="black" points="737.1,-325.69 741.6,-335.69 737.1,-329.47 737.1,-335.69 737.1,-335.69 737.1,-335.69 737.1,-329.47 732.6,-335.69 737.1,-325.69"/>
+</g>
+<!-- lem:7.8 -->
+<g id="node18" class="node">
+<title>lem:7.8</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="373.1" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="373.1" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">7.8</text>
+</g>
+<!-- lem:2.1&#45;&gt;lem:7.8 -->
+<g id="edge21" class="edge">
+<title>lem:2.1&#45;&gt;lem:7.8</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M709.72,-447.18C652.67,-442.83 517.36,-429.57 409.1,-396 407.53,-395.51 405.94,-394.97 404.35,-394.39"/>
+<polygon fill="black" stroke="black" points="395.14,-390.56 406.1,-390.25 398.63,-392.01 404.37,-394.4 404.37,-394.4 404.37,-394.4 398.63,-392.01 402.64,-398.56 395.14,-390.56"/>
+</g>
+<!-- lem:6.2 -->
+<g id="node19" class="node">
+<title>lem:6.2</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="1029.13" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1029.13" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">6.2</text>
+</g>
+<!-- lem:2.1&#45;&gt;lem:6.2 -->
+<g id="edge22" class="edge">
+<title>lem:2.1&#45;&gt;lem:6.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M758.01,-437.88C762.86,-435.65 768.07,-433.53 773.1,-432 875.01,-400.93 932.55,-469.06 1010.13,-396 1026.23,-380.77 1030.43,-355.42 1030.83,-335.66"/>
+<polygon fill="black" stroke="black" points="1030.74,-325.73 1035.33,-335.69 1030.77,-329.51 1030.83,-335.73 1030.83,-335.73 1030.83,-335.73 1030.77,-329.51 1026.33,-335.77 1030.74,-325.73"/>
+</g>
+<!-- lem:7.8&#45;&gt;thm:7.2 -->
+<g id="edge23" class="edge">
+<title>lem:7.8&#45;&gt;thm:7.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M345.42,-376.61C273.04,-374.99 80.74,-366.69 37.09,-324 2.53,-290.2 0,-257.92 24.09,-216 35.99,-195.31 59.41,-181.94 79.52,-173.8"/>
+<polygon fill="black" stroke="black" points="88.81,-170.34 81.01,-178.05 85.26,-171.66 79.44,-173.83 79.44,-173.83 79.44,-173.83 85.26,-171.66 77.87,-169.61 88.81,-170.34"/>
+</g>
+<!-- lem:7.9 -->
+<g id="node20" class="node">
+<title>lem:7.9</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="373.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="373.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">7.9</text>
+</g>
+<!-- lem:7.8&#45;&gt;lem:7.9 -->
+<g id="edge24" class="edge">
+<title>lem:7.8&#45;&gt;lem:7.9</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M373.1,-359.34C373.1,-352.07 373.1,-343.47 373.1,-335.36"/>
+<polygon fill="black" stroke="black" points="373.1,-325.64 377.6,-335.64 373.1,-329.42 373.1,-335.64 373.1,-335.64 373.1,-335.64 373.1,-329.42 368.6,-335.64 373.1,-325.64"/>
+</g>
+<!-- lem:6.2&#45;&gt;rem:8.1 -->
+<g id="edge25" class="edge">
+<title>lem:6.2&#45;&gt;rem:8.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M1038.33,-288.39C1047.33,-270.1 1058.03,-240.08 1048.13,-216 1018.23,-143.94 923.46,-111.33 870.25,-98.38"/>
+<polygon fill="black" stroke="black" points="860.75,-96.19 871.51,-94.06 864.44,-97.04 870.5,-98.44 870.5,-98.44 870.5,-98.44 864.44,-97.04 869.48,-102.83 860.75,-96.19"/>
+</g>
+<!-- thm:6.1 -->
+<g id="node21" class="node">
+<title>thm:6.1</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="940.1" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="940.1" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">6.1</text>
+</g>
+<!-- lem:6.2&#45;&gt;thm:6.1 -->
+<g id="edge26" class="edge">
+<title>lem:6.2&#45;&gt;thm:6.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M1011.93,-291.5C998.97,-281.3 980.94,-267.13 966.19,-255.53"/>
+<polygon fill="black" stroke="black" points="958.46,-249.44 969.1,-252.1 961.43,-251.78 966.32,-255.63 966.32,-255.63 966.32,-255.63 961.43,-251.78 963.53,-259.17 958.46,-249.44"/>
+</g>
+<!-- rem:8.5 -->
+<g id="node22" class="node">
+<title>rem:8.5</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="1012.13" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1012.13" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">8.5</text>
+</g>
+<!-- lem:6.2&#45;&gt;rem:8.5 -->
+<g id="edge27" class="edge">
+<title>lem:6.2&#45;&gt;rem:8.5</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M1024.83,-287.34C1023.03,-279.98 1020.93,-271.27 1018.93,-263.08"/>
+<polygon fill="black" stroke="black" points="1016.62,-253.6 1023.36,-262.25 1017.51,-257.28 1018.99,-263.32 1018.99,-263.32 1018.99,-263.32 1017.51,-257.28 1014.61,-264.39 1016.62,-253.6"/>
+</g>
+<!-- thm:7.3 -->
+<g id="node23" class="node">
+<title>thm:7.3</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="318.1" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="318.1" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">7.3</text>
+</g>
+<!-- lem:7.9&#45;&gt;thm:7.3 -->
+<g id="edge28" class="edge">
+<title>lem:7.9&#45;&gt;thm:7.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M360.62,-289.12C353.73,-280.34 345.02,-269.26 337.28,-259.42"/>
+<polygon fill="black" stroke="black" points="331.28,-251.78 340.99,-256.87 333.61,-254.75 337.45,-259.64 337.45,-259.64 337.45,-259.64 333.61,-254.75 333.91,-262.42 331.28,-251.78"/>
+</g>
+<!-- thm:6.1&#45;&gt;rem:8.2 -->
+<g id="edge29" class="edge">
+<title>thm:6.1&#45;&gt;rem:8.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M954.33,-217.76C969.41,-199.69 989.33,-168.86 976.1,-144 926.57,-50.98 788.6,-27.18 720.76,-21.09"/>
+<polygon fill="black" stroke="black" points="710.93,-20.3 721.26,-16.62 714.7,-20.6 720.9,-21.1 720.9,-21.1 720.9,-21.1 714.7,-20.6 720.54,-25.59 710.93,-20.3"/>
+</g>
+<!-- thm:6.1&#45;&gt;thm:7.2 -->
+<g id="edge30" class="edge">
+<title>thm:6.1&#45;&gt;thm:7.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M919.27,-221.56C914.42,-219.36 909.18,-217.32 904.1,-216 831.08,-197.03 301.82,-171.57 153.59,-164.74"/>
+<polygon fill="black" stroke="black" points="143.61,-164.29 153.81,-160.25 147.39,-164.46 153.6,-164.74 153.6,-164.74 153.6,-164.74 147.39,-164.46 153.4,-169.24 143.61,-164.29"/>
+</g>
+<!-- thm:6.1&#45;&gt;rem:8.4 -->
+<g id="edge31" class="edge">
+<title>thm:6.1&#45;&gt;rem:8.4</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M940.1,-215.34C940.1,-208.07 940.1,-199.47 940.1,-191.36"/>
+<polygon fill="black" stroke="black" points="940.1,-181.64 944.6,-191.64 940.1,-185.42 940.1,-191.64 940.1,-191.64 940.1,-191.64 940.1,-185.42 935.6,-191.64 940.1,-181.64"/>
+</g>
+<!-- thm:7.3&#45;&gt;cor:7.10 -->
+<g id="edge41" class="edge">
+<title>thm:7.3&#45;&gt;cor:7.10</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M343.01,-225.64C385.24,-213.17 471,-187.84 519.53,-173.5"/>
+<polygon fill="black" stroke="black" points="528.99,-170.71 520.67,-177.86 525.36,-171.78 519.4,-173.54 519.4,-173.54 519.4,-173.54 525.36,-171.78 518.12,-169.22 528.99,-170.71"/>
+</g>
+<!-- thm:7.3&#45;&gt;rem:7.12 -->
+<g id="edge42" class="edge">
+<title>thm:7.3&#45;&gt;rem:7.12</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M307.44,-216.58C295.82,-198.7 276.69,-169.29 260.1,-144 254.21,-135.02 247.74,-125.21 241.98,-116.49"/>
+<polygon fill="black" stroke="black" points="236.52,-108.24 245.79,-114.1 238.6,-111.39 242.03,-116.58 242.03,-116.58 242.03,-116.58 238.6,-111.39 238.28,-119.06 236.52,-108.24"/>
+</g>
+<!-- thm:7.3&#45;&gt;thm:7.1 -->
+<g id="edge43" class="edge">
+<title>thm:7.3&#45;&gt;thm:7.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M301.67,-218.87C272.64,-193.88 212.1,-141.78 177.94,-112.38"/>
+<polygon fill="black" stroke="black" points="170.37,-105.87 180.89,-108.98 173.24,-108.34 177.95,-112.39 177.95,-112.39 177.95,-112.39 173.24,-108.34 175.02,-115.81 170.37,-105.87"/>
+</g>
+<!-- lem:2.2 -->
+<g id="node24" class="node">
+<title>lem:2.2</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="301.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="301.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">2.2</text>
+</g>
+<!-- lem:2.2&#45;&gt;rem:5.9 -->
+<g id="edge32" class="edge">
+<title>lem:2.2&#45;&gt;rem:5.9</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M319.5,-291.9C331.47,-282.3 346.26,-268.16 354.1,-252 374.86,-209.18 376.48,-152.7 375.19,-119.28"/>
+<polygon fill="black" stroke="black" points="374.7,-109.7 379.7,-119.45 374.89,-113.47 375.21,-119.68 375.21,-119.68 375.21,-119.68 374.89,-113.47 370.71,-119.91 374.7,-109.7"/>
+</g>
+<!-- lem:7.5 -->
+<g id="node25" class="node">
+<title>lem:7.5</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="208.1" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="208.1" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">7.5</text>
+</g>
+<!-- lem:2.2&#45;&gt;lem:7.5 -->
+<g id="edge33" class="edge">
+<title>lem:2.2&#45;&gt;lem:7.5</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M283.6,-291.83C269.79,-281.44 250.3,-266.76 234.58,-254.93"/>
+<polygon fill="black" stroke="black" points="226.8,-249.08 237.5,-251.5 229.82,-251.36 234.79,-255.09 234.79,-255.09 234.79,-255.09 229.82,-251.36 232.09,-258.69 226.8,-249.08"/>
+</g>
+<!-- lem:7.5&#45;&gt;cor:7.10 -->
+<g id="edge34" class="edge">
+<title>lem:7.5&#45;&gt;cor:7.10</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M233.73,-226.88C247.96,-223.55 265.98,-219.42 282.1,-216 366.14,-198.19 465.25,-179.53 517.87,-169.81"/>
+<polygon fill="black" stroke="black" points="527.48,-168.04 518.46,-174.28 523.76,-168.73 517.64,-169.85 517.64,-169.85 517.64,-169.85 523.76,-168.73 516.83,-165.43 527.48,-168.04"/>
+</g>
+<!-- lem:7.5&#45;&gt;rem:7.12 -->
+<g id="edge35" class="edge">
+<title>lem:7.5&#45;&gt;rem:7.12</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M210.22,-215.3C213.09,-191.26 218.27,-147.99 221.7,-119.38"/>
+<polygon fill="black" stroke="black" points="222.86,-109.68 226.14,-120.14 222.41,-113.43 221.67,-119.61 221.67,-119.61 221.67,-119.61 222.41,-113.43 217.2,-119.07 222.86,-109.68"/>
+</g>
+<!-- lem:7.5&#45;&gt;thm:7.1 -->
+<g id="edge36" class="edge">
+<title>lem:7.5&#45;&gt;thm:7.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M201.46,-215.87C192.09,-191.67 174.87,-147.21 163.71,-118.39"/>
+<polygon fill="black" stroke="black" points="160.19,-109.33 168,-117.02 161.56,-112.85 163.81,-118.65 163.81,-118.65 163.81,-118.65 161.56,-112.85 159.61,-120.28 160.19,-109.33"/>
+</g>
+<!-- lem:3.6 -->
+<g id="node27" class="node">
+<title>lem:3.6</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="229.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="229.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">3.6</text>
+</g>
+<!-- lem:3.6&#45;&gt;thm:7.2 -->
+<g id="edge38" class="edge">
+<title>lem:3.6&#45;&gt;thm:7.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M212.06,-291.16C200.13,-281.01 184.22,-266.52 172.1,-252 155.63,-232.27 140.12,-207.49 129.45,-189.09"/>
+<polygon fill="black" stroke="black" points="124.64,-180.66 133.5,-187.12 126.51,-183.94 129.59,-189.35 129.59,-189.35 129.59,-189.35 126.51,-183.94 125.68,-191.57 124.64,-180.66"/>
+</g>
+<!-- lem:3.6&#45;&gt;rem:5.9 -->
+<g id="edge39" class="edge">
+<title>lem:3.6&#45;&gt;rem:5.9</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M238.42,-288.32C248.67,-270.22 265.86,-240.62 282.1,-216 305.69,-180.24 335.24,-140.48 354.14,-115.61"/>
+<polygon fill="black" stroke="black" points="360.09,-107.82 357.59,-118.5 357.79,-110.82 354.02,-115.77 354.02,-115.77 354.02,-115.77 357.79,-110.82 350.44,-113.03 360.09,-107.82"/>
+</g>
+<!-- lem:3.6&#45;&gt;thm:7.3 -->
+<g id="edge40" class="edge">
+<title>lem:3.6&#45;&gt;thm:7.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M246.26,-291.5C259.22,-281.3 277.25,-267.13 292,-255.53"/>
+<polygon fill="black" stroke="black" points="299.73,-249.44 294.65,-259.16 296.76,-251.78 291.87,-255.63 291.87,-255.63 291.87,-255.63 296.76,-251.78 289.09,-252.09 299.73,-249.44"/>
+</g>
+<!-- lem:4.3 -->
+<g id="node28" class="node">
+<title>lem:4.3</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="445.1" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="445.1" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">4.3</text>
+</g>
+<!-- lem:4.4 -->
+<g id="node29" class="node">
+<title>lem:4.4</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="445.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="445.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">4.4</text>
+</g>
+<!-- lem:4.3&#45;&gt;lem:4.4 -->
+<g id="edge44" class="edge">
+<title>lem:4.3&#45;&gt;lem:4.4</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M445.1,-359.34C445.1,-352.07 445.1,-343.47 445.1,-335.36"/>
+<polygon fill="black" stroke="black" points="445.1,-325.64 449.6,-335.64 445.1,-329.42 445.1,-335.64 445.1,-335.64 445.1,-335.64 445.1,-329.42 440.6,-335.64 445.1,-325.64"/>
+</g>
+<!-- lem:7.7 -->
+<g id="node30" class="node">
+<title>lem:7.7</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="157.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="157.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">7.7</text>
+</g>
+<!-- lem:4.3&#45;&gt;lem:7.7 -->
+<g id="edge45" class="edge">
+<title>lem:4.3&#45;&gt;lem:7.7</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M424.17,-365.93C419.32,-363.7 414.11,-361.57 409.1,-360 316.21,-330.94 285.98,-353.06 193.1,-324 191.53,-323.51 189.94,-322.96 188.36,-322.38"/>
+<polygon fill="black" stroke="black" points="179.15,-318.54 190.11,-318.24 182.64,-320 188.38,-322.39 188.38,-322.39 188.38,-322.39 182.64,-320 186.65,-326.54 179.15,-318.54"/>
+</g>
+<!-- lem:4.4&#45;&gt;cor:5.3 -->
+<g id="edge46" class="edge">
+<title>lem:4.4&#45;&gt;cor:5.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M457.58,-289.12C464.47,-280.34 473.18,-269.26 480.91,-259.42"/>
+<polygon fill="black" stroke="black" points="486.91,-251.78 484.27,-262.42 484.58,-254.75 480.73,-259.64 480.73,-259.64 480.73,-259.64 484.58,-254.75 477.2,-256.86 486.91,-251.78"/>
+</g>
+<!-- lem:4.4&#45;&gt;thm:5.1 -->
+<g id="edge47" class="edge">
+<title>lem:4.4&#45;&gt;thm:5.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M465.78,-293.6C486.36,-282.26 518.15,-264.73 541.61,-251.8"/>
+<polygon fill="black" stroke="black" points="550.35,-246.99 543.76,-255.75 547.04,-248.81 541.59,-251.81 541.59,-251.81 541.59,-251.81 547.04,-248.81 539.42,-247.87 550.35,-246.99"/>
+</g>
+<!-- lem:4.4&#45;&gt;rem:5.4 -->
+<g id="edge48" class="edge">
+<title>lem:4.4&#45;&gt;rem:5.4</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M440.81,-287.34C439.02,-279.98 436.91,-271.27 434.92,-263.08"/>
+<polygon fill="black" stroke="black" points="432.61,-253.6 439.35,-262.26 433.51,-257.28 434.98,-263.32 434.98,-263.32 434.98,-263.32 433.51,-257.28 430.6,-264.38 432.61,-253.6"/>
+</g>
+<!-- lem:7.7&#45;&gt;thm:7.2 -->
+<g id="edge49" class="edge">
+<title>lem:7.7&#45;&gt;thm:7.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M150.98,-287.9C147.36,-277.56 142.77,-264.09 139.1,-252 132.94,-231.78 126.75,-208.74 122.2,-191.16"/>
+<polygon fill="black" stroke="black" points="119.76,-181.67 126.61,-190.24 120.7,-185.33 122.25,-191.36 122.25,-191.36 122.25,-191.36 120.7,-185.33 117.89,-192.48 119.76,-181.67"/>
+</g>
+<!-- lem:7.7&#45;&gt;thm:7.3 -->
+<g id="edge50" class="edge">
+<title>lem:7.7&#45;&gt;thm:7.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M179.12,-294.43C183.72,-292.27 188.56,-290.03 193.1,-288 223.97,-274.17 259.51,-259.19 284.78,-248.7"/>
+<polygon fill="black" stroke="black" points="293.81,-244.96 286.3,-252.94 290.32,-246.4 284.57,-248.78 284.57,-248.78 284.57,-248.78 290.32,-246.4 282.85,-244.63 293.81,-244.96"/>
+</g>
+<!-- lem:5.5 -->
+<g id="node31" class="node">
+<title>lem:5.5</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="682.1" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="682.1" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">5.5</text>
+</g>
+<!-- lem:5.5&#45;&gt;thm:5.2 -->
+<g id="edge51" class="edge">
+<title>lem:5.5&#45;&gt;thm:5.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M689.02,-215.7C692.07,-208.07 695.73,-198.92 699.14,-190.4"/>
+<polygon fill="black" stroke="black" points="702.8,-181.23 703.27,-192.19 701.4,-184.74 699.09,-190.52 699.09,-190.52 699.09,-190.52 701.4,-184.74 694.91,-188.84 702.8,-181.23"/>
+</g>
+<!-- thm:B -->
+<g id="node32" class="node">
+<title>thm:B</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="809.1" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="809.1" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">B</text>
+</g>
+<!-- lem:3.2 -->
+<g id="node33" class="node">
+<title>lem:3.2</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="792.1" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="792.1" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">3.2</text>
+</g>
+<!-- lem:3.2&#45;&gt;lem:4.4 -->
+<g id="edge52" class="edge">
+<title>lem:3.2&#45;&gt;lem:4.4</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M765.68,-372.18C716.88,-363.21 609.31,-343.11 519.1,-324 506.88,-321.41 493.57,-318.41 481.66,-315.66"/>
+<polygon fill="black" stroke="black" points="471.91,-313.4 482.67,-311.28 475.6,-314.25 481.65,-315.66 481.65,-315.66 481.65,-315.66 475.6,-314.25 480.64,-320.04 471.91,-313.4"/>
+</g>
+<!-- lem:5.6 -->
+<g id="node34" class="node">
+<title>lem:5.6</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="868.1" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="868.1" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">5.6</text>
+</g>
+<!-- lem:3.2&#45;&gt;lem:5.6 -->
+<g id="edge53" class="edge">
+<title>lem:3.2&#45;&gt;lem:5.6</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M792.77,-359.17C794.16,-340.36 798.39,-310.4 811.1,-288 818.39,-275.15 829.86,-263.6 840.6,-254.59"/>
+<polygon fill="black" stroke="black" points="848.38,-248.41 843.35,-258.15 845.42,-250.76 840.55,-254.63 840.55,-254.63 840.55,-254.63 845.42,-250.76 837.75,-251.1 848.38,-248.41"/>
+</g>
+<!-- def:3.3 -->
+<g id="node35" class="node">
+<title>def:3.3</title>
+<polygon fill="none" stroke="black" stroke-width="1.8" points="874.1,-324 820.1,-324 820.1,-288 874.1,-288 874.1,-324"/>
+<text xml:space="preserve" text-anchor="middle" x="847.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">3.3</text>
+</g>
+<!-- lem:3.2&#45;&gt;def:3.3 -->
+<g id="edge54" class="edge">
+<title>lem:3.2&#45;&gt;def:3.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M804.58,-361.12C811.01,-352.92 819.03,-342.72 826.37,-333.38"/>
+<polygon fill="black" stroke="black" points="832.36,-325.75 829.72,-336.39 830.03,-328.72 826.19,-333.61 826.19,-333.61 826.19,-333.61 830.03,-328.72 822.65,-330.83 832.36,-325.75"/>
+</g>
+<!-- lem:5.6&#45;&gt;thm:5.2 -->
+<g id="edge55" class="edge">
+<title>lem:5.6&#45;&gt;thm:5.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M845.46,-222.97C818.59,-211.07 773.57,-191.12 742.89,-177.53"/>
+<polygon fill="black" stroke="black" points="733.8,-173.5 744.77,-173.44 737.26,-175.04 742.94,-177.56 742.94,-177.56 742.94,-177.56 737.26,-175.04 741.12,-181.67 733.8,-173.5"/>
+</g>
+<!-- lem:5.6&#45;&gt;rem:8.1 -->
+<g id="edge56" class="edge">
+<title>lem:5.6&#45;&gt;rem:8.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M863.81,-215.59C857.88,-191.53 847.11,-147.84 840.03,-119.12"/>
+<polygon fill="black" stroke="black" points="837.71,-109.73 844.48,-118.36 838.62,-113.4 840.11,-119.44 840.11,-119.44 840.11,-119.44 838.62,-113.4 835.74,-120.52 837.71,-109.73"/>
+</g>
+<!-- def:3.3&#45;&gt;rem:8.5 -->
+<g id="edge57" class="edge">
+<title>def:3.3&#45;&gt;rem:8.5</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M874.92,-291.62C877.67,-290.37 880.43,-289.14 883.1,-288 923.83,-270.53 935.37,-269.47 976.1,-252 977.57,-251.37 979.06,-250.71 980.57,-250.04"/>
+<polygon fill="black" stroke="black" points="989.4,-246.01 982.17,-254.25 985.96,-247.58 980.3,-250.16 980.3,-250.16 980.3,-250.16 985.96,-247.58 978.43,-246.07 989.4,-246.01"/>
+</g>
+<!-- thm:C -->
+<g id="node36" class="node">
+<title>thm:C</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="881.1" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="881.1" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">C</text>
+</g>
+<!-- thm:3.4 -->
+<g id="node37" class="node">
+<title>thm:3.4</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="555.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="555.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">3.4</text>
+</g>
+<!-- thm:3.4&#45;&gt;cor:5.3 -->
+<g id="edge58" class="edge">
+<title>thm:3.4&#45;&gt;cor:5.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M542.62,-289.12C535.73,-280.34 527.02,-269.26 519.28,-259.42"/>
+<polygon fill="black" stroke="black" points="513.28,-251.78 522.99,-256.87 515.61,-254.75 519.45,-259.64 519.45,-259.64 519.45,-259.64 515.61,-254.75 515.91,-262.42 513.28,-251.78"/>
+</g>
+<!-- thm:3.4&#45;&gt;thm:5.1 -->
+<g id="edge59" class="edge">
+<title>thm:3.4&#45;&gt;thm:5.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M559.39,-287.34C561.17,-279.98 563.29,-271.27 565.28,-263.08"/>
+<polygon fill="black" stroke="black" points="567.58,-253.6 569.59,-264.38 566.69,-257.28 565.22,-263.32 565.22,-263.32 565.22,-263.32 566.69,-257.28 560.85,-262.26 567.58,-253.6"/>
+</g>
+<!-- thm:3.4&#45;&gt;thm:6.1 -->
+<g id="edge60" class="edge">
+<title>thm:3.4&#45;&gt;thm:6.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M575.97,-293.74C580.82,-291.52 586.05,-289.44 591.1,-288 725.75,-249.59 769.44,-290.41 904.1,-252 905.68,-251.55 907.27,-251.04 908.87,-250.48"/>
+<polygon fill="black" stroke="black" points="918.09,-246.72 910.53,-254.66 914.59,-248.15 908.83,-250.5 908.83,-250.5 908.83,-250.5 914.59,-248.15 907.13,-246.33 918.09,-246.72"/>
+</g>
+<!-- thm:3.4&#45;&gt;thm:7.3 -->
+<g id="edge61" class="edge">
+<title>thm:3.4&#45;&gt;thm:7.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M530.18,-297.64C487.95,-285.17 402.19,-259.84 353.66,-245.5"/>
+<polygon fill="black" stroke="black" points="344.2,-242.71 355.06,-241.22 347.82,-243.78 353.79,-245.54 353.79,-245.54 353.79,-245.54 347.82,-243.78 352.52,-249.86 344.2,-242.71"/>
+</g>
+<!-- rem:6.4 -->
+<g id="node38" class="node">
+<title>rem:6.4</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="953.1" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="953.1" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">6.4</text>
+</g>
+<!-- rem:8.6 -->
+<g id="node39" class="node">
+<title>rem:8.6</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="919.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="919.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">8.6</text>
+</g>
+<!-- lem:4.5 -->
+<g id="node40" class="node">
+<title>lem:4.5</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="974.1" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="974.1" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">4.5</text>
+</g>
+<!-- lem:4.5&#45;&gt;lem:6.2 -->
+<g id="edge62" class="edge">
+<title>lem:4.5&#45;&gt;lem:6.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M986.58,-361.12C993.47,-352.34 1002.18,-341.26 1009.93,-331.42"/>
+<polygon fill="black" stroke="black" points="1015.88,-323.78 1013.28,-334.44 1013.55,-326.76 1009.73,-331.67 1009.73,-331.67 1009.73,-331.67 1013.55,-326.76 1006.18,-328.9 1015.88,-323.78"/>
+</g>
+<!-- lem:3.5 -->
+<g id="node41" class="node">
+<title>lem:3.5</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="627.1" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="627.1" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">3.5</text>
+</g>
+<!-- lem:3.5&#45;&gt;cor:5.3 -->
+<g id="edge63" class="edge">
+<title>lem:3.5&#45;&gt;cor:5.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M606.41,-293.6C585.84,-282.26 554.04,-264.73 530.58,-251.8"/>
+<polygon fill="black" stroke="black" points="521.84,-246.99 532.77,-247.87 525.16,-248.81 530.6,-251.81 530.6,-251.81 530.6,-251.81 525.16,-248.81 528.43,-255.76 521.84,-246.99"/>
+</g>
+<!-- lem:3.5&#45;&gt;thm:5.1 -->
+<g id="edge64" class="edge">
+<title>lem:3.5&#45;&gt;thm:5.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M614.62,-289.12C607.73,-280.34 599.02,-269.26 591.28,-259.42"/>
+<polygon fill="black" stroke="black" points="585.28,-251.78 594.99,-256.87 587.61,-254.75 591.45,-259.64 591.45,-259.64 591.45,-259.64 587.61,-254.75 587.91,-262.42 585.28,-251.78"/>
+</g>
+<!-- lem:3.5&#45;&gt;thm:6.1 -->
+<g id="edge65" class="edge">
+<title>lem:3.5&#45;&gt;thm:6.1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M652.71,-298.78C666.93,-295.41 684.95,-291.28 701.1,-288 790.89,-269.74 816.79,-279.81 904.1,-252 905.66,-251.5 907.24,-250.95 908.83,-250.36"/>
+<polygon fill="black" stroke="black" points="918.03,-246.5 910.55,-254.52 914.55,-247.96 908.81,-250.37 908.81,-250.37 908.81,-250.37 914.55,-247.96 907.07,-246.22 918.03,-246.5"/>
+</g>
+<!-- rem:6.3 -->
+<g id="node42" class="node">
+<title>rem:6.3</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="1025.13" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1025.13" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">6.3</text>
+</g>
+<!-- thm:A -->
+<g id="node43" class="node">
+<title>thm:A</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="1097.13" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1097.13" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">A</text>
+</g>
+<!-- lem:3.1 -->
+<g id="node44" class="node">
+<title>lem:3.1</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="883.1" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="883.1" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">3.1</text>
+</g>
+<!-- lem:3.1&#45;&gt;lem:7.9 -->
+<g id="edge66" class="edge">
+<title>lem:3.1&#45;&gt;lem:7.9</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M859.29,-368.42C849.71,-365.29 838.49,-362.03 828.1,-360 644.65,-324.2 589.56,-372.67 409.1,-324 407.51,-323.57 405.91,-323.08 404.31,-322.53"/>
+<polygon fill="black" stroke="black" points="395.07,-318.82 406.02,-318.37 398.58,-320.23 404.35,-322.55 404.35,-322.55 404.35,-322.55 398.58,-320.23 402.67,-326.72 395.07,-318.82"/>
+</g>
+<!-- lem:3.1&#45;&gt;rem:8.5 -->
+<g id="edge67" class="edge">
+<title>lem:3.1&#45;&gt;rem:8.5</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M903.29,-365.01C918.65,-355.24 939.71,-340.42 955.1,-324 972.78,-305.13 988.26,-280.07 998.61,-261.35"/>
+<polygon fill="black" stroke="black" points="1003.24,-252.75 1002.46,-263.69 1001.45,-256.08 998.5,-261.56 998.5,-261.56 998.5,-261.56 1001.45,-256.08 994.53,-259.42 1003.24,-252.75"/>
+</g>
+<!-- lem:3.1&#45;&gt;thm:3.4 -->
+<g id="edge68" class="edge">
+<title>lem:3.1&#45;&gt;thm:3.4</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M858.94,-368.68C849.42,-365.63 838.33,-362.34 828.1,-360 724.25,-336.2 693.01,-355.07 591.1,-324 589.53,-323.52 587.94,-322.98 586.35,-322.41"/>
+<polygon fill="black" stroke="black" points="577.13,-318.59 588.09,-318.26 580.63,-320.04 586.37,-322.42 586.37,-322.42 586.37,-322.42 580.63,-320.04 584.64,-326.58 577.13,-318.59"/>
+</g>
+<!-- lem:3.1&#45;&gt;rem:8.6 -->
+<g id="edge69" class="edge">
+<title>lem:3.1&#45;&gt;rem:8.6</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M891.81,-360.05C895.88,-352.14 900.82,-342.54 905.37,-333.69"/>
+<polygon fill="black" stroke="black" points="909.9,-324.87 909.33,-335.82 908.17,-328.24 905.33,-333.77 905.33,-333.77 905.33,-333.77 908.17,-328.24 901.33,-331.71 909.9,-324.87"/>
+</g>
+<!-- lem:4.1 -->
+<g id="node45" class="node">
+<title>lem:4.1</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="445.1" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="445.1" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">4.1</text>
+</g>
+<!-- lem:4.1&#45;&gt;lem:4.2 -->
+<g id="edge70" class="edge">
+<title>lem:4.1&#45;&gt;lem:4.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M460.02,-434.5C469.96,-424.83 483.22,-411.94 494.45,-401.02"/>
+<polygon fill="black" stroke="black" points="501.32,-394.34 497.29,-404.54 498.61,-396.97 494.15,-401.31 494.15,-401.31 494.15,-401.31 498.61,-396.97 491.01,-398.08 501.32,-394.34"/>
+</g>
+<!-- lem:4.1&#45;&gt;lem:7.8 -->
+<g id="edge71" class="edge">
+<title>lem:4.1&#45;&gt;lem:7.8</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M430.18,-434.5C420.24,-424.83 406.98,-411.94 395.74,-401.02"/>
+<polygon fill="black" stroke="black" points="388.87,-394.34 399.18,-398.09 391.58,-396.98 396.04,-401.31 396.04,-401.31 396.04,-401.31 391.58,-396.98 392.9,-404.54 388.87,-394.34"/>
+</g>
+<!-- lem:4.1&#45;&gt;lem:4.3 -->
+<g id="edge72" class="edge">
+<title>lem:4.1&#45;&gt;lem:4.3</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M445.1,-431.34C445.1,-424.07 445.1,-415.47 445.1,-407.36"/>
+<polygon fill="black" stroke="black" points="445.1,-397.64 449.6,-407.64 445.1,-401.42 445.1,-407.64 445.1,-407.64 445.1,-407.64 445.1,-401.42 440.6,-407.64 445.1,-397.64"/>
+</g>
+<!-- lem:7.4 -->
+<g id="node46" class="node">
+<title>lem:7.4</title>
+<ellipse fill="#a3d6ff" stroke="blue" stroke-width="1.8" cx="73.09" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="73.09" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">7.4</text>
+</g>
+<!-- lem:7.4&#45;&gt;lem:7.5 -->
+<g id="edge73" class="edge">
+<title>lem:7.4&#45;&gt;lem:7.5</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M94.48,-293.91C116.71,-282.39 151.69,-264.25 176.97,-251.14"/>
+<polygon fill="black" stroke="black" points="185.73,-246.6 178.92,-255.2 182.37,-248.34 176.85,-251.2 176.85,-251.2 176.85,-251.2 182.37,-248.34 174.78,-247.21 185.73,-246.6"/>
+</g>
+<!-- lem:7.6 -->
+<g id="node47" class="node">
+<title>lem:7.6</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="60.09" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="60.09" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">7.6</text>
+</g>
+<!-- lem:7.4&#45;&gt;lem:7.6 -->
+<g id="edge74" class="edge">
+<title>lem:7.4&#45;&gt;lem:7.6</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M69.81,-287.34C68.46,-280.07 66.87,-271.47 65.36,-263.36"/>
+<polygon fill="black" stroke="black" points="63.55,-253.62 69.8,-262.63 64.24,-257.34 65.38,-263.45 65.38,-263.45 65.38,-263.45 64.24,-257.34 60.95,-264.27 63.55,-253.62"/>
+</g>
+<!-- lem:7.6&#45;&gt;thm:7.2 -->
+<g id="edge75" class="edge">
+<title>lem:7.6&#45;&gt;thm:7.2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M72.57,-217.12C79.47,-208.34 88.17,-197.26 95.91,-187.42"/>
+<polygon fill="black" stroke="black" points="101.91,-179.78 99.27,-190.42 99.57,-182.75 95.73,-187.64 95.73,-187.64 95.73,-187.64 99.57,-182.75 92.2,-184.86 101.91,-179.78"/>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:A": "Theorem A — Theorem 3.4", "thm:B": "Theorem B", "thm:C": "Theorem C", "lem:2.1": "Lemma 2.1 — atom criterion", "lem:2.2": "Lemma 2.2 — the first strata", "lem:3.1": "Lemma 3.1 — matrix localization", "lem:3.2": "Lemma 3.2 — cf. {[}Tho79{]}; we give a direct proof", "def:3.3": "Definition 3.3", "thm:3.4": "Theorem 3.4", "lem:3.5": "Lemma 3.5", "lem:3.6": "Lemma 3.6", "lem:4.1": "Lemma 4.1 — exact arc", "lem:4.2": "Lemma 4.2 — scalar evaluation", "lem:4.3": "Lemma 4.3 — binomials", "lem:4.4": "Lemma 4.4 — chain bound", "lem:4.5": "Lemma 4.5 — no binomial degenerates on \\(\\Theta\\)", "thm:5.1": "Theorem 5.1", "thm:5.2": "Theorem 5.2", "cor:5.3": "Corollary 5.3", "rem:5.4": "Remark 5.4 — computations", "lem:5.5": "Lemma 5.5", "lem:5.6": "Lemma 5.6 — target profile", "lem:5.7": "Lemma 5.7 — atoms", "prop:5.8": "Proposition 5.8", "rem:5.9": "Remark 5.9 — beyond \\(\\mathcal U_1\\)", "thm:6.1": "Theorem 6.1", "lem:6.2": "Lemma 6.2", "rem:6.3": "Remark 6.3 — a candidate second witness for part (1)", "rem:6.4": "Remark 6.4 — the symmetric curve fails", "thm:7.1": "Theorem 7.1", "thm:7.2": "Theorem 7.2", "thm:7.3": "Theorem 7.3", "lem:7.4": "Lemma 7.4 — compression at level \\(k\\)", "lem:7.5": "Lemma 7.5 — the ring reached at \\(k{[}\\pi{]}\\)", "lem:7.6": "Lemma 7.6 — \\(D'\\subseteq\\Gamma_2\\)", "lem:7.7": "Lemma 7.7 — the bound \\(2a\\)", "lem:7.8": "Lemma 7.8", "lem:7.9": "Lemma 7.9", "cor:7.10": "Corollary 7.10", "rem:7.11": "Remark 7.11 — matrix size and number of binomial inverses", "rem:7.12": "Remark 7.12 — dependencies of Theorem 7.1", "rem:8.1": "Remark 8.1 — characteristic \\(p\\)", "rem:8.2": "Remark 8.2 — two parameters", "rem:8.3": "Remark 8.3 — later strata", "rem:8.4": "Remark 8.4 — strictness of the size chain in general", "rem:8.5": "Remark 8.5 — independent adjunctions in \\({[}\\mathcal U_\\infty,B_2{]}\\)", "rem:8.6": "Remark 8.6 — intermediate rings and classes of atoms"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>
