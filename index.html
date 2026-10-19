@@ -15,7 +15,7 @@ header{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shad
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 header .titulo{font-size:1.5rem;color:#fff;text-decoration:none}
 header .actual{display:none}  /* the paper's name heads the sidebar */
-header .titulo{flex:1 1 auto;text-align:center;font-size:2rem;letter-spacing:.04em}  /* centred in the bar */header nav{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;font:13px Helvetica,Arial,sans-serif}
+header .titulo{margin-right:auto;font-size:1.8rem;letter-spacing:.03em;white-space:nowrap}  /* always at the left */header nav{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;font:13px Helvetica,Arial,sans-serif}
 header nav a,header nav button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
   background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;text-decoration:none;
   white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8);cursor:pointer}
@@ -26,7 +26,9 @@ header nav .vistas button{border:0;border-radius:0}
 header nav .vistas button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
 #buscar{min-width:12em;max-width:20em;padding:.3em .8em;border:1px solid rgba(255,255,255,.75);border-radius:999px;
   font:13px Helvetica,Arial,sans-serif;background:rgba(255,255,255,.92);color:#222;text-shadow:none}
-#toggle{display:none;cursor:pointer;font-size:1.3rem;background:none;border:0;color:#fff;padding:0 .3rem}
+#toggle{display:inline-block;cursor:pointer;font-size:1.3rem;background:none;border:0;color:#fff;padding:0 .3rem;
+  text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+nav.toc.oculta{display:none}  /* ☰ on a wide screen: the menu hidden, the panel takes the width */
 .wrapper{display:flex;flex:1;overflow:hidden}
 nav.toc{width:32ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0}
 nav.toc ul{list-style:none;margin:0;padding:0}
@@ -285,7 +287,7 @@ point to a fixed commit.</div>
     var u = abs(p.dataset.url), page = here ? here.slice(u.length).split('#')[0] : '';
     var items = [['index.html', '📘 Blueprint'], ['mapa.html', '🗺️ Map'], ['pdf.html', '📕 PDF'],
                  ['dep_graph_document.html', '🕸️ Graph']];
-    var h = '<a href="#" id="op-atlas" title="Back to the Atlas: all the papers">🗺️📚 Atlas</a><span class="vistas"><button data-v="paper">📄 Paper</button><button data-v="explore">🔍 Explore</button></span>';
+    var h = '<a href="#" id="op-atlas" title="Back to the Atlas: all the papers">🏛️ Atlas</a><span class="vistas"><button data-v="paper">📄 Paper</button><button data-v="explore">🔍 Explore</button></span>';
     items.forEach(function(it){
       var on = (page || 'index.html') === it[0];
       h += '<a href="' + esc(u + it[0]) + '" target="panel"' + (on ? ' class="on"' : '') + '>' + it[1] + '</a>';
@@ -369,7 +371,10 @@ point to a fixed commit.</div>
       panel.contentWindow.postMessage({pcVista: vista}, '*');
     }
   });
-  document.getElementById('toggle').addEventListener('click', function(){ toc.classList.toggle('abierto'); });
+  document.getElementById('toggle').addEventListener('click', function(){  // narrow: opens over the page; wide: hides
+    if (window.matchMedia('(max-width:900px)').matches) toc.classList.toggle('abierto');
+    else toc.classList.toggle('oculta');
+  });
   var q = document.getElementById('buscar');
   q.addEventListener('input', function(){  // papers and statements; a hit opens its branches
     var t = q.value.trim().toLowerCase(), n = 0;
@@ -530,7 +535,7 @@ point to a fixed commit.</div>
 </script>
 <script id="lm-guide">
 (function(){
-  var STEPS = [{"key": "start", "sel": null, "title": "The library of blueprints", "text": "All the papers, each with its blueprint: every statement, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces of this page.", "explore": false}, {"key": "search", "sel": ".buscador", "title": "Search every paper at once", "text": "Type a statement number, a name or a word (3.4, atom, Lean, program…): the matching statements of all the papers appear below. Press / to come back here.", "explore": false}, {"key": "tag", "sel": ".etiquetas", "title": "Choose a subject", "text": "A keyword, an MSC code, a field or a tool: only the papers and statements that carry it stay.", "explore": false}, {"key": "checked", "sel": ".ambitos", "title": "What was checked", "text": "Show only the results formalized in Lean, the ones checked by a program, the ones with a written proof only, or the main results.", "explore": false}, {"key": "numbers", "sel": ".datos", "title": "The library in numbers", "text": "How many papers and results, and how many of them were checked by Lean or by a program.", "explore": false}, {"key": "card", "sel": ".ficha", "title": "One paper", "text": "Its title, what it proves, its subjects, and a bar for each kind of check.", "explore": false}, {"key": "tiles", "sel": ".ficha .teselas", "title": "Its results, one tile each", "text": "Each tile is a numbered result of the paper; its colour says what checked it. A tile opens its statement.", "explore": false}, {"key": "open", "sel": ".ficha .enl", "title": "Open it", "text": "📘 the blueprint, 🗺️ the map of its results, 📕 the paper as a PDF, 🔗 the published record.", "explore": false}, {"key": "list", "sel": "nav.toc", "title": "The list of papers", "text": "Click a paper: it opens here, with its own bar on top (Blueprint, Map, PDF, Graph); 🗺️📚 Atlas brings you back.", "explore": false}, {"key": "arrange", "sel": ".vertabs", "title": "Other ways to arrange them", "text": "By series, by MSC code, by the branches they take tools from, by what they serve, or as the Lean formalizations, module by module.", "explore": false}, {"key": "legend", "sel": "section.leyenda", "title": "How to read the colours", "text": "Green: formalized in Lean (dashed: a part). Blue: checked by a program. White: written proof only.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "🧭 Tour repeats this tour; ❓ How to use explains each piece. Each paper's blueprint has its own tour.", "explore": false}], i = 0, on = null, box = null;
+  var STEPS = [{"key": "start", "sel": null, "title": "The library of blueprints", "text": "All the papers, each with its blueprint: every statement, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces of this page.", "explore": false}, {"key": "search", "sel": ".buscador", "title": "Search every paper at once", "text": "Type a statement number, a name or a word (3.4, atom, Lean, program…): the matching statements of all the papers appear below. Press / to come back here.", "explore": false}, {"key": "tag", "sel": ".etiquetas", "title": "Choose a subject", "text": "A keyword, an MSC code, a field or a tool: only the papers and statements that carry it stay.", "explore": false}, {"key": "checked", "sel": ".ambitos", "title": "What was checked", "text": "Show only the results formalized in Lean, the ones checked by a program, the ones with a written proof only, or the main results.", "explore": false}, {"key": "numbers", "sel": ".datos", "title": "The library in numbers", "text": "How many papers and results, and how many of them were checked by Lean or by a program.", "explore": false}, {"key": "card", "sel": ".ficha", "title": "One paper", "text": "Its title, what it proves, its subjects, and a bar for each kind of check.", "explore": false}, {"key": "tiles", "sel": ".ficha .teselas", "title": "Its results, one tile each", "text": "Each tile is a numbered result of the paper; its colour says what checked it. A tile opens its statement.", "explore": false}, {"key": "open", "sel": ".ficha .enl", "title": "Open it", "text": "📘 the blueprint, 🗺️ the map of its results, 📕 the paper as a PDF, 🔗 the published record.", "explore": false}, {"key": "list", "sel": "nav.toc", "title": "The list of papers", "text": "Click a paper: it opens here, with its own bar on top (Blueprint, Map, PDF, Graph); 🏛️ Atlas brings you back.", "explore": false}, {"key": "arrange", "sel": ".vertabs", "title": "Other ways to arrange them", "text": "By series, by MSC code, by the branches they take tools from, by what they serve, or as the Lean formalizations, module by module.", "explore": false}, {"key": "legend", "sel": "section.leyenda", "title": "How to read the colours", "text": "Green: formalized in Lean (dashed: a part). Blue: checked by a program. White: written proof only.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "🧭 Tour repeats this tour; ❓ How to use explains each piece. Each paper's blueprint has its own tour.", "explore": false}], i = 0, on = null, box = null;
   function visible(e){ return e && e.offsetParent !== null; }
   function find(sel){
     var all = [].slice.call(document.querySelectorAll(sel));
