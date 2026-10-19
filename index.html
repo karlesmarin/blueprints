@@ -178,10 +178,28 @@ h2.grupo{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:norm
              background:#fff}
 .campo a.msc-p{border-color:#2b6cb0;font-weight:600}
 
-</style></head><body>
+</style><style id="lm-guide-css">
+.lm-tour-on{position:relative;z-index:10001 !important;outline:3px solid #ef6c00;outline-offset:3px;border-radius:4px;
+            box-shadow:0 0 0 9999px rgba(20,30,40,.45) !important;background:#fff}
+#lm-tour{position:fixed;z-index:10002;max-width:340px;background:#fff;border-radius:10px;padding:.8em 1em;
+         box-shadow:0 6px 24px rgba(0,0,0,.25);font:14px Arial,sans-serif;color:#222}
+#lm-tour h4{margin:0 0 .35em;font-size:15px}
+#lm-tour .lm-tour-nav{display:flex;gap:.4em;justify-content:flex-end;margin-top:.7em;align-items:center}
+#lm-tour button{cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;padding:.15em .8em}
+#lm-tour button.lm-next{background:#ef6c00;color:#fff}
+#lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
+a.lm-tourbtn{cursor:pointer}
+
+header .lm-libhelp{display:flex;gap:.6em;margin-left:.6em;white-space:nowrap;font:13px Arial,sans-serif}
+header .lm-libhelp a{color:inherit;text-decoration:none;border:1px solid #9fb7cf;border-radius:4px;padding:.15em .6em;
+  background:#fff;color:#222}
+header .lm-libhelp a.on{background:#eef4fa}
+</style>
+</head><body>
 <header><button id="toggle" aria-label="Contents">☰</button><a class="titulo" href="#" id="ir-inicio">📚 Blueprints</a>
 <span class="actual" id="actual"></span>
 <input id="buscar" type="search" placeholder="Search papers and statements…" aria-label="Search the papers and their statements">
+<span class="lm-libhelp"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><a href="guide.html" class="lm-help" title="How to use this page">❓ How to use</a></span>
 <nav id="opts"></nav></header>
 <div class="wrapper">
 <nav class="toc">
@@ -494,6 +512,129 @@ point to a fixed commit.</div>
   var p0 = m && document.getElementById(m[1]);
   if (p0) open(abs(p0.dataset.url) + (m[2] || 'index.html') + (m[3] ? '#' + m[3] : ''));
 
+})();
+</script>
+<script id="lm-guide">
+(function(){
+  var STEPS = [{"key": "start", "sel": null, "title": "The library of blueprints", "text": "All the papers, each with its blueprint: every statement, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces of this page.", "explore": false}, {"key": "search", "sel": ".buscador", "title": "Search every paper at once", "text": "Type a statement number, a name or a word (3.4, atom, Lean, program…): the matching statements of all the papers appear below. Press / to come back here.", "explore": false}, {"key": "tag", "sel": ".etiquetas", "title": "Choose a subject", "text": "A keyword, an MSC code, a field or a tool: only the papers and statements that carry it stay.", "explore": false}, {"key": "checked", "sel": ".ambitos", "title": "What was checked", "text": "Show only the results formalized in Lean, the ones checked by a program, the ones with a written proof only, or the main results.", "explore": false}, {"key": "numbers", "sel": ".datos", "title": "The library in numbers", "text": "How many papers and results, and how many of them were checked by Lean or by a program.", "explore": false}, {"key": "card", "sel": ".ficha", "title": "One paper", "text": "Its title, what it proves, its subjects, and a bar for each kind of check.", "explore": false}, {"key": "tiles", "sel": ".ficha .teselas", "title": "Its results, one tile each", "text": "Each tile is a numbered result of the paper; its colour says what checked it. A tile opens its statement.", "explore": false}, {"key": "open", "sel": ".ficha .enl", "title": "Open it", "text": "📘 the blueprint, 🗺️ the map of its results, 📕 the paper as a PDF, 🔗 the published record.", "explore": false}, {"key": "list", "sel": "nav.toc", "title": "The list of papers", "text": "Click a paper: it opens here, with its own bar on top (Blueprint, Map, PDF, Graph); 🗺️📚 Atlas brings you back.", "explore": false}, {"key": "arrange", "sel": ".vertabs", "title": "Other ways to arrange them", "text": "By series, by MSC code, by the branches they take tools from, by what they serve, or as the Lean formalizations, module by module.", "explore": false}, {"key": "legend", "sel": "section.leyenda", "title": "How to read the colours", "text": "Green: formalized in Lean (dashed: a part). Blue: checked by a program. White: written proof only.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "🧭 Tour repeats this tour; ❓ How to use explains each piece. Each paper's blueprint has its own tour.", "explore": false}], i = 0, on = null, box = null;
+  function visible(e){ return e && e.offsetParent !== null; }
+  function find(sel){
+    var all = [].slice.call(document.querySelectorAll(sel));
+    return all.filter(visible)[0] || all[0] || null;
+  }
+  // the statement a piece belongs to: the piece's own ancestors, or the nearest statement before it (a lab or a
+  // figure block follows its statement, it is not inside it)
+  function holderOf(el){
+    for (var e = el; e && e !== document.body; e = e.parentElement) {
+      if (e.id && e.id.indexOf(':') > 0) return e.id;
+      for (var p = e.previousElementSibling; p; p = p.previousElementSibling) {
+        if (p.id && p.id.indexOf(':') > 0) return p.id;
+        var q = p.querySelectorAll('[id*=":"]');
+        if (q.length) return q[q.length - 1].id;
+      }
+    }
+    return null;
+  }
+  function clear(){ if (on) on.classList.remove('lm-tour-on'); on = null; }
+  function close(){ clear(); if (box) box.remove(); box = null; }
+  function place(el){
+    var w = Math.min(340, innerWidth - 24), x = 12, y = innerHeight / 2 - 80;
+    if (el) {
+      var r = el.getBoundingClientRect();
+      if (r.height > innerHeight * 0.55) {  // a tall piece (a live figure): the note goes to a corner, not over it
+        x = innerWidth - w - 12; y = innerHeight - 190;
+      } else {
+        x = Math.max(12, Math.min(r.left, innerWidth - w - 12));
+        y = r.bottom + 14 + 170 < innerHeight ? r.bottom + 14 : Math.max(12, r.top - 190);
+      }
+    }
+    box.style.left = x + 'px'; box.style.top = y + 'px'; box.style.width = w + 'px';
+  }
+  function show(k){
+    i = Math.max(0, Math.min(STEPS.length - 1, k));
+    var s = STEPS[i];
+    clear();
+    if (s.explore) { var b = document.querySelector('button[data-v="explore"]'); if (b) b.click(); }
+    var el = s.sel ? find(s.sel) : null;
+    if (el && !visible(el)) {  // in a part of the page that is closed: open the statement it belongs to
+      var holder = holderOf(el);
+      if (holder && decodeURIComponent(location.hash.slice(1)) !== holder) {
+        location.hash = holder; setTimeout(function(){ show(i); }, 450); return;
+      }
+      for (var d = el.parentElement; d; d = d.parentElement) if (d.tagName === 'DETAILS') d.open = true;
+    }
+    if (!box) { box = document.createElement('div'); box.id = 'lm-tour'; document.body.appendChild(box); }
+    box.innerHTML = '<h4></h4><div class="lm-tour-t"></div><div class="lm-tour-nav"><span class="lm-tour-n"></span>' +
+      '<button type="button" class="lm-close">Close</button><button type="button" class="lm-back">Back</button>' +
+      '<button type="button" class="lm-next">Next</button></div>';
+    box.querySelector('h4').textContent = s.title;
+    box.querySelector('.lm-tour-t').textContent = s.text;
+    box.querySelector('.lm-tour-n').textContent = (i + 1) + ' / ' + STEPS.length;
+    box.querySelector('.lm-back').disabled = i === 0;
+    box.querySelector('.lm-next').textContent = i === STEPS.length - 1 ? 'Done' : 'Next';
+    box.querySelector('.lm-close').onclick = close;
+    box.querySelector('.lm-back').onclick = function(){ show(i - 1); };
+    box.querySelector('.lm-next').onclick = function(){ if (i === STEPS.length - 1) close(); else show(i + 1); };
+    if (el) {
+      on = el; el.classList.add('lm-tour-on');
+      el.scrollIntoView({block: el.getBoundingClientRect().height > innerHeight * 0.55 ? 'start' : 'center'});
+    }
+    setTimeout(function(){ place(el); }, 60);
+  }
+  document.addEventListener('keydown', function(e){
+    if (!box) return;
+    if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') show(i + 1); else if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.lm-tourbtn');
+    if (a) { e.preventDefault(); show(0); }
+  });
+  var start = new URLSearchParams(location.search).get('tour');
+  if (start !== null) {
+    var go = function(){ setTimeout(function(){ show(parseInt(start, 10) || 0); }, 500); };
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["#toggle", "Show or hide the list of papers"], ["#ir-inicio, #toc-inicio", "Back to the start of the library"], ["#buscar", "Search the papers and their statements"], ["#buscar2", "Search every blueprint: statement numbers, names, words (press / to come here)"], ["#etq", "Choose a keyword, MSC code, field or tool: only what carries it stays"], ["button[data-m=\"\"]", "Show everything"], ["button[data-m=\"lean\"]", "Show only the results formalized in Lean (✅ all of it, ◐ a part)"], ["button[data-m=\"prog\"]", "Show only the results checked by a program"], ["button[data-m=\"solo\"]", "Show only the results with a written proof only"], ["button[data-m=\"principal\"]", "Show only the main results"], ["button[data-vista=\"serie\"]", "The papers by series"], ["button[data-vista=\"msc\"]", "The papers by MSC 2020 code"], ["a.pname, .ficha a[target=\"panel\"]:not(.tesela)", "Open this paper here"], ["a.prim", "Open the blueprint of this paper"], ["a.msc-c", "This MSC code on zbMATH Open"], ["span.expand", "Open or close this branch"], ["#opts a[target=\"_blank\"]", "The published record of this paper"], [".ficha .enl a[target=\"_blank\"]", "The published record of this paper"], ["nav.toc a[target=\"panel\"]", "Open it here"], [".lm-help", "How to use this page"], ["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
 </body></html>

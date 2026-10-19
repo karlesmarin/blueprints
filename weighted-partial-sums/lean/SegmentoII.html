@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html><head><meta charset="utf-8"/><title>SegmentoII.lean</title><style>body{font-family:monospace;margin:1em} td{vertical-align:top;padding:0 .5em} pre{margin:0}td.n{color:#888;text-align:right;user-select:none} tr:target{background:#fff3b0}</style><style id="pdf-css">
+<html lang="en"><head><meta charset="utf-8"/><title>SegmentoII.lean</title><style>body{font-family:monospace;margin:1em} td{vertical-align:top;padding:0 .5em} pre{margin:0}td.n{color:#888;text-align:right;user-select:none} tr:target{background:#fff3b0}</style><style id="pdf-css">
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
@@ -262,4 +262,64 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <tr id="L225"><td class="n"><a href="#L225">225</a></td><td><pre>#print axioms SegmentoII.zeros_from_digits</pre></td></tr>
 <tr id="L226"><td class="n"><a href="#L226">226</a></td><td><pre>#print axioms SegmentoII.complete_list</pre></td></tr>
 <tr id="L227"><td class="n"><a href="#L227">227</a></td><td><pre>#print axioms SegmentoII.complete_range</pre></td></tr>
-<tr id="L228"><td class="n"><a href="#L228">228</a></td><td><pre>#print axioms SegmentoII.pairs_subset_sum</pre></td></tr></table></body></html>
+<tr id="L228"><td class="n"><a href="#L228">228</a></td><td><pre>#print axioms SegmentoII.pairs_subset_sum</pre></td></tr></table><script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:A": "Theorem A", "thm:dicotomia": "Theorem B", "cor:C": "Corollary C", "lem:momento": "Lemma 2.1", "lem:intervalos": "Lemma 2.2", "lem:intervalos_b": "Lemma 2.2(b) — Complete sequences (Lemma~\\ref{lem:intervalos}(b), the part formalized)", "prop:prefijos": "Proposition 3.1", "thm:digitos": "Theorem 4.1", "thm:diag": "Theorem 4.2 — Kanemitsu--Kuzumaki, Ku\\v{c}era", "lem:propagacion": "Corollary 4.3, first statement — Propagation of zeros along digits (first statement of Corollary~\\ref{cor:digitos})", "cor:digitos": "Corollary 4.3", "prop:bloques": "Proposition 4.4", "cor:orden": "Corollary 4.5", "prop:conrey": "Proposition 4.6", "prop:filas": "Proposition 5.1", "cor:filas": "Corollary 5.2", "thm:sinceros": "Theorem N1 (new) — No zeros at $q=179$ and $q=227$"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body></html>

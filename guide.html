@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>How to use: Blueprints</title>
+<meta content="Blueprints of Carles Marín's mathematics papers: every statement copied verbatim with the paper's numbering, its dependencies, what was checked besides the written proof (Lean, programs), and a one-page map of each paper." name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="Blueprints" property="og:title"/>
+<meta content="Blueprints of Carles Marín's mathematics papers: every statement copied verbatim with the paper's numbering, its dependencies, what was checked besides the written proof (Lean, programs), and a one-page map of each paper." property="og:description"/>
+<meta content="https://karlesmarin.github.io/blueprints/" property="og:url"/>
+<style>
+/* The Atlas holds the blueprints: a fixed blue header whose options belong to the paper in the panel, the papers and
+   their structure on the left, and on the right the paper itself (its own site, without its own header and sidebar) */
+html,body{height:100%}
+body{font-family:serif;margin:0;color:#222;background:#e8e8e8;display:flex;flex-direction:column;overflow:hidden}
+header{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.45rem .8rem;flex-shrink:0;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+header .titulo{font-size:1.5rem;color:#fff;text-decoration:none}
+header .actual{display:none}  /* the paper's name heads the sidebar */
+header .titulo{margin-right:auto}
+header nav{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;font:13px Helvetica,Arial,sans-serif}
+header nav a,header nav button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;text-decoration:none;
+  white-space:nowrap;text-shadow:none;cursor:pointer}
+header nav a:hover,header nav button:hover{background:rgba(255,255,255,.3)}
+header nav a.on{background:#fff;color:#1f4e79;font-weight:600}
+header nav .vistas{display:inline-flex;border:1px solid #fff;border-radius:999px;overflow:hidden;margin-right:.3em}
+header nav .vistas button{border:0;border-radius:0}
+header nav .vistas button.on{background:#fff;color:#1f4e79;font-weight:600}
+#buscar{min-width:12em;max-width:20em;padding:.3em .8em;border:1px solid rgba(255,255,255,.75);border-radius:999px;
+  font:13px Helvetica,Arial,sans-serif;background:rgba(255,255,255,.92);color:#222;text-shadow:none}
+#toggle{display:none;cursor:pointer;font-size:1.3rem;background:none;border:0;color:#fff;padding:0 .3rem}
+.wrapper{display:flex;flex:1;overflow:hidden}
+nav.toc{width:32ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0}
+nav.toc ul{list-style:none;margin:0;padding:0}
+nav.toc li{display:flex;flex-wrap:wrap;align-items:center}
+nav.toc li>ul{width:100%}
+nav.toc a,nav.toc .gt{display:block;flex:1;padding:.45rem .8rem;color:#fff;text-decoration:none;font-size:1rem;
+  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
+nav.toc a:hover{background:#497da5}
+nav.toc a.on{background:#89aecb}
+nav.toc .gt{font-weight:600;font-size:1.05rem;padding-top:.7rem}
+nav.toc .expand{cursor:pointer;color:#fff;padding-left:.7rem;font-size:.85rem;width:.9rem}
+nav.toc li.paper>a.pname{font-weight:600}
+nav.toc li.paper ul a{padding-left:1.8rem;font-size:.95rem}
+nav.toc li.paper ul ul a{padding-left:2.8rem;font-size:.92rem}
+nav.toc li.paper ul .expand{padding-left:1rem}
+nav.toc li.cerrado>ul{display:none}
+nav.toc li.oculto{display:none !important}
+/* a paper in the panel: the sidebar holds only that paper's structure (the Atlas is a button in the header) */
+nav.toc.solo>ul>li:not(:has(li.paper.actual-p)){display:none}
+nav.toc.solo li.grupo>.gt,nav.toc.solo li.paper:not(.actual-p){display:none}
+nav.toc.solo li.paper.actual-p>.expand{display:none}
+nav.toc.solo li.paper.actual-p>a.pname{font-size:1.05rem;padding-left:.8rem}
+nav.toc.solo li.paper.actual-p>ul a{padding-left:1.2rem}
+nav.toc.solo li.paper.actual-p>ul ul a{padding-left:2.2rem}
+/* the sidebar can be arranged by series, MSC, tools or what the results serve (19-oct) */
+.vertabs{display:flex;flex-wrap:wrap;gap:3px;padding:.3rem .5rem .5rem;font:12.5px Helvetica,Arial,sans-serif}
+.vertabs button{font:12.5px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.12);
+  color:#fff;border-radius:999px;padding:.3em .75em;cursor:pointer;min-height:2em}
+.vertabs button.on{background:#fff;color:#1f4e79;font-weight:600}
+nav.toc .vista[hidden]{display:none}
+nav.toc.solo .vertabs,nav.toc.solo .vista.otra{display:none}
+nav.toc.solo .vista[data-vista="serie"]{display:block}  /* a paper in the panel: its own structure, whatever the view */
+.vnota{color:#eaf2f9;font:12px Arial,sans-serif;margin:.1rem .8rem .5rem;text-shadow:none}
+nav.toc .gt2{display:block;flex:1;padding:.4rem .6rem .4rem .3rem;color:#fff;font-size:.95rem;text-shadow:1px 1px 1px rgba(0,0,0,.6)}
+nav.toc .gt2 .n{font:11px Arial,sans-serif;background:rgba(255,255,255,.25);border-radius:999px;padding:0 .45em;margin-left:.3em}
+nav.toc .otra ul ul{padding-left:.7rem}
+nav.toc .otra a.msc-c{display:inline;padding:0;font-family:monospace;text-decoration:underline;text-shadow:none}
+nav.toc .otra li>a{font-size:.92rem;padding:.3rem .6rem .3rem 1.2rem}
+nav.toc .otra .que{width:100%;color:#e3edf6;font:12px Arial,sans-serif;padding:0 .6rem .2rem 1.2rem;text-shadow:none}
+nav.toc .otra .ress{width:100%;display:flex;flex-wrap:wrap;gap:3px;padding:0 .6rem .5rem 1.2rem}
+nav.toc .otra a.res{display:inline-block;flex:0 0 auto;padding:.1rem .45rem;font:12px Arial,sans-serif;border:1px solid rgba(255,255,255,.7);
+  border-radius:4px;text-shadow:none;background:rgba(255,255,255,.12)}
+nav.toc .estados{font:11px Arial,sans-serif;opacity:.9;margin-left:.3em;white-space:nowrap}
+.vertabs button[hidden]{display:none}
+#panel{flex:1;border:0;width:100%;height:100%;background:#e8e8e8}
+#home{flex:1;overflow:auto;padding:1rem}
+#home[hidden],#panel[hidden]{display:none}
+.cont{margin:0 auto;max-width:80ch}
+.paneltitle{text-align:center;border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.3rem}
+.paneltitle h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.7em;margin:.3em 0 .1em;color:#0f2f48}
+.lema{font:1.05em Arial,sans-serif;color:#456;margin:.2em 0 .6em}
+h2.grupo{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.2em;color:#456;
+         border-bottom:1px solid #d6dee8;padding-bottom:.2em;margin:1.4em 0 .6em}
+.intro{color:#333}
+.emoji{font-size:1.35em;line-height:1;vertical-align:-.12em;font-family:'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif}
+/* the home page (19-oct): a search band, the library in numbers, one card per paper with its results as tiles */
+#home .cont{max-width:110ch}
+.portada{background:linear-gradient(180deg,#396282 0,#0f2f48);color:#fff;border-radius:10px;padding:1.4em 1.6em 1.2em;
+  margin:.4em 0 1em;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.portada h1{font-family:serif;font-weight:normal;font-size:1.65em;line-height:1.25;margin:0 0 .25em;color:#fff}
+.portada .lema{color:#d3e2ef;margin:0 0 1em}
+.buscador{display:flex;align-items:center;gap:.6em;background:#fff;border-radius:10px;padding:0 .5em 0 .9em;min-height:3.2em}
+.buscador svg{flex-shrink:0}
+.buscador input{flex:1;min-width:0;border:0;outline:0;font:1.05rem Helvetica,Arial,sans-serif;color:#222;background:transparent;padding:.8em 0}
+.buscador kbd{font:12px monospace;color:#456;border:1px solid #c9d3de;border-radius:4px;padding:.15em .5em}
+/* tags, as in zbMATH Open: keywords, MSC codes, fields, tools, what the results serve (19-oct) */
+.etiquetas{display:flex;flex-wrap:wrap;align-items:center;gap:.6em;margin-top:.7em;font:14px Helvetica,Arial,sans-serif}
+.etq-l{color:#d3e2ef;white-space:nowrap}
+.etq-caja{position:relative;flex:1 1 320px;max-width:560px}
+#etq{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.95);color:#222;
+  border-radius:8px;padding:.55em .8em;font:14px Helvetica,Arial,sans-serif}
+#etq-lista{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 4px);max-height:22em;overflow:auto;background:#fff;
+  color:#222;border:1px solid #c9d3de;border-radius:8px;box-shadow:0 8px 24px rgba(15,47,72,.25);padding:.3em 0}
+#etq-lista .grp{font:600 11px Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#456;padding:.6em .9em .2em}
+#etq-lista button{display:flex;width:100%;align-items:center;gap:.6em;border:0;background:none;text-align:left;cursor:pointer;
+  font:14px Helvetica,Arial,sans-serif;color:#222;padding:.45em .9em;min-height:2.4em}
+#etq-lista button:hover,#etq-lista button.foco{background:#e3edf7}
+#etq-lista .cnt{margin-left:auto;font:12px Arial,sans-serif;color:#456;background:#eef2f5;border-radius:999px;padding:0 .5em}
+#etq-activa{display:inline-flex;align-items:center;gap:.4em;background:#fff;color:#0f2f48;border-radius:999px;
+  padding:.3em .4em .3em .9em;font-weight:600}
+#etq-activa button{border:0;background:#0f2f48;color:#fff;border-radius:999px;width:1.7em;height:1.7em;cursor:pointer;font-size:13px}
+#etq-activa[hidden],.etq-caja[hidden],h2.grupo.vacio{display:none}
+.ficha.fuera-etq{display:none}
+.tesela.fuera-etq{opacity:.18}
+.ambitos{display:flex;flex-wrap:wrap;gap:.4em;margin-top:.7em;font-size:13px}
+.ambitos button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.7);background:transparent;color:#fff;
+  border-radius:999px;padding:.35em .9em;cursor:pointer;min-height:2.2em}
+.ambitos button.on{background:#fff;color:#0f2f48;font-weight:600}
+.datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8em;background:#fff;border:1px solid #d6dee8;
+  border-radius:10px;padding:.8em 1.2em;margin-bottom:1em}
+.dato{display:flex;flex-direction:column}
+.dato b{font-size:1.7em;font-weight:normal;color:#0f2f48}
+.dato span{font:13px Arial,sans-serif;color:#456}
+.ficha{border:1px solid #d6dee8;border-left:4px solid #2b6cb0;border-radius:8px;padding:.6em 1.1em .9em;margin:.9em 0;
+       background:#fbfcfe}
+.ficha.oculto{display:none}
+.fcab{display:flex;flex-wrap:wrap;align-items:center;gap:.5em;font:12.5px Arial,sans-serif}
+.medidas{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.8em;margin:.7em 0;font:13px Arial,sans-serif;color:#345}
+.medida{display:flex;flex-direction:column;gap:.3em}
+.barra{display:block;height:7px;border-radius:4px;background:#e3e8ee;overflow:hidden}
+.barra span{display:block;height:7px}
+.m-lean .barra span{background:#1cac78}.m-lean b{color:#137a55}
+.m-prog .barra span{background:#2b6cb0}.m-prog b{color:#1e4f86}
+.m-solo .barra span{background:#9aa8b5}.m-solo b{color:#4a5866}
+.teselas{display:flex;flex-wrap:wrap;gap:5px;margin:.6em 0 .2em}
+.tesela{min-width:42px;padding:0 3px;height:42px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;
+  border:2px solid #9aa8b5;background:#fff;color:#222;text-decoration:none;font:600 12px monospace;box-sizing:border-box}
+.tesela .tk{font:10px Arial,sans-serif;opacity:.75}
+.tesela.prog{border-color:#2b6cb0;background:#d6e9fb}
+.tesela.part{border-color:#1cac78;border-style:dashed;background:#e9f8f0}
+.tesela.lean{border-color:#1cac78;background:#c8f0dc}
+.tesela.part.prog,.tesela.lean.prog{box-shadow:inset -7px -7px 0 -4px #2b6cb0}
+.tesela.principal{min-width:56px;height:56px;font-size:14px;border-width:3px}
+.tesela:hover,.tesela:focus{outline:3px solid #0f2f48;outline-offset:1px}
+.tesela.apagada{opacity:.18}
+.leyenda{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1em;background:#fff;border:1px solid #d6dee8;
+  border-radius:10px;padding:1em 1.2em;margin:1.4em 0 .6em;font:14px Arial,sans-serif;color:#345}
+.leyenda h2{font-family:serif;font-weight:normal;font-size:1.2em;margin:0 0 .3em;color:#0f2f48}
+.leyenda .sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:.5em;border:2px solid}
+.ficha h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.25em;margin:.4em 0 .1em}
+.ficha h2 a{color:#1a4f8b;text-decoration:none}
+.ficha h2 a:hover{text-decoration:underline}
+.ficha p{margin:.4em 0}
+.cifras{display:flex;flex-wrap:wrap;gap:.4em;margin:.5em 0}
+.cifra{border-radius:8px;padding:.15em .7em;font-size:.88em;background:#f2f4f7;border:1px solid #e0e5eb}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.enl{display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+.enl a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+       color:#222;text-decoration:none}
+.enl a:hover{background:#e3edf7}
+.enl a.prim{background:#2b6cb0;border-color:#2b6cb0;color:#fff}
+.enl a.prim:hover{background:#1e4f86}
+.estado{font:12.5px Arial,sans-serif;color:#555}
+.nada{color:#fff;display:none;padding:0 .8rem}
+.nota{font-size:.85em;color:#555}
+@media (max-width:900px){
+  #toggle{display:inline-block}
+  nav.toc{display:none;position:absolute;z-index:20;top:3rem;bottom:0;left:0}
+  nav.toc.abierto{display:block}
+}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><style id="lm-guide-css">
+.lm-tour-on{position:relative;z-index:10001 !important;outline:3px solid #ef6c00;outline-offset:3px;border-radius:4px;
+            box-shadow:0 0 0 9999px rgba(20,30,40,.45) !important;background:#fff}
+#lm-tour{position:fixed;z-index:10002;max-width:340px;background:#fff;border-radius:10px;padding:.8em 1em;
+         box-shadow:0 6px 24px rgba(0,0,0,.25);font:14px Arial,sans-serif;color:#222}
+#lm-tour h4{margin:0 0 .35em;font-size:15px}
+#lm-tour .lm-tour-nav{display:flex;gap:.4em;justify-content:flex-end;margin-top:.7em;align-items:center}
+#lm-tour button{cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;padding:.15em .8em}
+#lm-tour button.lm-next{background:#ef6c00;color:#fff}
+#lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
+a.lm-tourbtn{cursor:pointer}
+
+header .lm-libhelp{display:flex;gap:.6em;margin-left:.6em;white-space:nowrap;font:13px Arial,sans-serif}
+header .lm-libhelp a{color:inherit;text-decoration:none;border:1px solid #9fb7cf;border-radius:4px;padding:.15em .6em;
+  background:#fff;color:#222}
+header .lm-libhelp a.on{background:#eef4fa}
+</style>
+<style id="lm-guide-page-css">
+main.lm-guide{max-width:46rem;margin:0 auto;padding:1.2rem 1rem 3rem}
+main.lm-guide h1{font-size:1.5rem;margin:.3rem 0}
+main.lm-guide .sub{color:#555;margin:0 0 1rem}
+main.lm-guide .card{background:#fff;border:1px solid #dde3ea;border-radius:10px;padding:.8rem 1rem;margin:.7rem 0}
+main.lm-guide .card h2{font-size:1.05rem;margin:0 0 .3rem}
+main.lm-guide .card p{margin:0}
+main.lm-guide a.show{display:inline-block;margin-top:.5rem;font:13px Arial,sans-serif;border:1px solid #ef6c00;
+  color:#8a4a00;border-radius:14px;padding:.15em .8em;text-decoration:none;background:#fff8f0}
+body{overflow:auto;height:auto}</style></head><body><header><a class="titulo" href="index.html" id="ir-inicio" title="Back to the library">📚 Blueprints</a>
+
+
+<span class="lm-libhelp"><a class="" href="index.html?tour=0" title="A guided tour of this page">🧭 Tour</a><a class="lm-help on" href="guide.html" title="How to use this page">❓ How to use</a></span>
+</header><main class="lm-guide"><h1>❓ How to use this library</h1><p class="sub">Blueprints — all the papers and their blueprints. Each piece below can be shown on the page: «Show me».</p><div class="card"><h2>The library of blueprints</h2><p>All the papers, each with its blueprint: every statement, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces of this page.</p></div><div class="card"><h2>Search every paper at once</h2><p>Type a statement number, a name or a word (3.4, atom, Lean, program…): the matching statements of all the papers appear below. Press / to come back here.</p><a class="show" href="index.html?tour=1">Show me</a></div><div class="card"><h2>Choose a subject</h2><p>A keyword, an MSC code, a field or a tool: only the papers and statements that carry it stay.</p><a class="show" href="index.html?tour=2">Show me</a></div><div class="card"><h2>What was checked</h2><p>Show only the results formalized in Lean, the ones checked by a program, the ones with a written proof only, or the main results.</p><a class="show" href="index.html?tour=3">Show me</a></div><div class="card"><h2>The library in numbers</h2><p>How many papers and results, and how many of them were checked by Lean or by a program.</p><a class="show" href="index.html?tour=4">Show me</a></div><div class="card"><h2>One paper</h2><p>Its title, what it proves, its subjects, and a bar for each kind of check.</p><a class="show" href="index.html?tour=5">Show me</a></div><div class="card"><h2>Its results, one tile each</h2><p>Each tile is a numbered result of the paper; its colour says what checked it. A tile opens its statement.</p><a class="show" href="index.html?tour=6">Show me</a></div><div class="card"><h2>Open it</h2><p>📘 the blueprint, 🗺️ the map of its results, 📕 the paper as a PDF, 🔗 the published record.</p><a class="show" href="index.html?tour=7">Show me</a></div><div class="card"><h2>The list of papers</h2><p>Click a paper: it opens here, with its own bar on top (Blueprint, Map, PDF, Graph); 🗺️📚 Atlas brings you back.</p><a class="show" href="index.html?tour=8">Show me</a></div><div class="card"><h2>Other ways to arrange them</h2><p>By series, by MSC code, by the branches they take tools from, by what they serve, or as the Lean formalizations, module by module.</p><a class="show" href="index.html?tour=9">Show me</a></div><div class="card"><h2>How to read the colours</h2><p>Green: formalized in Lean (dashed: a part). Blue: checked by a program. White: written proof only.</p><a class="show" href="index.html?tour=10">Show me</a></div><div class="card"><h2>That is all</h2><p>🧭 Tour repeats this tour; ❓ How to use explains each piece. Each paper's blueprint has its own tour.</p></div><p class="sub">Your browser can translate these pages (the formulas stay as they are).</p></main><script id="lm-tooltips">
+(function(){
+  var RULES = [["#toggle", "Show or hide the list of papers"], ["#ir-inicio, #toc-inicio", "Back to the start of the library"], ["#buscar", "Search the papers and their statements"], ["#buscar2", "Search every blueprint: statement numbers, names, words (press / to come here)"], ["#etq", "Choose a keyword, MSC code, field or tool: only what carries it stays"], ["button[data-m=\"\"]", "Show everything"], ["button[data-m=\"lean\"]", "Show only the results formalized in Lean (✅ all of it, ◐ a part)"], ["button[data-m=\"prog\"]", "Show only the results checked by a program"], ["button[data-m=\"solo\"]", "Show only the results with a written proof only"], ["button[data-m=\"principal\"]", "Show only the main results"], ["button[data-vista=\"serie\"]", "The papers by series"], ["button[data-vista=\"msc\"]", "The papers by MSC 2020 code"], ["a.pname, .ficha a[target=\"panel\"]:not(.tesela)", "Open this paper here"], ["a.prim", "Open the blueprint of this paper"], ["a.msc-c", "This MSC code on zbMATH Open"], ["span.expand", "Open or close this branch"], ["#opts a[target=\"_blank\"]", "The published record of this paper"], [".ficha .enl a[target=\"_blank\"]", "The published record of this paper"], ["nav.toc a[target=\"panel\"]", "Open it here"], [".lm-help", "How to use this page"], ["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body></html>
