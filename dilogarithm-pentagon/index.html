@@ -14,7 +14,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>The Pentagon, Machine-Checked: Abel’s five-term relation for the dilogarithm in Lean 4: blueprint</title>
-<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/theme-white.css" rel="stylesheet"/>
 <link href="styles/amsthm.css" rel="stylesheet"/>
 <link href="styles/blueprint.css" rel="stylesheet"/>
 <link href="styles/extra_styles.css" rel="stylesheet"/>
@@ -74,175 +74,27 @@ a.pdfp:hover{background:#f0e1f6}
 p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
 p.usado a{color:#1a4f8b}
 p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
-</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
-header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
-  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
-header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
-  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
-  text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
-header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
-header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
-  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
-header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
-  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
-header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
-header h1#doc_title{flex:1}
-ul.chapter-list{font-size:1.05em;line-height:1.7}
-/* master-detail: the header and the sidebar stay; the right panel shows one part at a time */
-section.pc-pane[hidden]{display:none !important}
-.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
-.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
-nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
-/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
-#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
-  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
-body.vista-explore #explore-banner{display:block}
-body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
-  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
-body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
-body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
-  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
-
-#top.overview{margin:0 0 2.2em}
-#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
-#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
-#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
-#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
-#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
-#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
-#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
-#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
-#top.overview .c-paper{background:#fff;border:1px solid #888}
-#top.overview .nota{font-size:.85em;color:#555}
-#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
-  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
-#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
-#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
-</style><script id="pc-embed">
-(function(){
-  if (window.self === window.top) return;
-  document.documentElement.classList.add('pc-embed');
-  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
-  window.addEventListener('hashchange', tell);
-  window.addEventListener('load', tell);
-  window.addEventListener('message', function(e){
-    var d = e.data || {};
-    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
-  });
-})();
-</script>
-<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
-html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
-html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
-<style id="lm-guide-css">
-.lm-tour-on{position:relative;z-index:10001 !important;outline:3px solid #ef6c00;outline-offset:3px;border-radius:4px;
-            box-shadow:0 0 0 9999px rgba(20,30,40,.45) !important;background:#fff}
-#lm-tour{position:fixed;z-index:10002;max-width:340px;background:#fff;border-radius:10px;padding:.8em 1em;
-         box-shadow:0 6px 24px rgba(0,0,0,.25);font:14px Arial,sans-serif;color:#222}
-#lm-tour h4{margin:0 0 .35em;font-size:15px}
-#lm-tour .lm-tour-nav{display:flex;gap:.4em;justify-content:flex-end;margin-top:.7em;align-items:center}
-#lm-tour button{cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;padding:.15em .8em}
-#lm-tour button.lm-next{background:#ef6c00;color:#fff}
-#lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
-a.lm-tourbtn{cursor:pointer}
-</style>
-<style id="lm-print-css" media="print">
-html,body{height:auto !important;overflow:visible !important;background:#fff !important}
-body{display:block !important}
-.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
-  position:static !important;max-height:none !important}
-section.pc-pane,section.pc-pane[hidden]{display:block !important}
-nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
-button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
-  display:none !important}
-a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
-.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
-div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
-.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
-.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
-header.pc-head,header{position:static !important}
-details>summary{list-style:none}
-details>summary::-webkit-details-marker{display:none}
-img{display:inline !important;max-width:100%;break-inside:avoid}
-[class$="_thmwrapper"]{break-inside:avoid-page}
-a{text-decoration:none}
-@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
-</head>
+</style></head>
 <body>
-<header>
-<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
-<h1 id="doc_title"><a href="index.html" title="The Pentagon, Machine-Checked: Abel's five-term relation for the dilogarithm in Lean 4: blueprint">Blueprint</a></h1>
-<nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20682716" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20682716</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="dilogarithm-pentagon-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
-</header>
 <div class="wrapper">
-<nav class="toc">
-<ul class="sub-toc-0">
-<li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
-<li class=""><a href="#a0000000004"><span class="toc_ref">2</span> <span class="toc_entry">Q2: can the generator be reached by the same three-move recipe?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:five" title="Dilog.rogersL_fiveterm"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
-<li class=""><a href="#a0000000007"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
-<li><a href="dep_graph_document.html">Dependency graph</a></li>
-</ul>
-</nav>
-<div class="content">
+<div class="content"><div id="vistas"><span>View:</span>
+<button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button>
+<button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button>
+<a class="mapabtn" href="mapa.html" title="The whole paper at a glance">🗺️ Map of the paper</a><a class="pdfbtn" href="pdf.html" title="The paper itself, as a PDF">📕 PDF</a></div>
 <div class="content-wrapper">
 <div class="main-text">
-<div id="explore-banner">🔍 <b>Explore view</b>: explanations, figures, other mathematical languages and labs are shown, marked <i>commentary</i>; they are not part of the paper. Switch to <b>Paper</b> for the statements, proofs and evidence only.</div><div class="pc-paneltitle"><div class="titlepage">
-<h1>The Pentagon, Machine-Checked: Abel’s five-term relation for the dilogarithm in Lean 4</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">Special functions · the dilogarithm</span></div>
+<div class="titlepage">
+<h1>The Pentagon, Machine-Checked: Abel’s five-term relation for the dilogarithm in Lean 4: blueprint</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">Special functions · the dilogarithm</span></div>
 <p class="authors">
 <span class="author">Carles Marín</span>
 </p>
-</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2>
-<p>A machine-checked proof of the identity that generates the weight-2 theory of the dilogarithm, on the dilogarithm
-built in Lean by the companion paper.</p>
-<ul>
-<li><b>Abel’s five-term relation</b> (Theorem 1), sorry-free in Lean 4: for x, y in (0,1),
-L(x) + L(y) = L(xy) + L(x(1−y)/(1−xy)) + L(y(1−x)/(1−xy)), with L the Rogers L-function.</li>
-<li><b>The classical route, made formal</b>: the five-term difference has zero derivative in x (nine logarithms
-collapse into a basis of five), so it is constant; its value is read off as x → 0⁺, where log t · log(1−t) → 0 by a
-squeeze.</li>
-<li><b>Three reusable blocks</b>: the derivative of L on (0,1), L(t) → 0 as t → 0⁺, continuity of L on (0,1).</li>
-<li>The mathematics is classical (Spence, Abel, Rogers); the paper claims the formalization, after a documented
-search of proof-assistant libraries.</li>
-</ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:five"><b>Theorem 1</b></a>: Abel’s five-term relation for the Rogers L-function on (0,1)².</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:five"><b>Theorem 1</b></a>: Abel’s five-term relation for the Rogers L-function on (0,1)²</li></ul><div class="cifras">
-<span class="cifra"><b>1</b> results</span>
-<span class="cifra c-lean">✅ <b>1</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
-<span class="cifra c-prog">💻 <b>0</b> checked by a program</span>
-<span class="cifra c-paper">written proof only</span>
-<span class="nota">(a result can carry several tags)</span>
-</div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
-on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
-how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 332.00 128.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 123.58)">
-<g class="cluster" id="clust1">
-<title>cluster_0</title>
-<path d="M12,0C12,0 312,0 312,0 318,0 324,-6 324,-12 324,-12 324,-107.58 324,-107.58 324,-113.58 318,-119.58 312,-119.58 312,-119.58 12,-119.58 12,-119.58 6,-119.58 0,-113.58 0,-107.58 0,-107.58 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="162" xml:space="preserve" y="-104.17">Q2: can the generator be reached by the same three-move recipe?</text>
-</g>
-<!-- thm:five -->
-<g class="node" id="node1">
-<title>thm:five</title>
-<g id="a_node1"><a target="_top" xlink:href="index.html#thm:five" xlink:title="Theorem 1: Abel’s five-term relation for the Rogers L-function on (0,1)²">
-<path d="M221.18,-89.33C221.18,-89.33 102.82,-89.33 102.82,-89.33 96.82,-89.33 90.82,-83.33 90.82,-77.33 90.82,-77.33 90.82,-20 90.82,-20 90.82,-14 96.82,-8 102.82,-8 102.82,-8 221.18,-8 221.18,-8 227.18,-8 233.18,-14 233.18,-20 233.18,-20 233.18,-77.33 233.18,-77.33 233.18,-83.33 227.18,-89.33 221.18,-89.33" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="162" xml:space="preserve" y="-72.89">Theorem 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="162" xml:space="preserve" y="-58.64">Abel’s five-term relation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="162" xml:space="preserve" y="-44.39">for the Rogers L-function</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="162" xml:space="preserve" y="-30.14">on (0,1)²</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="162" xml:space="preserve" y="-15.89">✅ Lean</text>
-</a>
-</g>
-</g>
-</g>
-</svg>
-</div></details></section>
-<details class="blk b-set"><summary>📐 Setting (copied from the paper, §1)</summary>
+</div><details class="blk b-set"><summary>📐 Setting (copied from the paper, §1)</summary>
 <p> The cleanest statement uses the <em>Rogers \(\operatorname{L}\)-function</em> \(\operatorname{L}(x):=\mathrm{Li}_2(x)+\tfrac 12\log x\log (1-x)\), which absorbs the stray logarithms of the raw \(\mathrm{Li}_2\) form and turns the relation into a pure sum of five \(\operatorname{L}\) values. <em>(§2)</em> Fix \(y\in (0,1)\) and set </p>
 <div class="displaymath" id="a0000000003">
   \[  G(t)=\operatorname{L}(t)-\operatorname{L}(ty)-\operatorname{L}\! \Big(\tfrac {t(1-y)}{1-ty}\Big) -\operatorname{L}\! \Big(\tfrac {y(1-t)}{1-ty}\Big).  \]
 </div>
 <p> The theorem is \(G(x)=-\operatorname{L}(y)\). </p>
-</details></section><section class="pc-pane"><h1 id="a0000000004">2 Q2: can the generator be reached by the same three-move recipe?</h1>
+</details><h1 id="a0000000004">2 Q2: can the generator be reached by the same three-move recipe?</h1>
 <div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:five">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -277,14 +129,14 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 </div>
 </div>
-<a class="pdfp" href="pdf.html#page=3&amp;n=thm:five" title="Open the paper at page 3">📕 p. 3</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:five" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Pentagon, Machine-Checked: Abel's five-term relation for the dilogarithm in Lean 4”, Theorem 1, v1, doi:10.5281/zenodo.20682716, https://karlesmarin.github.io/blueprints/dilogarithm-pentagon/index.html#thm:five." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Pentagon%2C%20Machine-Checked%3A%20Abel%27s%20five-term%20relation%20for%20the%20dilogarithm%20in%20Lean%204%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Pentagon%2C%20Machine-Checked%3A%20Abel%27s%20five-term%20relation%20for%20the%20dilogarithm%20in%20Lean%204%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20682716%2C%20https%3A//karlesmarin.github.io/blueprints/dilogarithm-pentagon/index.html%23thm%3Afive.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<a class="pdfp" href="pdf.html#page=3&amp;n=thm:five" title="Open the paper at page 3">📕 p. 3</a><span class="lm-act"><a class="lm-cite" data-cite="Carles Marín, “The Pentagon, Machine-Checked: Abel's five-term relation for the dilogarithm in Lean 4”, Theorem 1, v1, doi:10.5281/zenodo.20682716, https://karlesmarin.github.io/blueprints/dilogarithm-pentagon/index.html#thm:five." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Pentagon%2C%20Machine-Checked%3A%20Abel%27s%20five-term%20relation%20for%20the%20dilogarithm%20in%20Lean%204%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Pentagon%2C%20Machine-Checked%3A%20Abel%27s%20five-term%20relation%20for%20the%20dilogarithm%20in%20Lean%204%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20682716%2C%20https%3A//karlesmarin.github.io/blueprints/dilogarithm-pentagon/index.html%23thm%3Afive.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="theorem_thmcontent">
 <p>   For all \(x,y\in (0,1)\), </p>
 <div class="displaymath" id="a0000000006">
   \[  \operatorname{L}(x)+\operatorname{L}(y)=\operatorname{L}(xy)+\operatorname{L}\! \Big(\tfrac {x(1-y)}{1-xy}\Big) +\operatorname{L}\! \Big(\tfrac {y(1-x)}{1-xy}\Big).  \]
 </div>
 </div>
-</div><p class="lean-check">✅ Checked when this page was built: FiveTerm.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — rogersL_fiveterm, fiveterm_hasDerivAt_zero, hasDerivAt_rogersL, tendsto_rogersL_nhdsGT_zero, continuousAt_rogersL: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean FiveTerm.lean</code> (SHA-256 of the compiled file: <code>ce29fa490a366ddb…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical (Spence, Abel, Rogers); the paper claims the formalization: «to the best of my knowledge the first machine-checked five-term relation, on the first machine-checked dilogarithm, in any proof assistant» (§6), from a documented search of June 2026.</p><p class="usado">↳ Not used by another result of the paper.</p>
+</div><p class="novedad">🆕 <b>Classical and new:</b> classical (Spence, Abel, Rogers); the paper claims the formalization: «to the best of my knowledge the first machine-checked five-term relation, on the first machine-checked dilogarithm, in any proof assistant» (§6), from a documented search of June 2026.</p><p class="usado">↳ Not used by another result of the paper.</p>
 <div class="proof_wrapper" id="a0000000005">
 <div class="proof_heading">
 <span class="proof_caption">
@@ -296,7 +148,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>Formalized in Lean (see the linked declarations). </p>
 </div>
 </div>
-</section><section class="pc-pane"><h1 id="a0000000007">References</h1>
+<h1 id="a0000000007">References</h1>
 <dl class="bibliography">
 <dt><a name="abel">1</a></dt>
 <dd><p>N. H. Abel, <em>Œuvres complètes</em> (L. Sylow, S. Lie, eds.), vol. II, Grøndahl, Christiania, 1881; the five-term relation is in the note on the dilogarithm.  <a class="bib-search" href="https://scholar.google.com/scholar?q=%C5%92uvres+compl%C3%A8tes" rel="noopener" target="_blank">🔎 find it</a></p>
@@ -350,17 +202,16 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <dd><p>The mathlib Community, The Lean mathematical library, in <em>CPP 2020</em>, ACM, 2020, 367–381.  <a class="bib-search" href="https://scholar.google.com/scholar?q=CPP+2020" rel="noopener" target="_blank">🔎 find it</a></p>
 </dd>
 </dl>
-</section>
-</div>
-</div>
-</div>
-</div>
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
 <nav class="prev_up_next">
-<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
-<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
-<a href="index.html" title="The Pentagon, Machine-Checked: Abel's five-term relation for the dilogarithm in Lean 4: blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
 </nav>
-<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/plastex.js" type="text/javascript"></script>
+<script src="js/svgxuse.js" type="text/javascript"></script>
+<script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
 // blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
 // event, so that page-specific scripts (labs) can react.
 (function(){
@@ -398,215 +249,6 @@ document.addEventListener('click', function (e) {
   }
   head.insertAdjacentElement('afterend', box);
 });
-</script><script>
-(function(){
-  var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
-  function apply(v){
-    var ex = v === 'explore';
-    document.body.classList.toggle('vista-explore', ex);
-    document.querySelectorAll(SEL).forEach(function(d){ d.open = ex; });
-  }
-  document.addEventListener('vista', function(e){ apply(e.detail); });
-  apply(document.body.classList.contains('vista-paper') ? 'paper' : 'explore');
-})();
-</script>
-<script src="js/js.cookie.min.js" type="text/javascript"></script>
-<script src="js/showmore.js" type="text/javascript"></script>
-<script>
-(function(){
-  var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
-  if (!panes.length) return;
-  var box = document.querySelector('div.content');
-  function find(h){
-    if (!h) return null;
-    try { h = decodeURIComponent(h); } catch (e) {}
-    return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
-  }
-  function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
-  function show(h){
-    var t = find(h), p = paneOf(t) || panes[0];
-    panes.forEach(function(x){ x.hidden = x !== p; });
-    document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
-      var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
-      var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
-      li.classList.toggle('current', on);
-      var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
-      if (ul) ul.classList.toggle('active', on);
-      if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
-    });
-    if (!t || t === p || t.tagName === 'H1' || t.id === 'top') { if (box) box.scrollTop = 0; }
-    else t.scrollIntoView({block: 'start'});
-  }
-  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
-  document.addEventListener('click', function(ev){  // a link to the hash already in the URL fires no hashchange
-    var a = ev.target.closest && ev.target.closest('a[href]');
-    if (!a) return;
-    var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
-    if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); show(m[1]); }
-  });
-  show(location.hash.slice(1));
-  // the browser's own jump to the hash, and MathJax, move the page after the first show(): place it again
-  window.addEventListener('load', function(){ show(location.hash.slice(1)); });
-  if (window.MathJax && MathJax.startup && MathJax.startup.promise)
-    MathJax.startup.promise.then(function(){ show(location.hash.slice(1)); });
-})();
-</script>
-<script defer="" src="js/mapzoom.js"></script>
-<script id="lm-guide">
-(function(){
-  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lean", "sel": "[class$=\"_thmheading\"]:has(button.modal.lean)", "title": "Checked by a computer", "text": "Point at a statement like this one: L∃∀N shows the parts checked by the Lean proof assistant, with the code.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
-  function visible(e){ return e && e.offsetParent !== null; }
-  function find(sel){
-    var all = [].slice.call(document.querySelectorAll(sel));
-    return all.filter(visible)[0] || all[0] || null;
-  }
-  // the statement a piece belongs to: the piece's own ancestors, or the nearest statement before it (a lab or a
-  // figure block follows its statement, it is not inside it)
-  function holderOf(el){
-    for (var e = el; e && e !== document.body; e = e.parentElement) {
-      if (e.id && e.id.indexOf(':') > 0) return e.id;
-      for (var p = e.previousElementSibling; p; p = p.previousElementSibling) {
-        if (p.id && p.id.indexOf(':') > 0) return p.id;
-        var q = p.querySelectorAll('[id*=":"]');
-        if (q.length) return q[q.length - 1].id;
-      }
-    }
-    return null;
-  }
-  function clear(){ if (on) on.classList.remove('lm-tour-on'); on = null; }
-  function close(){ clear(); if (box) box.remove(); box = null; }
-  function place(el){
-    var w = Math.min(340, innerWidth - 24), x = 12, y = innerHeight / 2 - 80;
-    if (el) {
-      var r = el.getBoundingClientRect();
-      if (r.height > innerHeight * 0.55) {  // a tall piece (a live figure): the note goes to a corner, not over it
-        x = innerWidth - w - 12; y = innerHeight - 190;
-      } else {
-        x = Math.max(12, Math.min(r.left, innerWidth - w - 12));
-        y = r.bottom + 14 + 170 < innerHeight ? r.bottom + 14 : Math.max(12, r.top - 190);
-      }
-    }
-    box.style.left = x + 'px'; box.style.top = y + 'px'; box.style.width = w + 'px';
-  }
-  function show(k){
-    i = Math.max(0, Math.min(STEPS.length - 1, k));
-    var s = STEPS[i];
-    clear();
-    if (s.explore) { var b = document.querySelector('button[data-v="explore"]'); if (b) b.click(); }
-    var el = s.sel ? find(s.sel) : null;
-    if (el && !visible(el)) {  // in a part of the page that is closed: open the statement it belongs to
-      var holder = holderOf(el);
-      if (holder && decodeURIComponent(location.hash.slice(1)) !== holder) {
-        location.hash = holder; setTimeout(function(){ show(i); }, 450); return;
-      }
-      for (var d = el.parentElement; d; d = d.parentElement) if (d.tagName === 'DETAILS') d.open = true;
-    }
-    if (!box) { box = document.createElement('div'); box.id = 'lm-tour'; document.body.appendChild(box); }
-    box.innerHTML = '<h4></h4><div class="lm-tour-t"></div><div class="lm-tour-nav"><span class="lm-tour-n"></span>' +
-      '<button type="button" class="lm-close">Close</button><button type="button" class="lm-back">Back</button>' +
-      '<button type="button" class="lm-next">Next</button></div>';
-    box.querySelector('h4').textContent = s.title;
-    box.querySelector('.lm-tour-t').textContent = s.text;
-    box.querySelector('.lm-tour-n').textContent = (i + 1) + ' / ' + STEPS.length;
-    box.querySelector('.lm-back').disabled = i === 0;
-    box.querySelector('.lm-next').textContent = i === STEPS.length - 1 ? 'Done' : 'Next';
-    box.querySelector('.lm-close').onclick = close;
-    box.querySelector('.lm-back').onclick = function(){ show(i - 1); };
-    box.querySelector('.lm-next').onclick = function(){ if (i === STEPS.length - 1) close(); else show(i + 1); };
-    if (el) {
-      on = el; el.classList.add('lm-tour-on');
-      el.scrollIntoView({block: el.getBoundingClientRect().height > innerHeight * 0.55 ? 'start' : 'center'});
-    }
-    setTimeout(function(){ place(el); }, 60);
-  }
-  document.addEventListener('keydown', function(e){
-    if (!box) return;
-    if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') show(i + 1); else if (e.key === 'ArrowLeft') show(i - 1);
-  });
-  document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a.lm-tourbtn');
-    if (a) { e.preventDefault(); show(0); }
-  });
-  var start = new URLSearchParams(location.search).get('tour');
-  if (start !== null) {
-    var go = function(){ setTimeout(function(){ show(parseInt(start, 10) || 0); }, 500); };
-    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
-  }
-})();
-</script>
-<script id="lm-tooltips">
-(function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:five": "Theorem 1 — \\paperlean{Dilog.rogersL\\_fiveterm}"};
-  function label(a){
-    var h = a.getAttribute('href') || '';
-    var k = h.indexOf('#'); if (k < 0) return null;
-    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
-    if (NAMES[id]) return NAMES[id];
-    if (h.charAt(0) !== '#') return null;
-    var t = document.getElementById(id);  // a citation: its entry in the bibliography
-    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
-      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
-      return s.length > 180 ? s.slice(0, 177) + '…' : s;
-    }
-    return null;
-  }
-  function apply(){
-    RULES.forEach(function (r) {
-      if (!r[1]) return;
-      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
-    });
-    document.querySelectorAll('summary').forEach(function (e) {
-      if (e.getAttribute('title')) return;
-      var t = e.textContent.trim();
-      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
-    });
-    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
-      if (a.getAttribute('title') || a.closest('svg')) return;
-      var t = label(a); if (t) a.setAttribute('title', t);
-    });
-  }
-  function start(){
-    apply();
-    var due = null;
-    new MutationObserver(function () {
-      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-print-js">
-(function(){
-  var opened = [], shown = [];
-  addEventListener('beforeprint', function(){
-    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
-    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
-      i.style.display = ''; shown.push(i); });
-  });
-  addEventListener('afterprint', function(){
-    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
-    opened = []; shown = [];
-  });
-})();
 </script>
 </body>
 </html>
