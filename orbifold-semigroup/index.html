@@ -38,7 +38,21 @@ details.blk[open]>summary:before{content:"▾ "}
 #vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
 #vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
         text-decoration:none;font-weight:600;white-space:nowrap}
-body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
 body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 .lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
 .lean-check .repro{color:#456}.lean-check code{font-size:.95em}
@@ -74,6 +88,22 @@ a.pdfp:hover{background:#f0e1f6}
 p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
 p.usado a{color:#1a4f8b}
 p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
 </style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
 header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
   font:13px Helvetica,Arial,sans-serif;text-shadow:none}
@@ -168,9 +198,32 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
 </head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cogs" viewBox="0 0 32 32">
+<title>cogs</title>
+<path class="path1" d="M11.366 22.564l1.291-1.807-1.414-1.414-1.807 1.291c-0.335-0.187-0.694-0.337-1.071-0.444l-0.365-2.19h-2l-0.365 2.19c-0.377 0.107-0.736 0.256-1.071 0.444l-1.807-1.291-1.414 1.414 1.291 1.807c-0.187 0.335-0.337 0.694-0.443 1.071l-2.19 0.365v2l2.19 0.365c0.107 0.377 0.256 0.736 0.444 1.071l-1.291 1.807 1.414 1.414 1.807-1.291c0.335 0.187 0.694 0.337 1.071 0.444l0.365 2.19h2l0.365-2.19c0.377-0.107 0.736-0.256 1.071-0.444l1.807 1.291 1.414-1.414-1.291-1.807c0.187-0.335 0.337-0.694 0.444-1.071l2.19-0.365v-2l-2.19-0.365c-0.107-0.377-0.256-0.736-0.444-1.071zM7 27c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM32 12v-2l-2.106-0.383c-0.039-0.251-0.088-0.499-0.148-0.743l1.799-1.159-0.765-1.848-2.092 0.452c-0.132-0.216-0.273-0.426-0.422-0.629l1.219-1.761-1.414-1.414-1.761 1.219c-0.203-0.149-0.413-0.29-0.629-0.422l0.452-2.092-1.848-0.765-1.159 1.799c-0.244-0.059-0.492-0.109-0.743-0.148l-0.383-2.106h-2l-0.383 2.106c-0.251 0.039-0.499 0.088-0.743 0.148l-1.159-1.799-1.848 0.765 0.452 2.092c-0.216 0.132-0.426 0.273-0.629 0.422l-1.761-1.219-1.414 1.414 1.219 1.761c-0.149 0.203-0.29 0.413-0.422 0.629l-2.092-0.452-0.765 1.848 1.799 1.159c-0.059 0.244-0.109 0.492-0.148 0.743l-2.106 0.383v2l2.106 0.383c0.039 0.251 0.088 0.499 0.148 0.743l-1.799 1.159 0.765 1.848 2.092-0.452c0.132 0.216 0.273 0.426 0.422 0.629l-1.219 1.761 1.414 1.414 1.761-1.219c0.203 0.149 0.413 0.29 0.629 0.422l-0.452 2.092 1.848 0.765 1.159-1.799c0.244 0.059 0.492 0.109 0.743 0.148l0.383 2.106h2l0.383-2.106c0.251-0.039 0.499-0.088 0.743-0.148l1.159 1.799 1.848-0.765-0.452-2.092c0.216-0.132 0.426-0.273 0.629-0.422l1.761 1.219 1.414-1.414-1.219-1.761c0.149-0.203 0.29-0.413 0.422-0.629l2.092 0.452 0.765-1.848-1.799-1.159c0.059-0.244 0.109-0.492 0.148-0.743l2.106-0.383zM21 15.35c-2.402 0-4.35-1.948-4.35-4.35s1.948-4.35 4.35-4.35 4.35 1.948 4.35 4.35c0 2.402-1.948 4.35-4.35 4.35z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
 <header>
-<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
 <h1 id="doc_title"><a href="index.html" title="An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B): blueprint">Blueprint</a></h1>
 <nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22254864" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22254864</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="orbifold-semigroup-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
@@ -178,15 +231,15 @@ a{text-decoration:none}
 <nav class="toc">
 <ul class="sub-toc-0">
 <li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
-<li class=""><a href="#a0000000003"><span class="toc_ref">5</span> <span class="toc_entry">The tripod, decided</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:tripod"><span class="toc_ref"></span> <span class="toc_entry">Proposition 1</span></a></li></ul></li>
-<li class=""><a href="#a0000000008"><span class="toc_ref">8</span> <span class="toc_entry">Every \(k\ge 3\), in one line</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:cor34" title="[ 8 , 
+<li class=""><a href="#a0000000004"><span class="toc_ref">1</span> <span class="toc_entry">The semigroup</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#def:S"><span class="toc_ref"></span> <span class="toc_entry">Definition 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000005"><span class="toc_ref">5</span> <span class="toc_entry">The tripod, decided</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:tripod"><span class="toc_ref"></span> <span class="toc_entry">Proposition 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000009"><span class="toc_ref">8</span> <span class="toc_entry">Every \(k\ge 3\), in one line</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:cor34" title="[ 8 , 
 	Cor.
 	
 	3.4
 	]"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li><li class=""><a href="#prop:allk"><span class="toc_ref"></span> <span class="toc_entry">Proposition 2</span></a></li></ul></li>
-<li class=""><a href="#a0000000012"><span class="toc_ref">9</span> <span class="toc_entry">The exception, exhaustively</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:notci"><span class="toc_ref"></span> <span class="toc_entry">Proposition 3</span></a></li><li class=""><a href="#prop:eight"><span class="toc_ref"></span> <span class="toc_entry">Proposition 4</span></a></li><li class=""><a href="#prop:type"><span class="toc_ref"></span> <span class="toc_entry">Proposition 5</span></a></li></ul></li>
-<li class=""><a href="#a0000000019"><span class="toc_ref"></span> <span class="toc_entry">Tables cited</span></a></li>
-<li class=""><a href="#a0000000020"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li class=""><a href="#a0000000014"><span class="toc_ref">9</span> <span class="toc_entry">The exception, exhaustively</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:notci"><span class="toc_ref"></span> <span class="toc_entry">Proposition 3</span></a></li><li class=""><a href="#prop:eight"><span class="toc_ref"></span> <span class="toc_entry">Proposition 4</span></a></li><li class=""><a href="#prop:type"><span class="toc_ref"></span> <span class="toc_entry">Proposition 5</span></a></li></ul></li>
+<li class=""><a href="#a0000000021"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
 <li><a href="dep_graph_document.html">Dependency graph</a></li>
 </ul>
 </nav>
@@ -218,128 +271,145 @@ in two orbits under an automorphism group of order 128 (Proposition 4); Cohen–
 <li><b>Inherited</b>, and said so in the Ledger: the gluing criterion and the extreme-ray bound, the cut-ring
 invariants of W<sub>4</sub> (normality, degree 64, codimension 7), the group-based codimensions.</li>
 </ul></div><p>🚀 <b>Start here:</b> <a href="index.html#prop:tripod"><b>Proposition 1</b></a>: the group-based tripod is a complete intersection exactly when |G| ≤ 3.</p><p><b>Main results:</b></p><ul><li><a href="index.html#prop:tripod"><b>Proposition 1</b></a>: the group-based tripod is a complete intersection exactly when |G| ≤ 3</li><li><a href="index.html#prop:allk"><b>Proposition 2</b></a>: (S¹/Z₂)ᵏ is not a complete intersection for any k ≥ 3</li><li><a href="index.html#prop:eight"><b>Proposition 4</b></a>: unique minimal Markov basis: 8 quadrics + 8 quartics, all indispensable, two orbits under a group of order 128</li><li><a href="index.html#prop:type"><b>Proposition 5</b></a>: Cohen–Macaulay type 9: canonical module generated in degrees 4 (one) and 6 (eight)</li></ul><div class="cifras">
-<span class="cifra"><b>6</b> results</span>
-<span class="cifra c-lean">✅ <b>0</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra"><b>7</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>5</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 668.00 391.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 386.74)">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 926.00 391.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 387.49)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M67,0C67,0 197,0 197,0 203,0 209,-6 209,-12 209,-12 209,-107.58 209,-107.58 209,-113.58 203,-119.58 197,-119.58 197,-119.58 67,-119.58 67,-119.58 61,-119.58 55,-113.58 55,-107.58 55,-107.58 55,-12 55,-12 55,-6 61,0 67,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-104.17">The tripod, decided</text>
+<path d="M12,-259.78C12,-259.78 126,-259.78 126,-259.78 132,-259.78 138,-265.78 138,-271.78 138,-271.78 138,-347.11 138,-347.11 138,-353.11 132,-359.11 126,-359.11 126,-359.11 12,-359.11 12,-359.11 6,-359.11 0,-353.11 0,-347.11 0,-347.11 0,-271.78 0,-271.78 0,-265.78 6,-259.78 12,-259.78" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="69" xml:space="preserve" y="-343.72">The semigroup</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M12,-127.58C12,-127.58 144,-127.58 144,-127.58 150,-127.58 156,-133.58 156,-139.58 156,-139.58 156,-359.11 156,-359.11 156,-365.11 150,-371.11 144,-371.11 144,-371.11 12,-371.11 12,-371.11 6,-371.11 0,-365.11 0,-359.11 0,-359.11 0,-139.58 0,-139.58 0,-133.58 6,-127.58 12,-127.58" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-355.72">Every k≥3, in one line</text>
+<path d="M297,0C297,0 427,0 427,0 433,0 439,-6 439,-12 439,-12 439,-107.58 439,-107.58 439,-113.58 433,-119.58 427,-119.58 427,-119.58 297,-119.58 297,-119.58 291,-119.58 285,-113.58 285,-107.58 285,-107.58 285,-12 285,-12 285,-6 291,0 297,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-104.17">The tripod, decided</text>
 </g>
 <g class="cluster" id="clust3">
 <title>cluster_2</title>
-<path d="M176,-234.66C176,-234.66 648,-234.66 648,-234.66 654,-234.66 660,-240.66 660,-246.66 660,-246.66 660,-370.74 660,-370.74 660,-376.74 654,-382.74 648,-382.74 648,-382.74 176,-382.74 176,-382.74 170,-382.74 164,-376.74 164,-370.74 164,-370.74 164,-246.66 164,-246.66 164,-240.66 170,-234.66 176,-234.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-367.34">The exception, exhaustively</text>
+<path d="M158,-127.58C158,-127.58 402,-127.58 402,-127.58 408,-127.58 414,-133.58 414,-139.58 414,-139.58 414,-359.86 414,-359.86 414,-365.86 408,-371.86 402,-371.86 402,-371.86 158,-371.86 158,-371.86 152,-371.86 146,-365.86 146,-359.86 146,-359.86 146,-139.58 146,-139.58 146,-133.58 152,-127.58 158,-127.58" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-356.47">Every k≥3, in one line</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M434,-235.41C434,-235.41 906,-235.41 906,-235.41 912,-235.41 918,-241.41 918,-247.41 918,-247.41 918,-371.49 918,-371.49 918,-377.49 912,-383.49 906,-383.49 906,-383.49 434,-383.49 434,-383.49 428,-383.49 422,-377.49 422,-371.49 422,-371.49 422,-247.41 422,-247.41 422,-241.41 428,-235.41 434,-235.41" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="670" xml:space="preserve" y="-368.09">The exception, exhaustively</text>
+</g>
+<!-- def:S -->
+<g class="node" id="node1">
+<title>def:S</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#def:S" xlink:title="Definition 1: the affine semigroup generated by the labels, graded by weight">
+<path d="M117.68,-328.86C117.68,-328.86 20.33,-328.86 20.33,-328.86 14.33,-328.86 8.33,-322.86 8.33,-316.86 8.33,-316.86 8.33,-279.78 8.33,-279.78 8.33,-273.78 14.33,-267.78 20.33,-267.78 20.33,-267.78 117.68,-267.78 117.68,-267.78 123.68,-267.78 129.68,-273.78 129.68,-279.78 129.68,-279.78 129.68,-316.86 129.68,-316.86 129.68,-322.86 123.68,-328.86 117.68,-328.86" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-313.84">Definition 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-301.09">the affine semigroup</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-288.34">generated by the labels,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-275.59">graded by weight</text>
+</a>
+</g>
 </g>
 <!-- prop:tripod -->
-<g class="node" id="node1">
+<g class="node" id="node2">
 <title>prop:tripod</title>
-<g id="a_node1"><a target="_top" xlink:href="index.html#prop:tripod" xlink:title="Proposition 1: the group-based tripod is a complete intersection exactly when |G| ≤ 3">
-<path d="M189.3,-89.33C189.3,-89.33 74.7,-89.33 74.7,-89.33 68.7,-89.33 62.7,-83.33 62.7,-77.33 62.7,-77.33 62.7,-20 62.7,-20 62.7,-14 68.7,-8 74.7,-8 74.7,-8 189.3,-8 189.3,-8 195.3,-8 201.3,-14 201.3,-20 201.3,-20 201.3,-77.33 201.3,-77.33 201.3,-83.33 195.3,-89.33 189.3,-89.33" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-72.89">Proposition 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-58.64">the group-based tripod is</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-44.39">a complete intersection</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-30.14">exactly when |G| ≤ 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-15.89">💻 program</text>
+<g id="a_node2"><a target="_top" xlink:href="index.html#prop:tripod" xlink:title="Proposition 1: the group-based tripod is a complete intersection exactly when |G| ≤ 3">
+<path d="M419.3,-89.33C419.3,-89.33 304.7,-89.33 304.7,-89.33 298.7,-89.33 292.7,-83.33 292.7,-77.33 292.7,-77.33 292.7,-20 292.7,-20 292.7,-14 298.7,-8 304.7,-8 304.7,-8 419.3,-8 419.3,-8 425.3,-8 431.3,-14 431.3,-20 431.3,-20 431.3,-77.33 431.3,-77.33 431.3,-83.33 425.3,-89.33 419.3,-89.33" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-72.89">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-58.64">the group-based tripod is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-44.39">a complete intersection</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-30.14">exactly when |G| ≤ 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-15.89">💻 program</text>
 </a>
 </g>
 </g>
 <!-- thm:cor34 -->
-<g class="node" id="node2">
+<g class="node" id="node3">
 <title>thm:cor34</title>
-<g id="a_node2"><a target="_top" xlink:href="index.html#thm:cor34" xlink:title="Theorem 1: a complete-intersection affine semigroup of dimension d ≥ 2 has a cone with at most 2d − 2 extreme rays">
-<path d="M134.55,-340.86C134.55,-340.86 21.45,-340.86 21.45,-340.86 15.45,-340.86 9.45,-334.86 9.45,-328.86 9.45,-328.86 9.45,-266.28 9.45,-266.28 9.45,-260.28 15.45,-254.28 21.45,-254.28 21.45,-254.28 134.55,-254.28 134.55,-254.28 140.55,-254.28 146.55,-260.28 146.55,-266.28 146.55,-266.28 146.55,-328.86 146.55,-328.86 146.55,-334.86 140.55,-340.86 134.55,-340.86" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-325.84">Theorem 1</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-313.09">a complete-intersection</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-300.34">affine semigroup of</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-287.59">dimension d ≥ 2 has a cone</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-274.84">with at most 2d − 2</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-262.09">extreme rays</text>
+<g id="a_node3"><a target="_top" xlink:href="index.html#thm:cor34" xlink:title="Theorem 1: a complete-intersection affine semigroup of dimension d ≥ 2 has a cone with at most 2d − 2 extreme rays">
+<path d="M364.55,-341.61C364.55,-341.61 251.45,-341.61 251.45,-341.61 245.45,-341.61 239.45,-335.61 239.45,-329.61 239.45,-329.61 239.45,-267.03 239.45,-267.03 239.45,-261.03 245.45,-255.03 251.45,-255.03 251.45,-255.03 364.55,-255.03 364.55,-255.03 370.55,-255.03 376.55,-261.03 376.55,-267.03 376.55,-267.03 376.55,-329.61 376.55,-329.61 376.55,-335.61 370.55,-341.61 364.55,-341.61" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-326.59">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-313.84">a complete-intersection</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-301.09">affine semigroup of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-288.34">dimension d ≥ 2 has a cone</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-275.59">with at most 2d − 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-262.84">extreme rays</text>
 </a>
 </g>
 </g>
 <!-- thm:cor34&#45;&gt;prop:tripod -->
 <g class="edge" id="edge2">
 <title>thm:cor34-&gt;prop:tripod</title>
-<path d="M127.38,-253.86C140.92,-239.16 153.84,-221.59 161,-202.66 173.79,-168.86 165.32,-128.65 154.3,-97.93" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="156.74,-97.45 151.99,-91.75 152.15,-99.17 156.74,-97.45" stroke="#9aa8b5"></polygon>
+<path d="M376.88,-254.87C393.8,-240.76 409.71,-223.45 419,-203.41 433.18,-172.84 429.47,-159.62 419,-127.58 415.6,-117.17 410.22,-107 404.1,-97.62" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="406.13,-96.25 400.15,-91.86 402.09,-99.02 406.13,-96.25" stroke="#9aa8b5"></polygon>
 </g>
 <!-- prop:allk -->
-<g class="node" id="node3">
+<g class="node" id="node4">
 <title>prop:allk</title>
-<g id="a_node3"><a target="_top" xlink:href="index.html#prop:allk" xlink:title="Proposition 2: (S¹/Z₂)ᵏ is not a complete intersection for any k ≥ 3">
-<path d="M136.05,-202.66C136.05,-202.66 19.95,-202.66 19.95,-202.66 13.95,-202.66 7.95,-196.66 7.95,-190.66 7.95,-190.66 7.95,-147.58 7.95,-147.58 7.95,-141.58 13.95,-135.58 19.95,-135.58 19.95,-135.58 136.05,-135.58 136.05,-135.58 142.05,-135.58 148.05,-141.58 148.05,-147.58 148.05,-147.58 148.05,-190.66 148.05,-190.66 148.05,-196.66 142.05,-202.66 136.05,-202.66" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-186.22">Proposition 2</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-171.97">(S¹/Z₂)ᵏ is not a complete</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-157.72">intersection for any k ≥ 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-143.47">💻 program</text>
+<g id="a_node4"><a target="_top" xlink:href="index.html#prop:allk" xlink:title="Proposition 2: (S¹/Z₂)ᵏ is not a complete intersection for any k ≥ 3. In Lean: added to the Lean repository after publication (20-oct-2026): the counts (4ᵏ distinct generators, ∑ C(k,j)2ʲ = 3ᵏ), the arithmetic 4ᵏ &gt; 2·3ᵏ − 2 for k ≥ 3 and equation (5); the proposition itself with Theorem 1 (Fischer–Morris–Shapiro, not in Mathlib) as a hypothesis; that every generator spans an extreme ray; and that the generators span a space of dimension 3ᵏ for every k (the generator matrix is the k-th Kronecker power of a 4 × 4 matrix of rank 3, through a general rank(A ⊗ B) = rank A · rank B that we proved, since no library had it: Matrix.rankₖronecker and Matrix.rankₚiKronecker in LinearAlgebra/Matrix/Rank/Kronecker.lean). Not in Lean: Theorem 1 itself (Fischer–Morris–Shapiro), which enters only as a hypothesis">
+<path d="M394.3,-203.41C394.3,-203.41 165.7,-203.41 165.7,-203.41 159.7,-203.41 153.7,-197.41 153.7,-191.41 153.7,-191.41 153.7,-147.58 153.7,-147.58 153.7,-141.58 159.7,-135.58 165.7,-135.58 165.7,-135.58 394.3,-135.58 394.3,-135.58 400.3,-135.58 406.3,-141.58 406.3,-147.58 406.3,-147.58 406.3,-191.41 406.3,-191.41 406.3,-197.41 400.3,-203.41 394.3,-203.41" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-186.97">Proposition 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-172.72">(S¹/Z₂)ᵏ is not a complete</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-158.47">intersection for any k ≥ 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-144.22">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
 <!-- thm:cor34&#45;&gt;prop:allk -->
 <g class="edge" id="edge3">
 <title>thm:cor34-&gt;prop:allk</title>
-<path d="M78,-253.76C78,-240.23 78,-225.31 78,-211.86" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="80.45,-212.21 78,-205.21 75.55,-212.21 80.45,-212.21" stroke="#9aa8b5"></polygon>
+<path d="M298.6,-254.74C295.6,-241.15 292.28,-226.13 289.29,-212.58" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="291.7,-212.15 287.81,-205.84 286.92,-213.2 291.7,-212.15" stroke="#9aa8b5"></polygon>
 </g>
 <!-- prop:allk&#45;&gt;prop:tripod -->
 <g class="edge" id="edge1">
 <title>prop:allk-&gt;prop:tripod</title>
-<path d="M93.33,-134.49C98.49,-123.16 104.36,-110.29 109.94,-98.05" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="112.06,-99.3 112.74,-91.91 107.61,-97.26 112.06,-99.3" stroke="#9aa8b5"></polygon>
+<path d="M303.5,-134.44C311.48,-122.87 320.56,-109.72 329.14,-97.28" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="331.03,-98.86 332.99,-91.71 327,-96.07 331.03,-98.86" stroke="#9aa8b5"></polygon>
 </g>
 <!-- prop:notci -->
-<g class="node" id="node4">
+<g class="node" id="node5">
 <title>prop:notci</title>
-<g id="a_node4"><a target="_top" xlink:href="index.html#prop:notci" xlink:title="Proposition 3: the semigroup of S¹/Z₂ × S¹/Z₂ is not a complete intersection">
-<path d="M287.68,-334.49C287.68,-334.49 184.32,-334.49 184.32,-334.49 178.32,-334.49 172.32,-328.49 172.32,-322.49 172.32,-322.49 172.32,-272.65 172.32,-272.65 172.32,-266.65 178.32,-260.65 184.32,-260.65 184.32,-260.65 287.68,-260.65 287.68,-260.65 293.68,-260.65 299.68,-266.65 299.68,-272.65 299.68,-272.65 299.68,-322.49 299.68,-322.49 299.68,-328.49 293.68,-334.49 287.68,-334.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-319.47">Proposition 3</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-306.72">the semigroup of S¹/Z₂ ×</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-293.97">S¹/Z₂ is not a complete</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-281.22">intersection</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-268.47">💻 program</text>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:notci" xlink:title="Proposition 3: the semigroup of S¹/Z₂ × S¹/Z₂ is not a complete intersection">
+<path d="M545.68,-335.24C545.68,-335.24 442.33,-335.24 442.33,-335.24 436.33,-335.24 430.33,-329.24 430.33,-323.24 430.33,-323.24 430.33,-273.4 430.33,-273.4 430.33,-267.4 436.33,-261.4 442.33,-261.4 442.33,-261.4 545.68,-261.4 545.68,-261.4 551.68,-261.4 557.68,-267.4 557.68,-273.4 557.68,-273.4 557.68,-323.24 557.68,-323.24 557.68,-329.24 551.68,-335.24 545.68,-335.24" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-320.22">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-307.47">the semigroup of S¹/Z₂ ×</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-294.72">S¹/Z₂ is not a complete</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-281.97">intersection</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-269.22">💻 program</text>
 </a>
 </g>
 </g>
 <!-- prop:eight -->
-<g class="node" id="node5">
+<g class="node" id="node6">
 <title>prop:eight</title>
-<g id="a_node5"><a target="_top" xlink:href="index.html#prop:eight" xlink:title="Proposition 4: unique minimal Markov basis: 8 quadrics + 8 quartics, all indispensable, two orbits under a group of order 128">
-<path d="M461.55,-352.49C461.55,-352.49 336.45,-352.49 336.45,-352.49 330.45,-352.49 324.45,-346.49 324.45,-340.49 324.45,-340.49 324.45,-254.66 324.45,-254.66 324.45,-248.66 330.45,-242.66 336.45,-242.66 336.45,-242.66 461.55,-242.66 461.55,-242.66 467.55,-242.66 473.55,-248.66 473.55,-254.66 473.55,-254.66 473.55,-340.49 473.55,-340.49 473.55,-346.49 467.55,-352.49 461.55,-352.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-336.05">Proposition 4</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-321.8">unique minimal Markov</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-307.55">basis: 8 quadrics + 8</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-293.3">quartics, all</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-279.05">indispensable, two orbits</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-264.8">under a group of order 128</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-250.54">💻 program</text>
+<g id="a_node6"><a target="_top" xlink:href="index.html#prop:eight" xlink:title="Proposition 4: unique minimal Markov basis: 8 quadrics + 8 quartics, all indispensable, two orbits under a group of order 128">
+<path d="M719.55,-353.24C719.55,-353.24 594.45,-353.24 594.45,-353.24 588.45,-353.24 582.45,-347.24 582.45,-341.24 582.45,-341.24 582.45,-255.41 582.45,-255.41 582.45,-249.41 588.45,-243.41 594.45,-243.41 594.45,-243.41 719.55,-243.41 719.55,-243.41 725.55,-243.41 731.55,-249.41 731.55,-255.41 731.55,-255.41 731.55,-341.24 731.55,-341.24 731.55,-347.24 725.55,-353.24 719.55,-353.24" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-336.8">Proposition 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-322.55">unique minimal Markov</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-308.3">basis: 8 quadrics + 8</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-294.05">quartics, all</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-279.8">indispensable, two orbits</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-265.55">under a group of order 128</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-251.29">💻 program</text>
 </a>
 </g>
 </g>
 <!-- prop:type -->
-<g class="node" id="node6">
+<g class="node" id="node7">
 <title>prop:type</title>
-<g id="a_node6"><a target="_top" xlink:href="index.html#prop:type" xlink:title="Proposition 5: Cohen–Macaulay type 9: canonical module generated in degrees 4 (one) and 6 (eight)">
-<path d="M639.8,-345.36C639.8,-345.36 510.2,-345.36 510.2,-345.36 504.2,-345.36 498.2,-339.36 498.2,-333.36 498.2,-333.36 498.2,-261.78 498.2,-261.78 498.2,-255.78 504.2,-249.78 510.2,-249.78 510.2,-249.78 639.8,-249.78 639.8,-249.78 645.8,-249.78 651.8,-255.78 651.8,-261.78 651.8,-261.78 651.8,-333.36 651.8,-333.36 651.8,-339.36 645.8,-345.36 639.8,-345.36" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-328.92">Proposition 5</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-314.67">Cohen–Macaulay type 9:</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-300.42">canonical module generated</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-286.17">in degrees 4 (one) and 6</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-271.92">(eight)</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-257.67">💻 program</text>
+<g id="a_node7"><a target="_top" xlink:href="index.html#prop:type" xlink:title="Proposition 5: Cohen–Macaulay type 9: canonical module generated in degrees 4 (one) and 6 (eight)">
+<path d="M897.8,-346.11C897.8,-346.11 768.2,-346.11 768.2,-346.11 762.2,-346.11 756.2,-340.11 756.2,-334.11 756.2,-334.11 756.2,-262.53 756.2,-262.53 756.2,-256.53 762.2,-250.53 768.2,-250.53 768.2,-250.53 897.8,-250.53 897.8,-250.53 903.8,-250.53 909.8,-256.53 909.8,-262.53 909.8,-262.53 909.8,-334.11 909.8,-334.11 909.8,-340.11 903.8,-346.11 897.8,-346.11" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-329.67">Proposition 5</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-315.42">Cohen–Macaulay type 9:</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-301.17">canonical module generated</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-286.92">in degrees 4 (one) and 6</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-272.67">(eight)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-258.42">💻 program</text>
 </a>
 </g>
 </g>
@@ -348,7 +418,288 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div></details></section>
 <details class="blk b-set"><summary>📐 Setting (copied from the paper, §1)</summary>
 <p> Let \(L=\{ \ell _1,\dots ,\ell _n\} \) be the alphabet, \(w_i\in \mathbb {Z}_{{\gt}0}\) the weight of \(\ell _i\) and \(v_i\in \mathbb {N}^{c}\) its local data. Put \(a_i=(w_i,v_i)\in \mathbb {N}^{1+c}\) and let \(S=\langle a_1,\dots ,a_n\rangle \subseteq \mathbb {N}^{1+c}\) be the affine semigroup they generate. The number of equivalence classes of rank \(N\) is the number of elements of \(S\) in degree \(N\), so the class-counting generating function is the Hilbert series \(H(S,x)\). The lattice of relations \(\mathcal L=\ker (\mathbb {Z}^n\to \mathbb {Z}^{1+c})\) has rank \(n-\dim S\), and its elements are the moves preserving every local datum. <em>(§2)</em> On \((S^1/\mathbb {Z}_2)^k\) the ground set is the \(2k\) reflections, in \(k\) antipodal pairs, and a fixed point is a choice of one reflection per circle. So the marginals are indexed by the \(2^k\) <em>transversals</em>, which are the facets of the boundary complex of the \(k\)-dimensional cross-polytope: \(n=2^{2k}=4^k\), \(\dim S=\# \{ \text{faces}\} =\sum _{j}\binom {k}{j}2^{\, j}=3^k\). <em>(§4)</em> For a partition \(T=T_1\sqcup T_2\) of the minimal generating set into non-empty parts, \(S\) is the <em>gluing</em> of \(S_1=\langle T_1\rangle \) and \(S_2=\langle T_2\rangle \) by \(\alpha \) if \(\alpha \in S_1\cap S_2\), \(\alpha \neq 0\), and \(G(S_1)\cap G(S_2)=\mathbb {Z}\alpha \). Fischer, Morris and Shapiro prove that an affine semigroup which is not free is a complete intersection if and only if it is a gluing of two complete intersections. <em>(§5)</em> The smallest member of the group-based family is the claw tree with three leaves. The labels are the triples of group elements summing to zero, so \(n=|G|^2\), and the local datum is the indicator of each entry. </p>
-</details></section><section class="pc-pane"><h1 id="a0000000003">5 The tripod, decided</h1>
+</details><h4 id="a0000000003">What this blueprint shows.</h4>
+<p> The numbered statements of the paper, with their proofs, dependencies and what checked them, under the sections that hold them (with the paper’s numbers), and the figures and tables they use. The full text is in the PDF of the paper.  </p>
+</section><section class="pc-pane"><h1 id="a0000000004">1 The semigroup</h1>
+<div class="definition_thmwrapper theorem-style-definition" id="def:S">
+<div class="definition_thmheading">
+<span class="definition_thmcaption">
+    Definition
+    </span>
+<span class="definition_thmlabel">1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#def:S">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=2&amp;n=def:S" title="Open the paper at page 2">📕 p. 2</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=def:S" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Definition 1, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#def:S." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Definition%201&amp;body=About%20Definition%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Definition%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23def%3AS.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span><span class="ext-badge" title="formalized in Mathlib, not by us">Lean: Mathlib</span></div>
+<div class="definition_thmcontent">
+<p> Let \(L=\{ \ell _1,\dots ,\ell _n\} \) be the alphabet, \(w_i\in {\mathbb {Z}}_{{\gt}0}\) the weight of \(\ell _i\) and \(v_i\in {\mathbb {N}}^{c}\) its local data. Put \(a_i=(w_i,v_i)\in {\mathbb {N}}^{1+c}\) and let \(S=\langle a_1,\dots ,a_n\rangle \subseteq {\mathbb {N}}^{1+c}\) be the affine semigroup they generate. The number of equivalence classes of rank \(N\) is the number of elements of \(S\) in degree \(N\), so the class-counting generating function is the Hilbert series \(H(S,x)\). </p>
+</div><div class="ext-lean"><span class="tag">Mathlib · not ours</span>The semigroup S is the submonoid generated by the vectors a_i, and an affine semigroup is a finitely generated, torsion-free commutative monoid: both notions are in Mathlib. <p><b><a href="https://leanprover-community.github.io/mathlib4_docs/Mathlib/Algebra/Group/Submonoid/Basic.html#AddSubmonoid.closure" rel="noopener" target="_blank">AddSubmonoid.closure</a></b> · <code>Mathlib/Algebra/Group/Submonoid/Basic.lean</code>, line 112 <span class="doc">(made by <code>@[to_additive]</code> from <code>Submonoid.closure</code>)</span></p><pre>def closure (s : Set M) : Submonoid M</pre><p class="doc">The <code>Submonoid</code> generated by a set.</p><p><b><a href="https://leanprover-community.github.io/mathlib4_docs/Mathlib/Algebra/AffineMonoid/Basic.html#IsAffineAddMonoid" rel="noopener" target="_blank">IsAffineAddMonoid</a></b> · <code>Mathlib/Algebra/AffineMonoid/Basic.lean</code>, line 20</p><pre>class abbrev IsAffineAddMonoid (M : Type*) [AddCommMonoid M] : Prop</pre><p class="doc">An affine monoid is a finitely generated cancellative torsion-free commutative monoid.</p><p class="doc">Mathlib commit <code>f0b4c8150aa0</code>, as this blueprint was built.</p></div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="table" id="tab:family">
+<small class="footnotesize"><table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>orbifold </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> group </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(n\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(\dim S\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> rank \(\mathcal L\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> \(H(S,x)\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>\(S^1/{\mathbb {Z}}_2\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> \(SU(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right;background:rgba(43,108,176,0.08)">
+<p> \(4\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right;background:rgba(43,108,176,0.08)">
+<p> \(3\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right;background:rgba(43,108,176,0.14)">
+<p> \(1\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> \((1-x^2)/(1-x)^4\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SU(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.22)">
+<p> \(8\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.22)">
+<p> \(5\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.26)">
+<p> \(3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \((1-x^2)^3/(1-x)^8\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SU(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.26)">
+<p> \(9\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.36)">
+<p> \(7\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.20)">
+<p> \(2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \((1-x^3)^2/(1-x)^9\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_4\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SU(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.29)">
+<p> \(10\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.43)">
+<p> \(8\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.20)">
+<p> \(2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \((1-x^4)^2/\big[(1-x)^8(1-x^2)^2\big]\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_6\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SU(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.33)">
+<p> \(11\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(9\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.20)">
+<p> \(2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \((1-x^6)^2/\big[(1-x)^6(1-x^2)^3(1-x^3)^2\big]\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_4\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SU(N)\), weight \(1\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.22)">
+<p> \(8\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.36)">
+<p> \(7\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.14)">
+<p> \(1\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \((1-x^4)/(1-x)^8\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_6\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SU(N)\), weight \(1\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.15)">
+<p> \(6\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.29)">
+<p> \(6\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.08)">
+<p> \(0\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(1/(1-x)^6\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SO(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.11)">
+<p> \(5\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.15)">
+<p> \(4\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.14)">
+<p> \(1\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \((1-x^6)/\big[(1-x)(1-x^2)^4\big]\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_4\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SO(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.22)">
+<p> \(8\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.29)">
+<p> \(6\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.20)">
+<p> \(2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \((1-x^4)^2/\big[(1-x)^4(1-x^2)^4\big]\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(T^2/{\mathbb {Z}}_6\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(SO(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.22)">
+<p> \(8\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.29)">
+<p> \(6\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.20)">
+<p> \(2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \((1-x^6)^2/\big[(1-x)^2(1-x^2)^3(1-x^3)^2(1-x^4)\big]\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p>\(S^1/{\mathbb {Z}}_2\times S^1/{\mathbb {Z}}_2\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(SU(N)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:rgba(43,108,176,0.50)">
+<p> \(16\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:rgba(43,108,176,0.50)">
+<p> \(9\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:rgba(43,108,176,0.50)">
+<p> \(7\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(\dfrac {1+7x+20x^2+28x^3+7x^4+x^5}{(1-x)^9}\)</p>
+</td>
+</tr>
+</table> <figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">1</span>
+<span class="caption_text">The family. The class counts of the first ten rows are in print in the physics literature <span class="cite">
+	[
+	<a href="index.html#HHK">12</a>
+	, 
+	<a href="index.html#KM">13</a>
+	, 
+	<a href="index.html#TI2">14</a>
+	, 
+	<a href="index.html#TI3">15</a>
+	]
+</span>; the last row is the one the companion note <span class="cite">
+	[
+	<a href="index.html#IXA">1</a>
+	]
+</span> derives, and is the only row of the table that is not a quotient by a cyclic rotation. The rows with a weight-\(1\) alphabet are the ones §2 identifies with objects already studied in commutative algebra; the rows whose alphabet carries weights \(2\), \(3\) and \(4\) are §6.</span>
+</figcaption> </small>
+</div><p class="tabcolour">Colour: blue shade = the number’s size within its column.</p>
+</section><section class="pc-pane"><h1 id="a0000000005">5 The tripod, decided</h1>
 <div class="proposition_thmwrapper theorem-style-plain" id="prop:tripod">
 <div class="proposition_thmheading">
 <span class="proposition_thmcaption">
@@ -359,15 +710,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:tripod">#</a>
-<a class="icon proof" href="index.html#a0000000004"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000006"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -384,7 +735,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>  Let \(G\) be a finite abelian group and let \(S\) be the semigroup of the group-based model on the tripod. Then \(S\) is a complete intersection if and only if \(|G|\le 3\): it is free for \(|G|=2\), a complete intersection with two cubics for \(|G|=3\), and not a complete intersection for \({\mathbb {Z}}_4\), for \({\mathbb {Z}}_2\times {\mathbb {Z}}_2\), or for any abelian group of order at least \(5\). </p>
 </div>
 </div><p class="novedad">🆕 <b>Classical and new:</b> the paper looked for this classification in the group-based literature and did not find it; what that literature settles for the tripod is normality, and the local (Zariski-open) complete intersection of [CFM] (§4, §6, Ledger).</p><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="proof_wrapper" id="a0000000004">
+<div class="proof_wrapper" id="a0000000006">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -394,7 +745,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="proof_content">
 <p> The labels are the triples of group elements summing to zero, so \(n=|G|^2\), and the local datum is the indicator of each entry, so \(\dim S=3(|G|-1)+1=3|G|-2\) and the codimension is \((|G|-1)(|G|-2)\), which is the value the phylogenetics literature prints for the tripod. </p>
 <p>Every generator is an extreme ray, by the argument of Proposition <a href="index.html#prop:allk">2</a>: it is a \(0/1\) vector with one \(1\) in each of three blocks, hence one of the vertices of a product of three simplices, and a vertex stays extreme in the hull of any subset containing it. Nothing in that argument uses the group law beyond the fact that the labels select a subset of those vertices, so it holds unchanged for every finite abelian \(G\) and not only for the cyclic ones — which is what lets the bound below be quantified over all of them. Theorem <a href="index.html#thm:cor34">1</a> therefore requires </p>
-<div class="equation" id="a0000000005">
+<div class="equation" id="a0000000007">
 <p>
 <div class="equation_content">
     \begin{equation}  \boxed {\; |G|^2\; \le \; 2\dim S-2\; =\; 6|G|-6,\qquad \text{that is}\qquad |G|^2-6|G|+6\le 0,\; } \end{equation}
@@ -405,17 +756,142 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p> which holds for \(2\le |G|\le 4\) and fails from \(5\) on: writing \(f(g)=g^2-6g+6\), one has \(f(5)=1{\gt}0\) and \(f(g+1)-f(g)=2g-5{\gt}0\) for \(g\ge 3\), so \(f\) is positive and increasing on the integers \(g\ge 5\). The bound therefore settles every group of order five or more; the trivial group is outside its reach for the other reason, \(\dim S=1\) being below the \(d\ge 2\) of Theorem <a href="index.html#thm:cor34">1</a>, and its semigroup is \({\mathbb {N}}\), free. That leaves four groups open, of three orders: \({\mathbb {Z}}_2\), \({\mathbb {Z}}_3\), \({\mathbb {Z}}_4\) and \({\mathbb {Z}}_2\times {\mathbb {Z}}_2\). Each of the four is decided by the gluing criterion, exhaustively — the two of order \(4\) over all \(2^{15}-1\) partitions of their sixteen generators — with the results of Table <a href="index.html#tab:tripod">3</a>. </p>
 </div>
 </div>
-<details class="blk b-fig"><summary>🖼️ Figure 1</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-1.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
-</div>
-<p> Two gluing trees, as the search returns them. Each node is a set of generators, written by its multiset of weights; each split is a gluing and contributes the factor on the branch to ??; each leaf is a free semigroup. Both trees shown are weighted cases, so both are outside the frameworks of §??. </p>
-</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> Z₂, Z₃, Z₄, Z₂×Z₂ by the gluing criterion (the order-4 groups over all 2¹⁵−1 partitions), with the codimension control (|G|−1)(|G|−2). <span class="ttfamily">scripts/tripod_gate.py</span>, <span class="ttfamily">outputs/tripod_gate.txt</span> </p>
 </li>
 <li><p><b class="bfseries">By hand:</b> every order ≥ 5 by the extreme-ray bound |G|² ≤ 6|G|−6 of Theorem 1. <span class="ttfamily">proof of Proposition 1</span> </p>
 </li>
 </ul>
-</details></section><section class="pc-pane"><h1 id="a0000000008">8 Every \(k\ge 3\), in one line</h1>
+</details><div class="table" id="tab:tripod">
+<small class="small"><table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>\(G\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(n=|G|^2\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(\dim S\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> codim </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(2\dim S-2\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> verdict</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>\({\mathbb {Z}}_2\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right;background:rgba(43,108,176,0.08)">
+<p> \(4\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right;background:rgba(43,108,176,0.08)">
+<p> \(4\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right;background:rgba(43,108,176,0.08)">
+<p> \(0\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right;background:rgba(43,108,176,0.08)">
+<p> \(6\) </p>
+</td>
+<td colspan="" data-colour="pos" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left;background:#d8f3e4">
+<p> free</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\({\mathbb {Z}}_3\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.26)">
+<p> \(9\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.29)">
+<p> \(7\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.22)">
+<p> \(2\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.29)">
+<p> \(12\) </p>
+</td>
+<td colspan="" data-colour="pos" rowspan="" style="text-align:left;background:#d8f3e4">
+<p> complete intersection, degrees \([3,3]\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\({\mathbb {Z}}_4\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(16\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(10\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(6\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(18\) </p>
+</td>
+<td colspan="" data-colour="neg" rowspan="" style="text-align:left;background:#fbdcdc">
+<p> not a complete intersection  (swept)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\({\mathbb {Z}}_2\times {\mathbb {Z}}_2\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(16\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(10\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(6\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:right;background:rgba(43,108,176,0.50)">
+<p> \(18\) </p>
+</td>
+<td colspan="" data-colour="neg" rowspan="" style="text-align:left;background:#fbdcdc">
+<p> not a complete intersection  (swept)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p>\(|G|\ge 5\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(|G|^2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(3|G|-2\) </p>
+</td>
+<td colspan="" data-colour="none" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:#f1f3f5">
+<p> — </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(6|G|-6\) </p>
+</td>
+<td colspan="" data-colour="neg" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:#fbdcdc">
+<p> not a complete intersection  ((4))</p>
+</td>
+</tr>
+</table> <figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">3</span>
+<span class="caption_text">The tripod, for every finite abelian group. The codimension is computed from the generator matrix and agrees with \((|G|-1)(|G|-2)\), which is a control that could have failed. The bound is silent exactly on the four small groups, which is why they are swept; and \({\mathbb {Z}}_2\times {\mathbb {Z}}_2\) is the group of the Kimura 3-parameter model.</span>
+</figcaption> </small>
+</div><p class="tabcolour">Colour: green = yes / holds; red = no / fails; grey = nothing; blue shade = the number’s size within its column.</p>
+</section><section class="pc-pane"><h1 id="a0000000009">8 Every \(k\ge 3\), in one line</h1>
 <div class="theorem_thmwrapper theorem-style-plain" id="thm:cor34">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -436,10 +912,10 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:cor34">#</a>
 </div>
-<a class="pdfp" href="pdf.html#page=9&amp;n=thm:cor34" title="Open the paper at page 9">📕 p. 9</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:cor34" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Theorem 1, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#thm:cor34." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23thm%3Acor34.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<a class="pdfp" href="pdf.html#page=9&amp;n=thm:cor34" title="Open the paper at page 9">📕 p. 9</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:cor34" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Theorem 1, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#thm:cor34." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23thm%3Acor34.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span><span class="ext-badge none" title="cited; no formalization found">Lean: none found</span></div>
 <div class="theorem_thmcontent">
 <p>  Let \(S\) be a \(d\)-dimensional affine semigroup which is a complete intersection, with \(d\ge 2\). Then the cone of \(S\) has at most \(2d-2\) extreme rays. </p>
-</div>
+</div><div class="ext-lean none"><span class="tag">not formalized</span>Searched on 20-oct-2026 (our Lean, Mathlib, Loogle, LeanSearch, GitHub; Isabelle not reached): not found. In this blueprint it enters Proposition 2 only as a hypothesis of the Lean statement, never as a proved fact.</div>
 </div><p class="novedad">🆕 <b>Classical and new:</b> cited, not claimed: Fischer, Morris and Shapiro [FMS, Cor. 3.4].</p><p class="usado">↳ Used in: <a href="#prop:tripod">Proposition 1</a>, <a href="#prop:allk">Proposition 2</a></p>
 <div class="proposition_thmwrapper theorem-style-plain" id="prop:allk">
 <div class="proposition_thmheading">
@@ -451,15 +927,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:allk">#</a>
-<a class="icon proof" href="index.html#a0000000009"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000010"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -468,13 +944,39 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </ul>
 </div>
 </div>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L112" target="_blank" rel="noopener">OrbifoldProduct.not_completeIntersection_of_fms</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L96" target="_blank" rel="noopener">OrbifoldProduct.fms_bound_violated</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L93" target="_blank" rel="noopener">OrbifoldProduct.fms_bound_met</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L79" target="_blank" rel="noopener">OrbifoldProduct.card_labels</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L70" target="_blank" rel="noopener">OrbifoldProduct.marginal_injective</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L84" target="_blank" rel="noopener">OrbifoldProduct.sum_choose_mul_two_pow</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L128" target="_blank" rel="noopener">OrbifoldProduct.edges_exceed</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L121" target="_blank" rel="noopener">OrbifoldProduct.cut_vertices</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L188" target="_blank" rel="noopener">OrbifoldProduct.generator_extreme</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L152" target="_blank" rel="noopener">OrbifoldProduct.not_cone_of_others</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L247" target="_blank" rel="noopener">OrbifoldProduct.rank_generators</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L236" target="_blank" rel="noopener">OrbifoldProduct.generators_eq</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/f264714b9cd07a4624e120062c17b1c34b071e30/Formalizations/RingTheory/AffineSemigroup/OrbifoldProduct.lean#L219" target="_blank" rel="noopener">OrbifoldProduct.rank_circle</a></li>
+</ul>
 </div>
-<a class="pdfp" href="pdf.html#page=9&amp;n=prop:allk" title="Open the paper at page 9">📕 p. 9</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:allk" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 2, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:allk." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%202&amp;body=About%20Proposition%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%202%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Aallk.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=9&amp;n=prop:allk" title="Open the paper at page 9">📕 p. 9</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:allk" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 2, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:allk." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%202&amp;body=About%20Proposition%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%202%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Aallk.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span><span class="ext-badge" title="our Lean, and a part already in Mathlib">Lean: ours + Mathlib</span></div>
 <div class="proposition_thmcontent">
-<p>  For every \(k\ge 3\), the semigroup of \((S^1/{\mathbb {Z}}_2)^k\) is not a complete intersection. </p>
-</div>
-</div><p class="novedad">🆕 <b>Classical and new:</b> claimed as the paper’s own (Ledger), together with the edge count showing it is not a cut ideal for k ≥ 3; the bound it uses is Fischer–Morris–Shapiro [FMS, Cor. 3.4] (Theorem 1 of the paper, cited).</p><p class="usado">↳ Used in: <a href="#prop:tripod">Proposition 1</a></p>
-<div class="proof_wrapper" id="a0000000009">
+<p>   For every \(k\ge 3\), the semigroup of \((S^1/{\mathbb {Z}}_2)^k\) is not a complete intersection. </p>
+</div><div class="ext-lean"><span class="tag">Mathlib · not ours</span>The count ∑ C(k,j)·2ʲ = 3ᵏ (the dimension) is the binomial theorem of Mathlib; our proof uses it, it does not restate it. <p><b><a href="https://leanprover-community.github.io/mathlib4_docs/Mathlib/Data/Nat/Choose/Sum.html#add_pow" rel="noopener" target="_blank">add_pow</a></b> · <code>Mathlib/Data/Nat/Choose/Sum.lean</code>, line 76</p><pre>theorem add_pow [CommSemiring R] (x y : R) (n : ℕ) :
+    (x + y) ^ n = ∑ m ∈ range (n + 1), x ^ m * y ^ (n - m) * n.choose m</pre><p class="doc">The <b>binomial theorem</b></p><p class="doc">Mathlib commit <code>f0b4c8150aa0</code>, as this blueprint was built.</p></div>
+</div><p class="lean-check">✅ Checked when this page was built: OrbifoldProduct.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — not_completeIntersection_of_fms, fms_bound_violated, card_labels, sum_choose_mul_two_pow, edges_exceed, cut_vertices, generator_extreme, not_cone_of_others, rank_generators, generators_eq, rank_circle: propext, Classical.choice, Quot.sound; fms_bound_met: propext; marginal_injective: propext, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean OrbifoldProduct.lean</code> (SHA-256 of the compiled file: <code>c5e02635c60ff814…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> claimed as the paper’s own (Ledger), together with the edge count showing it is not a cut ideal for k ≥ 3; the bound it uses is Fischer–Morris–Shapiro [FMS, Cor. 3.4] (Theorem 1 of the paper, cited).</p><p class="usado">↳ Used in: <a href="#prop:tripod">Proposition 1</a></p>
+<div class="proof_wrapper" id="a0000000010">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -485,15 +987,19 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p> Every generator is an extreme ray. A generator is a \(0/1\) vector with exactly one \(1\) in each of the \(2^k\) fixed-point blocks, so the generators are <em>a subset of</em> the vertex set of the product of the fixed-point simplices — a proper subset, since the product orbifold correlates the data at different fixed points and only \(4^k\) of those vertices occur. That is enough: a vertex of a polytope remains extreme in the convex hull of any subset of the vertices containing it, and all the generators lie in one weight hyperplane, so each of them spans an extreme ray of the cone. With \(n=4^k\) and \(d=3^k\) from (2), Theorem <a href="index.html#thm:cor34">1</a> requires \(4^k\le 2\cdot 3^k-2\), and \((4/3)^3{\gt}2\). </p>
 </div>
 </div>
-<details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0002.png" style="width:100%;max-width:100%"/>
-</div>
-<p> Proposition <a href="index.html#prop:allk">2</a>, drawn: the extreme rays against the bound, and their ratio. The ratio is exactly \(1\) at \(k=1,2\) — the bound is met, not approached — and exceeds \(1\) from \(k=3\). The ties are why \(k=2\) needed the exhaustive sweep, and why no inequality of this shape can separate a complete intersection from something meeting its bound exactly. </p>
-</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> n = 4ᵏ, d = 3ᵏ, every generator extreme (integer Farkas certificates), k = 1..5; control: FMS Example 3.5 rebuilt for r = 1..4 attains 2d − 2 exactly, and two decoys. <span class="ttfamily">scripts/fms_cone_gate.py</span>, <span class="ttfamily">outputs/fms_cone_gate.txt</span> </p>
 </li>
 </ul>
-</details></section><section class="pc-pane"><h1 id="a0000000012">9 The exception, exhaustively</h1>
+</details><details class="blk b-lab"><summary>🧪 Lab: extreme rays against the bound, for your own k</summary>
+<p> Builds the semigroup of \((S^1/\mathbb {Z}_2)^k\) from the labels and the fixed-point readouts (one indicator block per fixed point), counts its generators \(n\) (all extreme rays) and computes \(d=\dim S\) as the exact rank of the generator matrix; then compares \(n\) with the bound \(2d-2\) of Theorem 1. Built for \(k\le 4\); beyond, only the formula values \(4^k\), \(3^k\) are shown, and the lab says so. </p>
+<div data-lemmario-lab="0"></div>
+</details>
+<details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
+</div>
+<p> Proposition <a href="index.html#prop:allk">2</a>, drawn: the extreme rays against the bound, and their ratio. The ratio is exactly \(1\) at \(k=1,2\) — the bound is met, not approached — and exceeds \(1\) from \(k=3\). The ties are why \(k=2\) needed the exhaustive sweep, and why no inequality of this shape can separate a complete intersection from something meeting its bound exactly. </p>
+</details></section><section class="pc-pane"><h1 id="a0000000014">9 The exception, exhaustively</h1>
 <div class="proposition_thmwrapper theorem-style-plain" id="prop:notci">
 <div class="proposition_thmheading">
 <span class="proposition_thmcaption">
@@ -504,7 +1010,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:notci">#</a>
-<a class="icon proof" href="index.html#a0000000013"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000015"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 </div>
 <a class="pdfp" href="pdf.html#page=10&amp;n=prop:notci" title="Open the paper at page 10">📕 p. 10</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:notci" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 3, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:notci." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%203&amp;body=About%20Proposition%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%203%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Anotci.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
@@ -512,7 +1018,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p> The semigroup of \(S^1/{\mathbb {Z}}_2\times S^1/{\mathbb {Z}}_2\) is not a complete intersection. </p>
 </div>
 </div><p class="novedad">🆕 <b>Classical and new:</b> a direct argument independent of [SScuts, Table 1], which already records the cut ring of W₄ (8 + 8 minimal generators, codimension 7, degree 64) (§3, §8).</p><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="proof_wrapper" id="a0000000013">
+<div class="proof_wrapper" id="a0000000015">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -550,8 +1056,8 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <a class="pdfp" href="pdf.html#page=11&amp;n=prop:eight" title="Open the paper at page 11">📕 p. 11</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:eight" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 4, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:eight." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%204&amp;body=About%20Proposition%204%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%204%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Aeight.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="proposition_thmcontent">
 <p> On \(S^1/{\mathbb {Z}}_2\times S^1/{\mathbb {Z}}_2\) at rank \(4\), exactly eight fibres of the local-datum map are not connected by the degree-\(2\) relations. Each of those fibres contains exactly <em>two</em> boundary conditions, and they are the only fibres of rank \(4\) with more than one component. The corresponding eight quartic binomials are therefore <em>indispensable</em>: each occurs, up to sign, in every Markov basis of the ideal. So are the eight quadrics, for the same reason at rank \(2\); hence </p>
-<div class="displaymath" id="a0000000015">
-  \[  \begin{gathered} \text{the toric ideal has a \emph{unique} minimal binomial generating set, up to signs:}\\[2pt] 8\  \text{quadrics}\  +\  8\  \text{quartics.} \end{gathered}  \]
+<div class="displaymath" id="a0000000017">
+  \[  \begin{gathered} \text{the toric ideal has a \textit{unique} minimal binomial generating set, up to signs:}\\[2pt] 8\  \text{quadrics}\  +\  8\  \text{quartics.} \end{gathered}  \]
 </div>
 <p> Under \(\mathcal G\) the sixteen fall into exactly two orbits, one per degree. </p>
 </div>
@@ -579,146 +1085,148 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p> The semigroup ring of \(S^1/{\mathbb {Z}}_2\times S^1/{\mathbb {Z}}_2\) has Cohen–Macaulay type \(9\). Its canonical module has one minimal generator in degree \(4=\operatorname {codeg}P\) and eight in degree \(6\), and none in any other degree. </p>
 </div>
 </div><p class="novedad">🆕 <b>Classical and new:</b> claimed as the paper’s own: the type 9 and the degrees of the canonical generators; normality, Cohen–Macaulayness and non-Gorensteinness are [SScuts, Table 1] (Ledger).</p><p class="usado">↳ Not used by another result of the paper.</p>
-<details class="blk b-fig"><summary>🖼️ Figure 3</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-3.png}" src="images/img-0003.png" style="width:100%;max-width:100%"/>
-</div>
-<p> The two counts of \(S^1/{\mathbb {Z}}_2\times S^1/{\mathbb {Z}}_2\) written over \((1-x)^9\). The first four coefficients agree; the last is negative on the right, and a lattice polytope cannot produce a negative \(h^*_i\). The two series are \(1,16,128,688,\mathbf{2809}\) and \(1,16,128,688,\mathbf{2817}\). </p>
-</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> interior points 1, 16, 136, 752, 3097 in degrees 4–8 by enumeration and by (−1)ᵈH(1/x); minimal generators 1, 0, 8, 0, 0; Gorenstein decoy S¹/Z₂ returns type 1. <span class="ttfamily">scripts/gorenstein_gate.py</span>, <span class="ttfamily">outputs/gorenstein_gate.txt</span> </p>
 </li>
 <li><p><b class="bfseries">Program:</b> h*-vector (1,7,20,28,7,1) and the degree-2-moves series (1,7,20,28,15,−7). <span class="ttfamily">scripts/formula_atlas.py</span>, <span class="ttfamily">outputs/formula_atlas.txt</span> </p>
 </li>
 </ul>
-</details></section><section class="pc-pane"><h1 id="a0000000019">Tables cited</h1>
-<div class="table" id="tab:tripod">
-<div class="centered"><small class="small"><table class="tabular">
+</details>
+<details class="blk b-fig"><summary>🖼️ Figure 3</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-3.png}" src="images/img-0002.png" style="width:100%;max-width:100%"/>
+</div>
+<p> The two counts of \(S^1/{\mathbb {Z}}_2\times S^1/{\mathbb {Z}}_2\) written over \((1-x)^9\). The first four coefficients agree; the last is negative on the right, and a lattice polytope cannot produce a negative \(h^*_i\). The two series are \(1,16,128,688,\mathbf{2809}\) and \(1,16,128,688,\mathbf{2817}\). </p>
+</details><div class="table" id="tab:invariants">
+<small class="small"><table class="tabular">
 <tr>
 <td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
-<p> hdrblue <span style="None"></span>white\(G\) </p>
-</td>
-<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
-<p> <span style="None"></span>white\(n=|G|^2\) </p>
-</td>
-<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
-<p> <span style="None"></span>white\(\dim S\) </p>
-</td>
-<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
-<p> <span style="None"></span>whitecodim </p>
-</td>
-<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
-<p> <span style="None"></span>white\(2\dim S-2\) </p>
+<p>invariant </p>
 </td>
 <td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
-<p> <span style="None"></span>whiteverdict</p>
+<p> value </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> source</p>
 </td>
 </tr>
 <tr>
 <td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
-<p>\({\mathbb {Z}}_2\) </p>
-</td>
-<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
-<p> \(4\) </p>
-</td>
-<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
-<p> \(4\) </p>
-</td>
-<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
-<p> \(0\) </p>
-</td>
-<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
-<p> \(6\) </p>
+<p>vertices, dimension, facets </p>
 </td>
 <td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
-<p> free</p>
+<p> \(16\),  \(8\),  \(24\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> computed here</p>
 </td>
 </tr>
 <tr>
 <td colspan="" rowspan="" style="text-align:left">
-<p>softgrey \({\mathbb {Z}}_3\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(9\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(7\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(2\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(12\) </p>
+<p>\(f\)-vector </p>
 </td>
 <td colspan="" rowspan="" style="text-align:left">
-<p> complete intersection, degrees \([3,3]\)</p>
+<p> \((1,16,104,360,712,816,520,168,24,1)\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> computed here</p>
 </td>
 </tr>
 <tr>
 <td colspan="" rowspan="" style="text-align:left">
-<p>\({\mathbb {Z}}_4\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(16\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(10\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(6\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(18\) </p>
+<p>\(h^*\)-vector </p>
 </td>
 <td colspan="" rowspan="" style="text-align:left">
-<p> not a complete intersection  (swept)</p>
+<p> \((1,7,20,28,7,1)\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> computed here</p>
 </td>
 </tr>
 <tr>
 <td colspan="" rowspan="" style="text-align:left">
-<p>softgrey \({\mathbb {Z}}_2\times {\mathbb {Z}}_2\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(16\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(10\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(6\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right">
-<p> \(18\) </p>
+<p>normalised volume </p>
 </td>
 <td colspan="" rowspan="" style="text-align:left">
-<p> not a complete intersection  (swept)</p>
+<p> \(64\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(\sum h^*_i\); also the degree in <span class="cite">
+	[
+	<a href="index.html#SScuts">2</a>
+	]
+</span></p>
 </td>
 </tr>
 <tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>minimal generators </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(8\) quadrics, \(8\) quartics </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> computed here; <span class="cite">
+	[
+	<a href="index.html#SScuts">2</a>
+	]
+</span>, Table 1</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>normal, Cohen–Macaulay </p>
+</td>
+<td colspan="" data-colour="pos" rowspan="" style="text-align:left;background:#d8f3e4">
+<p> yes, yes </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> <span class="cite">
+	[
+	<a href="index.html#SScuts">2</a>
+	]
+</span>, Table 1</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Gorenstein </p>
+</td>
+<td colspan="" data-colour="neg" rowspan="" style="text-align:left;background:#fbdcdc">
+<p> no — Cohen–Macaulay <b class="bfseries">type</b> \(9\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> computed here</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(\operatorname {codeg}P\),  \(a(k[S])\),  \(\operatorname {reg}k[S]\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(4\),  \(-4\),  \(5\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> computed here</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="pos" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:#d8f3e4">
+<p>complete intersection </p>
+</td>
+<td colspan="" data-colour="neg" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:#fbdcdc">
+<p> <b class="bfseries">no</b> </p>
+</td>
 <td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
-<p>\(|G|\ge 5\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
-<p> \(|G|^2\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
-<p> \(3|G|-2\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
-<p> — </p>
-</td>
-<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
-<p> \(6|G|-6\) </p>
-</td>
-<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
-<p> not a complete intersection  ((4))</p>
+<p> Proposition <a href="index.html#prop:notci">3</a></p>
 </td>
 </tr>
 </table> <figcaption>
 <span class="caption_title">Table</span>
-<span class="caption_ref">3</span>
-<span class="caption_text">The tripod, for every finite abelian group. The codimension is computed from the generator matrix and agrees with \((|G|-1)(|G|-2)\), which is a control that could have failed. The bound is silent exactly on the four small groups, which is why they are swept; and \({\mathbb {Z}}_2\times {\mathbb {Z}}_2\) is the group of the Kimura 3-parameter model.</span>
-</figcaption> </small></div>
-</div>
-</section><section class="pc-pane"><h1 id="a0000000020">References</h1>
+<span class="caption_ref">4</span>
+<span class="caption_text">The exceptional case, as a list of invariants. It is a normal, Cohen–Macaulay toric ring which is not a complete intersection — which is the useful way to say what it is, rather than saying only what it is not.</span>
+</figcaption> </small>
+</div><p class="tabcolour">Colour: green = yes / holds; red = no / fails.</p>
+</section><section class="pc-pane"><h1 id="a0000000021">References</h1>
 <dl class="bibliography">
 <dt><a name="IXA">1</a></dt>
 <dd><p>C. Marín, <em>The Alphabet of Orbifold Boundary Conditions</em>, Part IX-A of this series, Zenodo, <span class="ttfamily"><a href="https://doi.org/10.5281/zenodo.22254861" rel="noopener" target="_blank">doi:10.5281/zenodo.22254861</a></span>. </p>
@@ -772,12 +1280,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 </div>
 <nav class="prev_up_next">
-<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
-<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
-<a href="index.html" title="An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B): blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B): blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
 </nav>
-<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
-// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
 // event, so that page-specific scripts (labs) can react.
 (function(){
   function set(v){
@@ -838,7 +1346,7 @@ document.addEventListener('click', function (e) {
   }
   head.insertAdjacentElement('afterend', box);
 });
-</script><script>
+</script><script>window.LEMMARIO_LABS = [{"id": 0, "node": "prop:allk", "files": ["rayos.py"], "sources": {"rayos.py": "# encaje: laboratorio del blueprint de orbifold-semigroup (Prop. 2, Figura 2); corre en el navegador con Pyodide (Lemmario).\n\"\"\"Lab of Proposition 2 and Figure 2: the extreme rays of (S^1/Z_2)^k against the bound 2d - 2 of Fischer-Morris-\nShapiro (Theorem 1), BUILT from the construction of the paper, not read from 4^k and 3^k.\n\nThe construction (as in the paper's script fms_cone_gate.py): a label is a string of 2k parity bits; a fixed point is a\nchoice of one reflection per circle (2^k of them) and reads the k bits it chooses as a number in 0..2^k-1; the\ngenerator of a label is the concatenation of one indicator block per fixed point. Then\n  n = number of distinct generators,   d = rank of the generator matrix (exact, modulo a large prime),\nand every generator is an extreme ray (a 0/1 vector with one 1 per block is a vertex of the product of simplices; the\nproof of Proposition 2). For k above the computed range the lab says so and shows only 4^k and 3^k from the formula.\n\"\"\"\nimport json\nfrom itertools import product\n\nP = 2 ** 61 - 1  # rank over Q equals rank mod P here (0/1 matrix; checked against exact rationals for k <= 2)\n\n\ndef generators(k):\n    gens = set()\n    for t in product((0, 1), repeat=2 * k):\n        v = []\n        for choice in product((0, 1), repeat=k):\n            val = 0\n            for c in range(k):\n                val = 2 * val + t[2 * c + choice[c]]\n            blk = [0] * (2 ** k)\n            blk[val] = 1\n            v.extend(blk)\n        gens.add(tuple(v))\n    return sorted(gens)\n\n\ndef rank_mod(rows, p=P):\n    rows = [list(r) for r in rows]\n    rk, col, m = 0, 0, len(rows[0]) if rows else 0\n    for col in range(m):\n        piv = next((i for i in range(rk, len(rows)) if rows[i][col] % p), None)\n        if piv is None:\n            continue\n        rows[rk], rows[piv] = rows[piv], rows[rk]\n        inv = pow(rows[rk][col], p - 2, p)\n        rows[rk] = [x * inv % p for x in rows[rk]]\n        for i in range(len(rows)):\n            if i != rk and rows[i][col] % p:\n                f = rows[i][col]\n                rows[i] = [(a - f * b) % p for a, b in zip(rows[i], rows[rk])]\n        rk += 1\n    return rk\n\n\ndef rank_exact(rows):\n    from fractions import Fraction\n    rows = [[Fraction(x) for x in r] for r in rows]\n    rk = 0\n    for col in range(len(rows[0])):\n        piv = next((i for i in range(rk, len(rows)) if rows[i][col] != 0), None)\n        if piv is None:\n            continue\n        rows[rk], rows[piv] = rows[piv], rows[rk]\n        for i in range(len(rows)):\n            if i != rk and rows[i][col] != 0:\n                f = rows[i][col] / rows[rk][col]\n                rows[i] = [a - f * b for a, b in zip(rows[i], rows[rk])]\n        rk += 1\n    return rk\n\n\ndef run(arg):\n    a = json.loads(arg or '{}')\n    K = max(1, min(int(a.get('kmax', 6)), 10))\n    computed = min(K, 4)\n    rows, ks, ns, bounds, ratios = [], [], [], [], []\n    for k in range(1, K + 1):\n        if k <= computed:\n            g = generators(k)\n            n, d = len(g), rank_mod(g)\n            if k <= 2 and rank_exact(g) != d:\n                return json.dumps({'error': 'the rank modulo P differs from the exact rank at k = %d' % k})\n            how = 'built and counted'\n            ok = (n == 4 ** k and d == 3 ** k)\n        else:\n            n, d, how, ok = 4 ** k, 3 ** k, 'formula only (4^k, 3^k): not rebuilt here', True\n        b = 2 * d - 2\n        verdict = 'bound met exactly' if n == b else ('over the bound: not a complete intersection' if n > b else 'under the bound')\n        rows.append([k, n, d, b, '%.4f' % (n / b if b else float('inf')), verdict, how + ('' if ok else '  ⚠ differs from 4^k, 3^k')])\n        ks.append(k); ns.append(n); bounds.append(b); ratios.append(n / b if b else None)\n    text = ('Every generator is a 0/1 vector with one 1 in each of the 2^k fixed-point blocks, hence a vertex of the '\n            'product of simplices and an extreme ray. Theorem 1 needs n ≤ 2d − 2 for a complete intersection. '\n            'Built up to k = %d (n and the exact rank d of the generator matrix); the ratio is exactly 1 at k = 1, 2 '\n            'and exceeds 1 from k = 3, as in Figure 2.' % computed)\n    return json.dumps({\n        'text': text,\n        'table': {'head': ['k', 'n (extreme rays)', 'd = dim S', '2d − 2', 'n / (2d − 2)', 'verdict', 'how'], 'rows': rows},\n        'plots': [\n            {'title': 'extreme rays n and the bound 2d − 2 (Theorem 1)', 'xlabel': 'k', 'ylabel': 'count', 'x': ks,\n             'series': [{'name': 'n = extreme rays', 'y': ns}, {'name': '2d − 2', 'y': bounds}]},\n            {'title': 'the ratio n / (2d − 2): 1 means the bound is met, above 1 it is violated', 'xlabel': 'k',\n             'ylabel': 'ratio', 'x': ks, 'series': [{'name': 'n / (2d − 2)', 'y': ratios}, {'name': '1', 'y': [1] * len(ks)}]},\n        ]})\n\n\nif __name__ == '__main__':\n    print(run(json.dumps({'kmax': 6})))\n"}, "module": "rayos", "function": "run", "packages": [], "inputs": [{"name": "kmax", "label": "up to k =", "type": "int", "default": "6", "min": 1, "max": 10}], "examples": [{"kmax": "2", "label": "k ≤ 2: the bound is met"}, {"kmax": "4", "label": "k ≤ 4: all built"}, {"kmax": "8", "label": "k ≤ 8"}], "figures": ["paperfig-2"], "figure_link": "Your own k, built from the construction: the lab of Proposition 2"}];</script><script defer="" src="js/lab3d.js?v=083d383564"></script><script defer="" src="js/lablevels.js?v=2db15e5f75"></script><script defer="" src="js/lab.js?v=0276e732d8"></script><script>
 (function(){
   var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
   function apply(v){
@@ -894,7 +1402,7 @@ document.addEventListener('click', function (e) {
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
 <script id="lm-guide">
 (function(){
-  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lean", "sel": "[class$=\"_thmheading\"]:has(button.modal.lean)", "title": "Checked by a computer", "text": "Point at a statement like this one: L∃∀N shows the parts checked by the Lean proof assistant, with the code.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "figure", "sel": ".lm-figslot", "title": "Figures in motion", "text": "The figures of the paper, drawn live: drag to turn a 3D figure, press ▶ to animate. The paper's static figure is one click away.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
   function visible(e){ return e && e.offsetParent !== null; }
   function find(sel){
     var all = [].slice.call(document.querySelectorAll(sel));
@@ -976,7 +1484,7 @@ document.addEventListener('click', function (e) {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:tripod": "Proposition 1", "thm:cor34": "Theorem 1 — {\\cite[Cor.~3.4]{FMS}}", "prop:allk": "Proposition 2", "prop:notci": "Proposition 3", "prop:eight": "Proposition 4", "prop:type": "Proposition 5"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"def:S": "Definition 1", "prop:tripod": "Proposition 1", "thm:cor34": "Theorem 1 — {\\cite[Cor.~3.4]{FMS}}", "prop:allk": "Proposition 2", "prop:notci": "Proposition 3", "prop:eight": "Proposition 4", "prop:type": "Proposition 5"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
