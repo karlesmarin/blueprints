@@ -943,7 +943,31 @@ thick border are the main results; click a box to read the statement.</p><div cl
   }
   document.addEventListener('click', function(e){var b=e.target.closest('#vistas button'); if(b) set(b.dataset.v)});
   var v='paper'; try{v=localStorage.getItem('vista')||'paper'}catch(e){}
+  // a link to a figure or a lab (?lab=…, ?fig=…, or an anchor inside a block that Paper hides) lands in Explore and
+  // opens that block (20-oct, Carles: «ir a la figura no nos muestra ninguna fig»: Paper hid it)
+  var q = location.search;
+  if (/[?&](lab|fig)=/.test(q)) v = 'explore';
   set(v);
+  function hiddenBlock(el){
+    var d = el && el.closest ? el.closest('details.blk') : null;
+    return d && !/\b(b-guar|b-set)\b/.test(d.className) ? d : null;
+  }
+  function reveal(el){
+    var d = hiddenBlock(el);
+    if (!d) return;
+    if (document.body.classList.contains('vista-paper')) set('explore');
+    for (var p = d; p; p = p.parentElement && p.parentElement.closest('details')) p.open = true;
+    setTimeout(function(){ el.scrollIntoView({block: 'start'}); }, 50);
+  }
+  function fromHash(){ if (location.hash) reveal(document.getElementById(decodeURIComponent(location.hash.slice(1)))); }
+  window.addEventListener('hashchange', fromHash);
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href*="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').split('#')[1];
+    if (id) reveal(document.getElementById(decodeURIComponent(id)));
+  });
+  fromHash();
 })();
 </script><script id="lm-citebar">
 document.addEventListener('click', function (e) {
