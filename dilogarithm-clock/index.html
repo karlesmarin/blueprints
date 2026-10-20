@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript">
+</script>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4: blueprint</title>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/amsthm.css" rel="stylesheet"/>
+<link href="styles/blueprint.css" rel="stylesheet"/>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="estilo-blueprint">/* lemmario: commentary blocks, views bar, Lean seal. Injected into index.html after plasTeX. */
+/* a link target is not hidden under the sticky bar */
+[id], a[name]{scroll-margin-top:64px}
+details.blk{border-radius:8px;margin:.8em 0;padding:.1em .9em .4em;border-left:6px solid}
+details.blk>summary{cursor:pointer;font-weight:600;padding:.35em 0;list-style:none}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:before{content:"▸ ";color:#888}
+details.blk[open]>summary:before{content:"▾ "}
+.b-plain{background:#fff8e1;border-color:#f5b700}
+.b-guar{background:#f5f7f9;border-color:#8a99a8}
+.b-fig{background:#f3e5f5;border-color:#8e24aa}
+.b-set{background:#eceff1;border-color:#546e7a}
+.b-tabs{background:#e3f2fd;border-color:#1e88e5}
+.b-lab{background:#fff3e0;border-color:#ef6c00}
+#vistas{position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;padding:.4em .2em;
+        font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas button{border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;cursor:pointer}
+#vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
+#vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
+.lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
+.lean-check .repro{color:#456}.lean-check code{font-size:.95em}
+.lean-ok{border-left:6px solid #1cac78;padding-left:.6em;background:linear-gradient(90deg,#e9f8f1,transparent 40%)}
+.sello{display:inline-block;background:#1cac78;color:#fff;border-radius:10px;padding:0 .55em;font-size:.8em;
+       margin-left:.5em;vertical-align:middle}
+.theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
+.lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style>
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="lm-citebar-css">
+.lm-act{margin-left:.4em;white-space:nowrap}
+.lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
+          padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
+.lm-act a:hover{background:#eef2f6}
+.lm-citebox{font:13px Arial,sans-serif;background:#f7f9fb;border:1px solid #d5dbe2;border-radius:6px;padding:.4em .6em;
+            margin:.3em 0}
+.lm-citebox button{margin-left:.5em;cursor:pointer;border:1px solid #9fb7cf;background:#fff;border-radius:10px}
+.lm-erratum{font:13px Arial,sans-serif;background:#fff4e5;border-left:3px solid #e69f00;padding:.3em .6em;margin:.3em 0}
+.lm-version{font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em}  /* the bars are dark: a light grey-blue */
+</style><meta content="The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4" name="citation_title"/><meta content="Marín Muñoz, Carles" name="citation_author"/><meta content="2026/06/13" name="citation_publication_date"/><meta content="https://karlesmarin.github.io/blueprints/dilogarithm-clock/paper.pdf" name="citation_pdf_url"/><meta content="https://karlesmarin.github.io/blueprints/dilogarithm-clock/" name="citation_abstract_html_url"/><meta content="10.5281/zenodo.20675271" name="citation_doi"/><meta content="A machine-checked, sorry -free development in Lean 4 over Mathlib (about 1500 lines) that fills a gap in Mathlib — the dilogarithm Li 2 , which the library cites but does not define — and follows it into a quantum-mechanics problem. To the best of the author's knowledge, the first formalization in any proof assistant of: the real dilogarithm with Euler's reflection identity, Landen's transformation and the duplication formula; the golden-ratio ladder Li 2 (1/φ 2 ) = π 2 /15 − ln 2 φ (derived from a 3×3 linear system, no five-term relation) and the Lee–Yang effective central charge c_eff = 2/5 (the simplest thermodynamic-Bethe-ansatz dilogarithm identity); the Clausen function Cl 2 and Catalan's constant G = Cl 2 (π/2); the Fejér–Jackson inequality; the bound Cl 2 (θ) ≥ sin(θ)/2 by an asymptotics-free Abel summation; and the Margolus–Levitin and (an L 1 form of the) Mandelstam–Tamm quantum speed limits. These assemble into the title theorem: the weight-2 zeta state (populations proportional to 1/n 2 on equally spaced energy levels) has infinite mean energy and infinite energy variance — so both textbook speed limits say nothing — yet never reaches a state orthogonal to itself, because its autocorrelation is (6/π 2 )·Li 2 (e −iθ ) and the dilogarithm has no zero on the unit circle. A clock with an unbounded energy budget that never ticks. Every identity is classical (Euler, Landen, Clausen, Fejér, Jackson, Mandelstam–Tamm, Margolus–Levitin); the contribution is the machine-checked development and its assembly. Every named theorem depends only on the three standard axioms (propext, Classical.choice, Quot.sound). Formalized with AI assistance (Claude, Anthropic); the mathematics and all claims are the author's responsibility." name="citation_abstract"/><meta content="Lean 4; Mathlib; formal verification; interactive theorem proving; machine-checked proof; dilogarithm; polylogarithm; Clausen function; Catalan's constant; Fejer-Jackson inequality; positive trigonometric sums; thermodynamic Bethe ansatz; quantum speed limit; Margolus-Levitin; Mandelstam-Tamm; special functions" name="citation_keywords"/><style id="annotate-css">
+p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
+p.usado a{color:#1a4f8b}
+p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
+  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
+header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
+  text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
+header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
+  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
+header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
+  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
+header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+header h1#doc_title{flex:1}
+ul.chapter-list{font-size:1.05em;line-height:1.7}
+/* master-detail: the header and the sidebar stay; the right panel shows one part at a time */
+section.pc-pane[hidden]{display:none !important}
+.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
+nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
+/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
+#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
+  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
+body.vista-explore #explore-banner{display:block}
+body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
+  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
+body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
+body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
+  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
+
+#top.overview{margin:0 0 2.2em}
+#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
+#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
+#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
+#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
+#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
+#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+#top.overview .c-paper{background:#fff;border:1px solid #888}
+#top.overview .nota{font-size:.85em;color:#555}
+#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
+  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
+#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
+#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="lm-guide-css">
+.lm-tour-on{position:relative;z-index:10001 !important;outline:3px solid #ef6c00;outline-offset:3px;border-radius:4px;
+            box-shadow:0 0 0 9999px rgba(20,30,40,.45) !important;background:#fff}
+#lm-tour{position:fixed;z-index:10002;max-width:340px;background:#fff;border-radius:10px;padding:.8em 1em;
+         box-shadow:0 6px 24px rgba(0,0,0,.25);font:14px Arial,sans-serif;color:#222}
+#lm-tour h4{margin:0 0 .35em;font-size:15px}
+#lm-tour .lm-tour-nav{display:flex;gap:.4em;justify-content:flex-end;margin-top:.7em;align-items:center}
+#lm-tour button{cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;padding:.15em .8em}
+#lm-tour button.lm-next{background:#ef6c00;color:#fff}
+#lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
+a.lm-tourbtn{cursor:pointer}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
+</head>
+<body>
+<header>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html" title="The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4: blueprint">Blueprint</a></h1>
+<nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20675271" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20675271</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="dilogarithm-clock-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
+</header>
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
+<li class=""><a href="#a0000000002"><span class="toc_ref">1</span> <span class="toc_entry">Q1: what does the series know about its own derivative?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:funceq" title="Li₂_add_Li₂_one_sub , Li₂_landen , Li₂_sq , Li₂_one_half"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000005"><span class="toc_ref">2</span> <span class="toc_entry">Q4: why is the wild half positive?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:fj" title="fejerSum_pos"><span class="toc_ref"></span> <span class="toc_entry">Theorem 2</span></a></li></ul></li>
+<li class=""><a href="#a0000000007"><span class="toc_ref">3</span> <span class="toc_entry">Q5: what physical thing beats to this function?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:qsl" title="margolus_levitin , mandelstam_tamm_L1 ; \(\hbar =1\)"><span class="toc_ref"></span> <span class="toc_entry">Theorem 3</span></a></li><li class=""><a href="#thm:clock" title="zetaState_never_orthogonal"><span class="toc_ref"></span> <span class="toc_entry">Theorem 4</span></a></li><li class=""><a href="#rem:ek" title="Which clocks do tick: a closing observation"><span class="toc_ref"></span> <span class="toc_entry">Remark 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000011"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+<div class="content">
+<div class="content-wrapper">
+<div class="main-text">
+<div id="explore-banner">🔍 <b>Explore view</b>: explanations, figures, other mathematical languages and labs are shown, marked <i>commentary</i>; they are not part of the paper. Switch to <b>Paper</b> for the statements, proofs and evidence only.</div><div class="pc-paneltitle"><div class="titlepage">
+<h1>The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">Special functions · the dilogarithm and the Clausen function</span></div>
+<p class="authors">
+<span class="author">Carles Marín</span>
+</p>
+</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta">\begin{itemize}
+\item A sorry-free real dilogarithm in Lean~4 with Euler's reflection, Landen's transformation, the duplication formula and $\mathrm{Li}_2(1/2)$ (Theorem~1); the golden-ratio values and the Lee--Yang $c_{\mathrm{eff}}=2/5$ from a $3\times3$ linear system, without the five-term relation.
+\item The Clausen function and Catalan's constant $G=\mathrm{Cl}_2(\pi/2)$; the Fej\'er--Jackson inequality (Theorem~2) and, by Abel summation without asymptotics, $\mathrm{Cl}_2(\theta)\ge\sin(\theta)/2$ on $(0,\pi)$.
+\item The Margolus--Levitin bound and an $L^1$ form of Mandelstam--Tamm for a scalar spectral measure (Theorem~3).
+\item The assembly (Theorem~4): the state with populations $6/(\pi^2n^2)$ on levels $E_n=n$ has infinite mean energy and variance, so both bounds are silent, and yet it never reaches an orthogonal state.
+\item The mathematics is classical; the paper claims the formalization and the assembly, and records the Enestr\"om--Kakeya reading as an observation (Remark~1).
+\end{itemize}</div><p>🚀 <b>Start here:</b> <a href="index.html#thm:funceq"><b>Theorem 1</b></a>: Euler reflection, Landen, duplication and Li₂(1/2) for the real dilogarithm.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:clock"><b>Theorem 4</b></a>: the weight-2 zeta state never reaches an orthogonal state</li></ul><div class="cifras">
+<span class="cifra"><b>5</b> results</span>
+<span class="cifra c-lean">✅ <b>4</b> formalized in Lean</span>
+<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra c-prog">💻 <b>0</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 942.00 128.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 123.58)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M12,-3.75C12,-3.75 271,-3.75 271,-3.75 277,-3.75 283,-9.75 283,-15.75 283,-15.75 283,-103.83 283,-103.83 283,-109.83 277,-115.83 271,-115.83 271,-115.83 12,-115.83 12,-115.83 6,-115.83 0,-109.83 0,-103.83 0,-103.83 0,-15.75 0,-15.75 0,-9.75 6,-3.75 12,-3.75" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="141.5" xml:space="preserve" y="-100.42">Q1: what does the series know about its own derivative?</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M303,-3.75C303,-3.75 455,-3.75 455,-3.75 461,-3.75 467,-9.75 467,-15.75 467,-15.75 467,-103.83 467,-103.83 467,-109.83 461,-115.83 455,-115.83 455,-115.83 303,-115.83 303,-115.83 297,-115.83 291,-109.83 291,-103.83 291,-103.83 291,-15.75 291,-15.75 291,-9.75 297,-3.75 303,-3.75" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-100.42">Q4: why is the wild half positive?</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M487,0C487,0 922,0 922,0 928,0 934,-6 934,-12 934,-12 934,-107.58 934,-107.58 934,-113.58 928,-119.58 922,-119.58 922,-119.58 487,-119.58 487,-119.58 481,-119.58 475,-113.58 475,-107.58 475,-107.58 475,-12 475,-12 475,-6 481,0 487,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="704.5" xml:space="preserve" y="-104.17">Q5: what physical thing beats to this function?</text>
+</g>
+<!-- thm:funceq -->
+<g class="node" id="node1">
+<title>thm:funceq</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:funceq" xlink:title="Theorem 1: Euler reflection, Landen, duplication and Li₂(1/2) for the real dilogarithm">
+<path d="M192.43,-85.58C192.43,-85.58 87.57,-85.58 87.57,-85.58 81.57,-85.58 75.57,-79.58 75.57,-73.58 75.57,-73.58 75.57,-23.75 75.57,-23.75 75.57,-17.75 81.57,-11.75 87.57,-11.75 87.57,-11.75 192.43,-11.75 192.43,-11.75 198.43,-11.75 204.43,-17.75 204.43,-23.75 204.43,-23.75 204.43,-73.58 204.43,-73.58 204.43,-79.58 198.43,-85.58 192.43,-85.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-70.56">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-57.81">Euler reflection, Landen,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-45.06">duplication and Li₂(1/2)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-32.31">for the real dilogarithm</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-19.56">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- thm:fj -->
+<g class="node" id="node2">
+<title>thm:fj</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:fj" xlink:title="Theorem 2: Fejér–Jackson: the sine partial sums ∑ sin(kθ)/k are positive on (0, π)">
+<path d="M428.18,-85.58C428.18,-85.58 327.82,-85.58 327.82,-85.58 321.82,-85.58 315.82,-79.58 315.82,-73.58 315.82,-73.58 315.82,-23.75 315.82,-23.75 315.82,-17.75 321.82,-11.75 327.82,-11.75 327.82,-11.75 428.18,-11.75 428.18,-11.75 434.18,-11.75 440.18,-17.75 440.18,-23.75 440.18,-23.75 440.18,-73.58 440.18,-73.58 440.18,-79.58 434.18,-85.58 428.18,-85.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-70.56">Theorem 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-57.81">Fejér–Jackson: the sine</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-45.06">partial sums ∑ sin(kθ)/k</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-32.31">are positive on (0, π)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-19.56">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- thm:qsl -->
+<g class="node" id="node3">
+<title>thm:qsl</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#thm:qsl" xlink:title="Theorem 3: Margolus–Levitin and an L¹ Mandelstam–Tamm bound at an orthogonalization time">
+<path d="M615.3,-85.58C615.3,-85.58 494.7,-85.58 494.7,-85.58 488.7,-85.58 482.7,-79.58 482.7,-73.58 482.7,-73.58 482.7,-23.75 482.7,-23.75 482.7,-17.75 488.7,-11.75 494.7,-11.75 494.7,-11.75 615.3,-11.75 615.3,-11.75 621.3,-11.75 627.3,-17.75 627.3,-23.75 627.3,-23.75 627.3,-73.58 627.3,-73.58 627.3,-79.58 621.3,-85.58 615.3,-85.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="555" xml:space="preserve" y="-70.56">Theorem 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="555" xml:space="preserve" y="-57.81">Margolus–Levitin and an L¹</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="555" xml:space="preserve" y="-45.06">Mandelstam–Tamm bound at</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="555" xml:space="preserve" y="-32.31">an orthogonalization time</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="555" xml:space="preserve" y="-19.56">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- thm:clock -->
+<g class="node" id="node4">
+<title>thm:clock</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#thm:clock" xlink:title="Theorem 4: the weight-2 zeta state never reaches an orthogonal state">
+<path d="M767.3,-89.33C767.3,-89.33 664.7,-89.33 664.7,-89.33 658.7,-89.33 652.7,-83.33 652.7,-77.33 652.7,-77.33 652.7,-20 652.7,-20 652.7,-14 658.7,-8 664.7,-8 664.7,-8 767.3,-8 767.3,-8 773.3,-8 779.3,-14 779.3,-20 779.3,-20 779.3,-77.33 779.3,-77.33 779.3,-83.33 773.3,-89.33 767.3,-89.33" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="716" xml:space="preserve" y="-72.89">Theorem 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="716" xml:space="preserve" y="-58.64">the weight-2 zeta state</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="716" xml:space="preserve" y="-44.39">never reaches an</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="716" xml:space="preserve" y="-30.14">orthogonal state</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="716" xml:space="preserve" y="-15.89">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- rem:ek -->
+<g class="node" id="node5">
+<title>rem:ek</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#rem:ek" xlink:title="Remark 1: which monotone clocks tick: zeros on the circle are roots of unity (an observation)">
+<path d="M913.67,-85.58C913.67,-85.58 816.33,-85.58 816.33,-85.58 810.33,-85.58 804.33,-79.58 804.33,-73.58 804.33,-73.58 804.33,-23.75 804.33,-23.75 804.33,-17.75 810.33,-11.75 816.33,-11.75 816.33,-11.75 913.67,-11.75 913.67,-11.75 919.67,-11.75 925.67,-17.75 925.67,-23.75 925.67,-23.75 925.67,-73.58 925.67,-73.58 925.67,-79.58 919.67,-85.58 913.67,-85.58" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="865" xml:space="preserve" y="-70.56">Remark 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="865" xml:space="preserve" y="-57.81">which monotone clocks</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="865" xml:space="preserve" y="-45.06">tick: zeros on the circle</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="865" xml:space="preserve" y="-32.31">are roots of unity (an</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="865" xml:space="preserve" y="-19.56">observation)</text>
+</a>
+</g>
+</g>
+<!-- thm:clock&#45;&gt;rem:ek -->
+<g class="edge lm-aux" id="edge1">
+<title>thm:clock-&gt;rem:ek</title>
+<path d="M780.31,-48.66C785.33,-48.66 790.35,-48.66 795.36,-48.66" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="795.29,-51.12 802.29,-48.67 795.29,-46.22 795.29,-51.12" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></details></section>
+</section><section class="pc-pane"><h1 id="a0000000002">1 Q1: what does the series know about its own derivative?</h1>
+<div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:funceq">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">1</span><span class="sello">✅ Lean</span>
+<span class="theorem_thmtitle"><span class="ttfamily">Li₂_add_Li₂_one_sub</span>, <span class="ttfamily">Li₂_landen</span>, <span class="ttfamily">Li₂_sq</span>, <span class="ttfamily">Li₂_one_half</span></span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:funceq">#</a>
+<a class="icon proof" href="index.html#a0000000003"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="./find/#doc/Dilog.Li₂_add_Li₂_one_sub">Dilog.Li₂_add_Li₂_one_sub</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Li₂_landen">Dilog.Li₂_landen</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Li₂_sq">Dilog.Li₂_sq</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Li₂_one_half">Dilog.Li₂_one_half</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Li₂_inv_goldenRatio_sq">Dilog.Li₂_inv_goldenRatio_sq</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Li₂_inv_goldenRatio">Dilog.Li₂_inv_goldenRatio</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Li₂_neg_inv_goldenRatio">Dilog.Li₂_neg_inv_goldenRatio</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.rogersL_inv_goldenRatio_sq">Dilog.rogersL_inv_goldenRatio_sq</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.rogersL_gold_sum">Dilog.rogersL_gold_sum</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=3&amp;n=thm:funceq" title="Open the paper at page 3">📕 p. 3</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:funceq" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4”, Theorem 1, v1, doi:10.5281/zenodo.20675271, https://karlesmarin.github.io/blueprints/dilogarithm-clock/index.html#thm:funceq." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20675271%2C%20https%3A//karlesmarin.github.io/blueprints/dilogarithm-clock/index.html%23thm%3Afunceq.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>   On the stated domains, </p>
+<div class="displaymath" id="a0000000004">
+  \begin{align*}  \mathrm{Li}_2(x)+\mathrm{Li}_2(1-x) &amp; = \tfrac {\pi ^2}{6}-\ln x\, \ln (1-x) &amp; &amp;  x\in (0,1)\\ \mathrm{Li}_2(x)+\mathrm{Li}_2\! \Big(\tfrac {x}{x-1}\Big) &amp; = -\tfrac {1}{2}\ln ^2(1-x) &amp; &amp;  x\in (0,\tfrac 12)\\ \mathrm{Li}_2(x^2) &amp; = 2\big(\mathrm{Li}_2(x)+\mathrm{Li}_2(-x)\big) &amp; &amp;  \lvert x\rvert \le 1\\ \mathrm{Li}_2(\tfrac 12) &amp; = \tfrac {\pi ^2}{12}-\tfrac {\ln ^2 2}{2}. \end{align*}
+</div>
+</div>
+</div><p class="lean-check">✅ Checked when this page was built: Basic.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — Li₂_add_Li₂_one_sub, Li₂_landen, Li₂_sq, Li₂_one_half, Li₂_inv_goldenRatio_sq, Li₂_inv_goldenRatio, Li₂_neg_inv_goldenRatio, rogersL_inv_goldenRatio_sq, rogersL_gold_sum: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean Basic.lean</code> (SHA-256 of the compiled file: <code>ca33594f06b52c38…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical (Euler 1768, Landen 1780; Lewin, Zagier); the paper claims, from its June 2026 checks, the first formalization of the real dilogarithm and these identities in a proof assistant (§7(i)).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000003">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+</section><section class="pc-pane"><h1 id="a0000000005">2 Q4: why is the wild half positive?</h1>
+<div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:fj">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">2</span><span class="sello">✅ Lean</span>
+<span class="theorem_thmtitle"><span class="ttfamily">fejerSum_pos</span></span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:fj">#</a>
+<a class="icon proof" href="index.html#a0000000006"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="./find/#doc/Dilog.fejerSum_pos">Dilog.fejerSum_pos</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Cl₂_pos">Dilog.Cl₂_pos</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Cl₂_pi_div_two">Dilog.Cl₂_pi_div_two</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.hasSum_cos_div_sq">Dilog.hasSum_cos_div_sq</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=5&amp;n=thm:fj" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:fj" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4”, Theorem 2, v1, doi:10.5281/zenodo.20675271, https://karlesmarin.github.io/blueprints/dilogarithm-clock/index.html#thm:fj." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%20%E2%80%94%20Theorem%202&amp;body=About%20Theorem%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%E2%80%9D%2C%20Theorem%202%2C%20v1%2C%20doi%3A10.5281/zenodo.20675271%2C%20https%3A//karlesmarin.github.io/blueprints/dilogarithm-clock/index.html%23thm%3Afj.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>   For every \(M\ge 1\) and \(\theta \in (0,\pi )\): \(\displaystyle \sum _{k=1}^{M}\frac{\sin k\theta }{k}{\gt}0\). </p>
+</div>
+</div><p class="lean-check">✅ Checked when this page was built: Clausen.lean, FejerJackson.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — fejerSum_pos, Cl₂_pos, Cl₂_pi_div_two, hasSum_cos_div_sq: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean Clausen.lean FejerJackson.lean</code> (SHA-256 of the compiled file: <code>78931a748edb7c0c…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical (Fejér 1910, Jackson 1911); the paper records two proof-engineering choices, the division-free Dirichlet telescope and the asymptotics-free bound Cl₂(θ) ≥ sin(θ)/2 (§7(ii)).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000006">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+</section><section class="pc-pane"><h1 id="a0000000007">3 Q5: what physical thing beats to this function?</h1>
+<div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:qsl">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">3</span><span class="sello">✅ Lean</span>
+<span class="theorem_thmtitle"><span class="ttfamily">margolus_levitin</span>, <span class="ttfamily">mandelstam_tamm_L1</span>; \(\hbar =1\)</span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:qsl">#</a>
+<a class="icon proof" href="index.html#a0000000008"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="./find/#doc/QSL.margolus_levitin">QSL.margolus_levitin</a></li>
+<li><a class="lean_decl" href="./find/#doc/QSL.mandelstam_tamm_L1">QSL.mandelstam_tamm_L1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=7&amp;n=thm:qsl" title="Open the paper at page 7">📕 p. 7</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:qsl" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4”, Theorem 3, v1, doi:10.5281/zenodo.20675271, https://karlesmarin.github.io/blueprints/dilogarithm-clock/index.html#thm:qsl." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%20%E2%80%94%20Theorem%203&amp;body=About%20Theorem%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%E2%80%9D%2C%20Theorem%203%2C%20v1%2C%20doi%3A10.5281/zenodo.20675271%2C%20https%3A//karlesmarin.github.io/blueprints/dilogarithm-clock/index.html%23thm%3Aqsl.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>   If \(S(\tau )=0\) with \(\tau \ge 0\), then </p>
+<div class="displaymath" id="a0000000009">
+  \[  \pi \; \le \;  2\, \langle E\rangle \, \tau \qquad \text{and}\qquad 1 \; \le \;  D_1\, \tau , \quad D_1=\textstyle \sum _n p_n\lvert E_n-\bar E\rvert .  \]
+</div>
+</div>
+</div><p class="lean-check">✅ Checked when this page was built: MandelstamTamm.lean, MargolusLevitin.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — margolus_levitin, mandelstam_tamm_L1: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean MandelstamTamm.lean MargolusLevitin.lean</code> (SHA-256 of the compiled file: <code>224c15dcafc7d45b…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical (Mandelstam–Tamm 1945, Margolus–Levitin 1998); the paper states them for a scalar spectral measure and calls the fully real statements a reusable choice (§7(ii)). The sharp π/(2ΔE) is left open (§8).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000008">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:clock">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">4</span><span class="sello">✅ Lean</span>
+<span class="theorem_thmtitle"><span class="ttfamily">zetaState_never_orthogonal</span></span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:clock">#</a>
+<a class="icon proof" href="index.html#a0000000010"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="./find/#doc/Dilog.zetaState_never_orthogonal">Dilog.zetaState_never_orthogonal</a></li>
+<li><a class="lean_decl" href="./find/#doc/Dilog.Cl₂_two_pi_sub">Dilog.Cl₂_two_pi_sub</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=7&amp;n=thm:clock" title="Open the paper at page 7">📕 p. 7</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:clock" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4”, Theorem 4, v1, doi:10.5281/zenodo.20675271, https://karlesmarin.github.io/blueprints/dilogarithm-clock/index.html#thm:clock." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%20%E2%80%94%20Theorem%204&amp;body=About%20Theorem%204%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%E2%80%9D%2C%20Theorem%204%2C%20v1%2C%20doi%3A10.5281/zenodo.20675271%2C%20https%3A//karlesmarin.github.io/blueprints/dilogarithm-clock/index.html%23thm%3Aclock.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>   For every \(\theta \in (0,2\pi )\), the real and imaginary parts of the weight-2 zeta-state autocorrelation are not both zero: the state <em>never</em> reaches an orthogonal state. </p>
+</div>
+</div><p class="lean-check">✅ Checked when this page was built: Clausen.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — zetaState_never_orthogonal, Cl₂_two_pi_sub: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean Clausen.lean</code> (SHA-256 of the compiled file: <code>6d0145e090a18399…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> the assembly is the paper’s: «whose physical reading we have not seen stated, though we would not be surprised to find it folklore among polylogarithm or QSL specialists» (§7(iii)).</p><p class="usado">↳ Used in: <a href="#rem:ek"> 1</a></p>
+<div class="proof_wrapper" id="a0000000010">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+<div class="remark_thmwrapper theorem-style-definition" id="rem:ek">
+<div class="remark_thmheading">
+<span class="remark_thmcaption">
+    Remark
+    </span>
+<span class="remark_thmlabel">1</span>
+<span class="remark_thmtitle">Which clocks do tick: a closing observation</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#rem:ek">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:clock">Theorem 4</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=8&amp;n=rem:ek" title="Open the paper at page 8">📕 p. 8</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=rem:ek" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4”, Remark 1, v1, doi:10.5281/zenodo.20675271, https://karlesmarin.github.io/blueprints/dilogarithm-clock/index.html#rem:ek." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%20%E2%80%94%20Remark%201&amp;body=About%20Remark%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Clock%20That%20Never%20Ticks%3A%20a%20machine-checked%20path%20from%20the%20dilogarithm%20to%20quantum%20speed%20limits%20in%20Lean%204%E2%80%9D%2C%20Remark%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20675271%2C%20https%3A//karlesmarin.github.io/blueprints/dilogarithm-clock/index.html%23rem%3Aek.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="remark_thmcontent">
+<p>   For monotone non-increasing populations on equally spaced levels, ticking (orthogonalization) means a zero of the power series \(\sum _n p_nz^n\) <em>on</em> the unit circle. The Eneström–Kakeya theorem (1893/1912) <span class="cite">
+	[
+	<a href="index.html#enestrom">12</a>
+	]
+</span> already forbids zeros inside the disc; its boundary case pins down the rest. From \((1-z)\sum _k p_kz^k=p_0+\sum _{k\ge 1}(p_k-p_{k-1})z^k-p_Nz^{N+1}\), the triangle inequality at \(\lvert z\rvert =1\) is an equality only if every nonzero decrement \(p_{k-1}-p_k\) sits at an index \(k\) with \(z^k=1\): the decrements must concentrate on an arithmetic progression, and the zero is a root of unity. The Margolus–Levitin–sharp state \((\lvert 0\rangle +\lvert E\rangle )/\sqrt2\) is exactly such a case (\(\frac12(1+z)\), zero at \(z=-1\)). The zeta state is the opposite extreme: its successive decrements \(p_n-p_{n+1}{\gt}0\) at <em>every</em> index, never confined to a progression, so no root of unity survives and the clock cannot tick — recovering Theorem <a href="index.html#thm:clock">4</a> from the coefficient side. We have not found the resulting dictionary — root location of positive-coefficient series \(\leftrightarrow \) orthogonalizability of monotone quantum states — in either literature; we record it as an observation and a road. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper has «not found the resulting dictionary … in either literature» and records it «as an observation and a road» (Remark 1); it is not formalized.</p><p class="usado">↳ Not used by another result of the paper.</p>
+</section><section class="pc-pane"><h1 id="a0000000011">References</h1>
+<dl class="bibliography">
+<dt><a name="lewin">1</a></dt>
+<dd><p>L. Lewin, <em>Polylogarithms and Associated Functions</em>, North-Holland, 1981.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Polylogarithms+and+Associated+Functions" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="zagier">2</a></dt>
+<dd><p>D. Zagier, The dilogarithm function, in <em>Frontiers in Number Theory, Physics, and Geometry II</em>, Springer, 2007.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Frontiers+in+Number+Theory%2C+Physics%2C+and+Geometry+II" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="clausen">3</a></dt>
+<dd><p>T. Clausen, Über die Function \(\sin \varphi +\frac{1}{2^2}\sin 2\varphi +\frac{1}{3^2}\sin 3\varphi +\) etc., <em>J. Reine Angew. Math.</em> <b class="bfseries">8</b> (1832).  <a class="bib-search" href="https://scholar.google.com/scholar?q=J.+Reine+Angew.+Math." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="rogers">4</a></dt>
+<dd><p>L. J. Rogers, On function sum theorems connected with the series \(\sum x^n/n^2\), <em>Proc. London Math. Soc.</em> <b class="bfseries">4</b> (1907).  <a class="bib-search" href="https://scholar.google.com/scholar?q=Proc.+London+Math.+Soc." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="fejer">5</a></dt>
+<dd><p>L. Fejér, Lebesguesche Konstanten und divergente Fourierreihen, <em>J. Reine Angew. Math.</em> <b class="bfseries">138</b> (1910).  <a class="bib-search" href="https://scholar.google.com/scholar?q=J.+Reine+Angew.+Math." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="jackson">6</a></dt>
+<dd><p>D. Jackson, Über eine trigonometrische Summe, <em>Rend. Circ. Mat. Palermo</em> <b class="bfseries">32</b> (1911).  <a class="bib-search" href="https://scholar.google.com/scholar?q=Rend.+Circ.+Mat.+Palermo" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="mandelstam">7</a></dt>
+<dd><p>L. Mandelstam and I. Tamm, The uncertainty relation between energy and time in nonrelativistic quantum mechanics, <em>J. Phys. (USSR)</em> <b class="bfseries">9</b> (1945) 249.  <a class="bib-search" href="https://scholar.google.com/scholar?q=J.+Phys.+%28USSR%29" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="margolus">8</a></dt>
+<dd><p>N. Margolus and L. B. Levitin, The maximum speed of dynamical evolution, <em>Physica D</em> <b class="bfseries">120</b> (1998) 188; <a href="https://arxiv.org/abs/quant-ph/9710043" rel="noopener" target="_blank">arXiv:quant-ph/9710043</a>. </p>
+</dd>
+<dt><a name="zamolodchikov">9</a></dt>
+<dd><p>Al. B. Zamolodchikov, Thermodynamic Bethe ansatz in relativistic models, <em>Nucl. Phys. B</em> <b class="bfseries">342</b> (1990) 695.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Nucl.+Phys.+B" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="nahm">10</a></dt>
+<dd><p>W. Nahm, Conformal field theory and torsion elements of the Bloch group, in <em>Frontiers in Number Theory, Physics, and Geometry II</em>, Springer, 2007.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Frontiers+in+Number+Theory%2C+Physics%2C+and+Geometry+II" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="kirillov">11</a></dt>
+<dd><p>A. N. Kirillov, Dilogarithm identities, <em>Prog. Theor. Phys. Suppl.</em> <b class="bfseries">118</b> (1995) 61.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Prog.+Theor.+Phys.+Suppl." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="enestrom">12</a></dt>
+<dd><p>G. Eneström, <em>Öfv. af Kungl. Vetenskaps-Akad. Förh.</em> <b class="bfseries">50</b> (1893); S. Kakeya, On the limits of the roots of an algebraic equation with positive coefficients, <em>Tôhoku Math. J.</em> <b class="bfseries">2</b> (1912) 140.  <a class="bib-search" href="https://scholar.google.com/scholar?q=%C3%96fv.+af+Kungl.+Vetenskaps-Akad.+F%C3%B6rh." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="hornedal">13</a></dt>
+<dd><p>N. Hörnedal and O. Sönnerborn, The Margolus–Levitin quantum speed limit for an arbitrary fidelity, <em>Phys. Rev. Research</em> <b class="bfseries">5</b> (2023); see also the elementary proof in <a href="https://arxiv.org/abs/2307.16854" rel="noopener" target="_blank">arXiv:2307.16854</a>. </p>
+</dd>
+<dt><a name="alha">14</a></dt>
+<dd><p>L. Alha, Families of self-inverse functions and dilogarithm identities, <a href="https://arxiv.org/abs/2509.07598" rel="noopener" target="_blank">arXiv:2509.07598</a>. </p>
+</dd>
+<dt><a name="mathlib">15</a></dt>
+<dd><p>The mathlib Community, The Lean mathematical library, <em>CPP 2020</em>.  <a class="bib-search" href="https://scholar.google.com/scholar?q=CPP+2020" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+</dl>
+</section>
+</div>
+</div>
+</div>
+</div>
+<nav class="prev_up_next">
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+<a href="index.html" title="The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4: blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+</nav>
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
+// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+// event, so that page-specific scripts (labs) can react.
+(function(){
+  function set(v){
+    document.body.classList.toggle('vista-paper', v==='paper');
+    document.querySelectorAll('#vistas button').forEach(function(b){b.classList.toggle('on', b.dataset.v===v)});
+    try{localStorage.setItem('vista', v)}catch(e){}
+    document.dispatchEvent(new CustomEvent('vista', {detail: v}));
+  }
+  document.addEventListener('click', function(e){var b=e.target.closest('#vistas button'); if(b) set(b.dataset.v)});
+  var v='paper'; try{v=localStorage.getItem('vista')||'paper'}catch(e){}
+  set(v);
+})();
+</script><script id="lm-citebar">
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a.lm-cite');
+  if (!a) return;
+  e.preventDefault();
+  var head = a.closest('[class$="_thmheading"]') || a.parentElement, box = head.nextElementSibling;
+  if (box && box.classList.contains('lm-citebox')) { box.remove(); return; }
+  box = document.createElement('div'); box.className = 'lm-citebox';
+  box.textContent = a.getAttribute('data-cite');
+  var b = document.createElement('button'); b.type = 'button'; b.textContent = 'copy';
+  b.onclick = function () {
+    try { navigator.clipboard.writeText(a.getAttribute('data-cite')); b.textContent = 'copied'; } catch (x) {}
+  };
+  box.appendChild(b);
+  // the same statement in the blueprint's PDF, at its page (printpdf names a destination for every statement)
+  var holder = head.closest('[id]');
+  if (holder && document.querySelector('a.lm-dl[href="blueprint.pdf"]')) {
+    var p = document.createElement('a');
+    p.href = 'blueprint.pdf#nameddest=' + encodeURIComponent(holder.id); p.target = '_blank'; p.className = 'lm-inpdf';
+    p.textContent = '📄 this statement in the blueprint PDF'; p.title = 'Open the blueprint PDF at this statement';
+    box.appendChild(document.createElement('br')); box.appendChild(p);
+  }
+  head.insertAdjacentElement('afterend', box);
+});
+</script><script>
+(function(){
+  var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
+  function apply(v){
+    var ex = v === 'explore';
+    document.body.classList.toggle('vista-explore', ex);
+    document.querySelectorAll(SEL).forEach(function(d){ d.open = ex; });
+  }
+  document.addEventListener('vista', function(e){ apply(e.detail); });
+  apply(document.body.classList.contains('vista-paper') ? 'paper' : 'explore');
+})();
+</script>
+<script src="js/js.cookie.min.js" type="text/javascript"></script>
+<script src="js/showmore.js" type="text/javascript"></script>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
+  if (!panes.length) return;
+  var box = document.querySelector('div.content');
+  function find(h){
+    if (!h) return null;
+    try { h = decodeURIComponent(h); } catch (e) {}
+    return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
+  }
+  function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
+  function show(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    panes.forEach(function(x){ x.hidden = x !== p; });
+    document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
+      var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
+      var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
+      li.classList.toggle('current', on);
+      var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
+      if (ul) ul.classList.toggle('active', on);
+      if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+    });
+    if (!t || t === p || t.tagName === 'H1' || t.id === 'top') { if (box) box.scrollTop = 0; }
+    else t.scrollIntoView({block: 'start'});
+  }
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // a link to the hash already in the URL fires no hashchange
+    var a = ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+    if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); show(m[1]); }
+  });
+  show(location.hash.slice(1));
+  // the browser's own jump to the hash, and MathJax, move the page after the first show(): place it again
+  window.addEventListener('load', function(){ show(location.hash.slice(1)); });
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise)
+    MathJax.startup.promise.then(function(){ show(location.hash.slice(1)); });
+})();
+</script>
+<script defer="" src="js/mapzoom.js"></script>
+<script id="lm-guide">
+(function(){
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lean", "sel": "[class$=\"_thmheading\"]:has(button.modal.lean)", "title": "Checked by a computer", "text": "Point at a statement like this one: L∃∀N shows the parts checked by the Lean proof assistant, with the code.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  function visible(e){ return e && e.offsetParent !== null; }
+  function find(sel){
+    var all = [].slice.call(document.querySelectorAll(sel));
+    return all.filter(visible)[0] || all[0] || null;
+  }
+  // the statement a piece belongs to: the piece's own ancestors, or the nearest statement before it (a lab or a
+  // figure block follows its statement, it is not inside it)
+  function holderOf(el){
+    for (var e = el; e && e !== document.body; e = e.parentElement) {
+      if (e.id && e.id.indexOf(':') > 0) return e.id;
+      for (var p = e.previousElementSibling; p; p = p.previousElementSibling) {
+        if (p.id && p.id.indexOf(':') > 0) return p.id;
+        var q = p.querySelectorAll('[id*=":"]');
+        if (q.length) return q[q.length - 1].id;
+      }
+    }
+    return null;
+  }
+  function clear(){ if (on) on.classList.remove('lm-tour-on'); on = null; }
+  function close(){ clear(); if (box) box.remove(); box = null; }
+  function place(el){
+    var w = Math.min(340, innerWidth - 24), x = 12, y = innerHeight / 2 - 80;
+    if (el) {
+      var r = el.getBoundingClientRect();
+      if (r.height > innerHeight * 0.55) {  // a tall piece (a live figure): the note goes to a corner, not over it
+        x = innerWidth - w - 12; y = innerHeight - 190;
+      } else {
+        x = Math.max(12, Math.min(r.left, innerWidth - w - 12));
+        y = r.bottom + 14 + 170 < innerHeight ? r.bottom + 14 : Math.max(12, r.top - 190);
+      }
+    }
+    box.style.left = x + 'px'; box.style.top = y + 'px'; box.style.width = w + 'px';
+  }
+  function show(k){
+    i = Math.max(0, Math.min(STEPS.length - 1, k));
+    var s = STEPS[i];
+    clear();
+    if (s.explore) { var b = document.querySelector('button[data-v="explore"]'); if (b) b.click(); }
+    var el = s.sel ? find(s.sel) : null;
+    if (el && !visible(el)) {  // in a part of the page that is closed: open the statement it belongs to
+      var holder = holderOf(el);
+      if (holder && decodeURIComponent(location.hash.slice(1)) !== holder) {
+        location.hash = holder; setTimeout(function(){ show(i); }, 450); return;
+      }
+      for (var d = el.parentElement; d; d = d.parentElement) if (d.tagName === 'DETAILS') d.open = true;
+    }
+    if (!box) { box = document.createElement('div'); box.id = 'lm-tour'; document.body.appendChild(box); }
+    box.innerHTML = '<h4></h4><div class="lm-tour-t"></div><div class="lm-tour-nav"><span class="lm-tour-n"></span>' +
+      '<button type="button" class="lm-close">Close</button><button type="button" class="lm-back">Back</button>' +
+      '<button type="button" class="lm-next">Next</button></div>';
+    box.querySelector('h4').textContent = s.title;
+    box.querySelector('.lm-tour-t').textContent = s.text;
+    box.querySelector('.lm-tour-n').textContent = (i + 1) + ' / ' + STEPS.length;
+    box.querySelector('.lm-back').disabled = i === 0;
+    box.querySelector('.lm-next').textContent = i === STEPS.length - 1 ? 'Done' : 'Next';
+    box.querySelector('.lm-close').onclick = close;
+    box.querySelector('.lm-back').onclick = function(){ show(i - 1); };
+    box.querySelector('.lm-next').onclick = function(){ if (i === STEPS.length - 1) close(); else show(i + 1); };
+    if (el) {
+      on = el; el.classList.add('lm-tour-on');
+      el.scrollIntoView({block: el.getBoundingClientRect().height > innerHeight * 0.55 ? 'start' : 'center'});
+    }
+    setTimeout(function(){ place(el); }, 60);
+  }
+  document.addEventListener('keydown', function(e){
+    if (!box) return;
+    if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') show(i + 1); else if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.lm-tourbtn');
+    if (a) { e.preventDefault(); show(0); }
+  });
+  var start = new URLSearchParams(location.search).get('tour');
+  if (start !== null) {
+    var go = function(){ setTimeout(function(){ show(parseInt(start, 10) || 0); }, 500); };
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:funceq": "Theorem 1 — {\\paperlean{Li₂\\_add\\_Li₂\\_one\\_sub}, \\paperlean{Li₂\\_landen},\n\\paperlean{Li₂\\_sq}, \\paperlean{Li₂\\_one\\_half}}", "thm:fj": "Theorem 2 — {\\paperlean{fejerSum\\_pos}}", "thm:qsl": "Theorem 3 — {\\paperlean{margolus\\_levitin}, \\paperlean{mandelstam\\_tamm\\_L1}}; $\\hbar=1$", "thm:clock": "Theorem 4 — {\\paperlean{zetaState\\_never\\_orthogonal}}", "rem:ek": "Remark 1 — Which clocks do tick: a closing observation"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body>
+</html>

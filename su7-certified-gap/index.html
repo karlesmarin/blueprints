@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript">
+</script>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII): blueprint</title>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/amsthm.css" rel="stylesheet"/>
+<link href="styles/blueprint.css" rel="stylesheet"/>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="estilo-blueprint">/* lemmario: commentary blocks, views bar, Lean seal. Injected into index.html after plasTeX. */
+/* a link target is not hidden under the sticky bar */
+[id], a[name]{scroll-margin-top:64px}
+details.blk{border-radius:8px;margin:.8em 0;padding:.1em .9em .4em;border-left:6px solid}
+details.blk>summary{cursor:pointer;font-weight:600;padding:.35em 0;list-style:none}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:before{content:"▸ ";color:#888}
+details.blk[open]>summary:before{content:"▾ "}
+.b-plain{background:#fff8e1;border-color:#f5b700}
+.b-guar{background:#f5f7f9;border-color:#8a99a8}
+.b-fig{background:#f3e5f5;border-color:#8e24aa}
+.b-set{background:#eceff1;border-color:#546e7a}
+.b-tabs{background:#e3f2fd;border-color:#1e88e5}
+.b-lab{background:#fff3e0;border-color:#ef6c00}
+#vistas{position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;padding:.4em .2em;
+        font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas button{border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;cursor:pointer}
+#vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
+#vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
+.lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
+.lean-check .repro{color:#456}.lean-check code{font-size:.95em}
+.lean-ok{border-left:6px solid #1cac78;padding-left:.6em;background:linear-gradient(90deg,#e9f8f1,transparent 40%)}
+.sello{display:inline-block;background:#1cac78;color:#fff;border-radius:10px;padding:0 .55em;font-size:.8em;
+       margin-left:.5em;vertical-align:middle}
+.theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
+.lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style>
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="lm-citebar-css">
+.lm-act{margin-left:.4em;white-space:nowrap}
+.lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
+          padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
+.lm-act a:hover{background:#eef2f6}
+.lm-citebox{font:13px Arial,sans-serif;background:#f7f9fb;border:1px solid #d5dbe2;border-radius:6px;padding:.4em .6em;
+            margin:.3em 0}
+.lm-citebox button{margin-left:.5em;cursor:pointer;border:1px solid #9fb7cf;background:#fff;border-radius:10px}
+.lm-erratum{font:13px Arial,sans-serif;background:#fff4e5;border-left:3px solid #e69f00;padding:.3em .6em;margin:.3em 0}
+.lm-version{font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em}  /* the bars are dark: a light grey-blue */
+</style><meta content="A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII)" name="citation_title"/><meta content="Marín Muñoz, Carles" name="citation_author"/><meta content="2026/08/29" name="citation_publication_date"/><meta content="https://karlesmarin.github.io/blueprints/su7-certified-gap/paper.pdf" name="citation_pdf_url"/><meta content="https://karlesmarin.github.io/blueprints/su7-certified-gap/" name="citation_abstract_html_url"/><meta content="10.5281/zenodo.22159037" name="citation_doi"/><meta content="A ceiling answers “how high can it go”. Running the same map backwards answers “give me a content at this scale, or show me there is none” — and the second question has an answer the first cannot see. Part VII converts the one-loop Wilson potential of the SU(7) model of Komori and Maru (arXiv:2503.04090) into an integer programme over the bulk-content lattice and certifies 1/R₅ ≤ 10.03 TeV with an exact rational dual. That is an extremal statement, and it has no use for a lower end. This paper runs the map the other way. Given a target box in the two observables the closed form predicts, 1/R₅ and m h , it either exhibits a bulk content or returns a certificate with a name that none exists — cone, congruence, an exact rational Farkas pair, a finite exhaustion, or a floor : the inverse map can ask for an A₄ below that of the empty content, which non-negative multiplicities forbid. What comes out is not an interval. A content fixes its two observables outright, with no continuous parameter left, so the image of any finite part of the lattice is a finite set of points . On the published gauge seed they fall into one cluster per rung of the quantised curvature — 35 points spanning [8897.5, 9967] GeV at 8D = 1, 65 spanning [5258, 6215] at 8D = 3 — and between the top of one and the bottom of the other there is nothing at all over 2682 GeV , forty-five times the widest gap inside either cluster. That stretch is closed above by rational dual certificates and below by an enumeration, not observed by a search. At the measured Higgs mass what is left is a single point, 1/R₅ = 8967.5 GeV, on which 81 distinct contents coincide — a single one-loop potential built 81 ways, the smallest of 19 multiplets and the largest of 198. And the map does not determine everything. Two bulk contents share both closed-form observables exactly and disagree about the vacuum, so W — the invariant whose sign can rule the electroweak point out — is not a function of the two numbers the model is fitted to. On the untruncated one-loop potential that pair parts by 3.8 MeV in m h , a factor of 29 under the quoted 1σ experimental uncertainty. Scope, stated rather than implied. Every emptiness statement here, the hole included, is a statement about the closed form the two identities define, not yet about the untruncated model: turning it into one needs a uniform remainder bound carried through the certificate, which is open and is said to be open. Unless a number is labelled exact , every 1/R₅ and m h displayed is a closed-form value; the content at every cluster end and every delivered design is re-minimised on the exact potential, which throughout means the untruncated one-loop Li₅ potential and not an all-orders effective one. Where the enumerator runs out of its declared budget the verdict printed is undecided , not a no-go that has not been earned. Both editions, English and Spanish, carry the same equations, numbers and labels. Every number regenerates from the ancillary scripts, whose stdout is archived beside them, and the stdout of each of the eight gates that were green is archived with them." name="citation_abstract"/><meta content="gauge-Higgs unification; grand gauge-Higgs unification; SU(7); compactification scale; extra dimensions; orbifold; Wilson line; Hosotani mechanism; Higgs potential; effective potential; Kaluza-Klein; inverse problem; model space; integer programming; Farkas certificate; linear programming duality; vector partition function; moment cone; exact rational arithmetic; certified computation; dijet angular distribution; LHC; vacuum stability; reachable set" name="citation_keywords"/><style id="annotate-css">
+p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
+p.usado a{color:#1a4f8b}
+p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
+  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
+header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
+  text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
+header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
+  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
+header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
+  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
+header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+header h1#doc_title{flex:1}
+ul.chapter-list{font-size:1.05em;line-height:1.7}
+/* master-detail: the header and the sidebar stay; the right panel shows one part at a time */
+section.pc-pane[hidden]{display:none !important}
+.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
+nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
+/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
+#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
+  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
+body.vista-explore #explore-banner{display:block}
+body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
+  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
+body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
+body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
+  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
+
+#top.overview{margin:0 0 2.2em}
+#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
+#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
+#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
+#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
+#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
+#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+#top.overview .c-paper{background:#fff;border:1px solid #888}
+#top.overview .nota{font-size:.85em;color:#555}
+#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
+  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
+#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
+#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="lm-guide-css">
+.lm-tour-on{position:relative;z-index:10001 !important;outline:3px solid #ef6c00;outline-offset:3px;border-radius:4px;
+            box-shadow:0 0 0 9999px rgba(20,30,40,.45) !important;background:#fff}
+#lm-tour{position:fixed;z-index:10002;max-width:340px;background:#fff;border-radius:10px;padding:.8em 1em;
+         box-shadow:0 6px 24px rgba(0,0,0,.25);font:14px Arial,sans-serif;color:#222}
+#lm-tour h4{margin:0 0 .35em;font-size:15px}
+#lm-tour .lm-tour-nav{display:flex;gap:.4em;justify-content:flex-end;margin-top:.7em;align-items:center}
+#lm-tour button{cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;padding:.15em .8em}
+#lm-tour button.lm-next{background:#ef6c00;color:#fff}
+#lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
+a.lm-tourbtn{cursor:pointer}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
+</head>
+<body>
+<header>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html" title="A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII): blueprint">Blueprint</a></h1>
+<nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22159037" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22159037</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="su7-certified-gap-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
+</header>
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
+<li class=""><a href="#a0000000002"><span class="toc_ref">1</span> <span class="toc_entry">The inversion</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:mono" title="the \(G\)-window"><span class="toc_ref"></span> <span class="toc_entry">Proposition 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000006"><span class="toc_ref">2</span> <span class="toc_entry">How large is a cell</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:rec" title="the rung recursion, and it is the classical one"><span class="toc_ref"></span> <span class="toc_entry">Proposition 2</span></a></li></ul></li>
+<li class=""><a href="#a0000000009"><span class="toc_ref">3</span> <span class="toc_entry">The reachable set on the published seed</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:four" title="what the two observables fix on a rung"><span class="toc_ref"></span> <span class="toc_entry">Proposition 3</span></a></li></ul></li>
+<li class=""><a href="#a0000000011"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+<div class="content">
+<div class="content-wrapper">
+<div class="main-text">
+<div id="explore-banner">🔍 <b>Explore view</b>: explanations, figures, other mathematical languages and labs are shown, marked <i>commentary</i>; they are not part of the paper. Switch to <b>Paper</b> for the statements, proofs and evidence only.</div><div class="pc-paneltitle"><div class="titlepage">
+<h1>A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII)</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">High-energy physics · grand gauge-Higgs unification</span></div>
+<p class="authors">
+<span class="author">Carles Marín</span>
+</p>
+</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta">\begin{itemize}
+\item \textbf{The inverse map is decidable} on the eight-generator lattice of bulk contents of the SU(7) model of Komori and Maru: a target box in $(1/R_5,m_h)$ pulls back to finitely many cells and, on each, one interval of the moment $G$ (Proposition~1); a cell is finite because only $\mathbf 7(+,+)$ has $A_4=0$ (Observation~1 of the paper).
+\item \textbf{``No content'' carries a named certificate}: cone, congruence, an exact rational Farkas pair, exhaustion, or \emph{floor}. One dual certificate is printed in full.
+\item \textbf{A certified gap of the closed-form map}: on the published seed the enumerated image is $35$ points in $[8897.5,9967]$~GeV ($8D=1$) and $65$ in $[5258,6215]$ ($8D=3$), and nothing lies in $(6.216,\,8.897)$~TeV; at the measured Higgs mass one point, $1/R_5=8967.5$~GeV, carried by $81$ contents with the same one-loop potential.
+\item \textbf{What the observables cannot see}: on a fixed rung $(1/R_5,m_h)$ fix four of the five complete invariants (Proposition~3), but two contents share both and disagree about the vacuum invariant $W$.
+\item Scope stated by the paper: every emptiness is a statement about the closed form, not yet the untruncated model; the recursion of Proposition~2 is classical (Beck--Robins).
+\end{itemize}</div><p>🚀 <b>Start here:</b> <a href="index.html#prop:mono"><b>Proposition 1</b></a>: on a cell with 8D &gt; 0, a target box pulls back to one interval of G, with both ends evaluations.</p><p><b>Main results:</b></p><ul><li><a href="index.html#prop:mono"><b>Proposition 1</b></a>: on a cell with 8D &gt; 0, a target box pulls back to one interval of G, with both ends evaluations</li><li><a href="index.html#prop:four"><b>Proposition 3</b></a>: on a fixed rung the two observables fix A₄, G and (U, V), and leave only W free</li></ul><div class="cifras">
+<span class="cifra"><b>3</b> results</span>
+<span class="cifra c-lean">✅ <b>0</b> formalized in Lean</span>
+<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra c-prog">💻 <b>3</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 537.00 142.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 137.83)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M12,0C12,0 138,0 138,0 144,0 150,-6 150,-12 150,-12 150,-121.83 150,-121.83 150,-127.83 144,-133.83 138,-133.83 138,-133.83 12,-133.83 12,-133.83 6,-133.83 0,-127.83 0,-121.83 0,-121.83 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-118.42">The inversion</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M171,-4.5C171,-4.5 305,-4.5 305,-4.5 311,-4.5 317,-10.5 317,-16.5 317,-16.5 317,-117.33 317,-117.33 317,-123.33 311,-129.33 305,-129.33 305,-129.33 171,-129.33 171,-129.33 165,-129.33 159,-123.33 159,-117.33 159,-117.33 159,-16.5 159,-16.5 159,-10.5 165,-4.5 171,-4.5" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="238" xml:space="preserve" y="-113.92">How large is a cell</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M337,0C337,0 517,0 517,0 523,0 529,-6 529,-12 529,-12 529,-121.83 529,-121.83 529,-127.83 523,-133.83 517,-133.83 517,-133.83 337,-133.83 337,-133.83 331,-133.83 325,-127.83 325,-121.83 325,-121.83 325,-12 325,-12 325,-6 331,0 337,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="427" xml:space="preserve" y="-118.42">The reachable set on the published seed</text>
+</g>
+<!-- prop:mono -->
+<g class="node" id="node1">
+<title>prop:mono</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#prop:mono" xlink:title="Proposition 1: on a cell with 8D &gt; 0, a target box pulls back to one interval of G, with both ends evaluations">
+<path d="M129.68,-103.58C129.68,-103.58 20.32,-103.58 20.32,-103.58 14.32,-103.58 8.32,-97.58 8.32,-91.58 8.32,-91.58 8.32,-20 8.32,-20 8.32,-14 14.32,-8 20.32,-8 20.32,-8 129.68,-8 129.68,-8 135.68,-8 141.68,-14 141.68,-20 141.68,-20 141.68,-91.58 141.68,-91.58 141.68,-97.58 135.68,-103.58 129.68,-103.58" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-87.14">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-72.89">on a cell with 8D &gt; 0, a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-58.64">target box pulls back to</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-44.39">one interval of G, with</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-30.14">both ends evaluations</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-15.89">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:rec -->
+<g class="node" id="node2">
+<title>prop:rec</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#prop:rec" xlink:title="Proposition 2: the rung recursion N(A₄, 8D+6) = N(A₄, 8D) − P: the classical restricted-partition recursion">
+<path d="M297.18,-99.08C297.18,-99.08 178.82,-99.08 178.82,-99.08 172.82,-99.08 166.82,-93.08 166.82,-87.08 166.82,-87.08 166.82,-24.5 166.82,-24.5 166.82,-18.5 172.82,-12.5 178.82,-12.5 178.82,-12.5 297.18,-12.5 297.18,-12.5 303.18,-12.5 309.18,-18.5 309.18,-24.5 309.18,-24.5 309.18,-87.08 309.18,-87.08 309.18,-93.08 303.18,-99.08 297.18,-99.08" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-84.06">Proposition 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-71.31">the rung recursion N(A₄,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-58.56">8D+6) = N(A₄, 8D) − P: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-45.81">classical restricted-</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-33.06">partition recursion</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-20.31">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:four -->
+<g class="node" id="node3">
+<title>prop:four</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#prop:four" xlink:title="Proposition 3: on a fixed rung the two observables fix A₄, G and (U, V), and leave only W free">
+<path d="M486.55,-103.58C486.55,-103.58 367.45,-103.58 367.45,-103.58 361.45,-103.58 355.45,-97.58 355.45,-91.58 355.45,-91.58 355.45,-20 355.45,-20 355.45,-14 361.45,-8 367.45,-8 367.45,-8 486.55,-8 486.55,-8 492.55,-8 498.55,-14 498.55,-20 498.55,-20 498.55,-91.58 498.55,-91.58 498.55,-97.58 492.55,-103.58 486.55,-103.58" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="427" xml:space="preserve" y="-87.14">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="427" xml:space="preserve" y="-72.89">on a fixed rung the two</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="427" xml:space="preserve" y="-58.64">observables fix A₄, G and</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="427" xml:space="preserve" y="-44.39">(U, V), and leave only W</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="427" xml:space="preserve" y="-30.14">free</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="427" xml:space="preserve" y="-15.89">💻 program</text>
+</a>
+</g>
+</g>
+</g>
+</svg>
+</div></details></section>
+</section><section class="pc-pane"><h1 id="a0000000002">1 The inversion</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:mono">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">1</span>
+<span class="proposition_thmtitle">the \(G\)-window</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:mono">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=7&amp;n=prop:mono" title="Open the paper at page 7">📕 p. 7</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:mono" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII)”, Proposition 1, v1, doi:10.5281/zenodo.22159037, https://karlesmarin.github.io/blueprints/su7-certified-gap/index.html#prop:mono." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=A%20Certified%202.68%20TeV%20Gap%20in%20the%20Closed-Form%20Map%20of%20the%20Compactification%20Scale%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%2C%20and%20the%20Invariant%20Its%20Two%20Observables%20Cannot%20See%20%28Part%20VIII%29%20%E2%80%94%20Proposition%201&amp;body=About%20Proposition%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CA%20Certified%202.68%20TeV%20Gap%20in%20the%20Closed-Form%20Map%20of%20the%20Compactification%20Scale%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%2C%20and%20the%20Invariant%20Its%20Two%20Observables%20Cannot%20See%20%28Part%20VIII%29%E2%80%9D%2C%20Proposition%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22159037%2C%20https%3A//karlesmarin.github.io/blueprints/su7-certified-gap/index.html%23prop%3Amono.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>  Fix a cell \((A_4, 8D)\) with \(8D {\gt} 0\), and move along the curve (2)(II). Then </p>
+<div class="displaymath" id="a0000000003">
+  \[  \frac{dG}{dx} \; =\;  \frac{A_4}{x} - \frac{12\zeta (3)\, (8D)/8}{x^3} \; =\;  \frac{A_4x^2 - x^2(6\mu + A_4)}{x^3} \; =\;  -\frac{6\mu }{x} \; {\lt}\;  0 ,  \]
+</div>
+<p> so \(G\) is strictly decreasing in \(x\). The admissible \(x\) are themselves an interval, because solving (2)(II) for \(\mu \) gives </p>
+<div class="displaymath" id="a0000000004">
+  \[  \mu (x) \; =\;  \frac{\zeta (3)\, (8D)}{4x^2} - \frac{A_4}{6}, \qquad \text{so}\qquad \frac{d\mu }{dx} \; =\;  -\frac{\zeta (3)\, (8D)}{2x^3} \; {\lt}\;  0 ,  \]
+</div>
+<p> which makes \(\{ x{\gt}0 : \mu (x) \in [\mu _-,\mu _+]\} \) an interval; intersecting it with \([x_-,x_+]\) leaves an interval \([x_{\min }, x_{\max }]\) <em>when that intersection is non-empty</em>. Hence the set of \(G\) a target box admits on this cell is the interval \([\, G(x_{\max }),\, G(x_{\min })\, ]\), and both ends are evaluations. When the intersection is empty the cell admits no \(G\) at all, and the target has no content there — which is a decision and not a failed search, by §4. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper lists the exactness of the inversion among what is ours (§1, item 1); the identities (I), (II) are Part VII’s.</p><p class="usado">↳ Not used by another result of the paper.</p>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the inverse map on the published seed: the five certificates, the clusters, the gap, the worked Farkas certificate, the design table; finiteness of a cell (Observation 1) used throughout. <span class="ttfamily">scripts/inverse_design.py</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> the same on both gauge seeds in doubled coordinates. <span class="ttfamily">scripts/reachable_set.py</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> every interval printed as empty is contained in the one the run certifies. <span class="ttfamily">scripts/check_intervals.py</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> the displayed formulas against their Python reading and the archived run; each link perturbed separately and required to fail. <span class="ttfamily">scripts/check_formulas.py</span>, <span class="ttfamily">scripts/falsify_formulas.py</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000006">2 How large is a cell</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:rec">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">2</span>
+<span class="proposition_thmtitle">the rung recursion, and it is the classical one</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:rec">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=10&amp;n=prop:rec" title="Open the paper at page 10">📕 p. 10</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:rec" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII)”, Proposition 2, v1, doi:10.5281/zenodo.22159037, https://karlesmarin.github.io/blueprints/su7-certified-gap/index.html#prop:rec." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=A%20Certified%202.68%20TeV%20Gap%20in%20the%20Closed-Form%20Map%20of%20the%20Compactification%20Scale%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%2C%20and%20the%20Invariant%20Its%20Two%20Observables%20Cannot%20See%20%28Part%20VIII%29%20%E2%80%94%20Proposition%202&amp;body=About%20Proposition%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CA%20Certified%202.68%20TeV%20Gap%20in%20the%20Closed-Form%20Map%20of%20the%20Compactification%20Scale%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%2C%20and%20the%20Invariant%20Its%20Two%20Observables%20Cannot%20See%20%28Part%20VIII%29%E2%80%9D%2C%20Proposition%202%2C%20v1%2C%20doi%3A10.5281/zenodo.22159037%2C%20https%3A//karlesmarin.github.io/blueprints/su7-certified-gap/index.html%23prop%3Arec.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>  Write \(P(T,Q)\) for the number of contents built from the seven generators with \(A_4^{(j)}\ge 1\) alone that reach \((T,Q) = (A_4 - A_4^{\rm gauge},\,  8D - 8D^{\rm gauge})\). Then </p>
+<div class="displaymath" id="a0000000007">
+  \[  N(A_4,\  8D+6) \; =\;  N(A_4,\  8D)\; -\; P(A_4 - A_4^{\rm gauge},\  8D - 8D^{\rm gauge}).  \]
+</div>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> not claimed: the classical restricted-partition recursion [BeckRobins] in its vector form; the paper claims only the measurement that the correction term is 1 or 2 (§9).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the counting table by dynamic programming; the recursion checked on 4694 grid points; the four enumerator totals reproduced exactly (69 million contents). <span class="ttfamily">scripts/rung_census.py</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000009">3 The reachable set on the published seed</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:four">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">3</span>
+<span class="proposition_thmtitle">what the two observables fix on a rung</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:four">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=15&amp;n=prop:four" title="Open the paper at page 15">📕 p. 15</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:four" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII)”, Proposition 3, v1, doi:10.5281/zenodo.22159037, https://karlesmarin.github.io/blueprints/su7-certified-gap/index.html#prop:four." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=A%20Certified%202.68%20TeV%20Gap%20in%20the%20Closed-Form%20Map%20of%20the%20Compactification%20Scale%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%2C%20and%20the%20Invariant%20Its%20Two%20Observables%20Cannot%20See%20%28Part%20VIII%29%20%E2%80%94%20Proposition%203&amp;body=About%20Proposition%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CA%20Certified%202.68%20TeV%20Gap%20in%20the%20Closed-Form%20Map%20of%20the%20Compactification%20Scale%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%2C%20and%20the%20Invariant%20Its%20Two%20Observables%20Cannot%20See%20%28Part%20VIII%29%E2%80%9D%2C%20Proposition%203%2C%20v1%2C%20doi%3A10.5281/zenodo.22159037%2C%20https%3A//karlesmarin.github.io/blueprints/su7-certified-gap/index.html%23prop%3Afour.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>  Fix \(8D\). Two contents with the same \((1/R_5, m_h)\) have the same \(A_4\), hence the same \(G\), hence the same \((U,V)\). So at fixed \(8D\) the two observables determine four of the five invariants — \(A_4\), \(8D\), \(2U\), \(V\) — and leave only \(W\) free. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the arithmetic is unique factorisation and "is nobody’s"; what the paper claims is noticing that the census of the measured-mass fibre depends on it (Acknowledgements, §9).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> distinct (2U, V) = distinct G on all four rungs (3029, 8769, 16938, 28601); no cross-rung collision among the 314 points; the degenerate pair 2W = +5 / −27 and its exact-potential split of 3.8 MeV. <span class="ttfamily">scripts/what_the_observables_miss.py</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000011">References</h1>
+<dl class="bibliography">
+<dt><a name="KM25">1</a></dt>
+<dd><p>Y. Komori, N. Maru, <em>\(SU(7)\) Grand Gauge-Higgs Unification</em>, NITEP 240, <a href="https://arxiv.org/abs/2503.04090" rel="noopener" target="_blank">arXiv:2503.04090</a>. </p>
+</dd>
+<dt><a name="Manton">2</a></dt>
+<dd><p>N. S. Manton, <em>A new six-dimensional approach to the Weinberg–Salam model</em>, Nucl. Phys. B158 (1979) 141.  <a class="bib-search" href="https://scholar.google.com/scholar?q=A+new+six-dimensional+approach+to+the+Weinberg%E2%80%93Salam+model" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Hosotani">3</a></dt>
+<dd><p>Y. Hosotani, <em>Dynamical mass generation by compact extra dimensions</em>, Phys. Lett. B126 (1983) 309.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Dynamical+mass+generation+by+compact+extra+dimensions" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="CCD24">4</a></dt>
+<dd><p>G. Cacciapaglia, A. S. Cornell, A. Deandrea, W. Isnard, R. Pasechnik, A. Preda, Z.-W. Wang, <em>General vacuum stability of orbifold gauge breaking and application to asymptotic grand unification</em>, <a href="https://arxiv.org/abs/2409.16137" rel="noopener" target="_blank">arXiv:2409.16137</a>. </p>
+</dd>
+<dt><a name="AHKTW">5</a></dt>
+<dd><p>N. Arkani-Hamed, G. L. Kane, J. Thaler, L.-T. Wang, <em>Supersymmetry and the LHC Inverse Problem</em>, JHEP <b class="bfseries">08</b> (2006) 070, <a href="https://arxiv.org/abs/hep-ph/0512190" rel="noopener" target="_blank">arXiv:hep-ph/0512190</a> — the inverse map from signatures to model space, and the islands-with-degeneracies picture of its fibres. </p>
+</dd>
+<dt><a name="Micro">6</a></dt>
+<dd><p>C. Gross, A. Hebecker, <em>A realistic unified gauge coupling from the micro-landscape of orbifold GUTs</em>, Nucl. Phys. B<b class="bfseries">821</b> (2009) 354, <a href="https://arxiv.org/abs/0812.4267" rel="noopener" target="_blank">arXiv:0812.4267</a> — a discrete scan over bulk-versus-brane assignments, reporting the subset of <em>models</em> that come out realistic rather than the image of a prediction. </p>
+</dd>
+<dt><a name="Schrijver">7</a></dt>
+<dd><p>A. Schrijver, <em>Theory of Linear and Integer Programming</em>, Wiley (1986) — rational LP duality and Farkas certificates, and the index of a sublattice.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Theory+of+Linear+and+Integer+Programming" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Sturmfels">8</a></dt>
+<dd><p>B. Sturmfels, <em>On vector partition functions</em>, J. Combin. Theory Ser. A <b class="bfseries">72</b> (1995) 302 — the counting function of §?? is one of these, and its piecewise quasi-polynomial structure is the property that section measures and does not claim.  <a class="bib-search" href="https://scholar.google.com/scholar?q=On+vector+partition+functions" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="BeckRobins">9</a></dt>
+<dd><p>M. Beck, S. Robins, <em>Computing the Continuous Discretely: Integer-Point Enumeration in Polyhedra</em>, 2nd ed., Springer (2015) — the restricted partition function and its recursion \(p_{\mathcal A}(n,k) = p_{\mathcal A}(n-a_k,k) + p_{\mathcal A}(n,k-1)\), of which Proposition <a href="index.html#prop:rec">2</a> is the vector case for the one generator with \(A_4=0\). The identity is classical; what §?? contributes is the measurement of how small the correction term is on this lattice, and what that corrects. </p>
+</dd>
+<dt><a name="PDG">10</a></dt>
+<dd><p>S. Navas <em>et al.</em> (Particle Data Group), <em>Review of Particle Physics</em>, Phys. Rev. D <b class="bfseries">110</b> (2024) 030001.  <a class="bib-search" href="https://scholar.google.com/scholar?q=et+al." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="PartI">11</a></dt>
+<dd><p>C. Marín, <em>Anomaly- and Tadpole-Compatible Fermion Completion of Six-Dimensional \(SU(4)\) Gauge-Higgs Unification</em>, Part I of this series, Zenodo, <a href="https://doi.org/10.5281/zenodo.21432625" rel="noopener" target="_blank">doi:10.5281/zenodo.21432625</a>. </p>
+</dd>
+<dt><a name="PartII">12</a></dt>
+<dd><p>C. Marín, <em>Three Gates to a Quark Generation: An Exact Criterion for Which \(SU(4)\) Representations Contain the Standard Model</em>, Part II of this series, Zenodo, <a href="https://doi.org/10.5281/zenodo.21432627" rel="noopener" target="_blank">doi:10.5281/zenodo.21432627</a>. </p>
+</dd>
+<dt><a name="PartIII">13</a></dt>
+<dd><p>C. Marín, <em>A Centre-Charge Selection Rule for the Wilson-Line Potential: The Fundamental Domain of Gauge-Higgs Unification Is Representation-Dependent</em>, Part III of this series, Zenodo, <a href="https://doi.org/10.5281/zenodo.21438226" rel="noopener" target="_blank">doi:10.5281/zenodo.21438226</a>. </p>
+</dd>
+<dt><a name="PartIV">14</a></dt>
+<dd><p>C. Marín, <em>Schur Functions at \((1,-1,t,t^{-1})\): A Closed Form on the Non-Identity Component of \(O(4)\)</em>, Part IV of this series, Zenodo, <a href="https://doi.org/10.5281/zenodo.21463000" rel="noopener" target="_blank">doi:10.5281/zenodo.21463000</a>. </p>
+</dd>
+<dt><a name="PartV">15</a></dt>
+<dd><p>C. Marín, <em>What the Higgs Potential Cannot See: Bulk Matter That Cannot Help Select a Boundary Condition</em>, Part V of this series, Zenodo, <a href="https://doi.org/10.5281/zenodo.21727094" rel="noopener" target="_blank">doi:10.5281/zenodo.21727094</a>. </p>
+</dd>
+<dt><a name="PartVI">16</a></dt>
+<dd><p>C. Marín, <em>Proton Decay in \(SU(7)\) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them</em>, Part VI of this series, Zenodo, <a href="https://doi.org/10.5281/zenodo.22033302" rel="noopener" target="_blank">doi:10.5281/zenodo.22033302</a>. </p>
+</dd>
+<dt><a name="PartVII">17</a></dt>
+<dd><p>C. Marín, <em>An Upper Bound on the Compactification Scale of \(SU(7)\) Grand Gauge-Higgs Unification, and the Dijet Angular Distribution That Tests It</em>, Part VII of this series, Zenodo, <a href="https://doi.org/10.5281/zenodo.22087251" rel="noopener" target="_blank">doi:10.5281/zenodo.22087251</a>. </p>
+</dd>
+<dt><a name="NumPy">18</a></dt>
+<dd><p>C. R. Harris <em>et al.</em>, <em>Array programming with NumPy</em>, Nature <b class="bfseries">585</b> (2020) 357.  <a class="bib-search" href="https://scholar.google.com/scholar?q=et+al." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="mpmath">19</a></dt>
+<dd><p>F. Johansson <em>et al.</em>, <em>mpmath: a Python library for arbitrary-precision floating-point arithmetic</em>, version 1.3 (2023), <span class="ttfamily">https://mpmath.org</span>.  <a class="bib-search" href="https://scholar.google.com/scholar?q=et+al." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Matplotlib">20</a></dt>
+<dd><p>J. D. Hunter, <em>Matplotlib: a 2D graphics environment</em>, Comput. Sci. Eng. <b class="bfseries">9</b> (2007) 90.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Matplotlib%3A+a+2D+graphics+environment" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="CIJET">21</a></dt>
+<dd><p>J. Gao, C. S. Li, C.-P. Yuan, <em>NLO QCD corrections to dijet production via quark contact interactions</em>, JHEP <b class="bfseries">07</b> (2012) 037, <a href="https://arxiv.org/abs/1204.4773" rel="noopener" target="_blank">arXiv:1204.4773</a>; program described in <a href="https://arxiv.org/abs/1301.7263" rel="noopener" target="_blank">arXiv:1301.7263</a>, version 1.0. </p>
+</dd>
+<dt><a name="CT10">22</a></dt>
+<dd><p>H.-L. Lai, M. Guzzi, J. Huston, Z. Li, P. M. Nadolsky, J. Pumplin, C.-P. Yuan, <em>New parton distributions for collider physics</em>, Phys. Rev. D <b class="bfseries">82</b> (2010) 074024, <a href="https://arxiv.org/abs/1007.2241" rel="noopener" target="_blank">arXiv:1007.2241</a>; set <span class="ttfamily">CT10nlo</span>. </p>
+</dd>
+<dt><a name="NNPDF31">23</a></dt>
+<dd><p>R. D. Ball <em>et al.</em> (NNPDF Collaboration), <em>Parton distributions from high-precision collider data</em>, Eur. Phys. J. C <b class="bfseries">77</b> (2017) 663, <a href="https://arxiv.org/abs/1706.00428" rel="noopener" target="_blank">arXiv:1706.00428</a>; set <span class="ttfamily">NNPDF31_nnlo_as_0118</span>. </p>
+</dd>
+<dt><a name="LHAPDF">24</a></dt>
+<dd><p>A. Buckley, J. Ferrando, S. Lloyd, K. Nordström, B. Page, M. Rüfenacht, M. Schönherr, G. Watt, <em>LHAPDF6: parton density access in the LHC precision era</em>, Eur. Phys. J. C <b class="bfseries">75</b> (2015) 132, <a href="https://arxiv.org/abs/1412.7420" rel="noopener" target="_blank">arXiv:1412.7420</a>; version 6.5.4. </p>
+</dd>
+<dt><a name="CMSangular">25</a></dt>
+<dd><p>CMS Collaboration, <em>Measurement of dijet angular distributions and search for beyond the standard model physics in proton-proton collisions at \(\sqrt{s}=13\) TeV</em>, CMS-EXO-24-011, <a href="https://arxiv.org/abs/2603.25458" rel="noopener" target="_blank">arXiv:2603.25458</a>; \(138\, \mathrm{fb}^{-1}\) — the unfolded distribution, covariance and prediction this paper’s \(\Delta \chi ^2\) is read against, taken from HEPData. It is the measurement Part VII’s curve was built on, and no part of that curve is recomputed here. </p>
+</dd>
+<dt><a name="CMSdijet">26</a></dt>
+<dd><p>CMS Collaboration, <em>Search for high mass dijet resonances with a new background prediction method in proton-proton collisions at \(\sqrt{s}=13\) TeV</em>, JHEP <b class="bfseries">05</b> (2020) 033, <a href="https://arxiv.org/abs/1911.03947" rel="noopener" target="_blank">arXiv:1911.03947</a>; \(137\, \mathrm{fb}^{-1}\), CMS-EXO-19-012 — a <em>different</em> analysis, and the one read in §?? for the measured dijet mass <em>spectrum</em> and the width-dependent resonance limits. </p>
+</dd>
+<dt><a name="ATLASdijet">27</a></dt>
+<dd><p>ATLAS Collaboration, <em>Search for new resonances in mass distributions of jet pairs using \(139\, \mathrm{fb}^{-1}\) of \(pp\) collisions at \(\sqrt{s}=13\) TeV with the ATLAS detector</em>, JHEP <b class="bfseries">03</b> (2020) 145, <a href="https://arxiv.org/abs/1910.08447" rel="noopener" target="_blank">arXiv:1910.08447</a> — it gives Gaussian-shape limits by relative width, and the sentence quoted in §?? is that paper’s own description, in the caption of its truncated-limit figure, of why the widest of them stops at high mass. </p>
+</dd>
+<dt><a name="Degeneracy">28</a></dt>
+<dd><p>S. Das Bakshi, J. Chakrabortty, M. Spannowsky, <em>Classifying Standard Model extensions effectively with precision observables</em>, Phys. Rev. D <b class="bfseries">103</b> (2021) 056019, <a href="https://arxiv.org/abs/2012.03839" rel="noopener" target="_blank">arXiv:2012.03839</a> — degeneracy of models under a finite set of observables, and the two ways out that the effective-theory side has: more loops, or operators of higher dimension. Neither is available for the invariant at issue here. </p>
+</dd>
+</dl>
+</section>
+</div>
+</div>
+</div>
+</div>
+<nav class="prev_up_next">
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+<a href="index.html" title="A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII): blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+</nav>
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
+// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+// event, so that page-specific scripts (labs) can react.
+(function(){
+  function set(v){
+    document.body.classList.toggle('vista-paper', v==='paper');
+    document.querySelectorAll('#vistas button').forEach(function(b){b.classList.toggle('on', b.dataset.v===v)});
+    try{localStorage.setItem('vista', v)}catch(e){}
+    document.dispatchEvent(new CustomEvent('vista', {detail: v}));
+  }
+  document.addEventListener('click', function(e){var b=e.target.closest('#vistas button'); if(b) set(b.dataset.v)});
+  var v='paper'; try{v=localStorage.getItem('vista')||'paper'}catch(e){}
+  set(v);
+})();
+</script><script id="lm-citebar">
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a.lm-cite');
+  if (!a) return;
+  e.preventDefault();
+  var head = a.closest('[class$="_thmheading"]') || a.parentElement, box = head.nextElementSibling;
+  if (box && box.classList.contains('lm-citebox')) { box.remove(); return; }
+  box = document.createElement('div'); box.className = 'lm-citebox';
+  box.textContent = a.getAttribute('data-cite');
+  var b = document.createElement('button'); b.type = 'button'; b.textContent = 'copy';
+  b.onclick = function () {
+    try { navigator.clipboard.writeText(a.getAttribute('data-cite')); b.textContent = 'copied'; } catch (x) {}
+  };
+  box.appendChild(b);
+  // the same statement in the blueprint's PDF, at its page (printpdf names a destination for every statement)
+  var holder = head.closest('[id]');
+  if (holder && document.querySelector('a.lm-dl[href="blueprint.pdf"]')) {
+    var p = document.createElement('a');
+    p.href = 'blueprint.pdf#nameddest=' + encodeURIComponent(holder.id); p.target = '_blank'; p.className = 'lm-inpdf';
+    p.textContent = '📄 this statement in the blueprint PDF'; p.title = 'Open the blueprint PDF at this statement';
+    box.appendChild(document.createElement('br')); box.appendChild(p);
+  }
+  head.insertAdjacentElement('afterend', box);
+});
+</script><script>
+(function(){
+  var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
+  function apply(v){
+    var ex = v === 'explore';
+    document.body.classList.toggle('vista-explore', ex);
+    document.querySelectorAll(SEL).forEach(function(d){ d.open = ex; });
+  }
+  document.addEventListener('vista', function(e){ apply(e.detail); });
+  apply(document.body.classList.contains('vista-paper') ? 'paper' : 'explore');
+})();
+</script>
+<script src="js/js.cookie.min.js" type="text/javascript"></script>
+<script src="js/showmore.js" type="text/javascript"></script>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
+  if (!panes.length) return;
+  var box = document.querySelector('div.content');
+  function find(h){
+    if (!h) return null;
+    try { h = decodeURIComponent(h); } catch (e) {}
+    return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
+  }
+  function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
+  function show(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    panes.forEach(function(x){ x.hidden = x !== p; });
+    document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
+      var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
+      var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
+      li.classList.toggle('current', on);
+      var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
+      if (ul) ul.classList.toggle('active', on);
+      if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+    });
+    if (!t || t === p || t.tagName === 'H1' || t.id === 'top') { if (box) box.scrollTop = 0; }
+    else t.scrollIntoView({block: 'start'});
+  }
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // a link to the hash already in the URL fires no hashchange
+    var a = ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+    if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); show(m[1]); }
+  });
+  show(location.hash.slice(1));
+  // the browser's own jump to the hash, and MathJax, move the page after the first show(): place it again
+  window.addEventListener('load', function(){ show(location.hash.slice(1)); });
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise)
+    MathJax.startup.promise.then(function(){ show(location.hash.slice(1)); });
+})();
+</script>
+<script defer="" src="js/mapzoom.js"></script>
+<script id="lm-guide">
+(function(){
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  function visible(e){ return e && e.offsetParent !== null; }
+  function find(sel){
+    var all = [].slice.call(document.querySelectorAll(sel));
+    return all.filter(visible)[0] || all[0] || null;
+  }
+  // the statement a piece belongs to: the piece's own ancestors, or the nearest statement before it (a lab or a
+  // figure block follows its statement, it is not inside it)
+  function holderOf(el){
+    for (var e = el; e && e !== document.body; e = e.parentElement) {
+      if (e.id && e.id.indexOf(':') > 0) return e.id;
+      for (var p = e.previousElementSibling; p; p = p.previousElementSibling) {
+        if (p.id && p.id.indexOf(':') > 0) return p.id;
+        var q = p.querySelectorAll('[id*=":"]');
+        if (q.length) return q[q.length - 1].id;
+      }
+    }
+    return null;
+  }
+  function clear(){ if (on) on.classList.remove('lm-tour-on'); on = null; }
+  function close(){ clear(); if (box) box.remove(); box = null; }
+  function place(el){
+    var w = Math.min(340, innerWidth - 24), x = 12, y = innerHeight / 2 - 80;
+    if (el) {
+      var r = el.getBoundingClientRect();
+      if (r.height > innerHeight * 0.55) {  // a tall piece (a live figure): the note goes to a corner, not over it
+        x = innerWidth - w - 12; y = innerHeight - 190;
+      } else {
+        x = Math.max(12, Math.min(r.left, innerWidth - w - 12));
+        y = r.bottom + 14 + 170 < innerHeight ? r.bottom + 14 : Math.max(12, r.top - 190);
+      }
+    }
+    box.style.left = x + 'px'; box.style.top = y + 'px'; box.style.width = w + 'px';
+  }
+  function show(k){
+    i = Math.max(0, Math.min(STEPS.length - 1, k));
+    var s = STEPS[i];
+    clear();
+    if (s.explore) { var b = document.querySelector('button[data-v="explore"]'); if (b) b.click(); }
+    var el = s.sel ? find(s.sel) : null;
+    if (el && !visible(el)) {  // in a part of the page that is closed: open the statement it belongs to
+      var holder = holderOf(el);
+      if (holder && decodeURIComponent(location.hash.slice(1)) !== holder) {
+        location.hash = holder; setTimeout(function(){ show(i); }, 450); return;
+      }
+      for (var d = el.parentElement; d; d = d.parentElement) if (d.tagName === 'DETAILS') d.open = true;
+    }
+    if (!box) { box = document.createElement('div'); box.id = 'lm-tour'; document.body.appendChild(box); }
+    box.innerHTML = '<h4></h4><div class="lm-tour-t"></div><div class="lm-tour-nav"><span class="lm-tour-n"></span>' +
+      '<button type="button" class="lm-close">Close</button><button type="button" class="lm-back">Back</button>' +
+      '<button type="button" class="lm-next">Next</button></div>';
+    box.querySelector('h4').textContent = s.title;
+    box.querySelector('.lm-tour-t').textContent = s.text;
+    box.querySelector('.lm-tour-n').textContent = (i + 1) + ' / ' + STEPS.length;
+    box.querySelector('.lm-back').disabled = i === 0;
+    box.querySelector('.lm-next').textContent = i === STEPS.length - 1 ? 'Done' : 'Next';
+    box.querySelector('.lm-close').onclick = close;
+    box.querySelector('.lm-back').onclick = function(){ show(i - 1); };
+    box.querySelector('.lm-next').onclick = function(){ if (i === STEPS.length - 1) close(); else show(i + 1); };
+    if (el) {
+      on = el; el.classList.add('lm-tour-on');
+      el.scrollIntoView({block: el.getBoundingClientRect().height > innerHeight * 0.55 ? 'start' : 'center'});
+    }
+    setTimeout(function(){ place(el); }, 60);
+  }
+  document.addEventListener('keydown', function(e){
+    if (!box) return;
+    if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') show(i + 1); else if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.lm-tourbtn');
+    if (a) { e.preventDefault(); show(0); }
+  });
+  var start = new URLSearchParams(location.search).get('tour');
+  if (start !== null) {
+    var go = function(){ setTimeout(function(){ show(parseInt(start, 10) || 0); }, 500); };
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:mono": "Proposition 1 — the $G$-window", "prop:rec": "Proposition 2 — the rung recursion, and it is the classical one", "prop:four": "Proposition 3 — what the two observables fix on a rung"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body>
+</html>
