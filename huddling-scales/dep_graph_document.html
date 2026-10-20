@@ -97,7 +97,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">3</span><span class="theorem_thmtitle">Fourier–energy equivalence</span></div>
 <div class="thm_thmcontent"><p>    For every strictly admissible \(V\) and every seven-element \(A\subseteq \mathbb {Z}_{12}\), </p>
-<div class="displaymath" id="a0000000010">
+<div class="displaymath" id="a0000000012">
   \[  \boxed {\quad |\widehat A(5)|=2+\sqrt3\quad \Longleftrightarrow \quad E_V(A)=E_V(D).\quad }  \]
 </div>
 <p> Both sides hold precisely for the twelve transpositions of \(D\). </p>
@@ -126,7 +126,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">2</span><span class="theorem_thmtitle">Diatonic energy minimum</span></div>
 <div class="thm_thmcontent"><p>   For every admissible \(V\) and every \(A\subseteq \mathbb {Z}_{12}\) with \(|A|=7\), \(E_V(D)\le E_V(A)\). If \(V\) is strictly admissible, then </p>
-<div class="displaymath" id="a0000000007">
+<div class="displaymath" id="a0000000009">
   \[  E_V(A)=E_V(D)\  \Longleftrightarrow \  A\in \mathcal O_D.  \]
 </div>
 </div>
@@ -153,7 +153,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">1</span><span class="theorem_thmtitle">Huddling in \(\mathbb {Z}_{12}\)</span></div>
 <div class="thm_thmcontent"><p>   For every \(A\subseteq \mathbb {Z}_{12}\), with \(k=|A|\) and \(C_k=\{ 0,\ldots ,k-1\} \), </p>
-<div class="displaymath" id="a0000000004">
+<div class="displaymath" id="a0000000006">
   \[  S_1(A)\le S_1(C_k),\qquad S_1(A)=S_1(C_k)\  \Longleftrightarrow \  A=T_sC_k\text{ for some }s\in \mathbb {Z}_{12}.  \]
 </div>
 <p> The same inequality and equality condition hold for Fourier magnitudes. </p>
@@ -181,8 +181,8 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Theorem
       </span>
 <span class="theorem_thmlabel">4</span><span class="theorem_thmtitle">Pentatonic extremality</span></div>
-<div class="thm_thmcontent"><p>   For every five-element \(A\subseteq \mathbb {Z}_{12}\), \(|\widehat A(5)|\le 2+\sqrt3\). For every admissible \(V\), \(E_V(P)\le E_V(A)\). Under strict admissibility, </p>
-<div class="displaymath" id="a0000000014">
+<div class="thm_thmcontent"><p>    For every five-element \(A\subseteq \mathbb {Z}_{12}\), \(|\widehat A(5)|\le 2+\sqrt3\). For every admissible \(V\), \(E_V(P)\le E_V(A)\). Under strict admissibility, </p>
+<div class="displaymath" id="a0000000016">
   \[  |\widehat A(5)|=2+\sqrt3\quad \Longleftrightarrow \quad E_V(A)=E_V(P)\quad \Longleftrightarrow \quad A=T_sP\text{ for some }s.  \]
 </div>
 </div>
@@ -215,7 +215,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:huddling"	[color=green,		fillcolor="#1CAC78",		label=huddling,		shape=ellipse,		style=filled];	"thm:connection"	[color=green,		fillcolor="#9CEC8B",		label=connection,		shape=ellipse,		style=filled];	"thm:pentatonic"	[color=green,		fillcolor="#1CAC78",		label=pentatonic,		shape=ellipse,		style=filled];	"thm:energy"	[color=blue,		label=energy,		shape=ellipse];	"thm:energy" -> "thm:connection"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:huddling"	[color=green,		fillcolor="#1CAC78",		label=huddling,		shape=ellipse,		style=filled];	"thm:connection"	[color=green,		fillcolor="#9CEC8B",		label=connection,		shape=ellipse,		style=filled];	"thm:huddling" -> "thm:connection"	[style=dashed];	"thm:pentatonic"	[color=green,		fillcolor="#9CEC8B",		label=pentatonic,		shape=ellipse,		style=filled];	"thm:connection" -> "thm:pentatonic"	[style=dashed];	"thm:energy"	[color=blue,		label=energy,		shape=ellipse];	"thm:energy" -> "thm:connection"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -251,37 +251,49 @@ function interactive() {
 }
 
 </script>
-<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="116pt" viewbox="0.00 0.00 302.00 116.00" width="302pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 112)">
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="188pt" viewbox="0.00 0.00 186.00 188.00" width="186pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 184)">
 <!-- thm:huddling -->
 <g class="node" id="node1">
 <title>thm:huddling</title>
-<ellipse cx="43.68" cy="-90" fill="#1cac78" rx="43.68" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="43.68" xml:space="preserve" y="-84.95">huddling</text>
+<ellipse cx="43.68" cy="-162" fill="#1cac78" rx="43.68" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="43.68" xml:space="preserve" y="-156.95">huddling</text>
 </g>
 <!-- thm:connection -->
 <g class="node" id="node2">
 <title>thm:connection</title>
-<ellipse cx="141.67" cy="-18" fill="#9cec8b" rx="51.35" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="141.67" xml:space="preserve" y="-12.95">connection</text>
+<ellipse cx="92.68" cy="-90" fill="#9cec8b" rx="51.35" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="92.68" xml:space="preserve" y="-84.95">connection</text>
+</g>
+<!-- thm:huddling&#45;&gt;thm:connection -->
+<g class="edge" id="edge1">
+<title>thm:huddling-&gt;thm:connection</title>
+<path d="M55.54,-144.05C61.17,-136.01 68.03,-126.2 74.32,-117.23" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="79.88,-109.28 77.84,-120.05 77.72,-112.38 74.15,-117.47 74.15,-117.47 74.15,-117.47 77.72,-112.38 70.46,-114.89 79.88,-109.28" stroke="black"></polygon>
 </g>
 <!-- thm:pentatonic -->
 <g class="node" id="node3">
 <title>thm:pentatonic</title>
-<ellipse cx="244.67" cy="-90" fill="#1cac78" rx="49.31" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="244.67" xml:space="preserve" y="-84.95">pentatonic</text>
+<ellipse cx="92.68" cy="-18" fill="#9cec8b" rx="49.31" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="92.68" xml:space="preserve" y="-12.95">pentatonic</text>
+</g>
+<!-- thm:connection&#45;&gt;thm:pentatonic -->
+<g class="edge" id="edge2">
+<title>thm:connection-&gt;thm:pentatonic</title>
+<path d="M92.68,-71.34C92.68,-64.07 92.68,-55.47 92.68,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="92.68,-37.63 97.18,-47.63 92.68,-41.42 92.68,-47.63 92.68,-47.63 92.68,-47.63 92.68,-41.42 88.18,-47.63 92.68,-37.63" stroke="black"></polygon>
 </g>
 <!-- thm:energy -->
 <g class="node" id="node4">
 <title>thm:energy</title>
-<ellipse cx="141.67" cy="-90" fill="none" rx="36" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="141.67" xml:space="preserve" y="-84.95">energy</text>
+<ellipse cx="141.67" cy="-162" fill="none" rx="36" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="141.67" xml:space="preserve" y="-156.95">energy</text>
 </g>
 <!-- thm:energy&#45;&gt;thm:connection -->
-<g class="edge" id="edge1">
+<g class="edge" id="edge3">
 <title>thm:energy-&gt;thm:connection</title>
-<path d="M141.67,-71.34C141.67,-64.07 141.67,-55.47 141.67,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="141.67,-37.63 146.17,-47.63 141.67,-41.42 141.67,-47.63 141.67,-47.63 141.67,-47.63 141.67,-41.42 137.17,-47.63 141.67,-37.63" stroke="black"></polygon>
+<path d="M130.06,-144.41C124.35,-136.25 117.33,-126.22 110.92,-117.07" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="105.24,-108.96 114.66,-114.57 107.41,-112.06 110.98,-117.15 110.98,-117.15 110.98,-117.15 107.41,-112.06 107.29,-119.73 105.24,-108.96" stroke="black"></polygon>
 </g>
 </g>
 </svg>
