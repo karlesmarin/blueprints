@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript">
+</script>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B): blueprint</title>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/amsthm.css" rel="stylesheet"/>
+<link href="styles/blueprint.css" rel="stylesheet"/>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="estilo-blueprint">/* lemmario: commentary blocks, views bar, Lean seal. Injected into index.html after plasTeX. */
+/* a link target is not hidden under the sticky bar */
+[id], a[name]{scroll-margin-top:64px}
+details.blk{border-radius:8px;margin:.8em 0;padding:.1em .9em .4em;border-left:6px solid}
+details.blk>summary{cursor:pointer;font-weight:600;padding:.35em 0;list-style:none}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:before{content:"▸ ";color:#888}
+details.blk[open]>summary:before{content:"▾ "}
+.b-plain{background:#fff8e1;border-color:#f5b700}
+.b-guar{background:#f5f7f9;border-color:#8a99a8}
+.b-fig{background:#f3e5f5;border-color:#8e24aa}
+.b-set{background:#eceff1;border-color:#546e7a}
+.b-tabs{background:#e3f2fd;border-color:#1e88e5}
+.b-lab{background:#fff3e0;border-color:#ef6c00}
+#vistas{position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;padding:.4em .2em;
+        font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas button{border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;cursor:pointer}
+#vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
+#vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
+.lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
+.lean-check .repro{color:#456}.lean-check code{font-size:.95em}
+.lean-ok{border-left:6px solid #1cac78;padding-left:.6em;background:linear-gradient(90deg,#e9f8f1,transparent 40%)}
+.sello{display:inline-block;background:#1cac78;color:#fff;border-radius:10px;padding:0 .55em;font-size:.8em;
+       margin-left:.5em;vertical-align:middle}
+.theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
+.lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style>
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="lm-citebar-css">
+.lm-act{margin-left:.4em;white-space:nowrap}
+.lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
+          padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
+.lm-act a:hover{background:#eef2f6}
+.lm-citebox{font:13px Arial,sans-serif;background:#f7f9fb;border:1px solid #d5dbe2;border-radius:6px;padding:.4em .6em;
+            margin:.3em 0}
+.lm-citebox button{margin-left:.5em;cursor:pointer;border:1px solid #9fb7cf;background:#fff;border-radius:10px}
+.lm-erratum{font:13px Arial,sans-serif;background:#fff4e5;border-left:3px solid #e69f00;padding:.3em .6em;margin:.3em 0}
+.lm-version{font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em}  /* the bars are dark: a light grey-blue */
+</style><meta content="An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)" name="citation_title"/><meta content="Marín Muñoz, Carles" name="citation_author"/><meta content="2026/09/02" name="citation_publication_date"/><meta content="https://karlesmarin.github.io/blueprints/orbifold-semigroup/paper.pdf" name="citation_pdf_url"/><meta content="https://karlesmarin.github.io/blueprints/orbifold-semigroup/" name="citation_abstract_html_url"/><meta content="10.5281/zenodo.22254864" name="citation_doi"/><meta content="The equivalence classes of orbifold boundary conditions are the fibres of a marginal map, and are indexed by the elements of an affine semigroup. This note identifies that semigroup. When the alphabet carries no weights the object already has a name and a literature, and the note says so plainly: over Z 2 it is the cut configuration of an explicit graph in the sense of Sturmfels and Sullivant — the four-cycle for T²/Z 2 and the wheel W 4 for S 1 /Z 2 × S 1 /Z 2 , verified as an equality of point configurations; over Z m with equal cone orders it is a group-based phylogenetic model on a claw tree; and for the higher products it is the binary hierarchical model of the boundary complex of a cross-polytope. The ring of the product orbifold is a row of a 2008 table — codimension, degree, minimal generators, normality — every invariant of which this machinery reproduced without knowing that table existed. What is established here: thirteen gluing trees, the unitary, orthogonal and symplectic realisations of every case; the group-based model on the tripod for every finite abelian group — a complete intersection exactly when |G| ≤ 3; that (S 1 /Z 2 ) k is not a complete intersection for any k ≥ 3 and is not a cut ideal either, for a reason that is a count of edges; the exceptional case as a list of invariants rather than a negation — normal, Cohen–Macaulay, normalised volume 64, not a complete intersection, Cohen–Macaulay type 9; and that its minimal Markov basis is unique up to signs , sixteen indispensable binomials in exactly two orbits of eight under an automorphism group of order 128. One distinction is drawn explicitly because the vocabulary collides: Casanellas, Fernández-Sánchez and Michałek prove these varieties are complete intersections in a Zariski open set ; the question here is the global one, about the toric ideal itself, and the Z 4 tripod separates the two. Companion to Part IX-A: that note determines which generators exist, this one which relations hold among them. Paper in English and Spanish; every ancillary script and its receipt travel with the record." name="citation_abstract"/><meta content="gauge-Higgs unification; orbifold; boundary conditions; space group; Clifford theory; equivalence classes; extra dimensions; Wilson line; certified computation; exact arithmetic; reproducibility; affine semigroup; toric ideal; complete intersection; gluing; cut ideal; group-based model; phylogenetic invariants; hierarchical model; Markov basis; indispensable binomial; Cohen-Macaulay type; h*-vector; Hilbert series" name="citation_keywords"/><style id="annotate-css">
+p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
+p.usado a{color:#1a4f8b}
+p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
+  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
+header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
+  text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
+header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
+  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
+header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
+  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
+header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+header h1#doc_title{flex:1}
+ul.chapter-list{font-size:1.05em;line-height:1.7}
+/* master-detail: the header and the sidebar stay; the right panel shows one part at a time */
+section.pc-pane[hidden]{display:none !important}
+.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
+nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
+/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
+#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
+  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
+body.vista-explore #explore-banner{display:block}
+body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
+  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
+body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
+body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
+  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
+
+#top.overview{margin:0 0 2.2em}
+#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
+#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
+#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
+#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
+#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
+#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+#top.overview .c-paper{background:#fff;border:1px solid #888}
+#top.overview .nota{font-size:.85em;color:#555}
+#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
+  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
+#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
+#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="lm-guide-css">
+.lm-tour-on{position:relative;z-index:10001 !important;outline:3px solid #ef6c00;outline-offset:3px;border-radius:4px;
+            box-shadow:0 0 0 9999px rgba(20,30,40,.45) !important;background:#fff}
+#lm-tour{position:fixed;z-index:10002;max-width:340px;background:#fff;border-radius:10px;padding:.8em 1em;
+         box-shadow:0 6px 24px rgba(0,0,0,.25);font:14px Arial,sans-serif;color:#222}
+#lm-tour h4{margin:0 0 .35em;font-size:15px}
+#lm-tour .lm-tour-nav{display:flex;gap:.4em;justify-content:flex-end;margin-top:.7em;align-items:center}
+#lm-tour button{cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;padding:.15em .8em}
+#lm-tour button.lm-next{background:#ef6c00;color:#fff}
+#lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
+a.lm-tourbtn{cursor:pointer}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
+</head>
+<body>
+<header>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html" title="An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B): blueprint">Blueprint</a></h1>
+<nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22254864" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22254864</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="orbifold-semigroup-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
+</header>
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
+<li class=""><a href="#a0000000003"><span class="toc_ref">5</span> <span class="toc_entry">The tripod, decided</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:tripod"><span class="toc_ref"></span> <span class="toc_entry">Proposition 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000007"><span class="toc_ref">8</span> <span class="toc_entry">Every \(k\ge 3\), in one line</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:cor34" title="[ 8 , 
+	Cor.
+	
+	3.4
+	]"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li><li class=""><a href="#prop:allk"><span class="toc_ref"></span> <span class="toc_entry">Proposition 2</span></a></li></ul></li>
+<li class=""><a href="#a0000000011"><span class="toc_ref">9</span> <span class="toc_entry">The exception, exhaustively</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:notci"><span class="toc_ref"></span> <span class="toc_entry">Proposition 3</span></a></li><li class=""><a href="#prop:eight"><span class="toc_ref"></span> <span class="toc_entry">Proposition 4</span></a></li><li class=""><a href="#prop:type"><span class="toc_ref"></span> <span class="toc_entry">Proposition 5</span></a></li></ul></li>
+<li class=""><a href="#a0000000017"><span class="toc_ref"></span> <span class="toc_entry">Tables cited</span></a></li>
+<li class=""><a href="#a0000000018"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+<div class="content">
+<div class="content-wrapper">
+<div class="main-text">
+<div id="explore-banner">🔍 <b>Explore view</b>: explanations, figures, other mathematical languages and labs are shown, marked <i>commentary</i>; they are not part of the paper. Switch to <b>Paper</b> for the statements, proofs and evidence only.</div><div class="pc-paneltitle"><div class="titlepage">
+<h1>An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">Combinatorial commutative algebra · affine semigroups and toric ideals</span></div>
+<p class="authors">
+<span class="author">Carles Marín</span>
+</p>
+</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2>
+<p>The equivalence classes of orbifold boundary conditions are the elements of an <b>affine semigroup</b>: one
+generator per label of the alphabet of Part IX-A, graded by weight, embedded by its local data at the fixed points.
+The note identifies that semigroup and decides which of its cases are complete intersections.</p>
+<ul>
+<li><b>The dictionary</b> (unit-weight sector), as an equality of point configurations: the cut configurations of
+P<sub>3</sub>, C<sub>4</sub> and the wheel W<sub>4</sub> (Sturmfels–Sullivant); group-based models on claw trees;
+a mixed-order variant not located in the literature; binary hierarchical models of cross-polytope boundaries.</li>
+<li><b>Thirteen complete intersections</b> with explicit gluing trees (unitary, orthogonal and symplectic
+alphabets); seven are weighted, outside every framework of the dictionary.</li>
+<li><b>The tripod, decided</b> (Proposition 1): the group-based model on the tripod is a complete intersection
+exactly when |G| ≤ 3, for every finite abelian group.</li>
+<li><b>Every k ≥ 3</b> (Proposition 2): (S<sup>1</sup>/ℤ<sub>2</sub>)<sup>k</sup> is not a complete intersection,
+by the extreme-ray bound of Fischer–Morris–Shapiro (Theorem 1, cited), and not a cut ideal, by a count of edges.</li>
+<li><b>The exceptional case</b> S<sup>1</sup>/ℤ<sub>2</sub> × S<sup>1</sup>/ℤ<sub>2</sub>: not a complete
+intersection by an exhaustive sweep (Proposition 3); a unique minimal Markov basis of 8 + 8 indispensable binomials
+in two orbits under an automorphism group of order 128 (Proposition 4); Cohen–Macaulay type 9 (Proposition 5).</li>
+<li><b>Inherited</b>, and said so in the Ledger: the gluing criterion and the extreme-ray bound, the cut-ring
+invariants of W<sub>4</sub> (normality, degree 64, codimension 7), the group-based codimensions.</li>
+</ul></div><p>🚀 <b>Start here:</b> <a href="index.html#prop:tripod"><b>Proposition 1</b></a>: the group-based tripod is a complete intersection exactly when |G| ≤ 3.</p><p><b>Main results:</b></p><ul><li><a href="index.html#prop:tripod"><b>Proposition 1</b></a>: the group-based tripod is a complete intersection exactly when |G| ≤ 3</li><li><a href="index.html#prop:allk"><b>Proposition 2</b></a>: (S¹/Z₂)ᵏ is not a complete intersection for any k ≥ 3</li><li><a href="index.html#prop:eight"><b>Proposition 4</b></a>: unique minimal Markov basis: 8 quadrics + 8 quartics, all indispensable, two orbits under a group of order 128</li><li><a href="index.html#prop:type"><b>Proposition 5</b></a>: Cohen–Macaulay type 9: canonical module generated in degrees 4 (one) and 6 (eight)</li></ul><div class="cifras">
+<span class="cifra"><b>6</b> results</span>
+<span class="cifra c-lean">✅ <b>0</b> formalized in Lean</span>
+<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra c-prog">💻 <b>5</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 668.00 391.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 386.74)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M67,0C67,0 197,0 197,0 203,0 209,-6 209,-12 209,-12 209,-107.58 209,-107.58 209,-113.58 203,-119.58 197,-119.58 197,-119.58 67,-119.58 67,-119.58 61,-119.58 55,-113.58 55,-107.58 55,-107.58 55,-12 55,-12 55,-6 61,0 67,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-104.17">The tripod, decided</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M12,-127.58C12,-127.58 144,-127.58 144,-127.58 150,-127.58 156,-133.58 156,-139.58 156,-139.58 156,-359.11 156,-359.11 156,-365.11 150,-371.11 144,-371.11 144,-371.11 12,-371.11 12,-371.11 6,-371.11 0,-365.11 0,-359.11 0,-359.11 0,-139.58 0,-139.58 0,-133.58 6,-127.58 12,-127.58" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-355.72">Every k3, in one line</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M176,-234.66C176,-234.66 648,-234.66 648,-234.66 654,-234.66 660,-240.66 660,-246.66 660,-246.66 660,-370.74 660,-370.74 660,-376.74 654,-382.74 648,-382.74 648,-382.74 176,-382.74 176,-382.74 170,-382.74 164,-376.74 164,-370.74 164,-370.74 164,-246.66 164,-246.66 164,-240.66 170,-234.66 176,-234.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-367.34">The exception, exhaustively</text>
+</g>
+<!-- prop:tripod -->
+<g class="node" id="node1">
+<title>prop:tripod</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#prop:tripod" xlink:title="Proposition 1: the group-based tripod is a complete intersection exactly when |G| ≤ 3">
+<path d="M189.3,-89.33C189.3,-89.33 74.7,-89.33 74.7,-89.33 68.7,-89.33 62.7,-83.33 62.7,-77.33 62.7,-77.33 62.7,-20 62.7,-20 62.7,-14 68.7,-8 74.7,-8 74.7,-8 189.3,-8 189.3,-8 195.3,-8 201.3,-14 201.3,-20 201.3,-20 201.3,-77.33 201.3,-77.33 201.3,-83.33 195.3,-89.33 189.3,-89.33" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-72.89">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-58.64">the group-based tripod is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-44.39">a complete intersection</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-30.14">exactly when |G| ≤ 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="132" xml:space="preserve" y="-15.89">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:cor34 -->
+<g class="node" id="node2">
+<title>thm:cor34</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:cor34" xlink:title="Theorem 1: a complete-intersection affine semigroup of dimension d ≥ 2 has a cone with at most 2d − 2 extreme rays">
+<path d="M134.55,-340.86C134.55,-340.86 21.45,-340.86 21.45,-340.86 15.45,-340.86 9.45,-334.86 9.45,-328.86 9.45,-328.86 9.45,-266.28 9.45,-266.28 9.45,-260.28 15.45,-254.28 21.45,-254.28 21.45,-254.28 134.55,-254.28 134.55,-254.28 140.55,-254.28 146.55,-260.28 146.55,-266.28 146.55,-266.28 146.55,-328.86 146.55,-328.86 146.55,-334.86 140.55,-340.86 134.55,-340.86" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-325.84">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-313.09">a complete-intersection</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-300.34">affine semigroup of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-287.59">dimension d ≥ 2 has a cone</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-274.84">with at most 2d − 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="78" xml:space="preserve" y="-262.09">extreme rays</text>
+</a>
+</g>
+</g>
+<!-- thm:cor34&#45;&gt;prop:tripod -->
+<g class="edge" id="edge2">
+<title>thm:cor34-&gt;prop:tripod</title>
+<path d="M127.38,-253.86C140.92,-239.16 153.84,-221.59 161,-202.66 173.79,-168.86 165.32,-128.65 154.3,-97.93" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="156.74,-97.45 151.99,-91.75 152.15,-99.17 156.74,-97.45" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:allk -->
+<g class="node" id="node3">
+<title>prop:allk</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#prop:allk" xlink:title="Proposition 2: (S¹/Z₂)ᵏ is not a complete intersection for any k ≥ 3">
+<path d="M136.05,-202.66C136.05,-202.66 19.95,-202.66 19.95,-202.66 13.95,-202.66 7.95,-196.66 7.95,-190.66 7.95,-190.66 7.95,-147.58 7.95,-147.58 7.95,-141.58 13.95,-135.58 19.95,-135.58 19.95,-135.58 136.05,-135.58 136.05,-135.58 142.05,-135.58 148.05,-141.58 148.05,-147.58 148.05,-147.58 148.05,-190.66 148.05,-190.66 148.05,-196.66 142.05,-202.66 136.05,-202.66" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-186.22">Proposition 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-171.97">(S¹/Z₂)ᵏ is not a complete</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-157.72">intersection for any k ≥ 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-143.47">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:cor34&#45;&gt;prop:allk -->
+<g class="edge" id="edge3">
+<title>thm:cor34-&gt;prop:allk</title>
+<path d="M78,-253.76C78,-240.23 78,-225.31 78,-211.86" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="80.45,-212.21 78,-205.21 75.55,-212.21 80.45,-212.21" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:allk&#45;&gt;prop:tripod -->
+<g class="edge" id="edge1">
+<title>prop:allk-&gt;prop:tripod</title>
+<path d="M93.33,-134.49C98.49,-123.16 104.36,-110.29 109.94,-98.05" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="112.06,-99.3 112.74,-91.91 107.61,-97.26 112.06,-99.3" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:notci -->
+<g class="node" id="node4">
+<title>prop:notci</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#prop:notci" xlink:title="Proposition 3: the semigroup of S¹/Z₂ × S¹/Z₂ is not a complete intersection">
+<path d="M287.68,-334.49C287.68,-334.49 184.32,-334.49 184.32,-334.49 178.32,-334.49 172.32,-328.49 172.32,-322.49 172.32,-322.49 172.32,-272.65 172.32,-272.65 172.32,-266.65 178.32,-260.65 184.32,-260.65 184.32,-260.65 287.68,-260.65 287.68,-260.65 293.68,-260.65 299.68,-266.65 299.68,-272.65 299.68,-272.65 299.68,-322.49 299.68,-322.49 299.68,-328.49 293.68,-334.49 287.68,-334.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-319.47">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-306.72">the semigroup of S¹/Z₂ ×</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-293.97">S¹/Z₂ is not a complete</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-281.22">intersection</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-268.47">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:eight -->
+<g class="node" id="node5">
+<title>prop:eight</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:eight" xlink:title="Proposition 4: unique minimal Markov basis: 8 quadrics + 8 quartics, all indispensable, two orbits under a group of order 128">
+<path d="M461.55,-352.49C461.55,-352.49 336.45,-352.49 336.45,-352.49 330.45,-352.49 324.45,-346.49 324.45,-340.49 324.45,-340.49 324.45,-254.66 324.45,-254.66 324.45,-248.66 330.45,-242.66 336.45,-242.66 336.45,-242.66 461.55,-242.66 461.55,-242.66 467.55,-242.66 473.55,-248.66 473.55,-254.66 473.55,-254.66 473.55,-340.49 473.55,-340.49 473.55,-346.49 467.55,-352.49 461.55,-352.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-336.05">Proposition 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-321.8">unique minimal Markov</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-307.55">basis: 8 quadrics + 8</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-293.3">quartics, all</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-279.05">indispensable, two orbits</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-264.8">under a group of order 128</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="399" xml:space="preserve" y="-250.54">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:type -->
+<g class="node" id="node6">
+<title>prop:type</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#prop:type" xlink:title="Proposition 5: Cohen–Macaulay type 9: canonical module generated in degrees 4 (one) and 6 (eight)">
+<path d="M639.8,-345.36C639.8,-345.36 510.2,-345.36 510.2,-345.36 504.2,-345.36 498.2,-339.36 498.2,-333.36 498.2,-333.36 498.2,-261.78 498.2,-261.78 498.2,-255.78 504.2,-249.78 510.2,-249.78 510.2,-249.78 639.8,-249.78 639.8,-249.78 645.8,-249.78 651.8,-255.78 651.8,-261.78 651.8,-261.78 651.8,-333.36 651.8,-333.36 651.8,-339.36 645.8,-345.36 639.8,-345.36" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-328.92">Proposition 5</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-314.67">Cohen–Macaulay type 9:</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-300.42">canonical module generated</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-286.17">in degrees 4 (one) and 6</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-271.92">(eight)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="575" xml:space="preserve" y="-257.67">💻 program</text>
+</a>
+</g>
+</g>
+</g>
+</svg>
+</div></details></section>
+<details class="blk b-set"><summary>📐 Setting (copied from the paper, §1)</summary>
+<p> Let \(L=\{ \ell _1,\dots ,\ell _n\} \) be the alphabet, \(w_i\in \mathbb {Z}_{{\gt}0}\) the weight of \(\ell _i\) and \(v_i\in \mathbb {N}^{c}\) its local data. Put \(a_i=(w_i,v_i)\in \mathbb {N}^{1+c}\) and let \(S=\langle a_1,\dots ,a_n\rangle \subseteq \mathbb {N}^{1+c}\) be the affine semigroup they generate. The number of equivalence classes of rank \(N\) is the number of elements of \(S\) in degree \(N\), so the class-counting generating function is the Hilbert series \(H(S,x)\). The lattice of relations \(\mathcal L=\ker (\mathbb {Z}^n\to \mathbb {Z}^{1+c})\) has rank \(n-\dim S\), and its elements are the moves preserving every local datum. <em>(§2)</em> On \((S^1/\mathbb {Z}_2)^k\) the ground set is the \(2k\) reflections, in \(k\) antipodal pairs, and a fixed point is a choice of one reflection per circle. So the marginals are indexed by the \(2^k\) <em>transversals</em>, which are the facets of the boundary complex of the \(k\)-dimensional cross-polytope: \(n=2^{2k}=4^k\), \(\dim S=\# \{ \text{faces}\} =\sum _{j}\binom {k}{j}2^{\, j}=3^k\). <em>(§4)</em> For a partition \(T=T_1\sqcup T_2\) of the minimal generating set into non-empty parts, \(S\) is the <em>gluing</em> of \(S_1=\langle T_1\rangle \) and \(S_2=\langle T_2\rangle \) by \(\alpha \) if \(\alpha \in S_1\cap S_2\), \(\alpha \neq 0\), and \(G(S_1)\cap G(S_2)=\mathbb {Z}\alpha \). Fischer, Morris and Shapiro prove that an affine semigroup which is not free is a complete intersection if and only if it is a gluing of two complete intersections. <em>(§5)</em> The smallest member of the group-based family is the claw tree with three leaves. The labels are the triples of group elements summing to zero, so \(n=|G|^2\), and the local datum is the indicator of each entry. </p>
+</details></section><section class="pc-pane"><h1 id="a0000000003">5 The tripod, decided</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:tripod">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:tripod">#</a>
+<a class="icon proof" href="index.html#a0000000004"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#prop:allk">Proposition 2</a></li>
+<li><a href="index.html#thm:cor34">Theorem 1</a></li>
+<li><a href="index.html#prop:allk">Proposition 2</a></li>
+<li><a href="index.html#thm:cor34">Theorem 1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=6&amp;n=prop:tripod" title="Open the paper at page 6">📕 p. 6</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:tripod" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 1, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:tripod." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%201&amp;body=About%20Proposition%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Atripod.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>  Let \(G\) be a finite abelian group and let \(S\) be the semigroup of the group-based model on the tripod. Then \(S\) is a complete intersection if and only if \(|G|\le 3\): it is free for \(|G|=2\), a complete intersection with two cubics for \(|G|=3\), and not a complete intersection for \(\mathbb {Z}_4\), for \(\mathbb {Z}_2\times \mathbb {Z}_2\), or for any abelian group of order at least \(5\). </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper looked for this classification in the group-based literature and did not find it; what that literature settles for the tripod is normality, and the local (Zariski-open) complete intersection of [CFM] (§4, §6, Ledger).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000004">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> The labels are the triples of group elements summing to zero, so \(n=|G|^2\), and the local datum is the indicator of each entry, so \(\dim S=3(|G|-1)+1=3|G|-2\) and the codimension is \((|G|-1)(|G|-2)\), which is the value the phylogenetics literature prints for the tripod. </p>
+<p>Every generator is an extreme ray, by the argument of Proposition <a href="index.html#prop:allk">2</a>: it is a \(0/1\) vector with one \(1\) in each of three blocks, hence one of the vertices of a product of three simplices, and a vertex stays extreme in the hull of any subset containing it. Nothing in that argument uses the group law beyond the fact that the labels select a subset of those vertices, so it holds unchanged for every finite abelian \(G\) and not only for the cyclic ones — which is what lets the bound below be quantified over all of them. Theorem <a href="index.html#thm:cor34">1</a> therefore requires </p>
+<div class="equation" id="a0000000005">
+<p>
+<div class="equation_content">
+    \begin{equation}  \boxed {\; |G|^2\; \le \; 2\dim S-2\; =\; 6|G|-6,\qquad \text{that is}\qquad |G|^2-6|G|+6\le 0,\; } \end{equation}
+  </div>
+<span class="equation_label">1</span>
+</p>
+</div>
+<p> which holds for \(2\le |G|\le 4\) and fails from \(5\) on: writing \(f(g)=g^2-6g+6\), one has \(f(5)=1{\gt}0\) and \(f(g+1)-f(g)=2g-5{\gt}0\) for \(g\ge 3\), so \(f\) is positive and increasing on the integers \(g\ge 5\). The bound therefore settles every group of order five or more; the trivial group is outside its reach for the other reason, \(\dim S=1\) being below the \(d\ge 2\) of Theorem <a href="index.html#thm:cor34">1</a>, and its semigroup is \(\mathbb {N}\), free. That leaves four groups open, of three orders: \(\mathbb {Z}_2\), \(\mathbb {Z}_3\), \(\mathbb {Z}_4\) and \(\mathbb {Z}_2\times \mathbb {Z}_2\). Each of the four is decided by the gluing criterion, exhaustively — the two of order \(4\) over all \(2^{15}-1\) partitions of their sixteen generators — with the results of Table <a href="index.html#tab:tripod">3</a>. </p>
+</div>
+</div>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> Z₂, Z₃, Z₄, Z₂×Z₂ by the gluing criterion (the order-4 groups over all 2¹⁵−1 partitions), with the codimension control (|G|−1)(|G|−2). <span class="ttfamily">scripts/tripod_gate.py</span>, <span class="ttfamily">outputs/tripod_gate.txt</span> </p>
+</li>
+<li><p><b class="bfseries">By hand:</b> every order ≥ 5 by the extreme-ray bound |G|² ≤ 6|G|−6 of Theorem 1. <span class="ttfamily">proof of Proposition 1</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000007">8 Every \(k\ge 3\), in one line</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:cor34">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">1</span>
+<span class="theorem_thmtitle"><span class="cite">
+	[
+	<a href="index.html#FMS">8</a>
+	, 
+	Cor.
+	
+	3.4
+	]
+</span></span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:cor34">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=9&amp;n=thm:cor34" title="Open the paper at page 9">📕 p. 9</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:cor34" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Theorem 1, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#thm:cor34." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23thm%3Acor34.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>  Let \(S\) be a \(d\)-dimensional affine semigroup which is a complete intersection, with \(d\ge 2\). Then the cone of \(S\) has at most \(2d-2\) extreme rays. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> cited, not claimed: Fischer, Morris and Shapiro [FMS, Cor. 3.4].</p><p class="usado">↳ Used in: <a href="#prop:tripod">Proposition 1</a>, <a href="#prop:allk">Proposition 2</a></p>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:allk">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">2</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:allk">#</a>
+<a class="icon proof" href="index.html#a0000000008"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:cor34">Theorem 1</a></li>
+<li><a href="index.html#thm:cor34">Theorem 1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=9&amp;n=prop:allk" title="Open the paper at page 9">📕 p. 9</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:allk" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 2, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:allk." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%202&amp;body=About%20Proposition%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%202%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Aallk.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>  For every \(k\ge 3\), the semigroup of \((S^1/\mathbb {Z}_2)^k\) is not a complete intersection. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> claimed as the paper’s own (Ledger), together with the edge count showing it is not a cut ideal for k ≥ 3; the bound it uses is Fischer–Morris–Shapiro [FMS, Cor. 3.4] (Theorem 1 of the paper, cited).</p><p class="usado">↳ Used in: <a href="#prop:tripod">Proposition 1</a></p>
+<div class="proof_wrapper" id="a0000000008">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Every generator is an extreme ray. A generator is a \(0/1\) vector with exactly one \(1\) in each of the \(2^k\) fixed-point blocks, so the generators are <em>a subset of</em> the vertex set of the product of the fixed-point simplices — a proper subset, since the product orbifold correlates the data at different fixed points and only \(4^k\) of those vertices occur. That is enough: a vertex of a polytope remains extreme in the convex hull of any subset of the vertices containing it, and all the generators lie in one weight hyperplane, so each of them spans an extreme ray of the cone. With \(n=4^k\) and \(d=3^k\) from (2), Theorem <a href="index.html#thm:cor34">1</a> requires \(4^k\le 2\cdot 3^k-2\), and \((4/3)^3{\gt}2\). </p>
+</div>
+</div>
+<details class="blk b-fig"><summary>🖼️ Figure</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/fig_fms.pdf}" src="images/img-0002.png" style="width:100%;max-width:100%"/>
+</div>
+<p> Proposition <a href="index.html#prop:allk">2</a>, drawn: the extreme rays against the bound, and their ratio. The ratio is exactly \(1\) at \(k=1,2\) — the bound is met, not approached — and exceeds \(1\) from \(k=3\). The ties are why \(k=2\) needed the exhaustive sweep, and why no inequality of this shape can separate a complete intersection from something meeting its bound exactly. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> n = 4ᵏ, d = 3ᵏ, every generator extreme (integer Farkas certificates), k = 1..5; control: FMS Example 3.5 rebuilt for r = 1..4 attains 2d − 2 exactly, and two decoys. <span class="ttfamily">scripts/fms_cone_gate.py</span>, <span class="ttfamily">outputs/fms_cone_gate.txt</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000011">9 The exception, exhaustively</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:notci">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">3</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:notci">#</a>
+<a class="icon proof" href="index.html#a0000000012"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=10&amp;n=prop:notci" title="Open the paper at page 10">📕 p. 10</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:notci" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 3, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:notci." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%203&amp;body=About%20Proposition%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%203%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Anotci.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p> The semigroup of \(S^1/\mathbb {Z}_2\times S^1/\mathbb {Z}_2\) is not a complete intersection. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> a direct argument independent of [SScuts, Table 1], which already records the cut ring of W₄ (8 + 8 minimal generators, codimension 7, degree 64) (§3, §8).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000012">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>It is not free: its relation lattice has rank \(7\). By <span class="cite">
+	[
+	<a href="index.html#FMS">8</a>
+	]
+</span> it is then a complete intersection if and only if some partition of its minimal generating set into two non-empty parts is a gluing. There are \(2^{15}-1=32767\) such partitions; testing each exactly, \(16\) survive the rank condition on the lattice intersection and none of those has an admissible \(\alpha \). </p>
+</div>
+</div>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> all 32767 partitions of the 16 labels: 16 survive the rank condition, none has an admissible gluing element. <span class="ttfamily">scripts/gluing_tree.py</span>, <span class="ttfamily">outputs/gluing_tree.txt</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> minimal Markov basis 8 + 8 against a relation lattice of rank 7. <span class="ttfamily">scripts/complete_intersection.py</span>, <span class="ttfamily">outputs/complete_intersection.txt</span> </p>
+</li>
+<li><p><b class="bfseries">Literature:</b> the same invariants in Sturmfels–Sullivant, Table 1 (row of the suspension of C₄). <span class="ttfamily">[SScuts]</span> </p>
+</li>
+</ul>
+</details><div class="proposition_thmwrapper theorem-style-plain" id="prop:eight">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">4</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:eight">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=11&amp;n=prop:eight" title="Open the paper at page 11">📕 p. 11</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:eight" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 4, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:eight." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%204&amp;body=About%20Proposition%204%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%204%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Aeight.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p> On \(S^1/\mathbb {Z}_2\times S^1/\mathbb {Z}_2\) at rank \(4\), exactly eight fibres of the local-datum map are not connected by the degree-\(2\) relations. Each of those fibres contains exactly <em>two</em> boundary conditions, and they are the only fibres of rank \(4\) with more than one component. The corresponding eight quartic binomials are therefore <em>indispensable</em>: each occurs, up to sign, in every Markov basis of the ideal. So are the eight quadrics, for the same reason at rank \(2\); hence </p>
+<div class="displaymath" id="a0000000014">
+  \[  \begin{gathered} \text{the toric ideal has a \emph{unique} minimal binomial generating set, up to signs:}\\[2pt] 8\  \text{quadrics}\  +\  8\  \text{quartics.} \end{gathered}  \]
+</div>
+<p> Under \(\mathcal G\) the sixteen fall into exactly two orbits, one per degree. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> claimed as the paper’s own (Ledger): uniqueness up to signs and the two orbits under Aut(A); the 8 + 8 count itself is in [SScuts, Table 1].</p><p class="usado">↳ Not used by another result of the paper.</p>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the eight split fibres at rank 4 and the eight degree-4 generators are the same eight. <span class="ttfamily">scripts/quartic_orbit_gate.py</span>, <span class="ttfamily">outputs/quartic_orbit_gate.txt</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> all sixteen indispensable; Aut(A) computed directly has order 128 and equals the group of seven involutions; orbits 8 + 8 (and the 8 canonical generators one orbit). <span class="ttfamily">scripts/indispensable_gate.py</span>, <span class="ttfamily">outputs/indispensable_gate.txt</span> </p>
+</li>
+</ul>
+</details><div class="proposition_thmwrapper theorem-style-plain" id="prop:type">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">5</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:type">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=12&amp;n=prop:type" title="Open the paper at page 12">📕 p. 12</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:type" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)”, Proposition 5, v1, doi:10.5281/zenodo.22254864, https://karlesmarin.github.io/blueprints/orbifold-semigroup/index.html#prop:type." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=An%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%20%E2%80%94%20Proposition%205&amp;body=About%20Proposition%205%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CAn%20Affine%20Semigroup%20from%20Orbifold%20Boundary%20Conditions%3A%20cut%2C%20phylogenetic%20and%20hierarchical%20models%20in%20the%20unit-weight%20sector%2C%20and%20weighted%20configurations%20beyond%20them%20%28Part%20IX-B%29%E2%80%9D%2C%20Proposition%205%2C%20v1%2C%20doi%3A10.5281/zenodo.22254864%2C%20https%3A//karlesmarin.github.io/blueprints/orbifold-semigroup/index.html%23prop%3Atype.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p> The semigroup ring of \(S^1/\mathbb {Z}_2\times S^1/\mathbb {Z}_2\) has Cohen–Macaulay type \(9\). Its canonical module has one minimal generator in degree \(4=\operatorname {codeg}P\) and eight in degree \(6\), and none in any other degree. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> claimed as the paper’s own: the type 9 and the degrees of the canonical generators; normality, Cohen–Macaulayness and non-Gorensteinness are [SScuts, Table 1] (Ledger).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> interior points 1, 16, 136, 752, 3097 in degrees 4–8 by enumeration and by (−1)ᵈH(1/x); minimal generators 1, 0, 8, 0, 0; Gorenstein decoy S¹/Z₂ returns type 1. <span class="ttfamily">scripts/gorenstein_gate.py</span>, <span class="ttfamily">outputs/gorenstein_gate.txt</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> h*-vector (1,7,20,28,7,1) and the degree-2-moves series (1,7,20,28,15,−7). <span class="ttfamily">scripts/formula_atlas.py</span>, <span class="ttfamily">outputs/formula_atlas.txt</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000017">Tables cited</h1>
+<div class="table" id="tab:tripod">
+<div class="centered"><small class="small"><table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> hdrblue <span style="None"></span>white\(G\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> <span style="None"></span>white\(n=|G|^2\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> <span style="None"></span>white\(\dim S\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> <span style="None"></span>whitecodim </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> <span style="None"></span>white\(2\dim S-2\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> <span style="None"></span>whiteverdict</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>\(\mathbb {Z}_2\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(4\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(4\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(0\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:right">
+<p> \(6\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> free</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>softgrey \(\mathbb {Z}_3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(9\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(7\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(12\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> complete intersection, degrees \([3,3]\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(\mathbb {Z}_4\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(16\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(10\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(6\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(18\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> not a complete intersection  (swept)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>softgrey \(\mathbb {Z}_2\times \mathbb {Z}_2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(16\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(10\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(6\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right">
+<p> \(18\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> not a complete intersection  (swept)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p>\(|G|\ge 5\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(|G|^2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(3|G|-2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> — </p>
+</td>
+<td colspan="" rowspan="" style="text-align:right; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(6|G|-6\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> not a complete intersection  ((4))</p>
+</td>
+</tr>
+</table> <figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">3</span>
+<span class="caption_text">The tripod, for every finite abelian group. The codimension is computed from the generator matrix and agrees with \((|G|-1)(|G|-2)\), which is a control that could have failed. The bound is silent exactly on the four small groups, which is why they are swept; and \(\mathbb {Z}_2\times \mathbb {Z}_2\) is the group of the Kimura 3-parameter model.</span>
+</figcaption> </small></div>
+</div>
+</section><section class="pc-pane"><h1 id="a0000000018">References</h1>
+<dl class="bibliography">
+<dt><a name="IXA">1</a></dt>
+<dd><p>C. Marín, <em>The Alphabet of Orbifold Boundary Conditions</em>, Part IX-A of this series, Zenodo, <span class="ttfamily"><a href="https://doi.org/10.5281/zenodo.22254861" rel="noopener" target="_blank">doi:10.5281/zenodo.22254861</a></span>. </p>
+</dd>
+<dt><a name="SScuts">2</a></dt>
+<dd><p>B. Sturmfels, S. Sullivant, <em>Toric geometry of cuts and splits</em>, Michigan Math. J. <b class="bfseries">57</b> (2008) 689–709, <a href="https://arxiv.org/abs/math/0606683" rel="noopener" target="_blank">arXiv:math/0606683</a>. </p>
+</dd>
+<dt><a name="Engstrom">3</a></dt>
+<dd><p>A. Engström, <em>Cut ideals of \(K_4\)-minor free graphs are generated by quadrics</em>, Michigan Math. J. <b class="bfseries">60</b> (2011) 705–714, <a href="https://arxiv.org/abs/0805.1762" rel="noopener" target="_blank">arXiv:0805.1762</a>. </p>
+</dd>
+<dt><a name="SSphylo">4</a></dt>
+<dd><p>B. Sturmfels, S. Sullivant, <em>Toric ideals of phylogenetic invariants</em>, J. Comput. Biol. <b class="bfseries">12</b> (2005) 204–228, <a href="https://arxiv.org/abs/q-bio/0402015" rel="noopener" target="_blank">arXiv:q-bio/0402015</a>. </p>
+</dd>
+<dt><a name="CFM">5</a></dt>
+<dd><p>M. Casanellas, J. Fernández-Sánchez, M. Michałek, <em>Local description of phylogenetic group-based models</em>, <a href="https://arxiv.org/abs/1402.6945" rel="noopener" target="_blank">arXiv:1402.6945</a>. </p>
+</dd>
+<dt><a name="MV">6</a></dt>
+<dd><p>M. Michałek, E. Ventura, <em>Finite phylogenetic complexity of \(\mathbb {Z}_p\) and invariants for \(\mathbb {Z}_3\)</em>, J. Algebra (2017), <a href="https://arxiv.org/abs/1508.04177" rel="noopener" target="_blank">arXiv:1508.04177</a>. </p>
+</dd>
+<dt><a name="MV2">7</a></dt>
+<dd><p>M. Michałek, E. Ventura, <em>Phylogenetic complexity of the Kimura 3-parameter model</em>, <a href="https://arxiv.org/abs/1704.02584" rel="noopener" target="_blank">arXiv:1704.02584</a>. </p>
+</dd>
+<dt><a name="FMS">8</a></dt>
+<dd><p>K. G. Fischer, W. Morris, J. Shapiro, <em>Affine semigroup rings that are complete intersections</em>, Proc. Amer. Math. Soc. <b class="bfseries">125</b> (1997) 3137–3145.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Affine+semigroup+rings+that+are+complete+intersections" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Delorme">9</a></dt>
+<dd><p>C. Delorme, <em>Sous-monoı̎des d’intersection complète de \(N\)</em>, Ann. Sci. Éc. Norm. Supér. <b class="bfseries">9</b> (1976) 145–154.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Sous-mono%C4%B1%CC%8Edes+d%E2%80%99intersection+compl%C3%A8te+de+%5C%28N%5C%29" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="AGO">10</a></dt>
+<dd><p>A. Assi, P. A. García-Sánchez, I. Ojeda, <em>Frobenius vectors, Hilbert series and gluings of affine semigroups</em>, J. Commut. Algebra <b class="bfseries">7</b> (2015) 317–335.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Frobenius+vectors%2C+Hilbert+series+and+gluings+of+affine+semigroups" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="Stanley">11</a></dt>
+<dd><p>R. P. Stanley, <em>Decompositions of rational convex polytopes</em>, Ann. Discrete Math. <b class="bfseries">6</b> (1980) 333–342.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Decompositions+of+rational+convex+polytopes" rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="HHK">12</a></dt>
+<dd><p>N. Haba, Y. Hosotani, Y. Kawamura, Prog. Theor. Phys. <b class="bfseries">111</b> (2004) 265.  <a class="bib-search" href="https://scholar.google.com/scholar?q=N.%C2%A0Haba%2C+Y.%C2%A0Hosotani%2C+Y.%C2%A0Kawamura%2C+Prog.+Theor.+Phys.+111+%282004%29+265." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="KM">13</a></dt>
+<dd><p>Y. Kawamura, T. Miura, Prog. Theor. Phys. <b class="bfseries">122</b> (2009) 847, <a href="https://arxiv.org/abs/0905.4123" rel="noopener" target="_blank">arXiv:0905.4123</a>. </p>
+</dd>
+<dt><a name="TI2">14</a></dt>
+<dd><p>K. Takeuchi, T. Inagaki, <em>Classification of \(T^2/\mathbb {Z}_m\) orbifold boundary conditions</em>, <a href="https://arxiv.org/abs/2404.19411" rel="noopener" target="_blank">arXiv:2404.19411</a>. </p>
+</dd>
+<dt><a name="TI3">15</a></dt>
+<dd><p>K. Takeuchi, T. Inagaki, PTEP <b class="bfseries">2025</b> 043B03, <a href="https://arxiv.org/abs/2501.05849" rel="noopener" target="_blank">arXiv:2501.05849</a>. </p>
+</dd>
+</dl>
+</section>
+</div>
+</div>
+</div>
+</div>
+<nav class="prev_up_next">
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+<a href="index.html" title="An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B): blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+</nav>
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
+// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+// event, so that page-specific scripts (labs) can react.
+(function(){
+  function set(v){
+    document.body.classList.toggle('vista-paper', v==='paper');
+    document.querySelectorAll('#vistas button').forEach(function(b){b.classList.toggle('on', b.dataset.v===v)});
+    try{localStorage.setItem('vista', v)}catch(e){}
+    document.dispatchEvent(new CustomEvent('vista', {detail: v}));
+  }
+  document.addEventListener('click', function(e){var b=e.target.closest('#vistas button'); if(b) set(b.dataset.v)});
+  var v='paper'; try{v=localStorage.getItem('vista')||'paper'}catch(e){}
+  set(v);
+})();
+</script><script id="lm-citebar">
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a.lm-cite');
+  if (!a) return;
+  e.preventDefault();
+  var head = a.closest('[class$="_thmheading"]') || a.parentElement, box = head.nextElementSibling;
+  if (box && box.classList.contains('lm-citebox')) { box.remove(); return; }
+  box = document.createElement('div'); box.className = 'lm-citebox';
+  box.textContent = a.getAttribute('data-cite');
+  var b = document.createElement('button'); b.type = 'button'; b.textContent = 'copy';
+  b.onclick = function () {
+    try { navigator.clipboard.writeText(a.getAttribute('data-cite')); b.textContent = 'copied'; } catch (x) {}
+  };
+  box.appendChild(b);
+  // the same statement in the blueprint's PDF, at its page (printpdf names a destination for every statement)
+  var holder = head.closest('[id]');
+  if (holder && document.querySelector('a.lm-dl[href="blueprint.pdf"]')) {
+    var p = document.createElement('a');
+    p.href = 'blueprint.pdf#nameddest=' + encodeURIComponent(holder.id); p.target = '_blank'; p.className = 'lm-inpdf';
+    p.textContent = '📄 this statement in the blueprint PDF'; p.title = 'Open the blueprint PDF at this statement';
+    box.appendChild(document.createElement('br')); box.appendChild(p);
+  }
+  head.insertAdjacentElement('afterend', box);
+});
+</script><script>
+(function(){
+  var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
+  function apply(v){
+    var ex = v === 'explore';
+    document.body.classList.toggle('vista-explore', ex);
+    document.querySelectorAll(SEL).forEach(function(d){ d.open = ex; });
+  }
+  document.addEventListener('vista', function(e){ apply(e.detail); });
+  apply(document.body.classList.contains('vista-paper') ? 'paper' : 'explore');
+})();
+</script>
+<script src="js/js.cookie.min.js" type="text/javascript"></script>
+<script src="js/showmore.js" type="text/javascript"></script>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
+  if (!panes.length) return;
+  var box = document.querySelector('div.content');
+  function find(h){
+    if (!h) return null;
+    try { h = decodeURIComponent(h); } catch (e) {}
+    return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
+  }
+  function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
+  function show(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    panes.forEach(function(x){ x.hidden = x !== p; });
+    document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
+      var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
+      var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
+      li.classList.toggle('current', on);
+      var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
+      if (ul) ul.classList.toggle('active', on);
+      if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+    });
+    if (!t || t === p || t.tagName === 'H1' || t.id === 'top') { if (box) box.scrollTop = 0; }
+    else t.scrollIntoView({block: 'start'});
+  }
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // a link to the hash already in the URL fires no hashchange
+    var a = ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+    if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); show(m[1]); }
+  });
+  show(location.hash.slice(1));
+  // the browser's own jump to the hash, and MathJax, move the page after the first show(): place it again
+  window.addEventListener('load', function(){ show(location.hash.slice(1)); });
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise)
+    MathJax.startup.promise.then(function(){ show(location.hash.slice(1)); });
+})();
+</script>
+<script defer="" src="js/mapzoom.js"></script>
+<script id="lm-guide">
+(function(){
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  function visible(e){ return e && e.offsetParent !== null; }
+  function find(sel){
+    var all = [].slice.call(document.querySelectorAll(sel));
+    return all.filter(visible)[0] || all[0] || null;
+  }
+  // the statement a piece belongs to: the piece's own ancestors, or the nearest statement before it (a lab or a
+  // figure block follows its statement, it is not inside it)
+  function holderOf(el){
+    for (var e = el; e && e !== document.body; e = e.parentElement) {
+      if (e.id && e.id.indexOf(':') > 0) return e.id;
+      for (var p = e.previousElementSibling; p; p = p.previousElementSibling) {
+        if (p.id && p.id.indexOf(':') > 0) return p.id;
+        var q = p.querySelectorAll('[id*=":"]');
+        if (q.length) return q[q.length - 1].id;
+      }
+    }
+    return null;
+  }
+  function clear(){ if (on) on.classList.remove('lm-tour-on'); on = null; }
+  function close(){ clear(); if (box) box.remove(); box = null; }
+  function place(el){
+    var w = Math.min(340, innerWidth - 24), x = 12, y = innerHeight / 2 - 80;
+    if (el) {
+      var r = el.getBoundingClientRect();
+      if (r.height > innerHeight * 0.55) {  // a tall piece (a live figure): the note goes to a corner, not over it
+        x = innerWidth - w - 12; y = innerHeight - 190;
+      } else {
+        x = Math.max(12, Math.min(r.left, innerWidth - w - 12));
+        y = r.bottom + 14 + 170 < innerHeight ? r.bottom + 14 : Math.max(12, r.top - 190);
+      }
+    }
+    box.style.left = x + 'px'; box.style.top = y + 'px'; box.style.width = w + 'px';
+  }
+  function show(k){
+    i = Math.max(0, Math.min(STEPS.length - 1, k));
+    var s = STEPS[i];
+    clear();
+    if (s.explore) { var b = document.querySelector('button[data-v="explore"]'); if (b) b.click(); }
+    var el = s.sel ? find(s.sel) : null;
+    if (el && !visible(el)) {  // in a part of the page that is closed: open the statement it belongs to
+      var holder = holderOf(el);
+      if (holder && decodeURIComponent(location.hash.slice(1)) !== holder) {
+        location.hash = holder; setTimeout(function(){ show(i); }, 450); return;
+      }
+      for (var d = el.parentElement; d; d = d.parentElement) if (d.tagName === 'DETAILS') d.open = true;
+    }
+    if (!box) { box = document.createElement('div'); box.id = 'lm-tour'; document.body.appendChild(box); }
+    box.innerHTML = '<h4></h4><div class="lm-tour-t"></div><div class="lm-tour-nav"><span class="lm-tour-n"></span>' +
+      '<button type="button" class="lm-close">Close</button><button type="button" class="lm-back">Back</button>' +
+      '<button type="button" class="lm-next">Next</button></div>';
+    box.querySelector('h4').textContent = s.title;
+    box.querySelector('.lm-tour-t').textContent = s.text;
+    box.querySelector('.lm-tour-n').textContent = (i + 1) + ' / ' + STEPS.length;
+    box.querySelector('.lm-back').disabled = i === 0;
+    box.querySelector('.lm-next').textContent = i === STEPS.length - 1 ? 'Done' : 'Next';
+    box.querySelector('.lm-close').onclick = close;
+    box.querySelector('.lm-back').onclick = function(){ show(i - 1); };
+    box.querySelector('.lm-next').onclick = function(){ if (i === STEPS.length - 1) close(); else show(i + 1); };
+    if (el) {
+      on = el; el.classList.add('lm-tour-on');
+      el.scrollIntoView({block: el.getBoundingClientRect().height > innerHeight * 0.55 ? 'start' : 'center'});
+    }
+    setTimeout(function(){ place(el); }, 60);
+  }
+  document.addEventListener('keydown', function(e){
+    if (!box) return;
+    if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') show(i + 1); else if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.lm-tourbtn');
+    if (a) { e.preventDefault(); show(0); }
+  });
+  var start = new URLSearchParams(location.search).get('tour');
+  if (start !== null) {
+    var go = function(){ setTimeout(function(){ show(parseInt(start, 10) || 0); }, 500); };
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:tripod": "Proposition 1", "thm:cor34": "Theorem 1 — {\\cite[Cor.~3.4]{FMS}}", "prop:allk": "Proposition 2", "prop:notci": "Proposition 3", "prop:eight": "Proposition 4", "prop:type": "Proposition 5"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
 <title>PDF: The Pentagon, Machine-Checked: Abel's five-term relation for the dilogarithm in Lean 4</title><style>
 html,body{margin:0;height:100%}
 body{display:flex;flex-direction:column;font-family:serif}
@@ -10,14 +11,41 @@ body{display:flex;flex-direction:column;font-family:serif}
 #vistas a.on{background:#8e24aa;color:#fff;border-color:#8e24aa;font-weight:600}
 #vistas .nota{color:#555;font:12px Arial,sans-serif}
 iframe{flex:1;border:0;width:100%}
-</style></head><body>
-<div id="vistas"><span>View:</span>
-<a href="index.html" onclick="try{localStorage.setItem('vista','paper')}catch(e){}">📄 Paper</a>
-<a href="index.html" onclick="try{localStorage.setItem('vista','explore')}catch(e){}">🔍 Explore</a>
-<a href="mapa.html">🗺️ Map of the paper</a>
-<a class="on" href="pdf.html">📕 PDF</a>
-<a download="" href="paper.pdf" id="pdfdl">⬇ download</a>
-<span class="nota">The paper as LaTeX typesets it; links on the site open it at the right page.</span></div>
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+</style></head><body><header class="pc-head"><a class="pc-title" href="index.html" title="The Pentagon, Machine-Checked: Abel's five-term relation for the dilogarithm in Lean 4: blueprint">Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a class="on" href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a download="" href="paper.pdf" id="pdfdl">⬇ download</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20682716" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20682716</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
 <iframe id="pdf" src="paper.pdf" title="The paper (PDF)"></iframe>
 <script>
 // the PDFs of the paper (the original and its translations) and, for each, the page of every statement: a link
@@ -61,6 +89,66 @@ var LM_PDF = {"en": {"file": "paper.pdf", "pages": {"thm:five": 3}}, "es": {"fil
     open();
   });
   window.addEventListener('hashchange', open); open();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:five": "Theorem 1 — \\paperlean{Dilog.rogersL\\_fiveterm}"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
 </body></html>

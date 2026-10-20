@@ -1,0 +1,617 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+</style></head>
+<body>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22848530" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22848530</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="a0000000020_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="a0000000020" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+</div>
+<div class="thm_thmcontent"></div>
+<a class="latex_link" href="index.html#a0000000020">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:exponente_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:exponente" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">7</span><span class="corollary_thmtitle">the exponent</span></div>
+<div class="thm_thmcontent"><p>   If \(c(S_T)\le e\), then \(p\, \mathcal{O}_\mu \subseteq A_\mu \) and \(\mathcal{O}_\mu /A_\mu \) is elementary abelian. This holds whenever \(p{\gt}(n-1)(n-2)\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:exponente">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:gorenstein_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:gorenstein" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">6</span><span class="corollary_thmtitle">Gorenstein columns</span></div>
+<div class="thm_thmcontent"><p>   \(A_\mu \) is Gorenstein if and only if \(S_{T_\mu }\) is symmetric. </p>
+</div>
+<a class="latex_link" href="index.html#cor:gorenstein">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:indice_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:indice" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">5</span><span class="corollary_thmtitle">the index of a column</span></div>
+<div class="thm_thmcontent"><p>   \({\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{}}\)[O_μ:A_μ]=p^ ϕ(m_μ) #(N_0∖S_T_μ).\(\)</p>
+</div>
+<a class="latex_link" href="index.html#cor:indice">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:vacio_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:vacio" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">8</span><span class="corollary_thmtitle">the vacuum</span></div>
+<div class="thm_thmcontent"><p>   The column \(\mu =0\) is maximal: \(A_0=\mathcal{O}_0\) for every \(\mathrm{SU}(n)_k\) with \(n+k\) prime. </p>
+</div>
+<a class="latex_link" href="index.html#cor:vacio">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:centro_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:centro" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">1</span><span class="lemma_thmtitle">the centre is in the ring</span></div>
+<div class="thm_thmcontent"><p>  \(\eta _\mu \in A_\mu \). </p>
+</div>
+<a class="latex_link" href="index.html#lem:centro">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:maximales_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:maximales" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">11</span><span class="proposition_thmtitle">the maximal columns</span></div>
+<div class="thm_thmcontent"><p>   Let \(2\le n\le p-2\), and for \(h\mid p-1\) let \(e=(p-1)/h\), \(G_e\subset \mathbb {F}_p^\times \) the subgroup of order \(e\), and \(Z_{p,e}(d)\) the number of \(d\)-subsets of \(G_e\) with sum \(0\). The number of columns of \(\mathrm{SU}(n)_{p-n}\) with \(S_T=\mathbb {N}_0\) is </p>
+<div class="displaymath" id="a0000000034">
+  \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle N_0(p,n)=n\sum _{\substack {h\mid p-1,\  h{\gt}1\\ n\bmod h\in \{ 0,1\} }} \Bigl[\binom {(p-1)/h}{\lfloor n/h\rfloor }-Z_{p,(p-1)/h}\bigl(\lfloor n/h\rfloor \bigr)\Bigr].$}}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#prop:maximales">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:maximo_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:maximo" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">12</span><span class="proposition_thmtitle">the largest defect</span></div>
+<div class="thm_thmcontent"><p>    For every centred \(T\) of size \(n\ge 3\), \(\delta (T)\le (n-1)(n-2)/2\), with equality exactly when \(\prod _{t\in T}(X-t)=X^n+aX+b\) with \(ab\ne 0\); then \(\Gamma _T=S_T=\langle n-1,n\rangle \). Such \(T\) exist for every sufficiently large prime \(p\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:maximo">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="./find/#doc/P3a.genus_le_D">P3a.genus_le_D</a></li>
+<li><a class="lean_decl" href="./find/#doc/P3a.eq_pair_of_genus_eq">P3a.eq_pair_of_genus_eq</a></li>
+<li><a class="lean_decl" href="./find/#doc/P3a.genus_pair_n">P3a.genus_pair_n</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:nivelrango_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:nivelrango" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">9</span><span class="proposition_thmtitle">level–rank</span></div>
+<div class="thm_thmcontent"><p>   Under level–rank duality \(\mathrm{SU}(n)_k\leftrightarrow \mathrm{SU}(k)_n\), the spectrum of the transposed column is \(T'=-(\mathbb {F}_p\setminus T)\), and \(C_{T'}=\sigma _{-1}(C_T)\): the semigroup, the index \(\delta \), the conductor and the Gorenstein property are preserved. Only the central factor \(\varphi (m)\) may change. </p>
+</div>
+<a class="latex_link" href="index.html#prop:nivelrango">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:tensor_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:tensor" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">2</span><span class="proposition_thmtitle">the decomposition</span></div>
+<div class="thm_thmcontent"><p>   \(A_\mu =\mathbb {Z}[\zeta _m]\otimes C_T\), \(K_\mu =\mathbb {Q}(\zeta _m)E_T\), and </p>
+<div class="displaymath" id="a0000000009">
+  \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle [\mathcal{O}_\mu :A_\mu ]=[\mathcal{O}_{E_T}:C_T]^{\varphi (m)},$}}  \]
+</div>
+<p> a power of \(p\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:tensor">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:twist_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:twist" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">10</span><span class="proposition_thmtitle">the conformal weight</span></div>
+<div class="thm_thmcontent"><p>   Let \(\Delta _\mu =\bigl(|\mu +\rho |^2-|\rho |^2\bigr)/2p\) be the conformal weight of \(\mu \), with roots of square length \(2\), so that \(|\rho |^2=n(n^2-1)/12\) and \(e^{2\pi i\Delta _\mu }\) is the eigenvalue of the modular matrix \(\mathcal T\) at \(\mu \) up to the central charge <span class="cite">
+	[
+	<a href="index.html#Kac90">11</a>
+	, 
+	Thm.
+	
+	13.8
+	]
+</span>. Then </p>
+<div class="displaymath" id="a0000000030">
+  \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle M_2(T_\mu )\equiv |\mu +\rho |^2\pmod p,$}}  \]
+</div>
+<p> so \(M_2(T_\mu )=0\) if and only if \(p\) does not divide the order of the root of unity \(e^{2\pi i\Delta _\mu }e^{\pi i|\rho |^2/p}=e^{\pi i|\mu +\rho |^2/p}\). If moreover \(H_T\) is trivial, then \(\delta (T)=1\) if and only if \(M_2(T)M_3(T)\neq 0\); so the index of the column is \(p^{\varphi (m)}\) exactly when both moments are nonzero, and the conformal weight decides the first of the two. </p>
+</div>
+<a class="latex_link" href="index.html#prop:twist">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:exacto_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:exacto" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">3</span><span class="theorem_thmtitle">the exact semigroup</span></div>
+<div class="thm_thmcontent"><p>  Let \(R=C_T\otimes \mathbb {Z}_p\) and let \(\theta =g_1^{\, h}\), with \(g_1\) the Gauss sum below, a uniformizer of \(E_T\otimes \mathbb {Q}_p\) on which the Galois group acts by a character. Then \(R\) is the monomial ring </p>
+<div class="displaymath" id="a0000000013">
+  \[  R=\sum _{s\in S_T}\mathbb {Z}_p\, \theta ^s,\qquad {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle S_T=\bigl\langle \,  e,\  \  j+e\, b_j\  :\  1\le j{\lt}e,\  b_j{\lt}\infty \, \bigr\rangle ,$}}  \]
+</div>
+<p> the valuations of its nonzero elements form the numerical semigroup \(S_T\), and \(\delta (T)=\# (\mathbb {N}_0\setminus S_T)\), the number of gaps. </p>
+</div>
+<a class="latex_link" href="index.html#thm:exacto">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:momentos_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:momentos" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4</span><span class="theorem_thmtitle">the semigroup of moments</span></div>
+<div class="thm_thmcontent"><p>  If \(p{\gt}(n-1)(n-2)\) (equivalently \(p\ge (n-1)(n-2)\), as \(p\) is odd), then \(S_T=\Gamma _T\) and </p>
+<div class="displaymath" id="a0000000017">
+  \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle \delta (T)=\# \bigl(\mathbb {N}_0\setminus \langle e,\  j:\  M_{hj}(T)\ne 0\rangle \bigr).$}}  \]
+</div>
+<p> The same holds for every \(p\) when \(n\le 12\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:momentos">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:centro"	[color=blue,		fillcolor="#A3D6FF",		label=centro,		shape=ellipse,		style=filled];	"prop:tensor"	[label=tensor,		shape=ellipse];	"lem:centro" -> "prop:tensor"	[style=dashed];	"cor:indice"	[label=indice,		shape=ellipse];	"prop:tensor" -> "cor:indice"	[style=dashed];	"thm:exacto"	[color=blue,		fillcolor="#A3D6FF",		label=exacto,		shape=ellipse,		style=filled];	"thm:exacto" -> "cor:indice"	[style=dashed];	"prop:nivelrango"	[label=nivelrango,		shape=ellipse];	"thm:exacto" -> "prop:nivelrango"	[style=dashed];	"prop:maximales"	[label=maximales,		shape=ellipse];	"thm:exacto" -> "prop:maximales"	[style=dashed];	"prop:twist"	[label=twist,		shape=ellipse];	"thm:exacto" -> "prop:twist"	[style=dashed];	"prop:maximo"	[label=maximo,		shape=ellipse];	"thm:exacto" -> "prop:maximo"	[style=dashed];	"cor:gorenstein"	[label=gorenstein,		shape=ellipse];	"thm:exacto" -> "cor:gorenstein"	[style=dashed];	"cor:vacio"	[label=vacio,		shape=ellipse];	"thm:exacto" -> "cor:vacio"	[style=dashed];	"cor:exponente"	[label=exponente,		shape=ellipse];	"thm:momentos"	[color=blue,		fillcolor="#A3D6FF",		label=momentos,		shape=ellipse,		style=filled];	"thm:momentos" -> "prop:maximo"	[style=dashed];	"thm:momentos" -> "cor:exponente"	[style=dashed];	a0000000020	[color=blue,		label=a0000000020,		shape=ellipse];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="188pt" viewbox="0.00 0.00 806.00 188.00" width="806pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 184)">
+<!-- lem:centro -->
+<g class="node" id="node1">
+<title>lem:centro</title>
+<ellipse cx="33.95" cy="-162" fill="#a3d6ff" rx="33.95" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="33.95" xml:space="preserve" y="-156.95">centro</text>
+</g>
+<!-- prop:tensor -->
+<g class="node" id="node2">
+<title>prop:tensor</title>
+<ellipse cx="33.95" cy="-90" fill="none" rx="33.44" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="33.95" xml:space="preserve" y="-84.95">tensor</text>
+</g>
+<!-- lem:centro&#45;&gt;prop:tensor -->
+<g class="edge" id="edge1">
+<title>lem:centro-&gt;prop:tensor</title>
+<path d="M33.95,-143.34C33.95,-136.07 33.95,-127.47 33.95,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="33.95,-109.64 38.45,-119.64 33.95,-113.42 33.95,-119.64 33.95,-119.64 33.95,-119.64 33.95,-113.42 29.45,-119.64 33.95,-109.64" stroke="black"></polygon>
+</g>
+<!-- cor:indice -->
+<g class="node" id="node3">
+<title>cor:indice</title>
+<ellipse cx="33.95" cy="-18" fill="none" rx="33.44" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="33.95" xml:space="preserve" y="-12.95">indice</text>
+</g>
+<!-- prop:tensor&#45;&gt;cor:indice -->
+<g class="edge" id="edge2">
+<title>prop:tensor-&gt;cor:indice</title>
+<path d="M33.95,-71.34C33.95,-64.07 33.95,-55.47 33.95,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="33.95,-37.63 38.45,-47.63 33.95,-41.42 33.95,-47.63 33.95,-47.63 33.95,-47.63 33.95,-41.42 29.45,-47.63 33.95,-37.63" stroke="black"></polygon>
+</g>
+<!-- thm:exacto -->
+<g class="node" id="node4">
+<title>thm:exacto</title>
+<ellipse cx="354.95" cy="-90" fill="#a3d6ff" rx="34.97" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="354.95" xml:space="preserve" y="-84.95">exacto</text>
+</g>
+<!-- thm:exacto&#45;&gt;cor:indice -->
+<g class="edge" id="edge3">
+<title>thm:exacto-&gt;cor:indice</title>
+<path d="M320.66,-84.58C267.68,-77.28 163.07,-60.99 76.95,-36 74.78,-35.37 72.57,-34.67 70.35,-33.93" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="61.2,-30.64 72.14,-29.79 64.76,-31.92 70.61,-34.03 70.61,-34.03 70.61,-34.03 64.76,-31.92 69.09,-38.26 61.2,-30.64" stroke="black"></polygon>
+</g>
+<!-- prop:nivelrango -->
+<g class="node" id="node5">
+<title>prop:nivelrango</title>
+<ellipse cx="135.95" cy="-18" fill="none" rx="50.33" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="135.95" xml:space="preserve" y="-12.95">nivelrango</text>
+</g>
+<!-- thm:exacto&#45;&gt;prop:nivelrango -->
+<g class="edge" id="edge4">
+<title>thm:exacto-&gt;prop:nivelrango</title>
+<path d="M325.41,-79.56C289.04,-67.93 226.76,-48.03 183.59,-34.23" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="174.21,-31.23 185.11,-29.99 177.81,-32.38 183.74,-34.27 183.74,-34.27 183.74,-34.27 177.81,-32.38 182.37,-38.56 174.21,-31.23" stroke="black"></polygon>
+</g>
+<!-- prop:maximales -->
+<g class="node" id="node6">
+<title>prop:maximales</title>
+<ellipse cx="255.95" cy="-18" fill="none" rx="51.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="255.95" xml:space="preserve" y="-12.95">maximales</text>
+</g>
+<!-- thm:exacto&#45;&gt;prop:maximales -->
+<g class="edge" id="edge5">
+<title>thm:exacto-&gt;prop:maximales</title>
+<path d="M334.44,-74.5C320.93,-64.94 302.98,-52.25 287.65,-41.41" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="279.5,-35.65 290.27,-37.75 282.59,-37.84 287.67,-41.43 287.67,-41.43 287.67,-41.43 282.59,-37.84 285.07,-45.1 279.5,-35.65" stroke="black"></polygon>
+</g>
+<!-- prop:twist -->
+<g class="node" id="node7">
+<title>prop:twist</title>
+<ellipse cx="354.95" cy="-18" fill="none" rx="28.83" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="354.95" xml:space="preserve" y="-12.95">twist</text>
+</g>
+<!-- thm:exacto&#45;&gt;prop:twist -->
+<g class="edge" id="edge6">
+<title>thm:exacto-&gt;prop:twist</title>
+<path d="M354.95,-71.34C354.95,-64.07 354.95,-55.47 354.95,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="354.95,-37.63 359.45,-47.63 354.95,-41.42 354.95,-47.63 354.95,-47.63 354.95,-47.63 354.95,-41.42 350.45,-47.63 354.95,-37.63" stroke="black"></polygon>
+</g>
+<!-- prop:maximo -->
+<g class="node" id="node8">
+<title>prop:maximo</title>
+<ellipse cx="639.95" cy="-18" fill="none" rx="42.14" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="639.95" xml:space="preserve" y="-12.95">maximo</text>
+</g>
+<!-- thm:exacto&#45;&gt;prop:maximo -->
+<g class="edge" id="edge7">
+<title>thm:exacto-&gt;prop:maximo</title>
+<path d="M387.76,-82.64C433.26,-73.57 517.94,-55.83 588.95,-36 591.58,-35.26 594.29,-34.47 597,-33.65" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="606.29,-30.73 598.1,-38.02 602.68,-31.87 596.75,-33.73 596.75,-33.73 596.75,-33.73 602.68,-31.87 595.4,-29.44 606.29,-30.73" stroke="black"></polygon>
+</g>
+<!-- cor:gorenstein -->
+<g class="node" id="node9">
+<title>cor:gorenstein</title>
+<ellipse cx="450.95" cy="-18" fill="none" rx="49.31" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="450.95" xml:space="preserve" y="-12.95">gorenstein</text>
+</g>
+<!-- thm:exacto&#45;&gt;cor:gorenstein -->
+<g class="edge" id="edge8">
+<title>thm:exacto-&gt;cor:gorenstein</title>
+<path d="M374.84,-74.5C387.94,-64.94 405.35,-52.25 420.21,-41.41" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="428.1,-35.67 422.66,-45.19 425.04,-37.89 420.01,-41.56 420.01,-41.56 420.01,-41.56 425.04,-37.89 417.36,-37.92 428.1,-35.67" stroke="black"></polygon>
+</g>
+<!-- cor:vacio -->
+<g class="node" id="node10">
+<title>cor:vacio</title>
+<ellipse cx="548.95" cy="-18" fill="none" rx="30.88" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="548.95" xml:space="preserve" y="-12.95">vacio</text>
+</g>
+<!-- thm:exacto&#45;&gt;cor:vacio -->
+<g class="edge" id="edge9">
+<title>thm:exacto-&gt;cor:vacio</title>
+<path d="M384.7,-79.45C415.88,-69.28 466.19,-52.42 508.95,-36 510.69,-35.33 512.47,-34.63 514.27,-33.91" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="523.39,-30.17 515.85,-38.13 519.9,-31.6 514.14,-33.97 514.14,-33.97 514.14,-33.97 519.9,-31.6 512.43,-29.8 523.39,-30.17" stroke="black"></polygon>
+</g>
+<!-- cor:exponente -->
+<g class="node" id="node11">
+<title>cor:exponente</title>
+<ellipse cx="748.95" cy="-18" fill="none" rx="48.79" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="748.95" xml:space="preserve" y="-12.95">exponente</text>
+</g>
+<!-- thm:momentos -->
+<g class="node" id="node12">
+<title>thm:momentos</title>
+<ellipse cx="693.95" cy="-90" fill="#a3d6ff" rx="50.33" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="693.95" xml:space="preserve" y="-84.95">momentos</text>
+</g>
+<!-- thm:momentos&#45;&gt;prop:maximo -->
+<g class="edge" id="edge10">
+<title>thm:momentos-&gt;prop:maximo</title>
+<path d="M680.88,-72.06C674.51,-63.8 666.72,-53.7 659.65,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="653.64,-36.75 663.32,-41.92 655.95,-39.75 659.75,-44.67 659.75,-44.67 659.75,-44.67 655.95,-39.75 656.19,-47.42 653.64,-36.75" stroke="black"></polygon>
+</g>
+<!-- thm:momentos&#45;&gt;cor:exponente -->
+<g class="edge" id="edge11">
+<title>thm:momentos-&gt;cor:exponente</title>
+<path d="M707.26,-72.06C713.75,-63.8 721.68,-53.7 728.88,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="735.01,-36.75 732.36,-47.39 732.67,-39.72 728.83,-44.61 728.83,-44.61 728.83,-44.61 732.67,-39.72 725.29,-41.83 735.01,-36.75" stroke="black"></polygon>
+</g>
+<!-- a0000000020 -->
+<g class="node" id="node13">
+<title>a0000000020</title>
+<ellipse cx="146.95" cy="-162" fill="none" rx="61.08" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="146.95" xml:space="preserve" y="-156.95">a0000000020</text>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"lem:centro": "Lemma 1 — the centre is in the ring", "prop:tensor": "Proposition 2 — the decomposition", "thm:exacto": "Theorem 3 — the exact semigroup", "thm:momentos": "Theorem 4 — the semigroup of moments", "cor:indice": "Corollary 5 — the index of a column", "cor:gorenstein": "Corollary 6 — Gorenstein columns", "cor:exponente": "Corollary 7 — the exponent", "cor:vacio": "Corollary 8 — the vacuum", "prop:nivelrango": "Proposition 9 — level--rank", "prop:twist": "Proposition 10 — the conformal weight", "prop:maximales": "Proposition 11 — the maximal columns", "prop:maximo": "Proposition 12 — the largest defect"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>
