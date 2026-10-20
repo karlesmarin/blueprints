@@ -178,8 +178,8 @@ a{text-decoration:none}
 <nav class="toc">
 <ul class="sub-toc-0">
 <li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
-<li class=""><a href="#a0000000002"><span class="toc_ref">1</span> <span class="toc_entry">Q1: what does reality of the roots force on the coefficients?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:newton" title="Newton’s inequalities, in Lean 4; Newton.newton_inequality"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
-<li class=""><a href="#a0000000005"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li class=""><a href="#a0000000003"><span class="toc_ref">1</span> <span class="toc_entry">Q1: what does reality of the roots force on the coefficients?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:newton" title="Newton’s inequalities, in Lean 4; Newton.newton_inequality"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000006"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
 <li><a href="dep_graph_document.html">Dependency graph</a></li>
 </ul>
 </nav>
@@ -191,11 +191,20 @@ a{text-decoration:none}
 <p class="authors">
 <span class="author">Carles Marín</span>
 </p>
-</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2><ul><li>A <code>sorry</code>-free Lean 4 proof of Newton's inequalities $e_k^2\binom{n}{k-1}\binom{n}{k+1}\ge e_{k-1}e_{k+1}\binom{n}{k}^2$ for real-rooted real polynomials (Theorem 1), and of the log-concavity of the normalized means $p_k=e_k/\binom nk$; the symmetric-function form assumes $p$ monic, the coefficient form <code>newton_inequality_coeff</code> assumes nothing.
-</li><li>The route is the classical one (Sylvester; Hardy–Littlewood–Pólya): differentiate, reverse, differentiate again, down to a real-rooted quadratic, whose discriminant is the inequality once positive factorials are cleared.
-</li><li>Four reusable blocks: real-rootedness under differentiation, iterated differentiation and reversal (the constant-term hypothesis dropped), and the coefficient-form discriminant for $\deg\le2$, which also absorbs the degenerate case $a_{i-1}=0$.
-</li><li>The mathematics is classical; the paper claims the formalization (to the author's knowledge the first in any proof assistant, June 2026), not a new inequality. Equality cases and Maclaurin's chain are named, not proved.
-</li></ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:newton"><b>Theorem 1</b></a>: Newton's inequalities for a monic real-rooted polynomial, and log-concavity of the normalized means.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:newton"><b>Theorem 1</b></a>: Newton's inequalities for a monic real-rooted polynomial, and log-concavity of the normalized means</li></ul><div class="cifras">
+</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2>
+<p>A machine-checked, <code>sorry</code>-free proof in Lean 4 over Mathlib of <b>Newton's inequalities</b> (1707):
+for a real-rooted real polynomial of degree n, e<sub>k</sub><sup>2</sup>·C(n,k−1)·C(n,k+1) ≥ e<sub>k−1</sub>·e<sub>k+1</sub>·C(n,k)<sup>2</sup>
+for 1 ≤ k ≤ n−1; equivalently the normalized means p<sub>k</sub> = e<sub>k</sub>/C(n,k) are log-concave.</p>
+<ul>
+<li><b>The theorem</b> (Theorem 1): the symmetric-function form assumes p monic; the coefficient form
+<code>newton_inequality_coeff</code> assumes nothing.</li>
+<li><b>The route</b> is the classical one (Sylvester; Hardy–Littlewood–Pólya): differentiate, reverse, differentiate
+again, down to a real-rooted quadratic, whose discriminant is the inequality once positive factorials are cleared.</li>
+<li><b>Four reusable blocks</b>: real-rootedness under differentiation, iterated differentiation and reversal, and the
+coefficient-form discriminant for degree ≤ 2, which also absorbs the degenerate case a<sub>i−1</sub> = 0.</li>
+<li><b>Boundary</b>: the mathematics is classical; the paper claims the formalization (to the author's knowledge the
+first in any proof assistant, June 2026). The equality cases and Maclaurin's chain are named, not proved.</li>
+</ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:newton"><b>Theorem 1</b></a>: Newton's inequalities for a monic real-rooted polynomial, and log-concavity of the normalized means.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:newton"><b>Theorem 1</b></a>: Newton's inequalities for a monic real-rooted polynomial, and log-concavity of the normalized means</li></ul><div class="cifras">
 <span class="cifra"><b>1</b> results</span>
 <span class="cifra c-lean">✅ <b>1</b> formalized in Lean</span>
 <span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
@@ -230,7 +239,9 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </g>
 </svg>
 </div></details></section>
-</section><section class="pc-pane"><h1 id="a0000000002">1 Q1: what does reality of the roots force on the coefficients?</h1>
+<details class="blk b-set"><summary>📐 Setting (copied from the paper, §1)</summary>
+<p> Write a real-rooted polynomial through its roots, \(p(x)=\sum _{k=0}^{n}(-1)^k e_k\, x^{n-k}\), where \(e_k\) is the \(k\)-th <em>elementary symmetric function</em> of the roots, and form the <em>normalized means</em> \(p_k=e_k/\binom {n}{k}\). <em>(§2)</em> I work over \(\mathbb {R}\). A polynomial is <em>real-rooted</em> () when it splits into linear factors over \(\mathbb {R}\)—Mathlib’s intrinsic ; equivalently it has \(\deg p\) real roots counted with multiplicity. For the roots multiset \(s=p.\mathtt{roots}\), the elementary symmetric function is \(e_k=\lean{Multiset.esymm}\, s\, k\), and \(\binom {n}{k}=\lean{Nat.choose}\). </p>
+</details></section><section class="pc-pane"><h1 id="a0000000003">1 Q1: what does reality of the roots force on the coefficients?</h1>
 <div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:newton">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -245,7 +256,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:newton">#</a>
-<a class="icon proof" href="index.html#a0000000003"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000004"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
 <button class="modal lean">L∃∀N</button>
 <div class="modal-container">
@@ -270,7 +281,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p> Equivalently (<span class="ttfamily">newton_logConcave</span>) the normalized means \(p_k=e_k/\binom {n}{k}\) are log-concave, \(p_{k-1}\, p_{k+1}\le p_k^2\). Both are <span class="ttfamily">sorry</span>-free; <span class="ttfamily">#print axioms</span> on each reports only <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span>. </p>
 </div>
 </div><p class="lean-check">✅ Checked when this page was built: NewtonInequalities.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — newton_inequality, newton_logConcave, newton_inequality_coeff: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean NewtonInequalities.lean</code> (SHA-256 of the compiled file: <code>69dd05da620a4eb0…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical: stated by Newton (1707), proved by Sylvester, textbook account in Hardy–Littlewood–Pólya; the paper claims the formalization, to the author's knowledge the first in any proof assistant (searches of June 2026, §6).</p><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="proof_wrapper" id="a0000000003">
+<div class="proof_wrapper" id="a0000000004">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -286,7 +297,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <li><p><b class="bfseries">Program:</b> the worked instances: e_k of (x−1)(x−2)(x−4), the Newton gaps 21 and 84, the zero gaps of (x−1)⁴ and the gap −4 of x²+1 (numpy, with tolerance); script in the paper repository, not in the Zenodo record. <span class="ttfamily">figures/newton_fig1_bow.py</span> </p>
 </li>
 </ul>
-</details></section><section class="pc-pane"><h1 id="a0000000005">References</h1>
+</details></section><section class="pc-pane"><h1 id="a0000000006">References</h1>
 <dl class="bibliography">
 <dt><a name="Newton1707">1</a></dt>
 <dd><p>I. Newton, <em>Arithmetica Universalis</em> (1707); the inequalities among the coefficients of a polynomial with real roots are stated there without proof.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Arithmetica+Universalis" rel="noopener" target="_blank">🔎 find it</a></p>

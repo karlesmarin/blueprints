@@ -178,8 +178,8 @@ a{text-decoration:none}
 <nav class="toc">
 <ul class="sub-toc-0">
 <li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
-<li class=""><a href="#a0000000002"><span class="toc_ref">1</span> <span class="toc_entry">Q2: can the generator be reached by the same three-move recipe?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:five" title="Dilog.rogersL_fiveterm"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
-<li class=""><a href="#a0000000005"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li class=""><a href="#a0000000004"><span class="toc_ref">2</span> <span class="toc_entry">Q2: can the generator be reached by the same three-move recipe?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:five" title="Dilog.rogersL_fiveterm"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000007"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
 <li><a href="dep_graph_document.html">Dependency graph</a></li>
 </ul>
 </nav>
@@ -191,12 +191,19 @@ a{text-decoration:none}
 <p class="authors">
 <span class="author">Carles Marín</span>
 </p>
-</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2><ul><li>A sorry-free Lean 4 proof of Abel's five-term relation for the Rogers $L$-function,
-$L(x)+L(y)=L(xy)+L\big(\tfrac{x(1-y)}{1-xy}\big)+L\big(\tfrac{y(1-x)}{1-xy}\big)$ for $x,y\in(0,1)$ (Theorem 1).
-</li><li>The route is the classical one: the five-term difference has zero derivative in $x$ (nine logarithms collapse into a basis of five), so it is constant, and its value is read off as $x\to0^+$, where $\log t\cdot\log(1-t)\to0$ by a squeeze.
-</li><li>Three reusable blocks on the dilogarithm of the companion paper: the derivative of $L$ on $(0,1)$, $L(t)\to0$ as $t\to0^+$, and continuity of $L$ on $(0,1)$.
-</li><li>The mathematics is classical (Spence, Abel, Rogers); the paper claims the formalization, after a documented search of proof-assistant libraries.
-</li></ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:five"><b>Theorem 1</b></a>: Abel’s five-term relation for the Rogers L-function on (0,1)².</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:five"><b>Theorem 1</b></a>: Abel’s five-term relation for the Rogers L-function on (0,1)²</li></ul><div class="cifras">
+</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2>
+<p>A machine-checked proof of the identity that generates the weight-2 theory of the dilogarithm, on the dilogarithm
+built in Lean by the companion paper.</p>
+<ul>
+<li><b>Abel’s five-term relation</b> (Theorem 1), sorry-free in Lean 4: for x, y in (0,1),
+L(x) + L(y) = L(xy) + L(x(1−y)/(1−xy)) + L(y(1−x)/(1−xy)), with L the Rogers L-function.</li>
+<li><b>The classical route, made formal</b>: the five-term difference has zero derivative in x (nine logarithms
+collapse into a basis of five), so it is constant; its value is read off as x → 0⁺, where log t · log(1−t) → 0 by a
+squeeze.</li>
+<li><b>Three reusable blocks</b>: the derivative of L on (0,1), L(t) → 0 as t → 0⁺, continuity of L on (0,1).</li>
+<li>The mathematics is classical (Spence, Abel, Rogers); the paper claims the formalization, after a documented
+search of proof-assistant libraries.</li>
+</ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:five"><b>Theorem 1</b></a>: Abel’s five-term relation for the Rogers L-function on (0,1)².</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:five"><b>Theorem 1</b></a>: Abel’s five-term relation for the Rogers L-function on (0,1)²</li></ul><div class="cifras">
 <span class="cifra"><b>1</b> results</span>
 <span class="cifra c-lean">✅ <b>1</b> formalized in Lean</span>
 <span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
@@ -229,7 +236,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </g>
 </svg>
 </div></details></section>
-</section><section class="pc-pane"><h1 id="a0000000002">1 Q2: can the generator be reached by the same three-move recipe?</h1>
+<details class="blk b-set"><summary>📐 Setting (copied from the paper, §1)</summary>
+<p> The cleanest statement uses the <em>Rogers \(\operatorname{L}\)-function</em> \(\operatorname{L}(x):=\mathrm{Li}_2(x)+\tfrac 12\log x\log (1-x)\), which absorbs the stray logarithms of the raw \(\mathrm{Li}_2\) form and turns the relation into a pure sum of five \(\operatorname{L}\) values. <em>(§2)</em> Fix \(y\in (0,1)\) and set </p>
+<div class="displaymath" id="a0000000003">
+  \[  G(t)=\operatorname{L}(t)-\operatorname{L}(ty)-\operatorname{L}\! \Big(\tfrac {t(1-y)}{1-ty}\Big) -\operatorname{L}\! \Big(\tfrac {y(1-t)}{1-ty}\Big).  \]
+</div>
+<p> The theorem is \(G(x)=-\operatorname{L}(y)\). </p>
+</details></section><section class="pc-pane"><h1 id="a0000000004">2 Q2: can the generator be reached by the same three-move recipe?</h1>
 <div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:five">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -244,7 +257,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:five">#</a>
-<a class="icon proof" href="index.html#a0000000003"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000005"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
 <button class="modal lean">L∃∀N</button>
 <div class="modal-container">
@@ -267,12 +280,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <a class="pdfp" href="pdf.html#page=3&amp;n=thm:five" title="Open the paper at page 3">📕 p. 3</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:five" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Pentagon, Machine-Checked: Abel's five-term relation for the dilogarithm in Lean 4”, Theorem 1, v1, doi:10.5281/zenodo.20682716, https://karlesmarin.github.io/blueprints/dilogarithm-pentagon/index.html#thm:five." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Pentagon%2C%20Machine-Checked%3A%20Abel%27s%20five-term%20relation%20for%20the%20dilogarithm%20in%20Lean%204%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Pentagon%2C%20Machine-Checked%3A%20Abel%27s%20five-term%20relation%20for%20the%20dilogarithm%20in%20Lean%204%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20682716%2C%20https%3A//karlesmarin.github.io/blueprints/dilogarithm-pentagon/index.html%23thm%3Afive.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="theorem_thmcontent">
 <p>   For all \(x,y\in (0,1)\), </p>
-<div class="displaymath" id="a0000000004">
+<div class="displaymath" id="a0000000006">
   \[  \operatorname{L}(x)+\operatorname{L}(y)=\operatorname{L}(xy)+\operatorname{L}\! \Big(\tfrac {x(1-y)}{1-xy}\Big) +\operatorname{L}\! \Big(\tfrac {y(1-x)}{1-xy}\Big).  \]
 </div>
 </div>
 </div><p class="lean-check">✅ Checked when this page was built: FiveTerm.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — rogersL_fiveterm, fiveterm_hasDerivAt_zero, hasDerivAt_rogersL, tendsto_rogersL_nhdsGT_zero, continuousAt_rogersL: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean FiveTerm.lean</code> (SHA-256 of the compiled file: <code>ce29fa490a366ddb…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical (Spence, Abel, Rogers); the paper claims the formalization: «to the best of my knowledge the first machine-checked five-term relation, on the first machine-checked dilogarithm, in any proof assistant» (§6), from a documented search of June 2026.</p><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="proof_wrapper" id="a0000000003">
+<div class="proof_wrapper" id="a0000000005">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -283,7 +296,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>Formalized in Lean (see the linked declarations). </p>
 </div>
 </div>
-</section><section class="pc-pane"><h1 id="a0000000005">References</h1>
+</section><section class="pc-pane"><h1 id="a0000000007">References</h1>
 <dl class="bibliography">
 <dt><a name="abel">1</a></dt>
 <dd><p>N. H. Abel, <em>Œuvres complètes</em> (L. Sylow, S. Lie, eds.), vol. II, Grøndahl, Christiania, 1881; the five-term relation is in the note on the dilogarithm.  <a class="bib-search" href="https://scholar.google.com/scholar?q=%C5%92uvres+compl%C3%A8tes" rel="noopener" target="_blank">🔎 find it</a></p>

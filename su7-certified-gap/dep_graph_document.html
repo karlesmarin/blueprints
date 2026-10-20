@@ -85,6 +85,23 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 </div>
 <div id="graph"></div>
 <div id="statements">
+<div class="dep-modal-container" id="obs:fin_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+<div class="thm" id="obs:fin" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">1</span><span class="observation_thmtitle">finiteness of a cell</span></div>
+<div class="thm_thmcontent"><p>  Fix a cell \((A_4, 8D)\) inside the moment cone, so that \(A_4 \ge A_4^{\rm gauge}\). The seven generators with \(A_4^{(j)} \ge 1\) satisfy \(\sum _j n_j A_4^{(j)} = A_4 - A_4^{\rm gauge}\) with every term non-negative, so \(\sum _j n_j\) is bounded and each of the seven with it; and the multiplicity of \(\mathbf{7}(+,+)\) is then <em>forced</em> by \(8D\), since among the generators left it is the only one that still moves it. The cell is a finite set, enumerated rather than searched. </p>
+</div>
+<a class="latex_link" href="index.html#obs:fin">LaTeX</a>
+</div>
+</div>
+</div>
 <div class="dep-modal-container" id="prop:four_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
@@ -113,12 +130,12 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Proposition
       </span>
 <span class="proposition_thmlabel">1</span><span class="proposition_thmtitle">the \(G\)-window</span></div>
-<div class="thm_thmcontent"><p>  Fix a cell \((A_4, 8D)\) with \(8D {\gt} 0\), and move along the curve (2)(II). Then </p>
-<div class="displaymath" id="a0000000003">
+<div class="thm_thmcontent"><p>   Fix a cell \((A_4, 8D)\) with \(8D {\gt} 0\), and move along the curve (2)(II). Then </p>
+<div class="displaymath" id="a0000000005">
   \[  \frac{dG}{dx} \; =\;  \frac{A_4}{x} - \frac{12\zeta (3)\, (8D)/8}{x^3} \; =\;  \frac{A_4x^2 - x^2(6\mu + A_4)}{x^3} \; =\;  -\frac{6\mu }{x} \; {\lt}\;  0 ,  \]
 </div>
 <p> so \(G\) is strictly decreasing in \(x\). The admissible \(x\) are themselves an interval, because solving (2)(II) for \(\mu \) gives </p>
-<div class="displaymath" id="a0000000004">
+<div class="displaymath" id="a0000000006">
   \[  \mu (x) \; =\;  \frac{\zeta (3)\, (8D)}{4x^2} - \frac{A_4}{6}, \qquad \text{so}\qquad \frac{d\mu }{dx} \; =\;  -\frac{\zeta (3)\, (8D)}{2x^3} \; {\lt}\;  0 ,  \]
 </div>
 <p> which makes \(\{ x{\gt}0 : \mu (x) \in [\mu _-,\mu _+]\} \) an interval; intersecting it with \([x_-,x_+]\) leaves an interval \([x_{\min }, x_{\max }]\) <em>when that intersection is non-empty</em>. Hence the set of \(G\) a target box admits on this cell is the interval \([\, G(x_{\max }),\, G(x_{\min })\, ]\), and both ends are evaluations. When the intersection is empty the cell admits no \(G\) at all, and the target has no content there — which is a decision and not a failed search, by §4. </p>
@@ -138,8 +155,8 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Proposition
       </span>
 <span class="proposition_thmlabel">2</span><span class="proposition_thmtitle">the rung recursion, and it is the classical one</span></div>
-<div class="thm_thmcontent"><p>  Write \(P(T,Q)\) for the number of contents built from the seven generators with \(A_4^{(j)}\ge 1\) alone that reach \((T,Q) = (A_4 - A_4^{\rm gauge},\,  8D - 8D^{\rm gauge})\). Then </p>
-<div class="displaymath" id="a0000000007">
+<div class="thm_thmcontent"><p>   Write \(P(T,Q)\) for the number of contents built from the seven generators with \(A_4^{(j)}\ge 1\) alone that reach \((T,Q) = (A_4 - A_4^{\rm gauge},\,  8D - 8D^{\rm gauge})\). Then </p>
+<div class="displaymath" id="a0000000011">
   \[  N(A_4,\  8D+6) \; =\;  N(A_4,\  8D)\; -\; P(A_4 - A_4^{\rm gauge},\  8D - 8D^{\rm gauge}).  \]
 </div>
 </div>
@@ -164,7 +181,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"prop:mono"	[color=blue,		label=mono,		shape=ellipse];	"prop:rec"	[color=blue,		label=rec,		shape=ellipse];	"prop:four"	[color=blue,		label=four,		shape=ellipse];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"prop:mono"	[label=mono,		shape=ellipse];	"obs:fin"	[color=blue,		label=fin,		shape=ellipse];	"obs:fin" -> "prop:mono"	[style=dashed];	"prop:rec"	[label=rec,		shape=ellipse];	"obs:fin" -> "prop:rec"	[style=dashed];	"prop:four"	[color=blue,		label=four,		shape=ellipse];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -200,25 +217,43 @@ function interactive() {
 }
 
 </script>
-<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="44pt" viewbox="0.00 0.00 216.00 44.00" width="216pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 40)">
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="116pt" viewbox="0.00 0.00 177.00 116.00" width="177pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 112)">
 <!-- prop:mono -->
 <g class="node" id="node1">
 <title>prop:mono</title>
-<ellipse cx="32.41" cy="-18" fill="none" rx="32.41" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<ellipse cx="32.41" cy="-18" fill="none" rx="32.41" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="32.41" xml:space="preserve" y="-12.95">mono</text>
 </g>
-<!-- prop:rec -->
+<!-- obs:fin -->
 <g class="node" id="node2">
+<title>obs:fin</title>
+<ellipse cx="70.41" cy="-90" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="70.41" xml:space="preserve" y="-84.95">fin</text>
+</g>
+<!-- obs:fin&#45;&gt;prop:mono -->
+<g class="edge" id="edge1">
+<title>obs:fin-&gt;prop:mono</title>
+<path d="M61.41,-72.41C57.07,-64.42 51.76,-54.64 46.88,-45.65" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="42.2,-37.03 50.93,-43.67 44,-40.35 46.97,-45.82 46.97,-45.82 46.97,-45.82 44,-40.35 43.02,-47.96 42.2,-37.03" stroke="black"></polygon>
+</g>
+<!-- prop:rec -->
+<g class="node" id="node3">
 <title>prop:rec</title>
-<ellipse cx="109.41" cy="-18" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<ellipse cx="109.41" cy="-18" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="109.41" xml:space="preserve" y="-12.95">rec</text>
 </g>
+<!-- obs:fin&#45;&gt;prop:rec -->
+<g class="edge" id="edge2">
+<title>obs:fin-&gt;prop:rec</title>
+<path d="M79.66,-72.41C84.17,-64.3 89.72,-54.35 94.79,-45.25" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="99.65,-36.53 98.71,-47.46 97.81,-39.84 94.78,-45.27 94.78,-45.27 94.78,-45.27 97.81,-39.84 90.85,-43.08 99.65,-36.53" stroke="black"></polygon>
+</g>
 <!-- prop:four -->
-<g class="node" id="node3">
+<g class="node" id="node4">
 <title>prop:four</title>
-<ellipse cx="181.41" cy="-18" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="181.41" xml:space="preserve" y="-12.95">four</text>
+<ellipse cx="142.41" cy="-90" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="142.41" xml:space="preserve" y="-84.95">four</text>
 </g>
 </g>
 </svg>
@@ -236,7 +271,7 @@ function interactive() {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:mono": "Proposition 1 — the $G$-window", "prop:rec": "Proposition 2 — the rung recursion, and it is the classical one", "prop:four": "Proposition 3 — what the two observables fix on a rung"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:mono": "Proposition 1 — the $G$-window", "obs:fin": "Observation 1 — finiteness of a cell", "prop:rec": "Proposition 2 — the rung recursion, and it is the classical one", "prop:four": "Proposition 3 — what the two observables fix on a rung"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
