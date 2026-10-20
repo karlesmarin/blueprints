@@ -144,6 +144,9 @@
   var pending = [];
   function figure(p) {
     if (!p.kind) return plot(p);
+    // {kind: 'svg', svg, title}: a drawing composed by the lab's own Python (any figure of the paper, redrawn live)
+    if (p.kind === 'svg') return '<div class="lm-svg">' + (p.title ? '<p class="lm-svgtitle">' + esc(p.title) + '</p>' : '') +
+      String(p.svg).replace(/<script[\s\S]*?<\/script>/gi, '') + '</div>';
     pending.push(p);
     return '<div class="lm-3d" data-3d="' + (pending.length - 1) + '"></div>';
   }

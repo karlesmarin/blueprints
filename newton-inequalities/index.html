@@ -179,8 +179,8 @@ a{text-decoration:none}
 <ul class="sub-toc-0">
 <li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
 <li class=""><a href="#a0000000003"><span class="toc_ref">1</span> <span class="toc_entry">Q1: what does reality of the roots force on the coefficients?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:newton" title="Newton’s inequalities, in Lean 4; Newton.newton_inequality"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
-<li class=""><a href="#a0000000006"><span class="toc_ref">5</span> <span class="toc_entry">The building blocks</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#auto:lemma-1" title="RealRooted.derivative , RealRooted.iterate_derivative"><span class="toc_ref"></span> <span class="toc_entry">Lemma 1</span></a></li><li class=""><a href="#auto:lemma-2" title="RealRooted.reverse"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2</span></a></li><li class=""><a href="#auto:lemma-3" title="realRooted_discrim_coeff"><span class="toc_ref"></span> <span class="toc_entry">Lemma 3</span></a></li></ul></li>
-<li class=""><a href="#a0000000007"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li class=""><a href="#a0000000007"><span class="toc_ref">5</span> <span class="toc_entry">The building blocks</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#auto:lemma-1" title="RealRooted.derivative , RealRooted.iterate_derivative"><span class="toc_ref"></span> <span class="toc_entry">Lemma 1</span></a></li><li class=""><a href="#auto:lemma-2" title="RealRooted.reverse"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2</span></a></li><li class=""><a href="#auto:lemma-3" title="realRooted_discrim_coeff"><span class="toc_ref"></span> <span class="toc_entry">Lemma 3</span></a></li></ul></li>
+<li class=""><a href="#a0000000010"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
 <li><a href="dep_graph_document.html">Dependency graph</a></li>
 </ul>
 </nav>
@@ -329,12 +329,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>Formalized in Lean (see the linked declarations). </p>
 </div>
 </div>
-<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<details class="blk b-fig"><summary>🖼️ Figure 1</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-1.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
+</div>
+<p> The reader’s map. From a hypothesis on the roots to a certified inequality and its corollaries; each arrow is the question its section answers. Every node is a block of <span class="ttfamily">sorry</span>-free Lean. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> the worked instances: e_k of (x−1)(x−2)(x−4), the Newton gaps 21 and 84, the zero gaps of (x−1)⁴ and the gap −4 of x²+1 (numpy, with tolerance); script in the paper repository, not in the Zenodo record. <span class="ttfamily">figures/newton_fig1_bow.py</span> </p>
 </li>
 </ul>
-</details></section><section class="pc-pane"><h1 id="a0000000006">5 The building blocks</h1>
+</details></section><section class="pc-pane"><h1 id="a0000000007">5 The building blocks</h1>
 <div class="lemma_thmwrapper theorem-style-plain" id="auto:lemma-1">
 <div class="lemma_thmheading">
 <span class="lemma_thmcaption">
@@ -352,7 +355,14 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>  If \(p\) is real-rooted then so is \(p'\), and hence every iterated derivative \(p^{(k)}\). </p>
 </div>
 </div><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="lemma_thmwrapper theorem-style-plain" id="auto:lemma-2">
+<details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0002.png" style="width:100%;max-width:100%"/>
+</div>
+<p> <em>Left:</em> the normalized means of \((x-1)(x-2)(x-4)\), plotted on a log axis; each interior mean sits above the geometric mean of its neighbours (the amber arrows), so the sequence is concave—it “bows inward.” <em>Right:</em> the Newton gap \(e_k^2\binom {n}{k-1}\binom {n}{k+1}-e_{k-1}e_{k+1}\binom {n}{k}^2\) at every interior \(k\): positive for the real-rooted cubic, exactly zero for \((x-1)^4\) (the sharp case), and <em>negative</em> for \(x^2+1\). The generating script asserts every plotted value against exact integer arithmetic. </p>
+</details>
+<details class="blk b-fig"><summary>🖼️ Figure 3</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-3.png}" src="images/img-0003.png" style="width:100%;max-width:100%"/>
+</div>
+<p> The differentiate–reverse reduction, worked on the running cubic at \(i=1\) (relating \(a_0,a_1,a_2=-8,14,-7\)). The final object is a quadratic; a real-rooted quadratic has non-negative discriminant; the factorials the proof cancels are the proportionality constant. </p>
+</details><div class="lemma_thmwrapper theorem-style-plain" id="auto:lemma-2">
 <div class="lemma_thmheading">
 <span class="lemma_thmcaption">
     Lemma
@@ -386,7 +396,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>  A real-rooted \(q\) with \(\deg q\le 2\) satisfies \(q.\mathtt{coeff}\, 1^2\ge 4\, q.\mathtt{coeff}\, 2\cdot q.\mathtt{coeff}\, 0\). </p>
 </div>
 </div><p class="usado">↳ Not used by another result of the paper.</p>
-</section><section class="pc-pane"><h1 id="a0000000007">References</h1>
+</section><section class="pc-pane"><h1 id="a0000000010">References</h1>
 <dl class="bibliography">
 <dt><a name="Newton1707">1</a></dt>
 <dd><p>I. Newton, <em>Arithmetica Universalis</em> (1707); the inequalities among the coefficients of a polynomial with real roots are stated there without proof.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Arithmetica+Universalis" rel="noopener" target="_blank">🔎 find it</a></p>
