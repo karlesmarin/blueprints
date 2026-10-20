@@ -23,7 +23,7 @@
     // a phone (20-oct, Carles: «los maps en móvil no se ven bien»): the whole map fitted to 390 px is drawn at ~15 %,
     // with 2 px letters. When fitting would go below READABLE, start at a readable scale on the top left of the map
     // (drag or pinch to move; ⟲ still shows the whole map) in a taller box.
-    var READABLE = 0.6, w0 = box.clientWidth || 900;
+    var READABLE = 0.9, w0 = box.clientWidth || 900;  // 0.6 measured 6.4 px letters on a phone: too small
     if (w0 / vb0[2] < 0.45) {
       var hpx = Math.round(window.innerHeight * 0.7);
       svg.style.height = hpx + 'px';
