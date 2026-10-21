@@ -72,10 +72,14 @@ body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><style id="lm-citebar-css">
-.lm-act{margin-left:.4em;white-space:nowrap}
+.lm-act{margin-left:.4em;white-space:nowrap;flex-shrink:0}
 .lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
           padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
 .lm-act a:hover{background:#eef2f6}
@@ -606,6 +610,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </header>
 <ul class="uses">
 <li><a href="index.html#thm:fj">Theorem 2</a></li>
+<li><a href="index.html#thm:fj">Theorem 2</a></li>
 </ul>
 </div>
 </div>
@@ -649,7 +654,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <span class="expand-proof">▼</span>
 </div>
 <div class="proof_content">
-<p>Formalized in Lean (see the linked declarations). </p>
+<p> <em>Proof (as in Lean).</em> On \((0,\pi )\) the imaginary part is \(-{\mathrm{Cl}_2}(\theta )\ne 0\) by the Fejér–Jackson bound. At \(\theta =\pi \) the real part is the parabola value \(-\pi ^2/12\ne 0\) (it is \(-\eta (2)\)). On \((\pi ,2\pi )\), the reflection \({\mathrm{Cl}_2}(2\pi -\theta )=-{\mathrm{Cl}_2}(\theta )\) hands the sign back to the first case. </p>
 </div>
 </div>
 <details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
