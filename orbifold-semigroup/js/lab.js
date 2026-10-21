@@ -269,6 +269,43 @@
       setTimeout(function () { target().scrollIntoView({block: 'start'}); }, linked ? 600 : 0);
     }
     figureSlots(lab, open, start);  // first: a link with fig= looks for the figure's slot
+    // 21-oct (Carles: «los parámetros dinámicos tendrían que estar al lado de las figuras»): each live figure carries
+    // the lab's inputs and examples too, in sync with the lab's own form (either one recomputes both)
+    (lab.figures || []).forEach(function (name) {
+      var slot = slotOf(name);
+      if (!slot || slot.parentElement.querySelector(':scope > .lm-figform[data-lab="' + lab.id + '"]')) return;
+      var bar = document.createElement('div');
+      bar.className = 'lm-form lm-figform'; bar.setAttribute('data-lab', lab.id);
+      bar.innerHTML = lab.inputs.map(function (inp) {
+        var a = inp.type === 'int' ? ' type="number" min="' + (inp.min !== undefined ? inp.min : '') + '" max="' + (inp.max !== undefined ? inp.max : '') + '"' : ' type="text" size="' + (inp.size || 18) + '"';
+        return '<label>' + esc(inp.label || inp.name) + ' <input data-mirror="' + inp.name + '"' + a + ' value="' + esc(inp['default']) + '"></label>';
+      }).join(' ') + (lab.examples || []).map(function (e, i) {
+        return ' <button type="button" class="lm-figex" data-ex="' + i + '">' + esc(e.label || Object.values(e).join(', ')) + '</button>';
+      }).join('');
+      slot.insertAdjacentElement('beforebegin', bar);
+      function go() { if (py && started) compute(); else start(); }
+      bar.querySelectorAll('input[data-mirror]').forEach(function (m) {
+        function push() { var i = box.querySelector('input[data-name="' + m.dataset.mirror + '"]'); if (i) i.value = m.value; go(); }
+        m.addEventListener('change', push); m.addEventListener('keydown', function (e) { if (e.key === 'Enter') push(); });
+      });
+      bar.querySelectorAll('[data-ex]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var e = lab.examples[Number(b.dataset.ex)];
+          Object.keys(e).forEach(function (k) { var i = box.querySelector('input[data-name="' + k + '"]'); if (i) i.value = e[k]; });
+          go();
+        });
+      });
+    });
+    // the lab's form → the figures' bars (a value typed in one place shows in the other)
+    var mirror = function () {
+      document.querySelectorAll('.lm-figform[data-lab="' + lab.id + '"] input[data-mirror]').forEach(function (m) {
+        var i = box.querySelector('input[data-name="' + m.dataset.mirror + '"]'); if (i) m.value = i.value;
+      });
+    };
+    run.addEventListener('click', mirror);
+    box.querySelectorAll('input[data-name]').forEach(function (i) { i.addEventListener('change', mirror); });
+    box.querySelectorAll('[data-ex]').forEach(function (b) { b.addEventListener('click', mirror); });
+    document.querySelectorAll('.lm-figform[data-lab="' + lab.id + '"] [data-ex]').forEach(function (b) { b.addEventListener('click', mirror); });
     if (linked) open();
   }
 
@@ -278,6 +315,8 @@
     '.lm-ex{margin:.3em 0}.lm-state{font-size:.9em;color:#555}.lm-err{color:#c62828}' +
     '.lm-tab{border-collapse:collapse;font-size:.9em;margin:.4em 0}.lm-tab td,.lm-tab th{border:1px solid #ddd;padding:.15em .5em}' +
     '.lm-out svg{margin:.4em 0;display:block}' +
+    '.lm-figform{justify-content:center;font:13px Arial,sans-serif;background:#fff8f0;border:1px solid #f3d3b0;border-radius:10px;padding:.3em .6em}' +
+    '.lm-figex{padding:.15em .7em;cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;font:12px Arial,sans-serif}' +
     '.lm-figslot>div{margin:.3em 0}.lm-figwait{font:13px Arial,sans-serif;color:#8a4a00}' +
     '.lm-figtoggle{display:block;margin:.3em auto;padding:.15em .8em;cursor:pointer;border:1px solid #8a9aab;background:#fff;border-radius:14px;font:12px Arial,sans-serif}' +
     '.lm-placed{font-size:.92em;color:#555}.lm-goto{cursor:pointer;border:1px solid #8a9aab;background:#fff;border-radius:14px;padding:.05em .7em}' +
