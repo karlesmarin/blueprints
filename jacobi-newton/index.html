@@ -38,7 +38,21 @@ details.blk[open]>summary:before{content:"▾ "}
 #vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
 #vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
         text-decoration:none;font-weight:600;white-space:nowrap}
-body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
 body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 .lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
 .lean-check .repro{color:#456}.lean-check code{font-size:.95em}
@@ -74,6 +88,33 @@ a.pdfp:hover{background:#f0e1f6}
 p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
 p.usado a{color:#1a4f8b}
 p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
+.ext-lean.ours{border-color:#b7dcb9;border-left-color:#2e7d32;background:#f1f8f1;color:#1d3b1f}
+.ext-lean.ours .tag,.ext-badge.ours{background:#2e7d32}
+.ext-lean.ours a{color:#1b5e20}
+.ext-lean.ours ul{margin:.35em 0 .2em 1.1em;padding:0}
+details.ext-lean{padding:.35em .8em}
+details.ext-lean>summary{cursor:pointer;list-style:none}
+details.ext-lean>summary::-webkit-details-marker{display:none}
+details.ext-lean>summary .more{font-size:12px;opacity:.7}
+details.ext-lean>summary .more::before{content:'▸ '}
+details.ext-lean[open]>summary .more::before{content:'▾ '}
+details.ext-lean[open]>summary{margin-bottom:.3em}
 </style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
 header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
   font:13px Helvetica,Arial,sans-serif;text-shadow:none}
@@ -168,9 +209,32 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
 </head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cogs" viewBox="0 0 32 32">
+<title>cogs</title>
+<path class="path1" d="M11.366 22.564l1.291-1.807-1.414-1.414-1.807 1.291c-0.335-0.187-0.694-0.337-1.071-0.444l-0.365-2.19h-2l-0.365 2.19c-0.377 0.107-0.736 0.256-1.071 0.444l-1.807-1.291-1.414 1.414 1.291 1.807c-0.187 0.335-0.337 0.694-0.443 1.071l-2.19 0.365v2l2.19 0.365c0.107 0.377 0.256 0.736 0.444 1.071l-1.291 1.807 1.414 1.414 1.807-1.291c0.335 0.187 0.694 0.337 1.071 0.444l0.365 2.19h2l0.365-2.19c0.377-0.107 0.736-0.256 1.071-0.444l1.807 1.291 1.414-1.414-1.291-1.807c0.187-0.335 0.337-0.694 0.444-1.071l2.19-0.365v-2l-2.19-0.365c-0.107-0.377-0.256-0.736-0.444-1.071zM7 27c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM32 12v-2l-2.106-0.383c-0.039-0.251-0.088-0.499-0.148-0.743l1.799-1.159-0.765-1.848-2.092 0.452c-0.132-0.216-0.273-0.426-0.422-0.629l1.219-1.761-1.414-1.414-1.761 1.219c-0.203-0.149-0.413-0.29-0.629-0.422l0.452-2.092-1.848-0.765-1.159 1.799c-0.244-0.059-0.492-0.109-0.743-0.148l-0.383-2.106h-2l-0.383 2.106c-0.251 0.039-0.499 0.088-0.743 0.148l-1.159-1.799-1.848 0.765 0.452 2.092c-0.216 0.132-0.426 0.273-0.629 0.422l-1.761-1.219-1.414 1.414 1.219 1.761c-0.149 0.203-0.29 0.413-0.422 0.629l-2.092-0.452-0.765 1.848 1.799 1.159c-0.059 0.244-0.109 0.492-0.148 0.743l-2.106 0.383v2l2.106 0.383c0.039 0.251 0.088 0.499 0.148 0.743l-1.799 1.159 0.765 1.848 2.092-0.452c0.132 0.216 0.273 0.426 0.422 0.629l-1.219 1.761 1.414 1.414 1.761-1.219c0.203 0.149 0.413 0.29 0.629 0.422l-0.452 2.092 1.848 0.765 1.159-1.799c0.244 0.059 0.492 0.109 0.743 0.148l0.383 2.106h2l0.383-2.106c0.251-0.039 0.499-0.088 0.743-0.148l1.159 1.799 1.848-0.765-0.452-2.092c0.216-0.132 0.426-0.273 0.629-0.422l1.761 1.219 1.414-1.414-1.219-1.761c0.149-0.203 0.29-0.413 0.422-0.629l2.092 0.452 0.765-1.848-1.799-1.159c0.059-0.244 0.109-0.492 0.148-0.743l2.106-0.383zM21 15.35c-2.402 0-4.35-1.948-4.35-4.35s1.948-4.35 4.35-4.35 4.35 1.948 4.35 4.35c0 2.402-1.948 4.35-4.35 4.35z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
 <header>
-<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
 <h1 id="doc_title"><a href="index.html" title="What a Determinant's Derivative Knows: Jacobi's Formula and Newton's Identity for Matrix Traces in Lean 4: blueprint">Blueprint</a></h1>
 <nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20578470" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20578470</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="jacobi-newton-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
@@ -178,11 +242,11 @@ a{text-decoration:none}
 <nav class="toc">
 <ul class="sub-toc-0">
 <li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
-<li class=""><a href="#a0000000003"><span class="toc_ref">2</span> <span class="toc_entry">Jacobi’s formula</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:jacobi" title="Jacobi’s formula, in Lean 4"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000004"><span class="toc_ref">2</span> <span class="toc_entry">Jacobi’s formula</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:jacobi" title="Jacobi’s formula, in Lean 4"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
 <li class=""><a href="#a0000000007"><span class="toc_ref">3</span> <span class="toc_entry">The resolvent series: an eigenvalue-free engine</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#def:resolvent" title="Resolvent series"><span class="toc_ref"></span> <span class="toc_entry">Definition 1</span></a></li><li class=""><a href="#lem:resolvent" title="The resolvent inverts \(I-XM\), and its trace is the trace generating function"><span class="toc_ref"></span> <span class="toc_entry">Lemma 1</span></a></li></ul></li>
 <li class=""><a href="#a0000000010"><span class="toc_ref">4</span> <span class="toc_entry">Newton’s identity for matrix traces</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:newton" title="Newton’s identity for matrix traces, in Lean 4"><span class="toc_ref"></span> <span class="toc_entry">Theorem 2</span></a></li></ul></li>
 <li class=""><a href="#a0000000013"><span class="toc_ref">5</span> <span class="toc_entry">Matrix powers count walks</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#lem:walks" title="Powers count walks"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2</span></a></li></ul></li>
-<li class=""><a href="#a0000000015"><span class="toc_ref">6</span> <span class="toc_entry">The Ihara counts, composed</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:ihara" title="The Ihara \(N_k\) identity, in Lean 4"><span class="toc_ref"></span> <span class="toc_entry">Theorem 3</span></a></li><li class=""><a href="#thm:Nk" title="\({\operatorname {tr}}(B^k)\) counts non-backtracking walks, in Lean 4"><span class="toc_ref"></span> <span class="toc_entry">Theorem 4</span></a></li></ul></li>
+<li class=""><a href="#a0000000016"><span class="toc_ref">6</span> <span class="toc_entry">The Ihara counts, composed</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:ihara" title="The Ihara \(N_k\) identity, in Lean 4"><span class="toc_ref"></span> <span class="toc_entry">Theorem 3</span></a></li><li class=""><a href="#thm:Nk" title="\({\operatorname {tr}}(B^k)\) counts non-backtracking walks, in Lean 4"><span class="toc_ref"></span> <span class="toc_entry">Theorem 4</span></a></li></ul></li>
 <li class=""><a href="#a0000000021"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
 <li><a href="dep_graph_document.html">Dependency graph</a></li>
 </ul>
@@ -205,8 +269,8 @@ a{text-decoration:none}
 <li><b>The boundary</b>, as the paper states it: rooted walks, not geodesic classes; the prime-geodesic Euler product is mapped, not built.</li>
 </ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:jacobi"><b>Theorem 1</b></a>: Jacobi's formula: (det M)′ = tr(adj M · M′) for a matrix of polynomials.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:jacobi"><b>Theorem 1</b></a>: Jacobi's formula: (det M)′ = tr(adj M · M′) for a matrix of polynomials</li><li><a href="index.html#thm:newton"><b>Theorem 2</b></a>: Newton's identity for matrix traces: (charpolyRev M)′ = −charpolyRev M · Σ tr(Mᵏ⁺¹)Xᵏ</li><li><a href="index.html#thm:ihara"><b>Theorem 3</b></a>: the Ihara Nₖ identity: Σ tr(Bᵏ⁺¹)Xᵏ from the adjacency data (A, D)</li></ul><div class="cifras">
 <span class="cifra"><b>7</b> results</span>
-<span class="cifra c-lean">✅ <b>7</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>7</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>0</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>4</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
@@ -375,7 +439,9 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div></details></section>
 <details class="blk b-set"><summary>📐 Setting (copied from the paper, §2)</summary>
 <p> For a matrix \(M\) whose entries are polynomials in a formal variable, write \(M'\) for the entrywise derivative and \(\det M\) for the determinant (a polynomial). \(\operatorname {adj}M\) is the adjugate (the transpose of the cofactor matrix) <em>(§1)</em>. <em>(§4)</em> Write \(\operatorname {charpolyRev}M\) for the reversed characteristic polynomial \(\det (I-XM)\)—a polynomial with constant term \(1\), hence a unit in the power-series ring. <em>(§6)</em> Let \(B\) be Hashimoto’s operator, \(A\) the adjacency and \(D\) the degree matrix; Bass’s formula reads \((1-X^2)^{|V|}\det (I-XB)=(1-X^2)^{|E|}\det (I-XA+X^2(D-I))\). </p>
-</details></section><section class="pc-pane"><h1 id="a0000000003">2 Jacobi’s formula</h1>
+</details><h4 id="a0000000003">What this blueprint shows.</h4>
+<p> The numbered statements of the paper, with their proofs, dependencies and what checked them, under the sections that hold them (with the paper’s numbers), and the figures and tables they use. The full text is in the PDF of the paper.  </p>
+</section><section class="pc-pane"><h1 id="a0000000004">2 Jacobi’s formula</h1>
 <div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:jacobi">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -390,18 +456,18 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:jacobi">#</a>
-<a class="icon proof" href="index.html#a0000000004"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000005"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 <button class="modal lean">L∃∀N</button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L164" target="_blank" rel="noopener">Matrix.derivative_det</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L164" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L164">Matrix.derivative_det</a></li>
 </ul>
 </div>
 </div>
@@ -411,9 +477,9 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>   For an \(n\times n\) matrix \(M\) of polynomials over a commutative ring, </p>
 <div class="centered">\(\displaystyle (\det M)'\; =\; {\operatorname {tr}}\! \bigl({\operatorname {adj}}M\cdot M'\bigr).\)</div>
 <p> The statement is <span class="ttfamily">sorry</span>-free (<span class="ttfamily">Matrix.derivative_det</span>); <span class="ttfamily">#print axioms</span> reports only <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span>. </p>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L164" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L164"><code>Matrix.derivative_det</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: Jacobi.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — derivative_det: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean Jacobi.lean</code> (SHA-256 of the compiled file: <code>6ec866e48406ee3e…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical; the paper claims the first machine-checked proof it is aware of of the algebraic formula (N1), after searching Mathlib, the AFP, Coq/Rocq, HOL Light and Mizar; Mathlib had only the analytic derivative of det.</p><p class="usado">↳ Used in: <a href="#thm:newton">Theorem 2</a>, <a href="#thm:ihara">Theorem 3</a></p>
-<div class="proof_wrapper" id="a0000000004">
+<div class="proof_wrapper" id="a0000000005">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -424,10 +490,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>Formalized in Lean (see the linked declarations). </p>
 </div>
 </div>
-<details class="blk b-fig"><summary>🖼️ Figure 1</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-1.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
-</div>
-<p> The spine of the paper. One elementary fact—a determinant’s derivative is a trace (Jacobi)—taken to all orders becomes the dictionary between a matrix’s traces and its characteristic polynomial (Newton), and composed with Bass’s determinant formula reaches the closed non-backtracking walk counts \(N_k={\operatorname {tr}}(B^k)\) of a graph. Each arrow is a theorem of this paper. </p>
-</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> Jacobi on one 3×3 matrix of polynomials, exact (SymPy). <span class="ttfamily">verify_jacobi_newton.py</span> </p>
 </li>
@@ -447,18 +510,18 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#def:resolvent">#</a>
-<a class="icon proof" href="index.html#a0000000008"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000008"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 <button class="modal lean">L∃∀N</button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" data-lean-missing="Matrix.resolventSeries">Matrix.resolventSeries</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L60" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L60">Matrix.resolventSeries</a></li>
 </ul>
 </div>
 </div>
@@ -466,7 +529,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <a class="pdfp" href="pdf.html#page=3&amp;n=def:resolvent" title="Open the paper at page 3">📕 p. 3</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=def:resolvent" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “What a Determinant's Derivative Knows: Jacobi's Formula and Newton's Identity for Matrix Traces in Lean 4”, Definition 1, v1, doi:10.5281/zenodo.20578470, https://karlesmarin.github.io/blueprints/jacobi-newton/index.html#def:resolvent." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=What%20a%20Determinant%27s%20Derivative%20Knows%3A%20Jacobi%27s%20Formula%20and%20Newton%27s%20Identity%20for%20Matrix%20Traces%20in%20Lean%204%20%E2%80%94%20Definition%201&amp;body=About%20Definition%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CWhat%20a%20Determinant%27s%20Derivative%20Knows%3A%20Jacobi%27s%20Formula%20and%20Newton%27s%20Identity%20for%20Matrix%20Traces%20in%20Lean%204%E2%80%9D%2C%20Definition%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20578470%2C%20https%3A//karlesmarin.github.io/blueprints/jacobi-newton/index.html%23def%3Aresolvent.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="definition_thmcontent">
 <p>   For an \(n\times n\) matrix \(M\) over a commutative ring, the <em>resolvent series</em> is the matrix of formal power series \(\bigl(\, \sum _k M^k X^k\, \bigr)\), written <span class="ttfamily">resolventSeries M</span>. </p>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L60" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L60"><code>Matrix.resolventSeries</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: Jacobi.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — resolventSeries: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean Jacobi.lean</code> (SHA-256 of the compiled file: <code>6ec866e48406ee3e…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="usado">↳ Used in: <a href="#lem:resolvent">Lemma 1</a></p>
 <div class="proof_wrapper" id="a0000000008">
 <div class="proof_heading">
@@ -493,15 +556,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#lem:resolvent">#</a>
-<a class="icon proof" href="index.html#a0000000009"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000009"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -514,12 +577,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L100" target="_blank" rel="noopener">Matrix.one_sub_X_smul_mul_resolventSeries</a></li>
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L117" target="_blank" rel="noopener">Matrix.trace_resolventSeries</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L100" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L100">Matrix.one_sub_X_smul_mul_resolventSeries</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L117" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L117">Matrix.trace_resolventSeries</a></li>
 </ul>
 </div>
 </div>
@@ -528,7 +591,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="lemma_thmcontent">
 <div class="centered">\(\displaystyle (I-XM)\cdot \textstyle \sum _k M^kX^k\; =\; I,\qquad {\operatorname {tr}}\! \bigl(\textstyle \sum _k M^kX^k\bigr)\; =\; \sum _k {\operatorname {tr}}(M^k)\, X^k.\)</div>
 <p> Both are <span class="ttfamily">sorry</span>-free (<span class="ttfamily">one_sub_smul_mul_resolventSeries</span>, <span class="ttfamily">trace_resolventSeries</span>). The inverse identity is proved from the fixed-point equation \(R=I+XM\! \cdot \! R\) by a single rearrangement—no eigenvalues, no algebraic closure, over any commutative ring. </p>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L100" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L100"><code>Matrix.one_sub_X_smul_mul_resolventSeries</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L117" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L117"><code>Matrix.trace_resolventSeries</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: Jacobi.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — one_sub_X_smul_mul_resolventSeries, trace_resolventSeries: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean Jacobi.lean</code> (SHA-256 of the compiled file: <code>6ec866e48406ee3e…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> the paper counts the resolvent series among the pieces not in the library (N3).</p><p class="usado">↳ Used in: <a href="#thm:newton">Theorem 2</a></p>
 <div class="proof_wrapper" id="a0000000009">
 <div class="proof_heading">
@@ -556,15 +619,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:newton">#</a>
-<a class="icon proof" href="index.html#a0000000011"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000011"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -578,12 +641,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L186" target="_blank" rel="noopener">Matrix.coe_derivative_charpolyRev_eq_neg_mul_mk_trace_pow</a></li>
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L216" target="_blank" rel="noopener">Matrix.derivative_coe_charpolyRev</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L186" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L186">Matrix.coe_derivative_charpolyRev_eq_neg_mul_mk_trace_pow</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L216" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L216">Matrix.derivative_coe_charpolyRev</a></li>
 </ul>
 </div>
 </div>
@@ -593,7 +656,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>    For an \(n\times n\) matrix \(M\) over a commutative ring, in the ring of formal power series, </p>
 <div class="centered">\(\displaystyle (\operatorname{charpolyRev}M)'\; =\; -\, \operatorname{charpolyRev}M\cdot \sum _{k\ge 0}{\operatorname {tr}}(M^{k+1})\, X^k.\)</div>
 <p> Equivalently \(\sum _{k\ge 1}{\operatorname {tr}}(M^k)X^k=-X\, (\operatorname{charpolyRev}M)'/\operatorname{charpolyRev}M\), the logarithmic derivative. The statement is <span class="ttfamily">sorry</span>-free (<span class="ttfamily">Matrix.charpolyRev_logDeriv</span>), over any commutative ring, eigenvalue-free. At the linear coefficient it specializes to the lemma Mathlib already had, \({\operatorname {tr}}M=-\, [\, X^1\, ]\, \operatorname{charpolyRev}M\). </p>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L186" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L186"><code>Matrix.coe_derivative_charpolyRev_eq_neg_mul_mk_trace_pow</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L216" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L216"><code>Matrix.derivative_coe_charpolyRev</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: Jacobi.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — coe_derivative_charpolyRev_eq_neg_mul_mk_trace_pow, derivative_coe_charpolyRev: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean Jacobi.lean</code> (SHA-256 of the compiled file: <code>6ec866e48406ee3e…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical; the matrix-trace form, which Mathlib had only at the linear coefficient (N2).</p><p class="usado">↳ Used in: <a href="#thm:ihara">Theorem 3</a></p>
 <div class="proof_wrapper" id="a0000000011">
 <div class="proof_heading">
@@ -626,22 +689,22 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#lem:walks">#</a>
-<a class="icon proof" href="index.html#a0000000014"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000014"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 <button class="modal lean">L∃∀N</button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L63" target="_blank" rel="noopener">Matrix.pow_apply_eq_sum</a></li>
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L205" target="_blank" rel="noopener">Matrix.relMatrix_pow_apply</a></li>
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L148" target="_blank" rel="noopener">Matrix.trace_pow_eq_sum_cyclicProd</a></li>
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L130" target="_blank" rel="noopener">Matrix.cyclicProd_comp_finRotate</a></li>
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L138" target="_blank" rel="noopener">Matrix.cyclicProd_comp_finRotate_iterate</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L63" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L63">Matrix.pow_apply_eq_sum</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L205" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L205">Matrix.relMatrix_pow_apply</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L148" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L148">Matrix.trace_pow_eq_sum_cyclicProd</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L130" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L130">Matrix.cyclicProd_comp_finRotate</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L138" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L138">Matrix.cyclicProd_comp_finRotate_iterate</a></li>
 </ul>
 </div>
 </div>
@@ -649,7 +712,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <a class="pdfp" href="pdf.html#page=5&amp;n=lem:walks" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=lem:walks" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “What a Determinant's Derivative Knows: Jacobi's Formula and Newton's Identity for Matrix Traces in Lean 4”, Lemma 2, v1, doi:10.5281/zenodo.20578470, https://karlesmarin.github.io/blueprints/jacobi-newton/index.html#lem:walks." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=What%20a%20Determinant%27s%20Derivative%20Knows%3A%20Jacobi%27s%20Formula%20and%20Newton%27s%20Identity%20for%20Matrix%20Traces%20in%20Lean%204%20%E2%80%94%20Lemma%202&amp;body=About%20Lemma%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CWhat%20a%20Determinant%27s%20Derivative%20Knows%3A%20Jacobi%27s%20Formula%20and%20Newton%27s%20Identity%20for%20Matrix%20Traces%20in%20Lean%204%E2%80%9D%2C%20Lemma%202%2C%20v1%2C%20doi%3A10.5281/zenodo.20578470%2C%20https%3A//karlesmarin.github.io/blueprints/jacobi-newton/index.html%23lem%3Awalks.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="lemma_thmcontent">
 <p>   For a matrix \(M\) over a commutative semiring, the \((i,j)\) entry of \(M^k\) is the sum, over length-\(k\) vertex walks from \(i\) to \(j\), of the product of the edge weights (<span class="ttfamily">pow_apply_eq_sum</span>). For the \(0\)–\(1\) adjacency matrix of a decidable relation—a finite directed graph—this is a genuine count: \(\bigl((\text{adjacency})^k\bigr)_{ij}\) is the number of length-\(k\) directed walks from \(i\) to \(j\) (<span class="ttfamily">relMatrix_pow_apply</span>). Both are <span class="ttfamily">sorry</span>-free. </p>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L63" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L63"><code>Matrix.pow_apply_eq_sum</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L205" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L205"><code>Matrix.relMatrix_pow_apply</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L148" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L148"><code>Matrix.trace_pow_eq_sum_cyclicProd</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L130" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L130"><code>Matrix.cyclicProd_comp_finRotate</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L138" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L138"><code>Matrix.cyclicProd_comp_finRotate_iterate</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: WalkCount.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — pow_apply_eq_sum, relMatrix_pow_apply, trace_pow_eq_sum_cyclicProd, cyclicProd_comp_finRotate, cyclicProd_comp_finRotate_iterate: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean WalkCount.lean</code> (SHA-256 of the compiled file: <code>7b1bf7dcaf36423e…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> the directed-graph walk count is among the pieces not in the library (N3).</p><p class="usado">↳ Used in: <a href="#thm:Nk">Theorem 4</a></p>
 <div class="proof_wrapper" id="a0000000014">
 <div class="proof_heading">
@@ -662,7 +725,10 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>Formalized in Lean (see the linked declarations). </p>
 </div>
 </div>
-</section><section class="pc-pane"><h1 id="a0000000015">6 The Ihara counts, composed</h1>
+<details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
+</div>
+<p> Closed non-backtracking walks, and the rotation that groups them. <em>Left:</em> the triangle \(K_3\) has six darts; one closed non-backtracking walk of length \(3\) is shown in amber (the reverse darts, in grey, would backtrack). <em>Right:</em> rotating the basepoint by the cyclic shift \(\rho =\mathtt{finRotate}\) permutes the three rooted walks of this orbit while leaving the cyclic weight fixed (<span class="ttfamily">cyclicProd_comp_finRotate</span>)—so a single <em>geodesic</em> accounts for an orbit of rooted walks. Here \({\operatorname {tr}}(B^3)=6\): two orbits (the cycle and its reverse), three basepoints each. </p>
+</details></section><section class="pc-pane"><h1 id="a0000000016">6 The Ihara counts, composed</h1>
 <div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:ihara">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -677,15 +743,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:ihara">#</a>
-<a class="icon proof" href="index.html#a0000000016"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000017"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -699,11 +765,11 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/Combinatorics/SimpleGraph/Ihara/TraceFormula.lean#L178" target="_blank" rel="noopener">SimpleGraph.ihara_Nk_explicit</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/SimpleGraph/Ihara/TraceFormula.html#L178" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Combinatorics/SimpleGraph/Ihara/TraceFormula.lean#L178">SimpleGraph.ihara_Nk_explicit</a></li>
 </ul>
 </div>
 </div>
@@ -713,9 +779,9 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>    With \(Q=\det (I-XA+X^2(D-I))\), in the power-series ring, </p>
 <div class="centered">\(\displaystyle \sum _k{\operatorname {tr}}(B^{k+1})X^k\; =\; \frac{\det (I-XB)\, \bigl((1-X^2)^{|V|}\bigr)'-(1-X^2)^{|E|}Q'-Q\, \bigl((1-X^2)^{|E|}\bigr)'}{(1-X^2)^{|V|}\det (I-XB)}.\)</div>
 <p> The two \((1-X^2)\)-powers and both determinants are units, so the division is the formal \(\mathtt{invOfUnit}\); the identity is <span class="ttfamily">sorry</span>-free (<span class="ttfamily">ihara_Nk_explicit</span>). It expresses the non-backtracking counts \(N_k={\operatorname {tr}}(B^k)\) purely through the adjacency data \((A,D)\). </p>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/SimpleGraph/Ihara/TraceFormula.html#L178" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Combinatorics/SimpleGraph/Ihara/TraceFormula.lean#L178"><code>SimpleGraph.ihara_Nk_explicit</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: TraceFormula.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — ihara_Nk_explicit: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean TraceFormula.lean</code> (SHA-256 of the compiled file: <code>2a7348dcd68d3e94…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> composition of Jacobi and Newton with the author’s Bass formalization; Bass’s theorem is classical.</p><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="proof_wrapper" id="a0000000016">
+<div class="proof_wrapper" id="a0000000017">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -726,10 +792,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>Formalized in Lean (see the linked declarations). </p>
 </div>
 </div>
-<details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0002.png" style="width:100%;max-width:100%"/>
-</div>
-<p> Closed non-backtracking walks, and the rotation that groups them. <em>Left:</em> the triangle \(K_3\) has six darts; one closed non-backtracking walk of length \(3\) is shown in amber (the reverse darts, in grey, would backtrack). <em>Right:</em> rotating the basepoint by the cyclic shift \(\rho =\mathtt{finRotate}\) permutes the three rooted walks of this orbit while leaving the cyclic weight fixed (<span class="ttfamily">cyclicProd_comp_finRotate</span>)—so a single <em>geodesic</em> accounts for an orbit of rooted walks. Here \({\operatorname {tr}}(B^3)=6\): two orbits (the cycle and its reverse), three basepoints each. </p>
-</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> Bass’s identity on K₃, exact (SymPy). <span class="ttfamily">verify_jacobi_newton.py</span> </p>
 </li>
@@ -748,15 +811,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:Nk">#</a>
-<a class="icon proof" href="index.html#a0000000019"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000019"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -769,11 +832,11 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/3664798b75f2ac7ddeadb9fe65b7a13703510c1e/Formalizations/Combinatorics/SimpleGraph/Ihara/NbWalkCount.lean#L57" target="_blank" rel="noopener">SimpleGraph.trace_hashimoto_pow</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/SimpleGraph/Ihara/NbWalkCount.html#L57" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Combinatorics/SimpleGraph/Ihara/NbWalkCount.lean#L57">SimpleGraph.trace_hashimoto_pow</a></li>
 </ul>
 </div>
 </div>
@@ -782,7 +845,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="theorem_thmcontent">
 <div class="centered">\(\displaystyle {\operatorname {tr}}(B^k)\; =\; \# \{ \text{closed non-backtracking walks of length }k,\  \text{rooted at a dart}\} .\)</div>
 <p> <span class="ttfamily">sorry</span>-free (<span class="ttfamily">trace_hashimoto_pow</span>). </p>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/SimpleGraph/Ihara/NbWalkCount.html#L57" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Combinatorics/SimpleGraph/Ihara/NbWalkCount.lean#L57"><code>SimpleGraph.trace_hashimoto_pow</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: NbWalkCount.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — trace_hashimoto_pow: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean NbWalkCount.lean</code> (SHA-256 of the compiled file: <code>234ce32e57f69492…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="usado">↳ Not used by another result of the paper.</p>
 <div class="proof_wrapper" id="a0000000019">
 <div class="proof_heading">
@@ -800,7 +863,199 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <li><p><b class="bfseries">Program:</b> tr(Bᵏ) against a brute-force count of rooted closed non-backtracking walks on K₃, k = 1..6: 0, 0, 6, 0, 0, 6. <span class="ttfamily">verify_jacobi_newton.py</span> </p>
 </li>
 </ul>
-</details></section><section class="pc-pane"><h1 id="a0000000021">References</h1>
+</details><div class="table" id="tab:results">
+<small class="small"><figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">1</span>
+<span class="caption_text">Every machine-checked ingredient. All are <span class="ttfamily">sorry</span>-free; <span class="ttfamily">#print axioms</span> reports only <span class="ttfamily">[propext, Classical.choice, Quot.sound]</span>. Sources: <span class="ttfamily">Ihara/TraceFormula.lean</span> and <span class="ttfamily">MathlibPR/MatrixWalkCount.lean</span>.</span>
+</figcaption>  2ggband!30white <table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p><b class="bfseries">Lean name</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> <b class="bfseries">Statement</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> <b class="bfseries">§</b></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p><span class="ttfamily">Matrix.derivative_det</span> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> \((\det M)'={\operatorname {tr}}({\operatorname {adj}}M\cdot M')\) (Jacobi) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left;background:rgba(43,108,176,0.08)">
+<p> 2</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">one_sub_smul_mul_resolventSeries</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \((I-XM)\sum _k M^kX^k=I\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left;background:rgba(43,108,176,0.18)">
+<p> 3</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">trace_resolventSeries</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \({\operatorname {tr}}\sum _k M^kX^k=\sum _k{\operatorname {tr}}(M^k)X^k\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left;background:rgba(43,108,176,0.18)">
+<p> 3</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">Matrix.charpolyRev_logDeriv</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \((\operatorname{charpolyRev}M)'=-\operatorname{charpolyRev}M\sum _k{\operatorname {tr}}(M^{k+1})X^k\) (Newton) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left;background:rgba(43,108,176,0.29)">
+<p> 4</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">pow_apply_eq_sum</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \((M^k)_{ij}=\sum _{\text{walks}}\prod (\text{weights})\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left;background:rgba(43,108,176,0.40)">
+<p> 5</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">relMatrix_pow_apply</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> directed walk count, \(0\)–\(1\) case </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left;background:rgba(43,108,176,0.40)">
+<p> 5</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">trace_pow_eq_sum_cyclicProd</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \({\operatorname {tr}}(M^{m+1})=\sum _{\text{cyclic }w}\text{cyclicProd}\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left;background:rgba(43,108,176,0.40)">
+<p> 5</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">cyclicProd_comp_finRotate_iterate</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> rotation invariance (full group) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left;background:rgba(43,108,176,0.40)">
+<p> 5</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">ihara_Nk_explicit</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(\sum _k{\operatorname {tr}}(B^{k+1})X^k\) from \((A,D)\) </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left;background:rgba(43,108,176,0.50)">
+<p> 6</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p><span class="ttfamily">trace_hashimoto_pow</span> </p>
+</td>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \({\operatorname {tr}}(B^k)=\# \) closed nb-walks </p>
+</td>
+<td colspan="" data-colour="value" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:rgba(43,108,176,0.50)">
+<p> 6</p>
+</td>
+</tr>
+</table> </small>
+</div><p class="tabcolour">Colour: blue shade = the number’s size within its column.</p>
+<div class="table" id="tab:checks">
+<small class="small"><figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">2</span>
+<span class="caption_text">Independent numerical cross-checks (<span class="ttfamily">SymPy</span>), exact symbolic equality. The graph row is the triangle \(K_3\): the trace of \(B^k\) matches a brute-force enumeration of rooted closed non-backtracking walks, \(0,0,6,0,0,6\) for \(k=1,\dots ,6\) (the cycle and its reverse, three basepoints each).</span>
+</figcaption>  2ggband!30white <table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p><b class="bfseries">Identity</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> <b class="bfseries">Instance</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> <b class="bfseries">Result</b></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p>Jacobi \((\det M)'={\operatorname {tr}}({\operatorname {adj}}M\, M')\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> \(3\times 3\) matrix of polynomials </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> exact</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p>Newton (log-derivative) </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(3\times 3\) and \(2\times 2\), mod \(X^8\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> exact</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p>\({\operatorname {tr}}(B^k)=\# \{ \text{rooted nb-walks}\} \) </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(K_3\), \(k=1,\dots ,6\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(0,0,6,0,0,6\) both</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p>Bass \((1{-}u^2)^{|V|}\det (I{-}uB)=\dots \) </p>
+</td>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(K_3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> exact</p>
+</td>
+</tr>
+</table> </small>
+</div>
+</section><section class="pc-pane"><h1 id="a0000000021">References</h1>
 <dl class="bibliography">
 <dt><a name="Bass1992">1</a></dt>
 <dd><p>H. Bass, <em>The Ihara–Selberg zeta function of a tree lattice</em>, Internat. J. Math. <b class="bfseries">3</b> (1992), 717–797.  <a class="bib-search" href="https://scholar.google.com/scholar?q=The+Ihara%E2%80%93Selberg+zeta+function+of+a+tree+lattice" rel="noopener" target="_blank">🔎 find it</a></p>
@@ -863,12 +1118,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 </div>
 <nav class="prev_up_next">
-<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
-<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
-<a href="index.html" title="What a Determinant's Derivative Knows: Jacobi's Formula and Newton's Identity for Matrix Traces in Lean 4: blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="What a Determinant's Derivative Knows: Jacobi's Formula and Newton's Identity for Matrix Traces in Lean 4: blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
 </nav>
-<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
-// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
 // event, so that page-specific scripts (labs) can react.
 (function(){
   function set(v){
@@ -1067,7 +1322,7 @@ document.addEventListener('click', function (e) {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:jacobi": "Theorem 1 — Jacobi's formula, in Lean~4", "def:resolvent": "Definition 1 — Resolvent series", "lem:resolvent": "Lemma 1 — The resolvent inverts $I-XM$, and its trace is the trace generating function", "thm:newton": "Theorem 2 — Newton's identity for matrix traces, in Lean~4", "lem:walks": "Lemma 2 — Powers count walks", "thm:ihara": "Theorem 3 — The Ihara $N_k$ identity, in Lean~4", "thm:Nk": "Theorem 4 — $\\tr(B^k)$ counts non-backtracking walks, in Lean~4"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:jacobi": "Theorem 1 — Jacobi's formula, in Lean~4", "def:resolvent": "Definition 1 — Resolvent series", "lem:resolvent": "Lemma 1 — The resolvent inverts $I-XM$, and its trace is the trace generating function", "thm:newton": "Theorem 2 — Newton's identity for matrix traces, in Lean~4", "lem:walks": "Lemma 2 — Powers count walks", "thm:ihara": "Theorem 3 — The Ihara $N_k$ identity, in Lean~4", "thm:Nk": "Theorem 4 — $\\tr(B^k)$ counts non-backtracking walks, in Lean~4"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
@@ -1104,6 +1359,59 @@ document.addEventListener('click', function (e) {
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<style id="lm-lean-panel-css">
+.lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
+/* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
+.lm-panel{position:fixed;inset:6vh 7vw;z-index:9999;background:#fff;border:1px solid #c9d3de;border-radius:10px;
+  box-shadow:0 14px 48px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+.lm-panel header{background:#e8eef5;border-bottom:1px solid #c9d3de;padding:.45rem .8rem;display:flex;gap:.9rem;
+  align-items:center;font:14px Arial,sans-serif}
+.lm-panel header b{font-family:Consolas,Menlo,monospace;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lm-panel header a{color:#1a4f8b}.lm-panel header button{border:0;background:#1a4f8b;color:#fff;border-radius:999px;
+  padding:.15rem .7rem;cursor:pointer;font:14px Arial,sans-serif}
+.lm-panel iframe{flex:1;border:0;width:100%;background:#fbfcfe}
+.lm-panel .sello{display:inline-flex;width:22px;height:22px;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.35))}
+.lm-panel .sello svg{width:100%;height:100%}
+/* 21-oct, Carles: the ✒️ emoji brought its own background from the system font, which did not match the header: the
+   pen is our own SVG, transparent, with a gradient for depth; the shadow stays */
+@media (max-width:700px){.lm-panel{inset:0;border-radius:0}}
+</style>
+<script id="lm-lean-panel">
+/* 21-oct, Carles: the Lean opens in a central window over the blueprint, and closing it leaves the reader where he was */
+(function(){
+  /* a fountain-pen nib, transparent background, steel-blue gradient for depth */
+  var PLUMA='<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="lmPl" x1="0" y1="0" x2="1" y2="1">'+
+    '<stop offset="0" stop-color="#5b8cc7"/><stop offset=".55" stop-color="#1a4f8b"/><stop offset="1" stop-color="#0e2f55"/>'+
+    '</linearGradient></defs><path d="M12 2c3.2 3.6 5.6 7.4 5.6 10.6 0 1.7-.9 3.3-2.3 4.2L12 22l-3.3-5.2a5 5 0 0 1-2.3-4.2'+
+    'C6.4 9.4 8.8 5.6 12 2z" fill="url(#lmPl)"/><path d="M12 9.2v6.3" stroke="#fff" stroke-width="1.1" stroke-linecap="round"'+
+    ' opacity=".9"/><circle cx="12" cy="9" r="1.35" fill="#fff"/><path d="M9.2 5.6c.6-.9 1.4-1.9 2.2-2.8" stroke="#fff"'+
+    ' stroke-width=".9" stroke-linecap="round" opacity=".55" fill="none"/></svg>';
+  /* the browser's Back (or the phone's back gesture) closes the panel instead of leaving the blueprint: the panel
+     pushes one history entry; closing it by hand takes that entry back out (21-oct: «que pueda volver donde estaba») */
+  function quitar(){var p=document.querySelector('.lm-panel'),v=document.querySelector('.lm-veil');
+    if(p)p.remove();if(v)v.remove();document.removeEventListener('keydown',esc);}
+  function cerrar(){if(history.state&&history.state.lmPanel)history.back();else quitar();}
+  window.addEventListener('popstate',function(){quitar();});
+  function esc(e){if(e.key==='Escape')cerrar();}
+  function abrir(href,nombre,gh){quitar();
+    if(!(history.state&&history.state.lmPanel))history.pushState({lmPanel:1},'');
+    var v=document.createElement('div');v.className='lm-veil';v.onclick=cerrar;
+    var p=document.createElement('div');p.className='lm-panel';p.setAttribute('role','dialog');
+    /* 21-oct, Carles: the window has the emoji, the name and Close; ✒️ = the written, machine-checked proof */
+    /* GitHub is in the Lean page's own header inside the window: not repeated here (Carles: «está en dos sitios») */
+    p.innerHTML='<header><span class="sello" title="Our Lean proof, machine-checked">'+PLUMA+'</span><b></b>'+
+      '<button type="button" title="Close (Esc)">✕ Close</button></header><iframe title="Lean source"></iframe>';
+    p.querySelector('b').textContent=nombre||'';
+    /* ?panel=1: the Lean page knows it is inside the window (no Atlas link) and the URL skips an old cached copy */
+    var i=href.indexOf('#'),src=(i<0?href:href.slice(0,i))+'?panel=1'+(i<0?'':href.slice(i));
+    p.querySelector('button').onclick=cerrar;p.querySelector('iframe').src=src;
+    document.body.appendChild(v);document.body.appendChild(p);document.addEventListener('keydown',esc);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lean-github]');
+    if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
 })();
 </script>
 <script id="lm-notranslate">

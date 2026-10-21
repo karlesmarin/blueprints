@@ -38,7 +38,21 @@ details.blk[open]>summary:before{content:"▾ "}
 #vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
 #vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
         text-decoration:none;font-weight:600;white-space:nowrap}
-body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
 body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 .lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
 .lean-check .repro{color:#456}.lean-check code{font-size:.95em}
@@ -74,6 +88,33 @@ a.pdfp:hover{background:#f0e1f6}
 p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
 p.usado a{color:#1a4f8b}
 p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
+.ext-lean.ours{border-color:#b7dcb9;border-left-color:#2e7d32;background:#f1f8f1;color:#1d3b1f}
+.ext-lean.ours .tag,.ext-badge.ours{background:#2e7d32}
+.ext-lean.ours a{color:#1b5e20}
+.ext-lean.ours ul{margin:.35em 0 .2em 1.1em;padding:0}
+details.ext-lean{padding:.35em .8em}
+details.ext-lean>summary{cursor:pointer;list-style:none}
+details.ext-lean>summary::-webkit-details-marker{display:none}
+details.ext-lean>summary .more{font-size:12px;opacity:.7}
+details.ext-lean>summary .more::before{content:'▸ '}
+details.ext-lean[open]>summary .more::before{content:'▾ '}
+details.ext-lean[open]>summary{margin-bottom:.3em}
 </style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
 header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
   font:13px Helvetica,Arial,sans-serif;text-shadow:none}
@@ -168,9 +209,32 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
 </head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cogs" viewBox="0 0 32 32">
+<title>cogs</title>
+<path class="path1" d="M11.366 22.564l1.291-1.807-1.414-1.414-1.807 1.291c-0.335-0.187-0.694-0.337-1.071-0.444l-0.365-2.19h-2l-0.365 2.19c-0.377 0.107-0.736 0.256-1.071 0.444l-1.807-1.291-1.414 1.414 1.291 1.807c-0.187 0.335-0.337 0.694-0.443 1.071l-2.19 0.365v2l2.19 0.365c0.107 0.377 0.256 0.736 0.444 1.071l-1.291 1.807 1.414 1.414 1.807-1.291c0.335 0.187 0.694 0.337 1.071 0.444l0.365 2.19h2l0.365-2.19c0.377-0.107 0.736-0.256 1.071-0.444l1.807 1.291 1.414-1.414-1.291-1.807c0.187-0.335 0.337-0.694 0.444-1.071l2.19-0.365v-2l-2.19-0.365c-0.107-0.377-0.256-0.736-0.444-1.071zM7 27c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM32 12v-2l-2.106-0.383c-0.039-0.251-0.088-0.499-0.148-0.743l1.799-1.159-0.765-1.848-2.092 0.452c-0.132-0.216-0.273-0.426-0.422-0.629l1.219-1.761-1.414-1.414-1.761 1.219c-0.203-0.149-0.413-0.29-0.629-0.422l0.452-2.092-1.848-0.765-1.159 1.799c-0.244-0.059-0.492-0.109-0.743-0.148l-0.383-2.106h-2l-0.383 2.106c-0.251 0.039-0.499 0.088-0.743 0.148l-1.159-1.799-1.848 0.765 0.452 2.092c-0.216 0.132-0.426 0.273-0.629 0.422l-1.761-1.219-1.414 1.414 1.219 1.761c-0.149 0.203-0.29 0.413-0.422 0.629l-2.092-0.452-0.765 1.848 1.799 1.159c-0.059 0.244-0.109 0.492-0.148 0.743l-2.106 0.383v2l2.106 0.383c0.039 0.251 0.088 0.499 0.148 0.743l-1.799 1.159 0.765 1.848 2.092-0.452c0.132 0.216 0.273 0.426 0.422 0.629l-1.219 1.761 1.414 1.414 1.761-1.219c0.203 0.149 0.413 0.29 0.629 0.422l-0.452 2.092 1.848 0.765 1.159-1.799c0.244 0.059 0.492 0.109 0.743 0.148l0.383 2.106h2l0.383-2.106c0.251-0.039 0.499-0.088 0.743-0.148l1.159 1.799 1.848-0.765-0.452-2.092c0.216-0.132 0.426-0.273 0.629-0.422l1.761 1.219 1.414-1.414-1.219-1.761c0.149-0.203 0.29-0.413 0.422-0.629l2.092 0.452 0.765-1.848-1.799-1.159c0.059-0.244 0.109-0.492 0.148-0.743l2.106-0.383zM21 15.35c-2.402 0-4.35-1.948-4.35-4.35s1.948-4.35 4.35-4.35 4.35 1.948 4.35 4.35c0 2.402-1.948 4.35-4.35 4.35z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
 <header>
-<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
 <h1 id="doc_title"><a href="index.html" title="Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI): blueprint">Blueprint</a></h1>
 <nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22033303" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22033303</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="su7-proton-decay-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
@@ -212,20 +276,20 @@ q<sub>φ</sub> = 3/2 protects for every half-integer brane-quark charge.</li>
 claim); the verdict holds on a wedge of multiplicative repairs, and two-loop safety is left open.</li>
 </ul></div><p>🚀 <b>Start here:</b> <a href="index.html#prop:identity"><b>Proposition 1</b></a>: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges.</p><p><b>Main results:</b></p><ul><li><a href="index.html#prop:identity"><b>Proposition 1</b></a>: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges</li><li><a href="index.html#prop:real"><b>Proposition 2</b></a>: under diagonal ±1 parities a real representation furnishes no chiral generation</li><li><a href="index.html#prop:closed"><b>Proposition 3</b></a>: protection fails iff qφ = |Aⱼ|/n: a set with a maximum, so protection is a half-line</li></ul><div class="cifras">
 <span class="cifra"><b>3</b> results</span>
-<span class="cifra c-lean">✅ <b>0</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>3</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 364.00 284.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 279.66)">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 472.00 284.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 280.41)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M48,-141.83C48,-141.83 344,-141.83 344,-141.83 350,-141.83 356,-147.83 356,-153.83 356,-153.83 356,-263.66 356,-263.66 356,-269.66 350,-275.66 344,-275.66 344,-275.66 48,-275.66 48,-275.66 42,-275.66 36,-269.66 36,-263.66 36,-263.66 36,-153.83 36,-153.83 36,-147.83 42,-141.83 48,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="196" xml:space="preserve" y="-260.25">A ladder inside their own SU(7)</text>
+<path d="M48,-141.83C48,-141.83 452,-141.83 452,-141.83 458,-141.83 464,-147.83 464,-153.83 464,-153.83 464,-264.41 464,-264.41 464,-270.41 458,-276.41 452,-276.41 452,-276.41 48,-276.41 48,-276.41 42,-276.41 36,-270.41 36,-264.41 36,-264.41 36,-153.83 36,-153.83 36,-147.83 42,-141.83 48,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-261">A ladder inside their own SU(7)</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
@@ -236,13 +300,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node1">
 <title>prop:identity</title>
 <g id="a_node1"><a target="_top" xlink:href="index.html#prop:identity" xlink:title="Proposition 1: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges">
-<path d="M166.42,-245.41C166.42,-245.41 55.57,-245.41 55.57,-245.41 49.57,-245.41 43.57,-239.41 43.57,-233.41 43.57,-233.41 43.57,-161.83 43.57,-161.83 43.57,-155.83 49.57,-149.83 55.57,-149.83 55.57,-149.83 166.42,-149.83 166.42,-149.83 172.42,-149.83 178.42,-155.83 178.42,-161.83 178.42,-161.83 178.42,-233.41 178.42,-233.41 178.42,-239.41 172.42,-245.41 166.42,-245.41" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-228.97">Proposition 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-214.72">the left-handed SU(2)</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-200.47">anomaly of U(1)′ is half</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-186.22">the sum of the proton-</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-171.97">operator charges</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-157.72">💻 program</text>
+<path d="M166.42,-245.78C166.42,-245.78 55.57,-245.78 55.57,-245.78 49.57,-245.78 43.57,-239.78 43.57,-233.78 43.57,-233.78 43.57,-162.2 43.57,-162.2 43.57,-156.2 49.57,-150.2 55.57,-150.2 55.57,-150.2 166.42,-150.2 166.42,-150.2 172.42,-150.2 178.42,-156.2 178.42,-162.2 178.42,-162.2 178.42,-233.78 178.42,-233.78 178.42,-239.78 172.42,-245.78 166.42,-245.78" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-229.34">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-215.09">the left-handed SU(2)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-200.84">anomaly of U(1)′ is half</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-186.59">the sum of the proton-</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-172.34">operator charges</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-158.09">💻 program</text>
 </a>
 </g>
 </g>
@@ -263,20 +327,20 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <!-- prop:identity&#45;&gt;prop:closed -->
 <g class="edge" id="edge1">
 <title>prop:identity-&gt;prop:closed</title>
-<path d="M111,-148.89C111,-137.43 111,-125.08 111,-113.27" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="113.45,-113.29 111,-106.29 108.55,-113.29 113.45,-113.29" stroke="#9aa8b5"></polygon>
+<path d="M111,-149.14C111,-137.41 111,-124.75 111,-112.68" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="113.45,-112.94 111,-105.94 108.55,-112.94 113.45,-112.94" stroke="#9aa8b5"></polygon>
 </g>
 <!-- prop:real -->
 <g class="node" id="node2">
 <title>prop:real</title>
-<g id="a_node2"><a target="_top" xlink:href="index.html#prop:real" xlink:title="Proposition 2: under diagonal ±1 parities a real representation furnishes no chiral generation">
-<path d="M336.3,-245.41C336.3,-245.41 215.7,-245.41 215.7,-245.41 209.7,-245.41 203.7,-239.41 203.7,-233.41 203.7,-233.41 203.7,-161.83 203.7,-161.83 203.7,-155.83 209.7,-149.83 215.7,-149.83 215.7,-149.83 336.3,-149.83 336.3,-149.83 342.3,-149.83 348.3,-155.83 348.3,-161.83 348.3,-161.83 348.3,-233.41 348.3,-233.41 348.3,-239.41 342.3,-245.41 336.3,-245.41" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="276" xml:space="preserve" y="-228.97">Proposition 2</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="276" xml:space="preserve" y="-214.72">under diagonal ±1 parities</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="276" xml:space="preserve" y="-200.47">a real representation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="276" xml:space="preserve" y="-186.22">furnishes no chiral</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="276" xml:space="preserve" y="-171.97">generation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="276" xml:space="preserve" y="-157.72">💻 program</text>
+<g id="a_node2"><a target="_top" xlink:href="index.html#prop:real" xlink:title="Proposition 2: under diagonal ±1 parities a real representation furnishes no chiral generation. In Lean: added to the Lean repository after publication (21-oct-2026): the pairing (i, j̄) ↦ (j, ī) for diagonal ±1 parities, and the counts 18/18, 24/24 with the controls 10 and 34">
+<path d="M444.3,-246.16C444.3,-246.16 215.7,-246.16 215.7,-246.16 209.7,-246.16 203.7,-240.16 203.7,-234.16 203.7,-234.16 203.7,-161.83 203.7,-161.83 203.7,-155.83 209.7,-149.83 215.7,-149.83 215.7,-149.83 444.3,-149.83 444.3,-149.83 450.3,-149.83 456.3,-155.83 456.3,-161.83 456.3,-161.83 456.3,-234.16 456.3,-234.16 456.3,-240.16 450.3,-246.16 444.3,-246.16" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-229.72">Proposition 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-215.47">under diagonal ±1 parities</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-201.22">a real representation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-186.97">furnishes no chiral</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-172.72">generation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-158.47">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
@@ -349,14 +413,32 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:real">#</a>
-<a class="icon proof" href="index.html#a0000000010"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000010"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L105" target="_blank" rel="noopener">GaugeHiggsUnification.SU7RealPairing.adjoint_vectorLike</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L189" target="_blank" rel="noopener">GaugeHiggsUnification.SU7RealPairing.adjoint_unpaired_eq_zero</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L183" target="_blank" rel="noopener">GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pp</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L185" target="_blank" rel="noopener">GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pm</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L212" target="_blank" rel="noopener">GaugeHiggsUnification.SU7RealPairing.sym2_unpaired</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L218" target="_blank" rel="noopener">GaugeHiggsUnification.SU7RealPairing.sym3_unpaired</a></li>
+</ul>
+</div>
+</div>
 </div>
 <a class="pdfp" href="pdf.html#page=10&amp;n=prop:real" title="Open the paper at page 10">📕 p. 10</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:real" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Proposition 2, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#prop:real." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Proposition%202&amp;body=About%20Proposition%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Proposition%202%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23prop%3Areal.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="proposition_thmcontent">
-<p>  Let the orbifold parities \(P_5,P_5'\) act diagonally on the indices of the fundamental, so that a component of a bulk multiplet survives in the multiplet of parities \((\eta ,\eta ')\) iff \(P_5P_5'=\eta \eta '\) and then carries \(4\)D chirality \(-\eta \, P_5\) (their eqs. (37)–(40)). Then for a <em>real</em> representation the surviving spectrum is vector-like, with no chiral state at either choice of \((\eta ,\eta ')\). </p>
-</div>
-</div><p class="novedad">🆕 <b>Classical and new:</b> not claimed as new: that adjoint matter is vector-like is stated as well known by Gogoladze–Mimura–Nandi [GMN], who cure it with a Z₃ projection; the paper claims the specialisation to the ±1 diagonal parities, the counts and the chiral controls (§9).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<p>   Let the orbifold parities \(P_5,P_5'\) act diagonally on the indices of the fundamental, so that a component of a bulk multiplet survives in the multiplet of parities \((\eta ,\eta ')\) iff \(P_5P_5'=\eta \eta '\) and then carries \(4\)D chirality \(-\eta \, P_5\) (their eqs. (37)–(40)). Then for a <em>real</em> representation the surviving spectrum is vector-like, with no chiral state at either choice of \((\eta ,\eta ')\). </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (21-oct-2026): the pairing (i, j̄) ↦ (j, ī) for diagonal ±1 parities, and the counts 18/18, 24/24 with the controls 10 and 34</p><ul><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L105" target="_blank" rel="noopener"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_vectorLike</code></a></li><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L189" target="_blank" rel="noopener"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_unpaired_eq_zero</code></a></li><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L183" target="_blank" rel="noopener"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pp</code></a></li><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L185" target="_blank" rel="noopener"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pm</code></a></li><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L212" target="_blank" rel="noopener"><code>GaugeHiggsUnification.SU7RealPairing.sym2_unpaired</code></a></li><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L218" target="_blank" rel="noopener"><code>GaugeHiggsUnification.SU7RealPairing.sym3_unpaired</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: SU7RealPairing.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — adjoint_vectorLike: propext, Classical.choice; adjoint_unpaired_eq_zero, adjoint_survivors_pp, adjoint_survivors_pm, sym2_unpaired, sym3_unpaired: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean SU7RealPairing.lean</code> (SHA-256 of the compiled file: <code>179d657feb7879fa…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> not claimed as new: that adjoint matter is vector-like is stated as well known by Gogoladze–Mimura–Nandi [GMN], who cure it with a Z₃ projection; the paper claims the specialisation to the ±1 diagonal parities, the counts and the chiral controls (§9).</p><p class="usado">↳ Not used by another result of the paper.</p>
 <div class="proof_wrapper" id="a0000000010">
 <div class="proof_heading">
 <span class="proof_caption">
@@ -391,13 +473,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:closed">#</a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -570,12 +652,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 </div>
 <nav class="prev_up_next">
-<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
-<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
-<a href="index.html" title="Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI): blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI): blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
 </nav>
-<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
-// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
 // event, so that page-specific scripts (labs) can react.
 (function(){
   function set(v){
@@ -692,7 +774,7 @@ document.addEventListener('click', function (e) {
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
 <script id="lm-guide">
 (function(){
-  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lean", "sel": "[class$=\"_thmheading\"]:has(button.modal.lean)", "title": "Checked by a computer", "text": "Point at a statement like this one: L∃∀N shows the parts checked by the Lean proof assistant, with the code.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
   function visible(e){ return e && e.offsetParent !== null; }
   function find(sel){
     var all = [].slice.call(document.querySelectorAll(sel));
@@ -774,7 +856,7 @@ document.addEventListener('click', function (e) {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:identity": "Proposition 1 — the identity that decides it", "prop:real": "Proposition 2 — a real representation under diagonal $\\pm1$ parities furnishes no chiral\ngeneration", "prop:closed": "Proposition 3 — the rule in closed form"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:identity": "Proposition 1 — the identity that decides it", "prop:real": "Proposition 2 — a real representation under diagonal $\\pm1$ parities furnishes no chiral\ngeneration", "prop:closed": "Proposition 3 — the rule in closed form"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;

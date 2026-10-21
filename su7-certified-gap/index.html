@@ -38,7 +38,21 @@ details.blk[open]>summary:before{content:"▾ "}
 #vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
 #vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
         text-decoration:none;font-weight:600;white-space:nowrap}
-body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
 body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 .lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
 .lean-check .repro{color:#456}.lean-check code{font-size:.95em}
@@ -74,6 +88,33 @@ a.pdfp:hover{background:#f0e1f6}
 p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
 p.usado a{color:#1a4f8b}
 p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
+.ext-lean.ours{border-color:#b7dcb9;border-left-color:#2e7d32;background:#f1f8f1;color:#1d3b1f}
+.ext-lean.ours .tag,.ext-badge.ours{background:#2e7d32}
+.ext-lean.ours a{color:#1b5e20}
+.ext-lean.ours ul{margin:.35em 0 .2em 1.1em;padding:0}
+details.ext-lean{padding:.35em .8em}
+details.ext-lean>summary{cursor:pointer;list-style:none}
+details.ext-lean>summary::-webkit-details-marker{display:none}
+details.ext-lean>summary .more{font-size:12px;opacity:.7}
+details.ext-lean>summary .more::before{content:'▸ '}
+details.ext-lean[open]>summary .more::before{content:'▾ '}
+details.ext-lean[open]>summary{margin-bottom:.3em}
 </style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
 header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
   font:13px Helvetica,Arial,sans-serif;text-shadow:none}
@@ -168,9 +209,29 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
 </head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
 <header>
-<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
 <h1 id="doc_title"><a href="index.html" title="A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII): blueprint">Blueprint</a></h1>
 <nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22159037" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22159037</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="su7-certified-gap-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
@@ -215,16 +276,16 @@ invariants, but two contents share both and disagree about the vacuum invariant 
 by dynamic programming, which reproduces the enumerator’s totals over 69 million contents.</li>
 </ul></div><p>🚀 <b>Start here:</b> <a href="index.html#prop:mono"><b>Proposition 1</b></a>: on a cell with 8D &gt; 0, a target box pulls back to one interval of G, with both ends evaluations.</p><p><b>Main results:</b></p><ul><li><a href="index.html#prop:mono"><b>Proposition 1</b></a>: on a cell with 8D &gt; 0, a target box pulls back to one interval of G, with both ends evaluations</li><li><a href="index.html#obs:fin"><b>Observation 1</b></a>: a cell (A₄, 8D) is a finite set, because only 7(+,+) has A₄ = 0</li><li><a href="index.html#prop:four"><b>Proposition 3</b></a>: on a fixed rung the two observables fix A₄, G and (U, V), and leave only W free</li></ul><div class="cifras">
 <span class="cifra"><b>4</b> results</span>
-<span class="cifra c-lean">✅ <b>0</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>4</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 466.00 284.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 279.66)">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 530.00 284.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 280.41)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
 <path d="M12,0C12,0 138,0 138,0 144,0 150,-6 150,-12 150,-12 150,-121.83 150,-121.83 150,-127.83 144,-133.83 138,-133.83 138,-133.83 12,-133.83 12,-133.83 6,-133.83 0,-127.83 0,-121.83 0,-121.83 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
@@ -232,8 +293,8 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M95,-148.95C95,-148.95 234,-148.95 234,-148.95 240,-148.95 246,-154.95 246,-160.95 246,-160.95 246,-256.53 246,-256.53 246,-262.53 240,-268.53 234,-268.53 234,-268.53 95,-268.53 95,-268.53 89,-268.53 83,-262.53 83,-256.53 83,-256.53 83,-160.95 83,-160.95 83,-154.95 89,-148.95 95,-148.95" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="164.5" xml:space="preserve" y="-253.14">Why “no content” is a decision</text>
+<path d="M95,-149.33C95,-149.33 234,-149.33 234,-149.33 240,-149.33 246,-155.33 246,-161.33 246,-161.33 246,-256.91 246,-256.91 246,-262.91 240,-268.91 234,-268.91 234,-268.91 95,-268.91 95,-268.91 89,-268.91 83,-262.91 83,-256.91 83,-256.91 83,-161.33 83,-161.33 83,-155.33 89,-149.33 95,-149.33" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="164.5" xml:space="preserve" y="-253.5">Why “no content” is a decision</text>
 </g>
 <g class="cluster" id="clust3">
 <title>cluster_2</title>
@@ -242,8 +303,8 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </g>
 <g class="cluster" id="clust4">
 <title>cluster_3</title>
-<path d="M266,-141.83C266,-141.83 446,-141.83 446,-141.83 452,-141.83 458,-147.83 458,-153.83 458,-153.83 458,-263.66 458,-263.66 458,-269.66 452,-275.66 446,-275.66 446,-275.66 266,-275.66 266,-275.66 260,-275.66 254,-269.66 254,-263.66 254,-263.66 254,-153.83 254,-153.83 254,-147.83 260,-141.83 266,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="356" xml:space="preserve" y="-260.25">The reachable set on the published seed</text>
+<path d="M266,-141.83C266,-141.83 510,-141.83 510,-141.83 516,-141.83 522,-147.83 522,-153.83 522,-153.83 522,-264.41 522,-264.41 522,-270.41 516,-276.41 510,-276.41 510,-276.41 266,-276.41 266,-276.41 260,-276.41 254,-270.41 254,-264.41 254,-264.41 254,-153.83 254,-153.83 254,-147.83 260,-141.83 266,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-261">The reachable set on the published seed</text>
 </g>
 <!-- prop:mono -->
 <g class="node" id="node1">
@@ -263,20 +324,20 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node2">
 <title>obs:fin</title>
 <g id="a_node2"><a target="_top" xlink:href="index.html#obs:fin" xlink:title="Observation 1: a cell (A₄, 8D) is a finite set, because only 7(+,+) has A₄ = 0">
-<path d="M208.43,-238.29C208.43,-238.29 103.57,-238.29 103.57,-238.29 97.57,-238.29 91.57,-232.29 91.57,-226.29 91.57,-226.29 91.57,-168.95 91.57,-168.95 91.57,-162.95 97.57,-156.95 103.57,-156.95 103.57,-156.95 208.43,-156.95 208.43,-156.95 214.43,-156.95 220.43,-162.95 220.43,-168.95 220.43,-168.95 220.43,-226.29 220.43,-226.29 220.43,-232.29 214.43,-238.29 208.43,-238.29" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-221.84">Observation 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-207.59">a cell (A₄, 8D) is a</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-193.34">finite set, because only</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-179.09">7(+,+) has A₄ = 0</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-164.84">💻 program</text>
+<path d="M208.43,-238.66C208.43,-238.66 103.57,-238.66 103.57,-238.66 97.57,-238.66 91.57,-232.66 91.57,-226.66 91.57,-226.66 91.57,-169.32 91.57,-169.32 91.57,-163.32 97.57,-157.32 103.57,-157.32 103.57,-157.32 208.43,-157.32 208.43,-157.32 214.43,-157.32 220.43,-163.32 220.43,-169.32 220.43,-169.32 220.43,-226.66 220.43,-226.66 220.43,-232.66 214.43,-238.66 208.43,-238.66" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-222.22">Observation 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-207.97">a cell (A₄, 8D) is a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-193.72">finite set, because only</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-179.47">7(+,+) has A₄ = 0</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-165.22">💻 program</text>
 </a>
 </g>
 </g>
 <!-- obs:fin&#45;&gt;prop:mono -->
 <g class="edge" id="edge1">
 <title>obs:fin-&gt;prop:mono</title>
-<path d="M132.35,-155.8C124.41,-142.08 115.41,-126.55 106.93,-111.92" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="109.21,-110.96 103.58,-106.13 104.96,-113.42 109.21,-110.96" stroke="#9aa8b5"></polygon>
+<path d="M132.35,-156.07C124.37,-142.24 115.32,-126.58 106.81,-111.84" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="109.06,-110.84 103.44,-106.01 104.82,-113.3 109.06,-110.84" stroke="#9aa8b5"></polygon>
 </g>
 <!-- prop:rec -->
 <g class="node" id="node3">
@@ -295,20 +356,20 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <!-- obs:fin&#45;&gt;prop:rec -->
 <g class="edge" id="edge2">
 <title>obs:fin-&gt;prop:rec</title>
-<path d="M179.94,-155.8C188.96,-140.42 199.32,-122.76 208.76,-106.64" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="210.84,-107.94 212.26,-100.67 206.61,-105.46 210.84,-107.94" stroke="#9aa8b5"></polygon>
+<path d="M179.94,-156.07C188.96,-140.64 199.32,-122.93 208.76,-106.78" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="210.85,-108.07 212.27,-100.79 206.62,-105.59 210.85,-108.07" stroke="#9aa8b5"></polygon>
 </g>
 <!-- prop:four -->
 <g class="node" id="node4">
 <title>prop:four</title>
-<g id="a_node4"><a target="_top" xlink:href="index.html#prop:four" xlink:title="Proposition 3: on a fixed rung the two observables fix A₄, G and (U, V), and leave only W free">
-<path d="M415.55,-245.41C415.55,-245.41 296.45,-245.41 296.45,-245.41 290.45,-245.41 284.45,-239.41 284.45,-233.41 284.45,-233.41 284.45,-161.83 284.45,-161.83 284.45,-155.83 290.45,-149.83 296.45,-149.83 296.45,-149.83 415.55,-149.83 415.55,-149.83 421.55,-149.83 427.55,-155.83 427.55,-161.83 427.55,-161.83 427.55,-233.41 427.55,-233.41 427.55,-239.41 421.55,-245.41 415.55,-245.41" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="356" xml:space="preserve" y="-228.97">Proposition 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="356" xml:space="preserve" y="-214.72">on a fixed rung the two</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="356" xml:space="preserve" y="-200.47">observables fix A₄, G and</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="356" xml:space="preserve" y="-186.22">(U, V), and leave only W</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="356" xml:space="preserve" y="-171.97">free</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="356" xml:space="preserve" y="-157.72">💻 program</text>
+<g id="a_node4"><a target="_top" xlink:href="index.html#prop:four" xlink:title="Proposition 3: on a fixed rung the two observables fix A₄, G and (U, V), and leave only W free. In Lean: added to the Lean repository after publication (21-oct-2026): 2ᵃ 3ᵇ = 1 with integer exponents forces a = b = 0">
+<path d="M502.3,-246.16C502.3,-246.16 273.7,-246.16 273.7,-246.16 267.7,-246.16 261.7,-240.16 261.7,-234.16 261.7,-234.16 261.7,-161.83 261.7,-161.83 261.7,-155.83 267.7,-149.83 273.7,-149.83 273.7,-149.83 502.3,-149.83 502.3,-149.83 508.3,-149.83 514.3,-155.83 514.3,-161.83 514.3,-161.83 514.3,-234.16 514.3,-234.16 514.3,-240.16 508.3,-246.16 502.3,-246.16" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-229.72">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-215.47">on a fixed rung the two</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-201.22">observables fix A₄, G and</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-186.97">(U, V), and leave only W</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-172.72">free</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-158.47">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
@@ -337,13 +398,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:mono">#</a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -414,13 +475,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:rec">#</a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -457,12 +518,25 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:four">#</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/TwoThreeIndependence.lean#L31" target="_blank" rel="noopener">GaugeHiggsUnification.TwoThreeIndependence.two_zpow_mul_three_zpow_eq_one</a></li>
+</ul>
+</div>
+</div>
 </div>
 <a class="pdfp" href="pdf.html#page=15&amp;n=prop:four" title="Open the paper at page 15">📕 p. 15</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:four" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII)”, Proposition 3, v1, doi:10.5281/zenodo.22159037, https://karlesmarin.github.io/blueprints/su7-certified-gap/index.html#prop:four." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=A%20Certified%202.68%20TeV%20Gap%20in%20the%20Closed-Form%20Map%20of%20the%20Compactification%20Scale%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%2C%20and%20the%20Invariant%20Its%20Two%20Observables%20Cannot%20See%20%28Part%20VIII%29%20%E2%80%94%20Proposition%203&amp;body=About%20Proposition%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CA%20Certified%202.68%20TeV%20Gap%20in%20the%20Closed-Form%20Map%20of%20the%20Compactification%20Scale%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%2C%20and%20the%20Invariant%20Its%20Two%20Observables%20Cannot%20See%20%28Part%20VIII%29%E2%80%9D%2C%20Proposition%203%2C%20v1%2C%20doi%3A10.5281/zenodo.22159037%2C%20https%3A//karlesmarin.github.io/blueprints/su7-certified-gap/index.html%23prop%3Afour.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="proposition_thmcontent">
-<p>  Fix \(8D\). Two contents with the same \((1/R_5, m_h)\) have the same \(A_4\), hence the same \(G\), hence the same \((U,V)\). So at fixed \(8D\) the two observables determine four of the five invariants — \(A_4\), \(8D\), \(2U\), \(V\) — and leave only \(W\) free. </p>
-</div>
-</div><p class="novedad">🆕 <b>Classical and new:</b> the arithmetic is unique factorisation and "is nobody’s"; what the paper claims is noticing that the census of the measured-mass fibre depends on it (Acknowledgements, §9).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<p>   Fix \(8D\). Two contents with the same \((1/R_5, m_h)\) have the same \(A_4\), hence the same \(G\), hence the same \((U,V)\). So at fixed \(8D\) the two observables determine four of the five invariants — \(A_4\), \(8D\), \(2U\), \(V\) — and leave only \(W\) free. </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (21-oct-2026): 2^a 3^b = 1 with integer exponents forces a = b = 0</p><ul><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/Physics/Particles/GaugeHiggsUnification/TwoThreeIndependence.lean#L31" target="_blank" rel="noopener"><code>GaugeHiggsUnification.TwoThreeIndependence.two_zpow_mul_three_zpow_eq_one</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: TwoThreeIndependence.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — two_zpow_mul_three_zpow_eq_one: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean TwoThreeIndependence.lean</code> (SHA-256 of the compiled file: <code>514d8acb5a394b61…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> the arithmetic is unique factorisation and "is nobody’s"; what the paper claims is noticing that the census of the measured-mass fibre depends on it (Acknowledgements, §9).</p><p class="usado">↳ Not used by another result of the paper.</p>
 <details class="blk b-fig"><summary>🖼️ Figure 3</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-3.png}" src="images/img-0003.png" style="width:100%;max-width:100%"/>
 </div>
 <p> <b class="bfseries">A cell is finite, and this is how finite.</b> <em>Left:</em> the counting function on the four rungs §?? enumerates, with the stretch the Higgs window populates drawn thick. The four curves lie on top of one another, which is Proposition <a href="index.html#prop:rec">2</a>: raising \(8D\) by six removes only the contents that carried no \(\mathbf{7}(+,+)\), and there are one or two of those where the cell holds tens of thousands. <em>Right:</em> the same table continued past where the enumerator can go — four rungs are drawn and they coincide for the same reason, which is why one label serves for all four. Both panels are exact integer counts. Drawn by <span class="ttfamily">make_figures_viii.py</span>. </p>
@@ -580,12 +654,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 </div>
 <nav class="prev_up_next">
-<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
-<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
-<a href="index.html" title="A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII): blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII): blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
 </nav>
-<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
-// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
 // event, so that page-specific scripts (labs) can react.
 (function(){
   function set(v){
@@ -702,7 +776,7 @@ document.addEventListener('click', function (e) {
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
 <script id="lm-guide">
 (function(){
-  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lean", "sel": "[class$=\"_thmheading\"]:has(button.modal.lean)", "title": "Checked by a computer", "text": "Point at a statement like this one: L∃∀N shows the parts checked by the Lean proof assistant, with the code.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
   function visible(e){ return e && e.offsetParent !== null; }
   function find(sel){
     var all = [].slice.call(document.querySelectorAll(sel));
@@ -784,7 +858,7 @@ document.addEventListener('click', function (e) {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:mono": "Proposition 1 — the $G$-window", "obs:fin": "Observation 1 — finiteness of a cell", "prop:rec": "Proposition 2 — the rung recursion, and it is the classical one", "prop:four": "Proposition 3 — what the two observables fix on a rung"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:mono": "Proposition 1 — the $G$-window", "obs:fin": "Observation 1 — finiteness of a cell", "prop:rec": "Proposition 2 — the rung recursion, and it is the classical one", "prop:four": "Proposition 3 — what the two observables fix on a rung"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;

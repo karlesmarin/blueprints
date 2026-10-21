@@ -38,7 +38,21 @@ details.blk[open]>summary:before{content:"▾ "}
 #vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
 #vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
         text-decoration:none;font-weight:600;white-space:nowrap}
-body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
 body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 .lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
 .lean-check .repro{color:#456}.lean-check code{font-size:.95em}
@@ -74,6 +88,33 @@ a.pdfp:hover{background:#f0e1f6}
 p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
 p.usado a{color:#1a4f8b}
 p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
+.ext-lean.ours{border-color:#b7dcb9;border-left-color:#2e7d32;background:#f1f8f1;color:#1d3b1f}
+.ext-lean.ours .tag,.ext-badge.ours{background:#2e7d32}
+.ext-lean.ours a{color:#1b5e20}
+.ext-lean.ours ul{margin:.35em 0 .2em 1.1em;padding:0}
+details.ext-lean{padding:.35em .8em}
+details.ext-lean>summary{cursor:pointer;list-style:none}
+details.ext-lean>summary::-webkit-details-marker{display:none}
+details.ext-lean>summary .more{font-size:12px;opacity:.7}
+details.ext-lean>summary .more::before{content:'▸ '}
+details.ext-lean[open]>summary .more::before{content:'▾ '}
+details.ext-lean[open]>summary{margin-bottom:.3em}
 </style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
 header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
   font:13px Helvetica,Arial,sans-serif;text-shadow:none}
@@ -168,9 +209,32 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
 </head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cogs" viewBox="0 0 32 32">
+<title>cogs</title>
+<path class="path1" d="M11.366 22.564l1.291-1.807-1.414-1.414-1.807 1.291c-0.335-0.187-0.694-0.337-1.071-0.444l-0.365-2.19h-2l-0.365 2.19c-0.377 0.107-0.736 0.256-1.071 0.444l-1.807-1.291-1.414 1.414 1.291 1.807c-0.187 0.335-0.337 0.694-0.443 1.071l-2.19 0.365v2l2.19 0.365c0.107 0.377 0.256 0.736 0.444 1.071l-1.291 1.807 1.414 1.414 1.807-1.291c0.335 0.187 0.694 0.337 1.071 0.444l0.365 2.19h2l0.365-2.19c0.377-0.107 0.736-0.256 1.071-0.444l1.807 1.291 1.414-1.414-1.291-1.807c0.187-0.335 0.337-0.694 0.444-1.071l2.19-0.365v-2l-2.19-0.365c-0.107-0.377-0.256-0.736-0.444-1.071zM7 27c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM32 12v-2l-2.106-0.383c-0.039-0.251-0.088-0.499-0.148-0.743l1.799-1.159-0.765-1.848-2.092 0.452c-0.132-0.216-0.273-0.426-0.422-0.629l1.219-1.761-1.414-1.414-1.761 1.219c-0.203-0.149-0.413-0.29-0.629-0.422l0.452-2.092-1.848-0.765-1.159 1.799c-0.244-0.059-0.492-0.109-0.743-0.148l-0.383-2.106h-2l-0.383 2.106c-0.251 0.039-0.499 0.088-0.743 0.148l-1.159-1.799-1.848 0.765 0.452 2.092c-0.216 0.132-0.426 0.273-0.629 0.422l-1.761-1.219-1.414 1.414 1.219 1.761c-0.149 0.203-0.29 0.413-0.422 0.629l-2.092-0.452-0.765 1.848 1.799 1.159c-0.059 0.244-0.109 0.492-0.148 0.743l-2.106 0.383v2l2.106 0.383c0.039 0.251 0.088 0.499 0.148 0.743l-1.799 1.159 0.765 1.848 2.092-0.452c0.132 0.216 0.273 0.426 0.422 0.629l-1.219 1.761 1.414 1.414 1.761-1.219c0.203 0.149 0.413 0.29 0.629 0.422l-0.452 2.092 1.848 0.765 1.159-1.799c0.244 0.059 0.492 0.109 0.743 0.148l0.383 2.106h2l0.383-2.106c0.251-0.039 0.499-0.088 0.743-0.148l1.159 1.799 1.848-0.765-0.452-2.092c0.216-0.132 0.426-0.273 0.629-0.422l1.761 1.219 1.414-1.414-1.219-1.761c0.149-0.203 0.29-0.413 0.422-0.629l2.092 0.452 0.765-1.848-1.799-1.159c0.059-0.244 0.109-0.492 0.148-0.743l2.106-0.383zM21 15.35c-2.402 0-4.35-1.948-4.35-4.35s1.948-4.35 4.35-4.35 4.35 1.948 4.35 4.35c0 2.402-1.948 4.35-4.35 4.35z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
 <header>
-<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
 <h1 id="doc_title"><a href="index.html" title="The order generated by a column of the SU(n)ₖ S-matrix is locally a numerical semigroup ring (Part II): blueprint">Blueprint</a></h1>
 <nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22864267" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22864267</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="s-matrix-orders-II-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
@@ -211,20 +275,20 @@ at n = 5 by an elliptic curve of conductor 50, measured); Gauss's half-systems i
 exactly and which give an infinite family of non-Gorenstein orders with semigroup ⟨3,5,7⟩.</li>
 </ul></div><p>🚀 <b>Start here:</b> <a href="index.html#cor:delta2"><b>Corollary 3</b></a>: with trivial stabiliser, δ ≥ 2 if and only if M₂M₃ = 0.</p><p><b>Main results:</b></p><ul><li><a href="index.html#lem:delta3"><b>Lemma 4</b></a>: δ = 3 in exactly four ways, one per numerical semigroup of genus three</li><li><a href="index.html#thm:ley"><b>Theorem 5</b></a>: the proportion of columns with δ ≥ 2 is 2/p − 1/p² + Oₙ(p^(1−n/2) + p^(1+⌊n/2⌋−n))</li><li><a href="index.html#thm:deltamedia"><b>Theorem 8</b></a>: the mean defect per orbit is 1 + 2/p + 3/p² + Oₙ(p^(−βₙ)) for n ≥ 7</li><li><a href="index.html#prop:familia"><b>Proposition 11</b></a>: for every p ≡ ±1 (mod 8), an explicit half-system gives a non-Gorenstein order with semigroup ⟨3,5,7⟩</li></ul><div class="cifras">
 <span class="cifra"><b>10</b> results</span>
-<span class="cifra c-lean">✅ <b>0</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>7</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 1037.00 492.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 1077.00 492.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 487.57)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M251.49,-361.37C251.49,-361.37 839.49,-361.37 839.49,-361.37 845.49,-361.37 851.49,-367.37 851.49,-373.37 851.49,-373.37 851.49,-468.95 851.49,-468.95 851.49,-474.95 845.49,-480.95 839.49,-480.95 839.49,-480.95 251.49,-480.95 251.49,-480.95 245.49,-480.95 239.49,-474.95 239.49,-468.95 239.49,-468.95 239.49,-373.37 239.49,-373.37 239.49,-367.37 245.49,-361.37 251.49,-361.37" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="545.49" xml:space="preserve" y="-465.55">Where the defect comes from</text>
+<path d="M251.49,-361.37C251.49,-361.37 879.49,-361.37 879.49,-361.37 885.49,-361.37 891.49,-367.37 891.49,-373.37 891.49,-373.37 891.49,-468.95 891.49,-468.95 891.49,-474.95 885.49,-480.95 879.49,-480.95 879.49,-480.95 251.49,-480.95 251.49,-480.95 245.49,-480.95 239.49,-474.95 239.49,-468.95 239.49,-468.95 239.49,-373.37 239.49,-373.37 239.49,-367.37 245.49,-361.37 251.49,-361.37" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="565.49" xml:space="preserve" y="-465.55">Where the defect comes from</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
@@ -233,8 +297,8 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </g>
 <g class="cluster" id="clust3">
 <title>cluster_2</title>
-<path d="M871.49,-208.16C871.49,-208.16 1017.49,-208.16 1017.49,-208.16 1023.49,-208.16 1029.49,-214.16 1029.49,-220.16 1029.49,-220.16 1029.49,-471.57 1029.49,-471.57 1029.49,-477.57 1023.49,-483.57 1017.49,-483.57 1017.49,-483.57 871.49,-483.57 871.49,-483.57 865.49,-483.57 859.49,-477.57 859.49,-471.57 859.49,-471.57 859.49,-220.16 859.49,-220.16 859.49,-214.16 865.49,-208.16 871.49,-208.16" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="944.49" xml:space="preserve" y="-468.18">The centre: Gauss's half-systems</text>
+<path d="M911.49,-208.16C911.49,-208.16 1057.49,-208.16 1057.49,-208.16 1063.49,-208.16 1069.49,-214.16 1069.49,-220.16 1069.49,-220.16 1069.49,-471.57 1069.49,-471.57 1069.49,-477.57 1063.49,-483.57 1057.49,-483.57 1057.49,-483.57 911.49,-483.57 911.49,-483.57 905.49,-483.57 899.49,-477.57 899.49,-471.57 899.49,-471.57 899.49,-220.16 899.49,-220.16 899.49,-214.16 905.49,-208.16 911.49,-208.16" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="984.49" xml:space="preserve" y="-468.18">The centre: Gauss's half-systems</text>
 </g>
 <!-- prop:n4 -->
 <g class="node" id="node1">
@@ -265,12 +329,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <!-- cor:delta2 -->
 <g class="node" id="node3">
 <title>cor:delta2</title>
-<g id="a_node3"><a target="_top" xlink:href="index.html#cor:delta2" xlink:title="Corollary 3: with trivial stabiliser, δ ≥ 2 if and only if M₂M₃ = 0">
-<path d="M666.04,-440.57C666.04,-440.57 558.94,-440.57 558.94,-440.57 552.94,-440.57 546.94,-434.57 546.94,-428.57 546.94,-428.57 546.94,-391.49 546.94,-391.49 546.94,-385.49 552.94,-379.49 558.94,-379.49 558.94,-379.49 666.04,-379.49 666.04,-379.49 672.04,-379.49 678.04,-385.49 678.04,-391.49 678.04,-391.49 678.04,-428.57 678.04,-428.57 678.04,-434.57 672.04,-440.57 666.04,-440.57" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="612.49" xml:space="preserve" y="-425.55">Corollary 3</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="612.49" xml:space="preserve" y="-412.8">with trivial stabiliser, δ</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="612.49" xml:space="preserve" y="-400.05">≥ 2 if and only if M₂M₃ =</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="612.49" xml:space="preserve" y="-387.3">0</text>
+<g id="a_node3"><a target="_top" xlink:href="index.html#cor:delta2" xlink:title="Corollary 3: with trivial stabiliser, δ ≥ 2 if and only if M₂M₃ = 0. In Lean: added to the Lean repository after publication (21-oct-2026): δ ≥ 2 ↔ M₂M₃ = 0 from the generating rule (moments abstracted to a predicate), and gᵢ ≤ 2i − 1">
+<path d="M706.29,-446.94C706.29,-446.94 558.69,-446.94 558.69,-446.94 552.69,-446.94 546.69,-440.94 546.69,-434.94 546.69,-434.94 546.69,-385.11 546.69,-385.11 546.69,-379.11 552.69,-373.11 558.69,-373.11 558.69,-373.11 706.29,-373.11 706.29,-373.11 712.29,-373.11 718.29,-379.11 718.29,-385.11 718.29,-385.11 718.29,-434.94 718.29,-434.94 718.29,-440.94 712.29,-446.94 706.29,-446.94" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="632.49" xml:space="preserve" y="-431.93">Corollary 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="632.49" xml:space="preserve" y="-419.18">with trivial stabiliser, δ</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="632.49" xml:space="preserve" y="-406.43">≥ 2 if and only if M₂M₃ =</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="632.49" xml:space="preserve" y="-393.68">0</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="632.49" xml:space="preserve" y="-380.93">◐ part in Lean · after publication</text>
 </a>
 </g>
 </g>
@@ -291,19 +356,19 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <!-- cor:delta2&#45;&gt;thm:ley -->
 <g class="edge" id="edge1">
 <title>cor:delta2-&gt;thm:ley</title>
-<path d="M568.83,-378.99C557.96,-372.47 546.09,-366.11 534.49,-361.37 434.47,-320.45 311.69,-296.13 232.54,-283.54" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="233.34,-281.19 226.05,-282.52 232.58,-286.03 233.34,-281.19" stroke="#9aa8b5"></polygon>
+<path d="M562.38,-372.6C553.13,-368.49 543.67,-364.62 534.49,-361.37 432.94,-325.4 311.02,-299.98 232.46,-285.78" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="233.33,-283.45 226.01,-284.63 232.47,-288.27 233.33,-283.45" stroke="#9aa8b5"></polygon>
 </g>
 <!-- lem:delta3 -->
 <g class="node" id="node4">
 <title>lem:delta3</title>
 <g id="a_node4"><a target="_top" xlink:href="index.html#lem:delta3" xlink:title="Lemma 4: δ = 3 in exactly four ways, one per numerical semigroup of genus three">
-<path d="M831.92,-450.7C831.92,-450.7 715.07,-450.7 715.07,-450.7 709.07,-450.7 703.07,-444.7 703.07,-438.7 703.07,-438.7 703.07,-381.36 703.07,-381.36 703.07,-375.36 709.07,-369.36 715.07,-369.36 715.07,-369.36 831.92,-369.36 831.92,-369.36 837.92,-369.36 843.92,-375.36 843.92,-381.36 843.92,-381.36 843.92,-438.7 843.92,-438.7 843.92,-444.7 837.92,-450.7 831.92,-450.7" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="773.49" xml:space="preserve" y="-434.25">Lemma 4</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="773.49" xml:space="preserve" y="-420">δ = 3 in exactly four</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="773.49" xml:space="preserve" y="-405.75">ways, one per numerical</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="773.49" xml:space="preserve" y="-391.5">semigroup of genus three</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="773.49" xml:space="preserve" y="-377.25">💻 program</text>
+<path d="M871.92,-450.7C871.92,-450.7 755.07,-450.7 755.07,-450.7 749.07,-450.7 743.07,-444.7 743.07,-438.7 743.07,-438.7 743.07,-381.36 743.07,-381.36 743.07,-375.36 749.07,-369.36 755.07,-369.36 755.07,-369.36 871.92,-369.36 871.92,-369.36 877.92,-369.36 883.92,-375.36 883.92,-381.36 883.92,-381.36 883.92,-438.7 883.92,-438.7 883.92,-444.7 877.92,-450.7 871.92,-450.7" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="813.49" xml:space="preserve" y="-434.25">Lemma 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="813.49" xml:space="preserve" y="-420">δ = 3 in exactly four</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="813.49" xml:space="preserve" y="-405.75">ways, one per numerical</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="813.49" xml:space="preserve" y="-391.5">semigroup of genus three</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="813.49" xml:space="preserve" y="-377.25">💻 program</text>
 </a>
 </g>
 </g>
@@ -322,8 +387,8 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <!-- lem:delta3&#45;&gt;thm:deltamedia -->
 <g class="edge" id="edge4">
 <title>lem:delta3-&gt;thm:deltamedia</title>
-<path d="M704.17,-368.18C699.58,-365.8 694.99,-363.5 690.49,-361.37 519.98,-280.38 310.67,-206.49 199.53,-169.16" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="200.55,-166.92 193.14,-167.01 198.99,-171.56 200.55,-166.92" stroke="#9aa8b5"></polygon>
+<path d="M744.69,-368.29C739.93,-365.86 735.17,-363.52 730.49,-361.37 545.86,-276.17 317.7,-202.55 199.99,-166.76" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="200.91,-164.48 193.5,-164.79 199.49,-169.17 200.91,-164.48" stroke="#9aa8b5"></polygon>
 </g>
 <!-- thm:ley&#45;&gt;thm:deltamedia -->
 <g class="edge" id="edge5">
@@ -391,13 +456,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node9">
 <title>prop:semisistema</title>
 <g id="a_node9"><a target="_top" xlink:href="index.html#prop:semisistema" xlink:title="Proposition 10: all even moments up to p − 3 vanish exactly on the half-systems (and the empty and full sets)">
-<path d="M1001.42,-453.32C1001.42,-453.32 887.57,-453.32 887.57,-453.32 881.57,-453.32 875.57,-447.32 875.57,-441.32 875.57,-441.32 875.57,-378.74 875.57,-378.74 875.57,-372.74 881.57,-366.74 887.57,-366.74 887.57,-366.74 1001.42,-366.74 1001.42,-366.74 1007.42,-366.74 1013.42,-372.74 1013.42,-378.74 1013.42,-378.74 1013.42,-441.32 1013.42,-441.32 1013.42,-447.32 1007.42,-453.32 1001.42,-453.32" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="944.49" xml:space="preserve" y="-438.3">Proposition 10</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="944.49" xml:space="preserve" y="-425.55">all even moments up to p −</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="944.49" xml:space="preserve" y="-412.8">3 vanish exactly on the</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="944.49" xml:space="preserve" y="-400.05">half-systems (and the</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="944.49" xml:space="preserve" y="-387.3">empty and full sets)</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="944.49" xml:space="preserve" y="-374.55">💻 program</text>
+<path d="M1041.42,-453.32C1041.42,-453.32 927.57,-453.32 927.57,-453.32 921.57,-453.32 915.57,-447.32 915.57,-441.32 915.57,-441.32 915.57,-378.74 915.57,-378.74 915.57,-372.74 921.57,-366.74 927.57,-366.74 927.57,-366.74 1041.42,-366.74 1041.42,-366.74 1047.42,-366.74 1053.42,-372.74 1053.42,-378.74 1053.42,-378.74 1053.42,-441.32 1053.42,-441.32 1053.42,-447.32 1047.42,-453.32 1041.42,-453.32" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="984.49" xml:space="preserve" y="-438.3">Proposition 10</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="984.49" xml:space="preserve" y="-425.55">all even moments up to p −</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="984.49" xml:space="preserve" y="-412.8">3 vanish exactly on the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="984.49" xml:space="preserve" y="-400.05">half-systems (and the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="984.49" xml:space="preserve" y="-387.3">empty and full sets)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="984.49" xml:space="preserve" y="-374.55">💻 program</text>
 </a>
 </g>
 </g>
@@ -405,22 +470,22 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node10">
 <title>prop:familia</title>
 <g id="a_node10"><a target="_top" xlink:href="index.html#prop:familia" xlink:title="Proposition 11: for every p ≡ ±1 (mod 8), an explicit half-system gives a non-Gorenstein order with semigroup ⟨3,5,7⟩">
-<path d="M1003.67,-326.74C1003.67,-326.74 885.32,-326.74 885.32,-326.74 879.32,-326.74 873.32,-320.74 873.32,-314.74 873.32,-314.74 873.32,-228.16 873.32,-228.16 873.32,-222.16 879.32,-216.16 885.32,-216.16 885.32,-216.16 1003.67,-216.16 1003.67,-216.16 1009.67,-216.16 1015.67,-222.16 1015.67,-228.16 1015.67,-228.16 1015.67,-314.74 1015.67,-314.74 1015.67,-320.74 1009.67,-326.74 1003.67,-326.74" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="944.49" xml:space="preserve" y="-310.3">Proposition 11</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="944.49" xml:space="preserve" y="-296.05">for every p ≡ ±1 (mod 8),</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="944.49" xml:space="preserve" y="-281.8">an explicit half-system</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="944.49" xml:space="preserve" y="-267.55">gives a non-Gorenstein</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="944.49" xml:space="preserve" y="-253.3">order with semigroup</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="944.49" xml:space="preserve" y="-239.05">⟨3,5,7⟩</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="944.49" xml:space="preserve" y="-224.05">💻 program</text>
+<path d="M1043.67,-326.74C1043.67,-326.74 925.32,-326.74 925.32,-326.74 919.32,-326.74 913.32,-320.74 913.32,-314.74 913.32,-314.74 913.32,-228.16 913.32,-228.16 913.32,-222.16 919.32,-216.16 925.32,-216.16 925.32,-216.16 1043.67,-216.16 1043.67,-216.16 1049.67,-216.16 1055.67,-222.16 1055.67,-228.16 1055.67,-228.16 1055.67,-314.74 1055.67,-314.74 1055.67,-320.74 1049.67,-326.74 1043.67,-326.74" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="984.49" xml:space="preserve" y="-310.3">Proposition 11</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="984.49" xml:space="preserve" y="-296.05">for every p ≡ ±1 (mod 8),</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="984.49" xml:space="preserve" y="-281.8">an explicit half-system</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="984.49" xml:space="preserve" y="-267.55">gives a non-Gorenstein</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="984.49" xml:space="preserve" y="-253.3">order with semigroup</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="984.49" xml:space="preserve" y="-239.05">⟨3,5,7⟩</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="984.49" xml:space="preserve" y="-224.05">💻 program</text>
 </a>
 </g>
 </g>
 <!-- prop:semisistema&#45;&gt;prop:familia -->
 <g class="edge" id="edge9">
 <title>prop:semisistema-&gt;prop:familia</title>
-<path d="M944.49,-366.19C944.49,-356.66 944.49,-346.35 944.49,-336.18" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="946.94,-336.2 944.49,-329.2 942.04,-336.2 946.94,-336.2" stroke="#9aa8b5"></polygon>
+<path d="M984.49,-366.19C984.49,-356.66 984.49,-346.35 984.49,-336.18" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="986.94,-336.2 984.49,-329.2 982.04,-336.2 986.94,-336.2" stroke="#9aa8b5"></polygon>
 </g>
 </g>
 </svg>
@@ -442,7 +507,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:n4">#</a>
-<a class="icon proof" href="index.html#a0000000005"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000005"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 </div>
 <a class="pdfp" href="pdf.html#page=5&amp;n=prop:n4" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:n4" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The order generated by a column of the SU(n)ₖ S-matrix is locally a numerical semigroup ring (Part II)”, Proposition 1, v1, doi:10.5281/zenodo.22864267, https://karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html#prop:n4." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%20%E2%80%94%20Proposition%201&amp;body=About%20Proposition%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%E2%80%9D%2C%20Proposition%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22864267%2C%20https%3A//karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html%23prop%3An4.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
@@ -508,14 +573,29 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#cor:delta2">#</a>
-<a class="icon proof" href="index.html#a0000000011"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000011"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/NumberTheory/NumericalSemigroup/GapBound.lean#L123" target="_blank" rel="noopener">P3b.two_le_genus_iff</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/NumberTheory/NumericalSemigroup/GapBound.lean#L75" target="_blank" rel="noopener">P3b.gap_le_two_mul_index_sub_one</a></li>
+<li><a class="lean_decl" href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/NumberTheory/NumericalSemigroup/GapBound.lean#L81" target="_blank" rel="noopener">P3b.gap_le_two_mul_genus_sub_one</a></li>
+</ul>
+</div>
+</div>
 </div>
 <a class="pdfp" href="pdf.html#page=5&amp;n=cor:delta2" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=cor:delta2" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The order generated by a column of the SU(n)ₖ S-matrix is locally a numerical semigroup ring (Part II)”, Corollary 3, v1, doi:10.5281/zenodo.22864267, https://karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html#cor:delta2." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%20%E2%80%94%20Corollary%203&amp;body=About%20Corollary%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%E2%80%9D%2C%20Corollary%203%2C%20v1%2C%20doi%3A10.5281/zenodo.22864267%2C%20https%3A//karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html%23cor%3Adelta2.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="corollary_thmcontent">
-<p> For \(h=1\), \(\; \delta \ge 2\iff M_2M_3=0\). </p>
-</div>
-</div><p class="usado">↳ Used in: <a href="#thm:ley">Theorem 5</a></p>
+<p>  For \(h=1\), \(\; \delta \ge 2\iff M_2M_3=0\). </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (21-oct-2026): δ ≥ 2 ↔ M₂M₃ = 0 from the generating rule (moments abstracted to a predicate), and g_i ≤ 2i − 1</p><ul><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/NumberTheory/NumericalSemigroup/GapBound.lean#L123" target="_blank" rel="noopener"><code>P3b.two_le_genus_iff</code></a></li><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/NumberTheory/NumericalSemigroup/GapBound.lean#L75" target="_blank" rel="noopener"><code>P3b.gap_le_two_mul_index_sub_one</code></a></li><li><a href="https://github.com/karlesmarin/formalizations/blob/ffa9bf2eabd785445dd5d54f96032aa58976c151/Formalizations/NumberTheory/NumericalSemigroup/GapBound.lean#L81" target="_blank" rel="noopener"><code>P3b.gap_le_two_mul_genus_sub_one</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: GapBound.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — two_le_genus_iff, gap_le_two_mul_index_sub_one, gap_le_two_mul_genus_sub_one: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean GapBound.lean</code> (SHA-256 of the compiled file: <code>f7f979544891ccc9…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="usado">↳ Used in: <a href="#thm:ley">Theorem 5</a></p>
 <div class="proof_wrapper" id="a0000000011">
 <div class="proof_heading">
 <span class="proof_caption">
@@ -537,7 +617,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#lem:delta3">#</a>
-<a class="icon proof" href="index.html#a0000000012"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000012"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 </div>
 <a class="pdfp" href="pdf.html#page=6&amp;n=lem:delta3" title="Open the paper at page 6">📕 p. 6</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=lem:delta3" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The order generated by a column of the SU(n)ₖ S-matrix is locally a numerical semigroup ring (Part II)”, Lemma 4, v1, doi:10.5281/zenodo.22864267, https://karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html#lem:delta3." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%20%E2%80%94%20Lemma%204&amp;body=About%20Lemma%204%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%E2%80%9D%2C%20Lemma%204%2C%20v1%2C%20doi%3A10.5281/zenodo.22864267%2C%20https%3A//karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html%23lem%3Adelta3.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
@@ -584,13 +664,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:ley">#</a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -629,7 +709,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#lem:CJ">#</a>
-<a class="icon proof" href="index.html#a0000000020"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000020"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 </div>
 <a class="pdfp" href="pdf.html#page=8&amp;n=lem:CJ" title="Open the paper at page 8">📕 p. 8</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=lem:CJ" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The order generated by a column of the SU(n)ₖ S-matrix is locally a numerical semigroup ring (Part II)”, Lemma 6, v1, doi:10.5281/zenodo.22864267, https://karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html#lem:CJ." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%20%E2%80%94%20Lemma%206&amp;body=About%20Lemma%206%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%E2%80%9D%2C%20Lemma%206%2C%20v1%2C%20doi%3A10.5281/zenodo.22864267%2C%20https%3A//karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html%23lem%3ACJ.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
@@ -671,15 +751,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:deltamedia">#</a>
-<a class="icon proof" href="index.html#a0000000023"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000023"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -736,13 +816,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:central">#</a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -772,7 +852,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:semisistema">#</a>
-<a class="icon proof" href="index.html#a0000000030"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000030"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 </div>
 <a class="pdfp" href="pdf.html#page=15&amp;n=prop:semisistema" title="Open the paper at page 15">📕 p. 15</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:semisistema" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The order generated by a column of the SU(n)ₖ S-matrix is locally a numerical semigroup ring (Part II)”, Proposition 10, v1, doi:10.5281/zenodo.22864267, https://karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html#prop:semisistema." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%20%E2%80%94%20Proposition%2010&amp;body=About%20Proposition%2010%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20order%20generated%20by%20a%20column%20of%20the%20SU%28n%29%E2%82%96%20S-matrix%20is%20locally%20a%20numerical%20semigroup%20ring%20%28Part%20II%29%E2%80%9D%2C%20Proposition%2010%2C%20v1%2C%20doi%3A10.5281/zenodo.22864267%2C%20https%3A//karlesmarin.github.io/blueprints/s-matrix-orders-II/index.html%23prop%3Asemisistema.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
@@ -810,15 +890,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:familia">#</a>
-<a class="icon proof" href="index.html#a0000000033"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000033"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -927,12 +1007,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 </div>
 <nav class="prev_up_next">
-<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
-<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
-<a href="index.html" title="The order generated by a column of the SU(n)ₖ S-matrix is locally a numerical semigroup ring (Part II): blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="The order generated by a column of the SU(n)ₖ S-matrix is locally a numerical semigroup ring (Part II): blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
 </nav>
-<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
-// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
 // event, so that page-specific scripts (labs) can react.
 (function(){
   function set(v){
@@ -1049,7 +1129,7 @@ document.addEventListener('click', function (e) {
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
 <script id="lm-guide">
 (function(){
-  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lean", "sel": "[class$=\"_thmheading\"]:has(button.modal.lean)", "title": "Checked by a computer", "text": "Point at a statement like this one: L∃∀N shows the parts checked by the Lean proof assistant, with the code.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
   function visible(e){ return e && e.offsetParent !== null; }
   function find(sel){
     var all = [].slice.call(document.querySelectorAll(sel));
@@ -1131,7 +1211,7 @@ document.addEventListener('click', function (e) {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:n4": "Proposition 1", "prop:tricotomia": "Observation 2", "cor:delta2": "Corollary 3", "lem:delta3": "Lemma 4", "thm:ley": "Theorem 5", "lem:CJ": "Lemma 6", "thm:deltamedia": "Theorem 8", "thm:central": "Theorem 9", "prop:semisistema": "Proposition 10", "prop:familia": "Proposition 11"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:n4": "Proposition 1", "prop:tricotomia": "Observation 2", "cor:delta2": "Corollary 3", "lem:delta3": "Lemma 4", "thm:ley": "Theorem 5", "lem:CJ": "Lemma 6", "thm:deltamedia": "Theorem 8", "thm:central": "Theorem 9", "prop:semisistema": "Proposition 10", "prop:familia": "Proposition 11"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
