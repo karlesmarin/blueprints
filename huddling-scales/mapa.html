@@ -37,7 +37,11 @@ a{color:#1a4f8b}
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><style id="pc-map-css">
 html,body{height:100%}
@@ -108,7 +112,7 @@ body{display:block !important}
   position:static !important;max-height:none !important}
 section.pc-pane,section.pc-pane[hidden]{display:block !important}
 nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
-button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
   display:none !important}
 a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
 .lm-was-summary{font-weight:600;margin:.2em 0 .4em}
@@ -126,53 +130,53 @@ a{text-decoration:none}
 header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
 #pane-deps{break-after:page}
 section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
-section.pc-pane .mapa svg{width:421pt !important;height:416pt !important;max-width:none !important;
+section.pc-pane .mapa svg{width:486pt !important;height:416pt !important;max-width:none !important;
   max-height:none !important;min-width:0 !important}
 </style>
 </head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4: blueprint">Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper 1.1 (<a href="https://doi.org/10.5281/zenodo.23123219" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.23123219</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="huddling-scales-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
 <div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Mathematical music theory · discrete Fourier analysis on ℤ₁₂</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
 <span class="cifra"><b>4</b> results</span>
-<span class="cifra c-lean">✅ <b>3</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>1</b> with a part in Lean</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>2</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>2</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>2</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="416pt" viewbox="0.00 0.00 421.00 416.00" width="421pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="416pt" viewbox="0.00 0.00 486.00 416.00" width="486pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 412.49)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M12,-283.66C12,-283.66 138,-283.66 138,-283.66 144,-283.66 150,-289.66 150,-295.66 150,-295.66 150,-396.49 150,-396.49 150,-402.49 144,-408.49 138,-408.49 138,-408.49 12,-408.49 12,-408.49 6,-408.49 0,-402.49 0,-396.49 0,-396.49 0,-295.66 0,-295.66 0,-289.66 6,-283.66 12,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-393.09">What Huddling contributes</text>
+<path d="M12,-283.66C12,-283.66 238,-283.66 238,-283.66 244,-283.66 250,-289.66 250,-295.66 250,-295.66 250,-396.49 250,-396.49 250,-402.49 244,-408.49 238,-408.49 238,-408.49 12,-408.49 12,-408.49 6,-408.49 0,-402.49 0,-396.49 0,-396.49 0,-295.66 0,-295.66 0,-289.66 6,-283.66 12,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="125" xml:space="preserve" y="-393.09">What Huddling contributes</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M171,-283.66C171,-283.66 401,-283.66 401,-283.66 407,-283.66 413,-289.66 413,-295.66 413,-295.66 413,-396.49 413,-396.49 413,-402.49 407,-408.49 401,-408.49 401,-408.49 171,-408.49 171,-408.49 165,-408.49 159,-402.49 159,-396.49 159,-396.49 159,-295.66 159,-295.66 159,-289.66 165,-283.66 171,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="286" xml:space="preserve" y="-393.09">Why the energy selects the same collection</text>
+<path d="M271,-283.66C271,-283.66 466,-283.66 466,-283.66 472,-283.66 478,-289.66 478,-295.66 478,-295.66 478,-396.49 478,-396.49 478,-402.49 472,-408.49 466,-408.49 466,-408.49 271,-408.49 271,-408.49 265,-408.49 259,-402.49 259,-396.49 259,-396.49 259,-295.66 259,-295.66 259,-289.66 265,-283.66 271,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="368.5" xml:space="preserve" y="-393.09">Why the energy selects the same collection</text>
 </g>
 <g class="cluster" id="clust3">
 <title>cluster_2</title>
-<path d="M100,-141.83C100,-141.83 291,-141.83 291,-141.83 297,-141.83 303,-147.83 303,-153.83 303,-153.83 303,-263.66 303,-263.66 303,-269.66 297,-275.66 291,-275.66 291,-275.66 100,-275.66 100,-275.66 94,-275.66 88,-269.66 88,-263.66 88,-263.66 88,-153.83 88,-153.83 88,-147.83 94,-141.83 100,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195.5" xml:space="preserve" y="-260.25">The two questions have one equality class</text>
+<path d="M136,-141.83C136,-141.83 327,-141.83 327,-141.83 333,-141.83 339,-147.83 339,-153.83 339,-153.83 339,-263.66 339,-263.66 339,-269.66 333,-275.66 327,-275.66 327,-275.66 136,-275.66 136,-275.66 130,-275.66 124,-269.66 124,-263.66 124,-263.66 124,-153.83 124,-153.83 124,-147.83 130,-141.83 136,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231.5" xml:space="preserve" y="-260.25">The two questions have one equality class</text>
 </g>
 <g class="cluster" id="clust4">
 <title>cluster_3</title>
-<path d="M103,0C103,0 288,0 288,0 294,0 300,-6 300,-12 300,-12 300,-121.83 300,-121.83 300,-127.83 294,-133.83 288,-133.83 288,-133.83 103,-133.83 103,-133.83 97,-133.83 91,-127.83 91,-121.83 91,-121.83 91,-12 91,-12 91,-6 97,0 103,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195.5" xml:space="preserve" y="-118.42">What happens to the five notes left over?</text>
+<path d="M147,0C147,0 332,0 332,0 338,0 344,-6 344,-12 344,-12 344,-121.83 344,-121.83 344,-127.83 338,-133.83 332,-133.83 332,-133.83 147,-133.83 147,-133.83 141,-133.83 135,-127.83 135,-121.83 135,-121.83 135,-12 135,-12 135,-6 141,0 147,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239.5" xml:space="preserve" y="-118.42">What happens to the five notes left over?</text>
 </g>
 <!-- thm:huddling -->
 <g class="node" id="node1">
 <title>thm:huddling</title>
-<g id="a_node1"><a target="_top" xlink:href="index.html#thm:huddling" xlink:title="Theorem 1: consecutive arcs maximize the first Fourier magnitude, exactly on their transposition orbit">
-<path d="M130.05,-378.24C130.05,-378.24 19.95,-378.24 19.95,-378.24 13.95,-378.24 7.95,-372.24 7.95,-366.24 7.95,-366.24 7.95,-303.66 7.95,-303.66 7.95,-297.66 13.95,-291.66 19.95,-291.66 19.95,-291.66 130.05,-291.66 130.05,-291.66 136.05,-291.66 142.05,-297.66 142.05,-303.66 142.05,-303.66 142.05,-366.24 142.05,-366.24 142.05,-372.24 136.05,-378.24 130.05,-378.24" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-363.23">Theorem 1</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-350.48">consecutive arcs maximize</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-337.73">the first Fourier</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-324.98">magnitude, exactly on</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-312.23">their transposition orbit</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-299.48">✅ Lean · 💻 program</text>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:huddling" xlink:title="Theorem 1: consecutive arcs maximize the first Fourier magnitude, exactly on their transposition orbit. In Lean: added to the Lean repository after publication (23-oct-2026): the general statement for every cyclic group Z_N (Amiot’s Lemma 2, of which the paper certifies the twelve-tone instance): for every unit frequency the arc maximizes the Fourier magnitude, exactly on its translates, and the maximum is sin(πm/N)/sin(π/N); added to the Lean repository after publication (23-oct-2026): the general statement for every cyclic group Z_N (Amiot’s Lemma 2, of which the paper certifies the twelve-tone instance): for every unit frequency the arc maximizes the Fourier magnitude, exactly on its translates, and the maximum is sin(πm/N)/sin(π/N)">
+<path d="M230.3,-378.24C230.3,-378.24 19.7,-378.24 19.7,-378.24 13.7,-378.24 7.7,-372.24 7.7,-366.24 7.7,-366.24 7.7,-303.66 7.7,-303.66 7.7,-297.66 13.7,-291.66 19.7,-291.66 19.7,-291.66 230.3,-291.66 230.3,-291.66 236.3,-291.66 242.3,-297.66 242.3,-303.66 242.3,-303.66 242.3,-366.24 242.3,-366.24 242.3,-372.24 236.3,-378.24 230.3,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-363.23">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-350.48">consecutive arcs maximize</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-337.73">the first Fourier</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-324.98">magnitude, exactly on</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-312.23">their transposition orbit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-299.48">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
@@ -180,61 +184,61 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node3">
 <title>thm:connection</title>
 <g id="a_node3"><a target="_top" xlink:href="index.html#thm:connection" xlink:title="Theorem 3: Fourier maximum and energy minimum have the same equality class: the twelve diatonic transpositions">
-<path d="M263.93,-245.41C263.93,-245.41 126.07,-245.41 126.07,-245.41 120.07,-245.41 114.08,-239.41 114.08,-233.41 114.08,-233.41 114.08,-161.83 114.08,-161.83 114.08,-155.83 120.08,-149.83 126.08,-149.83 126.08,-149.83 263.93,-149.83 263.93,-149.83 269.93,-149.83 275.93,-155.83 275.93,-161.83 275.93,-161.83 275.93,-233.41 275.93,-233.41 275.93,-239.41 269.93,-245.41 263.93,-245.41" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-228.97">Theorem 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-214.72">Fourier maximum and energy</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-200.47">minimum have the same</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-186.22">equality class: the twelve</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-171.97">diatonic transpositions</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-157.72">✅ Lean · 💻 program</text>
+<path d="M299.93,-245.41C299.93,-245.41 162.07,-245.41 162.07,-245.41 156.07,-245.41 150.07,-239.41 150.07,-233.41 150.07,-233.41 150.07,-161.83 150.07,-161.83 150.07,-155.83 156.07,-149.83 162.07,-149.83 162.07,-149.83 299.93,-149.83 299.93,-149.83 305.93,-149.83 311.93,-155.83 311.93,-161.83 311.93,-161.83 311.93,-233.41 311.93,-233.41 311.93,-239.41 305.93,-245.41 299.93,-245.41" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-228.97">Theorem 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-214.72">Fourier maximum and energy</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-200.47">minimum have the same</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-186.22">equality class: the twelve</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-171.97">diatonic transpositions</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-157.72">✅ Lean · 💻 program</text>
 </a>
 </g>
 </g>
 <!-- thm:huddling&#45;&gt;thm:connection -->
 <g class="edge" id="edge2">
 <title>thm:huddling-&gt;thm:connection</title>
-<path d="M112.97,-291.13C123.83,-278.89 135.8,-265.38 147.17,-252.56" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="148.88,-254.33 151.69,-247.46 145.21,-251.08 148.88,-254.33" stroke="#9aa8b5"></polygon>
+<path d="M158.54,-291.13C168.04,-279 178.52,-265.63 188.48,-252.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="190.31,-254.54 192.7,-247.52 186.45,-251.52 190.31,-254.54" stroke="#9aa8b5"></polygon>
 </g>
 <!-- thm:energy -->
 <g class="node" id="node2">
 <title>thm:energy</title>
 <g id="a_node2"><a target="_top" xlink:href="index.html#thm:energy" xlink:title="Theorem 2: the diatonic orbit minimizes every admissible convex pair energy, uniquely under strictness. In Lean: the Abel identity symbolically; the seven-note certificate Hⱼ ≥ 0 by nativedecide">
-<path d="M393.18,-378.24C393.18,-378.24 178.82,-378.24 178.82,-378.24 172.82,-378.24 166.82,-372.24 166.82,-366.24 166.82,-366.24 166.82,-303.66 166.82,-303.66 166.82,-297.66 172.82,-291.66 178.82,-291.66 178.82,-291.66 393.18,-291.66 393.18,-291.66 399.18,-291.66 405.18,-297.66 405.18,-303.66 405.18,-303.66 405.18,-366.24 405.18,-366.24 405.18,-372.24 399.18,-378.24 393.18,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-363.23">Theorem 2</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-350.48">the diatonic orbit</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-337.73">minimizes every admissible</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-324.98">convex pair energy,</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-312.23">uniquely under strictness</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-299.48">◐ in Lean: the Abel identity symbolically; the …</text>
+<path d="M394.3,-378.24C394.3,-378.24 279.7,-378.24 279.7,-378.24 273.7,-378.24 267.7,-372.24 267.7,-366.24 267.7,-366.24 267.7,-303.66 267.7,-303.66 267.7,-297.66 273.7,-291.66 279.7,-291.66 279.7,-291.66 394.3,-291.66 394.3,-291.66 400.3,-291.66 406.3,-297.66 406.3,-303.66 406.3,-303.66 406.3,-366.24 406.3,-366.24 406.3,-372.24 400.3,-378.24 394.3,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-363.23">Theorem 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-350.48">the diatonic orbit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-337.73">minimizes every admissible</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-324.98">convex pair energy,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-312.23">uniquely under strictness</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-299.48">◐ part in Lean</text>
 </a>
 </g>
 </g>
 <!-- thm:energy&#45;&gt;thm:connection -->
 <g class="edge" id="edge1">
 <title>thm:energy-&gt;thm:connection</title>
-<path d="M257.21,-291.13C249.12,-279.11 240.22,-265.87 231.74,-253.26" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="233.86,-252.03 227.92,-247.59 229.8,-254.76 233.86,-252.03" stroke="#9aa8b5"></polygon>
+<path d="M303.46,-291.13C293.96,-279 283.48,-265.63 273.52,-252.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="275.55,-251.52 269.3,-247.52 271.69,-254.54 275.55,-251.52" stroke="#9aa8b5"></polygon>
 </g>
 <!-- thm:pentatonic -->
 <g class="node" id="node4">
 <title>thm:pentatonic</title>
 <g id="a_node4"><a target="_top" xlink:href="index.html#thm:pentatonic" xlink:title="Theorem 4: the pentatonic sets inherit both extremal properties through complementation">
-<path d="M242.55,-103.58C242.55,-103.58 147.45,-103.58 147.45,-103.58 141.45,-103.58 135.45,-97.58 135.45,-91.58 135.45,-91.58 135.45,-20 135.45,-20 135.45,-14 141.45,-8 147.45,-8 147.45,-8 242.55,-8 242.55,-8 248.55,-8 254.55,-14 254.55,-20 254.55,-20 254.55,-91.58 254.55,-91.58 254.55,-97.58 248.55,-103.58 242.55,-103.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-87.14">Theorem 4</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-72.89">the pentatonic sets</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-58.64">inherit both extremal</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-44.39">properties through</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-30.14">complementation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-15.89">✅ Lean</text>
+<path d="M278.55,-103.58C278.55,-103.58 183.45,-103.58 183.45,-103.58 177.45,-103.58 171.45,-97.58 171.45,-91.58 171.45,-91.58 171.45,-20 171.45,-20 171.45,-14 177.45,-8 183.45,-8 183.45,-8 278.55,-8 278.55,-8 284.55,-8 290.55,-14 290.55,-20 290.55,-20 290.55,-91.58 290.55,-91.58 290.55,-97.58 284.55,-103.58 278.55,-103.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-87.14">Theorem 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-72.89">the pentatonic sets</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-58.64">inherit both extremal</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-44.39">properties through</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-30.14">complementation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-15.89">✅ Lean</text>
 </a>
 </g>
 </g>
 <!-- thm:connection&#45;&gt;thm:pentatonic -->
 <g class="edge" id="edge3">
 <title>thm:connection-&gt;thm:pentatonic</title>
-<path d="M195,-148.89C195,-137.43 195,-125.08 195,-113.27" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="197.45,-113.29 195,-106.29 192.55,-113.29 197.45,-113.29" stroke="#9aa8b5"></polygon>
+<path d="M231,-148.89C231,-137.43 231,-125.08 231,-113.27" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="233.45,-113.29 231,-106.29 228.55,-113.29 233.45,-113.29" stroke="#9aa8b5"></polygon>
 </g>
 </g>
 </svg>
@@ -291,7 +295,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:huddling": "Theorem 1 — Huddling in $\\Ztwelve$", "thm:energy": "Theorem 2 — Diatonic energy minimum", "thm:connection": "Theorem 3 — Fourier--energy equivalence", "thm:pentatonic": "Theorem 4 — Pentatonic extremality"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:huddling": "Theorem 1 — Huddling in $\\Ztwelve$", "thm:energy": "Theorem 2 — Diatonic energy minimum", "thm:connection": "Theorem 3 — Fourier--energy equivalence", "thm:pentatonic": "Theorem 4 — Pentatonic extremality"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;

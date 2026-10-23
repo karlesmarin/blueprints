@@ -20,7 +20,11 @@
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><script id="pc-embed">
 (function(){
@@ -57,7 +61,10 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
 </style></head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
 <header>
 <a class="toc" href="index.html">Home</a>
 <h1 id="doc_title">Dependencies</h1>
@@ -88,7 +95,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:connection_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:connection" style="display: none">
 <div class="thm_thmheading">
@@ -97,7 +104,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">3</span><span class="theorem_thmtitle">Fourier–energy equivalence</span></div>
 <div class="thm_thmcontent"><p>    For every strictly admissible \(V\) and every seven-element \(A\subseteq {\mathbb {Z}_{12}}\), </p>
-<div class="displaymath" id="a0000000016">
+<div class="displaymath" id="a0000000015">
   \[  \boxed {\quad |{\widehat A}(5)|=2+\sqrt3\quad \Longleftrightarrow \quad E_V(A)=E_V(D).\quad }  \]
 </div>
 <p> Both sides hold precisely for the twelve transpositions of \(D\). </p>
@@ -106,9 +113,9 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/DiatonicExtremality.lean#L183">MusicTheory.DiatonicExtremality.spectral_energy_equivalence</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L128" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/DiatonicExtremality.lean#L128">MusicTheory.DiatonicExtremality.diatonic_norm_unique</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L179" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/Huddling.lean#L179">MusicTheory.Huddling.fifth_frequency_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L183">MusicTheory.DiatonicExtremality.spectral_energy_equivalence</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L128" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L128">MusicTheory.DiatonicExtremality.diatonic_norm_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L179" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L179">MusicTheory.Huddling.fifth_frequency_unique</a></li>
 </ul>
 </div>
 </div>
@@ -117,7 +124,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:energy_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:energy" style="display: none">
 <div class="thm_thmheading">
@@ -126,7 +133,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">2</span><span class="theorem_thmtitle">Diatonic energy minimum</span></div>
 <div class="thm_thmcontent"><p>   For every admissible \(V\) and every \(A\subseteq {\mathbb {Z}_{12}}\) with \(|A|=7\), \(E_V(D)\le E_V(A)\). If \(V\) is strictly admissible, then </p>
-<div class="displaymath" id="a0000000012">
+<div class="displaymath" id="a0000000011">
   \[  E_V(A)=E_V(D)\  \Longleftrightarrow \  A\in {\mathcal O_D}.  \]
 </div>
 </div>
@@ -134,8 +141,8 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/AllPairsEvenness.html#L124" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/AllPairsEvenness.lean#L124">MusicTheory.AllPairsEvenness.abel_bridge</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L171" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/DiatonicExtremality.lean#L171">MusicTheory.DiatonicExtremality.diatonic_energy_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/AllPairsEvenness.html#L124" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/AllPairsEvenness.lean#L124">MusicTheory.AllPairsEvenness.abel_bridge</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L171" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L171">MusicTheory.DiatonicExtremality.diatonic_energy_unique</a></li>
 </ul>
 </div>
 </div>
@@ -144,7 +151,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:huddling_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:huddling" style="display: none">
 <div class="thm_thmheading">
@@ -162,9 +169,14 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L132" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/Huddling.lean#L132">MusicTheory.Huddling.arc_maximizes_power</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/Huddling.lean#L141">MusicTheory.Huddling.arc_unique</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/MTransform.html#L355" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/MTransform.lean#L355">MusicTheory.MTransform.powerSpec_one_re_le_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L132" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L132">MusicTheory.Huddling.arc_maximizes_power</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L141">MusicTheory.Huddling.arc_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/MTransform.html#L355" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/MTransform.lean#L355">MusicTheory.MTransform.powerSpec_one_re_le_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingGeometry.html#L366" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingGeometry.lean#L366">MusicTheory.CyclicHuddling.norm_Ahat_unit_le_arc</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingGeometry.html#L445" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingGeometry.lean#L445">MusicTheory.CyclicHuddling.norm_Ahat_unit_eq_arc_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L89" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L89">MusicTheory.CyclicHuddling.norm_Ahat_unit_le_sine_ratio</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L97" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L97">MusicTheory.CyclicHuddling.norm_Ahat_unit_eq_sine_ratio_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L61" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L61">MusicTheory.CyclicHuddling.norm_Ahat_arc_sine_ratio</a></li>
 </ul>
 </div>
 </div>
@@ -173,7 +185,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:pentatonic_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:pentatonic" style="display: none">
 <div class="thm_thmheading">
@@ -190,9 +202,9 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L237" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/ExtremalityConnections.lean#L237">MusicTheory.ExtremalityConnections.pentatonic_spectral_energy_equivalence</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L222" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/ExtremalityConnections.lean#L222">MusicTheory.ExtremalityConnections.pentatonic_energy_gap</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L172" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/ExtremalityConnections.lean#L172">MusicTheory.ExtremalityConnections.energy_compl</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L237" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L237">MusicTheory.ExtremalityConnections.pentatonic_spectral_energy_equivalence</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L222" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L222">MusicTheory.ExtremalityConnections.pentatonic_energy_gap</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L172" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L172">MusicTheory.ExtremalityConnections.energy_compl</a></li>
 </ul>
 </div>
 </div>
@@ -215,7 +227,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:huddling"	[color=green,		fillcolor="#1CAC78",		label=huddling,		shape=ellipse,		style=filled];	"thm:connection"	[color=green,		fillcolor="#9CEC8B",		label=connection,		shape=ellipse,		style=filled];	"thm:huddling" -> "thm:connection"	[style=dashed];	"thm:pentatonic"	[color=green,		fillcolor="#9CEC8B",		label=pentatonic,		shape=ellipse,		style=filled];	"thm:connection" -> "thm:pentatonic"	[style=dashed];	"thm:energy"	[color=blue,		label=energy,		shape=ellipse];	"thm:energy" -> "thm:connection"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:huddling"	[color=blue,		label=huddling,		shape=ellipse];	"thm:connection"	[color=green,		fillcolor="#9CEC8B",		label=connection,		shape=ellipse,		style=filled];	"thm:huddling" -> "thm:connection"	[style=dashed];	"thm:pentatonic"	[color=green,		fillcolor="#9CEC8B",		label=pentatonic,		shape=ellipse,		style=filled];	"thm:connection" -> "thm:pentatonic"	[style=dashed];	"thm:energy"	[color=blue,		label=energy,		shape=ellipse];	"thm:energy" -> "thm:connection"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -256,7 +268,7 @@ function interactive() {
 <!-- thm:huddling -->
 <g class="node" id="node1">
 <title>thm:huddling</title>
-<ellipse cx="43.68" cy="-162" fill="#1cac78" rx="43.68" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<ellipse cx="43.68" cy="-162" fill="none" rx="43.68" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="43.68" xml:space="preserve" y="-156.95">huddling</text>
 </g>
 <!-- thm:connection -->
@@ -311,7 +323,7 @@ function interactive() {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:huddling": "Theorem 1 — Huddling in $\\Ztwelve$", "thm:energy": "Theorem 2 — Diatonic energy minimum", "thm:connection": "Theorem 3 — Fourier--energy equivalence", "thm:pentatonic": "Theorem 4 — Pentatonic extremality"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:huddling": "Theorem 1 — Huddling in $\\Ztwelve$", "thm:energy": "Theorem 2 — Diatonic energy minimum", "thm:connection": "Theorem 3 — Fourier--energy equivalence", "thm:pentatonic": "Theorem 4 — Pentatonic extremality"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
@@ -345,25 +357,6 @@ function interactive() {
     var due = null;
     new MutationObserver(function () {
       if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
@@ -414,6 +407,25 @@ function interactive() {
     var a=e.target.closest&&e.target.closest('a[data-lean-github]');
     if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
     e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
 </body>

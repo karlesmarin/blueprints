@@ -38,7 +38,21 @@ details.blk[open]>summary:before{content:"▾ "}
 #vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
 #vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
         text-decoration:none;font-weight:600;white-space:nowrap}
-body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
 body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 .lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
 .lean-check .repro{color:#456}.lean-check code{font-size:.95em}
@@ -58,10 +72,14 @@ body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><style id="lm-citebar-css">
-.lm-act{margin-left:.4em;white-space:nowrap}
+.lm-act{margin-left:.4em;white-space:nowrap;flex-shrink:0}
 .lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
           padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
 .lm-act a:hover{background:#eef2f6}
@@ -74,6 +92,33 @@ a.pdfp:hover{background:#f0e1f6}
 p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
 p.usado a{color:#1a4f8b}
 p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
+.ext-lean.ours{border-color:#b7dcb9;border-left-color:#2e7d32;background:#f1f8f1;color:#1d3b1f}
+.ext-lean.ours .tag,.ext-badge.ours{background:#2e7d32}
+.ext-lean.ours a{color:#1b5e20}
+.ext-lean.ours ul{margin:.35em 0 .2em 1.1em;padding:0}
+details.ext-lean{padding:.35em .8em}
+details.ext-lean>summary{cursor:pointer;list-style:none}
+details.ext-lean>summary::-webkit-details-marker{display:none}
+details.ext-lean>summary .more{font-size:12px;opacity:.7}
+details.ext-lean>summary .more::before{content:'▸ '}
+details.ext-lean[open]>summary .more::before{content:'▾ '}
+details.ext-lean[open]>summary{margin-bottom:.3em}
 </style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
 header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
   font:13px Helvetica,Arial,sans-serif;text-shadow:none}
@@ -153,7 +198,7 @@ body{display:block !important}
   position:static !important;max-height:none !important}
 section.pc-pane,section.pc-pane[hidden]{display:block !important}
 nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
-button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
   display:none !important}
 a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
 .lm-was-summary{font-weight:600;margin:.2em 0 .4em}
@@ -168,9 +213,32 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
 </head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cogs" viewBox="0 0 32 32">
+<title>cogs</title>
+<path class="path1" d="M11.366 22.564l1.291-1.807-1.414-1.414-1.807 1.291c-0.335-0.187-0.694-0.337-1.071-0.444l-0.365-2.19h-2l-0.365 2.19c-0.377 0.107-0.736 0.256-1.071 0.444l-1.807-1.291-1.414 1.414 1.291 1.807c-0.187 0.335-0.337 0.694-0.443 1.071l-2.19 0.365v2l2.19 0.365c0.107 0.377 0.256 0.736 0.444 1.071l-1.291 1.807 1.414 1.414 1.807-1.291c0.335 0.187 0.694 0.337 1.071 0.444l0.365 2.19h2l0.365-2.19c0.377-0.107 0.736-0.256 1.071-0.444l1.807 1.291 1.414-1.414-1.291-1.807c0.187-0.335 0.337-0.694 0.444-1.071l2.19-0.365v-2l-2.19-0.365c-0.107-0.377-0.256-0.736-0.444-1.071zM7 27c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM32 12v-2l-2.106-0.383c-0.039-0.251-0.088-0.499-0.148-0.743l1.799-1.159-0.765-1.848-2.092 0.452c-0.132-0.216-0.273-0.426-0.422-0.629l1.219-1.761-1.414-1.414-1.761 1.219c-0.203-0.149-0.413-0.29-0.629-0.422l0.452-2.092-1.848-0.765-1.159 1.799c-0.244-0.059-0.492-0.109-0.743-0.148l-0.383-2.106h-2l-0.383 2.106c-0.251 0.039-0.499 0.088-0.743 0.148l-1.159-1.799-1.848 0.765 0.452 2.092c-0.216 0.132-0.426 0.273-0.629 0.422l-1.761-1.219-1.414 1.414 1.219 1.761c-0.149 0.203-0.29 0.413-0.422 0.629l-2.092-0.452-0.765 1.848 1.799 1.159c-0.059 0.244-0.109 0.492-0.148 0.743l-2.106 0.383v2l2.106 0.383c0.039 0.251 0.088 0.499 0.148 0.743l-1.799 1.159 0.765 1.848 2.092-0.452c0.132 0.216 0.273 0.426 0.422 0.629l-1.219 1.761 1.414 1.414 1.761-1.219c0.203 0.149 0.413 0.29 0.629 0.422l-0.452 2.092 1.848 0.765 1.159-1.799c0.244 0.059 0.492 0.109 0.743 0.148l0.383 2.106h2l0.383-2.106c0.251-0.039 0.499-0.088 0.743-0.148l1.159 1.799 1.848-0.765-0.452-2.092c0.216-0.132 0.426-0.273 0.629-0.422l1.761 1.219 1.414-1.414-1.219-1.761c0.149-0.203 0.29-0.413 0.422-0.629l2.092 0.452 0.765-1.848-1.799-1.159c0.059-0.244 0.109-0.492 0.148-0.743l2.106-0.383zM21 15.35c-2.402 0-4.35-1.948-4.35-4.35s1.948-4.35 4.35-4.35 4.35 1.948 4.35 4.35c0 2.402-1.948 4.35-4.35 4.35z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
 <header>
-<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
 <h1 id="doc_title"><a href="index.html" title="Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4: blueprint">Blueprint</a></h1>
 <nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper 1.1 (<a href="https://doi.org/10.5281/zenodo.23123219" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.23123219</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="huddling-scales-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
@@ -178,11 +246,11 @@ a{text-decoration:none}
 <nav class="toc">
 <ul class="sub-toc-0">
 <li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
-<li class=""><a href="#a0000000004"><span class="toc_ref">3</span> <span class="toc_entry">What Huddling contributes</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:huddling" title="Huddling in \({\mathbb {Z}_{12}}\)"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
-<li class=""><a href="#a0000000011"><span class="toc_ref">4</span> <span class="toc_entry">Why the energy selects the same collection</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:energy" title="Diatonic energy minimum"><span class="toc_ref"></span> <span class="toc_entry">Theorem 2</span></a></li></ul></li>
-<li class=""><a href="#a0000000014"><span class="toc_ref">5</span> <span class="toc_entry">The two questions have one equality class</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:connection" title="Fourier–energy equivalence"><span class="toc_ref"></span> <span class="toc_entry">Theorem 3</span></a></li></ul></li>
+<li class=""><a href="#a0000000005"><span class="toc_ref">3</span> <span class="toc_entry">What Huddling contributes</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:huddling" title="Huddling in \({\mathbb {Z}_{12}}\)"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000010"><span class="toc_ref">4</span> <span class="toc_entry">Why the energy selects the same collection</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:energy" title="Diatonic energy minimum"><span class="toc_ref"></span> <span class="toc_entry">Theorem 2</span></a></li></ul></li>
+<li class=""><a href="#a0000000013"><span class="toc_ref">5</span> <span class="toc_entry">The two questions have one equality class</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:connection" title="Fourier–energy equivalence"><span class="toc_ref"></span> <span class="toc_entry">Theorem 3</span></a></li></ul></li>
 <li class=""><a href="#a0000000025"><span class="toc_ref">6</span> <span class="toc_entry">What happens to the five notes left over?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:pentatonic" title="Pentatonic extremality"><span class="toc_ref"></span> <span class="toc_entry">Theorem 4</span></a></li></ul></li>
-<li class=""><a href="#a0000000031"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li class=""><a href="#a0000000029"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
 <li><a href="dep_graph_document.html">Dependency graph</a></li>
 </ul>
 </nav>
@@ -200,47 +268,47 @@ a{text-decoration:none}
 </li><li>The mathematics is classical; the paper claims the connected formalization, not a new characterization.
 </li></ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:huddling"><b>Theorem 1</b></a>: consecutive arcs maximize the first Fourier magnitude, exactly on their transposition orbit.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:connection"><b>Theorem 3</b></a>: Fourier maximum and energy minimum have the same equality class: the twelve diatonic transpositions</li><li><a href="index.html#thm:pentatonic"><b>Theorem 4</b></a>: the pentatonic sets inherit both extremal properties through complementation</li></ul><div class="cifras">
 <span class="cifra"><b>4</b> results</span>
-<span class="cifra c-lean">✅ <b>3</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>1</b> with a part in Lean</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>2</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>2</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>2</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 421.00 416.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 486.00 416.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 412.49)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M12,-283.66C12,-283.66 138,-283.66 138,-283.66 144,-283.66 150,-289.66 150,-295.66 150,-295.66 150,-396.49 150,-396.49 150,-402.49 144,-408.49 138,-408.49 138,-408.49 12,-408.49 12,-408.49 6,-408.49 0,-402.49 0,-396.49 0,-396.49 0,-295.66 0,-295.66 0,-289.66 6,-283.66 12,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-393.09">What Huddling contributes</text>
+<path d="M12,-283.66C12,-283.66 238,-283.66 238,-283.66 244,-283.66 250,-289.66 250,-295.66 250,-295.66 250,-396.49 250,-396.49 250,-402.49 244,-408.49 238,-408.49 238,-408.49 12,-408.49 12,-408.49 6,-408.49 0,-402.49 0,-396.49 0,-396.49 0,-295.66 0,-295.66 0,-289.66 6,-283.66 12,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="125" xml:space="preserve" y="-393.09">What Huddling contributes</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M171,-283.66C171,-283.66 401,-283.66 401,-283.66 407,-283.66 413,-289.66 413,-295.66 413,-295.66 413,-396.49 413,-396.49 413,-402.49 407,-408.49 401,-408.49 401,-408.49 171,-408.49 171,-408.49 165,-408.49 159,-402.49 159,-396.49 159,-396.49 159,-295.66 159,-295.66 159,-289.66 165,-283.66 171,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="286" xml:space="preserve" y="-393.09">Why the energy selects the same collection</text>
+<path d="M271,-283.66C271,-283.66 466,-283.66 466,-283.66 472,-283.66 478,-289.66 478,-295.66 478,-295.66 478,-396.49 478,-396.49 478,-402.49 472,-408.49 466,-408.49 466,-408.49 271,-408.49 271,-408.49 265,-408.49 259,-402.49 259,-396.49 259,-396.49 259,-295.66 259,-295.66 259,-289.66 265,-283.66 271,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="368.5" xml:space="preserve" y="-393.09">Why the energy selects the same collection</text>
 </g>
 <g class="cluster" id="clust3">
 <title>cluster_2</title>
-<path d="M100,-141.83C100,-141.83 291,-141.83 291,-141.83 297,-141.83 303,-147.83 303,-153.83 303,-153.83 303,-263.66 303,-263.66 303,-269.66 297,-275.66 291,-275.66 291,-275.66 100,-275.66 100,-275.66 94,-275.66 88,-269.66 88,-263.66 88,-263.66 88,-153.83 88,-153.83 88,-147.83 94,-141.83 100,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195.5" xml:space="preserve" y="-260.25">The two questions have one equality class</text>
+<path d="M136,-141.83C136,-141.83 327,-141.83 327,-141.83 333,-141.83 339,-147.83 339,-153.83 339,-153.83 339,-263.66 339,-263.66 339,-269.66 333,-275.66 327,-275.66 327,-275.66 136,-275.66 136,-275.66 130,-275.66 124,-269.66 124,-263.66 124,-263.66 124,-153.83 124,-153.83 124,-147.83 130,-141.83 136,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231.5" xml:space="preserve" y="-260.25">The two questions have one equality class</text>
 </g>
 <g class="cluster" id="clust4">
 <title>cluster_3</title>
-<path d="M103,0C103,0 288,0 288,0 294,0 300,-6 300,-12 300,-12 300,-121.83 300,-121.83 300,-127.83 294,-133.83 288,-133.83 288,-133.83 103,-133.83 103,-133.83 97,-133.83 91,-127.83 91,-121.83 91,-121.83 91,-12 91,-12 91,-6 97,0 103,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195.5" xml:space="preserve" y="-118.42">What happens to the five notes left over?</text>
+<path d="M147,0C147,0 332,0 332,0 338,0 344,-6 344,-12 344,-12 344,-121.83 344,-121.83 344,-127.83 338,-133.83 332,-133.83 332,-133.83 147,-133.83 147,-133.83 141,-133.83 135,-127.83 135,-121.83 135,-121.83 135,-12 135,-12 135,-6 141,0 147,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239.5" xml:space="preserve" y="-118.42">What happens to the five notes left over?</text>
 </g>
 <!-- thm:huddling -->
 <g class="node" id="node1">
 <title>thm:huddling</title>
-<g id="a_node1"><a target="_top" xlink:href="index.html#thm:huddling" xlink:title="Theorem 1: consecutive arcs maximize the first Fourier magnitude, exactly on their transposition orbit">
-<path d="M130.05,-378.24C130.05,-378.24 19.95,-378.24 19.95,-378.24 13.95,-378.24 7.95,-372.24 7.95,-366.24 7.95,-366.24 7.95,-303.66 7.95,-303.66 7.95,-297.66 13.95,-291.66 19.95,-291.66 19.95,-291.66 130.05,-291.66 130.05,-291.66 136.05,-291.66 142.05,-297.66 142.05,-303.66 142.05,-303.66 142.05,-366.24 142.05,-366.24 142.05,-372.24 136.05,-378.24 130.05,-378.24" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-363.23">Theorem 1</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-350.48">consecutive arcs maximize</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-337.73">the first Fourier</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-324.98">magnitude, exactly on</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-312.23">their transposition orbit</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-299.48">✅ Lean · 💻 program</text>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:huddling" xlink:title="Theorem 1: consecutive arcs maximize the first Fourier magnitude, exactly on their transposition orbit. In Lean: added to the Lean repository after publication (23-oct-2026): the general statement for every cyclic group Z_N (Amiot’s Lemma 2, of which the paper certifies the twelve-tone instance): for every unit frequency the arc maximizes the Fourier magnitude, exactly on its translates, and the maximum is sin(πm/N)/sin(π/N); added to the Lean repository after publication (23-oct-2026): the general statement for every cyclic group Z_N (Amiot’s Lemma 2, of which the paper certifies the twelve-tone instance): for every unit frequency the arc maximizes the Fourier magnitude, exactly on its translates, and the maximum is sin(πm/N)/sin(π/N)">
+<path d="M230.3,-378.24C230.3,-378.24 19.7,-378.24 19.7,-378.24 13.7,-378.24 7.7,-372.24 7.7,-366.24 7.7,-366.24 7.7,-303.66 7.7,-303.66 7.7,-297.66 13.7,-291.66 19.7,-291.66 19.7,-291.66 230.3,-291.66 230.3,-291.66 236.3,-291.66 242.3,-297.66 242.3,-303.66 242.3,-303.66 242.3,-366.24 242.3,-366.24 242.3,-372.24 236.3,-378.24 230.3,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-363.23">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-350.48">consecutive arcs maximize</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-337.73">the first Fourier</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-324.98">magnitude, exactly on</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-312.23">their transposition orbit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-299.48">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
@@ -248,61 +316,61 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node3">
 <title>thm:connection</title>
 <g id="a_node3"><a target="_top" xlink:href="index.html#thm:connection" xlink:title="Theorem 3: Fourier maximum and energy minimum have the same equality class: the twelve diatonic transpositions">
-<path d="M263.93,-245.41C263.93,-245.41 126.07,-245.41 126.07,-245.41 120.07,-245.41 114.08,-239.41 114.08,-233.41 114.08,-233.41 114.08,-161.83 114.08,-161.83 114.08,-155.83 120.08,-149.83 126.08,-149.83 126.08,-149.83 263.93,-149.83 263.93,-149.83 269.93,-149.83 275.93,-155.83 275.93,-161.83 275.93,-161.83 275.93,-233.41 275.93,-233.41 275.93,-239.41 269.93,-245.41 263.93,-245.41" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-228.97">Theorem 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-214.72">Fourier maximum and energy</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-200.47">minimum have the same</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-186.22">equality class: the twelve</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-171.97">diatonic transpositions</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-157.72">✅ Lean · 💻 program</text>
+<path d="M299.93,-245.41C299.93,-245.41 162.07,-245.41 162.07,-245.41 156.07,-245.41 150.07,-239.41 150.07,-233.41 150.07,-233.41 150.07,-161.83 150.07,-161.83 150.07,-155.83 156.07,-149.83 162.07,-149.83 162.07,-149.83 299.93,-149.83 299.93,-149.83 305.93,-149.83 311.93,-155.83 311.93,-161.83 311.93,-161.83 311.93,-233.41 311.93,-233.41 311.93,-239.41 305.93,-245.41 299.93,-245.41" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-228.97">Theorem 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-214.72">Fourier maximum and energy</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-200.47">minimum have the same</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-186.22">equality class: the twelve</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-171.97">diatonic transpositions</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-157.72">✅ Lean · 💻 program</text>
 </a>
 </g>
 </g>
 <!-- thm:huddling&#45;&gt;thm:connection -->
 <g class="edge" id="edge2">
 <title>thm:huddling-&gt;thm:connection</title>
-<path d="M112.97,-291.13C123.83,-278.89 135.8,-265.38 147.17,-252.56" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="148.88,-254.33 151.69,-247.46 145.21,-251.08 148.88,-254.33" stroke="#9aa8b5"></polygon>
+<path d="M158.54,-291.13C168.04,-279 178.52,-265.63 188.48,-252.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="190.31,-254.54 192.7,-247.52 186.45,-251.52 190.31,-254.54" stroke="#9aa8b5"></polygon>
 </g>
 <!-- thm:energy -->
 <g class="node" id="node2">
 <title>thm:energy</title>
 <g id="a_node2"><a target="_top" xlink:href="index.html#thm:energy" xlink:title="Theorem 2: the diatonic orbit minimizes every admissible convex pair energy, uniquely under strictness. In Lean: the Abel identity symbolically; the seven-note certificate Hⱼ ≥ 0 by nativedecide">
-<path d="M393.18,-378.24C393.18,-378.24 178.82,-378.24 178.82,-378.24 172.82,-378.24 166.82,-372.24 166.82,-366.24 166.82,-366.24 166.82,-303.66 166.82,-303.66 166.82,-297.66 172.82,-291.66 178.82,-291.66 178.82,-291.66 393.18,-291.66 393.18,-291.66 399.18,-291.66 405.18,-297.66 405.18,-303.66 405.18,-303.66 405.18,-366.24 405.18,-366.24 405.18,-372.24 399.18,-378.24 393.18,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-363.23">Theorem 2</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-350.48">the diatonic orbit</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-337.73">minimizes every admissible</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-324.98">convex pair energy,</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-312.23">uniquely under strictness</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="286" xml:space="preserve" y="-299.48">◐ in Lean: the Abel identity symbolically; the …</text>
+<path d="M394.3,-378.24C394.3,-378.24 279.7,-378.24 279.7,-378.24 273.7,-378.24 267.7,-372.24 267.7,-366.24 267.7,-366.24 267.7,-303.66 267.7,-303.66 267.7,-297.66 273.7,-291.66 279.7,-291.66 279.7,-291.66 394.3,-291.66 394.3,-291.66 400.3,-291.66 406.3,-297.66 406.3,-303.66 406.3,-303.66 406.3,-366.24 406.3,-366.24 406.3,-372.24 400.3,-378.24 394.3,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-363.23">Theorem 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-350.48">the diatonic orbit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-337.73">minimizes every admissible</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-324.98">convex pair energy,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-312.23">uniquely under strictness</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-299.48">◐ part in Lean</text>
 </a>
 </g>
 </g>
 <!-- thm:energy&#45;&gt;thm:connection -->
 <g class="edge" id="edge1">
 <title>thm:energy-&gt;thm:connection</title>
-<path d="M257.21,-291.13C249.12,-279.11 240.22,-265.87 231.74,-253.26" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="233.86,-252.03 227.92,-247.59 229.8,-254.76 233.86,-252.03" stroke="#9aa8b5"></polygon>
+<path d="M303.46,-291.13C293.96,-279 283.48,-265.63 273.52,-252.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="275.55,-251.52 269.3,-247.52 271.69,-254.54 275.55,-251.52" stroke="#9aa8b5"></polygon>
 </g>
 <!-- thm:pentatonic -->
 <g class="node" id="node4">
 <title>thm:pentatonic</title>
 <g id="a_node4"><a target="_top" xlink:href="index.html#thm:pentatonic" xlink:title="Theorem 4: the pentatonic sets inherit both extremal properties through complementation">
-<path d="M242.55,-103.58C242.55,-103.58 147.45,-103.58 147.45,-103.58 141.45,-103.58 135.45,-97.58 135.45,-91.58 135.45,-91.58 135.45,-20 135.45,-20 135.45,-14 141.45,-8 147.45,-8 147.45,-8 242.55,-8 242.55,-8 248.55,-8 254.55,-14 254.55,-20 254.55,-20 254.55,-91.58 254.55,-91.58 254.55,-97.58 248.55,-103.58 242.55,-103.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-87.14">Theorem 4</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-72.89">the pentatonic sets</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-58.64">inherit both extremal</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-44.39">properties through</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-30.14">complementation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="195" xml:space="preserve" y="-15.89">✅ Lean</text>
+<path d="M278.55,-103.58C278.55,-103.58 183.45,-103.58 183.45,-103.58 177.45,-103.58 171.45,-97.58 171.45,-91.58 171.45,-91.58 171.45,-20 171.45,-20 171.45,-14 177.45,-8 183.45,-8 183.45,-8 278.55,-8 278.55,-8 284.55,-8 290.55,-14 290.55,-20 290.55,-20 290.55,-91.58 290.55,-91.58 290.55,-97.58 284.55,-103.58 278.55,-103.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-87.14">Theorem 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-72.89">the pentatonic sets</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-58.64">inherit both extremal</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-44.39">properties through</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-30.14">complementation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-15.89">✅ Lean</text>
 </a>
 </g>
 </g>
 <!-- thm:connection&#45;&gt;thm:pentatonic -->
 <g class="edge" id="edge3">
 <title>thm:connection-&gt;thm:pentatonic</title>
-<path d="M195,-148.89C195,-137.43 195,-125.08 195,-113.27" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="197.45,-113.29 195,-106.29 192.55,-113.29 197.45,-113.29" stroke="#9aa8b5"></polygon>
+<path d="M231,-148.89C231,-137.43 231,-125.08 231,-113.27" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="233.45,-113.29 231,-106.29 228.55,-113.29 233.45,-113.29" stroke="#9aa8b5"></polygon>
 </g>
 </g>
 </svg>
@@ -313,35 +381,37 @@ thick border are the main results; click a box to read the statement.</p><div cl
   \[  \widehat A(t)=\sum _{a\in A}e^{-2\pi i at/12},\qquad S_t(A)=|\widehat A(t)|^2.  \]
 </div>
 <p> Transposition \(T_sA=A+s\) changes phase and preserves \(S_t\). For a unit \(u\in \mathbb {Z}_{12}^\times \), put \(M_uA=\{ ua:a\in A\} \). Reindexing the finite sum gives \(\widehat{M_uA}(t)=\widehat A(ut)\). For \(C_7=\{ 0,1,2,3,4,5,6\} \) and \(D=\{ 0,2,4,5,7,9,11\} \), \(T_{11}M_5C_7=D\) and \(M_5D=T_7C_7\). <em>(§4)</em> Write \(d(a,b)=\min ((a-b)\bmod 12,(b-a)\bmod 12)\). For a real potential \(V:\{ 1,\ldots ,6\} \to \mathbb R\), the all-pairs energy is \(E_V(A)=\sum _{\{ a,b\} \subseteq A}V(d(a,b))=\sum _{j=1}^{6}i_j(A)V(j)\). We call \(V\) admissible when \(\Delta ^2V(j):=V(j)-2V(j+1)+V(j+2)\ge 0\) \((1\le j\le 4)\) and \(V(6)\le V(5)\). Strict admissibility means that all five displayed inequalities are strict. </p>
-</details></section><section class="pc-pane"><h1 id="a0000000004">3 What Huddling contributes</h1>
-<div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:huddling">
+</details><h4 id="a0000000004">What this blueprint shows.</h4>
+<p> The numbered statements of the paper, with their proofs, dependencies and what checked them, under the sections that hold them (with the paper’s numbers), and the figures and tables they use. The full text is in the PDF of the paper.  </p>
+</section><section class="pc-pane"><h1 id="a0000000005">3 What Huddling contributes</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:huddling">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
     Theorem
     </span>
-<span class="theorem_thmlabel">1</span><span class="sello">✅ Lean</span>
+<span class="theorem_thmlabel">1</span>
 <span class="theorem_thmtitle">Huddling in \({\mathbb {Z}_{12}}\)</span>
 <div class="thm_header_extras">
-
-    
-    ✓
-        </div>
+</div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:huddling">#</a>
-<a class="icon proof" href="index.html#a0000000005"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
-</a>
 <button class="modal lean">L∃∀N</button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L132" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/Huddling.lean#L132">MusicTheory.Huddling.arc_maximizes_power</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/Huddling.lean#L141">MusicTheory.Huddling.arc_unique</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/MTransform.html#L355" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/MTransform.lean#L355">MusicTheory.MTransform.powerSpec_one_re_le_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L132" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L132">MusicTheory.Huddling.arc_maximizes_power</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L141">MusicTheory.Huddling.arc_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/MTransform.html#L355" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/MTransform.lean#L355">MusicTheory.MTransform.powerSpec_one_re_le_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingGeometry.html#L366" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingGeometry.lean#L366">MusicTheory.CyclicHuddling.norm_Ahat_unit_le_arc</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingGeometry.html#L445" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingGeometry.lean#L445">MusicTheory.CyclicHuddling.norm_Ahat_unit_eq_arc_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L89" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L89">MusicTheory.CyclicHuddling.norm_Ahat_unit_le_sine_ratio</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L97" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L97">MusicTheory.CyclicHuddling.norm_Ahat_unit_eq_sine_ratio_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L61" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L61">MusicTheory.CyclicHuddling.norm_Ahat_arc_sine_ratio</a></li>
 </ul>
 </div>
 </div>
@@ -353,23 +423,9 @@ thick border are the main results; click a box to read the statement.</p><div cl
   \[  S_1(A)\le S_1(C_k),\qquad S_1(A)=S_1(C_k)\  \Longleftrightarrow \  A=T_sC_k\text{ for some }s\in {\mathbb {Z}_{12}}.  \]
 </div>
 <p> The same inequality and equality condition hold for Fourier magnitudes. </p>
-</div>
-</div><p class="lean-check">✅ Checked when this page was built: Huddling.lean, MTransform.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — arc_maximizes_power, arc_unique, powerSpec_one_re_le_iff: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean Huddling.lean MTransform.lean</code> (SHA-256 of the compiled file: <code>e53d6d27167c0ac7…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical: the roots-of-unity lemma recorded by Amiot [Amiot2009, Lemma 2]; the paper certifies its twelve-tone instance with the complete equality class.</p><p class="usado">↳ Used in: <a href="#thm:connection">Theorem 3</a></p>
-<div class="proof_wrapper" id="a0000000005">
-<div class="proof_heading">
-<span class="proof_caption">
-    Proof
-    </span>
-<span class="expand-proof">▼</span>
-</div>
-<div class="proof_content">
-<p>Formalized in Lean (see the linked declarations). </p>
-</div>
-</div>
-<details class="blk b-fig"><summary>🖼️ Figure 1</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-1.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
-</div>
-<p> The same seven positions in two coordinates. Filled nodes denote membership; the dashed path on the right follows repeated addition of five, from \(11\) to \(5\). The map permutes pitch classes and Fourier indices, carrying the first-frequency cluster problem to the fifth-frequency diatonic problem. </p>
-</details><details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (23-oct-2026): the general statement for every cyclic group Z_N (Amiot’s Lemma 2, of which the paper certifies the twelve-tone instance): for every unit frequency the arc maximizes the Fourier magnitude, exactly on its translates, and the maximum is sin(πm/N)/sin(π/N); added to the Lean repository after publication (23-oct-2026): the general statement for every cyclic group Z_N (Amiot’s Lemma 2, of which the paper certifies the twelve-tone instance): for every unit frequency the arc maximizes the Fourier magnitude, exactly on its translates, and the maximum is sin(πm/N)/sin(π/N)</p><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L132" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L132"><code>MusicTheory.Huddling.arc_maximizes_power</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L141"><code>MusicTheory.Huddling.arc_unique</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/MTransform.html#L355" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/MTransform.lean#L355"><code>MusicTheory.MTransform.powerSpec_one_re_le_iff</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingGeometry.html#L366" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingGeometry.lean#L366"><code>MusicTheory.CyclicHuddling.norm_Ahat_unit_le_arc</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingGeometry.html#L445" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingGeometry.lean#L445"><code>MusicTheory.CyclicHuddling.norm_Ahat_unit_eq_arc_iff</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L89" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L89"><code>MusicTheory.CyclicHuddling.norm_Ahat_unit_le_sine_ratio</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L97" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L97"><code>MusicTheory.CyclicHuddling.norm_Ahat_unit_eq_sine_ratio_iff</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L61" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L61"><code>MusicTheory.CyclicHuddling.norm_Ahat_arc_sine_ratio</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: CyclicHuddlingClosedForm.lean, CyclicHuddlingGeometry.lean, Huddling.lean, MTransform.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — arc_maximizes_power, arc_unique, powerSpec_one_re_le_iff, norm_Ahat_unit_le_arc, norm_Ahat_unit_eq_arc_iff, norm_Ahat_unit_le_sine_ratio, norm_Ahat_unit_eq_sine_ratio_iff, norm_Ahat_arc_sine_ratio: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean CyclicHuddlingClosedForm.lean CyclicHuddlingGeometry.lean Huddling.lean MTransform.lean</code> (SHA-256 of the compiled file: <code>e53d6d27167c0ac7…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical: the roots-of-unity lemma recorded by Amiot [Amiot2009, Lemma 2]; the paper certifies its twelve-tone instance with the complete equality class.</p><p class="usado">↳ Used in: <a href="#thm:connection">Theorem 3</a></p>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
 <p> Put the twelve pitch classes on a clock and give each note of \(A\) a unit arrow pointing at its hour; \(\widehat A(1)\) is the sum of the arrows and \(S_1(A)\) its squared length. Arrows pointing in nearly the same direction add up best, so among all sets with \(k\) notes the longest sum comes from \(k\) consecutive hours, a “huddled” arc, and only from the twelve rotations of that arc (one set when \(k=0\) or \(12\)). This is the twelve-tone instance of the roots-of-unity lemma recorded by Amiot; the paper does not claim it as new. What it adds is a proof without rounded cosines: it writes \(2S_1(A)=P(A)+Q(A)\sqrt3\) with integers \(P,Q\) counted from the intervals of \(A\), so every comparison is exact in \(\mathbb {Z}[\sqrt3]\), and it checks all \(2^{12}=4096\) sets. </p>
 </details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
@@ -381,7 +437,127 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </details><details class="blk b-lab"><summary>🧪 Lab: Figure 1 with your own set, unit and shift</summary>
 <p> Applies \(T_s M_u\) to a set \(A\subseteq \mathbb {Z}_{12}\): the two clocks, the Fourier magnitudes of both (\(M_u\) permutes the frequencies), and a torus on which every pitch class sits on the chromatic circle and on the circle of fifths at once: \(M_5\) swaps the two circles. </p>
 <div data-lemmario-lab="0"></div>
-</details></section><section class="pc-pane"><h1 id="a0000000011">4 Why the energy selects the same collection</h1>
+</details><div class="table" id="tab:huddling">
+   2ctA!7white <table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p>\(k\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> Sets checked </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:center">
+<p> \(2S_1(C_k)\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:center">
+<p> Maximizers</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="value" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px;background:rgba(43,108,176,0.08)">
+<p>\(0,12\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> \(1\) each </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:center">
+<p> \(0\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:center">
+<p> \(1\) each</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="value" rowspan="" style="None;background:rgba(43,108,176,0.32)">
+<p>\(1,11\) </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(12\) each </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(12\) each</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="value" rowspan="" style="None;background:rgba(43,108,176,0.39)">
+<p>\(2,10\) </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(66\) each </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(4+2\sqrt3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(12\) each</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="value" rowspan="" style="None;background:rgba(43,108,176,0.45)">
+<p>\(3,9\) </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(220\) each </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(8+4\sqrt3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(12\) each</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="value" rowspan="" style="None;background:rgba(43,108,176,0.48)">
+<p>\(4,8\) </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(495\) each </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(12+6\sqrt3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(12\) each</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="value" rowspan="" style="None;background:rgba(43,108,176,0.49)">
+<p>\(5,7\) </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(792\) each </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(14+8\sqrt3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center">
+<p> \(12\) each</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="value" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px;background:rgba(43,108,176,0.50)">
+<p>\(6\) </p>
+</td>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(924\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(16+8\sqrt3\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:center; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(12\)</p>
+</td>
+</tr>
+</table> <figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">1</span>
+<span class="caption_text">The exact Huddling census. Complementary cardinalities share the nonzero-frequency maximum, in agreement with the complement identity of <span class="ttfamily">Fourier.lean</span>.</span>
+</figcaption>
+</div><p class="tabcolour">Colour: blue shade = the number’s size within its column.</p>
+</section><section class="pc-pane"><h1 id="a0000000010">4 Why the energy selects the same collection</h1>
 <div class="theorem_thmwrapper theorem-style-plain" id="thm:energy">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -398,12 +574,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/AllPairsEvenness.html#L124" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/AllPairsEvenness.lean#L124">MusicTheory.AllPairsEvenness.abel_bridge</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L171" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/DiatonicExtremality.lean#L171">MusicTheory.DiatonicExtremality.diatonic_energy_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/AllPairsEvenness.html#L124" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/AllPairsEvenness.lean#L124">MusicTheory.AllPairsEvenness.abel_bridge</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L171" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L171">MusicTheory.DiatonicExtremality.diatonic_energy_unique</a></li>
 </ul>
 </div>
 </div>
@@ -411,14 +587,14 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <a class="pdfp" href="pdf.html#page=4&amp;n=thm:energy" title="Open the paper at page 4">📕 p. 4</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:energy" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4”, Theorem 2, 1.1, doi:10.5281/zenodo.23123219, https://karlesmarin.github.io/blueprints/huddling-scales/index.html#thm:energy." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Huddling%2C%20diatonic%20and%20pentatonic%20scales%20in%20Z12%3A%20Fourier%20maxima%20and%20convex-energy%20minima%20formalized%20in%20Lean%204%20%E2%80%94%20Theorem%202&amp;body=About%20Theorem%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CHuddling%2C%20diatonic%20and%20pentatonic%20scales%20in%20Z12%3A%20Fourier%20maxima%20and%20convex-energy%20minima%20formalized%20in%20Lean%204%E2%80%9D%2C%20Theorem%202%2C%201.1%2C%20doi%3A10.5281/zenodo.23123219%2C%20https%3A//karlesmarin.github.io/blueprints/huddling-scales/index.html%23thm%3Aenergy.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="theorem_thmcontent">
 <p>   For every admissible \(V\) and every \(A\subseteq {\mathbb {Z}_{12}}\) with \(|A|=7\), \(E_V(D)\le E_V(A)\). If \(V\) is strictly admissible, then </p>
-<div class="displaymath" id="a0000000012">
+<div class="displaymath" id="a0000000011">
   \[  E_V(A)=E_V(D)\  \Longleftrightarrow \  A\in {\mathcal O_D}.  \]
 </div>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">the Abel identity symbolically; the seven-note certificate H_j ≥ 0 by native_decide</p><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/AllPairsEvenness.html#L124" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/AllPairsEvenness.lean#L124"><code>MusicTheory.AllPairsEvenness.abel_bridge</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L171" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L171"><code>MusicTheory.DiatonicExtremality.diatonic_energy_unique</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: AllPairsEvenness.lean, DiatonicExtremality.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — abel_bridge, diatonic_energy_unique: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean AllPairsEvenness.lean DiatonicExtremality.lean</code> (SHA-256 of the compiled file: <code>b6d144324b2b8efa…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical viewpoint (Douthett–Krantz [DK]); the contribution is the formalization with the complete equality class.</p><p class="usado">↳ Used in: <a href="#thm:connection">Theorem 3</a></p>
 <details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
 <p> Let every pair of notes of \(A\) repel each other with a strength \(V(d)\) that depends only on their distance \(d\) around the clock, and add over the \(21\) pairs of a seven-note set: that is the energy \(E_V(A)\). If closer pairs repel more (\(V\) nonincreasing) and the repulsion falls off in a convex way, the diatonic collection \(D\) has the least energy of all seven-note sets; if the falling-off is strictly convex, only its twelve transpositions do. The proof subtracts the two energies and, by summing by parts twice, writes the difference as a sum of the second differences of \(V\) times numbers \(H_j\) that depend only on the intervals of \(A\) and \(D\); a census shows \(H_j\ge 0\) for all \(792\) seven-note sets. Strictness matters: with \(V\) constant every seven-note set has energy \(21\) (the paper’s own example). </p>
-</details></section><section class="pc-pane"><h1 id="a0000000014">5 The two questions have one equality class</h1>
+</details></section><section class="pc-pane"><h1 id="a0000000013">5 The two questions have one equality class</h1>
 <div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:connection">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -433,15 +609,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:connection">#</a>
-<a class="icon proof" href="index.html#a0000000015"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000014"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -457,13 +633,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/DiatonicExtremality.lean#L183">MusicTheory.DiatonicExtremality.spectral_energy_equivalence</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L128" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/DiatonicExtremality.lean#L128">MusicTheory.DiatonicExtremality.diatonic_norm_unique</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L179" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/Huddling.lean#L179">MusicTheory.Huddling.fifth_frequency_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L183">MusicTheory.DiatonicExtremality.spectral_energy_equivalence</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L128" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L128">MusicTheory.DiatonicExtremality.diatonic_norm_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L179" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L179">MusicTheory.Huddling.fifth_frequency_unique</a></li>
 </ul>
 </div>
 </div>
@@ -471,13 +647,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <a class="pdfp" href="pdf.html#page=5&amp;n=thm:connection" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:connection" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4”, Theorem 3, 1.1, doi:10.5281/zenodo.23123219, https://karlesmarin.github.io/blueprints/huddling-scales/index.html#thm:connection." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Huddling%2C%20diatonic%20and%20pentatonic%20scales%20in%20Z12%3A%20Fourier%20maxima%20and%20convex-energy%20minima%20formalized%20in%20Lean%204%20%E2%80%94%20Theorem%203&amp;body=About%20Theorem%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CHuddling%2C%20diatonic%20and%20pentatonic%20scales%20in%20Z12%3A%20Fourier%20maxima%20and%20convex-energy%20minima%20formalized%20in%20Lean%204%E2%80%9D%2C%20Theorem%203%2C%201.1%2C%20doi%3A10.5281/zenodo.23123219%2C%20https%3A//karlesmarin.github.io/blueprints/huddling-scales/index.html%23thm%3Aconnection.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="theorem_thmcontent">
 <p>    For every strictly admissible \(V\) and every seven-element \(A\subseteq {\mathbb {Z}_{12}}\), </p>
-<div class="displaymath" id="a0000000016">
+<div class="displaymath" id="a0000000015">
   \[  \boxed {\quad |{\widehat A}(5)|=2+\sqrt3\quad \Longleftrightarrow \quad E_V(A)=E_V(D).\quad }  \]
 </div>
 <p> Both sides hold precisely for the twelve transpositions of \(D\). </p>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L183"><code>MusicTheory.DiatonicExtremality.spectral_energy_equivalence</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L128" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/DiatonicExtremality.lean#L128"><code>MusicTheory.DiatonicExtremality.diatonic_norm_unique</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L179" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/Huddling.lean#L179"><code>MusicTheory.Huddling.fifth_frequency_unique</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: DiatonicExtremality.lean, Huddling.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — spectral_energy_equivalence, diatonic_norm_unique, fifth_frequency_unique: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean DiatonicExtremality.lean Huddling.lean</code> (SHA-256 of the compiled file: <code>b39e90bd655cefdb…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> the paper calls it a corollary of published equality-class characterizations, not a new characterization (§9).</p><p class="usado">↳ Used in: <a href="#thm:pentatonic">Theorem 4</a></p>
-<div class="proof_wrapper" id="a0000000015">
+<div class="proof_wrapper" id="a0000000014">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -507,7 +683,10 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div><div class="mpane" data-k="music">
 <p> <em>Commentary, not part of the paper.</em> Up to transposition, the white-key collection is the only seven-note collection that is at once the most strongly aligned with the circle of fifths (the largest fifth Fourier magnitude) and the most evenly spread under any strictly convex repulsion between its notes. Neither property selects a tonic or a mode: both see the collection, not its order. </p>
 </div></div></details>
-</section><section class="pc-pane"><h1 id="a0000000025">6 What happens to the five notes left over?</h1>
+<details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
+</div>
+<p> All \(792\) seven-note sets, grouped into \(34\) exact (Fourier power, energy) classes; marker area increases with multiplicity. The diamond represents the twelve diatonic transpositions, simultaneously at the largest \(S_5\) and the smallest \(E_{V_0}\). Coordinates are computed exactly before conversion to plotting numbers. Coincidence of the optimizers does not assert an ordering correspondence for every pair of sets. </p>
+</details></section><section class="pc-pane"><h1 id="a0000000025">6 What happens to the five notes left over?</h1>
 <div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:pentatonic">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -522,15 +701,15 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:pentatonic">#</a>
-<a class="icon proof" href="index.html#a0000000026"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000026"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
-<button class="modal"><svg class="icon icon-mindmap"><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
 </button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
@@ -543,13 +722,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L237" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/ExtremalityConnections.lean#L237">MusicTheory.ExtremalityConnections.pentatonic_spectral_energy_equivalence</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L222" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/ExtremalityConnections.lean#L222">MusicTheory.ExtremalityConnections.pentatonic_energy_gap</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L172" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/MusicTheory/ExtremalityConnections.lean#L172">MusicTheory.ExtremalityConnections.energy_compl</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L237" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L237">MusicTheory.ExtremalityConnections.pentatonic_spectral_energy_equivalence</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L222" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L222">MusicTheory.ExtremalityConnections.pentatonic_energy_gap</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L172" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L172">MusicTheory.ExtremalityConnections.energy_compl</a></li>
 </ul>
 </div>
 </div>
@@ -560,7 +739,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <div class="displaymath" id="a0000000027">
   \[  |{\widehat A}(5)|=2+\sqrt3\quad \Longleftrightarrow \quad E_V(A)=E_V(P)\quad \Longleftrightarrow \quad A=T_sP\text{ for some }s.  \]
 </div>
-</div>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L237" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L237"><code>MusicTheory.ExtremalityConnections.pentatonic_spectral_energy_equivalence</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L222" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L222"><code>MusicTheory.ExtremalityConnections.pentatonic_energy_gap</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L172" data-lean-github="https://github.com/karlesmarin/formalizations/blob/2e536458842b5eb94ade47297e38667edd2bd210/Formalizations/MusicTheory/ExtremalityConnections.lean#L172"><code>MusicTheory.ExtremalityConnections.energy_compl</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: ExtremalityConnections.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — pentatonic_spectral_energy_equivalence, pentatonic_energy_gap, energy_compl: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean ExtremalityConnections.lean</code> (SHA-256 of the compiled file: <code>1c529e4f4155bab6…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> complement-energy transport is covered in greater generality by Bushaw, Cody and Leffler [BCL, Thms 2.16 and 3.5].</p><p class="usado">↳ Not used by another result of the paper.</p>
 <div class="proof_wrapper" id="a0000000026">
 <div class="proof_heading">
@@ -573,16 +752,9 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>Formalized in Lean (see the linked declarations). </p>
 </div>
 </div>
-<details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0002.png" style="width:100%;max-width:100%"/>
-</div>
-<p> All \(792\) seven-note sets, grouped into \(34\) exact (Fourier power, energy) classes; marker area increases with multiplicity. The diamond represents the twelve diatonic transpositions, simultaneously at the largest \(S_5\) and the smallest \(E_{V_0}\). Coordinates are computed exactly before conversion to plotting numbers. Coincidence of the optimizers does not assert an ordering correspondence for every pair of sets. </p>
-</details>
-<details class="blk b-fig"><summary>🖼️ Figure 3</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-3.png}" src="images/img-0003.png" style="width:100%;max-width:100%"/>
-</div>
-<p> The proof has two routes to the same equality class. The Fourier route uses Huddling and the index permutation; the energy route uses finite integer counts and a symbolic identity. The final theorem joins the routes rather than repeating two separate optimization claims. </p>
-</details><details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
 <p> The five black keys are the complement of the seven white keys. Complementing a set only flips the sign of its Fourier coefficients away from frequency \(0\), so magnitudes are kept; and it changes the energy by an amount that depends only on how many notes the set has, \(E_V(A^c)-E_V(A)=(6-|A|)\bigl(2\sum _{j=1}^5V(j)+V(6)\bigr)\). So the five-note problem is the seven-note problem seen in a mirror: the pentatonic sets \(T_sP\) inherit both extremal properties, with no new census. The complement identity is a case of a theorem of Bushaw, Cody and Leffler for distance-degree-regular graphs, as the paper says. </p>
-</details></section><section class="pc-pane"><h1 id="a0000000031">References</h1>
+</details></section><section class="pc-pane"><h1 id="a0000000029">References</h1>
 <dl class="bibliography">
 <dt><a name="Lewin">1</a></dt>
 <dd><p>D. Lewin, “Re: Intervallic relations between two collections of notes,” <em>Journal of Music Theory</em> <b class="bfseries">3</b>(2) (1959), 298–301. <a href="https://doi.org/10.2307/842856" target="_blank" rel="noopener">doi:10.2307/842856</a>. </p>
@@ -633,9 +805,9 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 </div>
 <nav class="prev_up_next">
-<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
-<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
-<a href="index.html" title="Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4: blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4: blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
 </nav>
 <script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>
 (function(){
@@ -650,8 +822,8 @@ thick border are the main results; click a box to read the statement.</p><div cl
   document.addEventListener('click',function(e){var b=e.target.closest('.mtab'); if(b) choose(b.dataset.k)});
   try{var k=localStorage.getItem('mathlang'); if(k) choose(k)}catch(e){}
 })();
-</script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
-// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+</script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
 // event, so that page-specific scripts (labs) can react.
 (function(){
   function set(v){
@@ -712,7 +884,7 @@ document.addEventListener('click', function (e) {
   }
   head.insertAdjacentElement('afterend', box);
 });
-</script><script>window.LEMMARIO_LABS = [{"id": 0, "node": "thm:huddling", "files": ["huddling_lab.py"], "sources": {"huddling_lab.py": "# encaje: laboratorio del blueprint huddling-scales (corre en el navegador con Pyodide; Python puro, sin dependencias).\n\"\"\"Labs of «Huddling, diatonic and pentatonic scales in Z12»: Figures 1 and 2 of the paper, live.\n\nrun_clocks: Figure 1. A set A ⊆ Z12, a unit u and a shift s: the clocks of A and of T_s M_u A, the Fourier magnitudes\n|Â(t)| of both (M_u permutes the frequencies: the transform of M_uA at t is Â(ut)), and a torus on which every pitch\nclass sits at once on the chromatic circle (long way round) and on the circle of fifths (short way round): M_5 swaps\nthe two circles, which is why the chromatic cluster C_7 becomes the diatonic set.\nrun_cloud: Figure 2. All k-note sets, as points (S_1, S_5, E_V) with V(j) = (7-j)^p: the arcs and the diatonic orbit\nare the extreme points; a slider moves the exponent p of the potential.\"\"\"\nimport cmath\nimport itertools\nimport json\nimport math\n\nN = 12\n\n\ndef dft(A, t):\n    return sum(cmath.exp(-2j * math.pi * a * t / N) for a in A)\n\n\ndef parse_set(text):\n    out = sorted({int(x) % N for x in str(text).replace(';', ',').replace(' ', ',').split(',') if x.strip() != ''})\n    return out\n\n\ndef clock_svg(A, colour, title, cx, path_order=None):\n    R = 70\n    o = ['<g>', '<text x=\"%d\" y=\"18\" text-anchor=\"middle\" font-size=\"13\">%s<\/text>' % (cx, title),\n         '<circle cx=\"%d\" cy=\"105\" r=\"%d\" fill=\"none\" stroke=\"#bbb\"/>' % (cx, R)]\n    pts = {}\n    for p in range(N):\n        ang = math.pi / 2 - 2 * math.pi * p / N\n        x, y = cx + R * math.cos(ang), 105 - R * math.sin(ang)\n        pts[p] = (x, y)\n        on = p in A\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%s\" fill=\"%s\" stroke=\"#888\"/>' % (x, y, 6 if on else 3.5,\n                                                                                  colour if on else '#fff'))\n        lx, ly = cx + (R + 15) * math.cos(ang), 105 - (R + 15) * math.sin(ang)\n        o.append('<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"middle\" font-size=\"11\">%d<\/text>' % (lx, ly + 4, p))\n    if path_order and len(path_order) > 1:\n        d = 'M' + ' L'.join('%.1f %.1f' % pts[p] for p in path_order)\n        o.append('<path d=\"%s\" fill=\"none\" stroke=\"%s\" stroke-dasharray=\"4 3\"/>' % (d, colour))\n    o.append('<\/g>')\n    return ''.join(o)\n\n\ndef run_clocks(params):\n    p = json.loads(params)\n    A = parse_set(p.get('set', '0,1,2,3,4,5,6'))\n    u, s = int(p.get('u', 5)) % N, int(p.get('s', 11)) % N\n    if math.gcd(u, N) != 1:\n        return json.dumps({'error': 'u must be a unit of Z12: 1, 5, 7 or 11'})\n    B = sorted({(u * a + s) % N for a in A})\n    # the dashed path: B in the order of repeated addition of u (a chain of fourths/fifths when u = 5 or 7)\n    start = min(B, key=lambda b: sum(((b + k * u) % N) in B for k in range(N)) * -1)\n    chain = [b for b in ((start + k * u) % N for k in range(N)) if b in B]\n    svg = ('<svg viewBox=\"0 0 560 200\" style=\"max-width:100%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n           + clock_svg(A, '#1B6F8C', 'A = {%s}' % ','.join(map(str, A)), 130)\n           + '<text x=\"280\" y=\"100\" text-anchor=\"middle\" font-size=\"14\">→<\/text>'\n           + '<text x=\"280\" y=\"122\" text-anchor=\"middle\" font-size=\"12\">T%d∘M%d<\/text>' % (s, u)\n           + clock_svg(B, '#B5530F', 'T%dM%dA = {%s}' % (s, u, ','.join(map(str, B))), 430, chain) + '<\/svg>')\n    rows = [[t, '%.4f' % abs(dft(A, t)), '%.4f' % abs(dft(B, t)), '%.4f' % abs(dft(A, (u * t) % N))] for t in range(1, 7)]\n    # the torus: angle θ = 2πp/12 along the chromatic circle, φ = 2π(7p mod 12)/12 along the circle of fifths\n    def tor(p_, r=1.0, Rt=2.4):\n        th, ph = 2 * math.pi * p_ / N, 2 * math.pi * ((7 * p_) % N) / N\n        return [(Rt + r * math.cos(ph)) * math.cos(th), (Rt + r * math.cos(ph)) * math.sin(th), r * math.sin(ph)]\n    grid = [[[(2.4 + math.cos(2 * math.pi * j / 18)) * math.cos(2 * math.pi * i / 36),\n              (2.4 + math.cos(2 * math.pi * j / 18)) * math.sin(2 * math.pi * i / 36),\n              math.sin(2 * math.pi * j / 18)] for j in range(19)] for i in range(37)]\n    items = [{'type': 'surface', 'grid': grid, 'color': '#c9d6e3', 'opacity': 0.25, 'name': 'Z12 on a torus'},\n             {'type': 'points', 'points': [tor(a) for a in A], 'color': '#1B6F8C', 'size': 7, 'name': 'A'},\n             {'type': 'points', 'points': [tor(b) for b in B], 'color': '#B5530F', 'marker': 'star', 'size': 9,\n              'name': 'T_s M_u A'},\n             {'type': 'curve', 'points': [tor(p_) for p_ in range(N)] + [tor(0)], 'color': '#888', 'width': 1,\n              'name': 'the chromatic circle'}]\n    return json.dumps({\n        'text': ('|Â(1)| of A = %.4f and |Â(5)| of T_sM_uA = %.4f: M_%d sends frequency 1 to frequency %d. The maximum '\n                 '2+√3 = 3.7321 is reached at cardinality 7 exactly on arcs (frequency 1) and on the diatonic orbit '\n                 '(frequency 5).' % (abs(dft(A, 1)), abs(dft(B, 5)), u, (u * 1) % N)),\n        'plots': [{'kind': 'svg', 'svg': svg, 'figure': 'paperfig-1'},\n                  {'kind': '3d', 'title': 'Every pitch class on two circles at once: chromatic (long way) and fifths '\n                                         '(short way). M5 swaps them.', 'axes': ['', '', ''], 'items': items}],\n        'table': {'head': ['t', '|Â(t)| of A', '|transform| of T_sM_uA', '|Â(u·t)| of A'], 'rows': rows}})\n\n\ndef interval_vector(A):\n    iv = [0] * 7\n    for a, b in itertools.combinations(A, 2):\n        d = (a - b) % N\n        iv[min(d, N - d)] += 1\n    return iv\n\n\ndef run_cloud(params):\n    p = json.loads(params)\n    k = max(1, min(11, int(p.get('k', 7))))\n    exps = [0.5, 1, 1.5, 2, 3, 4]\n    pexp = float(p.get('p', 2))\n    if pexp not in exps:\n        exps = sorted(set(exps + [pexp]))\n    classes = {}\n    for A in itertools.combinations(range(N), k):\n        s1, s5 = abs(dft(A, 1)) ** 2, abs(dft(A, 5)) ** 2\n        iv = tuple(interval_vector(A))\n        key = (round(s1, 6), round(s5, 6), iv)\n        classes[key] = classes.get(key, 0) + 1\n    top5 = max(c[1] for c in classes)\n\n    def energy(iv, e):\n        return sum(iv[j] * (7 - j) ** e for j in range(1, 7))\n    slider_items = []\n    for e in exps:\n        pts = [[c[0], c[1], energy(c[2], e)] for c in classes]\n        best = [[c[0], c[1], energy(c[2], e)] for c in classes if abs(c[1] - top5) < 1e-6]\n        slider_items.append([{'type': 'points', 'points': pts, 'color': '#1B6F8C', 'size': 4, 'opacity': 0.7,\n                              'name': '%d classes of %d-note sets' % (len(classes), k)},\n                             {'type': 'points', 'points': best, 'color': '#B5530F', 'marker': 'star', 'size': 11,\n                              'name': 'maximum of S5'}])\n    # the paper's own view (Figure 2): S5 against the energy, marker area by multiplicity, at the chosen p\n    xs = [c[1] for c in classes]\n    ys = [energy(c[2], pexp) for c in classes]\n    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)\n    W, H, L, B = 560, 300, 60, 40\n    X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (W - L - 16)\n    Y = lambda v: H - B - (v - y0) / ((y1 - y0) or 1) * (H - B - 20)\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">' % (W, H)]\n    for c, x, y in zip(classes, xs, ys):\n        r = 2.5 + 1.6 * math.sqrt(classes[c])\n        star = abs(c[1] - top5) < 1e-6\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" fill-opacity=\"0.6\"/>' % (\n            X(x), Y(y), r, '#B5530F' if star else '#1B6F8C'))\n    o.append('<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-size=\"12\">S5 = |Â(5)|²<\/text>' % (W / 2, H - 8))\n    o.append('<text x=\"14\" y=\"%d\" font-size=\"12\" transform=\"rotate(-90 14 %d)\" text-anchor=\"middle\">E_V, V(j)=(7−j)^%g'\n             '<\/text>' % (H / 2, H / 2, pexp))\n    o.append('<\/svg>')\n    return json.dumps({\n        'text': ('%d sets of %d notes form %d classes (S1, S5, interval vector). Orange: the maximum of S5 (%s sets). '\n                 'For k = 7 they are the twelve diatonic transpositions. Move p: V(j) = (7−j)^p is strictly convex '\n                 'only for p > 1, and only then are they exactly the minimum of the energy (12 sets; 313 at p = 2, '\n                 'as in the paper). At p = 1 (convex, not strictly) the minimum is shared by 252 sets: why the paper '\n                 'needs strictness. At p = 0.5 (not convex) 24 other sets have lower energy.'\n                 % (sum(classes.values()), k, len(classes), sum(v for c, v in classes.items()\n                                                             if abs(c[1] - top5) < 1e-6))),\n        'plots': [{'kind': 'svg', 'svg': ''.join(o), 'figure': 'paperfig-2'},\n                  {'kind': '3d', 'title': 'All %d-note classes in (S1, S5, energy); slide the exponent p' % k,\n                   'axes': ['S1', 'S5', 'E_V'], 'items': [],\n                   'slider': {'label': 'p (V(j) = (7−j)^p)', 'values': exps, 'items': slider_items}}]})\n"}, "module": "huddling_lab", "function": "run_clocks", "packages": [], "inputs": [{"name": "set", "label": "set A", "type": "text", "default": "0,1,2,3,4,5,6", "size": 20}, {"name": "u", "label": "unit u", "type": "int", "default": "5", "min": 1, "max": 11}, {"name": "s", "label": "shift s", "type": "int", "default": "11", "min": 0, "max": 11}], "examples": [{"set": "0,1,2,3,4,5,6", "u": "5", "s": "11", "label": "C₇ → diatonic (Figure 1)"}, {"set": "0,2,4,5,7,9,11", "u": "5", "s": "0", "label": "diatonic → cluster"}, {"set": "0,1,2,3,4", "u": "7", "s": "0", "label": "C₅ → pentatonic"}], "figures": ["paperfig-1"], "figure_link": "Your own set: Figure 1 live, with the torus of fifths"}, {"id": 1, "node": "thm:connection", "files": ["huddling_lab.py"], "sources": {"huddling_lab.py": "# encaje: laboratorio del blueprint huddling-scales (corre en el navegador con Pyodide; Python puro, sin dependencias).\n\"\"\"Labs of «Huddling, diatonic and pentatonic scales in Z12»: Figures 1 and 2 of the paper, live.\n\nrun_clocks: Figure 1. A set A ⊆ Z12, a unit u and a shift s: the clocks of A and of T_s M_u A, the Fourier magnitudes\n|Â(t)| of both (M_u permutes the frequencies: the transform of M_uA at t is Â(ut)), and a torus on which every pitch\nclass sits at once on the chromatic circle (long way round) and on the circle of fifths (short way round): M_5 swaps\nthe two circles, which is why the chromatic cluster C_7 becomes the diatonic set.\nrun_cloud: Figure 2. All k-note sets, as points (S_1, S_5, E_V) with V(j) = (7-j)^p: the arcs and the diatonic orbit\nare the extreme points; a slider moves the exponent p of the potential.\"\"\"\nimport cmath\nimport itertools\nimport json\nimport math\n\nN = 12\n\n\ndef dft(A, t):\n    return sum(cmath.exp(-2j * math.pi * a * t / N) for a in A)\n\n\ndef parse_set(text):\n    out = sorted({int(x) % N for x in str(text).replace(';', ',').replace(' ', ',').split(',') if x.strip() != ''})\n    return out\n\n\ndef clock_svg(A, colour, title, cx, path_order=None):\n    R = 70\n    o = ['<g>', '<text x=\"%d\" y=\"18\" text-anchor=\"middle\" font-size=\"13\">%s<\/text>' % (cx, title),\n         '<circle cx=\"%d\" cy=\"105\" r=\"%d\" fill=\"none\" stroke=\"#bbb\"/>' % (cx, R)]\n    pts = {}\n    for p in range(N):\n        ang = math.pi / 2 - 2 * math.pi * p / N\n        x, y = cx + R * math.cos(ang), 105 - R * math.sin(ang)\n        pts[p] = (x, y)\n        on = p in A\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%s\" fill=\"%s\" stroke=\"#888\"/>' % (x, y, 6 if on else 3.5,\n                                                                                  colour if on else '#fff'))\n        lx, ly = cx + (R + 15) * math.cos(ang), 105 - (R + 15) * math.sin(ang)\n        o.append('<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"middle\" font-size=\"11\">%d<\/text>' % (lx, ly + 4, p))\n    if path_order and len(path_order) > 1:\n        d = 'M' + ' L'.join('%.1f %.1f' % pts[p] for p in path_order)\n        o.append('<path d=\"%s\" fill=\"none\" stroke=\"%s\" stroke-dasharray=\"4 3\"/>' % (d, colour))\n    o.append('<\/g>')\n    return ''.join(o)\n\n\ndef run_clocks(params):\n    p = json.loads(params)\n    A = parse_set(p.get('set', '0,1,2,3,4,5,6'))\n    u, s = int(p.get('u', 5)) % N, int(p.get('s', 11)) % N\n    if math.gcd(u, N) != 1:\n        return json.dumps({'error': 'u must be a unit of Z12: 1, 5, 7 or 11'})\n    B = sorted({(u * a + s) % N for a in A})\n    # the dashed path: B in the order of repeated addition of u (a chain of fourths/fifths when u = 5 or 7)\n    start = min(B, key=lambda b: sum(((b + k * u) % N) in B for k in range(N)) * -1)\n    chain = [b for b in ((start + k * u) % N for k in range(N)) if b in B]\n    svg = ('<svg viewBox=\"0 0 560 200\" style=\"max-width:100%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n           + clock_svg(A, '#1B6F8C', 'A = {%s}' % ','.join(map(str, A)), 130)\n           + '<text x=\"280\" y=\"100\" text-anchor=\"middle\" font-size=\"14\">→<\/text>'\n           + '<text x=\"280\" y=\"122\" text-anchor=\"middle\" font-size=\"12\">T%d∘M%d<\/text>' % (s, u)\n           + clock_svg(B, '#B5530F', 'T%dM%dA = {%s}' % (s, u, ','.join(map(str, B))), 430, chain) + '<\/svg>')\n    rows = [[t, '%.4f' % abs(dft(A, t)), '%.4f' % abs(dft(B, t)), '%.4f' % abs(dft(A, (u * t) % N))] for t in range(1, 7)]\n    # the torus: angle θ = 2πp/12 along the chromatic circle, φ = 2π(7p mod 12)/12 along the circle of fifths\n    def tor(p_, r=1.0, Rt=2.4):\n        th, ph = 2 * math.pi * p_ / N, 2 * math.pi * ((7 * p_) % N) / N\n        return [(Rt + r * math.cos(ph)) * math.cos(th), (Rt + r * math.cos(ph)) * math.sin(th), r * math.sin(ph)]\n    grid = [[[(2.4 + math.cos(2 * math.pi * j / 18)) * math.cos(2 * math.pi * i / 36),\n              (2.4 + math.cos(2 * math.pi * j / 18)) * math.sin(2 * math.pi * i / 36),\n              math.sin(2 * math.pi * j / 18)] for j in range(19)] for i in range(37)]\n    items = [{'type': 'surface', 'grid': grid, 'color': '#c9d6e3', 'opacity': 0.25, 'name': 'Z12 on a torus'},\n             {'type': 'points', 'points': [tor(a) for a in A], 'color': '#1B6F8C', 'size': 7, 'name': 'A'},\n             {'type': 'points', 'points': [tor(b) for b in B], 'color': '#B5530F', 'marker': 'star', 'size': 9,\n              'name': 'T_s M_u A'},\n             {'type': 'curve', 'points': [tor(p_) for p_ in range(N)] + [tor(0)], 'color': '#888', 'width': 1,\n              'name': 'the chromatic circle'}]\n    return json.dumps({\n        'text': ('|Â(1)| of A = %.4f and |Â(5)| of T_sM_uA = %.4f: M_%d sends frequency 1 to frequency %d. The maximum '\n                 '2+√3 = 3.7321 is reached at cardinality 7 exactly on arcs (frequency 1) and on the diatonic orbit '\n                 '(frequency 5).' % (abs(dft(A, 1)), abs(dft(B, 5)), u, (u * 1) % N)),\n        'plots': [{'kind': 'svg', 'svg': svg, 'figure': 'paperfig-1'},\n                  {'kind': '3d', 'title': 'Every pitch class on two circles at once: chromatic (long way) and fifths '\n                                         '(short way). M5 swaps them.', 'axes': ['', '', ''], 'items': items}],\n        'table': {'head': ['t', '|Â(t)| of A', '|transform| of T_sM_uA', '|Â(u·t)| of A'], 'rows': rows}})\n\n\ndef interval_vector(A):\n    iv = [0] * 7\n    for a, b in itertools.combinations(A, 2):\n        d = (a - b) % N\n        iv[min(d, N - d)] += 1\n    return iv\n\n\ndef run_cloud(params):\n    p = json.loads(params)\n    k = max(1, min(11, int(p.get('k', 7))))\n    exps = [0.5, 1, 1.5, 2, 3, 4]\n    pexp = float(p.get('p', 2))\n    if pexp not in exps:\n        exps = sorted(set(exps + [pexp]))\n    classes = {}\n    for A in itertools.combinations(range(N), k):\n        s1, s5 = abs(dft(A, 1)) ** 2, abs(dft(A, 5)) ** 2\n        iv = tuple(interval_vector(A))\n        key = (round(s1, 6), round(s5, 6), iv)\n        classes[key] = classes.get(key, 0) + 1\n    top5 = max(c[1] for c in classes)\n\n    def energy(iv, e):\n        return sum(iv[j] * (7 - j) ** e for j in range(1, 7))\n    slider_items = []\n    for e in exps:\n        pts = [[c[0], c[1], energy(c[2], e)] for c in classes]\n        best = [[c[0], c[1], energy(c[2], e)] for c in classes if abs(c[1] - top5) < 1e-6]\n        slider_items.append([{'type': 'points', 'points': pts, 'color': '#1B6F8C', 'size': 4, 'opacity': 0.7,\n                              'name': '%d classes of %d-note sets' % (len(classes), k)},\n                             {'type': 'points', 'points': best, 'color': '#B5530F', 'marker': 'star', 'size': 11,\n                              'name': 'maximum of S5'}])\n    # the paper's own view (Figure 2): S5 against the energy, marker area by multiplicity, at the chosen p\n    xs = [c[1] for c in classes]\n    ys = [energy(c[2], pexp) for c in classes]\n    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)\n    W, H, L, B = 560, 300, 60, 40\n    X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (W - L - 16)\n    Y = lambda v: H - B - (v - y0) / ((y1 - y0) or 1) * (H - B - 20)\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">' % (W, H)]\n    for c, x, y in zip(classes, xs, ys):\n        r = 2.5 + 1.6 * math.sqrt(classes[c])\n        star = abs(c[1] - top5) < 1e-6\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" fill-opacity=\"0.6\"/>' % (\n            X(x), Y(y), r, '#B5530F' if star else '#1B6F8C'))\n    o.append('<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-size=\"12\">S5 = |Â(5)|²<\/text>' % (W / 2, H - 8))\n    o.append('<text x=\"14\" y=\"%d\" font-size=\"12\" transform=\"rotate(-90 14 %d)\" text-anchor=\"middle\">E_V, V(j)=(7−j)^%g'\n             '<\/text>' % (H / 2, H / 2, pexp))\n    o.append('<\/svg>')\n    return json.dumps({\n        'text': ('%d sets of %d notes form %d classes (S1, S5, interval vector). Orange: the maximum of S5 (%s sets). '\n                 'For k = 7 they are the twelve diatonic transpositions. Move p: V(j) = (7−j)^p is strictly convex '\n                 'only for p > 1, and only then are they exactly the minimum of the energy (12 sets; 313 at p = 2, '\n                 'as in the paper). At p = 1 (convex, not strictly) the minimum is shared by 252 sets: why the paper '\n                 'needs strictness. At p = 0.5 (not convex) 24 other sets have lower energy.'\n                 % (sum(classes.values()), k, len(classes), sum(v for c, v in classes.items()\n                                                             if abs(c[1] - top5) < 1e-6))),\n        'plots': [{'kind': 'svg', 'svg': ''.join(o), 'figure': 'paperfig-2'},\n                  {'kind': '3d', 'title': 'All %d-note classes in (S1, S5, energy); slide the exponent p' % k,\n                   'axes': ['S1', 'S5', 'E_V'], 'items': [],\n                   'slider': {'label': 'p (V(j) = (7−j)^p)', 'values': exps, 'items': slider_items}}]})\n"}, "module": "huddling_lab", "function": "run_cloud", "packages": [], "inputs": [{"name": "k", "label": "k notes", "type": "int", "default": "7", "min": 2, "max": 10}, {"name": "p", "label": "exponent p", "type": "text", "default": "2", "size": 4}], "examples": [{"k": "7", "p": "2", "label": "Figure 2"}, {"k": "7", "p": "1", "label": "p = 1: no uniqueness"}, {"k": "7", "p": "0.5", "label": "p = 0.5: not convex"}, {"k": "5", "p": "2", "label": "pentatonic"}], "figures": ["paperfig-2"], "figure_link": "Every set, live: move the potential and watch the minimum"}];</script><script defer="" src="js/lab3d.js?v=083d383564"></script><script defer="" src="js/lablevels.js?v=2db15e5f75"></script><script defer="" src="js/lab.js?v=0276e732d8"></script><script>
+</script><script>window.LEMMARIO_LABS = [{"id": 0, "node": "thm:huddling", "files": ["huddling_lab.py"], "sources": {"huddling_lab.py": "# encaje: laboratorio del blueprint huddling-scales (corre en el navegador con Pyodide; Python puro, sin dependencias).\n\"\"\"Labs of «Huddling, diatonic and pentatonic scales in Z12»: Figures 1 and 2 of the paper, live.\n\nrun_clocks: Figure 1. A set A ⊆ Z12, a unit u and a shift s: the clocks of A and of T_s M_u A, the Fourier magnitudes\n|Â(t)| of both (M_u permutes the frequencies: the transform of M_uA at t is Â(ut)), and a torus on which every pitch\nclass sits at once on the chromatic circle (long way round) and on the circle of fifths (short way round): M_5 swaps\nthe two circles, which is why the chromatic cluster C_7 becomes the diatonic set.\nrun_cloud: Figure 2. All k-note sets, as points (S_1, S_5, E_V) with V(j) = (7-j)^p: the arcs and the diatonic orbit\nare the extreme points; a slider moves the exponent p of the potential.\"\"\"\nimport cmath\nimport itertools\nimport json\nimport math\n\nN = 12\n\n\ndef dft(A, t):\n    return sum(cmath.exp(-2j * math.pi * a * t / N) for a in A)\n\n\ndef parse_set(text):\n    out = sorted({int(x) % N for x in str(text).replace(';', ',').replace(' ', ',').split(',') if x.strip() != ''})\n    return out\n\n\ndef clock_svg(A, colour, title, cx, path_order=None):\n    R = 70\n    o = ['<g>', '<text x=\"%d\" y=\"18\" text-anchor=\"middle\" font-size=\"13\">%s<\/text>' % (cx, title),\n         '<circle cx=\"%d\" cy=\"105\" r=\"%d\" fill=\"none\" stroke=\"#bbb\"/>' % (cx, R)]\n    pts = {}\n    for p in range(N):\n        ang = math.pi / 2 - 2 * math.pi * p / N\n        x, y = cx + R * math.cos(ang), 105 - R * math.sin(ang)\n        pts[p] = (x, y)\n        on = p in A\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%s\" fill=\"%s\" stroke=\"#888\"/>' % (x, y, 6 if on else 3.5,\n                                                                                  colour if on else '#fff'))\n        lx, ly = cx + (R + 15) * math.cos(ang), 105 - (R + 15) * math.sin(ang)\n        o.append('<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"middle\" font-size=\"11\">%d<\/text>' % (lx, ly + 4, p))\n    if path_order and len(path_order) > 1:\n        d = 'M' + ' L'.join('%.1f %.1f' % pts[p] for p in path_order)\n        o.append('<path d=\"%s\" fill=\"none\" stroke=\"%s\" stroke-dasharray=\"4 3\"/>' % (d, colour))\n    o.append('<\/g>')\n    return ''.join(o)\n\n\ndef run_clocks(params):\n    p = json.loads(params)\n    A = parse_set(p.get('set', '0,1,2,3,4,5,6'))\n    u, s = int(p.get('u', 5)) % N, int(p.get('s', 11)) % N\n    if math.gcd(u, N) != 1:\n        return json.dumps({'error': 'u must be a unit of Z12: 1, 5, 7 or 11'})\n    B = sorted({(u * a + s) % N for a in A})\n    # the dashed path: B in the order of repeated addition of u (a chain of fourths/fifths when u = 5 or 7)\n    start = min(B, key=lambda b: sum(((b + k * u) % N) in B for k in range(N)) * -1)\n    chain = [b for b in ((start + k * u) % N for k in range(N)) if b in B]\n    svg = ('<svg viewBox=\"0 0 560 200\" style=\"max-width:100%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n           + clock_svg(A, '#1B6F8C', 'A = {%s}' % ','.join(map(str, A)), 130)\n           + '<text x=\"280\" y=\"100\" text-anchor=\"middle\" font-size=\"14\">→<\/text>'\n           + '<text x=\"280\" y=\"122\" text-anchor=\"middle\" font-size=\"12\">T%d∘M%d<\/text>' % (s, u)\n           + clock_svg(B, '#B5530F', 'T%dM%dA = {%s}' % (s, u, ','.join(map(str, B))), 430, chain) + '<\/svg>')\n    rows = [[t, '%.4f' % abs(dft(A, t)), '%.4f' % abs(dft(B, t)), '%.4f' % abs(dft(A, (u * t) % N))] for t in range(1, 7)]\n    # the torus: angle θ = 2πp/12 along the chromatic circle, φ = 2π(7p mod 12)/12 along the circle of fifths\n    def tor(p_, r=1.0, Rt=2.4):\n        th, ph = 2 * math.pi * p_ / N, 2 * math.pi * ((7 * p_) % N) / N\n        return [(Rt + r * math.cos(ph)) * math.cos(th), (Rt + r * math.cos(ph)) * math.sin(th), r * math.sin(ph)]\n    grid = [[[(2.4 + math.cos(2 * math.pi * j / 18)) * math.cos(2 * math.pi * i / 36),\n              (2.4 + math.cos(2 * math.pi * j / 18)) * math.sin(2 * math.pi * i / 36),\n              math.sin(2 * math.pi * j / 18)] for j in range(19)] for i in range(37)]\n    items = [{'type': 'surface', 'grid': grid, 'color': '#c9d6e3', 'opacity': 0.25, 'name': 'Z12 on a torus'},\n             {'type': 'points', 'points': [tor(a) for a in A], 'color': '#1B6F8C', 'size': 7, 'name': 'A'},\n             {'type': 'points', 'points': [tor(b) for b in B], 'color': '#B5530F', 'marker': 'star', 'size': 9,\n              'name': 'T_s M_u A'},\n             {'type': 'curve', 'points': [tor(p_) for p_ in range(N)] + [tor(0)], 'color': '#888', 'width': 1,\n              'name': 'the chromatic circle'}]\n    return json.dumps({\n        'text': ('|Â(1)| of A = %.4f and |Â(5)| of T_sM_uA = %.4f: M_%d sends frequency 1 to frequency %d. The maximum '\n                 '2+√3 = 3.7321 is reached at cardinality 7 exactly on arcs (frequency 1) and on the diatonic orbit '\n                 '(frequency 5).' % (abs(dft(A, 1)), abs(dft(B, 5)), u, (u * 1) % N)),\n        'plots': [{'kind': 'svg', 'svg': svg, 'figure': 'paperfig-1'},\n                  {'kind': '3d', 'title': 'Every pitch class on two circles at once: chromatic (long way) and fifths '\n                                         '(short way). M5 swaps them.', 'axes': ['', '', ''], 'items': items}],\n        'table': {'head': ['t', '|Â(t)| of A', '|transform| of T_sM_uA', '|Â(u·t)| of A'], 'rows': rows}})\n\n\ndef interval_vector(A):\n    iv = [0] * 7\n    for a, b in itertools.combinations(A, 2):\n        d = (a - b) % N\n        iv[min(d, N - d)] += 1\n    return iv\n\n\ndef run_cloud(params):\n    p = json.loads(params)\n    k = max(1, min(11, int(p.get('k', 7))))\n    exps = [0.5, 1, 1.5, 2, 3, 4]\n    pexp = float(p.get('p', 2))\n    if pexp not in exps:\n        exps = sorted(set(exps + [pexp]))\n    classes = {}\n    for A in itertools.combinations(range(N), k):\n        s1, s5 = abs(dft(A, 1)) ** 2, abs(dft(A, 5)) ** 2\n        iv = tuple(interval_vector(A))\n        key = (round(s1, 6), round(s5, 6), iv)\n        classes[key] = classes.get(key, 0) + 1\n    top5 = max(c[1] for c in classes)\n\n    def energy(iv, e):\n        return sum(iv[j] * (7 - j) ** e for j in range(1, 7))\n    slider_items = []\n    for e in exps:\n        pts = [[c[0], c[1], energy(c[2], e)] for c in classes]\n        best = [[c[0], c[1], energy(c[2], e)] for c in classes if abs(c[1] - top5) < 1e-6]\n        slider_items.append([{'type': 'points', 'points': pts, 'color': '#1B6F8C', 'size': 4, 'opacity': 0.7,\n                              'name': '%d classes of %d-note sets' % (len(classes), k)},\n                             {'type': 'points', 'points': best, 'color': '#B5530F', 'marker': 'star', 'size': 11,\n                              'name': 'maximum of S5'}])\n    # the paper's own view (Figure 2): S5 against the energy, marker area by multiplicity, at the chosen p\n    xs = [c[1] for c in classes]\n    ys = [energy(c[2], pexp) for c in classes]\n    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)\n    W, H, L, B = 560, 300, 60, 40\n    X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (W - L - 16)\n    Y = lambda v: H - B - (v - y0) / ((y1 - y0) or 1) * (H - B - 20)\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">' % (W, H)]\n    for c, x, y in zip(classes, xs, ys):\n        r = 2.5 + 1.6 * math.sqrt(classes[c])\n        star = abs(c[1] - top5) < 1e-6\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" fill-opacity=\"0.6\"/>' % (\n            X(x), Y(y), r, '#B5530F' if star else '#1B6F8C'))\n    o.append('<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-size=\"12\">S5 = |Â(5)|²<\/text>' % (W / 2, H - 8))\n    o.append('<text x=\"14\" y=\"%d\" font-size=\"12\" transform=\"rotate(-90 14 %d)\" text-anchor=\"middle\">E_V, V(j)=(7−j)^%g'\n             '<\/text>' % (H / 2, H / 2, pexp))\n    o.append('<\/svg>')\n    return json.dumps({\n        'text': ('%d sets of %d notes form %d classes (S1, S5, interval vector). Orange: the maximum of S5 (%s sets). '\n                 'For k = 7 they are the twelve diatonic transpositions. Move p: V(j) = (7−j)^p is strictly convex '\n                 'only for p > 1, and only then are they exactly the minimum of the energy (12 sets; 313 at p = 2, '\n                 'as in the paper). At p = 1 (convex, not strictly) the minimum is shared by 252 sets: why the paper '\n                 'needs strictness. At p = 0.5 (not convex) 24 other sets have lower energy.'\n                 % (sum(classes.values()), k, len(classes), sum(v for c, v in classes.items()\n                                                             if abs(c[1] - top5) < 1e-6))),\n        'plots': [{'kind': 'svg', 'svg': ''.join(o), 'figure': 'paperfig-2'},\n                  {'kind': '3d', 'title': 'All %d-note classes in (S1, S5, energy); slide the exponent p' % k,\n                   'axes': ['S1', 'S5', 'E_V'], 'items': [],\n                   'slider': {'label': 'p (V(j) = (7−j)^p)', 'values': exps, 'items': slider_items}}]})\n"}, "module": "huddling_lab", "function": "run_clocks", "packages": [], "inputs": [{"name": "set", "label": "set A", "type": "text", "default": "0,1,2,3,4,5,6", "size": 20}, {"name": "u", "label": "unit u", "type": "int", "default": "5", "min": 1, "max": 11}, {"name": "s", "label": "shift s", "type": "int", "default": "11", "min": 0, "max": 11}], "examples": [{"set": "0,1,2,3,4,5,6", "u": "5", "s": "11", "label": "C₇ → diatonic (Figure 1)"}, {"set": "0,2,4,5,7,9,11", "u": "5", "s": "0", "label": "diatonic → cluster"}, {"set": "0,1,2,3,4", "u": "7", "s": "0", "label": "C₅ → pentatonic"}], "figures": ["paperfig-1"], "figure_link": "Your own set: Figure 1 live, with the torus of fifths"}, {"id": 1, "node": "thm:connection", "files": ["huddling_lab.py"], "sources": {"huddling_lab.py": "# encaje: laboratorio del blueprint huddling-scales (corre en el navegador con Pyodide; Python puro, sin dependencias).\n\"\"\"Labs of «Huddling, diatonic and pentatonic scales in Z12»: Figures 1 and 2 of the paper, live.\n\nrun_clocks: Figure 1. A set A ⊆ Z12, a unit u and a shift s: the clocks of A and of T_s M_u A, the Fourier magnitudes\n|Â(t)| of both (M_u permutes the frequencies: the transform of M_uA at t is Â(ut)), and a torus on which every pitch\nclass sits at once on the chromatic circle (long way round) and on the circle of fifths (short way round): M_5 swaps\nthe two circles, which is why the chromatic cluster C_7 becomes the diatonic set.\nrun_cloud: Figure 2. All k-note sets, as points (S_1, S_5, E_V) with V(j) = (7-j)^p: the arcs and the diatonic orbit\nare the extreme points; a slider moves the exponent p of the potential.\"\"\"\nimport cmath\nimport itertools\nimport json\nimport math\n\nN = 12\n\n\ndef dft(A, t):\n    return sum(cmath.exp(-2j * math.pi * a * t / N) for a in A)\n\n\ndef parse_set(text):\n    out = sorted({int(x) % N for x in str(text).replace(';', ',').replace(' ', ',').split(',') if x.strip() != ''})\n    return out\n\n\ndef clock_svg(A, colour, title, cx, path_order=None):\n    R = 70\n    o = ['<g>', '<text x=\"%d\" y=\"18\" text-anchor=\"middle\" font-size=\"13\">%s<\/text>' % (cx, title),\n         '<circle cx=\"%d\" cy=\"105\" r=\"%d\" fill=\"none\" stroke=\"#bbb\"/>' % (cx, R)]\n    pts = {}\n    for p in range(N):\n        ang = math.pi / 2 - 2 * math.pi * p / N\n        x, y = cx + R * math.cos(ang), 105 - R * math.sin(ang)\n        pts[p] = (x, y)\n        on = p in A\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%s\" fill=\"%s\" stroke=\"#888\"/>' % (x, y, 6 if on else 3.5,\n                                                                                  colour if on else '#fff'))\n        lx, ly = cx + (R + 15) * math.cos(ang), 105 - (R + 15) * math.sin(ang)\n        o.append('<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"middle\" font-size=\"11\">%d<\/text>' % (lx, ly + 4, p))\n    if path_order and len(path_order) > 1:\n        d = 'M' + ' L'.join('%.1f %.1f' % pts[p] for p in path_order)\n        o.append('<path d=\"%s\" fill=\"none\" stroke=\"%s\" stroke-dasharray=\"4 3\"/>' % (d, colour))\n    o.append('<\/g>')\n    return ''.join(o)\n\n\ndef run_clocks(params):\n    p = json.loads(params)\n    A = parse_set(p.get('set', '0,1,2,3,4,5,6'))\n    u, s = int(p.get('u', 5)) % N, int(p.get('s', 11)) % N\n    if math.gcd(u, N) != 1:\n        return json.dumps({'error': 'u must be a unit of Z12: 1, 5, 7 or 11'})\n    B = sorted({(u * a + s) % N for a in A})\n    # the dashed path: B in the order of repeated addition of u (a chain of fourths/fifths when u = 5 or 7)\n    start = min(B, key=lambda b: sum(((b + k * u) % N) in B for k in range(N)) * -1)\n    chain = [b for b in ((start + k * u) % N for k in range(N)) if b in B]\n    svg = ('<svg viewBox=\"0 0 560 200\" style=\"max-width:100%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n           + clock_svg(A, '#1B6F8C', 'A = {%s}' % ','.join(map(str, A)), 130)\n           + '<text x=\"280\" y=\"100\" text-anchor=\"middle\" font-size=\"14\">→<\/text>'\n           + '<text x=\"280\" y=\"122\" text-anchor=\"middle\" font-size=\"12\">T%d∘M%d<\/text>' % (s, u)\n           + clock_svg(B, '#B5530F', 'T%dM%dA = {%s}' % (s, u, ','.join(map(str, B))), 430, chain) + '<\/svg>')\n    rows = [[t, '%.4f' % abs(dft(A, t)), '%.4f' % abs(dft(B, t)), '%.4f' % abs(dft(A, (u * t) % N))] for t in range(1, 7)]\n    # the torus: angle θ = 2πp/12 along the chromatic circle, φ = 2π(7p mod 12)/12 along the circle of fifths\n    def tor(p_, r=1.0, Rt=2.4):\n        th, ph = 2 * math.pi * p_ / N, 2 * math.pi * ((7 * p_) % N) / N\n        return [(Rt + r * math.cos(ph)) * math.cos(th), (Rt + r * math.cos(ph)) * math.sin(th), r * math.sin(ph)]\n    grid = [[[(2.4 + math.cos(2 * math.pi * j / 18)) * math.cos(2 * math.pi * i / 36),\n              (2.4 + math.cos(2 * math.pi * j / 18)) * math.sin(2 * math.pi * i / 36),\n              math.sin(2 * math.pi * j / 18)] for j in range(19)] for i in range(37)]\n    items = [{'type': 'surface', 'grid': grid, 'color': '#c9d6e3', 'opacity': 0.25, 'name': 'Z12 on a torus'},\n             {'type': 'points', 'points': [tor(a) for a in A], 'color': '#1B6F8C', 'size': 7, 'name': 'A'},\n             {'type': 'points', 'points': [tor(b) for b in B], 'color': '#B5530F', 'marker': 'star', 'size': 9,\n              'name': 'T_s M_u A'},\n             {'type': 'curve', 'points': [tor(p_) for p_ in range(N)] + [tor(0)], 'color': '#888', 'width': 1,\n              'name': 'the chromatic circle'}]\n    return json.dumps({\n        'text': ('|Â(1)| of A = %.4f and |Â(5)| of T_sM_uA = %.4f: M_%d sends frequency 1 to frequency %d. The maximum '\n                 '2+√3 = 3.7321 is reached at cardinality 7 exactly on arcs (frequency 1) and on the diatonic orbit '\n                 '(frequency 5).' % (abs(dft(A, 1)), abs(dft(B, 5)), u, (u * 1) % N)),\n        'plots': [{'kind': 'svg', 'svg': svg, 'figure': 'paperfig-1'},\n                  {'kind': '3d', 'title': 'Every pitch class on two circles at once: chromatic (long way) and fifths '\n                                         '(short way). M5 swaps them.', 'axes': ['', '', ''], 'items': items}],\n        'table': {'head': ['t', '|Â(t)| of A', '|transform| of T_sM_uA', '|Â(u·t)| of A'], 'rows': rows}})\n\n\ndef interval_vector(A):\n    iv = [0] * 7\n    for a, b in itertools.combinations(A, 2):\n        d = (a - b) % N\n        iv[min(d, N - d)] += 1\n    return iv\n\n\ndef run_cloud(params):\n    p = json.loads(params)\n    k = max(1, min(11, int(p.get('k', 7))))\n    exps = [0.5, 1, 1.5, 2, 3, 4]\n    pexp = float(p.get('p', 2))\n    if pexp not in exps:\n        exps = sorted(set(exps + [pexp]))\n    classes = {}\n    for A in itertools.combinations(range(N), k):\n        s1, s5 = abs(dft(A, 1)) ** 2, abs(dft(A, 5)) ** 2\n        iv = tuple(interval_vector(A))\n        key = (round(s1, 6), round(s5, 6), iv)\n        classes[key] = classes.get(key, 0) + 1\n    top5 = max(c[1] for c in classes)\n\n    def energy(iv, e):\n        return sum(iv[j] * (7 - j) ** e for j in range(1, 7))\n    slider_items = []\n    for e in exps:\n        pts = [[c[0], c[1], energy(c[2], e)] for c in classes]\n        best = [[c[0], c[1], energy(c[2], e)] for c in classes if abs(c[1] - top5) < 1e-6]\n        slider_items.append([{'type': 'points', 'points': pts, 'color': '#1B6F8C', 'size': 4, 'opacity': 0.7,\n                              'name': '%d classes of %d-note sets' % (len(classes), k)},\n                             {'type': 'points', 'points': best, 'color': '#B5530F', 'marker': 'star', 'size': 11,\n                              'name': 'maximum of S5'}])\n    # the paper's own view (Figure 2): S5 against the energy, marker area by multiplicity, at the chosen p\n    xs = [c[1] for c in classes]\n    ys = [energy(c[2], pexp) for c in classes]\n    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)\n    W, H, L, B = 560, 300, 60, 40\n    X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (W - L - 16)\n    Y = lambda v: H - B - (v - y0) / ((y1 - y0) or 1) * (H - B - 20)\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">' % (W, H)]\n    for c, x, y in zip(classes, xs, ys):\n        r = 2.5 + 1.6 * math.sqrt(classes[c])\n        star = abs(c[1] - top5) < 1e-6\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" fill-opacity=\"0.6\"/>' % (\n            X(x), Y(y), r, '#B5530F' if star else '#1B6F8C'))\n    o.append('<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-size=\"12\">S5 = |Â(5)|²<\/text>' % (W / 2, H - 8))\n    o.append('<text x=\"14\" y=\"%d\" font-size=\"12\" transform=\"rotate(-90 14 %d)\" text-anchor=\"middle\">E_V, V(j)=(7−j)^%g'\n             '<\/text>' % (H / 2, H / 2, pexp))\n    o.append('<\/svg>')\n    return json.dumps({\n        'text': ('%d sets of %d notes form %d classes (S1, S5, interval vector). Orange: the maximum of S5 (%s sets). '\n                 'For k = 7 they are the twelve diatonic transpositions. Move p: V(j) = (7−j)^p is strictly convex '\n                 'only for p > 1, and only then are they exactly the minimum of the energy (12 sets; 313 at p = 2, '\n                 'as in the paper). At p = 1 (convex, not strictly) the minimum is shared by 252 sets: why the paper '\n                 'needs strictness. At p = 0.5 (not convex) 24 other sets have lower energy.'\n                 % (sum(classes.values()), k, len(classes), sum(v for c, v in classes.items()\n                                                             if abs(c[1] - top5) < 1e-6))),\n        'plots': [{'kind': 'svg', 'svg': ''.join(o), 'figure': 'paperfig-2'},\n                  {'kind': '3d', 'title': 'All %d-note classes in (S1, S5, energy); slide the exponent p' % k,\n                   'axes': ['S1', 'S5', 'E_V'], 'items': [],\n                   'slider': {'label': 'p (V(j) = (7−j)^p)', 'values': exps, 'items': slider_items}}]})\n"}, "module": "huddling_lab", "function": "run_cloud", "packages": [], "inputs": [{"name": "k", "label": "k notes", "type": "int", "default": "7", "min": 2, "max": 10}, {"name": "p", "label": "exponent p", "type": "text", "default": "2", "size": 4}], "examples": [{"k": "7", "p": "2", "label": "Figure 2"}, {"k": "7", "p": "1", "label": "p = 1: no uniqueness"}, {"k": "7", "p": "0.5", "label": "p = 0.5: not convex"}, {"k": "5", "p": "2", "label": "pentatonic"}], "figures": ["paperfig-2"], "figure_link": "Every set, live: move the potential and watch the minimum"}];</script><script defer="" src="js/lab3d.js?v=6029dc17f7"></script><script defer="" src="js/lablevels.js?v=2db15e5f75"></script><script defer="" src="js/lab.js?v=318ad870cd"></script><script>
 (function(){
   var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
   function apply(v){
@@ -850,7 +1022,7 @@ document.addEventListener('click', function (e) {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:huddling": "Theorem 1 — Huddling in $\\Ztwelve$", "thm:energy": "Theorem 2 — Diatonic energy minimum", "thm:connection": "Theorem 3 — Fourier--energy equivalence", "thm:pentatonic": "Theorem 4 — Pentatonic extremality"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:huddling": "Theorem 1 — Huddling in $\\Ztwelve$", "thm:energy": "Theorem 2 — Diatonic energy minimum", "thm:connection": "Theorem 3 — Fourier--energy equivalence", "thm:pentatonic": "Theorem 4 — Pentatonic extremality"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
@@ -887,39 +1059,6 @@ document.addEventListener('click', function (e) {
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-print-js">
-(function(){
-  var opened = [], shown = [];
-  addEventListener('beforeprint', function(){
-    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
-    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
-      i.style.display = ''; shown.push(i); });
-  });
-  addEventListener('afterprint', function(){
-    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
-    opened = []; shown = [];
-  });
 })();
 </script>
 <style id="lm-lean-panel-css">
@@ -967,6 +1106,39 @@ document.addEventListener('click', function (e) {
     var a=e.target.closest&&e.target.closest('a[data-lean-github]');
     if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
     e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
 })();
 </script>
 </body>
