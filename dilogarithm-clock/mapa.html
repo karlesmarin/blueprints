@@ -59,9 +59,13 @@ nav.pc-toc li.on>a{background:#89aecb}
 .pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
 .pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
 .pc-paneltitle .campo{justify-content:center}
-section.pc-pane[hidden]{display:none !important}
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
 section.pc-pane .mapa{max-width:100%;overflow:auto}
-@media (max-width:900px){nav.pc-toc{display:none}}
+/* phone: the parts of the map as a row of tabs above the panel */
+@media (max-width:900px){.pc-wrap{flex-direction:column}
+  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
+  nav.pc-toc ul{display:flex;white-space:nowrap}
+  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
 </style><script id="pc-embed">
 (function(){
   if (window.self === window.top) return;
@@ -96,6 +100,13 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
   border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
 </style><style id="lm-maphere-css">
 g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
 g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
@@ -126,51 +137,57 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 [class$="_thmwrapper"]{break-inside:avoid-page}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
-@page graph{size:842pt 621pt;margin:24pt}
+@page graph{size:842pt 764pt;margin:24pt}
 header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
 #pane-deps{break-after:page}
 section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
-section.pc-pane .mapa svg{width:609pt !important;height:253pt !important;max-width:none !important;
+section.pc-pane .mapa svg{width:774pt !important;height:396pt !important;max-width:none !important;
   max-height:none !important;min-width:0 !important}
 </style>
-</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4: blueprint">Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20675271" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20675271</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="dilogarithm-clock-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4: blueprint">Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v2 (<a href="https://doi.org/10.5281/zenodo.20675270" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20675270</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="dilogarithm-clock-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
 <div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>The Clock That Never Ticks: a machine-checked path from the dilogarithm to quantum speed limits in Lean 4</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Special functions · the dilogarithm and the Clausen function</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
-<span class="cifra"><b>5</b> results</span>
-<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>5</b> entirely in Lean</span>
+<span class="cifra"><b>7</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>7</b> entirely in Lean</span>
 <span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>0</b> partly in Lean</span>
-<span class="cifra c-prog">💻 <b>3</b> checked by a program</span>
+<span class="cifra c-lean" title="statements proved in Isabelle/HOL (ours)">✅ <b>4</b> in Isabelle</span>
+<span class="cifra c-prog">💻 <b>5</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="253pt" style="min-width:760px" viewbox="0.00 0.00 609.00 253.00" width="609pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 248.91)">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="396pt" style="min-width:760px" viewbox="0.00 0.00 774.00 396.00" width="774pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 391.74)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M12,-132.83C12,-132.83 271,-132.83 271,-132.83 277,-132.83 283,-138.83 283,-144.83 283,-144.83 283,-232.91 283,-232.91 283,-238.91 277,-244.91 271,-244.91 271,-244.91 12,-244.91 12,-244.91 6,-244.91 0,-238.91 0,-232.91 0,-232.91 0,-144.83 0,-144.83 0,-138.83 6,-132.83 12,-132.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="141.5" xml:space="preserve" y="-229.5">Q1: what does the series know about its own derivative?</text>
+<path d="M12,-269.28C12,-269.28 271,-269.28 271,-269.28 277,-269.28 283,-275.28 283,-281.28 283,-281.28 283,-369.36 283,-369.36 283,-375.36 277,-381.36 271,-381.36 271,-381.36 12,-381.36 12,-381.36 6,-381.36 0,-375.36 0,-369.36 0,-369.36 0,-281.28 0,-281.28 0,-275.28 6,-269.28 12,-269.28" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="141.5" xml:space="preserve" y="-365.97">Q1: what does the series know about its own derivative?</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M303,-132.83C303,-132.83 455,-132.83 455,-132.83 461,-132.83 467,-138.83 467,-144.83 467,-144.83 467,-232.91 467,-232.91 467,-238.91 461,-244.91 455,-244.91 455,-244.91 303,-244.91 303,-244.91 297,-244.91 291,-238.91 291,-232.91 291,-232.91 291,-144.83 291,-144.83 291,-138.83 297,-132.83 303,-132.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-229.5">Q4: why is the wild half positive?</text>
+<path d="M303,-269.28C303,-269.28 455,-269.28 455,-269.28 461,-269.28 467,-275.28 467,-281.28 467,-281.28 467,-369.36 467,-369.36 467,-375.36 461,-381.36 455,-381.36 455,-381.36 303,-381.36 303,-381.36 297,-381.36 291,-375.36 291,-369.36 291,-369.36 291,-281.28 291,-281.28 291,-275.28 297,-269.28 303,-269.28" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-365.97">Q4: why is the wild half positive?</text>
 </g>
 <g class="cluster" id="clust3">
 <title>cluster_2</title>
-<path d="M147,0C147,0 589,0 589,0 595,0 601,-6 601,-12 601,-12 601,-112.83 601,-112.83 601,-118.83 595,-124.83 589,-124.83 589,-124.83 147,-124.83 147,-124.83 141,-124.83 135,-118.83 135,-112.83 135,-112.83 135,-12 135,-12 135,-6 141,0 147,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="368" xml:space="preserve" y="-109.42">Q5: what physical thing beats to this function?</text>
+<path d="M109,0C109,0 450,0 450,0 456,0 462,-6 462,-12 462,-12 462,-241.66 462,-241.66 462,-247.66 456,-253.66 450,-253.66 450,-253.66 109,-253.66 109,-253.66 103,-253.66 97,-247.66 97,-241.66 97,-241.66 97,-12 97,-12 97,-6 103,0 109,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="279.5" xml:space="preserve" y="-238.25">Q5: what physical thing beats to this function?</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M487,-126.58C487,-126.58 754,-126.58 754,-126.58 760,-126.58 766,-132.58 766,-138.58 766,-138.58 766,-375.74 766,-375.74 766,-381.74 760,-387.74 754,-387.74 754,-387.74 487,-387.74 487,-387.74 481,-387.74 475,-381.74 475,-375.74 475,-375.74 475,-138.58 475,-138.58 475,-132.58 481,-126.58 487,-126.58" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="620.5" xml:space="preserve" y="-372.34">Q6: what decides orthogonality when no level dominates?</text>
 </g>
 <!-- thm:funceq -->
 <g class="node" id="node1">
 <title>thm:funceq</title>
 <g id="a_node1"><a target="_top" xlink:href="index.html#thm:funceq" xlink:title="Theorem 1: Euler reflection, Landen, duplication and Li₂(1/2) for the real dilogarithm">
-<path d="M192.43,-214.66C192.43,-214.66 87.57,-214.66 87.57,-214.66 81.57,-214.66 75.57,-208.66 75.57,-202.66 75.57,-202.66 75.57,-152.83 75.57,-152.83 75.57,-146.83 81.57,-140.83 87.57,-140.83 87.57,-140.83 192.43,-140.83 192.43,-140.83 198.43,-140.83 204.43,-146.83 204.43,-152.83 204.43,-152.83 204.43,-202.66 204.43,-202.66 204.43,-208.66 198.43,-214.66 192.43,-214.66" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-199.64">Theorem 1</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-186.89">Euler reflection, Landen,</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-174.14">duplication and Li₂(1/2)</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-161.39">for the real dilogarithm</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-148.64">✅ Lean · 💻 program</text>
+<path d="M192.43,-351.12C192.43,-351.12 87.57,-351.12 87.57,-351.12 81.57,-351.12 75.57,-345.12 75.57,-339.12 75.57,-339.12 75.57,-289.28 75.57,-289.28 75.57,-283.28 81.57,-277.28 87.57,-277.28 87.57,-277.28 192.43,-277.28 192.43,-277.28 198.43,-277.28 204.43,-283.28 204.43,-289.28 204.43,-289.28 204.43,-339.12 204.43,-339.12 204.43,-345.12 198.43,-351.12 192.43,-351.12" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-336.1">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-323.35">Euler reflection, Landen,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-310.6">duplication and Li₂(1/2)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-297.85">for the real dilogarithm</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="140" xml:space="preserve" y="-285.1">✅ Lean · 💻 program</text>
 </a>
 </g>
 </g>
@@ -178,12 +195,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node2">
 <title>thm:fj</title>
 <g id="a_node2"><a target="_top" xlink:href="index.html#thm:fj" xlink:title="Theorem 2: Fejér–Jackson: the sine partial sums ∑ sin(kθ)/k are positive on (0, π)">
-<path d="M429.18,-214.66C429.18,-214.66 328.82,-214.66 328.82,-214.66 322.82,-214.66 316.82,-208.66 316.82,-202.66 316.82,-202.66 316.82,-152.83 316.82,-152.83 316.82,-146.83 322.82,-140.83 328.82,-140.83 328.82,-140.83 429.18,-140.83 429.18,-140.83 435.18,-140.83 441.18,-146.83 441.18,-152.83 441.18,-152.83 441.18,-202.66 441.18,-202.66 441.18,-208.66 435.18,-214.66 429.18,-214.66" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-199.64">Theorem 2</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-186.89">Fejér–Jackson: the sine</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-174.14">partial sums ∑ sin(kθ)/k</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-161.39">are positive on (0, π)</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="379" xml:space="preserve" y="-148.64">✅ Lean · 💻 program</text>
+<path d="M414.18,-351.12C414.18,-351.12 313.82,-351.12 313.82,-351.12 307.82,-351.12 301.82,-345.12 301.82,-339.12 301.82,-339.12 301.82,-289.28 301.82,-289.28 301.82,-283.28 307.82,-277.28 313.82,-277.28 313.82,-277.28 414.18,-277.28 414.18,-277.28 420.18,-277.28 426.18,-283.28 426.18,-289.28 426.18,-289.28 426.18,-339.12 426.18,-339.12 426.18,-345.12 420.18,-351.12 414.18,-351.12" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="364" xml:space="preserve" y="-336.1">Theorem 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="364" xml:space="preserve" y="-323.35">Fejér–Jackson: the sine</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="364" xml:space="preserve" y="-310.6">partial sums ∑ sin(kθ)/k</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="364" xml:space="preserve" y="-297.85">are positive on (0, π)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="364" xml:space="preserve" y="-285.1">✅ Lean · 💻 program</text>
 </a>
 </g>
 </g>
@@ -191,59 +208,93 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node4">
 <title>thm:clock</title>
 <g id="a_node4"><a target="_top" xlink:href="index.html#thm:clock" xlink:title="Theorem 4: the weight-2 zeta state never reaches an orthogonal state">
-<path d="M434.05,-91.96C434.05,-91.96 323.95,-91.96 323.95,-91.96 317.95,-91.96 311.95,-85.96 311.95,-79.96 311.95,-79.96 311.95,-22.62 311.95,-22.62 311.95,-16.62 317.95,-10.62 323.95,-10.62 323.95,-10.62 434.05,-10.62 434.05,-10.62 440.05,-10.62 446.05,-16.62 446.05,-22.62 446.05,-22.62 446.05,-79.96 446.05,-79.96 446.05,-85.96 440.05,-91.96 434.05,-91.96" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-75.51">Theorem 4</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-61.26">the weight-2 zeta state</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-47.01">never reaches an</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-32.76">orthogonal state</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-18.51">✅ Lean · 💻 program</text>
+<path d="M441.93,-223.41C441.93,-223.41 286.08,-223.41 286.08,-223.41 280.08,-223.41 274.08,-217.41 274.08,-211.41 274.08,-211.41 274.08,-154.07 274.08,-154.07 274.08,-148.07 280.08,-142.07 286.08,-142.07 286.08,-142.07 441.93,-142.07 441.93,-142.07 447.93,-142.07 453.93,-148.07 453.93,-154.07 453.93,-154.07 453.93,-211.41 453.93,-211.41 453.93,-217.41 447.93,-223.41 441.93,-223.41" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="364" xml:space="preserve" y="-206.97">Theorem 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="364" xml:space="preserve" y="-192.72">the weight-2 zeta state</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="364" xml:space="preserve" y="-178.47">never reaches an</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="364" xml:space="preserve" y="-164.22">orthogonal state</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="364" xml:space="preserve" y="-149.97">✅ Lean · Isabelle · 💻 program</text>
 </a>
 </g>
 </g>
 <!-- thm:fj&#45;&gt;thm:clock -->
 <g class="edge" id="edge1">
 <title>thm:fj-&gt;thm:clock</title>
-<path d="M379,-140.41C379,-128.17 379,-114.3 379,-101.25" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="381.45,-101.33 379,-94.33 376.55,-101.33 381.45,-101.33" stroke="#9aa8b5"></polygon>
+<path d="M364,-276.8C364,-263.17 364,-247.45 364,-232.86" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="366.45,-232.94 364,-225.94 361.55,-232.94 366.45,-232.94" stroke="#9aa8b5"></polygon>
 </g>
 <!-- thm:qsl -->
 <g class="node" id="node3">
 <title>thm:qsl</title>
 <g id="a_node3"><a target="_top" xlink:href="index.html#thm:qsl" xlink:title="Theorem 3: Margolus–Levitin and an L¹ Mandelstam–Tamm bound at an orthogonalization time">
-<path d="M275.3,-88.2C275.3,-88.2 154.7,-88.2 154.7,-88.2 148.7,-88.2 142.7,-82.2 142.7,-76.2 142.7,-76.2 142.7,-26.38 142.7,-26.38 142.7,-20.38 148.7,-14.37 154.7,-14.37 154.7,-14.37 275.3,-14.37 275.3,-14.37 281.3,-14.37 287.3,-20.37 287.3,-26.37 287.3,-26.37 287.3,-76.2 287.3,-76.2 287.3,-82.2 281.3,-88.2 275.3,-88.2" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="215" xml:space="preserve" y="-73.19">Theorem 3</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="215" xml:space="preserve" y="-60.44">Margolus–Levitin and an L¹</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="215" xml:space="preserve" y="-47.69">Mandelstam–Tamm bound at</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="215" xml:space="preserve" y="-34.94">an orthogonalization time</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="215" xml:space="preserve" y="-22.19">✅ Lean</text>
+<path d="M237.3,-219.66C237.3,-219.66 116.7,-219.66 116.7,-219.66 110.7,-219.66 104.7,-213.66 104.7,-207.66 104.7,-207.66 104.7,-157.83 104.7,-157.83 104.7,-151.83 110.7,-145.83 116.7,-145.83 116.7,-145.83 237.3,-145.83 237.3,-145.83 243.3,-145.83 249.3,-151.83 249.3,-157.83 249.3,-157.83 249.3,-207.66 249.3,-207.66 249.3,-213.66 243.3,-219.66 237.3,-219.66" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="177" xml:space="preserve" y="-204.64">Theorem 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="177" xml:space="preserve" y="-191.89">Margolus–Levitin and an L¹</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="177" xml:space="preserve" y="-179.14">Mandelstam–Tamm bound at</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="177" xml:space="preserve" y="-166.39">an orthogonalization time</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="177" xml:space="preserve" y="-153.64">✅ Lean</text>
 </a>
 </g>
 </g>
-<!-- rem:ek -->
+<!-- prop:zz -->
 <g class="node" id="node5">
-<title>rem:ek</title>
-<g id="a_node5"><a target="_top" xlink:href="index.html#rem:ek" xlink:title="Remark 1: which monotone clocks tick: zeros on the circle are roots of unity (an observation)">
-<path d="M580.67,-94.58C580.67,-94.58 483.32,-94.58 483.32,-94.58 477.32,-94.58 471.32,-88.58 471.32,-82.58 471.32,-82.58 471.32,-20 471.32,-20 471.32,-14 477.32,-8 483.32,-8 483.32,-8 580.67,-8 580.67,-8 586.67,-8 592.67,-14 592.67,-20 592.67,-20 592.67,-82.58 592.67,-82.58 592.67,-88.58 586.67,-94.58 580.67,-94.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="532" xml:space="preserve" y="-79.56">Remark 1</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="532" xml:space="preserve" y="-66.81">which monotone clocks</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="532" xml:space="preserve" y="-54.06">tick: zeros on the circle</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="532" xml:space="preserve" y="-41.31">are roots of unity (an</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="532" xml:space="preserve" y="-28.56">observation)</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="532" xml:space="preserve" y="-15.81">✅ Lean</text>
+<title>prop:zz</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:zz" xlink:title="Proposition 1: the Zieliński–Zych bound as its order tends to zero: only the lowest level counts">
+<path d="M257.43,-94.58C257.43,-94.58 116.57,-94.58 116.57,-94.58 110.57,-94.58 104.57,-88.58 104.57,-82.58 104.57,-82.58 104.57,-20 104.57,-20 104.57,-14 110.57,-8 116.57,-8 116.57,-8 257.43,-8 257.43,-8 263.43,-8 269.43,-14 269.43,-20 269.43,-20 269.43,-82.58 269.43,-82.58 269.43,-88.58 263.43,-94.58 257.43,-94.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-79.56">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-66.81">the Zieliński–Zych bound</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-54.06">as its order tends to</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-41.31">zero: only the lowest</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-28.56">level counts</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-15.81">✅ Lean · Isabelle · 💻 program</text>
 </a>
 </g>
 </g>
-<!-- thm:clock&#45;&gt;rem:ek -->
-<g class="edge lm-aux" id="edge2">
-<title>thm:clock-&gt;rem:ek</title>
-<path d="M447.13,-51.29C452.35,-51.29 457.58,-51.29 462.8,-51.29" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="462.49,-53.74 469.49,-51.29 462.49,-48.84 462.49,-53.74" stroke="#9aa8b5"></polygon>
+<!-- thm:qsl&#45;&gt;prop:zz -->
+<g class="edge" id="edge2">
+<title>thm:qsl-&gt;prop:zz</title>
+<path d="M179.81,-145.34C180.83,-132.21 181.99,-117.15 183.08,-103.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="185.5,-103.51 183.59,-96.34 180.61,-103.13 185.5,-103.51" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:floor -->
+<g class="node" id="node6">
+<title>thm:floor</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#thm:floor" xlink:title="Theorem 5: the floor of the polylogarithm on the unit circle: |Liₛ(z)| ≥ η(s), equality at z = −1">
+<path d="M673.17,-357.49C673.17,-357.49 566.83,-357.49 566.83,-357.49 560.83,-357.49 554.83,-351.49 554.83,-345.49 554.83,-345.49 554.83,-282.91 554.83,-282.91 554.83,-276.91 560.83,-270.91 566.83,-270.91 566.83,-270.91 673.17,-270.91 673.17,-270.91 679.17,-270.91 685.17,-276.91 685.17,-282.91 685.17,-282.91 685.17,-345.49 685.17,-345.49 685.17,-351.49 679.17,-357.49 673.17,-357.49" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="620" xml:space="preserve" y="-342.47">Theorem 5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="620" xml:space="preserve" y="-329.72">the floor of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="620" xml:space="preserve" y="-316.97">polylogarithm on the unit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="620" xml:space="preserve" y="-304.22">circle: |Liₛ(z)| ≥ η(s),</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="620" xml:space="preserve" y="-291.47">equality at z = −1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="620" xml:space="preserve" y="-278.72">✅ Lean · Isabelle</text>
+</a>
+</g>
+</g>
+<!-- cor:zeta -->
+<g class="node" id="node7">
+<title>cor:zeta</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#cor:zeta" xlink:title="Corollary 1: every zeta state pₙ ∝ n⁻ˢ, s &gt; 1, stays at least 1 − 2¹⁻ˢ away from orthogonality">
+<path d="M697.92,-230.91C697.92,-230.91 542.08,-230.91 542.08,-230.91 536.08,-230.91 530.08,-224.91 530.08,-218.91 530.08,-218.91 530.08,-146.58 530.08,-146.58 530.08,-140.58 536.08,-134.58 542.08,-134.58 542.08,-134.58 697.92,-134.58 697.92,-134.58 703.92,-134.58 709.92,-140.58 709.92,-146.58 709.92,-146.58 709.92,-218.91 709.92,-218.91 709.92,-224.91 703.92,-230.91 697.92,-230.91" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="620" xml:space="preserve" y="-214.47">Corollary 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="620" xml:space="preserve" y="-200.22">every zeta state pₙ ∝ n⁻ˢ,</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="620" xml:space="preserve" y="-185.22">s &gt; 1, stays at least 1 −</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="620" xml:space="preserve" y="-170.97">2¹⁻ˢ away from</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="620" xml:space="preserve" y="-156.72">orthogonality</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="620" xml:space="preserve" y="-142.47">✅ Lean · Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:floor&#45;&gt;cor:zeta -->
+<g class="edge" id="edge3">
+<title>thm:floor-&gt;cor:zeta</title>
+<path d="M620,-270.45C620,-260.79 620,-250.38 620,-240.24" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="622.45,-240.33 620,-233.33 617.55,-240.33 622.45,-240.33" stroke="#9aa8b5"></polygon>
 </g>
 </g>
 </svg>
 </div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
 <p>A sorry-free Lean 4 path from the dilogarithm, which Mathlib cites but does not define, to a quantum state that
-never orthogonalizes.</p>
+never orthogonalizes; version 2 adds its exact floor, in Lean and in Isabelle.</p>
 <ul>
 <li><b>The real dilogarithm</b> with Euler’s reflection, Landen’s transformation, the duplication formula and
 Li₂(1/2) (Theorem 1); the golden-ratio values and the Lee–Yang c<sub>eff</sub> = 2/5 from a 3×3 linear system,
@@ -252,24 +303,42 @@ without the five-term relation.</li>
 (Theorem 2) and, by Abel summation without asymptotics, Cl₂(θ) ≥ sin(θ)/2 on (0, π).</li>
 <li><b>Speed limits</b>: Margolus–Levitin and an L¹ form of Mandelstam–Tamm for a scalar spectral measure
 (Theorem 3).</li>
-<li><b>The assembly</b> (Theorem 4): populations 6/(π²n²) on levels Eₙ = n give infinite mean energy and variance, so
-both bounds are silent, and yet the state never reaches an orthogonal state.</li>
-<li>The mathematics is classical; the paper claims the formalization and the assembly, and records the
-Eneström–Kakeya reading as an observation (Remark 1).</li>
-</ul></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#thm:funceq"><b>Theorem 1</b></a>: Euler reflection, Landen, duplication and Li₂(1/2) for the real dilogarithm.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:clock"><b>Theorem 4</b></a>: the weight-2 zeta state never reaches an orthogonal state</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Power series and real analysis</b> → term-by-term differentiation, the Weierstrass M-test, mean-value constancy, the boundary limit ln x · ln(1−x) → 0 — <a href="index.html#thm:funceq">Theorem 1</a></li><li><b>Fourier series and positive trigonometric sums</b> → Mathlib’s Bernoulli–Fourier expansion for the cosine half; a division-free Dirichlet telescope and an interior-minimum induction; Abel summation without asymptotics — <a href="index.html#thm:fj">Theorem 2</a>, <a href="index.html#thm:clock">Theorem 4</a></li><li><b>Quantum mechanics</b> → speed limits stated for a scalar autocorrelation of a discrete spectral measure, with the cosine inequality cos x ≥ 1 − (2/π)(x + sin x) — <a href="index.html#thm:qsl">Theorem 3</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Quantum speed limits</b> ← a state of infinite mean energy and variance that never orthogonalizes: both textbook bounds are silent on it — <a href="index.html#thm:clock">Theorem 4</a></li><li><b>Dilogarithm identities</b> ← the golden-ratio values and the Lee–Yang c_eff = 2/5 without the five-term relation; the five-term relation is the companion paper — <a href="index.html#thm:funceq">Theorem 1</a></li><li><b>Roots of positive-coefficient series (Eneström–Kakeya)</b> ← an observation (formalized after publication, for series too): which monotone states orthogonalize — <a href="index.html#rem:ek"> 1</a></li></ul></div></section></div></div></div>
+<li><b>The assembly</b> (Theorem 4): populations 6/(π²n²) on levels Eₙ = n have divergent first and second
+energy moments, so both bounds give nothing, and yet the state never reaches an orthogonal state. Version 2 gives
+the one-line reason (the lowest level carries more than half of the weight) and shows that the Zieliński–Zych
+limits see exactly that (Proposition 1).</li>
+<li><b>The exact floor</b> (Theorem 5, Corollary 1): |S| ≥ 1 − 2<sup>1−s</sup> for every zeta state
+pₙ ∝ n<sup>−s</sup>, also where no level dominates.</li>
+<li>The mathematics is classical; the paper claims the formalization, the assembly and the place of the zeta state
+among the speed limits.</li>
+</ul></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#thm:funceq"><b>Theorem 1</b></a>: Euler reflection, Landen, duplication and Li₂(1/2) for the real dilogarithm.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:clock"><b>Theorem 4</b></a>: the weight-2 zeta state never reaches an orthogonal state</li><li><a href="index.html#cor:zeta"><b>Corollary 1</b></a>: every zeta state pₙ ∝ n⁻ˢ, s &gt; 1, stays at least 1 − 2¹⁻ˢ away from orthogonality</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Power series and real analysis</b> → term-by-term differentiation, the Weierstrass M-test, mean-value constancy, the boundary limit ln x · ln(1−x) → 0 — <a href="index.html#thm:funceq">Theorem 1</a></li><li><b>Fourier series and positive trigonometric sums</b> → Mathlib’s Bernoulli–Fourier expansion for the cosine half; a division-free Dirichlet telescope and an interior-minimum induction; Abel summation without asymptotics — <a href="index.html#thm:fj">Theorem 2</a>, <a href="index.html#thm:clock">Theorem 4</a></li><li><b>Quantum mechanics</b> → speed limits stated for a scalar autocorrelation of a discrete spectral measure, with the cosine inequality cos x ≥ 1 − (2/π)(x + sin x) and its fractional-moment version (Zieliński–Zych) — <a href="index.html#thm:qsl">Theorem 3</a>, <a href="index.html#prop:zz">Proposition 1</a></li><li><b>Measure and integration (Hausdorff moment sequences)</b> → the coefficients of Li_s as moments of a positive measure on [0, 1) (a Stieltjes transform), integrated against Re 1/(1 − tz) ≥ 1/(1 + t), and Abel’s theorem to reach the circle — <a href="index.html#thm:floor">Theorem 5</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Quantum speed limits</b> ← a state with divergent first and second energy moments that never orthogonalizes; what the moment-based limits see (only the lowest level) and the exact floor they miss — <a href="index.html#thm:clock">Theorem 4</a>, <a href="index.html#prop:zz">Proposition 1</a>, <a href="index.html#cor:zeta">Corollary 1</a></li><li><b>Dilogarithm identities</b> ← the golden-ratio values and the Lee–Yang c_eff = 2/5 without the five-term relation; the five-term relation is the companion paper — <a href="index.html#thm:funceq">Theorem 1</a></li><li><b>Power series with positive coefficients on the unit circle</b> ← the floor of |Li_s| at z = −1 for every s &gt; 0 (classical: Fejér 1937); which shape conditions put the smallest modulus at z = −1, with exact counterexamples — <a href="index.html#thm:floor">Theorem 5</a>, <a href="index.html#cor:zeta">Corollary 1</a></li></ul></div></section></div></div></div>
 <script>
 (function(){
   var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
-  function show(h){
-    var p = document.getElementById('pane-' + h) || panes[0];
-    panes.forEach(function(x){ x.hidden = x !== p; });
+  if (!panes.length || !box) return;
+  function mark(p){
     document.querySelectorAll('nav.pc-toc li').forEach(function(li){
       li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
     });
-    box.scrollTop = 0;
   }
-  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
-  show(location.hash.slice(1));
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
 })();
 </script>
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
@@ -286,7 +355,6 @@ Eneström–Kakeya reading as an observation (Remark 1).</li>
     var g = a && (a.closest('g.node') || a.parentNode);
     if (!g) return;
     var pane = g.closest('section.pc-pane');
-    if (pane) document.querySelectorAll('section.pc-pane').forEach(function (p) { p.hidden = p !== pane; });
     g.classList.add('lm-here');
     var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
     var bar = document.getElementById('lm-herebar');
@@ -305,7 +373,7 @@ Eneström–Kakeya reading as an observation (Remark 1).</li>
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:funceq": "Theorem 1 — {\\paperlean{Li₂\\_add\\_Li₂\\_one\\_sub}, \\paperlean{Li₂\\_landen},\n\\paperlean{Li₂\\_sq}, \\paperlean{Li₂\\_one\\_half}}", "thm:fj": "Theorem 2 — {\\paperlean{fejerSum\\_pos}}", "thm:qsl": "Theorem 3 — {\\paperlean{margolus\\_levitin}, \\paperlean{mandelstam\\_tamm\\_L1}}; $\\hbar=1$", "thm:clock": "Theorem 4 — {\\paperlean{zetaState\\_never\\_orthogonal}}", "rem:ek": "Remark 1 — Which clocks do tick: a closing observation"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:funceq": "Theorem 1 — {\\paperlean{Li₂\\_add\\_Li₂\\_one\\_sub}, \\paperlean{Li₂\\_landen},\n\\paperlean{Li₂\\_sq}, \\paperlean{Li₂\\_one\\_half}}", "thm:fj": "Theorem 2 — {\\paperlean{fejerSum\\_pos}}", "thm:qsl": "Theorem 3 — {\\paperlean{margolus\\_levitin}, \\paperlean{mandelstam\\_tamm\\_L1}}; $\\hbar=1$", "thm:clock": "Theorem 4 — {\\paperlean{zetaState\\_never\\_orthogonal}}", "prop:zz": "Proposition 1 — {\\paperlean{tendsto\\_fractionalMoment}, \\paperlean{zz\\_bound\\_tendsto\\_atTop},\n\\paperlean{zz\\_bound\\_tendsto\\_zero}}", "thm:floor": "Theorem 5 — {\\paperlean{polylog\\_circle\\_floor}, \\paperlean{polylog\\_neg\\_one}}", "cor:zeta": "Corollary 1 — {\\paperlean{zeta\\_floor}, \\paperlean{zetaState\\_floor}; the equality case from\n\\paperlean{polylog\\_neg\\_one} and \\paperlean{tendsto\\_partialEta\\_of\\_one\\_lt}}"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;

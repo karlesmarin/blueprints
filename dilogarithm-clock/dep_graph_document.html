@@ -60,6 +60,13 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
   border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
 </style></head>
 <body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
 <title>cross</title>
@@ -68,7 +75,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <header>
 <a class="toc" href="index.html">Home</a>
 <h1 id="doc_title">Dependencies</h1>
-<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20675271" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20675271</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v2 (<a href="https://doi.org/10.5281/zenodo.20675270" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20675270</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
 <div class="wrapper">
 <div class="content">
 <div id="Legend">
@@ -92,33 +99,64 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 </div>
 <div id="graph"></div>
 <div id="statements">
-<div class="dep-modal-container" id="rem:ek_modal">
+<div class="dep-modal-container" id="cor:zeta_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
 <svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
-<div class="thm" id="rem:ek" style="display: none">
+<div class="thm" id="cor:zeta" style="display: none">
 <div class="thm_thmheading">
-<span class="remark_thmcaption">
-      Remark
+<span class="corollary_thmcaption">
+      Corollary
       </span>
-<span class="remark_thmlabel">1</span><span class="remark_thmtitle">Which clocks do tick: a closing observation</span></div>
-<div class="thm_thmcontent"><p>    For monotone non-increasing populations on equally spaced levels, ticking (orthogonalization) means a zero of the power series \(\sum _n p_nz^n\) <em>on</em> the unit circle. The Eneström–Kakeya theorem (1893/1912) <span class="cite">
-	[
-	<a href="index.html#enestrom">12</a>
-	]
-</span> already forbids zeros inside the disc; its boundary case pins down the rest. From \((1-z)\sum _k p_kz^k=p_0+\sum _{k\ge 1}(p_k-p_{k-1})z^k-p_Nz^{N+1}\), the triangle inequality at \(\lvert z\rvert =1\) is an equality only if every nonzero decrement \(p_{k-1}-p_k\) sits at an index \(k\) with \(z^k=1\): the decrements must concentrate on an arithmetic progression, and the zero is a root of unity. The Margolus–Levitin–sharp state \((\lvert 0\rangle +\lvert E\rangle )/\sqrt2\) is exactly such a case (\(\frac12(1+z)\), zero at \(z=-1\)). The zeta state is the opposite extreme: its successive decrements \(p_n-p_{n+1}{\gt}0\) at <em>every</em> index, never confined to a progression, so no root of unity survives and the clock cannot tick — recovering Theorem <a href="index.html#thm:clock">4</a> from the coefficient side. We have not found the resulting dictionary — root location of positive-coefficient series \(\leftrightarrow \) orthogonalizability of monotone quantum states — in either literature; we record it as an observation and a road. </p>
+<span class="corollary_thmlabel">1</span><span class="corollary_thmtitle"><span class="ttfamily">zeta_floor</span>, <span class="ttfamily">zetaState_floor</span>; the equality case from <span class="ttfamily">polylog_neg_one</span> and <span class="ttfamily">tendsto_partialEta_of_one_lt</span></span></div>
+<div class="thm_thmcontent"><p>    For every \(s{\gt}1\) the zeta state never becomes orthogonal, and </p>
+<div class="displaymath" id="a0000000040">
+  \[  \lvert S(\theta )\rvert \; \ge \; \frac{\eta (s)}{\zeta (s)}\; =\; 1-2^{1-s}\qquad \text{for every }\theta ,  \]
 </div>
-<a class="latex_link" href="index.html#rem:ek">LaTeX</a>
+<p> with equality at \(\theta =\pi \). For \(s=2\) the floor is \(\tfrac 12\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:zeta">LaTeX</a>
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/EnestromKakeya.html#L64" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/Polynomial/EnestromKakeya.lean#L64">Dilog.enestrom_kakeya</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/EnestromKakeya.html#L160" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/Polynomial/EnestromKakeya.lean#L160">Dilog.enestrom_kakeya_boundary</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/EnestromKakeya.html#L229" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/Polynomial/EnestromKakeya.lean#L229">Dilog.enestrom_kakeya_strict</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/EnestromKakeya.html#L259" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/Polynomial/EnestromKakeya.lean#L259">Dilog.monotoneState_never_orthogonal</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/EnestromKakeya.html#L287" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/Polynomial/EnestromKakeya.lean#L287">Dilog.enestrom_kakeya_boundary_series</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/EnestromKakeya.html#L334" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/Polynomial/EnestromKakeya.lean#L334">Dilog.strictAnti_series_ne_zero</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZetaStateFloor.html#L47" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZetaStateFloor.lean#L47">Polylog.tendsto_partialEta_of_one_lt</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZetaStateFloor.html#L103" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZetaStateFloor.lean#L103">Polylog.zeta_floor</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZetaStateFloor.html#L128" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZetaStateFloor.lean#L128">Polylog.zetaState_floor</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/AntipodalCounterexamples.html#L330" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/AntipodalCounterexamples.lean#L330">Polylog.cex3_normSq</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/AntipodalCounterexamples.html#L296" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/AntipodalCounterexamples.lean#L296">Polylog.cexLC_normSq</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/AntipodalCounterexamples.html#L91" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/AntipodalCounterexamples.lean#L91">Polylog.cex3_monotone_three</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/AntipodalCounterexamples.html#L195" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/AntipodalCounterexamples.lean#L195">Polylog.cexLC_logConvex</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/EnestromKakeya.html#L290" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/Polynomial/EnestromKakeya.lean#L290">Dilog.enestrom_kakeya_boundary_series</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/EnestromKakeya.html#L337" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/Polynomial/EnestromKakeya.lean#L337">Dilog.strictAnti_series_ne_zero</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:zz_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:zz" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">1</span><span class="proposition_thmtitle"><span class="ttfamily">tendsto_fractionalMoment</span>, <span class="ttfamily">zz_bound_tendsto_atTop</span>, <span class="ttfamily">zz_bound_tendsto_zero</span></span></div>
+<div class="thm_thmcontent"><p>    Let \(E_0\) be the lowest populated level, \(p_0\) its population, the other populated levels strictly above it, and some fractional moment finite. As \(\alpha \to 0^+\), \(M_\alpha \to 1-p_0\), so the Zieliński–Zych bound tends to \(+\infty \) if \(p_0{\gt}1/2\) (and \(p_0{\lt}1\)) and to \(0\) if \(p_0{\lt}1/2\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:zz">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L299" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L299">QSL.zz_inequality</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L317" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L317">QSL.zielinski_zych</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L353" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L353">QSL.zielinski_zych_time</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L387" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L387">QSL.tendsto_fractionalMoment</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L489" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L489">QSL.zz_bound_tendsto_atTop</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L499" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L499">QSL.zz_bound_tendsto_zero</a></li>
 </ul>
 </div>
 </div>
@@ -141,17 +179,19 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L315" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L315">Dilog.zetaState_never_orthogonal</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L291" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L291">Dilog.zetaStateRe_pi</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L278" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L278">Dilog.Cl₂_two_pi_sub</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.html#L117" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.lean#L117">Dilog.Li₂c_exp_re</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.html#L96" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.lean#L96">Dilog.Li₂c_exp_im</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.html#L191" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.lean#L191">Dilog.Li₂c_exp_ne_zero</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L333" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L333">Dilog.zetaState_meanEnergy_not_summable</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L346" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L346">Dilog.zetaState_secondMoment_not_summable</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.html#L203" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.lean#L203">Dilog.norm_Li₂c_ge</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.html#L233" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.lean#L233">Dilog.zetaState_norm_ge_half</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.html#L107" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.lean#L107">Dilog.Li₂c_eq_mul_integral</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L315" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L315">Dilog.zetaState_never_orthogonal</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L291" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L291">Dilog.zetaStateRe_pi</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L278" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L278">Dilog.Cl₂_two_pi_sub</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.html#L117" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.lean#L117">Dilog.Li₂c_exp_re</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.html#L96" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.lean#L96">Dilog.Li₂c_exp_im</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.html#L191" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.lean#L191">Dilog.Li₂c_exp_ne_zero</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L333" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L333">Dilog.zetaState_meanEnergy_not_summable</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L346" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L346">Dilog.zetaState_secondMoment_not_summable</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.html#L203" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.lean#L203">Dilog.norm_Li₂c_ge</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.html#L233" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.lean#L233">Dilog.zetaState_norm_ge_half</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.html#L107" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/CircleFloor.lean#L107">Dilog.Li₂c_eq_mul_integral</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/DominantPopulation.html#L40" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/DominantPopulation.lean#L40">Dilog.two_mul_sub_one_le_norm_tsum</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/DominantPopulation.html#L76" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/DominantPopulation.lean#L76">Dilog.tsum_ne_zero_of_half_lt</a></li>
 </ul>
 </div>
 </div>
@@ -174,16 +214,50 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.html#L138" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.lean#L138">Dilog.fejerSum_pos</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.html#L84" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.lean#L84">Dilog.dirichlet_telescope</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.html#L109" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.lean#L109">Dilog.sin_last_nonneg_at_localMin</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L214" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L214">Dilog.sin_div_two_le_Cl₂</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L265" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L265">Dilog.Cl₂_pos</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L105" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L105">Dilog.Cl₂_pi_div_two</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L144" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L144">Dilog.hasSum_cos_div_sq</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L361" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L361">Dilog.Cl₂_two_mul</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L401" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L401">Dilog.Cl₂_two_pi_div_three</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.html#L365" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.lean#L365">Dilog.Li₂c_I</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.html#L138" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.lean#L138">Dilog.fejerSum_pos</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.html#L84" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.lean#L84">Dilog.dirichlet_telescope</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.html#L109" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Trigonometric/FejerJackson.lean#L109">Dilog.sin_last_nonneg_at_localMin</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L214" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L214">Dilog.sin_div_two_le_Cl₂</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L265" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L265">Dilog.Cl₂_pos</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L105" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L105">Dilog.Cl₂_pi_div_two</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L144" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L144">Dilog.hasSum_cos_div_sq</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L361" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L361">Dilog.Cl₂_two_mul</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.html#L401" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Clausen.lean#L401">Dilog.Cl₂_two_pi_div_three</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.html#L365" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/ComplexBoundary.lean#L365">Dilog.Li₂c_I</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:floor_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:floor" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">5</span><span class="theorem_thmtitle"><span class="ttfamily">polylog_circle_floor</span>, <span class="ttfamily">polylog_neg_one</span></span></div>
+<div class="thm_thmcontent"><p>   For every real \(s{\gt}0\) and every \(z\ne 1\) on the unit circle, the series \(\mathrm{Li}_s(z)=\sum _{n\ge 1}z^n/n^s\) converges and </p>
+<div class="displaymath" id="a0000000036">
+  \[  \lvert \mathrm{Li}_s(z)\rvert \; \ge \; \eta (s)=\sum _{n\ge 1}\frac{(-1)^{n-1}}{n^s},  \]
+</div>
+<p> with equality at \(z=-1\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:floor">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.html#L52" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.lean#L52">Polylog.one_div_one_add_le_re</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.html#L126" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.lean#L126">Polylog.le_norm_of_tendsto</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.html#L243" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.lean#L243">Polylog.tendsto_alternating</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.html#L289" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.lean#L289">Polylog.exists_tendsto_circle</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.html#L437" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.lean#L437">Polylog.exists_tendsto_partialLi</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.html#L449" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.lean#L449">Polylog.polylog_circle_floor</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.html#L350" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Polylog/HausdorffFloor.lean#L350">Polylog.polylog_neg_one</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/AntipodeFloor.html#L36" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/AntipodeFloor.lean#L36">Dilog.antipode_floor</a></li>
 </ul>
 </div>
 </div>
@@ -209,18 +283,18 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L163" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L163">Dilog.Li₂_add_Li₂_one_sub</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L294" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L294">Dilog.Li₂_landen</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L412" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L412">Dilog.Li₂_sq</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L278" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L278">Dilog.Li₂_one_half</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L543" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L543">Dilog.Li₂_inv_goldenRatio_sq</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L548" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L548">Dilog.Li₂_inv_goldenRatio</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L553" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L553">Dilog.Li₂_neg_inv_goldenRatio</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L565" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L565">Dilog.rogersL_inv_goldenRatio_sq</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L586" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L586">Dilog.rogersL_gold_sum</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L592" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L592">Dilog.rogersL_one</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L597" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L597">Dilog.leeYang_effective_central_charge</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L467" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L467">Dilog.Li₂_neg_one</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L163" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L163">Dilog.Li₂_add_Li₂_one_sub</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L294" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L294">Dilog.Li₂_landen</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L412" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L412">Dilog.Li₂_sq</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L278" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L278">Dilog.Li₂_one_half</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L543" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L543">Dilog.Li₂_inv_goldenRatio_sq</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L548" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L548">Dilog.Li₂_inv_goldenRatio</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L553" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L553">Dilog.Li₂_neg_inv_goldenRatio</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L565" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L565">Dilog.rogersL_inv_goldenRatio_sq</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L586" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L586">Dilog.rogersL_gold_sum</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L592" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L592">Dilog.rogersL_one</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L597" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L597">Dilog.leeYang_effective_central_charge</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.html#L467" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Analysis/SpecialFunctions/Dilogarithm/Basic.lean#L467">Dilog.Li₂_neg_one</a></li>
 </ul>
 </div>
 </div>
@@ -237,8 +311,8 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Theorem
       </span>
 <span class="theorem_thmlabel">3</span><span class="theorem_thmtitle"><span class="ttfamily">margolus_levitin</span>, <span class="ttfamily">mandelstam_tamm_L1</span>; \(\hbar =1\)</span></div>
-<div class="thm_thmcontent"><p>   If \(S(\tau )=0\) with \(\tau \ge 0\), then </p>
-<div class="displaymath" id="a0000000017">
+<div class="thm_thmcontent"><p>   Let \(p_n\ge 0\) with \(\sum _np_n=1\) be the populations of levels \(E_n\ge 0\), with finite mean \(\langle E\rangle =\sum _np_nE_n\) and finite \(D_1\) about a real centre \(\bar E\). If \(S(\tau )=0\) with \(\tau \ge 0\), then </p>
+<div class="displaymath" id="a0000000019">
   \[  \pi \; \le \;  2\, \langle E\rangle \, \tau \qquad \text{and}\qquad 1 \; \le \;  D_1\, \tau , \quad D_1=\textstyle \sum _n p_n\lvert E_n-\bar E\rvert .  \]
 </div>
 </div>
@@ -246,11 +320,11 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.html#L205" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.lean#L205">QSL.margolus_levitin</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.html#L143" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.lean#L143">QSL.one_sub_le_cos</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L52" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L52">QSL.mandelstam_tamm_L1</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L141">QSL.l1_dev_le_sqrt_variance</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L159" data-lean-github="https://github.com/karlesmarin/formalizations/blob/b10a7ba0980fc750bf0b05b443f1f8e46b57a374/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L159">QSL.mandelstam_tamm_weak</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.html#L205" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.lean#L205">QSL.margolus_levitin</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.html#L143" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.lean#L143">QSL.one_sub_le_cos</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L52" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L52">QSL.mandelstam_tamm_L1</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L141">QSL.l1_dev_le_sqrt_variance</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L159" data-lean-github="https://github.com/karlesmarin/formalizations/blob/c635ec27ba40b7f132768051a454be59c7724bf9/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L159">QSL.mandelstam_tamm_weak</a></li>
 </ul>
 </div>
 </div>
@@ -273,7 +347,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:qsl"	[color=green,		fillcolor="#1CAC78",		label=qsl,		shape=ellipse,		style=filled];	"thm:clock"	[color=green,		fillcolor="#1CAC78",		label=clock,		shape=ellipse,		style=filled];	"rem:ek"	[color=green,		fillcolor="#1CAC78",		label=ek,		shape=ellipse,		style=filled];	"thm:clock" -> "rem:ek"	[style=dashed];	"thm:funceq"	[color=green,		fillcolor="#1CAC78",		label=funceq,		shape=ellipse,		style=filled];	"thm:fj"	[color=green,		fillcolor="#1CAC78",		label=fj,		shape=ellipse,		style=filled];	"thm:fj" -> "thm:clock"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"cor:zeta"	[color=green,		fillcolor="#1CAC78",		label=zeta,		shape=ellipse,		style=filled];	"prop:zz"	[color=green,		fillcolor="#1CAC78",		label=zz,		shape=ellipse,		style=filled];	"thm:fj"	[color=green,		fillcolor="#1CAC78",		label=fj,		shape=ellipse,		style=filled];	"thm:clock"	[color=green,		fillcolor="#1CAC78",		label=clock,		shape=ellipse,		style=filled];	"thm:fj" -> "thm:clock"	[style=dashed];	"thm:funceq"	[color=green,		fillcolor="#1CAC78",		label=funceq,		shape=ellipse,		style=filled];	"thm:qsl"	[color=green,		fillcolor="#1CAC78",		label=qsl,		shape=ellipse,		style=filled];	"thm:qsl" -> "prop:zz"	[style=dashed];	"thm:floor"	[color=green,		fillcolor="#1CAC78",		label=floor,		shape=ellipse,		style=filled];	"thm:floor" -> "cor:zeta"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -309,49 +383,67 @@ function interactive() {
 }
 
 </script>
-<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="188pt" viewbox="0.00 0.00 224.00 188.00" width="224pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 184)">
-<!-- thm:qsl -->
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="116pt" viewbox="0.00 0.00 304.00 116.00" width="304pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 112)">
+<!-- cor:zeta -->
 <g class="node" id="node1">
-<title>thm:qsl</title>
-<ellipse cx="27" cy="-162" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="27" xml:space="preserve" y="-156.95">qsl</text>
+<title>cor:zeta</title>
+<ellipse cx="28.83" cy="-18" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="28.83" xml:space="preserve" y="-12.95">zeta</text>
 </g>
-<!-- thm:clock -->
+<!-- prop:zz -->
 <g class="node" id="node2">
-<title>thm:clock</title>
-<ellipse cx="99" cy="-90" fill="#1cac78" rx="30.88" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="99" xml:space="preserve" y="-84.95">clock</text>
-</g>
-<!-- rem:ek -->
-<g class="node" id="node3">
-<title>rem:ek</title>
-<ellipse cx="99" cy="-18" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="99" xml:space="preserve" y="-12.95">ek</text>
-</g>
-<!-- thm:clock&#45;&gt;rem:ek -->
-<g class="edge" id="edge1">
-<title>thm:clock-&gt;rem:ek</title>
-<path d="M99,-71.34C99,-64.07 99,-55.47 99,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="99,-37.63 103.5,-47.63 99,-41.42 99,-47.63 99,-47.63 99,-47.63 99,-41.42 94.5,-47.63 99,-37.63" stroke="black"></polygon>
-</g>
-<!-- thm:funceq -->
-<g class="node" id="node4">
-<title>thm:funceq</title>
-<ellipse cx="180" cy="-162" fill="#1cac78" rx="36" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="180" xml:space="preserve" y="-156.95">funceq</text>
+<title>prop:zz</title>
+<ellipse cx="102.83" cy="-18" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="102.83" xml:space="preserve" y="-12.95">zz</text>
 </g>
 <!-- thm:fj -->
-<g class="node" id="node5">
+<g class="node" id="node3">
 <title>thm:fj</title>
-<ellipse cx="99" cy="-162" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="99" xml:space="preserve" y="-156.95">fj</text>
+<ellipse cx="178.83" cy="-90" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="178.83" xml:space="preserve" y="-84.95">fj</text>
+</g>
+<!-- thm:clock -->
+<g class="node" id="node4">
+<title>thm:clock</title>
+<ellipse cx="178.83" cy="-18" fill="#1cac78" rx="30.88" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="178.83" xml:space="preserve" y="-12.95">clock</text>
 </g>
 <!-- thm:fj&#45;&gt;thm:clock -->
-<g class="edge" id="edge2">
+<g class="edge" id="edge1">
 <title>thm:fj-&gt;thm:clock</title>
-<path d="M99,-143.34C99,-136.07 99,-127.47 99,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="99,-109.64 103.5,-119.64 99,-113.42 99,-119.64 99,-119.64 99,-119.64 99,-113.42 94.5,-119.64 99,-109.64" stroke="black"></polygon>
+<path d="M178.83,-71.34C178.83,-64.07 178.83,-55.47 178.83,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="178.83,-37.63 183.33,-47.63 178.83,-41.42 178.83,-47.63 178.83,-47.63 178.83,-47.63 178.83,-41.42 174.33,-47.63 178.83,-37.63" stroke="black"></polygon>
+</g>
+<!-- thm:funceq -->
+<g class="node" id="node5">
+<title>thm:funceq</title>
+<ellipse cx="259.83" cy="-90" fill="#1cac78" rx="36" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="259.83" xml:space="preserve" y="-84.95">funceq</text>
+</g>
+<!-- thm:qsl -->
+<g class="node" id="node6">
+<title>thm:qsl</title>
+<ellipse cx="102.83" cy="-90" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="102.83" xml:space="preserve" y="-84.95">qsl</text>
+</g>
+<!-- thm:qsl&#45;&gt;prop:zz -->
+<g class="edge" id="edge2">
+<title>thm:qsl-&gt;prop:zz</title>
+<path d="M102.83,-71.34C102.83,-64.07 102.83,-55.47 102.83,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="102.83,-37.63 107.33,-47.63 102.83,-41.42 102.83,-47.63 102.83,-47.63 102.83,-47.63 102.83,-41.42 98.33,-47.63 102.83,-37.63" stroke="black"></polygon>
+</g>
+<!-- thm:floor -->
+<g class="node" id="node7">
+<title>thm:floor</title>
+<ellipse cx="28.83" cy="-90" fill="#1cac78" rx="28.83" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="28.83" xml:space="preserve" y="-84.95">floor</text>
+</g>
+<!-- thm:floor&#45;&gt;cor:zeta -->
+<g class="edge" id="edge3">
+<title>thm:floor-&gt;cor:zeta</title>
+<path d="M28.83,-71.34C28.83,-64.07 28.83,-55.47 28.83,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="28.83,-37.63 33.33,-47.63 28.83,-41.42 28.83,-47.63 28.83,-47.63 28.83,-47.63 28.83,-41.42 24.33,-47.63 28.83,-37.63" stroke="black"></polygon>
 </g>
 </g>
 </svg>
@@ -369,7 +461,7 @@ function interactive() {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:funceq": "Theorem 1 — {\\paperlean{Li₂\\_add\\_Li₂\\_one\\_sub}, \\paperlean{Li₂\\_landen},\n\\paperlean{Li₂\\_sq}, \\paperlean{Li₂\\_one\\_half}}", "thm:fj": "Theorem 2 — {\\paperlean{fejerSum\\_pos}}", "thm:qsl": "Theorem 3 — {\\paperlean{margolus\\_levitin}, \\paperlean{mandelstam\\_tamm\\_L1}}; $\\hbar=1$", "thm:clock": "Theorem 4 — {\\paperlean{zetaState\\_never\\_orthogonal}}", "rem:ek": "Remark 1 — Which clocks do tick: a closing observation"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:funceq": "Theorem 1 — {\\paperlean{Li₂\\_add\\_Li₂\\_one\\_sub}, \\paperlean{Li₂\\_landen},\n\\paperlean{Li₂\\_sq}, \\paperlean{Li₂\\_one\\_half}}", "thm:fj": "Theorem 2 — {\\paperlean{fejerSum\\_pos}}", "thm:qsl": "Theorem 3 — {\\paperlean{margolus\\_levitin}, \\paperlean{mandelstam\\_tamm\\_L1}}; $\\hbar=1$", "thm:clock": "Theorem 4 — {\\paperlean{zetaState\\_never\\_orthogonal}}", "prop:zz": "Proposition 1 — {\\paperlean{tendsto\\_fractionalMoment}, \\paperlean{zz\\_bound\\_tendsto\\_atTop},\n\\paperlean{zz\\_bound\\_tendsto\\_zero}}", "thm:floor": "Theorem 5 — {\\paperlean{polylog\\_circle\\_floor}, \\paperlean{polylog\\_neg\\_one}}", "cor:zeta": "Corollary 1 — {\\paperlean{zeta\\_floor}, \\paperlean{zetaState\\_floor}; the equality case from\n\\paperlean{polylog\\_neg\\_one} and \\paperlean{tendsto\\_partialEta\\_of\\_one\\_lt}}"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
