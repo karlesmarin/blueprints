@@ -1,4 +1,4 @@
-# encaje: verificación PROPIA de la cota refinada de la CZ con qutrits propuesta por la segunda voz (27-oct):
+# encaje: verificación propia de la cota refinada de la CZ con qutrits (27-oct):
 # lema max_{P_A,P_B rango 2} Tr[(P_A x P_B) Hc^2]/4 = 97/32 (J=1), caso de igualdad, y la cota temporal resultante;
 # además prueba la cota contra la tabla numérica (T = 0.45, 0.50, 0.55). Investigación, no herramienta.
 import numpy as np

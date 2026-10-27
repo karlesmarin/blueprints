@@ -23,7 +23,7 @@ All scripts read their inputs from the folder they live in; run them from this f
 | `cz_best_*.npy` | the saved optimal CZ pulses (witnesses): re-evaluated deterministically by `verificar_cz.py`, `epsilon_cz.py`, `poblacion_cz.py` |
 | `cz_tope_*.txt`, `cz_tope_salida.txt`, `anchura_u4d_salida.txt`, `bell_anchura_salida.txt`, `cr_continuacion_salida.txt` | archived logs of the optimal-control runs |
 | `pulso_x_r*.npy`, `truncacion_L6_salida.txt`, `rfull_salida.txt` | saved single-qubit X pulses and archived outputs of `truncacion_1q.py` (not re-run when packaging) |
-| `*_salida.txt` of the quick scripts | regenerated when the package is built (`cruces_segunda_voz`, `tercera_revision`, `mediana_por_backend`, `toronto_sensibilidad`, `identidad_calibracion`, `cota_cz_refinada`, `verificar_cz`, `epsilon_cz`, `poblacion_cz`) |
+| `*_salida.txt` of the quick scripts | regenerated when the package is built (`cruces_area_cz`, `tercera_revision`, `mediana_por_backend`, `toronto_sensibilidad`, `identidad_calibracion`, `cota_cz_refinada`, `verificar_cz`, `epsilon_cz`, `poblacion_cz`) |
 | `fuentes/cruce_mg2020.py`, `fuentes/cruce_mg2020_salida.txt` | higher-order cross-resonance check (only our script; the third-party papers are not redistributed) |
 
 ## Claim → script → output
@@ -53,8 +53,8 @@ All scripts read their inputs from the folder they live in; run them from this f
 | Robust epsilon for the entangling-time bound: eps(\|++>) and (π/4 − arcsin √eps)/(2J) | `epsilon_cz.py` | `epsilon_cz_salida.txt` |
 | Population outside the qubit subspace during the CZ (up to 60 %) | `poblacion_cz.py` | `poblacion_cz_salida.txt` |
 | Bell-state preparation with ancillas, width scan | `grape_bell_torch.py`, `grape_anchura.py` | `bell_anchura_salida.txt`, `anchura_u4d_salida.txt` |
-| Pulse-area identity omegad·\|amp\|·A_rec = π on 777 qubits (max deviation 1.18e-7); residual 1/(1−e^−2) = 1.15652 | `cruces_segunda_voz.py` | `cruces_segunda_voz_salida.txt` (regenerated) |
-| CZ construction in π/(6J) (twirl by W, code in the extreme eigenvectors of Q; code state 5/9 outside the qubit subspace); d-dimensional bounds table | `cruces_segunda_voz.py` | `cruces_segunda_voz_salida.txt` |
+| Pulse-area identity omegad·\|amp\|·A_rec = π on 777 qubits (max deviation 1.18e-7); residual 1/(1−e^−2) = 1.15652 | `cruces_area_cz.py` | `cruces_area_cz_salida.txt` (regenerated) |
+| CZ construction in π/(6J) (twirl by W, code in the extreme eigenvectors of Q; code state 5/9 outside the qubit subspace); d-dimensional bounds table | `cruces_area_cz.py` | `cruces_area_cz_salida.txt` |
 | Refined CZ bound T_* ≥ 0.4511/J (lemma Tr[(P_A⊗P_B)H_c²]/4 ≤ 97/32 J², equality case, resulting time bound, T_*(2e-8) ≥ 0.4510/J, the e ≥ 1.9e-6 exclusion at T = 0.45/J); the Lean lemma is `QSL.Exchange.refined_cz_lemma` (the time argument is not formalized) | `cota_cz_refinada.py` | `cota_cz_refinada_salida.txt` (regenerated) |
 | Exact Bell preparation by \|12⟩↔\|21⟩ (T = 0.3926/J); Choi-based gate bound 0.392599/J for e = 2e-8; X bound in the trace metric (6 % margin at r ≤ 0.2; IBM cap 2.23–2.37×); r_full = omegad/\|δ\| median 0.351 | `tercera_revision.py` | `tercera_revision_salida.txt` (regenerated) |
 | Truncation of the fast X pulse: 4-level pulse at r = 1 degrades with ≥ 5 levels, 6-level pulse converged to 12 levels (long optimization; archived) | `truncacion_1q.py` | `truncacion_L6_salida.txt`, `rfull_salida.txt`, `pulso_x_r*.npy` (saved pulses) |

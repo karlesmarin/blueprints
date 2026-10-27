@@ -1,4 +1,4 @@
-# encaje: verificación PROPIA de los cruces propuestos por la segunda voz (27-oct): (1) residuo 1/(1-e^-2) y área
+# encaje: verificación propia de la identidad de área y de la construcción de la CZ (27-oct): (1) residuo 1/(1-e^-2) y área
 # reconstruida por qubit; (2) CZ con qutrits en pi/(6g) por promedio local + código en autovectores extremos de Q;
 # (3) tabla lambda_d, kappa_d y cociente de cotas. Investigación, no herramienta; no ejecuta su código.
 import json
