@@ -1,0 +1,53 @@
+CX con CR: 1212 puertas en 29 backends (datos_pulsos)
+
+=== CONTROL 1: orden 1, eq. (4.26) (debe reproducir 1.109 [0.870, 1.472]) ===
+orden 1                            n=1212 mediana  1.109  [p10  0.870, p90  1.472]  (p90-p10)/med  0.54  sd(ln)  0.35  en [0.8,1.2]:  59% 
+   OK: reproduce 1.109 / 0.870 / 1.472
+
+=== RESULTADO: eq. (4.25) (orden 3 en Omega), integrada sobre la forma del pulso ===
+orden 3 (4.25)                     n=1212 mediana  0.898  [p10  0.659, p90  1.105]  (p90-p10)/med  0.50  sd(ln)  0.48  en [0.8,1.2]:  66% 
+limite qubit (3.14)                n=1212 mediana  0.748  [p10  0.362, p90  1.284]  (p90-p10)/med  1.23  sd(ln)  0.54  en [0.8,1.2]:  27% 
+   |Om/D| mediana 0.451; fraccion Om/D>0.3: 67%; D/|delta| en [-1.40,1.10], D>0: 68%
+   correccion relativa (3o/1o - 1): mediana -0.147, p10 -0.448, p90 -0.020
+   fraccion con correccion NEGATIVA: 98%
+   cerca de un polo (|D - p|delta|| < 0.15|delta|, p=0.5,1,1.5): 29%
+
+--- subconjuntos ---
+orden 1, lejos de polos            n= 866 mediana  1.092  [p10  0.849, p90  1.433]  (p90-p10)/med  0.53  sd(ln)  0.32  en [0.8,1.2]:  61% 
+orden 3, lejos de polos            n= 866 mediana  0.868  [p10  0.652, p90  1.036]  (p90-p10)/med  0.44  sd(ln)  0.47  en [0.8,1.2]:  64% 
+orden 1, lejos y Om/D<0.3          n= 214 mediana  1.047  [p10  0.731, p90  1.409]  (p90-p10)/med  0.65  sd(ln)  0.47  en [0.8,1.2]:  59% 
+orden 3, lejos y Om/D<0.3          n= 214 mediana  0.928  [p10  0.677, p90  1.125]  (p90-p10)/med  0.48  sd(ln)  0.45  en [0.8,1.2]:  68% 
+   (n lejos y Om/D<0.3: 214)
+
+=== diagonalizacion en bloques de minima accion, numerica (Sec. A1; NL=4 niveles) ===
+   parametros Sheldon, Om=0.001: BD -0.000048  (4.26) -0.000048  (4.25) -0.000048  qubit -0.000019
+   parametros Sheldon, Om=0.020: BD -0.000950  (4.26) -0.000965  (4.25) -0.000951  qubit -0.000378
+   parametros Sheldon, Om=0.050: BD -0.002244  (4.26) -0.002412  (4.25) -0.002206  qubit -0.000922
+   BD no convergente/ambigua en 0 puertas
+BD numerica                        n=1212 mediana  0.967  [p10  0.795, p90  1.159]  (p90-p10)/med  0.38  sd(ln)  0.31  en [0.8,1.2]:  81% 
+  orden 1, mismas puertas          n=1212 mediana  1.109  [p10  0.870, p90  1.472]  (p90-p10)/med  0.54  sd(ln)  0.35  en [0.8,1.2]:  59% 
+  orden 3, mismas puertas          n=1212 mediana  0.898  [p10  0.659, p90  1.105]  (p90-p10)/med  0.50  sd(ln)  0.48  en [0.8,1.2]:  66% 
+  BD, lejos de polos               n= 866 mediana  0.934  [p10  0.773, p90  1.116]  (p90-p10)/med  0.37  sd(ln)  0.28  en [0.8,1.2]:  79% 
+
+=== CONTROLES DE SIGNO ERRONEO (deben alejar la mediana de 1) ===
+orden 1 con D -> -D                n=1212 mediana  0.664  [p10  0.220, p90  2.741]  (p90-p10)/med  3.80  sd(ln)  0.97  en [0.8,1.2]:   9% 
+orden 1 con delta -> -delta        n=1212 mediana  0.664  [p10  0.220, p90  2.741]  (p90-p10)/med  3.80  sd(ln)  0.97  en [0.8,1.2]:   9% 
+orden 3 con D -> -D                n=1212 mediana  0.548  [p10  0.203, p90  1.877]  (p90-p10)/med  3.06  sd(ln)  1.04  en [0.8,1.2]:   8% 
+
+=== distribucion de parametros y subconjunto Omega/2pi < 50 MHz (limite citado por Magesan-Gambetta, Sec. IV) ===
+   Omega/2pi (MHz) p10/50/90: [ 20.1  51.1 110.7]  fraccion > 50 MHz: 53%
+   J/2pi (MHz) p10/50/90: [1.42 1.77 2.31]
+   Delta/2pi (MHz) p10/50/90: [-157.   91.  223.]
+   delta_c/2pi (MHz) p10/50/90: [-342. -330. -306.]
+   n con Omega<50 MHz: 574
+orden 1, Omega<50                  n= 574 mediana  1.066  [p10  0.864, p90  1.363]  (p90-p10)/med  0.47  sd(ln)  0.38  en [0.8,1.2]:  69% 
+orden 3, Omega<50                  n= 574 mediana  0.947  [p10  0.774, p90  1.172]  (p90-p10)/med  0.42  sd(ln)  0.37  en [0.8,1.2]:  77% 
+BD, Omega<50                       n= 574 mediana  0.982  [p10  0.797, p90  1.198]  (p90-p10)/med  0.41  sd(ln)  0.37  en [0.8,1.2]:  79% 
+orden 1, Omega<50, lejos de polos  n= 386 mediana  1.043  [p10  0.805, p90  1.297]  (p90-p10)/med  0.47  sd(ln)  0.34  en [0.8,1.2]:  73% 
+orden 3, Omega<50, lejos de polos  n= 386 mediana  0.906  [p10  0.751, p90  1.096]  (p90-p10)/med  0.38  sd(ln)  0.33  en [0.8,1.2]:  76% 
+BD, Omega<50, lejos de polos       n= 386 mediana  0.934  [p10  0.777, p90  1.127]  (p90-p10)/med  0.37  sd(ln)  0.33  en [0.8,1.2]:  79% 
+
+=== SENSIBILIDAD: coeficiente omegad del h_str del canal U (p. ej. omegad1*X0||U0) frente a omegad del control ===
+   puertas donde el operador X del canal U NO es el cubit de control usado: 0; coeficiente omegad de otro cubit: 1212 de 1212
+orden 1 con omegad de h_str        n=1212 mediana  1.089  [p10  0.812, p90  1.545]  (p90-p10)/med  0.67  sd(ln)  0.39  en [0.8,1.2]:  54% 
+orden 3 con omegad de h_str        n=1212 mediana  0.882  [p10  0.620, p90  1.111]  (p90-p10)/med  0.56  sd(ln)  0.47  en [0.8,1.2]:  62% 

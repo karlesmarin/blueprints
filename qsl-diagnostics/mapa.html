@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: Certified Speed-Limit Diagnostics for Deployed Superconducting Quantum Processors</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="pc-map-css">
+html,body{height:100%}
+body.pc-frame{margin:0;display:flex;flex-direction:column;overflow:hidden;background:#e8e8e8}
+body.pc-frame header.pc-head{position:static;width:auto;margin:0;flex-shrink:0}
+.pc-wrap{display:flex;flex:1;overflow:hidden}
+nav.pc-toc{width:28ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0;font-family:serif}
+nav.pc-toc ul{list-style:none;margin:0;padding:0}
+nav.pc-toc a{display:block;padding:.5rem .8rem;color:#fff;text-decoration:none;font-size:1.05rem;
+  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
+nav.pc-toc a:hover{background:#497da5}
+nav.pc-toc li.on>a{background:#89aecb}
+.pc-panel{flex:1;overflow:auto;padding:1rem}
+.pc-panel>.cont{margin:0 auto;max-width:none;padding:0 1rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
+.pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
+.pc-paneltitle .campo{justify-content:center}
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+section.pc-pane .mapa{max-width:100%;overflow:auto}
+/* phone: the parts of the map as a row of tabs above the panel */
+@media (max-width:900px){.pc-wrap{flex-direction:column}
+  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
+  nav.pc-toc ul{display:flex;white-space:nowrap}
+  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+</style><style id="lm-maphere-css">
+g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
+g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
+g.lm-here{animation:lmhere 1.2s ease-in-out 3}
+@keyframes lmhere{50%{opacity:.35}}
+#lm-herebar{font:13px Arial,sans-serif;background:#fff3f2;border:1px solid #f3b9b4;border-radius:6px;padding:.35em .7em;
+            margin:.4em 0}
+#lm-herebar a{color:#b3261e}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:1268pt 4368pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:1220pt !important;height:4000pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Certified Speed-Limit Diagnostics for Deployed Superconducting Quantum Processors: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="companion/index.html" title="Scripts, outputs, saved pulses and IBM snapshots of the paper">📦 Programs and data</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a href="mapa.pdf" class="lm-dl" download="qsl-diagnostics-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Certified Speed-Limit Diagnostics for Deployed Superconducting Quantum Processors</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Quantum speed limits · superconducting-qubit gate calibration</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>47</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>8</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>10</b> partly in Lean</span>
+<span class="cifra c-prog">💻 <b>31</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="4000pt" style="min-width:760px" viewbox="0.00 0.00 1220.00 4000.00" width="1220pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 3995.6)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M437,-3815.7C437,-3815.7 722,-3815.7 722,-3815.7 728,-3815.7 734,-3821.7 734,-3827.7 734,-3827.7 734,-3979.6 734,-3979.6 734,-3985.6 728,-3991.6 722,-3991.6 722,-3991.6 437,-3991.6 437,-3991.6 431,-3991.6 425,-3985.6 425,-3979.6 425,-3979.6 425,-3827.7 425,-3827.7 425,-3821.7 431,-3815.7 437,-3815.7" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="579.5" xml:space="preserve" y="-3976.22">Introduction</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M426,-3130.8C426,-3130.8 901,-3130.8 901,-3130.8 907,-3130.8 913,-3136.8 913,-3142.8 913,-3142.8 913,-3795.7 913,-3795.7 913,-3801.7 907,-3807.7 901,-3807.7 901,-3807.7 426,-3807.7 426,-3807.7 420,-3807.7 414,-3801.7 414,-3795.7 414,-3795.7 414,-3142.8 414,-3142.8 414,-3136.8 420,-3130.8 426,-3130.8" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="663.5" xml:space="preserve" y="-3792.32">Certified Bounds</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M265,-2822.7C265,-2822.7 711,-2822.7 711,-2822.7 717,-2822.7 723,-2828.7 723,-2834.7 723,-2834.7 723,-3110.8 723,-3110.8 723,-3116.8 717,-3122.8 711,-3122.8 711,-3122.8 265,-3122.8 265,-3122.8 259,-3122.8 253,-3116.8 253,-3110.8 253,-3110.8 253,-2834.7 253,-2834.7 253,-2828.7 259,-2822.7 265,-2822.7" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-3107.42">Data and Conventions</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M269,-2402.2C269,-2402.2 717,-2402.2 717,-2402.2 723,-2402.2 729,-2408.2 729,-2414.2 729,-2414.2 729,-2802.7 729,-2802.7 729,-2808.7 723,-2814.7 717,-2814.7 717,-2814.7 269,-2814.7 269,-2814.7 263,-2814.7 257,-2808.7 257,-2802.7 257,-2802.7 257,-2414.2 257,-2414.2 257,-2408.2 263,-2402.2 269,-2402.2" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="493" xml:space="preserve" y="-2799.32">Single-Qubit Gates</text>
+</g>
+<g class="cluster" id="clust5">
+<title>cluster_4</title>
+<path d="M413,-2003.5C413,-2003.5 743,-2003.5 743,-2003.5 749,-2003.5 755,-2009.5 755,-2015.5 755,-2015.5 755,-2382.2 755,-2382.2 755,-2388.2 749,-2394.2 743,-2394.2 743,-2394.2 413,-2394.2 413,-2394.2 407,-2394.2 401,-2388.2 401,-2382.2 401,-2382.2 401,-2015.5 401,-2015.5 401,-2009.5 407,-2003.5 413,-2003.5" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="578" xml:space="preserve" y="-2378.82">Two-Qubit Gates</text>
+</g>
+<g class="cluster" id="clust6">
+<title>cluster_5</title>
+<path d="M404,-1456.4C404,-1456.4 559,-1456.4 559,-1456.4 565,-1456.4 571,-1462.4 571,-1468.4 571,-1468.4 571,-1983.5 571,-1983.5 571,-1989.5 565,-1995.5 559,-1995.5 559,-1995.5 404,-1995.5 404,-1995.5 398,-1995.5 392,-1989.5 392,-1983.5 392,-1983.5 392,-1468.4 392,-1468.4 392,-1462.4 398,-1456.4 404,-1456.4" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="481.5" xml:space="preserve" y="-1980.02">Time Series 2021–2025</text>
+</g>
+<g class="cluster" id="clust7">
+<title>cluster_6</title>
+<path d="M281,-196.58C281,-196.58 716,-196.58 716,-196.58 722,-196.58 728,-202.58 728,-208.58 728,-208.58 728,-1436.4 728,-1436.4 728,-1442.4 722,-1448.4 716,-1448.4 716,-1448.4 281,-1448.4 281,-1448.4 275,-1448.4 269,-1442.4 269,-1436.4 269,-1436.4 269,-208.58 269,-208.58 269,-202.58 275,-196.58 281,-196.58" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="498.5" xml:space="preserve" y="-1433.02">How Far the Model Allows</text>
+</g>
+<g class="cluster" id="clust8">
+<title>cluster_7</title>
+<path d="M12,-393.28C12,-393.28 247,-393.28 247,-393.28 253,-393.28 259,-399.28 259,-405.28 259,-405.28 259,-506.12 259,-506.12 259,-512.12 253,-518.12 247,-518.12 247,-518.12 12,-518.12 12,-518.12 6,-518.12 0,-512.12 0,-506.12 0,-506.12 0,-405.28 0,-405.28 0,-399.28 6,-393.28 12,-393.28" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="129.5" xml:space="preserve" y="-502.72">What the Certificate Does and Does Not Guarantee</text>
+</g>
+<g class="cluster" id="clust9">
+<title>cluster_8</title>
+<path d="M127,-215.71C127,-215.71 249,-215.71 249,-215.71 255,-215.71 261,-221.71 261,-227.71 261,-227.71 261,-328.53 261,-328.53 261,-334.53 255,-340.53 249,-340.53 249,-340.53 127,-340.53 127,-340.53 121,-340.53 115,-334.53 115,-328.53 115,-328.53 115,-227.71 115,-227.71 115,-221.71 121,-215.71 127,-215.71" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="188" xml:space="preserve" y="-325.14">Reproducibility</text>
+</g>
+<g class="cluster" id="clust10">
+<title>cluster_9</title>
+<path d="M125,0C125,0 394,0 394,0 400,0 406,-6 406,-12 406,-12 406,-176.58 406,-176.58 406,-182.58 400,-188.58 394,-188.58 394,-188.58 125,-188.58 125,-188.58 119,-188.58 113,-182.58 113,-176.58 113,-176.58 113,-12 113,-12 113,-6 119,0 125,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="259.5" xml:space="preserve" y="-173.17">Conclusion</text>
+</g>
+<!-- i:abstract -->
+<g class="node" id="node1">
+<title>i:abstract</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#i:abstract" xlink:title="Remark Abstract: the abstract: 11.3× at full amplitude, ≈ 2× at the drive IBM uses, gates ≈ 10× faster than the median within each device’s full amplitude, 4.22× for two qubits, a CZ between 0.287 and 1/3 of the qubit-only time">
+<path d="M557.18,-3961.29C557.18,-3961.29 444.83,-3961.29 444.83,-3961.29 438.83,-3961.29 432.83,-3955.29 432.83,-3949.29 432.83,-3949.29 432.83,-3835.71 432.83,-3835.71 432.83,-3829.71 438.83,-3823.71 444.83,-3823.71 444.83,-3823.71 557.18,-3823.71 557.18,-3823.71 563.18,-3823.71 569.18,-3829.71 569.18,-3835.71 569.18,-3835.71 569.18,-3949.29 569.18,-3949.29 569.18,-3955.29 563.18,-3961.29 557.18,-3961.29" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3946.28">Remark Abstract</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3933.53">the abstract: 11.3× at</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3920.78">full amplitude, ≈ 2× at</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3908.03">the drive IBM uses, gates</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3895.28">≈ 10× faster than the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3882.53">median within each</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3869.78">device’s full amplitude,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3857.03">4.22× for two qubits, a CZ</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3844.28">between 0.287 and 1/3 of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="501" xml:space="preserve" y="-3831.53">the qubit-only time</text>
+</a>
+</g>
+</g>
+<!-- i:claims -->
+<g class="node" id="node2">
+<title>i:claims</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#i:claims" xlink:title="Remark §I: what the paper claims: four contributions, and no new physics">
+<path d="M714.3,-3923.04C714.3,-3923.04 605.7,-3923.04 605.7,-3923.04 599.7,-3923.04 593.7,-3917.04 593.7,-3911.04 593.7,-3911.04 593.7,-3873.96 593.7,-3873.96 593.7,-3867.96 599.7,-3861.96 605.7,-3861.96 605.7,-3861.96 714.3,-3861.96 714.3,-3861.96 720.3,-3861.96 726.3,-3867.96 726.3,-3873.96 726.3,-3873.96 726.3,-3911.04 726.3,-3911.04 726.3,-3917.04 720.3,-3923.04 714.3,-3923.04" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3908.03">Remark §I</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3895.28">what the paper claims:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3882.53">four contributions, and no</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3869.78">new physics</text>
+</a>
+</g>
+</g>
+<!-- b:table -->
+<g class="node" id="node3">
+<title>b:table</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#b:table" xlink:title="Remark Table I: Table I: the certified statements used in the paper (Lean 4, commit 42f307b) and their status in the literature. In Lean: the statements of Table I (twenty Lean names), each checked by the Lean kernel in the public repository (commit 42f307b); the «status» column is the paper’s reading of the literature, not a Lean statement">
+<path d="M711.68,-3777.47C711.68,-3777.47 608.33,-3777.47 608.33,-3777.47 602.33,-3777.47 596.33,-3771.47 596.33,-3765.47 596.33,-3765.47 596.33,-3690.13 596.33,-3690.13 596.33,-3684.13 602.33,-3678.13 608.33,-3678.13 608.33,-3678.13 711.68,-3678.13 711.68,-3678.13 717.68,-3678.13 723.68,-3684.13 723.68,-3690.13 723.68,-3690.13 723.68,-3765.47 723.68,-3765.47 723.68,-3771.47 717.68,-3777.47 711.68,-3777.47" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3762.45">Remark Table I</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3749.7">Table I: the certified</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3736.95">statements used in the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3724.2">paper (Lean 4, commit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3711.45">42f307b) and their status</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3698.7">in the literature</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3685.95">◐ part in Lean</text>
+</a>
+</g>
+</g>
+<!-- i:claims&#45;&gt;b:table -->
+<!-- b:zz -->
+<g class="node" id="node6">
+<title>b:zz</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#b:zz" xlink:title="Theorem §II-A: Zieliński–Zych: π^α ≤ 2M_α τ^α for every α &gt; 0">
+<path d="M727.43,-3631.04C727.43,-3631.04 592.58,-3631.04 592.58,-3631.04 586.58,-3631.04 580.58,-3625.04 580.58,-3619.04 580.58,-3619.04 580.58,-3575.96 580.58,-3575.96 580.58,-3569.96 586.58,-3563.96 592.58,-3563.96 592.58,-3563.96 727.43,-3563.96 727.43,-3563.96 733.43,-3563.96 739.43,-3569.96 739.43,-3575.96 739.43,-3575.96 739.43,-3619.04 739.43,-3619.04 739.43,-3625.04 733.43,-3631.04 727.43,-3631.04" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3614.6">Theorem §II-A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3600.35">Zieliński–Zych: π^α ≤ 2M_α</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3586.1">τ^α for every α &gt; 0</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3571.85">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- b:table&#45;&gt;b:zz -->
+<!-- b:ml -->
+<g class="node" id="node4">
+<title>b:ml</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#b:ml" xlink:title="Theorem §II-A: Margolus–Levitin: π ≤ 2⟨E⟩τ for a state that becomes orthogonal at τ">
+<path d="M543.68,-3634.41C543.68,-3634.41 434.32,-3634.41 434.32,-3634.41 428.32,-3634.41 422.32,-3628.41 422.32,-3622.41 422.32,-3622.41 422.32,-3572.58 422.32,-3572.58 422.32,-3566.58 428.32,-3560.58 434.32,-3560.58 434.32,-3560.58 543.68,-3560.58 543.68,-3560.58 549.68,-3560.58 555.68,-3566.58 555.68,-3572.58 555.68,-3572.58 555.68,-3622.41 555.68,-3622.41 555.68,-3628.41 549.68,-3634.41 543.68,-3634.41" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-3619.4">Theorem §II-A</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-3606.65">Margolus–Levitin: π ≤</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-3593.9">2⟨E⟩τ for a state that</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-3581.15">becomes orthogonal at τ</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-3568.4">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- b:twolevel -->
+<g class="node" id="node7">
+<title>b:twolevel</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#b:twolevel" xlink:title="Theorem §II-A: two-level drive: τ ≥ π/Ωₘax for every pulse shape; a fixed-axis π pulse has speed-limit ratio exactly 1. In Lean: constant Rabi frequency: Margolus–Levitin. Time-dependent drive: (i) piecewise-constant evolutions with spectral width at most Ωₘax move any state by a Fubini–Study angle at most (Ωₘax/2)T; (ii) fixed-axis drive: equality case of the generalized Mandelstam–Tamm bound; (iii) transfer to fidelity 1−ε: Ωₘax T ≥ 2 arccos √ε. Continuous pulses are covered only as limits of piecewise-constant ones (not formalized).">
+<path d="M537.55,-3516.87C537.55,-3516.87 442.45,-3516.87 442.45,-3516.87 436.45,-3516.87 430.45,-3510.87 430.45,-3504.87 430.45,-3504.87 430.45,-3429.53 430.45,-3429.53 430.45,-3423.53 436.45,-3417.53 442.45,-3417.53 442.45,-3417.53 537.55,-3417.53 537.55,-3417.53 543.55,-3417.53 549.55,-3423.53 549.55,-3429.53 549.55,-3429.53 549.55,-3504.87 549.55,-3504.87 549.55,-3510.87 543.55,-3516.87 537.55,-3516.87" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="490" xml:space="preserve" y="-3501.85">Theorem §II-A</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="490" xml:space="preserve" y="-3489.1">two-level drive: τ ≥</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="490" xml:space="preserve" y="-3476.35">π/Ωₘax for every pulse</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="490" xml:space="preserve" y="-3463.6">shape; a fixed-axis π</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="490" xml:space="preserve" y="-3450.85">pulse has speed-limit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="490" xml:space="preserve" y="-3438.1">ratio exactly 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="490" xml:space="preserve" y="-3425.35">◐ part in Lean</text>
+</a>
+</g>
+</g>
+<!-- b:ml&#45;&gt;b:twolevel -->
+<!-- b:mt -->
+<g class="node" id="node5">
+<title>b:mt</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#b:mt" xlink:title="Theorem §II-A: Mandelstam–Tamm, L¹ form: 1 ≤ D₁τ ≤ ΔE·τ">
+<path d="M892.8,-3758.34C892.8,-3758.34 769.2,-3758.34 769.2,-3758.34 763.2,-3758.34 757.2,-3752.34 757.2,-3746.34 757.2,-3746.34 757.2,-3709.26 757.2,-3709.26 757.2,-3703.26 763.2,-3697.26 769.2,-3697.26 769.2,-3697.26 892.8,-3697.26 892.8,-3697.26 898.8,-3697.26 904.8,-3703.26 904.8,-3709.26 904.8,-3709.26 904.8,-3746.34 904.8,-3746.34 904.8,-3752.34 898.8,-3758.34 892.8,-3758.34" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="831" xml:space="preserve" y="-3743.32">Theorem §II-A</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="831" xml:space="preserve" y="-3730.57">Mandelstam–Tamm, L¹ form:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="831" xml:space="preserve" y="-3717.82">1 ≤ D₁τ ≤ ΔE·τ</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="831" xml:space="preserve" y="-3705.07">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- b:ent -->
+<g class="node" id="node8">
+<title>b:ent</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#b:ent" xlink:title="Theorem §II-B: entangling time in any local dimension: arccos λ ≤ J·Στₖ">
+<path d="M893.43,-3638.17C893.43,-3638.17 776.58,-3638.17 776.58,-3638.17 770.58,-3638.17 764.58,-3632.17 764.58,-3626.17 764.58,-3626.17 764.58,-3568.83 764.58,-3568.83 764.58,-3562.83 770.58,-3556.83 776.58,-3556.83 776.58,-3556.83 893.43,-3556.83 893.43,-3556.83 899.43,-3556.83 905.43,-3562.83 905.43,-3568.83 905.43,-3568.83 905.43,-3626.17 905.43,-3626.17 905.43,-3632.17 899.43,-3638.17 893.43,-3638.17" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="835" xml:space="preserve" y="-3621.72">Theorem §II-B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="835" xml:space="preserve" y="-3607.47">entangling time in any</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="835" xml:space="preserve" y="-3593.22">local dimension: arccos λ</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="835" xml:space="preserve" y="-3578.97">≤ J·Στₖ</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="835" xml:space="preserve" y="-3564.72">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- b:mt&#45;&gt;b:ent -->
+<!-- b:bell -->
+<g class="node" id="node9">
+<title>b:bell</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#b:bell" xlink:title="Corollary §II-B: a Bell vector needs J·Στₖ ≥ π/4, in any local dimension d ≥ 2">
+<path d="M716.93,-3507.87C716.93,-3507.87 603.07,-3507.87 603.07,-3507.87 597.07,-3507.87 591.07,-3501.87 591.07,-3495.87 591.07,-3495.87 591.07,-3438.53 591.07,-3438.53 591.07,-3432.53 597.07,-3426.53 603.07,-3426.53 603.07,-3426.53 716.93,-3426.53 716.93,-3426.53 722.93,-3426.53 728.93,-3432.53 728.93,-3438.53 728.93,-3438.53 728.93,-3495.87 728.93,-3495.87 728.93,-3501.87 722.93,-3507.87 716.93,-3507.87" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3491.42">Corollary §II-B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3477.17">a Bell vector needs J·Στₖ</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3462.92">≥ π/4, in any local</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3448.67">dimension d ≥ 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="660" xml:space="preserve" y="-3434.42">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- b:zz&#45;&gt;b:bell -->
+<!-- b:tight -->
+<g class="node" id="node10">
+<title>b:tight</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#b:tight" xlink:title="Proposition §II-B: the bound is attained: H = J·Z⊗X reaches a Bell vector in time π/(4J)">
+<path d="M544.92,-3364.71C544.92,-3364.71 437.07,-3364.71 437.07,-3364.71 431.07,-3364.71 425.07,-3358.71 425.07,-3352.71 425.07,-3352.71 425.07,-3302.88 425.07,-3302.88 425.07,-3296.88 431.07,-3290.88 437.07,-3290.88 437.07,-3290.88 544.92,-3290.88 544.92,-3290.88 550.92,-3290.88 556.92,-3296.88 556.92,-3302.88 556.92,-3302.88 556.92,-3352.71 556.92,-3352.71 556.92,-3358.71 550.92,-3364.71 544.92,-3364.71" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3349.7">Proposition §II-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3336.95">the bound is attained: H =</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3324.2">J·Z⊗X reaches a Bell</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3311.45">vector in time π/(4J)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3298.7">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- b:twolevel&#45;&gt;b:tight -->
+<!-- q:gap -->
+<g class="node" id="node18">
+<title>q:gap</title>
+<g id="a_node18"><a target="_top" xlink:href="index.html#q:gap" xlink:title="Observation §IV-A: X gates last a median 11.30 times their two-level speed limit at full drive amplitude">
+<path d="M381.05,-2784.39C381.05,-2784.39 276.95,-2784.39 276.95,-2784.39 270.95,-2784.39 264.95,-2778.39 264.95,-2772.39 264.95,-2772.39 264.95,-2700.81 264.95,-2700.81 264.95,-2694.81 270.95,-2688.81 276.95,-2688.81 276.95,-2688.81 381.05,-2688.81 381.05,-2688.81 387.05,-2688.81 393.05,-2694.81 393.05,-2700.81 393.05,-2700.81 393.05,-2772.39 393.05,-2772.39 393.05,-2778.39 387.05,-2784.39 381.05,-2784.39" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="329" xml:space="preserve" y="-2767.95">Observation §IV-A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="329" xml:space="preserve" y="-2753.7">X gates last a median</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="329" xml:space="preserve" y="-2739.45">11.30 times their two-</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="329" xml:space="preserve" y="-2725.2">level speed limit at full</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="329" xml:space="preserve" y="-2710.95">drive amplitude</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="329" xml:space="preserve" y="-2696.7">💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:twolevel&#45;&gt;q:gap -->
+<g class="edge" id="edge9">
+<title>b:twolevel-&gt;q:gap</title>
+<path d="M430.14,-3450.7C326.59,-3420 125,-3340.8 125,-3189.5 125,-3189.5 125,-3189.5 125,-3036.7 125,-2931.9 159.61,-2905.4 224,-2822.7 233.64,-2810.3 245.4,-2798.6 257.52,-2788.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="258.98,-2790.08 262.73,-2783.68 255.8,-2786.34 258.98,-2790.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:lower -->
+<g class="node" id="node33">
+<title>r:lower</title>
+<g id="a_node33"><a target="_top" xlink:href="index.html#r:lower" xlink:title="Proposition §VII-A: a lower bound for any number of levels: T ≥ π/Ωₘax, and in the trace metric T ≥ 2 arcsin(1−e)/Ωₘax; for r ≤ 0.2 the times found are 6 % above it">
+<path d="M707.8,-1084.32C707.8,-1084.32 602.2,-1084.32 602.2,-1084.32 596.2,-1084.32 590.2,-1078.32 590.2,-1072.32 590.2,-1072.32 590.2,-971.49 590.2,-971.49 590.2,-965.49 596.2,-959.49 602.2,-959.49 602.2,-959.49 707.8,-959.49 707.8,-959.49 713.8,-959.49 719.8,-965.49 719.8,-971.49 719.8,-971.49 719.8,-1072.32 719.8,-1072.32 719.8,-1078.32 713.8,-1084.32 707.8,-1084.32" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-1069.3">Proposition §VII-A</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-1056.55">a lower bound for any</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-1043.8">number of levels: T ≥</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-1031.05">π/Ωₘax, and in the trace</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-1018.3">metric T ≥ 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-1005.55">arcsin(1−e)/Ωₘax; for r ≤</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-992.8">0.2 the times found are 6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-980.05">% above it</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="655" xml:space="preserve" y="-967.3">💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:twolevel&#45;&gt;r:lower -->
+<g class="edge" id="edge29">
+<title>b:twolevel-&gt;r:lower</title>
+<path d="M549.76,-3430.7C559.34,-3425.8 569.29,-3421.2 579,-3417.5 651.91,-3389.6 680.9,-3413.8 750,-3377.5 860.03,-3319.7 957,-3313.8 957,-3189.5 957,-3189.5 957,-3189.5 957,-2319.7 957,-2082 906,-2025 906,-1787.3 906,-1787.3 906,-1787.3 906,-1362.2 906,-1241 801.09,-1134.7 726.92,-1074.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="728.47,-1072.8 721.47,-1070.35 725.41,-1076.63 728.47,-1072.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- b:ent&#45;&gt;b:bell -->
+<g class="edge" id="edge2">
+<title>b:ent-&gt;b:bell</title>
+<path d="M779.15,-3555.5C761.06,-3542.3 740.89,-3527.5 722.37,-3513.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="723.95,-3512.02 716.84,-3509.89 721.07,-3515.98 723.95,-3512.02" stroke="#9aa8b5"></polygon>
+</g>
+<!-- b:chord -->
+<g class="node" id="node11">
+<title>b:chord</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#b:chord" xlink:title="Theorem §II-B: the earlier chord-distance version: J·Στₖ ≥ √(2−√2) ≈ 0.7654">
+<path d="M891.18,-3504.11C891.18,-3504.11 778.83,-3504.11 778.83,-3504.11 772.83,-3504.11 766.83,-3498.11 766.83,-3492.11 766.83,-3492.11 766.83,-3442.28 766.83,-3442.28 766.83,-3436.28 772.83,-3430.28 778.83,-3430.28 778.83,-3430.28 891.18,-3430.28 891.18,-3430.28 897.18,-3430.28 903.18,-3436.28 903.18,-3442.28 903.18,-3442.28 903.18,-3492.11 903.18,-3492.11 903.18,-3498.11 897.18,-3504.11 891.18,-3504.11" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="835" xml:space="preserve" y="-3489.1">Theorem §II-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="835" xml:space="preserve" y="-3476.35">the earlier chord-distance</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="835" xml:space="preserve" y="-3463.6">version: J·Στₖ ≥ √(2−√2) ≈</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="835" xml:space="preserve" y="-3450.85">0.7654</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="835" xml:space="preserve" y="-3438.1">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- b:ent&#45;&gt;b:chord -->
+<!-- r:cz -->
+<g class="node" id="node38">
+<title>r:cz</title>
+<g id="a_node38"><a target="_top" xlink:href="index.html#r:cz" xlink:title="Observation §VII-B: CZ with the second transmon level: error 2·10⁻⁸ at T = 0.55/J with local controls ≤ 10J, i.e. 0.35 of the qubit-only time and 5 % above the construction π/(6J). In Lean: the entangling-time bound (J = ‖Hc‖ = 2J for d = 3, giving π/(8J)), its robust form with tolerance ε and the 97/32 lemma of the refined bound (QSL.Exchange.refinedczₗemma; see r:czrefined); the CZ solutions themselves are numerical witnesses, not Lean statements">
+<path d="M527.18,-514.11C527.18,-514.11 384.83,-514.11 384.83,-514.11 378.83,-514.11 372.83,-508.11 372.83,-502.11 372.83,-502.11 372.83,-387.03 372.83,-387.03 372.83,-381.03 378.83,-375.03 384.83,-375.03 384.83,-375.03 527.18,-375.03 527.18,-375.03 533.18,-375.03 539.18,-381.03 539.18,-387.03 539.18,-387.03 539.18,-502.11 539.18,-502.11 539.18,-508.11 533.18,-514.11 527.18,-514.11" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-497.67">Observation §VII-B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-483.42">CZ with the second</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-469.17">transmon level: error</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-454.92">2·10⁻⁸ at T = 0.55/J with</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-440.67">local controls ≤ 10J, i.e.</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-426.42">0.35 of the qubit-only</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-412.17">time and 5 % above the</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-397.92">construction π/(6J)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="456" xml:space="preserve" y="-383.67">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:ent&#45;&gt;r:cz -->
+<g class="edge" id="edge36">
+<title>b:ent-&gt;r:cz</title>
+<path d="M906.61,-3589.5C960.76,-3580.8 1033.8,-3561.1 1082,-3516.8 1148.8,-3455.6 1161,-3419.5 1161,-3328.8 1161,-3328.8 1161,-3328.8 1161,-843.36 1161,-648.62 1004.5,-639.9 827,-559.74 714.44,-508.9 665.71,-567.96 552,-519.74 550.67,-519.17 549.34,-518.59 548.01,-517.98" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="549.17,-515.82 541.81,-514.93 547.01,-520.22 549.17,-515.82" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:czconstr -->
+<g class="node" id="node39">
+<title>r:czconstr</title>
+<g id="a_node39"><a target="_top" xlink:href="index.html#r:czconstr" xlink:title="Observation §VII-B: explicit CZ construction: fast twirling of one transmon keeps (J/2)Q⊗Q, the code in the extreme eigenvectors of Q gives (3J/2)Z⊗Z and a CZ in π/(6J) = 0.5236/J; so π/(8J) ≤ T_* ≤ π/(6J), and with the refined bound (next nodes) 0.4511/J ≤ T_* ≤ π/(6J). In Lean: only the lower bound π/(8J) (entangling-time theorem with ‖Hc‖ = 2J, d = 3); the upper bound, the explicit construction, is not formalized">
+<path d="M707.55,-735.57C707.55,-735.57 576.45,-735.57 576.45,-735.57 570.45,-735.57 564.45,-729.57 564.45,-723.57 564.45,-723.57 564.45,-571.73 564.45,-571.73 564.45,-565.73 570.45,-559.73 576.45,-559.73 576.45,-559.73 707.55,-559.73 707.55,-559.73 713.55,-559.73 719.55,-565.73 719.55,-571.73 719.55,-571.73 719.55,-723.57 719.55,-723.57 719.55,-729.57 713.55,-735.57 707.55,-735.57" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-720.55">Observation §VII-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-707.8">explicit CZ construction:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-695.05">fast twirling of one</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-682.3">transmon keeps (J/2)Q⊗Q,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-669.55">the code in the extreme</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-656.8">eigenvectors of Q gives</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-644.05">(3J/2)Z⊗Z and a CZ in</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-631.3">π/(6J) = 0.5236/J; so</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-618.55">π/(8J) ≤ T_* ≤ π/(6J), and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-605.8">with the refined bound</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-593.05">(next nodes) 0.4511/J ≤</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-580.3">T_* ≤ π/(6J)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-567.55">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:ent&#45;&gt;r:czconstr -->
+<g class="edge" id="edge40">
+<title>b:ent-&gt;r:czconstr</title>
+<path d="M882.73,-3555.9C933.94,-3507.5 1008,-3421.5 1008,-3328.8 1008,-3328.8 1008,-3328.8 1008,-1198.5 1008,-996.4 834.54,-811.98 726.45,-716.67" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="728.09,-714.85 721.21,-712.08 724.86,-718.53 728.09,-714.85" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:czrefined -->
+<g class="node" id="node41">
+<title>r:czrefined</title>
+<g id="a_node41"><a target="_top" xlink:href="index.html#r:czrefined" xlink:title="Observation §VII-B: a refined CZ bound: T_* ≥ 0.4511/J (a comparator-trajectory argument; the 97/32 lemma is certified in Lean), so 0.4511/J ≤ T_* ≤ π/(6J) = 0.5236/J and T_*(2·10⁻⁸) ≥ 0.4510/J. In Lean: the lemma (1/4)·Tr[(P_A⊗P_B)Hc²] ≤ (97/32)J² for rank-2 projectors on d = 3, and its equality case at P = 1 − |v⟩⟨v|, |v⟩ = √(7/8)|0⟩ + √(1/8)|2⟩; the time argument built on it (the comparator trajectory L(t), the Fubini–Study speed, the distance π/4 from the product states) is not formalized">
+<path d="M521.55,-329.42C521.55,-329.42 390.45,-329.42 390.45,-329.42 384.45,-329.42 378.45,-323.42 378.45,-317.42 378.45,-317.42 378.45,-216.59 378.45,-216.59 378.45,-210.59 384.45,-204.59 390.45,-204.59 390.45,-204.59 521.55,-204.59 521.55,-204.59 527.55,-204.59 533.55,-210.59 533.55,-216.59 533.55,-216.59 533.55,-317.42 533.55,-317.42 533.55,-323.42 527.55,-329.42 521.55,-329.42" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-314.4">Observation §VII-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-301.65">a refined CZ bound: T_* ≥</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-288.9">0.4511/J (a comparator-</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-276.15">trajectory argument; the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-263.4">97/32 lemma is certified</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-250.65">in Lean), so 0.4511/J ≤</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-237.9">T_* ≤ π/(6J) = 0.5236/J</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-225.15">and T_*(2·10⁻⁸) ≥ 0.4510/J</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="456" xml:space="preserve" y="-212.4">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:ent&#45;&gt;r:czrefined -->
+<g class="edge" id="edge42">
+<title>b:ent-&gt;r:czrefined</title>
+<path d="M906.67,-3595.2C973.56,-3590.2 1072.3,-3573 1136,-3516.8 1203.6,-3457.2 1212,-3419 1212,-3328.8 1212,-3328.8 1212,-3328.8 1212,-646.65 1212,-349.99 740.85,-285.74 542.44,-271.83" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="542.72,-269.39 535.57,-271.36 542.39,-274.28 542.72,-269.39" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:asymptotic -->
+<g class="node" id="node42">
+<title>r:asymptotic</title>
+<g id="a_node42"><a target="_top" xlink:href="index.html#r:asymptotic" xlink:title="Observation §VII-B: larger local dimension: the construction gives a CZ in π/(2Jλd²), the entangling-time theorem gives π/(4Jκd); the ratio 2κd/λd² is 2, 1.33, 1.27, 1.20, 1.09, 1.05 for d = 2, 3, 4, 5, 10, 20 and tends to 1. In Lean: λd²/2 ≤ κd ≤ 2(d−1) (exchangeₙormge, exchangeₙormₗe), λd ≥ 2(1 − 1/m)√(d − m) for the largest eigenvalue (lamMaxge) and 2κd/λd² → 1 (ratioₜendstoₒne), in Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.lean; the rate O(d^(−2/3)) (asymptotics of the largest Hermite zero, DLMF 18.16.17), the d-level CZ construction itself and the table of ratios are not formalized">
+<path d="M707.55,-519.74C707.55,-519.74 576.45,-519.74 576.45,-519.74 570.45,-519.74 564.45,-513.74 564.45,-507.74 564.45,-507.74 564.45,-381.4 564.45,-381.4 564.45,-375.4 570.45,-369.4 576.45,-369.4 576.45,-369.4 707.55,-369.4 707.55,-369.4 713.55,-369.4 719.55,-375.4 719.55,-381.4 719.55,-381.4 719.55,-507.74 719.55,-507.74 719.55,-513.74 713.55,-519.74 707.55,-519.74" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-504.72">Observation §VII-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-491.97">larger local dimension:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-479.22">the construction gives a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-466.47">CZ in π/(2Jλd²), the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-453.72">entangling-time theorem</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-440.97">gives π/(4Jκd); the ratio</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-428.22">2κd/λd² is 2, 1.33, 1.27,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-415.47">1.20, 1.09, 1.05 for d =</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-402.72">2, 3, 4, 5, 10, 20 and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-389.97">tends to 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-377.22">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:ent&#45;&gt;r:asymptotic -->
+<g class="edge" id="edge44">
+<title>b:ent-&gt;r:asymptotic</title>
+<path d="M906.65,-3581C946.62,-3569.2 994.9,-3549.3 1028,-3516.8 1093.1,-3453 1110,-3420 1110,-3328.8 1110,-3328.8 1110,-3328.8 1110,-843.36 1110,-645.1 863.15,-525.01 728.01,-474.11" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="728.9,-471.83 721.49,-471.68 727.19,-476.42 728.9,-471.83" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:heis -->
+<g class="node" id="node43">
+<title>r:heis</title>
+<g id="a_node43"><a target="_top" xlink:href="index.html#r:heis" xlink:title="Observation §VII-B: Heisenberg coupling and ancillas: the smallest largest-Schmidt-coefficient is exactly cos(2T) up to the Bell time π/8 (an analytic witness). In Lean: the lower bound: arccos λ ≤ T‖H − c1‖ for every real c, and the Heisenberg Bell time T ≥ π/8; the explicit trajectory e^(−iHT)|01⟩ is an analytic computation in the paper, not a Lean statement">
+<path d="M474.55,-710.06C474.55,-710.06 343.45,-710.06 343.45,-710.06 337.45,-710.06 331.45,-704.06 331.45,-698.06 331.45,-698.06 331.45,-597.24 331.45,-597.24 331.45,-591.24 337.45,-585.24 343.45,-585.24 343.45,-585.24 474.55,-585.24 474.55,-585.24 480.55,-585.24 486.55,-591.24 486.55,-597.24 486.55,-597.24 486.55,-698.06 486.55,-698.06 486.55,-704.06 480.55,-710.06 474.55,-710.06" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-695.05">Observation §VII-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-682.3">Heisenberg coupling and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-669.55">ancillas: the smallest</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-656.8">largest-Schmidt-</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-644.05">coefficient is exactly</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-631.3">cos(2T) up to the Bell</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-618.55">time π/8 (an analytic</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-605.8">witness)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-593.05">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:ent&#45;&gt;r:heis -->
+<g class="edge" id="edge46">
+<title>b:ent-&gt;r:heis</title>
+<path d="M906.61,-3566C930.01,-3553.4 954.66,-3537 973,-3516.8 1034.8,-3448.9 1059,-3420.7 1059,-3328.8 1059,-3328.8 1059,-3328.8 1059,-1198.5 1059,-1038.5 1115.2,-1014.1 723,-775.57 656.31,-735.02 624.25,-765.1 552,-735.57 532.53,-727.61 512.64,-717.21 494.12,-706.37" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="495.39,-704.28 488.12,-702.81 492.89,-708.49 495.39,-704.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- b:bell&#45;&gt;b:tight -->
+<g class="edge" id="edge3">
+<title>b:bell-&gt;b:tight</title>
+<path d="M609.75,-3425.3C588.5,-3408.1 563.77,-3388 542.4,-3370.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="544.03,-3368.77 537.05,-3366.25 540.94,-3372.57 544.03,-3368.77" stroke="#9aa8b5"></polygon>
+</g>
+<!-- b:cnot -->
+<g class="node" id="node12">
+<title>b:cnot</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#b:cnot" xlink:title="Corollary §II-B: any CNOT, or gate locally equivalent to it (ECR), on the qubit subspace of two d-level systems needs J·T ≥ π/4. In Lean: the Bell-vector bound and its extension to (P⊗Q)·Bell, which covers every gate only locally equivalent to CNOT (ECR); the CNOT consequence itself is the Bell bound applied to |+⟩|0⟩">
+<path d="M725.55,-3377.47C725.55,-3377.47 594.45,-3377.47 594.45,-3377.47 588.45,-3377.47 582.45,-3371.47 582.45,-3365.47 582.45,-3365.47 582.45,-3290.13 582.45,-3290.13 582.45,-3284.13 588.45,-3278.13 594.45,-3278.13 594.45,-3278.13 725.55,-3278.13 725.55,-3278.13 731.55,-3278.13 737.55,-3284.13 737.55,-3290.13 737.55,-3290.13 737.55,-3365.47 737.55,-3365.47 737.55,-3371.47 731.55,-3377.47 725.55,-3377.47" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3362.45">Corollary §II-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3349.7">any CNOT, or gate locally</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3336.95">equivalent to it (ECR), on</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3324.2">the qubit subspace of two</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3311.45">d-level systems needs J·T</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3298.7">≥ π/4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-3285.95">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:bell&#45;&gt;b:cnot -->
+<!-- b:approx -->
+<g class="node" id="node13">
+<title>b:approx</title>
+<g id="a_node13"><a target="_top" xlink:href="index.html#b:approx" xlink:title="Theorem §II-B: robust bounds: a Bell vector to fidelity 1−ε needs J·Στₖ ≥ π/4 − arcsin √ε; a two-level transfer needs Ωₘax T ≥ 2 arccos √ε">
+<path d="M548.3,-3238.17C548.3,-3238.17 433.7,-3238.17 433.7,-3238.17 427.7,-3238.17 421.7,-3232.17 421.7,-3226.17 421.7,-3226.17 421.7,-3150.83 421.7,-3150.83 421.7,-3144.83 427.7,-3138.83 433.7,-3138.83 433.7,-3138.83 548.3,-3138.83 548.3,-3138.83 554.3,-3138.83 560.3,-3144.83 560.3,-3150.83 560.3,-3150.83 560.3,-3226.17 560.3,-3226.17 560.3,-3232.17 554.3,-3238.17 548.3,-3238.17" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3223.15">Theorem §II-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3210.4">robust bounds: a Bell</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3197.65">vector to fidelity 1−ε</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3184.9">needs J·Στₖ ≥ π/4 − arcsin</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3172.15">√ε; a two-level transfer</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3159.4">needs Ωₘax T ≥ 2 arccos √ε</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-3146.65">✅ Lean</text>
+</a>
+</g>
+</g>
+<!-- b:bell&#45;&gt;b:approx -->
+<g class="edge" id="edge5">
+<title>b:bell-&gt;b:approx</title>
+<path d="M714.84,-3425.7C728.99,-3412.1 742.38,-3395.7 750,-3377.5 767.05,-3336.8 775.67,-3314.1 750,-3278.2 709.22,-3221.1 629.4,-3200.4 569.1,-3193.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="569.46,-3190.68 562.22,-3192.28 568.88,-3195.54 569.46,-3190.68" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:certified -->
+<g class="node" id="node25">
+<title>t:certified</title>
+<g id="a_node25"><a target="_top" xlink:href="index.html#t:certified" xlink:title="Observation §V-C: against our certified constants the median ratio is 8.7 (chord) or 8.4 (sharp π/4), twice the literature one. In Lean: the two bounds; the ratios (8.7 chord, 8.4 sharp, and ≈ 16.9 with the second level) are computations on vendor data, not Lean statements">
+<path d="M734.55,-2110.77C734.55,-2110.77 603.45,-2110.77 603.45,-2110.77 597.45,-2110.77 591.45,-2104.77 591.45,-2098.77 591.45,-2098.77 591.45,-2023.43 591.45,-2023.43 591.45,-2017.43 597.45,-2011.43 603.45,-2011.43 603.45,-2011.43 734.55,-2011.43 734.55,-2011.43 740.55,-2011.43 746.55,-2017.43 746.55,-2023.43 746.55,-2023.43 746.55,-2098.77 746.55,-2098.77 746.55,-2104.77 740.55,-2110.77 734.55,-2110.77" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="669" xml:space="preserve" y="-2095.75">Observation §V-C</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="669" xml:space="preserve" y="-2083">against our certified</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="669" xml:space="preserve" y="-2070.25">constants the median ratio</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="669" xml:space="preserve" y="-2057.5">is 8.7 (chord) or 8.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="669" xml:space="preserve" y="-2044.75">(sharp π/4), twice the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="669" xml:space="preserve" y="-2032">literature one</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="669" xml:space="preserve" y="-2019.25">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:bell&#45;&gt;t:certified -->
+<g class="edge" id="edge18">
+<title>b:bell-&gt;t:certified</title>
+<path d="M717.26,-3425.2C734.05,-3411.4 751.5,-3395 765,-3377.5 821.65,-3304.2 855,-3282.1 855,-3189.5 855,-3189.5 855,-3189.5 855,-2319.7 855,-2237.8 792.44,-2164.3 739.89,-2116.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="741.54,-2115.09 734.67,-2112.3 738.3,-2118.76 741.54,-2115.09" stroke="#9aa8b5"></polygon>
+</g>
+<!-- b:tight&#45;&gt;b:approx -->
+<!-- b:chord&#45;&gt;t:certified -->
+<g class="edge" id="edge19">
+<title>b:chord-&gt;t:certified</title>
+<path d="M850.58,-3429.8C871.48,-3377.6 906,-3278 906,-3189.5 906,-3189.5 906,-3189.5 906,-2319.7 906,-2236.2 880.97,-2211.7 824,-2150.8 804.54,-2130 779.07,-2112.7 754.42,-2099" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="755.8,-2096.96 748.47,-2095.81 753.49,-2101.28 755.8,-2096.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:controls -->
+<g class="node" id="node26">
+<title>t:controls</title>
+<g id="a_node26"><a target="_top" xlink:href="index.html#t:controls" xlink:title="Observation §V-C: numerical controls of the certified bound: 0 violations in 20 000 and 3000 trials">
+<path d="M735.05,-2237.39C735.05,-2237.39 630.95,-2237.39 630.95,-2237.39 624.95,-2237.39 618.95,-2231.39 618.95,-2225.39 618.95,-2225.39 618.95,-2162.81 618.95,-2162.81 618.95,-2156.81 624.95,-2150.81 630.95,-2150.81 630.95,-2150.81 735.05,-2150.81 735.05,-2150.81 741.05,-2150.81 747.05,-2156.81 747.05,-2162.81 747.05,-2162.81 747.05,-2225.39 747.05,-2225.39 747.05,-2231.39 741.05,-2237.39 735.05,-2237.39" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="683" xml:space="preserve" y="-2222.38">Observation §V-C</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="683" xml:space="preserve" y="-2209.62">numerical controls of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="683" xml:space="preserve" y="-2196.88">certified bound: 0</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="683" xml:space="preserve" y="-2184.12">violations in 20 000 and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="683" xml:space="preserve" y="-2171.38">3000 trials</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="683" xml:space="preserve" y="-2158.62">💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:chord&#45;&gt;t:controls -->
+<g class="edge" id="edge21">
+<title>b:chord-&gt;t:controls</title>
+<path d="M828.35,-3430.1C819.24,-3377.4 804,-3276.3 804,-3189.5 804,-3189.5 804,-3189.5 804,-2452.5 804,-2374.2 757.59,-2294.2 722.26,-2244.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="724.32,-2243.27 718.24,-2239.03 720.35,-2246.14 724.32,-2243.27" stroke="#9aa8b5"></polygon>
+</g>
+<!-- d:conv -->
+<g class="node" id="node14">
+<title>d:conv</title>
+<g id="a_node14"><a target="_top" xlink:href="index.html#d:conv" xlink:title="Observation §III-C: the drive convention is c = 1: IBM’s calibrated π pulse rotates by 1.148 π with c = 1 (2.296 π with c = 2)">
+<path d="M551.3,-3092.61C551.3,-3092.61 430.7,-3092.61 430.7,-3092.61 424.7,-3092.61 418.7,-3086.61 418.7,-3080.61 418.7,-3080.61 418.7,-2994.78 418.7,-2994.78 418.7,-2988.78 424.7,-2982.78 430.7,-2982.78 430.7,-2982.78 551.3,-2982.78 551.3,-2982.78 557.3,-2982.78 563.3,-2988.78 563.3,-2994.78 563.3,-2994.78 563.3,-3080.61 563.3,-3080.61 563.3,-3086.61 557.3,-3092.61 551.3,-3092.61" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="491" xml:space="preserve" y="-3076.17">Observation §III-C</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="491" xml:space="preserve" y="-3061.92">the drive convention is c</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="491" xml:space="preserve" y="-3047.67">= 1: IBM’s calibrated π</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="491" xml:space="preserve" y="-3033.42">pulse rotates by 1.148 π</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="491" xml:space="preserve" y="-3019.17">with c = 1 (2.296 π with c</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="491" xml:space="preserve" y="-3004.92">= 2)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="491" xml:space="preserve" y="-2990.67">💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:approx&#45;&gt;d:conv -->
+<!-- r:choi -->
+<g class="node" id="node40">
+<title>r:choi</title>
+<g id="a_node40"><a target="_top" xlink:href="index.html#r:choi" xlink:title="Observation §VII-B: a gate bound by the Choi state: T_*(e) ≥ [π/4 − arccos(1−e)]/(2J), so 0.392599/J ≤ T_*(2·10⁻⁸) ≤ 0.55/J (sharpened to 0.4510/J in r:czrefined); exact Bell preparation is a different, easier task. In Lean: the tolerance theorem (ε the infidelity of one output state); its instantiation with two-level references on each transmon, which turns it into a bound on the gate in the trace metric, is ours and not formalized">
+<path d="M420.55,-913.15C420.55,-913.15 289.45,-913.15 289.45,-913.15 283.45,-913.15 277.45,-907.15 277.45,-901.15 277.45,-901.15 277.45,-787.57 277.45,-787.57 277.45,-781.57 283.45,-775.57 289.45,-775.57 289.45,-775.57 420.55,-775.57 420.55,-775.57 426.55,-775.57 432.55,-781.57 432.55,-787.57 432.55,-787.57 432.55,-901.15 432.55,-901.15 432.55,-907.15 426.55,-913.15 420.55,-913.15" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-898.13">Observation §VII-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-885.38">a gate bound by the Choi</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-872.63">state: T_*(e) ≥ [π/4 −</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-859.88">arccos(1−e)]/(2J), so</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-847.13">0.392599/J ≤ T_*(2·10⁻⁸) ≤</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-834.38">0.55/J (sharpened to</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-821.63">0.4510/J in r:czrefined);</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-808.88">exact Bell preparation is</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-796.13">a different, easier task</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="355" xml:space="preserve" y="-783.38">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- b:approx&#45;&gt;r:choi -->
+<g class="edge" id="edge41">
+<title>b:approx-&gt;r:choi</title>
+<path d="M421.31,-3184.9C368.03,-3179.4 295.69,-3164.2 247,-3122.8 103.93,-3001.4 74,-2925.3 74,-2737.6 74,-2737.6 74,-2737.6 74,-1198.5 74,-1070.8 187.93,-962.55 270.7,-900.75" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="271.71,-903.05 275.88,-896.92 268.8,-899.11 271.71,-903.05" stroke="#9aa8b5"></polygon>
+</g>
+<!-- d:identity -->
+<g class="node" id="node15">
+<title>d:identity</title>
+<g id="a_node15"><a target="_top" xlink:href="index.html#d:identity" xlink:title="Observation §III-C: the residual is explained: omegad·|amp|·Aᵣec = π on all 777 qubits to 1.2·10⁻⁷; the ratio of the two areas tends to 1/(1−e⁻²) = 1.15652">
+<path d="M544.05,-2942.74C544.05,-2942.74 433.95,-2942.74 433.95,-2942.74 427.95,-2942.74 421.95,-2936.74 421.95,-2930.74 421.95,-2930.74 421.95,-2842.66 421.95,-2842.66 421.95,-2836.66 427.95,-2830.66 433.95,-2830.66 433.95,-2830.66 544.05,-2830.66 544.05,-2830.66 550.05,-2830.66 556.05,-2836.66 556.05,-2842.66 556.05,-2842.66 556.05,-2930.74 556.05,-2930.74 556.05,-2936.74 550.05,-2942.74 544.05,-2942.74" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-2927.72">Observation §III-C</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-2914.97">the residual is explained:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-2902.22">omegad·|amp|·Aᵣec = π on</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-2889.47">all 777 qubits to</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-2876.72">1.2·10⁻⁷; the ratio of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-2863.97">two areas tends to</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-2851.22">1/(1−e⁻²) = 1.15652</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="489" xml:space="preserve" y="-2838.47">💻 program</text>
+</a>
+</g>
+</g>
+<!-- d:conv&#45;&gt;d:identity -->
+<g class="edge" id="edge6">
+<title>d:conv-&gt;d:identity</title>
+<path d="M490.26,-2981.6C490.13,-2971.8 489.99,-2961.5 489.86,-2951.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="492.31,-2951.48 489.76,-2944.51 487.41,-2951.55 492.31,-2951.48" stroke="#9aa8b5"></polygon>
+</g>
+<!-- d:derived -->
+<g class="node" id="node16">
+<title>d:derived</title>
+<g id="a_node16"><a target="_top" xlink:href="index.html#d:derived" xlink:title="Observation §III-C: omegad is not an independent measurement: IBM derives it from the π-pulse calibration">
+<path d="M703.05,-2929.99C703.05,-2929.99 592.95,-2929.99 592.95,-2929.99 586.95,-2929.99 580.95,-2923.99 580.95,-2917.99 580.95,-2917.99 580.95,-2855.41 580.95,-2855.41 580.95,-2849.41 586.95,-2843.41 592.95,-2843.41 592.95,-2843.41 703.05,-2843.41 703.05,-2843.41 709.05,-2843.41 715.05,-2849.41 715.05,-2855.41 715.05,-2855.41 715.05,-2917.99 715.05,-2917.99 715.05,-2923.99 709.05,-2929.99 703.05,-2929.99" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="648" xml:space="preserve" y="-2914.97">Observation §III-C</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="648" xml:space="preserve" y="-2902.22">omegad is not an</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="648" xml:space="preserve" y="-2889.47">independent measurement:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="648" xml:space="preserve" y="-2876.72">IBM derives it from the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="648" xml:space="preserve" y="-2863.97">π-pulse calibration</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="648" xml:space="preserve" y="-2851.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- d:conv&#45;&gt;d:derived -->
+<g class="edge" id="edge7">
+<title>d:conv-&gt;d:derived</title>
+<path d="M549.01,-2981.6C564.75,-2966.7 581.66,-2950.7 596.97,-2936.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="598.49,-2938.04 601.88,-2931.44 595.12,-2934.48 598.49,-2938.04" stroke="#9aa8b5"></polygon>
+</g>
+<!-- d:falsifier -->
+<g class="node" id="node17">
+<title>d:falsifier</title>
+<g id="a_node17"><a target="_top" xlink:href="index.html#d:falsifier" xlink:title="Observation §III-D: the pre-registered falsifier fired on 254 qubits of three backends with placeholder-like values, which are excluded">
+<path d="M384.8,-2936.37C384.8,-2936.37 273.2,-2936.37 273.2,-2936.37 267.2,-2936.37 261.2,-2930.37 261.2,-2924.37 261.2,-2924.37 261.2,-2849.03 261.2,-2849.03 261.2,-2843.03 267.2,-2837.03 273.2,-2837.03 273.2,-2837.03 384.8,-2837.03 384.8,-2837.03 390.8,-2837.03 396.8,-2843.03 396.8,-2849.03 396.8,-2849.03 396.8,-2924.37 396.8,-2924.37 396.8,-2930.37 390.8,-2936.37 384.8,-2936.37" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="329" xml:space="preserve" y="-2921.35">Observation §III-D</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="329" xml:space="preserve" y="-2908.6">the pre-registered</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="329" xml:space="preserve" y="-2895.85">falsifier fired on 254</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="329" xml:space="preserve" y="-2883.1">qubits of three backends</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="329" xml:space="preserve" y="-2870.35">with placeholder-like</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="329" xml:space="preserve" y="-2857.6">values, which are excluded</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="329" xml:space="preserve" y="-2844.85">💻 program</text>
+</a>
+</g>
+</g>
+<!-- d:conv&#45;&gt;d:falsifier -->
+<!-- d:conv&#45;&gt;q:gap -->
+<g class="edge" id="edge10">
+<title>d:conv-&gt;q:gap</title>
+<path d="M417.67,-3029.9C361.17,-3020.4 286.55,-2997.6 249,-2942.8 218.85,-2898.7 229.33,-2872.3 249,-2822.7 253.31,-2811.8 259.74,-2801.5 267.11,-2792.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="268.85,-2793.84 271.4,-2786.87 265.07,-2790.73 268.85,-2793.84" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:cap -->
+<g class="node" id="node21">
+<title>q:cap</title>
+<g id="a_node21"><a target="_top" xlink:href="index.html#q:cap" xlink:title="Observation §IV-C: IBM’s design rule: the calibrated peak Rabi frequency is about 0.09 of the anharmonicity (0.0907, or 0.078 with the normalized peak)">
+<path d="M708.55,-2648.84C708.55,-2648.84 595.45,-2648.84 595.45,-2648.84 589.45,-2648.84 583.45,-2642.84 583.45,-2636.84 583.45,-2636.84 583.45,-2548.76 583.45,-2548.76 583.45,-2542.76 589.45,-2536.76 595.45,-2536.76 595.45,-2536.76 708.55,-2536.76 708.55,-2536.76 714.55,-2536.76 720.55,-2542.76 720.55,-2548.76 720.55,-2548.76 720.55,-2636.84 720.55,-2636.84 720.55,-2642.84 714.55,-2648.84 708.55,-2648.84" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="652" xml:space="preserve" y="-2633.83">Observation §IV-C</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="652" xml:space="preserve" y="-2621.08">IBM’s design rule: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="652" xml:space="preserve" y="-2608.33">calibrated peak Rabi</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="652" xml:space="preserve" y="-2595.58">frequency is about 0.09 of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="652" xml:space="preserve" y="-2582.83">the anharmonicity (0.0907,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="652" xml:space="preserve" y="-2570.08">or 0.078 with the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="652" xml:space="preserve" y="-2557.33">normalized peak)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="652" xml:space="preserve" y="-2544.58">💻 program</text>
+</a>
+</g>
+</g>
+<!-- d:conv&#45;&gt;q:cap -->
+<g class="edge" id="edge15">
+<title>d:conv-&gt;q:cap</title>
+<path d="M564.56,-3029.2C619.71,-3019.2 691.69,-2996.2 728,-2942.8 787.15,-2855.7 734.42,-2730.6 692.19,-2656.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="694.49,-2655.38 688.89,-2650.51 690.23,-2657.81 694.49,-2655.38" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:decomp -->
+<g class="node" id="node19">
+<title>q:decomp</title>
+<g id="a_node19"><a target="_top" xlink:href="index.html#q:decomp" xlink:title="Observation §IV-C: what sets the duration: the gap factors into a pulse shape (≈ 2.16 = 1.87 × 1/(1−e⁻²)) and an amplitude reserve (≈ 5)">
+<path d="M387.43,-2636.09C387.43,-2636.09 276.58,-2636.09 276.58,-2636.09 270.58,-2636.09 264.58,-2630.09 264.58,-2624.09 264.58,-2624.09 264.58,-2561.51 264.58,-2561.51 264.58,-2555.51 270.58,-2549.51 276.58,-2549.51 276.58,-2549.51 387.43,-2549.51 387.43,-2549.51 393.43,-2549.51 399.43,-2555.51 399.43,-2561.51 399.43,-2561.51 399.43,-2624.09 399.43,-2624.09 399.43,-2630.09 393.43,-2636.09 387.43,-2636.09" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-2621.08">Observation §IV-C</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-2608.33">what sets the duration:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-2595.58">the gap factors into a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-2582.83">pulse shape (≈ 2.16 = 1.87</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-2570.08">× 1/(1−e⁻²)) and an</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-2557.33">amplitude reserve (≈ 5)</text>
+</a>
+</g>
+</g>
+<!-- d:identity&#45;&gt;q:decomp -->
+<g class="edge" id="edge11">
+<title>d:identity-&gt;q:decomp</title>
+<path d="M470.13,-2830.4C455.26,-2789.9 432.64,-2734.3 406,-2688.9 396.83,-2673.2 385.38,-2657.3 374.25,-2643" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="376.38,-2641.74 370.1,-2637.78 372.54,-2644.79 376.38,-2641.74" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:hyp -->
+<g class="node" id="node20">
+<title>q:hyp</title>
+<g id="a_node20"><a target="_top" xlink:href="index.html#q:hyp" xlink:title="Observation §IV-B: pre-registered rivals: H1 rejected at full amplitude (depends on the waveform reading at the drive used), H3 excluded, H2 without support">
+<path d="M546.05,-2648.84C546.05,-2648.84 435.95,-2648.84 435.95,-2648.84 429.95,-2648.84 423.95,-2642.84 423.95,-2636.84 423.95,-2636.84 423.95,-2548.76 423.95,-2548.76 423.95,-2542.76 429.95,-2536.76 435.95,-2536.76 435.95,-2536.76 546.05,-2536.76 546.05,-2536.76 552.05,-2536.76 558.05,-2542.76 558.05,-2548.76 558.05,-2548.76 558.05,-2636.84 558.05,-2636.84 558.05,-2642.84 552.05,-2648.84 546.05,-2648.84" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-2633.83">Observation §IV-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-2621.08">pre-registered rivals: H1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-2608.33">rejected at full amplitude</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-2595.58">(depends on the waveform</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-2582.83">reading at the drive</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-2570.08">used), H3 excluded, H2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-2557.33">without support</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="491" xml:space="preserve" y="-2544.58">💻 program</text>
+</a>
+</g>
+</g>
+<!-- d:derived&#45;&gt;q:hyp -->
+<g class="edge" id="edge13">
+<title>d:derived-&gt;q:hyp</title>
+<path d="M625,-2843C598.63,-2793.9 555.16,-2713.1 524.9,-2656.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="527.07,-2655.77 521.62,-2650.74 522.75,-2658.07 527.07,-2655.77" stroke="#9aa8b5"></polygon>
+</g>
+<!-- d:falsifier&#45;&gt;q:gap -->
+<!-- q:gap&#45;&gt;q:decomp -->
+<g class="edge" id="edge12">
+<title>q:gap-&gt;q:decomp</title>
+<path d="M330.02,-2687.6C330.31,-2673.9 330.62,-2658.9 330.92,-2645" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="333.37,-2645.16 331.07,-2638.11 328.47,-2645.06 333.37,-2645.16" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:gap&#45;&gt;q:hyp -->
+<g class="edge" id="edge14">
+<title>q:gap-&gt;q:hyp</title>
+<path d="M383.85,-2687.6C395.92,-2677.1 408.85,-2665.7 421.42,-2654.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="422.71,-2656.82 426.41,-2650.39 419.51,-2653.11 422.71,-2656.82" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:gap&#45;&gt;q:cap -->
+<!-- s:table -->
+<g class="node" id="node28">
+<title>s:table</title>
+<g id="a_node28"><a target="_top" xlink:href="index.html#s:table" xlink:title="Observation §VI: single-qubit ratio frozen near 11 from 2021 to 2025; two-qubit ratio 2.78 → 4.26">
+<path d="M551.3,-1965.19C551.3,-1965.19 424.7,-1965.19 424.7,-1965.19 418.7,-1965.19 412.7,-1959.19 412.7,-1953.19 412.7,-1953.19 412.7,-1881.61 412.7,-1881.61 412.7,-1875.61 418.7,-1869.61 424.7,-1869.61 424.7,-1869.61 551.3,-1869.61 551.3,-1869.61 557.3,-1869.61 563.3,-1875.61 563.3,-1881.61 563.3,-1881.61 563.3,-1953.19 563.3,-1953.19 563.3,-1959.19 557.3,-1965.19 551.3,-1965.19" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-1948.75">Observation §VI</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-1934.5">single-qubit ratio frozen</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-1920.25">near 11 from 2021 to 2025;</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-1906">two-qubit ratio 2.78 →</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-1891.75">4.26</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-1877.5">💻 program</text>
+</a>
+</g>
+</g>
+<!-- q:gap&#45;&gt;s:table -->
+<g class="edge" id="edge23">
+<title>q:gap-&gt;s:table</title>
+<path d="M263.71,-2704.9C241.91,-2691 220.1,-2672.4 208,-2648.9 185.25,-2604.5 201.05,-2586.1 208,-2536.8 243.05,-2288.1 242.36,-2202.9 395,-2003.5 403.34,-1992.6 413.17,-1981.9 423.26,-1972" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="424.76,-1973.95 428.13,-1967.35 421.37,-1970.41 424.76,-1973.95" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:law -->
+<g class="node" id="node32">
+<title>r:law</title>
+<g id="a_node32"><a target="_top" xlink:href="index.html#r:law" xlink:title="Observation §VII-A: optimal control: shortest X time found ≈ max(π/Ωₘax,  1.1·2π/|δ|), a speed-limit branch and a leakage-dominated branch">
+<path d="M566.43,-1418.12C566.43,-1418.12 431.58,-1418.12 431.58,-1418.12 425.58,-1418.12 419.58,-1412.12 419.58,-1406.12 419.58,-1406.12 419.58,-1320.29 419.58,-1320.29 419.58,-1314.29 425.58,-1308.29 431.58,-1308.29 431.58,-1308.29 566.43,-1308.29 566.43,-1308.29 572.43,-1308.29 578.43,-1314.29 578.43,-1320.29 578.43,-1320.29 578.43,-1406.12 578.43,-1406.12 578.43,-1412.12 572.43,-1418.12 566.43,-1418.12" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="499" xml:space="preserve" y="-1401.67">Observation §VII-A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="499" xml:space="preserve" y="-1387.42">optimal control: shortest</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="499" xml:space="preserve" y="-1373.17">X time found ≈ max(π/Ωₘax,</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="499" xml:space="preserve" y="-1358.92">1.1·2π/|δ|), a speed-limit</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="499" xml:space="preserve" y="-1344.67">branch and a leakage-</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="499" xml:space="preserve" y="-1330.42">dominated branch</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="499" xml:space="preserve" y="-1316.17">💻 program</text>
+</a>
+</g>
+</g>
+<!-- q:gap&#45;&gt;r:law -->
+<g class="edge" id="edge28">
+<title>q:gap-&gt;r:law</title>
+<path d="M263.75,-2711.9C235.79,-2698.1 205.94,-2677.6 190,-2648.9 165.84,-2605.3 188.51,-2586.6 190,-2536.8 198.23,-2261.6 227,-2193.7 227,-1918.4 227,-1918.4 227,-1918.4 227,-1652.4 227,-1554.6 258.55,-1526.2 327,-1456.4 350.61,-1432.3 381.87,-1413 411.26,-1398.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="412.1,-1400.72 417.33,-1395.46 409.96,-1396.31 412.1,-1400.72" stroke="#9aa8b5"></polygon>
+</g>
+<!-- c:summary -->
+<g class="node" id="node46">
+<title>c:summary</title>
+<g id="a_node46"><a target="_top" xlink:href="index.html#c:summary" xlink:title="Remark §X: conclusion: 11.3× at full amplitude and ≈ 2× at the drive used; X gates ≈ 10× faster than the median within the full amplitude (4.8 ns at rfull); 4.22× for two qubits; a CZ between the refined bound 0.4511/J and the construction π/(6J)">
+<path d="M243.05,-158.33C243.05,-158.33 132.95,-158.33 132.95,-158.33 126.95,-158.33 120.95,-152.33 120.95,-146.33 120.95,-146.33 120.95,-20 120.95,-20 120.95,-14 126.95,-8 132.95,-8 132.95,-8 243.05,-8 243.05,-8 249.05,-8 255.05,-14 255.05,-20 255.05,-20 255.05,-146.33 255.05,-146.33 255.05,-152.33 249.05,-158.33 243.05,-158.33" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-143.32">Remark §X</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-130.57">conclusion: 11.3× at full</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-117.82">amplitude and ≈ 2× at the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-105.07">drive used; X gates ≈ 10×</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-92.32">faster than the median</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-79.57">within the full amplitude</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-66.82">(4.8 ns at rfull); 4.22×</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-54.07">for two qubits; a CZ</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-41.32">between the refined bound</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-28.57">0.4511/J and the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-15.82">construction π/(6J)</text>
+</a>
+</g>
+</g>
+<!-- q:gap&#45;&gt;c:summary -->
+<g class="edge lm-aux" id="edge47">
+<title>q:gap-&gt;c:summary</title>
+<path d="M276,-2688C266.19,-2676.3 257.36,-2663 252,-2648.9 234.32,-2602.3 245.41,-2586.2 252,-2536.8 254.03,-2521.6 385.01,-2013.1 397,-2003.5 412.63,-1991 559.08,-2004.4 577,-1995.5 728.01,-1920.3 757.97,-1860.3 819,-1703 893.58,-1510.8 854.63,-981.35 842,-775.57 826.12,-516.8 966.62,-366.72 771,-196.58 749.91,-178.24 292.96,-201.15 268,-188.58 256.43,-182.75 246.06,-174.38 236.92,-164.88" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="238.95,-163.47 232.42,-159.95 235.33,-166.77 238.95,-163.47" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:perqubit -->
+<g class="node" id="node22">
+<title>q:perqubit</title>
+<g id="a_node22"><a target="_top" xlink:href="index.html#q:perqubit" xlink:title="Observation §IV-C: per-qubit durations under the cap would gain only ×1.09; cairo runs above the cap">
+<path d="M645.43,-2496.79C645.43,-2496.79 540.57,-2496.79 540.57,-2496.79 534.57,-2496.79 528.57,-2490.79 528.57,-2484.79 528.57,-2484.79 528.57,-2422.21 528.57,-2422.21 528.57,-2416.21 534.57,-2410.21 540.57,-2410.21 540.57,-2410.21 645.43,-2410.21 645.43,-2410.21 651.43,-2410.21 657.43,-2416.21 657.43,-2422.21 657.43,-2422.21 657.43,-2484.79 657.43,-2484.79 657.43,-2490.79 651.43,-2496.79 645.43,-2496.79" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2481.78">Observation §IV-C</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2469.03">per-qubit durations under</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2456.28">the cap would gain only</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2443.53">×1.09; cairo runs above</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2430.78">the cap</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2418.03">💻 program</text>
+</a>
+</g>
+</g>
+<!-- q:decomp&#45;&gt;q:perqubit -->
+<!-- r:ibm -->
+<g class="node" id="node34">
+<title>r:ibm</title>
+<g id="a_node34"><a target="_top" xlink:href="index.html#r:ibm" xlink:title="Observation §VII-A: for IBM’s |δ| ≈ 2.07 rad/ns: the fastest pulse found takes ≈ 16 ns at its own cap (35.6 ns is ≈ 2.2 times that); at r = 1 the 4-level search finds 3.3 ns, but that value is truncation-dependent">
+<path d="M395.8,-1268.29C395.8,-1268.29 290.2,-1268.29 290.2,-1268.29 284.2,-1268.29 278.2,-1262.29 278.2,-1256.29 278.2,-1256.29 278.2,-1142.71 278.2,-1142.71 278.2,-1136.71 284.2,-1130.71 290.2,-1130.71 290.2,-1130.71 395.8,-1130.71 395.8,-1130.71 401.8,-1130.71 407.8,-1136.71 407.8,-1142.71 407.8,-1142.71 407.8,-1256.29 407.8,-1256.29 407.8,-1262.29 401.8,-1268.29 395.8,-1268.29" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1253.28">Observation §VII-A</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1240.53">for IBM’s |δ| ≈ 2.07</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1227.78">rad/ns: the fastest pulse</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1215.03">found takes ≈ 16 ns at its</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1202.28">own cap (35.6 ns is ≈ 2.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1189.53">times that); at r = 1 the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1176.78">4-level search finds 3.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1164.03">ns, but that value is</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1151.28">truncation-dependent</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1138.53">💻 program</text>
+</a>
+</g>
+</g>
+<!-- q:decomp&#45;&gt;r:ibm -->
+<g class="edge" id="edge30">
+<title>q:decomp-&gt;r:ibm</title>
+<path d="M309.06,-2549.1C255.16,-2444.7 125,-2166.7 125,-1918.4 125,-1918.4 125,-1918.4 125,-1513.1 125,-1408.4 208.2,-1313.8 271.8,-1256.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="273.15,-1258.78 276.76,-1252.3 269.89,-1255.12 273.15,-1258.78" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:cap&#45;&gt;q:perqubit -->
+<g class="edge" id="edge16">
+<title>q:cap-&gt;q:perqubit</title>
+<path d="M628.17,-2536.4C623.69,-2525.9 619.02,-2515.1 614.61,-2504.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="616.91,-2503.95 611.89,-2498.49 612.41,-2505.89 616.91,-2503.95" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:pairs -->
+<g class="node" id="node23">
+<title>t:pairs</title>
+<g id="a_node23"><a target="_top" xlink:href="index.html#t:pairs" xlink:title="Observation §V-A: 1758 coupled pairs in 43 backends: median jq = 0.01268 rad/ns, median gate 548 ns">
+<path d="M644.3,-2363.99C644.3,-2363.99 541.7,-2363.99 541.7,-2363.99 535.7,-2363.99 529.7,-2357.99 529.7,-2351.99 529.7,-2351.99 529.7,-2289.41 529.7,-2289.41 529.7,-2283.41 535.7,-2277.41 541.7,-2277.41 541.7,-2277.41 644.3,-2277.41 644.3,-2277.41 650.3,-2277.41 656.3,-2283.41 656.3,-2289.41 656.3,-2289.41 656.3,-2351.99 656.3,-2351.99 656.3,-2357.99 650.3,-2363.99 644.3,-2363.99" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2348.97">Observation §V-A</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2336.22">1758 coupled pairs in 43</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2323.47">backends: median jq =</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2310.72">0.01268 rad/ns, median</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2297.97">gate 548 ns</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="593" xml:space="preserve" y="-2285.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- q:perqubit&#45;&gt;t:pairs -->
+<!-- t:gap -->
+<g class="node" id="node24">
+<title>t:gap</title>
+<g id="a_node24"><a target="_top" xlink:href="index.html#t:gap" xlink:title="Observation §V-B: ECR/CX gates last a median 4.22 times the CNOT-class bound π/(2jq)">
+<path d="M554.68,-2234.77C554.68,-2234.77 421.33,-2234.77 421.33,-2234.77 415.33,-2234.77 409.33,-2228.77 409.33,-2222.77 409.33,-2222.77 409.33,-2165.43 409.33,-2165.43 409.33,-2159.43 415.33,-2153.43 421.33,-2153.43 421.33,-2153.43 554.68,-2153.43 554.68,-2153.43 560.68,-2153.43 566.68,-2159.43 566.68,-2165.43 566.68,-2165.43 566.68,-2222.77 566.68,-2222.77 566.68,-2228.77 560.68,-2234.77 554.68,-2234.77" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-2218.32">Observation §V-B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-2204.07">ECR/CX gates last a median</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-2189.82">4.22 times the CNOT-class</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-2175.57">bound π/(2jq)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="488" xml:space="preserve" y="-2161.32">💻 program</text>
+</a>
+</g>
+</g>
+<!-- t:pairs&#45;&gt;t:gap -->
+<g class="edge" id="edge17">
+<title>t:pairs-&gt;t:gap</title>
+<path d="M556.86,-2276.8C547.46,-2265.6 537.27,-2253.5 527.68,-2242.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="529.76,-2240.87 523.4,-2237.06 526,-2244.01 529.76,-2240.87" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:pairs&#45;&gt;t:controls -->
+<!-- t:cr -->
+<g class="node" id="node27">
+<title>t:cr</title>
+<g id="a_node27"><a target="_top" xlink:href="index.html#t:cr" xlink:title="Observation §V-D: cross resonance against its first-order formula: median θ/(π/2) = 1.109; Ω_CR/Δ ≈ 0.45">
+<path d="M537.8,-2104.39C537.8,-2104.39 438.2,-2104.39 438.2,-2104.39 432.2,-2104.39 426.2,-2098.39 426.2,-2092.39 426.2,-2092.39 426.2,-2029.81 426.2,-2029.81 426.2,-2023.81 432.2,-2017.81 438.2,-2017.81 438.2,-2017.81 537.8,-2017.81 537.8,-2017.81 543.8,-2017.81 549.8,-2023.81 549.8,-2029.81 549.8,-2029.81 549.8,-2092.39 549.8,-2092.39 549.8,-2098.39 543.8,-2104.39 537.8,-2104.39" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="488" xml:space="preserve" y="-2089.38">Observation §V-D</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="488" xml:space="preserve" y="-2076.62">cross resonance against</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="488" xml:space="preserve" y="-2063.88">its first-order formula:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="488" xml:space="preserve" y="-2051.12">median θ/(π/2) = 1.109;</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="488" xml:space="preserve" y="-2038.38">Ω_CR/Δ ≈ 0.45</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="488" xml:space="preserve" y="-2025.62">💻 program</text>
+</a>
+</g>
+</g>
+<!-- t:pairs&#45;&gt;t:cr -->
+<g class="edge" id="edge22">
+<title>t:pairs-&gt;t:cr</title>
+<path d="M597.48,-2277C599.38,-2241.5 597.76,-2190.6 579,-2150.8 572.11,-2136.2 561.72,-2122.7 550.39,-2110.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="552.14,-2109.09 545.46,-2105.87 548.68,-2112.55 552.14,-2109.09" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:gap&#45;&gt;t:certified -->
+<g class="edge" id="edge20">
+<title>t:gap-&gt;t:certified</title>
+<path d="M544.28,-2152.4C560.13,-2140.9 577.62,-2128.2 594.36,-2116.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="595.53,-2118.28 599.75,-2112.19 592.65,-2114.31 595.53,-2118.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:gap&#45;&gt;t:cr -->
+<!-- t:gap&#45;&gt;s:table -->
+<g class="edge" id="edge24">
+<title>t:gap-&gt;s:table</title>
+<path d="M440.88,-2152.4C429.97,-2140.2 419.85,-2126 414,-2110.8 396.92,-2066.3 397.28,-2048.1 414,-2003.5 418.07,-1992.6 424.22,-1982.2 431.28,-1972.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="433.04,-1974.34 435.37,-1967.3 429.16,-1971.34 433.04,-1974.34" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:gap&#45;&gt;c:summary -->
+<g class="edge lm-aux" id="edge50">
+<title>t:gap-&gt;c:summary</title>
+<path d="M427.96,-2152.2C414.96,-2140.4 402.79,-2126.4 395,-2110.8 352.32,-2025.1 258.5,-1586.9 386,-1456.4 399.44,-1442.6 718.03,-1461.6 732,-1448.4 906.26,-1283.5 803.73,-606.64 768,-369.41 756.34,-292 794.03,-246.82 734,-196.58 714.14,-179.96 291.12,-200.24 268,-188.58 256.43,-182.75 246.06,-174.37 236.93,-164.87" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="238.95,-163.45 232.42,-159.94 235.34,-166.76 238.95,-163.45" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:certified&#45;&gt;r:cz -->
+<g class="edge" id="edge39">
+<title>t:certified-&gt;r:cz</title>
+<path d="M746.89,-2051.4C788.45,-2043.1 837.9,-2027 872,-1995.5 945.4,-1927.7 957,-1887.3 957,-1787.3 957,-1787.3 957,-1787.3 957,-1198.5 957,-897.52 957.22,-759.43 732,-559.74 670.68,-505.37 626.21,-554.51 552,-519.74 550.53,-519.05 549.07,-518.34 547.61,-517.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="549,-515.56 541.67,-514.45 546.7,-519.89 549,-515.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- t:cr&#45;&gt;s:table -->
+<!-- r:cr -->
+<g class="node" id="node37">
+<title>r:cr</title>
+<g id="a_node37"><a target="_top" xlink:href="index.html#r:cr" xlink:title="Observation §VII-B: cross resonance: the fastest CNOT found is ≈ 1.2 times slower at IBM’s drive fraction 0.45 than at 0.7">
+<path d="M396.55,-1071.57C396.55,-1071.57 289.45,-1071.57 289.45,-1071.57 283.45,-1071.57 277.45,-1065.57 277.45,-1059.57 277.45,-1059.57 277.45,-984.23 277.45,-984.23 277.45,-978.23 283.45,-972.23 289.45,-972.23 289.45,-972.23 396.55,-972.23 396.55,-972.23 402.55,-972.23 408.55,-978.23 408.55,-984.23 408.55,-984.23 408.55,-1059.57 408.55,-1059.57 408.55,-1065.57 402.55,-1071.57 396.55,-1071.57" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1056.55">Observation §VII-B</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1043.8">cross resonance: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1031.05">fastest CNOT found is ≈</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1018.3">1.2 times slower at IBM’s</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-1005.55">drive fraction 0.45 than</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-992.8">at 0.7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="343" xml:space="preserve" y="-980.05">💻 program</text>
+</a>
+</g>
+</g>
+<!-- t:cr&#45;&gt;r:cr -->
+<g class="edge" id="edge35">
+<title>t:cr-&gt;r:cr</title>
+<path d="M550.39,-2021.8C641.44,-1963.7 800,-1853 800,-1787.3 800,-1787.3 800,-1787.3 800,-1513.1 800,-1455.4 526.19,-1193.4 402.45,-1077.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="404.22,-1076.2 397.43,-1073.23 400.89,-1079.79 404.22,-1076.2" stroke="#9aa8b5"></polygon>
+</g>
+<!-- s:duration -->
+<g class="node" id="node29">
+<title>s:duration</title>
+<g id="a_node29"><a target="_top" xlink:href="index.html#s:duration" xlink:title="Observation §VI: the two-qubit ratio grew because gates got longer, not because the coupling changed">
+<path d="M522.3,-1829.59C522.3,-1829.59 419.7,-1829.59 419.7,-1829.59 413.7,-1829.59 407.7,-1823.59 407.7,-1817.59 407.7,-1817.59 407.7,-1755.01 407.7,-1755.01 407.7,-1749.01 413.7,-1743.01 419.7,-1743.01 419.7,-1743.01 522.3,-1743.01 522.3,-1743.01 528.3,-1743.01 534.3,-1749.01 534.3,-1755.01 534.3,-1755.01 534.3,-1817.59 534.3,-1817.59 534.3,-1823.59 528.3,-1829.59 522.3,-1829.59" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="471" xml:space="preserve" y="-1814.58">Observation §VI</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="471" xml:space="preserve" y="-1801.83">the two-qubit ratio grew</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="471" xml:space="preserve" y="-1789.08">because gates got longer,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="471" xml:space="preserve" y="-1776.33">not because the coupling</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="471" xml:space="preserve" y="-1763.58">changed</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="471" xml:space="preserve" y="-1750.83">💻 program</text>
+</a>
+</g>
+</g>
+<!-- s:table&#45;&gt;s:duration -->
+<g class="edge" id="edge25">
+<title>s:table-&gt;s:duration</title>
+<path d="M481.67,-1868.4C480.37,-1858.5 479,-1848.1 477.69,-1838.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="480.15,-1838.02 476.81,-1831.4 475.29,-1838.66 480.15,-1838.02" stroke="#9aa8b5"></polygon>
+</g>
+<!-- s:lesson -->
+<g class="node" id="node31">
+<title>s:lesson</title>
+<g id="a_node31"><a target="_top" xlink:href="index.html#s:lesson" xlink:title="Observation §VI: a pooled effect (p = 0.0017) vanished under a stratified control (p = 0.90): consistent with confounding by epoch">
+<path d="M551.43,-1563.77C551.43,-1563.77 446.57,-1563.77 446.57,-1563.77 440.57,-1563.77 434.57,-1557.77 434.57,-1551.77 434.57,-1551.77 434.57,-1476.43 434.57,-1476.43 434.57,-1470.43 440.57,-1464.43 446.57,-1464.43 446.57,-1464.43 551.43,-1464.43 551.43,-1464.43 557.43,-1464.43 563.43,-1470.43 563.43,-1476.43 563.43,-1476.43 563.43,-1551.77 563.43,-1551.77 563.43,-1557.77 557.43,-1563.77 551.43,-1563.77" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1548.75">Observation §VI</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1536">a pooled effect (p =</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1523.25">0.0017) vanished under a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1510.5">stratified control (p =</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1497.75">0.90): consistent with</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1485">confounding by epoch</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1472.25">💻 program</text>
+</a>
+</g>
+</g>
+<!-- s:table&#45;&gt;s:lesson -->
+<!-- s:error -->
+<g class="node" id="node30">
+<title>s:error</title>
+<g id="a_node30"><a target="_top" xlink:href="index.html#s:error" xlink:title="Observation §VI: lengthening does not lower the error: Spearman +0.13 (p = 0.23); it falls in only 31 % of lengthened pairs">
+<path d="M524.17,-1703.07C524.17,-1703.07 411.82,-1703.07 411.82,-1703.07 405.82,-1703.07 399.82,-1697.07 399.82,-1691.07 399.82,-1691.07 399.82,-1615.73 399.82,-1615.73 399.82,-1609.73 405.82,-1603.73 411.82,-1603.73 411.82,-1603.73 524.17,-1603.73 524.17,-1603.73 530.17,-1603.73 536.17,-1609.73 536.17,-1615.73 536.17,-1615.73 536.17,-1691.07 536.17,-1691.07 536.17,-1697.07 530.17,-1703.07 524.17,-1703.07" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="468" xml:space="preserve" y="-1688.05">Observation §VI</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="468" xml:space="preserve" y="-1675.3">lengthening does not lower</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="468" xml:space="preserve" y="-1662.55">the error: Spearman +0.13</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="468" xml:space="preserve" y="-1649.8">(p = 0.23); it falls in</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="468" xml:space="preserve" y="-1637.05">only 31 % of lengthened</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="468" xml:space="preserve" y="-1624.3">pairs</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="468" xml:space="preserve" y="-1611.55">💻 program</text>
+</a>
+</g>
+</g>
+<!-- s:duration&#45;&gt;s:error -->
+<g class="edge" id="edge26">
+<title>s:duration-&gt;s:error</title>
+<path d="M470.02,-1742.5C469.79,-1732.6 469.55,-1721.9 469.31,-1711.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="471.77,-1711.75 469.16,-1704.81 466.87,-1711.87 471.77,-1711.75" stroke="#9aa8b5"></polygon>
+</g>
+<!-- s:error&#45;&gt;s:lesson -->
+<g class="edge" id="edge27">
+<title>s:error-&gt;s:lesson</title>
+<path d="M479.1,-1603.2C481.38,-1593.1 483.79,-1582.4 486.13,-1572.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="488.5,-1572.74 487.64,-1565.38 483.72,-1571.67 488.5,-1572.74" stroke="#9aa8b5"></polygon>
+</g>
+<!-- s:lesson&#45;&gt;r:law -->
+<!-- r:law&#45;&gt;r:ibm -->
+<g class="edge" id="edge31">
+<title>r:law-&gt;r:ibm</title>
+<path d="M445.75,-1307C435.55,-1296.5 424.71,-1285.2 414.05,-1274.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="415.84,-1272.52 409.21,-1269.19 412.31,-1275.93 415.84,-1272.52" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:trunc -->
+<g class="node" id="node35">
+<title>r:trunc</title>
+<g id="a_node35"><a target="_top" xlink:href="index.html#r:trunc" xlink:title="Observation §VII-A: truncation: the 4-level pulse at r = 1 degrades to 5.5–7.2·10⁻⁴ with 5 to 12 levels; a 6-level pulse at T = 7.0/|δ| (3.4 ns) reaches 4.0·10⁻⁶ there and 3.6·10⁻⁶ with 8 and 12 levels">
+<path d="M552.93,-1090.69C552.93,-1090.69 445.08,-1090.69 445.08,-1090.69 439.08,-1090.69 433.08,-1084.69 433.08,-1078.69 433.08,-1078.69 433.08,-965.11 433.08,-965.11 433.08,-959.11 439.08,-953.11 445.08,-953.11 445.08,-953.11 552.93,-953.11 552.93,-953.11 558.93,-953.11 564.93,-959.11 564.93,-965.11 564.93,-965.11 564.93,-1078.69 564.93,-1078.69 564.93,-1084.69 558.93,-1090.69 552.93,-1090.69" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1075.68">Observation §VII-A</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1062.93">truncation: the 4-level</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1050.18">pulse at r = 1 degrades to</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1037.43">5.5–7.2·10⁻⁴ with 5 to 12</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1024.68">levels; a 6-level pulse at</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-1011.93">T = 7.0/|δ| (3.4 ns)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-999.18">reaches 4.0·10⁻⁶ there and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-986.43">3.6·10⁻⁶ with 8 and 12</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-973.68">levels</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="499" xml:space="preserve" y="-960.93">💻 program</text>
+</a>
+</g>
+</g>
+<!-- r:law&#45;&gt;r:trunc -->
+<!-- r:rfull -->
+<g class="node" id="node36">
+<title>r:rfull</title>
+<g id="a_node36"><a target="_top" xlink:href="index.html#r:rfull" xlink:title="Observation §VII-A: the full amplitude |D| = 1 is rfull = omegad/|δ|, median 0.351; at r = 0.351 an X of 4.8 ns exists (bound 4.3 ns): the median gate is 10–11 times the model minimum, a 35.6 ns Falcon gate 7.4–8.3 times">
+<path d="M698.18,-913.15C698.18,-913.15 585.83,-913.15 585.83,-913.15 579.83,-913.15 573.83,-907.15 573.83,-901.15 573.83,-901.15 573.83,-787.57 573.83,-787.57 573.83,-781.57 579.83,-775.57 585.83,-775.57 585.83,-775.57 698.18,-775.57 698.18,-775.57 704.18,-775.57 710.18,-781.57 710.18,-787.57 710.18,-787.57 710.18,-901.15 710.18,-901.15 710.18,-907.15 704.18,-913.15 698.18,-913.15" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-898.13">Observation §VII-A</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-885.38">the full amplitude |D| = 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-872.63">is rfull = omegad/|δ|,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-859.88">median 0.351; at r = 0.351</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-847.13">an X of 4.8 ns exists</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-834.38">(bound 4.3 ns): the median</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-821.63">gate is 10–11 times the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-808.88">model minimum, a 35.6 ns</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-796.13">Falcon gate 7.4–8.3 times</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="642" xml:space="preserve" y="-783.38">💻 program</text>
+</a>
+</g>
+</g>
+<!-- r:lower&#45;&gt;r:rfull -->
+<!-- r:ibm&#45;&gt;r:trunc -->
+<g class="edge" id="edge32">
+<title>r:ibm-&gt;r:trunc</title>
+<path d="M403.76,-1130.1C413.27,-1119.4 423.14,-1108.3 432.77,-1097.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="434.62,-1099.11 437.41,-1092.24 430.94,-1095.87 434.62,-1099.11" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:ibm&#45;&gt;r:cr -->
+<!-- r:ibm&#45;&gt;c:summary -->
+<g class="edge lm-aux" id="edge49">
+<title>r:ibm-&gt;c:summary</title>
+<path d="M284.3,-1130.4C276.37,-1117.9 269.45,-1104.5 265,-1090.7 246.16,-1032.6 223.69,-998.2 265,-953.15 334.03,-877.83 652.09,-986.7 723,-913.15 774.11,-860.14 795.58,-515.29 732,-369.41 686.91,-265.96 650.43,-239.35 546,-196.58 517.4,-184.87 295.51,-202.65 268,-188.58 256.47,-182.68 246.12,-174.27 236.99,-164.75" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="239.01,-163.33 232.49,-159.81 235.39,-166.63 239.01,-163.33" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:trunc&#45;&gt;r:rfull -->
+<g class="edge" id="edge34">
+<title>r:trunc-&gt;r:rfull</title>
+<path d="M554.7,-952.55C563.42,-941.85 572.46,-930.74 581.29,-919.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="582.98,-921.71 585.5,-914.73 579.18,-918.61 582.98,-921.71" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:trunc&#45;&gt;r:cz -->
+<!-- r:rfull&#45;&gt;r:czconstr -->
+<!-- r:cr&#45;&gt;r:choi -->
+<!-- r:cz&#45;&gt;r:czrefined -->
+<!-- r:cz&#45;&gt;c:summary -->
+<g class="edge lm-aux" id="edge48">
+<title>r:cz-&gt;c:summary</title>
+<path d="M393.17,-373.81C383.85,-362.85 374.52,-351.51 366,-340.53 318.38,-279.2 311.32,-260.34 267,-196.58 260.02,-186.54 252.67,-176.01 245.37,-165.59" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="247.48,-164.34 241.46,-160.01 243.47,-167.15 247.48,-164.34" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:czconstr&#45;&gt;r:cz -->
+<g class="edge" id="edge38">
+<title>r:czconstr-&gt;r:cz</title>
+<path d="M563.93,-562.25C551.34,-548.65 538.38,-534.63 526,-521.25" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="527.93,-519.73 521.38,-516.26 524.34,-523.06 527.93,-519.73" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:czconstr&#45;&gt;r:asymptotic -->
+<!-- r:choi&#45;&gt;r:cz -->
+<g class="edge" id="edge37">
+<title>r:choi-&gt;r:cz</title>
+<path d="M326.26,-775.09C305.75,-715.53 286.95,-628.17 319,-559.74 329.44,-537.45 346.61,-517.99 365.33,-501.75" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="366.79,-503.73 370.56,-497.34 363.63,-499.98 366.79,-503.73" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:choi&#45;&gt;r:czrefined -->
+<g class="edge" id="edge43">
+<title>r:choi-&gt;r:czrefined</title>
+<path d="M311.07,-775.03C304.85,-762.36 299.41,-748.9 296,-735.57 276.64,-659.86 283.38,-636.86 296,-559.74 310.41,-471.67 314.03,-445.9 360,-369.41 366.83,-358.05 375.11,-346.92 383.93,-336.44" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="385.78,-338.05 388.48,-331.15 382.06,-334.86 385.78,-338.05" stroke="#9aa8b5"></polygon>
+</g>
+<!-- r:choi&#45;&gt;r:heis -->
+<!-- h:scope -->
+<g class="node" id="node44">
+<title>h:scope</title>
+<g id="a_node44"><a target="_top" xlink:href="index.html#h:scope" xlink:title="Remark §VIII: the certified objects are the inequalities, not the gaps; the bounds not in Lean and the truncation are listed">
+<path d="M238.05,-487.86C238.05,-487.86 139.95,-487.86 139.95,-487.86 133.95,-487.86 127.95,-481.86 127.95,-475.86 127.95,-475.86 127.95,-413.28 127.95,-413.28 127.95,-407.28 133.95,-401.28 139.95,-401.28 139.95,-401.28 238.05,-401.28 238.05,-401.28 244.05,-401.28 250.05,-407.28 250.05,-413.28 250.05,-413.28 250.05,-475.86 250.05,-475.86 250.05,-481.86 244.05,-487.86 238.05,-487.86" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="189" xml:space="preserve" y="-472.84">Remark §VIII</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="189" xml:space="preserve" y="-460.09">the certified objects are</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="189" xml:space="preserve" y="-447.34">the inequalities, not the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="189" xml:space="preserve" y="-434.59">gaps; the bounds not in</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="189" xml:space="preserve" y="-421.84">Lean and the truncation</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="189" xml:space="preserve" y="-409.09">are listed</text>
+</a>
+</g>
+</g>
+<!-- r:heis&#45;&gt;h:scope -->
+<!-- x:repro -->
+<g class="node" id="node45">
+<title>x:repro</title>
+<g id="a_node45"><a target="_top" xlink:href="index.html#x:repro" xlink:title="Remark §IX: every number traces to a script of the companion package, linked from this blueprint">
+<path d="M240.8,-310.29C240.8,-310.29 135.2,-310.29 135.2,-310.29 129.2,-310.29 123.2,-304.29 123.2,-298.29 123.2,-298.29 123.2,-235.71 123.2,-235.71 123.2,-229.71 129.2,-223.71 135.2,-223.71 135.2,-223.71 240.8,-223.71 240.8,-223.71 246.8,-223.71 252.8,-229.71 252.8,-235.71 252.8,-235.71 252.8,-298.29 252.8,-298.29 252.8,-304.29 246.8,-310.29 240.8,-310.29" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-295.27">Remark §IX</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-282.52">every number traces to a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-269.77">script of the companion</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-257.02">package, linked from this</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-244.28">blueprint</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="188" xml:space="preserve" y="-231.53">💻 program</text>
+</a>
+</g>
+</g>
+<!-- h:scope&#45;&gt;x:repro -->
+<!-- x:repro&#45;&gt;c:summary -->
+<!-- c:ack -->
+<g class="node" id="node47">
+<title>c:ack</title>
+<g id="a_node47"><a target="_top" xlink:href="index.html#c:ack" xlink:title="Remark §X: conflict of interest and the AI statement">
+<path d="M385.8,-107.33C385.8,-107.33 292.2,-107.33 292.2,-107.33 286.2,-107.33 280.2,-101.33 280.2,-95.33 280.2,-95.33 280.2,-71 280.2,-71 280.2,-65 286.2,-59 292.2,-59 292.2,-59 385.8,-59 385.8,-59 391.8,-59 397.8,-65 397.8,-71 397.8,-71 397.8,-95.33 397.8,-95.33 397.8,-101.33 391.8,-107.33 385.8,-107.33" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="339" xml:space="preserve" y="-92.32">Remark §X</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="339" xml:space="preserve" y="-79.57">conflict of interest and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="339" xml:space="preserve" y="-66.82">the AI statement</text>
+</a>
+</g>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>Two kinds of results, kept apart on this map. <b>Certified inequalities</b> (green, linked to Lean): the
+Margolus–Levitin bound, an $L^1$ form of Mandelstam–Tamm, the Zieliński–Zych family for every exponent
+$\alpha&gt;0$, time-dependent two-level bounds, and an entangling-time bound $J\,T\ge\arccos\lambda$ in arbitrary local dimension
+(a Bell state needs $J\,T\ge\pi/4$, attained; robust versions with state infidelity $\varepsilon$). <b>Diagnostics on deployed hardware</b> (grey, with the program that computes each number):
+how far the calibrated gates of IBM superconducting processors are from those bounds, from public, version-pinned
+calibration snapshots.</p>
+<ul>
+<li>Single-qubit $X$ gates last a median $11.30$ times their two-level speed limit $\pi/\Omega_{\max}$ (1646 qubits, 41
+backends), a ratio frozen near $11$ from 2021 to 2025.</li>
+<li>Two-qubit ECR/CX gates last a median $4.22$ times the known CNOT-class bound $\pi/(2j_q)$; the ratio grew from
+$2.78$ (2021) to $4.26$ (2025) because gates got longer, not because couplings got weaker.</li>
+<li>Calibrated drives sit at fixed fractions of an energy splitting: $\Omega_{\rm peak}\approx0.09|\delta|$ (one qubit),
+$\Omega_{\rm CR}\approx0.45\Delta$ (two).</li>
+<li>The drive-strength convention is fixed by IBM's calibrated $\pi$ pulses; the $\approx15\%$ residual is explained by the
+pulse normalization: $\texttt{omegad}\cdot|\mathrm{amp}|\cdot A_{\rm rec}=\pi$ on all 777 qubits to $1.2\cdot10^{-7}$, and the residual
+tends to $1/(1-e^{-2})=1.15652$.</li>
+<li>At the drive IBM actually uses the $X$ gate is within about $2$ of the square-pulse limit (shape factor $1.87$, or
+$2.16$ with Qiskit's peak normalization); the $11.3$ is against full drive amplitude, which IBM does not use.</li>
+<li>Optimal control on IBM's own transmon model finds feasible $X$ gates of $\approx16$ ns at IBM's amplitude cap and
+$4.8$ ns at its full amplitude (minimum at least $4.3$ ns): $7.4$–$8.3$ times faster than the archived $35.6$ ns within the
+same amplitude budget; $\approx3.4$ ns needs three times that amplitude (numerical witnesses, not physical floors; the 6-level pulse is
+converged to 12 levels). The fit $\max(\pi/\Omega_{\max},\,\sim1.1\cdot2\pi/|\delta|)$ is empirical, not a theorem;
+$T\ge\pi/\Omega_{\max}$ (and $2\arcsin(1-e)/\Omega_{\max}$ in the trace metric) holds for any number of levels.</li>
+<li>With the second transmon level the minimal CZ time lies between $0.287$ and $1/3$ of the qubit-only time: $0.4511/J\le T_*\le\pi/(6J)$
+(refined bound, explicit construction; the certified norm bound is $\pi/(8J)$); optimal control reaches error $2\cdot10^{-8}$ at $0.55/J$ ($0.35$), and for the same task
+$0.4510/J\le T_*(2\cdot10^{-8})\le0.55/J$. In larger local dimension the construction and the entangling-time theorem approach each other (ratio $\to1$, certified in Lean).</li>
+</ul>
+<p>The paper claims no new physics: the speed limits are classical, the two-qubit constants are known for qubits, and
+the transmon model is IBM's. The entangling-time bound is, for qubits, a known corollary of Dür <i>et al.</i> and
+Vidal–Hammerer–Cirac, new only as a machine-checked, any-dimension assembly. This blueprint is built from a
+<b>draft</b>: the paper's own open items are shown where they matter.</p></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#q:gap"><b>Observation §IV-A</b></a>: X gates last a median 11.30 times their two-level speed limit at full drive amplitude.</p><p><b>Main results:</b></p><ul><li><a href="index.html#b:zz"><b>Theorem §II-A</b></a>: Zieliński–Zych: π^α ≤ 2M_α τ^α for every α &gt; 0</li><li><a href="index.html#b:ent"><b>Theorem §II-B</b></a>: entangling time in any local dimension: arccos λ ≤ J·Στₖ</li><li><a href="index.html#b:bell"><b>Corollary §II-B</b></a>: a Bell vector needs J·Στₖ ≥ π/4, in any local dimension d ≥ 2</li><li><a href="index.html#d:conv"><b>Observation §III-C</b></a>: the drive convention is c = 1: IBM’s calibrated π pulse rotates by 1.148 π with c = 1 (2.296 π with c = 2)</li><li><a href="index.html#q:gap"><b>Observation §IV-A</b></a>: X gates last a median 11.30 times their two-level speed limit at full drive amplitude</li><li><a href="index.html#t:gap"><b>Observation §V-B</b></a>: ECR/CX gates last a median 4.22 times the CNOT-class bound π/(2jq)</li><li><a href="index.html#s:table"><b>Observation §VI</b></a>: single-qubit ratio frozen near 11 from 2021 to 2025; two-qubit ratio 2.78 → 4.26</li><li><a href="index.html#r:law"><b>Observation §VII-A</b></a>: optimal control: shortest X time found ≈ max(π/Ωₘax,  1.1·2π/|δ|), a speed-limit branch and a leakage-dominated branch</li><li><a href="index.html#r:cz"><b>Observation §VII-B</b></a>: CZ with the second transmon level: error 2·10⁻⁸ at T = 0.55/J with local controls ≤ 10J, i.e. 0.35 of the qubit-only time and 5 % above the construction π/(6J)</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Quantum speed limits</b> → Margolus–Levitin, Mandelstam–Tamm and the Zieliński–Zych family, applied to the drive amplitude of a transmon and to the coupling of a pair — <a href="index.html#b:ml">Theorem §II-A</a>, <a href="index.html#b:mt">Theorem §II-A</a>, <a href="index.html#b:zz">Theorem §II-A</a>, <a href="index.html#b:twolevel">Theorem §II-A</a></li><li><b>Entangling capabilities of Hamiltonians</b> → minimal interaction time under unbounded local control; Schmidt coefficients and the Fubini–Study angle (Dür et al., Vidal–Hammerer–Cirac, Rudnicki) — <a href="index.html#b:ent">Theorem §II-B</a>, <a href="index.html#b:bell">Corollary §II-B</a>, <a href="index.html#b:tight">Proposition §II-B</a>, <a href="index.html#b:cnot">Corollary §II-B</a></li><li><b>Formal verification</b> → Lean 4 + Mathlib: the inequalities of Table I — <a href="index.html#b:ml">Theorem §II-A</a>, <a href="index.html#b:mt">Theorem §II-A</a>, <a href="index.html#b:zz">Theorem §II-A</a>, <a href="index.html#b:ent">Theorem §II-B</a>, <a href="index.html#b:bell">Corollary §II-B</a>, <a href="index.html#b:tight">Proposition §II-B</a>, <a href="index.html#b:chord">Theorem §II-B</a></li><li><b>Optimal control</b> → piecewise-constant GRAPE control on a 4-level transmon with a bound on the drive — <a href="index.html#r:law"> §VII-A</a>, <a href="index.html#r:ibm"> §VII-A</a>, <a href="index.html#r:trunc"> §VII-A</a>, <a href="index.html#r:rfull"> §VII-A</a>, <a href="index.html#r:czconstr"> §VII-B</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Gate design on superconducting processors</b> ← how far calibrated gates are from the physical limit, and which fractions of the energy splittings the calibrations use — <a href="index.html#q:gap"> §IV-A</a>, <a href="index.html#t:gap"> §V-B</a>, <a href="index.html#q:cap"> §IV-C</a>, <a href="index.html#t:cr"> §V-D</a></li><li><b>Reproducible hardware benchmarking</b> ← version-pinned public calibration snapshots as a citable source, and a stratified control against confounding by epoch — <a href="index.html#s:table"> §VI</a>, <a href="index.html#s:lesson"> §VI</a></li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  if (!panes.length || !box) return;
+  function mark(p){
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+  }
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
+})();
+</script>
+<script src="js/mapzoom.js?v=6dec6255cb" defer></script>
+<script id="lm-maphere">
+(function(){
+  var n = new URLSearchParams(location.search).get('n');
+  if (!n) return;
+  function go(){
+    var a = null;
+    document.querySelectorAll('svg a').forEach(function (x) {
+      var h = x.getAttribute('href') || x.getAttribute('xlink:href') || '';
+      if (!a && h.slice(h.indexOf('#') + 1) === n) a = x;
+    });
+    var g = a && (a.closest('g.node') || a.parentNode);
+    if (!g) return;
+    var pane = g.closest('section.pc-pane');
+    g.classList.add('lm-here');
+    var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
+    var bar = document.getElementById('lm-herebar');
+    if (!bar) {
+      bar = document.createElement('div'); bar.id = 'lm-herebar';
+      var host = (pane || document.body);
+      host.insertBefore(bar, host.firstChild);
+    }
+    bar.innerHTML = '📍 <b></b> on the map · <a href="index.html#' + encodeURIComponent(n) + '">← back to the statement</a>';
+    bar.querySelector('b').textContent = name;
+    setTimeout(function () { g.scrollIntoView({block: 'center', inline: 'center'}); }, 300);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+  window.addEventListener('load', go);
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"i:abstract": "Remark Abstract — Abstract", "i:claims": "Remark §I — What the paper claims", "b:table": "Remark Table I — Table I", "b:ml": "Theorem §II-A — Margolus–Levitin", "b:mt": "Theorem §II-A — Mandelstam–Tamm, L¹ form", "b:zz": "Theorem §II-A — Zieliński–Zych", "b:twolevel": "Theorem §II-A — Two-level speed limit", "b:ent": "Theorem §II-B — Entangling-time bound", "b:bell": "Corollary §II-B — Bell preparation", "b:tight": "Proposition §II-B — The bound is attained", "b:chord": "Theorem §II-B — Chord-distance bound", "b:cnot": "Corollary §II-B — Consequence for CNOT and ECR", "b:approx": "Theorem §II-B — Robust speed limits", "d:conv": "Observation §III-C — The drive convention", "d:identity": "Observation §III-C — The pulse-area identity", "d:derived": "Observation §III-C — omegad is derived", "d:falsifier": "Observation §III-D — Exclusions and falsifier", "q:gap": "Observation §IV-A — The single-qubit gap", "q:decomp": "Observation §IV-C — What sets the duration", "q:hyp": "Observation §IV-B — Pre-registered hypotheses", "q:cap": "Observation §IV-C — A cap near 0.1", "q:perqubit": "Observation §IV-C — Per-qubit durations", "t:pairs": "Observation §V-A — The pairs", "t:gap": "Observation §V-B — The two-qubit gap", "t:certified": "Observation §V-C — The certified ratio", "t:controls": "Observation §V-C — Numerical controls", "t:cr": "Observation §V-D — Cross resonance and the first-order formula", "s:table": "Observation §VI — Median gaps by year", "s:duration": "Observation §VI — Duration, not coupling", "s:error": "Observation §VI — Lengthening and error", "s:lesson": "Observation §VI — A methodological lesson", "r:law": "Observation §VII-A — The single-qubit law", "r:lower": "Proposition §VII-A — Multilevel lower bound", "r:ibm": "Observation §VII-A — What IBM could reach", "r:trunc": "Observation §VII-A — Truncation", "r:rfull": "Observation §VII-A — The full amplitude of IBM", "r:cr": "Observation §VII-B — Cross-resonance CNOT by optimal control", "r:cz": "Observation §VII-B — CZ with the second level", "r:czconstr": "Observation §VII-B — An explicit construction of the CZ", "r:choi": "Observation §VII-B — The Choi-state bound for the gate", "r:czrefined": "Observation §VII-B — The refined CZ bound", "r:asymptotic": "Observation §VII-B — Larger local dimension", "r:heis": "Observation §VII-B — Heisenberg coupling", "h:scope": "Remark §VIII — What the certificate guarantees", "x:repro": "Remark §IX — Reproducibility", "c:summary": "Remark §X — Conclusion", "c:ack": "Remark §X — Conflict of interest and acknowledgment"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body></html>

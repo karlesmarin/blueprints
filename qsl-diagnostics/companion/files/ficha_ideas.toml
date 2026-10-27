@@ -1,0 +1,59 @@
+# Ficha ANTES de calcular (27-oct-2026): ¿a qué distancia de su límite de velocidad cuántico operan las puertas de un
+# cúbit de los procesadores de IBM? Datos: instantáneas de qiskit-ibm-runtime 0.51.0 (Apache 2.0), props_*.json y
+# conf_*.json (Hamiltoniano de Duffing con wq, delta, omegad, jq; duración de cada puerta).
+version = 1
+tipo = "hipotesis"
+proyecto = "qsl-hardware"
+pregunta = "¿Qué limita la duración de las puertas X/SX de un cúbit en los transmones de IBM: la amplitud máxima de la excitación (límite de velocidad cuántico) o la fuga al tercer nivel (anarmonicidad)?"
+enunciado = "La puerta X dura un factor pequeño (1 a 1,5) por encima del tiempo mínimo tau_QSL = pi / omegad que permite la amplitud máxima de excitación."
+dominio = "Transmones de IBM modelados como osciladores de Duffing en el marco rotante con aproximación de onda rotante; puertas de un cúbit X (pi) y SX (pi/2)"
+supuestos = ["omegad es la frecuencia de Rabi máxima en rad/ns para amplitud |D| = 1 (convención del simulador de pulsos de Qiskit: SIN VERIFICAR, se comprueba con el control 'convencion')", "Mandelstam–Tamm en el subespacio de dos niveles: un pulso pi a amplitud constante máxima alcanza la cota (tau = pi/Omega)", "Las instantáneas son fieles a la calibración del día que indican (last_update_date)"]
+observaciones = ["armonk (1 cúbit, 2021): omegad = 0.1162 rad/ns, delta = -2.18 rad/ns; pi/omegad = 27,0 ns", "sherbrooke (127 cúbits, 2025): X y SX duran 56,9 ns; ECR 533 ns; delta ~ -1,97 rad/ns"]
+fuentes = ["qiskit-ibm-runtime 0.51.0, fake_provider/backends/*/props_*.json y conf_*.json (Apache 2.0)", "Mandelstam–Tamm y Margolus–Levitin formalizados: Formalizations/Physics/QuantumMechanics/SpeedLimit (QSL.mandelstam_tamm_*, QSL.margolus_levitin)"]
+mecanismo = "Con H = (Omega/2) sigma_x y |Omega| <= omegad, el tiempo para llevar |0> a |1> (estados ortogonales) es al menos pi/omegad; los pulsos reales (gaussianos con DRAG) no van a amplitud máxima todo el tiempo y se alargan para no poblar |2>, cuya separación es |delta|"
+prediccion = "La razón tau_X / (pi/omegad) cae entre 1 y 2 en casi todos los cúbits; tau_SX igual que tau_X (IBM usa la misma duración con media amplitud), luego SX queda a un factor 2 más lejos de su cota"
+falsador = "Una razón tau_X/(pi/omegad) < 1 en cualquier cúbit (imposible si la convención es correcta: delata la convención), o razones > 3 sin relación con omegad"
+limites = "El modelo es el de IBM (Duffing + RWA), no una medida; el límite es el del modelo de dos niveles con amplitud acotada; no dice nada de las puertas de dos cúbits (ECR) sin otro análisis"
+
+[[rivales]]
+id = "H1"
+enunciado = "Limitadas por amplitud: tau_X/(pi/omegad) en [1, 2]"
+[[rivales]]
+id = "H2"
+enunciado = "Limitadas por fuga: tau_X sigue a c/|delta| y no a 1/omegad; razón > 2 y sin correlación con omegad"
+[[rivales]]
+id = "H3"
+enunciado = "Convención distinta de omegad (factor 2 o 2 pi): razones agrupadas en un valor fijo no físico, p. ej. < 1"
+
+[[pruebas]]
+id = "convencion"
+condiciones = "armonk: simular con el Hamiltoniano de conf (Duffing 3 niveles, RWA) un pulso cuadrado de amplitud 1 y medir el tiempo del primer |<1|psi>|^2 = 1"
+unidad = "ns"
+coste = 1
+control_positivo = "Modelo de dos niveles H = (Omega/2) sigma_x: tiempo pi/Omega exacto"
+control_negativo = "Duplicar omegad debe dividir el tiempo por 2"
+criterio = "El tiempo simulado coincide con pi/omegad (H1/H2) o con otra constante (H3)"
+datos = "exploratorios"
+predicciones = {H1 = [26.0, 28.5], H2 = [26.0, 28.5], H3 = [12.0, 15.0]}
+
+[[pruebas]]
+id = "razones"
+condiciones = "todos los cúbits de los ~65 backends con hamiltonian en conf y gate_length de x"
+unidad = "adimensional (mediana de tau_X / (pi/omegad))"
+coste = 2
+control_positivo = "Recalcular a mano armonk y sherbrooke qubit 0"
+control_negativo = "Cambiar la unidad de omegad (rad/ns por GHz) debe mover la mediana por 2 pi"
+criterio = "Mediana y fracción de cúbits con razón < 1"
+datos = "exploratorios"
+predicciones = {H1 = [1.0, 2.0], H2 = [2.0, 6.0], H3 = [0.3, 1.0]}
+
+[[pruebas]]
+id = "correlacion"
+condiciones = "mismos datos: regresión de tau_X sobre 1/omegad y sobre 1/|delta|"
+unidad = "R^2"
+coste = 2
+control_positivo = "Datos sintéticos tau = 1.4 pi/omegad deben dar R^2 ~ 1 sobre 1/omegad"
+control_negativo = "Barajar tau entre cúbits debe dar R^2 ~ 0"
+criterio = "Qué variable explica la duración"
+datos = "exploratorios"
+predicciones = {H1 = [0.5, 1.0], H2 = [0.0, 0.3], H3 = [0.5, 1.0]}

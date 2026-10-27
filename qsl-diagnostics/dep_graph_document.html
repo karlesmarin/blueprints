@@ -1,0 +1,1781 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+</style></head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="b:approx_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:approx" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">§II-B</span><span class="theorem_thmtitle">Robust speed limits</span></div>
+<div class="thm_thmcontent"><p>    If the evolution maps a product vector to a state whose overlap with the Bell vector satisfies \(|\langle \mathrm{Bell},\Phi \rangle |^2\ge 1-\varepsilon \), then \(J\sum _k\tau _k\ge \pi /4-\arcsin \sqrt\varepsilon \). For a two-level transfer with infidelity at most \(\varepsilon \), \(\Omega _{\max }T\ge 2\arccos \sqrt\varepsilon \). </p>
+</div>
+<a class="latex_link" href="index.html#b:approx">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.html#L121" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.lean#L121">QSL.Qudit.pi_div_four_sub_le_entangling_time_approx</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.html#L148" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.lean#L148">QSL.Qudit.pi_div_four_sub_le_entangling_time_shift_approx</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.html#L189" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.lean#L189">QSL.Gate.two_arccos_sqrt_le_time_approx</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:bell_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:bell" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">§II-B</span><span class="corollary_thmtitle">Bell preparation</span></div>
+<div class="thm_thmcontent"><p>    The overlap of a state with product vectors is bounded by its largest Schmidt coefficient. For a two-level Bell vector \((e_{00}+e_{11})/\sqrt2\) inside qudits of any dimension \(d\ge 2\), \(\lambda =1/\sqrt2\), hence \(J\sum _k\tau _k\ge \pi /4\). </p>
+</div>
+<a class="latex_link" href="index.html#b:bell">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L582" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L582">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:chord_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:chord" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">§II-B</span><span class="theorem_thmtitle">Chord-distance bound</span></div>
+<div class="thm_thmcontent"><p>   An earlier chord-distance version in the same development gives the weaker constant \(\sqrt{2-\sqrt2}\approx 0.7654\), \(2.6\% \) below the exchange-coupling time \(\pi /(4J)=0.7854/J\). </p>
+</div>
+<a class="latex_link" href="index.html#b:chord">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/TwoQubitEntangling.html#L391" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/TwoQubitEntangling.lean#L391">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:cnot_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:cnot" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">§II-B</span><span class="corollary_thmtitle">Consequence for CNOT and ECR</span></div>
+<div class="thm_thmcontent"><p>    CNOT maps \(|{+}\rangle |0\rangle \) to the Bell state, so any implementation of CNOT on the qubit subspace of two \(d\)-level systems needs \(J\, T\ge \pi /4\), with \(J\) the norm of the interaction on the <em>full</em> \(d\)-level space. The same holds for every gate only <em>locally equivalent</em> to CNOT, such as IBM’s echoed cross-resonance (ECR): such a gate maps some product vector to \((P\otimes Q)\) applied to a Bell vector, local unitaries do not change the overlap with product vectors, and so \(J\, T\ge \pi /4\). </p>
+</div>
+<a class="latex_link" href="index.html#b:cnot">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L582" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L582">QSL.Qudit.pi_div_four_le_entangling_time_fin</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.html#L200" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.lean#L200">QSL.Qudit.pi_div_four_le_entangling_time_local</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:ent_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:ent" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">§II-B</span><span class="theorem_thmtitle">Entangling-time bound</span></div>
+<div class="thm_thmcontent"><p>   Two systems with finite index types (arbitrary local dimensions, ancillas included) evolve under \(\prod _k\exp [-i\tau _k(A_k\otimes 1+1\otimes B_k+H)]\), with \(A_k,B_k\) Hermitian and unbounded (piecewise-constant local control), \(\tau _k\ge 0\), and a constant Hermitian interaction \(H\) with \(\| H\| \le J\) (operator norm). If the evolution maps a unit product vector to \(\Phi \), and every unit product vector has overlap at most \(\lambda \) with \(\Phi \), then \(\arccos \lambda \le J\sum _k\tau _k\). </p>
+</div>
+<a class="latex_link" href="index.html#b:ent">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L499" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L499">QSL.Qudit.arccos_le_entangling_time</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.html#L70" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.lean#L70">QSL.Qudit.arccos_le_entangling_time_shift</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:ml_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:ml" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">§II-A</span><span class="theorem_thmtitle">Margolus–Levitin</span></div>
+<div class="thm_thmcontent"><p>   Let a state have populations \(p_n\ge 0\), \(\sum _n p_n=1\), on energies \(E_n\), and autocorrelation \(S(\tau )=\sum _n p_n e^{-iE_n\tau }\). If \(S(\tau )=0\) (orthogonality) at \(\tau \ge 0\) and \(E_n\ge 0\), then \(\pi \le 2\langle E\rangle \tau \). </p>
+</div>
+<a class="latex_link" href="index.html#b:ml">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.html#L205" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.lean#L205">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:mt_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:mt" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">§II-A</span><span class="theorem_thmtitle">Mandelstam–Tamm, L¹ form</span></div>
+<div class="thm_thmcontent"><p>   If \(S(\tau )=0\) at \(\tau \ge 0\), then \(1\le D_1\tau \) with \(D_1=\sum _n p_n|E_n-\bar E|\); and \(1\le \Delta E\, \tau \). The full MT constant \(\tau \ge \pi /(2\Delta E)\) is <em>not</em> proved in the development. </p>
+</div>
+<a class="latex_link" href="index.html#b:mt">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L52" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L52">QSL.mandelstam_tamm_L1</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L159" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L159">QSL.mandelstam_tamm_weak</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:table_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:table" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">Table I</span><span class="remark_thmtitle">Table I</span></div>
+<div class="thm_thmcontent"><p>   Certified statements used in this paper (Lean 4, commit <span class="ttfamily">42f307b</span>; theorem names with prefix <span class="ttfamily">QSL.</span>) and their status in the literature. </p>
+<ul class="itemize">
+<li><p><span class="ttfamily">margolus_levitin</span>: \(\pi \le 2\langle E\rangle \tau \). Status: classical (Margolus–Levitin). </p>
+</li>
+<li><p><span class="ttfamily">mandelstam_tamm_L1</span>, <span class="ttfamily">_weak</span>: \(1\le D_1\tau \le \Delta E\, \tau \). Status: weak form of Mandelstam–Tamm. </p>
+</li>
+<li><p><span class="ttfamily">zielinski_zych_all</span>: \(\pi ^\alpha \le 2M_\alpha \tau ^\alpha \), all \(\alpha {\gt}0\). Status: stated in Zieliński–Zych; key inequality unproved there. </p>
+</li>
+<li><p><span class="ttfamily">Qudit.arccos_le_entangling_time</span>: \(\arccos \lambda \le J\sum \tau _k\). Status: corollary of Basyildiz–Jameson–Gong and Rudnicki. </p>
+</li>
+<li><p><span class="ttfamily">Qudit.pi_div_four_le_entangling_time_fin</span>: Bell: \(J\sum \tau _k\ge \pi /4\), any \(d\). Status: \(d=2\): Dür et al., Vidal–Hammerer–Cirac. </p>
+</li>
+<li><p><span class="ttfamily">Qudit.entangling_time_tight</span>: attained by \(J\, Z\otimes X\). Status: \(d=2\): Dür et al., Vidal–Hammerer–Cirac. </p>
+</li>
+<li><p><span class="ttfamily">Qudit.pi_div_four_le_entangling_time_local</span>, <span class="ttfamily">_shift_local</span>: same for \((P\otimes Q)\, \)Bell (ECR). Status: corollary. </p>
+</li>
+<li><p><span class="ttfamily">TwoQubit.entangling_time_lower_bound</span>: chord form, constant \(\sqrt{2-\sqrt2}\). Status: weaker earlier version. </p>
+</li>
+<li><p><span class="ttfamily">Qudit.arccos_le_entangling_time_shift</span>: \(\| H\| \to \| H-c\mathbb 1\| \). Status: corollary; \(d=2\): Dür et al. </p>
+</li>
+<li><p><span class="ttfamily">Qudit.pi_div_eight_le_heisenberg_time</span>: Heisenberg Bell: \(T\ge \pi /8\). Status: \(d=2\), no ancilla: Dür et al. </p>
+</li>
+<li><p><span class="ttfamily">Gate.fsAngle_le_time_halfWidth</span>: angle \(\le (\Omega _{\max }/2)\, T\), piecewise \(H(t)\). Status: standard (shifted MT). </p>
+</li>
+<li><p><span class="ttfamily">FixedAxis.mandelstam_tamm_integral_eq_solution</span>: \(\int \Delta E=\arccos |\langle \psi _0|\psi _T\rangle |\), fixed axis. Status: equality case of Mandelstam–Tamm. </p>
+</li>
+<li><p><span class="ttfamily">Qudit.pi_div_four_sub_le_entangling_time_approx</span>: Bell to fidelity \(1-\varepsilon \): \(J\sum \tau _k\ge \pi /4-\arcsin \sqrt\varepsilon \). Status: robust corollary; formalized here. </p>
+</li>
+<li><p><span class="ttfamily">Gate.two_arccos_sqrt_le_time_approx</span>: transfer to fidelity \(1-\varepsilon \): \(\Omega _{\max }T\ge 2\arccos \sqrt\varepsilon \). Status: two-level; tight. </p>
+</li>
+<li><p><span class="ttfamily">Exchange.exchange_norm_ge</span>, <span class="ttfamily">_le</span>, <span class="ttfamily">ratio_tendsto_one</span>: \(\lambda _d^2/2\le \kappa _d\le 2(d-1)\); \(2\kappa _d/\lambda _d^2\to 1\). Status: not found in the sources read. </p>
+</li>
+<li><p><span class="ttfamily">Exchange.refined_cz_lemma</span>: \(\tfrac 14\mathrm{Tr}[(P_A\otimes P_B)H_c^2]\le \tfrac {97}{32}J^2\), rank-2 codes, \(d=3\). Status: lemma of the refined CZ bound; suggested by an AI reviewer. </p>
+</li>
+</ul>
+</div>
+<a class="latex_link" href="index.html#b:table">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.html#L205" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.lean#L205">QSL.margolus_levitin</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L52" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L52">QSL.mandelstam_tamm_L1</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.html#L159" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/MandelstamTamm.lean#L159">QSL.mandelstam_tamm_weak</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L498" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L498">QSL.zielinski_zych_all</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L499" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L499">QSL.Qudit.arccos_le_entangling_time</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L582" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L582">QSL.Qudit.pi_div_four_le_entangling_time_fin</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L687" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L687">QSL.Qudit.entangling_time_tight</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.html#L200" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.lean#L200">QSL.Qudit.pi_div_four_le_entangling_time_local</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.html#L217" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.lean#L217">QSL.Qudit.pi_div_four_le_entangling_time_shift_local</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/TwoQubitEntangling.html#L391" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/TwoQubitEntangling.lean#L391">QSL.TwoQubit.entangling_time_lower_bound</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.html#L70" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.lean#L70">QSL.Qudit.arccos_le_entangling_time_shift</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.html#L292" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.lean#L292">QSL.Qudit.pi_div_eight_le_heisenberg_time</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/GateEigenphases.html#L187" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/GateEigenphases.lean#L187">QSL.Gate.fsAngle_le_time_halfWidth</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/FixedAxisSaturation.html#L214" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/FixedAxisSaturation.lean#L214">QSL.FixedAxis.mandelstam_tamm_integral_eq_solution</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.html#L121" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.lean#L121">QSL.Qudit.pi_div_four_sub_le_entangling_time_approx</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.html#L189" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.lean#L189">QSL.Gate.two_arccos_sqrt_le_time_approx</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.html#L252" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.lean#L252">QSL.Exchange.exchange_norm_ge</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.html#L202" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.lean#L202">QSL.Exchange.exchange_norm_le</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.html#L484" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.lean#L484">QSL.Exchange.ratio_tendsto_one</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/RefinedCZBound.html#L147" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/RefinedCZBound.lean#L147">QSL.Exchange.refined_cz_lemma</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:tight_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:tight" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">§II-B</span><span class="proposition_thmtitle">The bound is attained</span></div>
+<div class="thm_thmcontent"><p>    The bound is attained: \(H=J\, Z\otimes X\) reaches the Bell vector from a product vector in one step of length \(\pi /(4J)\). </p>
+</div>
+<a class="latex_link" href="index.html#b:tight">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L687" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L687">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:twolevel_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:twolevel" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">§II-A</span><span class="theorem_thmtitle">Two-level speed limit</span></div>
+<div class="thm_thmcontent"><p>    For a two-level system driven at constant Rabi frequency \(\Omega \), ML gives \(\tau \ge \pi /\Omega \) for \(|0\rangle \to |1\rangle \), saturated by a square \(\pi \) pulse. For a time-dependent drive two further statements are certified. (i) Any piecewise-constant evolution whose Hamiltonians satisfy \(\| H_k-c_k\mathbb 1\| \le \Omega _{\max }/2\) for some real \(c_k\) moves any state by a Fubini–Study angle at most \((\Omega _{\max }/2)\, T\); hence \(|0\rangle \to |1\rangle \) needs \(T\ge \pi /\Omega _{\max }\) for every pulse shape. (ii) For a fixed-axis drive \(H(t)=f(t)\, \sigma _x/2\) with \(f\ge 0\) and \(\int f\le \pi \), starting from \(|0\rangle \), the generalized MT bound \(\int \Delta E\, dt\ge \arccos |\langle \psi _0|\psi _T\rangle |\) holds with <em>equality</em>: every fixed-axis \(\pi \) pulse has speed-limit ratio exactly \(1\), whatever its shape. It does not extend to DRAG pulses. </p>
+</div>
+<a class="latex_link" href="index.html#b:twolevel">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.html#L205" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/MargolusLevitin.lean#L205">QSL.margolus_levitin</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/GateEigenphases.html#L187" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/GateEigenphases.lean#L187">QSL.Gate.fsAngle_le_time_halfWidth</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/FixedAxisSaturation.html#L214" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/FixedAxisSaturation.lean#L214">QSL.FixedAxis.mandelstam_tamm_integral_eq_solution</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.html#L189" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.lean#L189">QSL.Gate.two_arccos_sqrt_le_time_approx</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="b:zz_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="b:zz" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">§II-A</span><span class="theorem_thmtitle">Zieliński–Zych</span></div>
+<div class="thm_thmcontent"><p>   If \(S(\tau )=0\) at \(\tau \ge 0\), with \(E_n\ge E_0\) on populated levels and \(M_\alpha =\sum _n p_n(E_n-E_0)^\alpha \), then \(\pi ^\alpha \le 2M_\alpha \tau ^\alpha \) for every \(\alpha {\gt}0\). The auxiliary inequality \(x^\alpha -\pi ^\alpha /2+(\pi ^\alpha /2)\cos x+\alpha \pi ^{\alpha -1}\sin x\ge 0\) (\(x\ge 0\)) is stated without proof in the original paper for all \(\alpha {\gt}0\); Lean proves it for \(0{\lt}\alpha \le 1\) and for \(\alpha \ge 1\). </p>
+</div>
+<a class="latex_link" href="index.html#b:zz">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L498" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L498">QSL.zielinski_zych_all</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L508" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L508">QSL.zielinski_zych_time_all</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L304" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L304">QSL.zz_inequality</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.html#L450" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ZielinskiZych.lean#L450">QSL.zz_inequality_of_one_le</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="c:ack_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="c:ack" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">§X</span><span class="remark_thmtitle">Conflict of interest and acknowledgment</span></div>
+<div class="thm_thmcontent"><p>  The author declares no conflict of interest. This work received no funding. The author used AI assistants: Claude (Anthropic) to draft text, write analysis scripts and write Lean proofs, and ChatGPT (OpenAI) as a reviewer whose suggestions are credited where used. The author checked all of it, and the theorems of Table I are verified by the Lean kernel; the interpretation and all claims are the author’s responsibility. </p>
+</div>
+<a class="latex_link" href="index.html#c:ack">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="c:summary_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="c:summary" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">§X</span><span class="remark_thmtitle">Conclusion</span></div>
+<div class="thm_thmcontent"><p>   On public calibration snapshots of pre-Heron IBM processors (mainly Falcon and Eagle), single-qubit gates run at a median \(11.3\times \) their two-level speed limit at full drive amplitude, a ratio within about \(5\% \) of \(11.3\) in every year from 2021 to 2025. That denominator is an amplitude IBM does not use: it runs the drive at about a tenth of the anharmonicity, and at that drive its pulses are about \(2\) times the square-pulse limit (the shape factor \(1.87\), or \(2.16\) with Qiskit’s peak normalization) and can be shortened by at most \(2.18\) (nominal peak) or \(1.89\) (edge-subtracted peak) at the same peak drive; the remaining \(\approx 5\) is amplitude headroom, a design choice. Optimal control on IBM’s model finds \(\approx 16\) ns \(X\) gates at IBM’s own amplitude cap and \(4.8\) ns at its full amplitude (where the minimum is at least \(4.3\) ns): within the same amplitude budget the model admits gates about \(10\) times faster than the median gate (\(7.4\)–\(8.3\) times for a \(35.6\) ns Falcon gate); \(\approx 3.4\) ns needs three times that amplitude. These are feasible times in an idealized model, not physical floors. Two-qubit gates run at a median \(4.22\times \) the known qubit-subspace CNOT-class bound \(\pi /(2j_q)\); in the snapshots that ratio rose from \(2.78\) to \(4.26\) between 2021 and 2025 as gates got longer, not monotonically and coinciding with the change from Falcon CX to Eagle ECR, while the archived couplings did not change. The current Heron generation (CZ \(\approx 68\)–\(70\) ns) is not covered. The inequalities of Table I are machine-checked, including an any-dimension entangling-time bound that is new only as a certified assembly of known pieces. On the model, optimal control finds a cross-resonance CNOT \(\approx 1.2\) times faster at drive fraction \(0.7\) than at IBM’s \(0.45\), and, with the second transmon level, a CZ (error \(2\cdot 10^{-8}\)) in \(0.35\) of the qubit-only exchange time with local controls of at most \(10J\); both are feasible times found, not proven minima. The open questions are the true minimum between the refined bound \(0.4511/J\) and the explicit construction \(\pi /(6J)\) (in \(d\)-level transmons the gap between the entangling bound and the construction closes as \(d\to \infty \), a limit certified in Lean), and a certified bound that joins the speed-limit and leakage branches of Eq. (1), for which we have no result. </p>
+</div>
+<a class="latex_link" href="index.html#c:summary">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="d:conv_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="d:conv" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§III-C</span><span class="observation_thmtitle">The drive convention</span></div>
+<div class="thm_thmcontent"><p>  The factor \(c\) is not documented in the snapshots. We fixed it before computing any gap, with the pre-specified rival H3 (“a different convention, factor \(2\) or \(2\pi \)”). The independent datum is the calibrated \(X\) pulse itself: its rotation angle must be \(\pi \). Across the 32 backends with pulse definitions, \(\texttt{omegad}\cdot |\mathrm{amp}|\cdot \mathrm{area}=1.148\, \pi \) with \(c=1\) and \(2.296\, \pi \) with \(c=2\) (median, with a simple discretization of the area). We adopt \(c=1\): the conventions with a factor \(2\) or \(2\pi \) are excluded. The residual \(\approx 1.15\) has an exact explanation in the pulse normalization (next node). </p>
+</div>
+<a class="latex_link" href="index.html#d:conv">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="d:derived_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="d:derived" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§III-C</span><span class="observation_thmtitle">omegad is derived</span></div>
+<div class="thm_thmcontent"><p>   For equal \(\sigma \), the product \(\texttt{omegad}\cdot \mathrm{amp}\) is identical to 9 digits across 27 backends. Hence <span class="ttfamily">omegad</span> is <em>not</em> an independent measurement; IBM derives it from the \(\pi \)-pulse calibration. Any correlation between gate duration and <span class="ttfamily">omegad</span> is therefore partly circular. </p>
+</div>
+<a class="latex_link" href="index.html#d:derived">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="d:falsifier_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="d:falsifier" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§III-D</span><span class="observation_thmtitle">Exclusions and falsifier</span></div>
+<div class="thm_thmcontent"><p>   The pre-registered falsifier was a ratio \(\tau _X/\tau _{\rm QSL}{\lt}1\) on any qubit, impossible for an exact \(X\) under a correct convention (an approximate gate with trace error \(e\) allows down to \((2/\pi )\arcsin (1-e)\), i.e. \(0.991\) for \(e=10^{-4}\)). It fired: 254 qubits came out faster than their own limit. They belong to the snapshots of <span class="ttfamily">brussels</span>, <span class="ttfamily">prague</span> and <span class="ttfamily">strasbourg</span>, whose sample time \(dt\ge 1\) ns differs from that of every other snapshot (\(0.22\) ns) and suggests placeholder values (we have no documentation of their provenance); these backends are excluded, as are qubits reporting zero anharmonicity; the exclusion was decided after the falsifier fired, and we report it as such. Controls: a hand computation on <span class="ttfamily">armonk</span> reproduces the script (ratio \(2.631\)), and changing the unit of <span class="ttfamily">omegad</span> moves the median by exactly \(2\pi \). One time-series snapshot (<span class="ttfamily">toronto</span>, 2021-03-15, median two-qubit duration 6315 ns, ratio \(\sim 40\)) is an outlier, probably a degraded calibration; it is kept in the time-series table, and removing it changes the 2021 two-qubit median from \(2.78\) to \(2.74\) (<a href="companion/files/toronto_sensibilidad.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">toronto_sensibilidad.py</span></a>). </p>
+</div>
+<a class="latex_link" href="index.html#d:falsifier">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="d:identity_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="d:identity" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§III-C</span><span class="observation_thmtitle">The pulse-area identity</span></div>
+<div class="thm_thmcontent"><p>   The residual \(\approx 1.15\) has an exact explanation in the pulse normalization. With \(g(x)=\exp [-(x-N/2)^2/(2\sigma ^2)]\), \(N=4\sigma \) and \(S=\sum _{n=0}^{N-1}g(n+\tfrac 12)\), let \(A_{\rm rec}=dt\, [S-N\, g(-\tfrac 12)]\) be the area of the sampled Gaussian with the edge value subtracted but <em>without</em> renormalizing the peak, and \(A_Q=dt\, [S-N\, g(-1)]/[1-g(-1)]\) the area of Qiskit’s lifted Gaussian. Then \(\texttt{omegad}\cdot |\mathrm{amp}|\cdot A_{\rm rec}=\pi \) on all 777 qubits with pulse definitions, to \(1.2\cdot 10^{-7}\); the residual is \(A_Q/A_{\rm rec}\), which tends to \(1/(1-e^{-2})=1.15652\) and reproduces, without fitting, both the width dependence of a simple discretization (\(1.1428\), \(1.1482\), \(1.1523\) for \(\sigma =24,40,80\)) and the values \(1.1552\)–\(1.1565\) of Qiskit’s convention. (This identification was suggested by an AI reviewer, ChatGPT (OpenAI); the check over all qubits is ours.) So <span class="ttfamily">omegad</span> is consistent with a drive whose peak is \((1-e^{-2})|\mathrm{amp}|\) in units of <span class="ttfamily">omegad</span>; under Qiskit’s normalization the model would over-rotate by \(1.1565\). The snapshots do not say which waveform reaches the qubit. The full-amplitude ratio below uses <span class="ttfamily">omegad</span> only and does not depend on this; the peak-drive figures do, and we give both readings. </p>
+</div>
+<a class="latex_link" href="index.html#d:identity">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="h:scope_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="h:scope" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">§VIII</span><span class="remark_thmtitle">What the certificate guarantees</span></div>
+<div class="thm_thmcontent"><p> <em>The certified objects are the inequalities, not the gaps.</em> The theorems of Table I are machine-checked for all inputs satisfying their hypotheses. Each reported gap is a computation on vendor data; its trust rests on the controls of Section III, not on a proof. <em>The model is IBM’s, not a measurement.</em> Every speed limit is evaluated in IBM’s Duffing model with the RWA. If the model misdescribes a device, the gap inherits the error. <em><span class="ttfamily">omegad</span> is derived.</em> It comes from the \(\pi \)-pulse calibration, and a factor \(1/(1-e^{-2})\) separates the area with which <span class="ttfamily">omegad</span> was derived from Qiskit’s normalized pulse; which of the two waveforms reaches the qubit is not in the snapshots. The single-qubit gaps carry this uncertainty, and duration–<span class="ttfamily">omegad</span> correlations are partly circular. <em>Hypotheses of the two-qubit theorem.</em> The Lean theorem assumes a constant interaction of bounded norm and piecewise-constant local controls, with a product initial state. Applying it to IBM gates assumes that the drives act locally and that the static coupling is the only interaction (no classical crosstalk). The single-qubit time-dependent bound and the ECR corollary are stated in Lean for piecewise-constant controls; a continuous pulse is covered only as a limit of such controls, which is not formalized. The norm \(\| H_{\rm int}\| =j_q\) holds only in the qubit subspace, and \(j_q\) itself is a model value repeated across dates. <em>Bounds that are not in Lean.</em> The literature gate bound \(\pi /(2j_q)\) behind the headline \(4.22\), its application to real durations (our inference), the multilevel single-qubit bound \(T\ge \pi /\Omega _{\max }\) and its trace-metric version (proved in the text), the instantiation with references, the time argument of the refined CZ bound \(0.4511/J\) (its \(97/32\) lemma is in Lean) and the CZ construction are not formalized (Lean certifies \(\pi /(8J)\)). <em>Truncation.</em> The single-qubit times found with 4 levels at \(r\ge 0.8\) are not converged in the number of levels; the converged fastest gate, \(\approx 3.4\) ns, comes from a 6-level search checked up to 12 levels. <em>Effective cross-resonance models.</em> The CR check uses effective Hamiltonians (first order, third order, and a static numerical block diagonalization); none is a time-dependent simulation of the calibrated pulse sequence with echoes and cancellation tones. <em>Coarse optimal control.</em> The optimal-control tables come from coarse grids (time steps, 8–10 piecewise-constant segments, finitely many random starts), without noise; the times reported are feasible times found, i.e. upper bounds on the minimum, and a time at which no gate was found proves nothing. <em>Snapshots, not live data; no hardware validation.</em> All data are dated snapshots. We have run nothing on hardware: IBM has been withdrawing pulse-level access, so the feasible times found in Section VII are model predictions. Black-box timing on live hardware is nevertheless feasible: gate-time amplification, which reads gate durations from job wall-time, could validate the snapshot durations used here. We have not done so. </p>
+</div>
+<a class="latex_link" href="index.html#h:scope">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="i:abstract_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="i:abstract" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">Abstract</span><span class="remark_thmtitle">Abstract</span></div>
+<div class="thm_thmcontent"><p>  How far are deployed quantum gates from the fastest evolution quantum mechanics allows? We answer for pre-Heron IBM processors, mainly Falcon and Eagle, using public, version-pinned calibration snapshots and inequalities whose proofs are machine-checked in Lean 4. Heron snapshots lack a Hamiltonian. For single-qubit gates, with the drive-strength convention fixed by IBM’s calibrated \(\pi \) pulses, the \(X\) gate lasts a median \(11.3\) times the two-level speed limit at full drive amplitude (1646 qubits, 41 backends). Most of this gap is a design choice: IBM drives at about a tenth of the anharmonicity, and at that drive its pulses are about \(2\) times the square-pulse limit. Within each device’s full amplitude, optimal control on IBM’s model gives gates about \(10\) times faster than the median. For two-qubit gates (1758 coupled pairs, 43 backends), the known qubit-subspace minimal time of controlled-NOT-class gates under exchange coupling (literature) gives a median ratio \(4.22\); across the snapshots it rose, not monotonically, from \(2.78\) (2021) to \(4.26\) (2025) as gates got longer, coinciding with the change from Falcon to Eagle. With the second level and fast arbitrary local control, the minimal time of a controlled-Z gate with ideal local control lies between \(0.287\) and \(1/3\) of the qubit-only exchange time (refined bound, explicit construction); bounded local control reaches \(0.35\). We also formalize an entangling-time bound in arbitrary local dimension, known for qubits and new only as a machine-checked assembly. The contribution is a reproducible diagnostic built on the machine-checked inequalities, with explicit guarantees. </p>
+</div>
+<a class="latex_link" href="index.html#i:abstract">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="i:claims_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="i:claims" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">§I</span><span class="remark_thmtitle">What the paper claims</span></div>
+<div class="thm_thmcontent"><p>  This paper contributes four things. <em>(1) Certified bounds.</em> The inequalities listed in Table I are proved in Lean 4 in the public development (the two-qubit gate bound \(\pi /(2j_q)\) behind the headline \(4.22\) is taken from the literature and is not among them): Margolus–Levitin, an \(L^1\) form of Mandelstam–Tamm, the Zieliński–Zych family for every exponent \(\alpha {\gt}0\) (whose key auxiliary inequality the original paper states without proof), a time-dependent single-qubit bound with its equality case for fixed-axis pulses and its finite-tolerance version, an entangling-time bound in arbitrary local dimension with its shifted, locally equivalent (ECR) and finite-tolerance versions (Section II), and, for the CZ in \(d\)-level transmons, the norm bounds behind its asymptotic tightness and the key lemma of the refined bound (Section VII). <em>(2) A convention fixed by independent data.</em> The drive-strength parameter is pinned by IBM’s calibrated \(\pi \) pulses through an exact pulse-area identity that holds on all 777 qubits with pulse definitions, up to which of two pulse normalizations reaches the qubit, which also reveals that it is derived from calibration rather than measured independently (Section III). <em>(3) A sweep of deployed hardware</em>: single-qubit gates on 1646 qubits, two-qubit gates on 1758 pairs, and a 2021–2025 time series (Sections IV–VI); for the single-qubit sweep, a falsifier and three rival hypotheses were written before the analysis, and we report their fate. <em>(4) Feasible times found by optimal control</em> on the vendor’s own model, bracketed by lower bounds (certified, or proved in the text) and, for the CZ, by an explicit construction, which in \(d\)-level transmons approaches the entangling-time bound as \(d\to \infty \) at fixed interaction norm, with ideal local control (Section VII). We claim no new physics: the speed limits are classical, the two-qubit constants are known for qubits, and the transmon model is IBM’s. The exceptions are mathematical: the \(d\)-level quadrature code for the CZ and its asymptotic tightness were not found in the sources we read (Section VII). To our knowledge no prior work applies a proof-assistant-certified QSL to public calibration data with a per-gate gap; a search that finds nothing does not prove novelty. Section VIII states what the certificate covers. </p>
+</div>
+<a class="latex_link" href="index.html#i:claims">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:cap_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:cap" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§IV-C</span><span class="observation_thmtitle">A cap near 0.1</span></div>
+<div class="thm_thmcontent"><p>   The calibrated peak Rabi frequency sits at a nearly fixed fraction of the anharmonicity: over 750 qubits, \(\Omega _{\rm peak}/|\delta |\) has median \(0.0907\) and 10th–90th percentile \([0.0607,0.0992]\), i.e. a cap near \(0.1\), taking the peak as \(\texttt{omegad}\, |\mathrm{amp}|\); with the peak \((1-e^{-2})\, \texttt{omegad}\, |\mathrm{amp}|\) consistent with <span class="ttfamily">omegad</span> the median is \(0.078\). We read this as IBM’s design rule, not a physical limit. </p>
+</div>
+<a class="latex_link" href="index.html#q:cap">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:decomp_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:decomp" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§IV-C</span><span class="observation_thmtitle">What sets the duration</span></div>
+<div class="thm_thmcontent"><p>   Writing \(\tau _X/\tau _{\rm QSL}=\mathrm{duration}\cdot dt\cdot \texttt{omegad}/\pi \), the gap factors into \(\approx 2.16\)—the duration over \(A_{\rm rec}\), i.e. the pulse-shape factor \(1.87\) (a \(4\sigma \) Gaussian with its edge removed against a square pulse of the same peak) times the normalization \(1/(1-e^{-2})\)—times \(1/\mathrm{amp}\approx 5\). Since \(\texttt{omegad}\cdot |\mathrm{amp}|\cdot A_{\rm rec}=\pi \), the ratio is exactly \(\tau _X/\tau _{\rm QSL}=\mathrm{duration}\cdot dt/(|\mathrm{amp}|A_{\rm rec})\approx 2.16/|\mathrm{amp}|\): with a nearly fixed envelope, the spread of the ratio is the spread of the calibrated amplitudes (IBM calibrates the \(\pi \) pulse at \(\mathrm{amp}\approx 0.2\): an amplitude reserve). Neither the speed limit nor the anharmonicity fixes the duration; engineering choices do: a duration fixed in samples per backend and a low amplitude. <em>The headline with its denominators.</em> The median \(11.3\) is measured against \(\pi /\Omega _{\max }\) with \(\Omega _{\max }=\texttt{omegad}\), the drive at full amplitude \(|D|=1\). The calibrated peak drive is \(\Omega _{\rm peak}\approx 0.09|\delta |\); the factor \(\approx 5\) between that drive and full amplitude is headroom chosen by design, and at the drive actually used the gap is the shape factor \(1.87\) if the peak is \((1-e^{-2})\, \texttt{omegad}\, |\mathrm{amp}|\), or \(\approx 2.16\) if it is \(\texttt{omegad}\, |\mathrm{amp}|\). Optimal control on IBM’s own model (Table V) bounds the gain at the same peak drive: since \(T\ge 2\arcsin (1-e)/\Omega _{\rm peak}\), a gate with \(T\Omega _{\rm peak}/\pi =R_{\rm peak}\) can be shortened by at most \(R_{\rm peak}/0.991\), i.e. \(2.18\) with the nominal peak or \(1.89\) with the edge-subtracted one (at the slightly higher cap \(r=0.1\) the fastest pulse found, \(\approx 16\) ns against \(35.6\) ns, gives \(2.2\)); and, within the full amplitude, a median gate of \(11.3\, \tau _{\rm QSL}\) against a minimum between \(0.99\, \tau _{\rm QSL}\) (bound) and \(1.12\, \tau _{\rm QSL}\) (found at the median \(r_{\rm full}=0.351\)), i.e. about \(10\)–\(11\) times; for the Falcon example (\(35.6\) ns) at that amplitude, \(7.4\)–\(8.3\) times. A gate of \(\approx 3.4\) ns needs about three times that amplitude. In short: IBM runs the drive at about a tenth of the anharmonicity; at that drive its pulses are about \(2\) times the square-pulse limit at that drive and can be shortened by at most \(2.2\) at the same peak drive; within the full amplitude the model admits gates about \(10\) times faster than the median. The figure \(11.3\) should not be read as “gates are \(11\) times slower than possible”; those \(\approx 10\times \) are a model prediction. </p>
+</div>
+<a class="latex_link" href="index.html#q:decomp">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:gap_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:gap" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§IV-A</span><span class="observation_thmtitle">The single-qubit gap</span></div>
+<div class="thm_thmcontent"><p>   Over 41 backends and 1646 qubits, the \(X\) gate lasts a median \(\tau _X/\tau _{\rm QSL}=11.30\) times its two-level speed limit at full drive amplitude (\(|D|=1\), \(\tau _{\rm QSL}=\pi /\texttt{omegad}\)), 5th–95th percentile \([7.19,15.54]\), minimum \(2.37\). The \(\sqrt X\) gate has the same duration and half the rotation, so its median ratio is \(22.61\). Qubits of one backend share a duration, so they are not independent: the median of the 41 per-backend medians is \(11.37\), and a bootstrap that resamples whole backends gives a \(95\% \) interval \([11.02,11.65]\) for the median. Against the leakage time scale \(2\pi /|\delta |\), the \(X\) gate lasts a median \(15.45\) periods \([10.90,18.70]\). IBM does not drive at that amplitude: the next nodes separate the part of the gap set by the drive actually used from the part set by amplitude headroom. </p>
+</div>
+<a class="latex_link" href="index.html#q:gap">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:hyp_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:hyp" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§IV-B</span><span class="observation_thmtitle">Pre-registered hypotheses</span></div>
+<div class="thm_thmcontent"><p>   Before computing we wrote three rivals with predicted ranges: H1, amplitude-limited gates at \(1\)–\(2\times \) the limit; H2, leakage-limited gates, \(\tau _X\propto 1/|\delta |\), ratio \(2\)–\(6\), uncorrelated with <span class="ttfamily">omegad</span>; H3, a convention artefact. Outcome: H1 is rejected against the full-amplitude limit (the gates are at \(\approx 11\times \)); against the peak drive actually used the ratio is \(\approx 2.16\), just above H1’s range, which did not specify the drive; with the peak \((1-e^{-2})|\mathrm{amp}|\) consistent with <span class="ttfamily">omegad</span> it is \(1.87\), inside that range, so this comparison depends on the reading, while the full-amplitude one does not; H2 has no support (\(R^2\) of \(\log \tau _X\) on \(\log (1/|\delta |)\) is \(0.087\), and the gates last \(\approx 15\) leakage periods); the factor-\(2\) and factor-\(2\pi \) conventions of H3 are excluded by the \(\pi \)-pulse check, and the remaining \(15\% \) is the lifted-Gaussian normalization. The \(R^2\) on \(\log (1/\texttt{omegad})\) is \(0.692\) (shuffled control \(0.001\)), but because <span class="ttfamily">omegad</span> is derived from the same pulse’s amplitude and width this is partly circular and is not independent physical evidence. </p>
+</div>
+<a class="latex_link" href="index.html#q:hyp">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:perqubit_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:perqubit" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§IV-C</span><span class="observation_thmtitle">Per-qubit durations</span></div>
+<div class="thm_thmcontent"><p>   Since all qubits of a backend share one duration, one may ask how much would be gained by giving each qubit the shortest duration compatible with that cap (\(c=0.099\), the observed 90th percentile), keeping the pulse shape (750 qubits on 31 backends). The median per-qubit gain is only \(\times 1.09\) (\(\times 1.07\) if a layer waits for its slowest qubit): the cap binds almost every qubit alike. The backend <span class="ttfamily">cairo</span> is a natural experiment: its common \(X\) duration is \(21.3\) ns where the cap would require a median of \(31.6\) ns, i.e. it runs at a drive fraction near \(0.15\), and works. </p>
+</div>
+<a class="latex_link" href="index.html#q:perqubit">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:asymptotic_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:asymptotic" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-B</span><span class="observation_thmtitle">Larger local dimension</span></div>
+<div class="thm_thmcontent"><p>    The same construction works for \(d\)-level transmons: encoding each qubit in the two extreme eigenvectors of \(Q_d=b+b^\dagger \) (eigenvalues \(\pm \lambda _d\), with \(\lambda _d/\sqrt2\) the largest zero of the Hermite polynomial \(H_d\)) gives a CZ in interaction time \(\pi /(2J\lambda _d^2)\), while the entangling-time theorem gives \(\pi /(4J\kappa _d)\) with \(\kappa _d=\| b^\dagger \otimes b+b\otimes b^\dagger \| \). The ratio of the two bounds is \(2\kappa _d/\lambda _d^2\): \(2\), \(1.33\), \(1.27\), \(1.20\), \(1.09\), \(1.05\) for \(d=2,3,4,5,10,20\), and it tends to \(1\). This is certified in Lean: \(\lambda _d^2/2\le \kappa _d\le 2(d-1)\) (<span class="ttfamily">QSL.Exchange.exchange_norm_ge</span>, <span class="ttfamily">QSL.Exchange.exchange_norm_le</span>), \(\lambda _d\ge 2(1-1/m)\sqrt{d-m}\) for the largest eigenvalue (<span class="ttfamily">QSL.Exchange.lamMax_ge</span>), and \(2\kappa _d/\lambda _d^2\to 1\) (<span class="ttfamily">QSL.Exchange.ratio_tendsto_one</span>); the rate is \(O(d^{-2/3})\) by the asymptotics of the largest Hermite zero (DLMF 18.16.17, not formalized). At a fixed interaction norm \(\| H_c\| =J\kappa _d\), the CZ time of the construction therefore approaches the Bell-preparation bound: the entangling-time bound becomes tight for the whole gate as \(d\to \infty \), with ideal local control. The averaging step is an instance of the no-overhead simulation framework of Wocjan, Rötteler, Janzing and Beth (2002); the quadrature code and the asymptotic tightness were not found in the sources we read. </p>
+</div>
+<a class="latex_link" href="index.html#r:asymptotic">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.html#L252" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.lean#L252">QSL.Exchange.exchange_norm_ge</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.html#L202" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.lean#L202">QSL.Exchange.exchange_norm_le</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.html#L423" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.lean#L423">QSL.Exchange.lamMax_ge</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.html#L484" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ExchangeQuadrature.lean#L484">QSL.Exchange.ratio_tendsto_one</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:choi_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:choi" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-B</span><span class="observation_thmtitle">The Choi-state bound for the gate</span></div>
+<div class="thm_thmcontent"><p>    For a gate with error \(e\), add a two-level reference to each transmon and start from the product (across \(AA'{:}BB'\)) of two local maximally entangled states: the overlap of the resulting state with the one produced by CZ is exactly \(|\mathrm{Tr}(CZ^\dagger PUP)|/4=1-e\), leakage included, and the CZ state has Schmidt coefficients \((1/\sqrt2,1/\sqrt2)\) across that cut, while the references leave \(\| H_c\| =2J\) unchanged. The tolerance version of the theorem (with \(\varepsilon =1-(1-e)^2\)) then gives \(T_*(e)\ge [\pi /4-\arccos (1-e)]/(2J)\) (this instantiation with references is ours, not formalized). Preparing the single output \(CZ|{+}{+}\rangle \) is a much easier task: local operations map \(|{+}{+}\rangle \) to \(|12\rangle \), on \(\{ |12\rangle ,|21\rangle \} \) the coupling acts as \(2J\sigma _x\), and local operations map the result back, so the state-preparation bound is attained exactly: it is a valid but weak bound for the gate. The norm-based bound is sharpened in the next node: \(0.4510/J\le T_*(2\cdot 10^{-8})\le 0.55/J\). </p>
+</div>
+<a class="latex_link" href="index.html#r:choi">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.html#L121" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.lean#L121">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:cr_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:cr" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-B</span><span class="observation_thmtitle">Cross-resonance CNOT by optimal control</span></div>
+<div class="thm_thmcontent"><p>   We optimized a CNOT on two 3-level transmons with a cross-resonance drive bounded by \(|\Omega _{\rm CR}|\le r\Delta \) at IBM median parameters (\(J/\Delta =0.0176\), \(\delta /\Delta =-2.7\), 10 segments). In units of the exchange time \(\pi /(2J)\) the shortest feasible times found (error \({\lt}10^{-3}\), upper bounds on the minimum) are \(3.27\) (\(r=0.25\)), \(1.82\) (\(r=0.45\), IBM’s calibrated fraction) and \(1.50\) (\(r=0.7\)). Since a larger cap admits every pulse of a smaller one, \(1.50\) is also feasible for every \(r\ge 0.7\); independent searches at \(r=1.0\) and \(1.5\) returned longer times, a failure of the local search, which we confirmed by re-expressing the \(r=0.7\) pulse under the larger caps (identical error) and continuing from it to shorter times, which did not reach \(10^{-3}\) down to \(1.2\). The searches use coarse time grids and few random starts; a repeated run at \(r=0.7\), \(T=1.50\) reached only \(1.2\cdot 10^{-3}\). What the data support is that at IBM’s fraction the fastest CNOT found is \(\approx 1.2\) times slower than at \(r=0.7\); they do not establish an optimum in \(r\). </p>
+</div>
+<a class="latex_link" href="index.html#r:cr">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:cz_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:cz" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-B</span><span class="observation_thmtitle">CZ with the second level</span></div>
+<div class="thm_thmcontent"><p>    Two 3-level transmons with a fixed exchange coupling \(J(b_1^\dagger b_2+{\rm h.c.})\) and fast local control (any Hermitian \(A_k\), \(B_k\) on each transmon, 8 piecewise-constant segments, exact gradients). The target is CZ on the qubit subspace with no leakage; the action outside it is free. Every solution is recomputed independently in float64. As a control, the qubit-only search reproduces the known time \(\pi /(2J)\) (a gate at \(\pi /(2J)\), none at \(0.89\, \pi /(2J)\)). Write \(T_*\) for the minimal time of an exact CZ with ideal (unbounded, instantaneous) local control, and \(T_*(e)\) for the minimal time of a CZ with error at most \(e\) in the trace metric used throughout. With local controls of at most \(10J\) during the gate (plus instantaneous local unitaries before and after), a CZ is realized to error \(\le 2\cdot 10^{-8}\) (leakage \(\le 4\cdot 10^{-8}\)) at \(T=0.55/J\), i.e. at \(0.35\) of the qubit-only time and \(5\% \) above the construction. At \(T=0.45/J\) and \(0.50/J\), relaxing the cap to \(20J\), \(40J\) or none did not improve the solutions found (\(\approx 5\cdot 10^{-3}\) and \(\approx 4\cdot 10^{-4}\)); this does not identify what limits them, and none was found at \(0.50/J\). For the same task and metric, \(0.4510/J\le T_*(2\cdot 10^{-8})\le 0.55/J\); the bound also shows that no protocol reaches \(e\le 2\cdot 10^{-8}\) at \(T=0.45/J\) (it needs \(e\ge 1.9\cdot 10^{-6}\) there), consistent with the \(5\cdot 10^{-3}\) found. The solutions populate the second level: up to \(60\% \) of the population of a computational input leaves the qubit subspace during the gate. Each code state of the construction has population \(1/3\) in \(|2\rangle \), so each encoded basis input has \(5/9\approx 56\% \) outside the qubit subspace (superpositions range from \(0\) to \(8/9\)); together with the \(\sqrt2\)-enhanced elements \(\langle 20|H_c|11\rangle \), \(\langle 02|H_c|11\rangle \) identified for CNOT and iSWAP, this suggests a mechanism for our solutions that we have not isolated. For the qutrit CZ, \(CZ_3|k,l\rangle =e^{2\pi ikl/3}|k,l\rangle \), with a capacitive coupling and drive cap \(40g\), the optimal-control time reported by Basyildiz, Gong and Ashhab is close to the qubit limit. That is a different gate: on the qubit subspace it is \(\mathrm{diag}(1,1,1,e^{2\pi i/3})\), not \(\mathrm{diag}(1,1,1,-1)\), and coupling and controls differ, so the two times are not comparable. </p>
+</div>
+<a class="latex_link" href="index.html#r:cz">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.html#L121" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/ApproxSpeedLimits.lean#L121">QSL.Qudit.pi_div_four_sub_le_entangling_time_approx</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L499" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L499">QSL.Qudit.arccos_le_entangling_time</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/RefinedCZBound.html#L147" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/RefinedCZBound.lean#L147">QSL.Exchange.refined_cz_lemma</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:czconstr_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:czconstr" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-B</span><span class="observation_thmtitle">An explicit construction of the CZ</span></div>
+<div class="thm_thmcontent"><p>    CZ maps \(|{+}{+}\rangle \) to a maximally entangled state, so the entangling-time theorem with \(\| H_c\| =2J\) (\(d=3\)) gives \(T_*\ge \pi /(8J)=0.393/J\). An explicit construction gives an upper bound. Writing \(H_c=\tfrac J2(Q\otimes Q+\Pi \otimes \Pi )\) with \(Q=b+b^\dagger \) and \(\Pi =i(b^\dagger -b)\), fast conjugations of <em>one</em> transmon by \(W=V_Q\, \mathrm{diag}(1,e^{2\pi i/3},e^{4\pi i/3})V_Q^\dagger \) (\(V_Q\) diagonalizing \(Q\)) average \(\Pi \otimes \Pi \) away and keep \(\tfrac J2Q\otimes Q\); encoding each qubit in the two extreme eigenvectors of \(Q\) (eigenvalues \(\pm \sqrt3\)) gives \(\tfrac {3J}{2}Z\otimes Z\), hence a CZ (up to local phases) in interaction time \(\pi /(6J)=0.5236/J\), in the limit of arbitrarily fast local operations (construction suggested by an AI reviewer, ChatGPT (OpenAI), checked by us). So \(\pi /(8J)\le T_*\le \pi /(6J)\); the lower bound is sharpened to \(0.4511/J\) in the next nodes (the construction is then within \(16\% \) of the bound). </p>
+</div>
+<a class="latex_link" href="index.html#r:czconstr">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L499" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L499">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:czrefined_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:czrefined" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-B</span><span class="observation_thmtitle">The refined CZ bound</span></div>
+<div class="thm_thmcontent"><p>    The gate bound itself can be sharpened, because the gate must act coherently on all logical inputs (argument also suggested by the same reviewer; the lemma is certified in Lean as <span class="ttfamily">QSL.Exchange.refined_cz_lemma</span>, with its equality case, and checked numerically in <a href="companion/files/cota_cz_refinada.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">cota_cz_refinada.py</span></a>; the time argument built on it is not formalized). Let \(L(t)\) apply the same local controls as \(U(t)\) but without \(H_c\), and \(z(t)=U(t)^\dagger L(t)|\Omega _0\rangle \) with \(|\Omega _0\rangle \) the reference-extended product state above. Then \(\dot z=iU^\dagger H_cL|\Omega _0\rangle \), whose Fubini–Study speed is the spread of \(H_c\) in \(L(t)|\Omega _0\rangle \); that state has physical reduced state \((P_A\otimes P_B)/4\) with \(P_A,P_B\) rank-2 projectors, and for any such projectors \(\tfrac 14\mathrm{Tr}[(P_A\otimes P_B)H_c^2]\le \tfrac {97}{32}J^2\) (equality at \(P=\mathbb 1-|v\rangle \langle v|\), \(|v\rangle =\sqrt{7/8}|0\rangle +\sqrt{1/8}|2\rangle \)). Since \(L(T)|\Omega _0\rangle \) is a product across \(AA'{:}BB'\) and the CZ state is at Fubini–Study distance at least \(\pi /4\) from every product, \(T_*(e)\ge [\pi /4-\arccos (1-e)]/(J\sqrt{97/32})\), i.e. \(T_*\ge 0.4511/J\) and \(T_*(2\cdot 10^{-8})\ge 0.4510/J\), \(15\% \) above the norm bound. With ideal local control, \(0.4511/J\le T_*\le \pi /(6J)=0.5236/J\) (the upper value as a limit of finite protocols); the construction is within \(16\% \) of the bound. Preparing one Bell state and implementing the whole CZ therefore have different minimal times in this model. </p>
+</div>
+<a class="latex_link" href="index.html#r:czrefined">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/RefinedCZBound.html#L147" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/RefinedCZBound.lean#L147">QSL.Exchange.refined_cz_lemma</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/RefinedCZBound.html#L201" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/RefinedCZBound.lean#L201">QSL.Exchange.refined_cz_equality</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:heis_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:heis" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-B</span><span class="observation_thmtitle">Heisenberg coupling</span></div>
+<div class="thm_thmcontent"><p>    For \(H=XX+YY+ZZ\) and fast local control, the smallest largest-Schmidt-coefficient found from a product state at time \(T\) is \(\lambda (T)=\cos (2T)\) to \(10^{-13}\) without ancillas and to \(10^{-8}\) with one ancilla qubit per side, up to the Bell time \(\pi /8\). The same identity \(\lambda (T)=\cos (wT)\), with \(w\) the spectral half-width, holds for Ising \(ZZ\) and \(XY\) couplings with and without ancillas (errors \(\le 3\cdot 10^{-7}\)). The norm bound gives rate \(\| H\| =3\); the identity says the right rate is the spectral half-width \((E_{\max }-E_{\min })/2=2\). This is a certified corollary: since \(H-c\mathbb 1\) differs from \(H\) by \(c\mathbb 1\), which can be absorbed in the local control, \(\arccos \lambda \le T\, \| H-c\mathbb 1\| \) for every real \(c\); for Heisenberg \(\| H+\mathbb 1\| =2\) (because \(H+\mathbb 1=2\, \mathrm{SWAP}\)), whence \(T\ge \pi /8\). An explicit trajectory reaches the bound: \(e^{-iHT}|01\rangle =e^{iT}[\cos (2T)|01\rangle -i\sin (2T)|10\rangle ]\), whose largest Schmidt coefficient is \(\cos (2T)\) for \(T\le \pi /8\). Local ancillas do not change the spectrum of the coupling and so cannot lower this bound. </p>
+</div>
+<a class="latex_link" href="index.html#r:heis">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.html#L70" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.lean#L70">QSL.Qudit.arccos_le_entangling_time_shift</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.html#L292" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntanglingShift.lean#L292">QSL.Qudit.pi_div_eight_le_heisenberg_time</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:ibm_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:ibm" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-A</span><span class="observation_thmtitle">What IBM could reach</span></div>
+<div class="thm_thmcontent"><p>   For IBM’s typical \(|\delta |\approx 2.07\) rad/ns, the fastest pulse found at IBM’s own cap \(r=0.1\) takes \(\approx 16\) ns, against \(35.6\) ns for Falcon single-qubit gates (e.g. <span class="ttfamily">jakarta</span>): a factor \(\approx 2.2\) at that cap, which is slightly above the calibrated peak drive (median \(0.091\)). At \(r=1\) the 4-level search finds \(T=6.9/|\delta |\) (\(3.3\) ns), but the truncation matters at this drive (next node). At IBM’s cap the 4-level pulse is unaffected by more levels (\(\eta _4=0.01\)). As an independent point of comparison, a \(4.16\) ns single-qubit pulse on a superconducting transmon, with \(99.76\% \) fidelity and \(0.044\% \) leakage, has been demonstrated by optimal control (Werninghaus et al.); its elementary pulses are \(\pm X/2\) and \(\pm Y/2\) characterized by Clifford-based protocols, a different task from our simulated \(X\) gate, so it gives context, not validation. Limits: the time grid is coarse, the search is local, and there is no noise or line distortion in the model. </p>
+</div>
+<a class="latex_link" href="index.html#r:ibm">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:law_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:law" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-A</span><span class="observation_thmtitle">The single-qubit law</span></div>
+<div class="thm_thmcontent"><p>   We ran optimal control on a 4-level Duffing transmon in units \(|\delta |=1\), with a piecewise-constant complex drive bounded by \(|\Omega |\le r|\delta |\), and searched, on a grid of times, for the shortest time at which an \(X\) gate with error \({\lt}10^{-4}\) including leakage is found. The two-level control returns \(T=\pi /\Omega _{\max }\) exactly. The results follow \(T_{\rm found}\approx \max \! \big(\pi /\Omega _{\max },\  \sim 1.1\cdot 2\pi /|\delta |\big)\), a speed-limit branch for \(r\lesssim 0.3\) and a leakage-dominated branch for \(r\gtrsim 0.8\). This is an empirical fit to a coarse grid, not a theorem; it misses the values found at \(r=0.3\)–\(0.5\) by \(13\)–\(16\% \), where neither branch dominates. The entries are feasible times found, i.e. upper bounds on the true minimum: a larger cap admits every pulse of a smaller one, so the true minimum cannot increase with \(r\), and the value at \(r=1.5\) above that at \(r=1.0\) shows that the search is local. Shortest time found (units \(|\delta |=1\); ratio to \(\pi /\Omega _{\max }\)): \(r=0.1\): \(33.0\) (\(1.05\)); \(0.2\): \(16.5\) (\(1.05\)); \(0.3\): \(12.0\) (\(1.15\)); \(0.5\): \(8.2\) (\(1.30\)); \(0.8\): \(7.1\); \(1.0\): \(6.9\); \(1.5\): \(7.3\). </p>
+</div>
+<a class="latex_link" href="index.html#r:law">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:lower_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:lower" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">§VII-A</span><span class="proposition_thmtitle">Multilevel lower bound</span></div>
+<div class="thm_thmcontent"><p>   A lower bound holds for any number of levels. With \(H(t)=H_{\rm diag}(t)+\tfrac 12(u\, b^\dagger +u^*b)\), \(|u|\le \Omega _{\max }\), and \(p_0=|a_0|^2\) the population of \(|0\rangle \), the only way out of \(|0\rangle \) is through \(|1\rangle \), so \(|\dot p_0|\le |u|\, |a_0||a_1|\le |u|\sqrt{p_0(1-p_0)}\) and the angle \(\theta =\arccos \sqrt{p_0}\) obeys \(|\dot\theta |\le |u|/2\). An \(X\) gate takes \(\theta \) from \(0\) to \(\pi /2\), hence \(T\ge \pi /\Omega _{\max }\) for any truncation; with a transfer fidelity \(|\langle 1|\psi _T\rangle |^2\ge 1-\varepsilon \), \(T\ge 2\arccos \sqrt\varepsilon /\Omega _{\max }\). (This short proof is ours and not formalized; the two-level case is <span class="ttfamily">QSL.Gate.two_arccos_sqrt_le_time_approx</span>.) In the trace metric of Table V the same argument bounds \(|U_{10}|,|U_{01}|\le \sin (\Omega _{\max }T/2)\) for \(T\le \pi /\Omega _{\max }\), so an error \(e\) needs \(T\ge 2\arcsin (1-e)/\Omega _{\max }\); for \(r\le 0.2\) the times found are \(6\% \) above it (\(e=10^{-4}\)), so there the minimum is known to \(6\% \); at IBM’s cap (\(\Omega _{\max }=0.1|\delta |\), \(|\delta |=2.07\) rad/ns) the archived \(35.6\) ns lies between \(2.2\) and \(2.4\) times the true minimum (bound \(15.0\) ns for that tolerance, pulse found \(15.9\) ns). </p>
+</div>
+<a class="latex_link" href="index.html#r:lower">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:rfull_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:rfull" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-A</span><span class="observation_thmtitle">The full amplitude of IBM</span></div>
+<div class="thm_thmcontent"><p>   The drive fraction \(r=1\) is not available in the analysed snapshots: the full amplitude \(|D|=1\) corresponds to \(r_{\rm full}=\texttt{omegad}/|\delta |\), median \(0.351\) (\(5\)th–\(95\)th percentile \([0.24,0.61]\)). At \(r=0.351\) a 6-level search finds an \(X\) at \(T=10.0/|\delta |=4.8\) ns with \(1-F=2.8\cdot 10^{-8}\), unchanged with 12 levels, while the bound above gives \(T\ge 8.87/|\delta |=4.3\) ns; so within the amplitude budget of the median device a \(35.6\) ns Falcon gate is \(7.4\) times the fastest gate found and at most \(8.3\) times the bound, i.e. \(7.4\)–\(8.3\) times the minimum of the model, and the median gate (\(11.3\, \tau _{\rm QSL}\), with \(\tau _{\rm QSL}=8.95/|\delta |\) at \(r=0.351\)) is \(10\)–\(11\) times. </p>
+</div>
+<a class="latex_link" href="index.html#r:rfull">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="r:trunc_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="r:trunc" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VII-A</span><span class="observation_thmtitle">Truncation</span></div>
+<div class="thm_thmcontent"><p>   At \(r=1\) the 4-level search finds \(T=6.9/|\delta |\) (\(3.3\) ns), but the truncation matters at this drive: the 4-level pulse at \(T=7.0/|\delta |\) keeps \(1-F=7\cdot 10^{-9}\) in 4 levels but degrades to \(5.5\)–\(7.2\cdot 10^{-4}\) with 5 to 12, and the Duhamel bound on the distance to a larger model, \(\eta _4=\int |u|\, \| \langle 3|U P\| \, dt=0.55\), does not certify it. A pulse optimized with 6 levels at the same time reaches \(1-F=4.0\cdot 10^{-6}\) there and \(3.6\cdot 10^{-6}\) with 8 and 12 levels, so a gate of \(\approx 3.4\) ns (\(T=7.0/|\delta |\)), more than ten times shorter than IBM’s, survives in the converged model; it is a numerical witness in an idealized model, not a physical floor. The table entries for \(r\ge 0.8\) are 4-level values and are not converged in the number of levels. </p>
+</div>
+<a class="latex_link" href="index.html#r:trunc">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="s:duration_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="s:duration" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VI</span><span class="observation_thmtitle">Duration, not coupling</span></div>
+<div class="thm_thmcontent"><p>   The ratio grew from \(2.78\) (2021) to \(4.26\) (2025). The coupling did not change: \(g/2\pi \approx 1.9\)–\(2.1\) MHz in every processor family, and within a processor \(j_q\) is <em>identical</em> at every date—a model value carried over, not re-measured. The change is the duration: Eagle ECR gates (median 562 ns) against Falcon CX gates (\(\approx 377\) ns), and recalibrations lengthen gates and never shorten them in the examples examined (<span class="ttfamily">bogota</span> \(366\to 544\) ns, <span class="ttfamily">perth</span> \(380\to 491\) ns, <span class="ttfamily">lagos</span> \(299\to 452\) ns). The trend describes the snapshots in the series, which are all pre-Heron: it reflects the transition from Falcon CX to Eagle ECR gates, not the whole fleet. The current Heron generation, with CZ gates of \(\approx 68\)–\(70\) ns (\(68\) ns median in our <span class="ttfamily">torino</span> snapshot; \(70\) ns measured on <span class="ttfamily">ibm_torino</span> by Ishida and Hasegawa), is not in the series, because its snapshots carry no Hamiltonian. </p>
+</div>
+<a class="latex_link" href="index.html#s:duration">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="s:error_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="s:error" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VI</span><span class="observation_thmtitle">Lengthening and error</span></div>
+<div class="thm_thmcontent"><p>   Across the 80 snapshots with two-qubit durations and errors, Spearman’s correlation between median two-qubit duration and median gate error is \(+0.13\) (\(p=0.23\)). For the same pair lengthened between two dates (71 cases), the error <em>rises</em> (median change in \(\log \) error \(+0.21\); it falls in only \(31\% \)); for pairs shortened (40 cases) it falls. These comparisons are observational: other calibration changes and drift happen at the same dates. </p>
+</div>
+<a class="latex_link" href="index.html#s:error">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="s:lesson_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="s:lesson" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VI</span><span class="observation_thmtitle">A methodological lesson</span></div>
+<div class="thm_thmcontent"><p>   We then asked whether lengthened pairs had worse qubits. Pooled across dates, \(T_1\) of lengthened pairs fell more than that of unchanged pairs (Mann–Whitney \(p=0.0017\)). Under a stratified control (same backend, same dates; 18 strata, 84 lengthened pairs) the effect vanished (Wilcoxon \(p=0.90\) for \(T_1\), \(p=0.99\) for \(T_2\)); a pooled frequency-shift effect (\(p=4\cdot 10^{-12}\)) vanished likewise. The pooled effects are consistent with confounding by epoch: lengthenings concentrate in backends and periods in which the whole chip’s \(T_1\) fell. We retracted the reading that lengthened pairs had degraded qubits: after controlling for backend and date the data do not support pair-specific degradation. This does not show what does drive lengthening. Any cross-date effect in calibration snapshots should be tested stratified by backend and date before it is read. </p>
+</div>
+<a class="latex_link" href="index.html#s:lesson">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="s:table_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="s:table" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§VI</span><span class="observation_thmtitle">Median gaps by year</span></div>
+<div class="thm_thmcontent"><p>   Median gaps by year (56 usable snapshots, 41 backends). Two-qubit ratio against \(\pi /(2j_q)\). Single qubit \(\tau _X/\tau _{\rm QSL}\): \(11.28\) (2021), \(11.32\) (2022), \(11.21\) (2023), \(11.10\) (2024), \(11.87\) (2025). Two qubits \(\tau _{2q}/(\pi /2j_q)\): \(2.78\), \(2.64\), \(4.32\), \(3.89\), \(4.26\). The ratio stays at \(\approx 11\) over five years for a single qubit: a design constant. For two qubits it grew from \(2.78\) (2021) to \(4.26\) (2025). Snapshots per year: \(27\), \(4\), \(2\), \(16\), \(7\); the 2022 and 2023 medians rest on 4 and 2 snapshots respectively. One time-series snapshot (<span class="ttfamily">toronto</span>, 2021-03-15, median two-qubit duration 6315 ns, ratio \(\sim 40\)) is kept in the table; removing it changes the 2021 two-qubit median from \(2.78\) to \(2.74\) and the single-qubit one not at all. </p>
+</div>
+<a class="latex_link" href="index.html#s:table">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="t:certified_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="t:certified" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§V-C</span><span class="observation_thmtitle">The certified ratio</span></div>
+<div class="thm_thmcontent"><p>    Against our certified chord constant \(\sqrt{2-\sqrt2}/j_q\) the median ratio is \(8.7\); the sharp Lean constant \(\pi /4\) lowers it by \(2.6\% \) to \(8.4\), and since \(\pi /(4j_q)\) is exactly half of \(\pi /(2j_q)\) the certified ratio is exactly twice the literature ratio. Both are correct; they bound different tasks. Both assume \(\| H_{\rm int}\| =j_q\), i.e. the qubit subspace. With the second transmon level the norm grows to \(2j_q\), the certified time bound halves to \(\pi /(8j_q)\) and the certified ratio doubles to \(\approx 16.9\): the bound becomes weaker, which says nothing about how much of that room is reachable. Our \(\pi /(8j_q)\) for \(d=3\) is not tight; Section VII sharpens it to \(0.4511/j_q\) for the CZ. </p>
+</div>
+<a class="latex_link" href="index.html#t:certified">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/TwoQubitEntangling.html#L391" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/TwoQubitEntangling.lean#L391">QSL.TwoQubit.entangling_time_lower_bound</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.html#L582" data-lean-github="https://github.com/karlesmarin/formalizations/blob/42f307ba5b050183ae1113de003803ac67c97ace/Formalizations/Physics/QuantumMechanics/SpeedLimit/QuditEntangling.lean#L582">QSL.Qudit.pi_div_four_le_entangling_time_fin</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="t:controls_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="t:controls" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§V-C</span><span class="observation_thmtitle">Numerical controls</span></div>
+<div class="thm_thmcontent"><p>   Numerical controls of the certified bound: the Duhamel inequality has \(0\) violations in \(20\, 000\) random pairs, with maximum ratio \(0.99998\) (the constant \(1\) is sharp), and the bound has \(0\) violations in \(3000\) evolutions with random local control. </p>
+</div>
+<a class="latex_link" href="index.html#t:controls">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="t:cr_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="t:cr" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§V-D</span><span class="observation_thmtitle">Cross resonance and the first-order formula</span></div>
+<div class="thm_thmcontent"><p>   IBM’s CX is built from echoed cross-resonance (CR) pulses. To first order the CR drive of amplitude \(\Omega \) on the control, at detuning \(\Delta \), produces a \(ZX\) rate \(\nu _{ZX}=-(J\Omega /\Delta )\, \delta _c/(\delta _c+\Delta )\), and a CNOT needs \(\theta _{ZX}=\nu _{ZX}t_{\rm CR}=\pi /2\). On 1212 calibrated CX gates in 29 backends the median of \(\theta /(\pi /2)\) is \(1.109\), 10th–90th percentile \([0.870,1.472]\), with \(59\% \) in \([0.8,1.2]\). The median lies \(11\% \) above the target, with a wide spread. The calibrated drive sits at a nearly fixed fraction of the detuning: \(|\Omega _{\rm CR}/\Delta |\) has median \(0.451\). The two gaps share one pattern: the control runs at a fixed fraction of an energy splitting it must not excite—\(\Omega _{\rm peak}\approx 0.09|\delta |\) for one qubit, \(\Omega _{\rm CR}\approx 0.45\Delta \) for two. The calibrated drives lie outside the stated range of the perturbative expansion (\(53\% \) of the gates have \(\Omega /2\pi {\gt}50\) MHz); with the third-order term the median falls to \(0.898\) (\([0.659,1.105]\)), and a numerical block diagonalization gives \(0.967\) (\([0.795,1.159]\), \(81\% \) in \([0.8,1.2]\)). Flipping the sign of \(\Delta \) moves the median away from 1 (\(0.664\)), as a control should. One convention is unresolved: the Qiskit control channel of the pair \((c,t)\) is weighted by the drive strength of the <em>target</em>, whereas we use that of the control; with the former the first-order median is \(1.089\). </p>
+</div>
+<a class="latex_link" href="index.html#t:cr">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="t:gap_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="t:gap" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§V-B</span><span class="observation_thmtitle">The two-qubit gap</span></div>
+<div class="thm_thmcontent"><p>   In the qubit subspace the IBM coupling is \(j_q(\sigma ^+_i\sigma ^-_j+\mathrm{h.c.})=(j_q/2)(XX+YY)\), of operator norm \(j_q\). <em>Literature bound for the gate.</em> With unbounded local control, no leakage, and an \(XY\) coupling, the minimal time of a CNOT-class gate (CNOT, CZ, ECR) is \(\pi /(2j_q)\). This follows from Howard <em>et al.</em>, Appendix C, and from the majorization theory of Vidal–Hammerer–Cirac. The detuning is a local term absorbed by the unbounded local control, and bounded drives are a subset of unbounded ones, so within the qubit subspace the real duration cannot beat it [our inference, not stated in that form in the sources]. <em>Our certified bound for state preparation.</em> The Lean theorem bounds the time to <em>create</em> a Bell state from a product state: \(\pi /(4J)\), attainable. A full CNOT on an \(XY\) coupling needs twice that, which is why the literature bound is the stronger one for gates. Ours is the one that is machine-checked, and it survives extra transmon levels: with \(|2\rangle \) included the norm of the exchange term grows (\(\| a^\dagger b+ab^\dagger \| =1,2,3.4641\) for \(d=2,3,4\)), and the CNOT bound becomes \(\pi /(4J)\) with that larger \(J\). With leakage levels allowed, the only rigorous constant in the literature is for iSWAP; for CNOT/ECR with \(|2\rangle \) no constant was found in the sources read. Ours, \(\pi /(8j_q)\) for \(d=3\), is not known to be tight. Against the literature bound the median ECR/CX lasts \(4.22\) times its limit. </p>
+</div>
+<a class="latex_link" href="index.html#t:gap">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="t:pairs_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="t:pairs" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">§V-A</span><span class="observation_thmtitle">The pairs</span></div>
+<div class="thm_thmcontent"><p>  From the snapshots we extract every coupled pair with a coupling \(j_q\) in the Hamiltonian variables and a calibrated two-qubit gate: 1758 pairs in 43 backends (1019 ECR, 739 CX). The median coupling is \(j_q=0.01268\) rad/ns (\(g/2\pi \approx 2.0\) MHz), the median detuning \(115\) MHz (\(\approx 60\, j_q\)), and the median gate duration \(548\) ns (5th–95th percentile \([277,698]\) ns). </p>
+</div>
+<a class="latex_link" href="index.html#t:pairs">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="x:repro_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="x:repro" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">§IX</span><span class="remark_thmtitle">Reproducibility</span></div>
+<div class="thm_thmcontent"><p>  All scripts and data are in the companion package of the blueprint, <a href="https://karlesmarin.github.io/blueprints/qsl-diagnostics/companion/">https://karlesmarin.github.io/blueprints/qsl-diagnostics/companion/</a> (Apache 2.0): <a href="companion/files/convencion.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">convencion.py</span></a> (three-level check of the drive convention), <a href="companion/files/pulsos_x.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">pulsos_x.py</span></a> and <a href="companion/files/identidad_omegad.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">identidad_omegad.py</span></a>, <a href="companion/files/identidad_calibracion.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">identidad_calibracion.py</span></a> (convention from calibrated \(\pi \) pulses), <a href="companion/files/barrido.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">barrido.py</span></a> (single-qubit sweep, <a href="companion/files/barrido.csv" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">barrido.csv</span></a>), <a href="companion/files/pares.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">pares.py</span></a> (two-qubit pairs, <a href="companion/files/pares.csv" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">pares.csv</span></a>), <a href="companion/files/cruce_formulas.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">cruce_formulas.py</span></a> (CR and peak-Rabi checks), <a href="companion/files/serie_temporal.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">serie_temporal.py</span></a>, <a href="companion/files/serie_porque.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">serie_porque.py</span></a>, <a href="companion/files/duracion_error.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">duracion_error.py</span></a> (time series, <a href="companion/files/serie.csv" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">serie.csv</span></a>), <a href="companion/files/degradacion.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">degradacion.py</span></a> and <a href="companion/files/frecuencia_degradados.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">frecuencia_degradados.py</span></a> (stratified controls), <a href="companion/files/mejora_por_cubit.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">mejora_por_cubit.py</span></a> (per-qubit durations), <a href="companion/files/mediana_por_backend.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">mediana_por_backend.py</span></a> (backend-weighted median, clustered bootstrap), <a href="companion/files/toronto_sensibilidad.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">toronto_sensibilidad.py</span></a> (outlier sensitivity), <a href="companion/files/control_dos_cubits.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">control_dos_cubits.py</span></a> and <a href="companion/files/cnot_m3.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">cnot_m3.py</span></a> (numerical controls of the certified bounds), <a href="companion/files/grape_1q.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">grape_1q.py</span></a>, <a href="companion/files/grape_cr.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">grape_cr.py</span></a> and <a href="companion/files/grape_cr_continuacion.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">grape_cr_continuacion.py</span></a> (monotonicity check), <a href="companion/files/grape_cz_torch.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">grape_cz_torch.py</span></a> with its independent check <a href="companion/files/verificar_cz.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">verificar_cz.py</span></a>, <a href="companion/files/grape_bell_torch.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">grape_bell_torch.py</span></a>, <a href="companion/files/grape_anchura.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">grape_anchura.py</span></a>, <a href="companion/files/poblacion_cz.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">poblacion_cz.py</span></a> (optimal control), <a href="companion/files/fuentes/cruce_mg2020.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">fuentes/cruce_mg2020.py</span></a> (higher-order CR check), <a href="companion/files/cruces_segunda_voz.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">cruces_segunda_voz.py</span></a> (pulse-area identity, CZ construction) and <a href="companion/files/truncacion_1q.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">truncacion_1q.py</span></a> (truncation check), <a href="companion/files/tercera_revision.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">tercera_revision.py</span></a> (gate-metric bounds, \(r_{\rm full}\)), <a href="companion/files/cota_cz_refinada.py" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">cota_cz_refinada.py</span></a> (refined CZ bound). Data: <span class="ttfamily">qiskit-ibm-runtime</span> 0.51.0 and <span class="ttfamily">qiskit-terra</span> 0.24.1 fake-backend snapshots (Apache 2.0), copied in <span class="ttfamily">datos/</span> and <span class="ttfamily">datos_serie/</span>. The Lean sources are at <a href="https://github.com/karlesmarin/formalizations" target="_blank" rel="noopener">https://github.com/karlesmarin/formalizations</a>, commit <span class="ttfamily">42f307b</span>. The calibrated pulses (<span class="ttfamily">qiskit-terra</span> 0.24.1) are copied in <span class="ttfamily">datos_pulsos/</span>; a self-check rebuilds <a href="companion/files/barrido.csv" class="lm-prog" title="open this file of the companion package"><span class="ttfamily">barrido.csv</span></a> inside the package and compares it with the archived file. A companion blueprint, <a href="https://karlesmarin.github.io/blueprints/qsl-diagnostics/">https://karlesmarin.github.io/blueprints/qsl-diagnostics/</a>, maps each claim of this paper to its Lean theorem or script. Its laboratories run in the reader’s browser on the reader’s own values: Figs. 1–4 redrawn live; the fixed-axis equality on the Bloch sphere for any envelope; the certified floors of Section II for a list of the reader’s own gates (diagnose your device), which fires the falsifier of Section III on any gate below its floor; and the \(d\)-level CZ bounds of Section VII. Each result can be downloaded as CSV or shared as a link with its inputs. </p>
+</div>
+<a class="latex_link" href="index.html#x:repro">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"q:cap"	[label=cap,		shape=ellipse];	"q:perqubit"	[label=perqubit,		shape=ellipse];	"q:cap" -> "q:perqubit"	[style=dashed];	"b:table"	[color=blue,		label=table,		shape=ellipse];	"c:summary"	[label=summary,		shape=ellipse];	"r:heis"	[color=blue,		label=heis,		shape=ellipse];	"b:approx"	[color=green,		fillcolor="#1CAC78",		label=approx,		shape=ellipse,		style=filled];	"r:choi"	[color=blue,		label=choi,		shape=ellipse];	"b:approx" -> "r:choi"	[style=dashed];	"r:cz"	[label=cz,		shape=ellipse];	"r:choi" -> "r:cz"	[style=dashed];	"r:czrefined"	[label=czrefined,		shape=ellipse];	"r:choi" -> "r:czrefined"	[style=dashed];	"r:cz" -> "c:summary"	[style=dashed];	"s:table"	[label=table,		shape=ellipse];	"s:duration"	[label=duration,		shape=ellipse];	"s:table" -> "s:duration"	[style=dashed];	"s:error"	[label=error,		shape=ellipse];	"s:duration" -> "s:error"	[style=dashed];	"s:lesson"	[label=lesson,		shape=ellipse];	"s:error" -> "s:lesson"	[style=dashed];	"r:asymptotic"	[label=asymptotic,		shape=ellipse];	"i:claims"	[color=blue,		label=claims,		shape=ellipse];	"b:chord"	[color=green,		fillcolor="#1CAC78",		label=chord,		shape=ellipse,		style=filled];	"t:certified"	[label=certified,		shape=ellipse];	"b:chord" -> "t:certified"	[style=dashed];	"t:controls"	[color=blue,		label=controls,		shape=ellipse];	"b:chord" -> "t:controls"	[style=dashed];	"t:certified" -> "r:cz"	[style=dashed];	"b:bell"	[color=green,		fillcolor="#1CAC78",		label=bell,		shape=ellipse,		style=filled];	"b:bell" -> "b:approx"	[style=dashed];	"b:bell" -> "t:certified"	[style=dashed];	"b:cnot"	[color=blue,		label=cnot,		shape=ellipse];	"b:bell" -> "b:cnot"	[style=dashed];	"b:tight"	[color=green,		fillcolor="#1CAC78",		label=tight,		shape=ellipse,		style=filled];	"b:bell" -> "b:tight"	[style=dashed];	"d:conv"	[color=blue,		label=conv,		shape=ellipse];	"d:conv" -> "q:cap"	[style=dashed];	"d:identity"	[label=identity,		shape=ellipse];	"d:conv" -> "d:identity"	[style=dashed];	"q:gap"	[label=gap,		shape=ellipse];	"d:conv" -> "q:gap"	[style=dashed];	"d:derived"	[label=derived,		shape=ellipse];	"d:conv" -> "d:derived"	[style=dashed];	"d:falsifier"	[label=falsifier,		shape=ellipse];	"d:conv" -> "d:falsifier"	[style=dashed];	"q:decomp"	[label=decomp,		shape=ellipse];	"d:identity" -> "q:decomp"	[style=dashed];	"q:gap" -> "s:table"	[style=dashed];	"q:gap" -> "q:decomp"	[style=dashed];	"q:hyp"	[label=hyp,		shape=ellipse];	"q:gap" -> "q:hyp"	[style=dashed];	"r:law"	[label=law,		shape=ellipse];	"q:gap" -> "r:law"	[style=dashed];	"d:derived" -> "q:hyp"	[style=dashed];	"r:ibm"	[label=ibm,		shape=ellipse];	"q:decomp" -> "r:ibm"	[style=dashed];	"r:law" -> "r:ibm"	[style=dashed];	"h:scope"	[color=blue,		label=scope,		shape=ellipse];	"r:ibm" -> "c:summary"	[style=dashed];	"r:trunc"	[label=trunc,		shape=ellipse];	"r:ibm" -> "r:trunc"	[style=dashed];	"r:rfull"	[label=rfull,		shape=ellipse];	"r:trunc" -> "r:rfull"	[style=dashed];	"b:zz"	[color=green,		fillcolor="#1CAC78",		label=zz,		shape=ellipse,		style=filled];	"t:pairs"	[color=blue,		label=pairs,		shape=ellipse];	"t:cr"	[label=cr,		shape=ellipse];	"t:pairs" -> "t:cr"	[style=dashed];	"t:gap"	[label=gap,		shape=ellipse];	"t:pairs" -> "t:gap"	[style=dashed];	"r:cr"	[label=cr,		shape=ellipse];	"t:cr" -> "r:cr"	[style=dashed];	"t:gap" -> "s:table"	[style=dashed];	"t:gap" -> "t:certified"	[style=dashed];	"r:czconstr"	[color=blue,		label=czconstr,		shape=ellipse];	"r:czconstr" -> "r:cz"	[style=dashed];	"r:czconstr" -> "r:asymptotic"	[style=dashed];	"i:abstract"	[color=blue,		label=abstract,		shape=ellipse];	"b:ml"	[color=green,		fillcolor="#1CAC78",		label=ml,		shape=ellipse,		style=filled];	"b:twolevel"	[color=blue,		label=twolevel,		shape=ellipse];	"b:ml" -> "b:twolevel"	[style=dashed];	"b:twolevel" -> "q:gap"	[style=dashed];	"r:lower"	[label=lower,		shape=ellipse];	"b:twolevel" -> "r:lower"	[style=dashed];	"r:lower" -> "r:rfull"	[style=dashed];	"b:mt"	[color=green,		fillcolor="#1CAC78",		label=mt,		shape=ellipse,		style=filled];	"b:ent"	[color=green,		fillcolor="#1CAC78",		label=ent,		shape=ellipse,		style=filled];	"b:ent" -> "r:heis"	[style=dashed];	"b:ent" -> "b:bell"	[style=dashed];	"b:ent" -> "r:czconstr"	[style=dashed];	"x:repro"	[color=blue,		label=repro,		shape=ellipse];	"c:ack"	[color=blue,		label=ack,		shape=ellipse];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg width="1534pt" height="476pt"
+ viewBox="0.00 0.00 1534.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<!-- q:cap -->
+<g id="node1" class="node">
+<title>q:cap</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="219.56" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="219.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">cap</text>
+</g>
+<!-- q:perqubit -->
+<g id="node2" class="node">
+<title>q:perqubit</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="129.56" cy="-234" rx="41.63" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="129.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">perqubit</text>
+</g>
+<!-- q:cap&#45;&gt;q:perqubit -->
+<g id="edge1" class="edge">
+<title>q:cap&#45;&gt;q:perqubit</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M202.2,-291.5C189.68,-281.76 172.5,-268.4 157.99,-257.11"/>
+<polygon fill="black" stroke="black" points="150.32,-251.16 160.98,-253.74 153.31,-253.48 158.22,-257.29 158.22,-257.29 158.22,-257.29 153.31,-253.48 155.46,-260.84 150.32,-251.16"/>
+</g>
+<!-- b:table -->
+<g id="node3" class="node">
+<title>b:table</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="934.56" cy="-450" rx="28.83" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="934.56" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">table</text>
+</g>
+<!-- c:summary -->
+<g id="node4" class="node">
+<title>c:summary</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="539.56" cy="-90" rx="46.23" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="539.56" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">summary</text>
+</g>
+<!-- r:heis -->
+<g id="node5" class="node">
+<title>r:heis</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="788.56" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="788.56" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">heis</text>
+</g>
+<!-- b:approx -->
+<g id="node6" class="node">
+<title>b:approx</title>
+<ellipse fill="#1cac78" stroke="green" stroke-width="1.8" cx="925.56" cy="-306" rx="36.51" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="925.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">approx</text>
+</g>
+<!-- r:choi -->
+<g id="node7" class="node">
+<title>r:choi</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="883.56" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="883.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">choi</text>
+</g>
+<!-- b:approx&#45;&gt;r:choi -->
+<g id="edge2" class="edge">
+<title>b:approx&#45;&gt;r:choi</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M915.39,-288.05C910.47,-279.85 904.45,-269.83 898.99,-260.71"/>
+<polygon fill="black" stroke="black" points="893.97,-252.35 902.98,-258.61 895.92,-255.6 899.12,-260.93 899.12,-260.93 899.12,-260.93 895.92,-255.6 895.26,-263.24 893.97,-252.35"/>
+</g>
+<!-- r:cz -->
+<g id="node8" class="node">
+<title>r:cz</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="724.56" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="724.56" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">cz</text>
+</g>
+<!-- r:choi&#45;&gt;r:cz -->
+<g id="edge3" class="edge">
+<title>r:choi&#45;&gt;r:cz</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M861.11,-223.12C833.96,-211.17 788.05,-190.95 757.04,-177.3"/>
+<polygon fill="black" stroke="black" points="748.26,-173.43 759.22,-173.34 751.72,-174.96 757.41,-177.46 757.41,-177.46 757.41,-177.46 751.72,-174.96 755.59,-181.58 748.26,-173.43"/>
+</g>
+<!-- r:czrefined -->
+<g id="node9" class="node">
+<title>r:czrefined</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="883.56" cy="-162" rx="45.21" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="883.56" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">czrefined</text>
+</g>
+<!-- r:choi&#45;&gt;r:czrefined -->
+<g id="edge4" class="edge">
+<title>r:choi&#45;&gt;r:czrefined</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M883.56,-215.34C883.56,-208.07 883.56,-199.47 883.56,-191.36"/>
+<polygon fill="black" stroke="black" points="883.56,-181.64 888.06,-191.64 883.56,-185.42 883.56,-191.64 883.56,-191.64 883.56,-191.64 883.56,-185.42 879.06,-191.64 883.56,-181.64"/>
+</g>
+<!-- r:cz&#45;&gt;c:summary -->
+<g id="edge5" class="edge">
+<title>r:cz&#45;&gt;c:summary</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M701.13,-152.13C671.48,-140.92 619.85,-121.38 582.92,-107.41"/>
+<polygon fill="black" stroke="black" points="573.6,-103.88 584.55,-103.21 577.14,-105.22 582.95,-107.42 582.95,-107.42 582.95,-107.42 577.14,-105.22 581.36,-111.63 573.6,-103.88"/>
+</g>
+<!-- s:table -->
+<g id="node10" class="node">
+<title>s:table</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="500.56" cy="-234" rx="28.83" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="500.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">table</text>
+</g>
+<!-- s:duration -->
+<g id="node11" class="node">
+<title>s:duration</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="594.56" cy="-162" rx="41.63" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="594.56" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">duration</text>
+</g>
+<!-- s:table&#45;&gt;s:duration -->
+<g id="edge6" class="edge">
+<title>s:table&#45;&gt;s:duration</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M518.68,-219.5C531.88,-209.67 550.04,-196.15 565.29,-184.79"/>
+<polygon fill="black" stroke="black" points="572.89,-179.14 567.55,-188.72 569.86,-181.39 564.87,-185.1 564.87,-185.1 564.87,-185.1 569.86,-181.39 562.18,-181.49 572.89,-179.14"/>
+</g>
+<!-- s:error -->
+<g id="node12" class="node">
+<title>s:error</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="632.56" cy="-90" rx="28.83" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="632.56" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">error</text>
+</g>
+<!-- s:duration&#45;&gt;s:error -->
+<g id="edge7" class="edge">
+<title>s:duration&#45;&gt;s:error</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M603.95,-143.7C608.25,-135.78 613.43,-126.23 618.2,-117.44"/>
+<polygon fill="black" stroke="black" points="622.95,-108.69 622.13,-119.63 621.15,-112.01 618.18,-117.48 618.18,-117.48 618.18,-117.48 621.15,-112.01 614.22,-115.33 622.95,-108.69"/>
+</g>
+<!-- s:lesson -->
+<g id="node13" class="node">
+<title>s:lesson</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="632.56" cy="-18" rx="33.95" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="632.56" y="-12.95" font-family="Times New Roman,serif" font-size="14.00">lesson</text>
+</g>
+<!-- s:error&#45;&gt;s:lesson -->
+<g id="edge8" class="edge">
+<title>s:error&#45;&gt;s:lesson</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M632.56,-71.34C632.56,-64.07 632.56,-55.47 632.56,-47.36"/>
+<polygon fill="black" stroke="black" points="632.56,-37.63 637.06,-47.63 632.56,-41.42 632.56,-47.63 632.56,-47.63 632.56,-47.63 632.56,-41.42 628.06,-47.63 632.56,-37.63"/>
+</g>
+<!-- r:asymptotic -->
+<g id="node14" class="node">
+<title>r:asymptotic</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="1070.6" cy="-306" rx="51.86" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1070.6" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">asymptotic</text>
+</g>
+<!-- i:claims -->
+<g id="node15" class="node">
+<title>i:claims</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="1016.6" cy="-450" rx="35.49" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1016.6" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">claims</text>
+</g>
+<!-- b:chord -->
+<g id="node16" class="node">
+<title>b:chord</title>
+<ellipse fill="#1cac78" stroke="green" stroke-width="1.8" cx="582.56" cy="-306" rx="31.9" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="582.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">chord</text>
+</g>
+<!-- t:certified -->
+<g id="node17" class="node">
+<title>t:certified</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="687.56" cy="-234" rx="41.63" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="687.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">certified</text>
+</g>
+<!-- b:chord&#45;&gt;t:certified -->
+<g id="edge9" class="edge">
+<title>b:chord&#45;&gt;t:certified</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M603.05,-291.34C618.16,-281.27 638.98,-267.38 656.18,-255.92"/>
+<polygon fill="black" stroke="black" points="664.29,-250.52 658.46,-259.81 661.14,-252.61 655.97,-256.06 655.97,-256.06 655.97,-256.06 661.14,-252.61 653.47,-252.32 664.29,-250.52"/>
+</g>
+<!-- t:controls -->
+<g id="node18" class="node">
+<title>t:controls</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="587.56" cy="-234" rx="40.6" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="587.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">controls</text>
+</g>
+<!-- b:chord&#45;&gt;t:controls -->
+<g id="edge10" class="edge">
+<title>b:chord&#45;&gt;t:controls</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M583.82,-287.34C584.34,-280.07 584.95,-271.47 585.53,-263.36"/>
+<polygon fill="black" stroke="black" points="586.22,-253.64 590,-263.93 585.95,-257.41 585.51,-263.61 585.51,-263.61 585.51,-263.61 585.95,-257.41 581.02,-263.29 586.22,-253.64"/>
+</g>
+<!-- t:certified&#45;&gt;r:cz -->
+<g id="edge11" class="edge">
+<title>t:certified&#45;&gt;r:cz</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M696.7,-215.7C700.89,-207.78 705.94,-198.23 710.58,-189.44"/>
+<polygon fill="black" stroke="black" points="715.2,-180.7 714.51,-191.64 713.43,-184.04 710.53,-189.54 710.53,-189.54 710.53,-189.54 713.43,-184.04 706.55,-187.44 715.2,-180.7"/>
+</g>
+<!-- b:bell -->
+<g id="node19" class="node">
+<title>b:bell</title>
+<ellipse fill="#1cac78" stroke="green" stroke-width="1.8" cx="860.56" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="860.56" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">bell</text>
+</g>
+<!-- b:bell&#45;&gt;b:approx -->
+<g id="edge12" class="edge">
+<title>b:bell&#45;&gt;b:approx</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M874.66,-361.81C882.94,-352.89 893.61,-341.41 903.03,-331.26"/>
+<polygon fill="black" stroke="black" points="909.75,-324.02 906.24,-334.41 907.18,-326.79 902.95,-331.35 902.95,-331.35 902.95,-331.35 907.18,-326.79 899.65,-328.29 909.75,-324.02"/>
+</g>
+<!-- b:bell&#45;&gt;t:certified -->
+<g id="edge13" class="edge">
+<title>b:bell&#45;&gt;t:certified</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M861.61,-359.37C861.81,-339.61 859.05,-307.75 841.56,-288 840.58,-286.9 775.98,-264.9 730.77,-249.59"/>
+<polygon fill="black" stroke="black" points="721.46,-246.44 732.38,-245.38 725.05,-247.65 730.94,-249.65 730.94,-249.65 730.94,-249.65 725.05,-247.65 729.49,-253.91 721.46,-246.44"/>
+</g>
+<!-- b:cnot -->
+<g id="node20" class="node">
+<title>b:cnot</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="731.56" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="731.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">cnot</text>
+</g>
+<!-- b:bell&#45;&gt;b:cnot -->
+<g id="edge14" class="edge">
+<title>b:bell&#45;&gt;b:cnot</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M839.54,-365.6C818.55,-354.21 786.06,-336.58 762.2,-323.63"/>
+<polygon fill="black" stroke="black" points="753.63,-318.98 764.57,-319.79 756.96,-320.78 762.42,-323.75 762.42,-323.75 762.42,-323.75 756.96,-320.78 760.27,-327.71 753.63,-318.98"/>
+</g>
+<!-- b:tight -->
+<g id="node21" class="node">
+<title>b:tight</title>
+<ellipse fill="#1cac78" stroke="green" stroke-width="1.8" cx="804.56" cy="-306" rx="27.81" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="804.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">tight</text>
+</g>
+<!-- b:bell&#45;&gt;b:tight -->
+<g id="edge15" class="edge">
+<title>b:bell&#45;&gt;b:tight</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M848.13,-361.46C841.02,-352.58 831.96,-341.25 823.94,-331.22"/>
+<polygon fill="black" stroke="black" points="817.71,-323.44 827.47,-328.43 820.08,-326.39 823.96,-331.25 823.96,-331.25 823.96,-331.25 820.08,-326.39 820.45,-334.06 817.71,-323.44"/>
+</g>
+<!-- d:conv -->
+<g id="node22" class="node">
+<title>d:conv</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="219.56" cy="-378" rx="28.83" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="219.56" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">conv</text>
+</g>
+<!-- d:conv&#45;&gt;q:cap -->
+<g id="edge16" class="edge">
+<title>d:conv&#45;&gt;q:cap</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M219.56,-359.34C219.56,-352.07 219.56,-343.47 219.56,-335.36"/>
+<polygon fill="black" stroke="black" points="219.56,-325.64 224.06,-335.64 219.56,-329.42 219.56,-335.64 219.56,-335.64 219.56,-335.64 219.56,-329.42 215.06,-335.64 219.56,-325.64"/>
+</g>
+<!-- d:identity -->
+<g id="node23" class="node">
+<title>d:identity</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="303.56" cy="-306" rx="39.07" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="303.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">identity</text>
+</g>
+<!-- d:conv&#45;&gt;d:identity -->
+<g id="edge17" class="edge">
+<title>d:conv&#45;&gt;d:identity</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M236.55,-362.83C248.04,-353.27 263.44,-340.43 276.58,-329.48"/>
+<polygon fill="black" stroke="black" points="283.89,-323.39 279.09,-333.25 280.99,-325.81 276.21,-329.79 276.21,-329.79 276.21,-329.79 280.99,-325.81 273.33,-326.33 283.89,-323.39"/>
+</g>
+<!-- q:gap -->
+<g id="node24" class="node">
+<title>q:gap</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="388.56" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="388.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">gap</text>
+</g>
+<!-- d:conv&#45;&gt;q:gap -->
+<g id="edge18" class="edge">
+<title>d:conv&#45;&gt;q:gap</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M244.03,-367.59C270.64,-357.25 314.35,-340 351.56,-324 353.25,-323.27 354.99,-322.51 356.74,-321.74"/>
+<polygon fill="black" stroke="black" points="365.61,-317.75 358.34,-325.96 362.16,-319.3 356.49,-321.85 356.49,-321.85 356.49,-321.85 362.16,-319.3 354.64,-317.75 365.61,-317.75"/>
+</g>
+<!-- d:derived -->
+<g id="node25" class="node">
+<title>d:derived</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="38.56" cy="-306" rx="38.56" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="38.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">derived</text>
+</g>
+<!-- d:conv&#45;&gt;d:derived -->
+<g id="edge19" class="edge">
+<title>d:conv&#45;&gt;d:derived</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M195.15,-367.56C165.11,-355.94 113.72,-336.07 78.04,-322.27"/>
+<polygon fill="black" stroke="black" points="69.1,-318.81 80.05,-318.22 72.63,-320.18 78.43,-322.42 78.43,-322.42 78.43,-322.42 72.63,-320.18 76.8,-326.62 69.1,-318.81"/>
+</g>
+<!-- d:falsifier -->
+<g id="node26" class="node">
+<title>d:falsifier</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="134.56" cy="-306" rx="39.58" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="134.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">falsifier</text>
+</g>
+<!-- d:conv&#45;&gt;d:falsifier -->
+<g id="edge20" class="edge">
+<title>d:conv&#45;&gt;d:falsifier</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M202.36,-362.83C190.74,-353.27 175.15,-340.43 161.85,-329.48"/>
+<polygon fill="black" stroke="black" points="154.45,-323.38 165.03,-326.27 157.37,-325.79 162.17,-329.74 162.17,-329.74 162.17,-329.74 157.37,-325.79 159.31,-333.22 154.45,-323.38"/>
+</g>
+<!-- q:decomp -->
+<g id="node27" class="node">
+<title>q:decomp</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="302.56" cy="-234" rx="40.6" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="302.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">decomp</text>
+</g>
+<!-- d:identity&#45;&gt;q:decomp -->
+<g id="edge21" class="edge">
+<title>d:identity&#45;&gt;q:decomp</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M303.3,-287.34C303.2,-280.07 303.08,-271.47 302.96,-263.36"/>
+<polygon fill="black" stroke="black" points="302.83,-253.64 307.46,-263.58 302.88,-257.42 302.96,-263.64 302.96,-263.64 302.96,-263.64 302.88,-257.42 298.46,-263.7 302.83,-253.64"/>
+</g>
+<!-- q:gap&#45;&gt;s:table -->
+<g id="edge22" class="edge">
+<title>q:gap&#45;&gt;s:table</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M408.07,-292.81C425.52,-281.9 451.34,-265.76 471.27,-253.3"/>
+<polygon fill="black" stroke="black" points="479.49,-248.17 473.39,-257.28 476.28,-250.17 471.01,-253.46 471.01,-253.46 471.01,-253.46 476.28,-250.17 468.62,-249.65 479.49,-248.17"/>
+</g>
+<!-- q:gap&#45;&gt;q:decomp -->
+<g id="edge23" class="edge">
+<title>q:gap&#45;&gt;q:decomp</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M371.57,-291.17C359.76,-281.56 343.76,-268.54 330.15,-257.46"/>
+<polygon fill="black" stroke="black" points="322.56,-251.28 333.15,-254.1 325.49,-253.67 330.31,-257.59 330.31,-257.59 330.31,-257.59 325.49,-253.67 327.47,-261.08 322.56,-251.28"/>
+</g>
+<!-- q:hyp -->
+<g id="node28" class="node">
+<title>q:hyp</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="216.56" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="216.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">hyp</text>
+</g>
+<!-- q:gap&#45;&gt;q:hyp -->
+<g id="edge24" class="edge">
+<title>q:gap&#45;&gt;q:hyp</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M366.77,-294.63C361.81,-292.37 356.53,-290.04 351.56,-288 308.25,-270.21 295.77,-270.02 252.56,-252 251.08,-251.38 249.58,-250.74 248.07,-250.08"/>
+<polygon fill="black" stroke="black" points="239.22,-246.08 250.19,-246.1 242.67,-247.64 248.33,-250.2 248.33,-250.2 248.33,-250.2 242.67,-247.64 246.48,-254.3 239.22,-246.08"/>
+</g>
+<!-- r:law -->
+<g id="node29" class="node">
+<title>r:law</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="388.56" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="388.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">law</text>
+</g>
+<!-- q:gap&#45;&gt;r:law -->
+<g id="edge25" class="edge">
+<title>q:gap&#45;&gt;r:law</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M388.56,-287.34C388.56,-280.07 388.56,-271.47 388.56,-263.36"/>
+<polygon fill="black" stroke="black" points="388.56,-253.64 393.06,-263.64 388.56,-257.42 388.56,-263.64 388.56,-263.64 388.56,-263.64 388.56,-257.42 384.06,-263.64 388.56,-253.64"/>
+</g>
+<!-- d:derived&#45;&gt;q:hyp -->
+<g id="edge26" class="edge">
+<title>d:derived&#45;&gt;q:hyp</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M68.89,-294.02C104.09,-281.21 159.95,-260.69 180.56,-252 182.03,-251.38 183.53,-250.73 185.04,-250.07"/>
+<polygon fill="black" stroke="black" points="193.88,-246.05 186.64,-254.29 190.44,-247.62 184.78,-250.19 184.78,-250.19 184.78,-250.19 190.44,-247.62 182.92,-246.09 193.88,-246.05"/>
+</g>
+<!-- r:ibm -->
+<g id="node30" class="node">
+<title>r:ibm</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="375.56" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="375.56" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">ibm</text>
+</g>
+<!-- q:decomp&#45;&gt;r:ibm -->
+<g id="edge27" class="edge">
+<title>q:decomp&#45;&gt;r:ibm</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M319.49,-216.76C329.19,-207.46 341.52,-195.64 352.14,-185.46"/>
+<polygon fill="black" stroke="black" points="359.33,-178.56 355.23,-188.73 356.6,-181.18 352.11,-185.49 352.11,-185.49 352.11,-185.49 356.6,-181.18 349,-182.24 359.33,-178.56"/>
+</g>
+<!-- r:law&#45;&gt;r:ibm -->
+<g id="edge28" class="edge">
+<title>r:law&#45;&gt;r:ibm</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M385.28,-215.34C383.93,-208.07 382.33,-199.47 380.82,-191.36"/>
+<polygon fill="black" stroke="black" points="379.01,-181.62 385.26,-190.63 379.7,-185.34 380.84,-191.45 380.84,-191.45 380.84,-191.45 379.7,-185.34 376.41,-192.27 379.01,-181.62"/>
+</g>
+<!-- r:ibm&#45;&gt;c:summary -->
+<g id="edge29" class="edge">
+<title>r:ibm&#45;&gt;c:summary</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M398.36,-151.27C424.14,-140.26 466.63,-122.13 498.28,-108.62"/>
+<polygon fill="black" stroke="black" points="507.43,-104.71 500,-112.78 503.95,-106.2 498.23,-108.64 498.23,-108.64 498.23,-108.64 503.95,-106.2 496.47,-104.5 507.43,-104.71"/>
+</g>
+<!-- r:trunc -->
+<g id="node32" class="node">
+<title>r:trunc</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="363.56" cy="-90" rx="29.86" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="363.56" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">trunc</text>
+</g>
+<!-- r:ibm&#45;&gt;r:trunc -->
+<g id="edge30" class="edge">
+<title>r:ibm&#45;&gt;r:trunc</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M372.53,-143.34C371.28,-136.07 369.81,-127.47 368.42,-119.36"/>
+<polygon fill="black" stroke="black" points="366.75,-109.62 372.88,-118.71 367.39,-113.35 368.44,-119.48 368.44,-119.48 368.44,-119.48 367.39,-113.35 364.01,-120.24 366.75,-109.62"/>
+</g>
+<!-- h:scope -->
+<g id="node31" class="node">
+<title>h:scope</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="1101.6" cy="-450" rx="31.9" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1101.6" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">scope</text>
+</g>
+<!-- r:rfull -->
+<g id="node33" class="node">
+<title>r:rfull</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="403.56" cy="-18" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="403.56" y="-12.95" font-family="Times New Roman,serif" font-size="14.00">rfull</text>
+</g>
+<!-- r:trunc&#45;&gt;r:rfull -->
+<g id="edge31" class="edge">
+<title>r:trunc&#45;&gt;r:rfull</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M373.04,-72.41C377.72,-64.22 383.48,-54.14 388.72,-44.95"/>
+<polygon fill="black" stroke="black" points="393.54,-36.53 392.48,-47.44 391.66,-39.81 388.57,-45.21 388.57,-45.21 388.57,-45.21 391.66,-39.81 384.67,-42.98 393.54,-36.53"/>
+</g>
+<!-- b:zz -->
+<g id="node34" class="node">
+<title>b:zz</title>
+<ellipse fill="#1cac78" stroke="green" stroke-width="1.8" cx="1178.6" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1178.6" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">zz</text>
+</g>
+<!-- t:pairs -->
+<g id="node35" class="node">
+<title>t:pairs</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="596.56" cy="-378" rx="28.83" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="596.56" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">pairs</text>
+</g>
+<!-- t:cr -->
+<g id="node36" class="node">
+<title>t:cr</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="659.56" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="659.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">cr</text>
+</g>
+<!-- t:pairs&#45;&gt;t:cr -->
+<g id="edge32" class="edge">
+<title>t:pairs&#45;&gt;t:cr</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M610.54,-361.46C618.81,-352.28 629.44,-340.46 638.69,-330.19"/>
+<polygon fill="black" stroke="black" points="645.24,-322.92 641.89,-333.36 642.71,-325.73 638.55,-330.35 638.55,-330.35 638.55,-330.35 642.71,-325.73 635.2,-327.34 645.24,-322.92"/>
+</g>
+<!-- t:gap -->
+<g id="node37" class="node">
+<title>t:gap</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="505.56" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="505.56" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">gap</text>
+</g>
+<!-- t:pairs&#45;&gt;t:gap -->
+<g id="edge33" class="edge">
+<title>t:pairs&#45;&gt;t:gap</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M578.58,-363.17C565.28,-352.94 546.96,-338.85 532,-327.34"/>
+<polygon fill="black" stroke="black" points="524.16,-321.3 534.83,-323.84 527.15,-323.61 532.08,-327.4 532.08,-327.4 532.08,-327.4 527.15,-323.61 529.34,-330.97 524.16,-321.3"/>
+</g>
+<!-- r:cr -->
+<g id="node38" class="node">
+<title>r:cr</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="774.56" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="774.56" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">cr</text>
+</g>
+<!-- t:cr&#45;&gt;r:cr -->
+<g id="edge34" class="edge">
+<title>t:cr&#45;&gt;r:cr</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M679.33,-292.97C697.43,-281.95 724.46,-265.49 745.11,-252.93"/>
+<polygon fill="black" stroke="black" points="753.62,-247.74 747.42,-256.79 750.39,-249.71 745.08,-252.95 745.08,-252.95 745.08,-252.95 750.39,-249.71 742.74,-249.11 753.62,-247.74"/>
+</g>
+<!-- t:gap&#45;&gt;s:table -->
+<g id="edge35" class="edge">
+<title>t:gap&#45;&gt;s:table</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M504.29,-287.34C503.78,-280.07 503.16,-271.47 502.58,-263.36"/>
+<polygon fill="black" stroke="black" points="501.89,-253.64 507.09,-263.29 502.16,-257.41 502.6,-263.61 502.6,-263.61 502.6,-263.61 502.16,-257.41 498.11,-263.93 501.89,-253.64"/>
+</g>
+<!-- t:gap&#45;&gt;t:certified -->
+<g id="edge36" class="edge">
+<title>t:gap&#45;&gt;t:certified</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M527.11,-294.42C531.83,-292.22 536.83,-289.97 541.56,-288 560.64,-280.05 609.26,-262.6 645.17,-249.89"/>
+<polygon fill="black" stroke="black" points="654.25,-246.69 646.32,-254.26 650.69,-247.94 644.82,-250.01 644.82,-250.01 644.82,-250.01 650.69,-247.94 643.32,-245.77 654.25,-246.69"/>
+</g>
+<!-- r:czconstr -->
+<g id="node39" class="node">
+<title>r:czconstr</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="990.56" cy="-378" rx="41.63" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="990.56" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">czconstr</text>
+</g>
+<!-- r:czconstr&#45;&gt;r:cz -->
+<g id="edge37" class="edge">
+<title>r:czconstr&#45;&gt;r:cz</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M988.95,-359.28C986.79,-340.82 981.94,-311.39 971.56,-288 955.54,-251.92 952.02,-238.46 919.56,-216 894.06,-198.36 810.83,-179.82 761.73,-170.02"/>
+<polygon fill="black" stroke="black" points="752.12,-168.13 762.79,-165.64 755.83,-168.86 761.93,-170.06 761.93,-170.06 761.93,-170.06 755.83,-168.86 761.06,-174.47 752.12,-168.13"/>
+</g>
+<!-- r:czconstr&#45;&gt;r:asymptotic -->
+<g id="edge38" class="edge">
+<title>r:czconstr&#45;&gt;r:asymptotic</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M1008.7,-361.12C1018.9,-352.18 1031.9,-340.85 1043.3,-330.86"/>
+<polygon fill="black" stroke="black" points="1050.69,-324.36 1046.16,-334.34 1047.85,-326.85 1043.18,-330.96 1043.18,-330.96 1043.18,-330.96 1047.85,-326.85 1040.21,-327.59 1050.69,-324.36"/>
+</g>
+<!-- i:abstract -->
+<g id="node40" class="node">
+<title>i:abstract</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="1263.6" cy="-450" rx="39.58" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1263.6" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">abstract</text>
+</g>
+<!-- b:ml -->
+<g id="node41" class="node">
+<title>b:ml</title>
+<ellipse fill="#1cac78" stroke="green" stroke-width="1.8" cx="416.56" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="416.56" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">ml</text>
+</g>
+<!-- b:twolevel -->
+<g id="node42" class="node">
+<title>b:twolevel</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="416.56" cy="-378" rx="42.65" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="416.56" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">twolevel</text>
+</g>
+<!-- b:ml&#45;&gt;b:twolevel -->
+<g id="edge39" class="edge">
+<title>b:ml&#45;&gt;b:twolevel</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M416.56,-431.34C416.56,-424.07 416.56,-415.47 416.56,-407.36"/>
+<polygon fill="black" stroke="black" points="416.56,-397.64 421.06,-407.64 416.56,-401.42 416.56,-407.64 416.56,-407.64 416.56,-407.64 416.56,-401.42 412.06,-407.64 416.56,-397.64"/>
+</g>
+<!-- b:twolevel&#45;&gt;q:gap -->
+<g id="edge40" class="edge">
+<title>b:twolevel&#45;&gt;q:gap</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M409.63,-359.7C406.58,-352.07 402.92,-342.92 399.51,-334.4"/>
+<polygon fill="black" stroke="black" points="395.85,-325.23 403.74,-332.85 397.25,-328.74 399.56,-334.52 399.56,-334.52 399.56,-334.52 397.25,-328.74 395.38,-336.19 395.85,-325.23"/>
+</g>
+<!-- r:lower -->
+<g id="node43" class="node">
+<title>r:lower</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="443.56" cy="-90" rx="31.9" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="443.56" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">lower</text>
+</g>
+<!-- b:twolevel&#45;&gt;r:lower -->
+<g id="edge41" class="edge">
+<title>b:twolevel&#45;&gt;r:lower</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M419.53,-359.37C421.18,-349.08 423.18,-335.83 424.56,-324 433.07,-250.7 439.07,-163.98 441.84,-119.88"/>
+<polygon fill="black" stroke="black" points="442.45,-110.09 446.32,-120.34 442.21,-113.86 441.83,-120.07 441.83,-120.07 441.83,-120.07 442.21,-113.86 437.34,-119.79 442.45,-110.09"/>
+</g>
+<!-- r:lower&#45;&gt;r:rfull -->
+<g id="edge42" class="edge">
+<title>r:lower&#45;&gt;r:rfull</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M433.87,-72.06C429.24,-63.94 423.58,-54.04 418.42,-45.01"/>
+<polygon fill="black" stroke="black" points="413.48,-36.36 422.35,-42.81 415.35,-39.65 418.44,-45.04 418.44,-45.04 418.44,-45.04 415.35,-39.65 414.54,-47.28 413.48,-36.36"/>
+</g>
+<!-- b:mt -->
+<g id="node44" class="node">
+<title>b:mt</title>
+<ellipse fill="#1cac78" stroke="green" stroke-width="1.8" cx="1348.6" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1348.6" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">mt</text>
+</g>
+<!-- b:ent -->
+<g id="node45" class="node">
+<title>b:ent</title>
+<ellipse fill="#1cac78" stroke="green" stroke-width="1.8" cx="860.56" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="860.56" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">ent</text>
+</g>
+<!-- b:ent&#45;&gt;r:heis -->
+<g id="edge43" class="edge">
+<title>b:ent&#45;&gt;r:heis</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M845.64,-434.5C835.69,-424.83 822.44,-411.94 811.2,-401.02"/>
+<polygon fill="black" stroke="black" points="804.33,-394.34 814.64,-398.09 807.04,-396.98 811.5,-401.31 811.5,-401.31 811.5,-401.31 807.04,-396.98 808.36,-404.54 804.33,-394.34"/>
+</g>
+<!-- b:ent&#45;&gt;b:bell -->
+<g id="edge44" class="edge">
+<title>b:ent&#45;&gt;b:bell</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M860.56,-431.34C860.56,-424.07 860.56,-415.47 860.56,-407.36"/>
+<polygon fill="black" stroke="black" points="860.56,-397.64 865.06,-407.64 860.56,-401.42 860.56,-407.64 860.56,-407.64 860.56,-407.64 860.56,-401.42 856.06,-407.64 860.56,-397.64"/>
+</g>
+<!-- b:ent&#45;&gt;r:czconstr -->
+<g id="edge45" class="edge">
+<title>b:ent&#45;&gt;r:czconstr</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M881.44,-437.75C901.29,-427.07 931.52,-410.79 955.13,-398.07"/>
+<polygon fill="black" stroke="black" points="963.73,-393.45 957.05,-402.15 960.4,-395.24 954.92,-398.18 954.92,-398.18 954.92,-398.18 960.4,-395.24 952.79,-394.22 963.73,-393.45"/>
+</g>
+<!-- x:repro -->
+<g id="node46" class="node">
+<title>x:repro</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="1423.6" cy="-450" rx="30.37" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1423.6" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">repro</text>
+</g>
+<!-- c:ack -->
+<g id="node47" class="node">
+<title>c:ack</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="1498.6" cy="-450" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="1498.6" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">ack</text>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"i:abstract": "Remark Abstract — Abstract", "i:claims": "Remark §I — What the paper claims", "b:table": "Remark Table I — Table I", "b:ml": "Theorem §II-A — Margolus–Levitin", "b:mt": "Theorem §II-A — Mandelstam–Tamm, L¹ form", "b:zz": "Theorem §II-A — Zieliński–Zych", "b:twolevel": "Theorem §II-A — Two-level speed limit", "b:ent": "Theorem §II-B — Entangling-time bound", "b:bell": "Corollary §II-B — Bell preparation", "b:tight": "Proposition §II-B — The bound is attained", "b:chord": "Theorem §II-B — Chord-distance bound", "b:cnot": "Corollary §II-B — Consequence for CNOT and ECR", "b:approx": "Theorem §II-B — Robust speed limits", "d:conv": "Observation §III-C — The drive convention", "d:identity": "Observation §III-C — The pulse-area identity", "d:derived": "Observation §III-C — omegad is derived", "d:falsifier": "Observation §III-D — Exclusions and falsifier", "q:gap": "Observation §IV-A — The single-qubit gap", "q:decomp": "Observation §IV-C — What sets the duration", "q:hyp": "Observation §IV-B — Pre-registered hypotheses", "q:cap": "Observation §IV-C — A cap near 0.1", "q:perqubit": "Observation §IV-C — Per-qubit durations", "t:pairs": "Observation §V-A — The pairs", "t:gap": "Observation §V-B — The two-qubit gap", "t:certified": "Observation §V-C — The certified ratio", "t:controls": "Observation §V-C — Numerical controls", "t:cr": "Observation §V-D — Cross resonance and the first-order formula", "s:table": "Observation §VI — Median gaps by year", "s:duration": "Observation §VI — Duration, not coupling", "s:error": "Observation §VI — Lengthening and error", "s:lesson": "Observation §VI — A methodological lesson", "r:law": "Observation §VII-A — The single-qubit law", "r:lower": "Proposition §VII-A — Multilevel lower bound", "r:ibm": "Observation §VII-A — What IBM could reach", "r:trunc": "Observation §VII-A — Truncation", "r:rfull": "Observation §VII-A — The full amplitude of IBM", "r:cr": "Observation §VII-B — Cross-resonance CNOT by optimal control", "r:cz": "Observation §VII-B — CZ with the second level", "r:czconstr": "Observation §VII-B — An explicit construction of the CZ", "r:choi": "Observation §VII-B — The Choi-state bound for the gate", "r:czrefined": "Observation §VII-B — The refined CZ bound", "r:asymptotic": "Observation §VII-B — Larger local dimension", "r:heis": "Observation §VII-B — Heisenberg coupling", "h:scope": "Remark §VIII — What the certificate guarantees", "x:repro": "Remark §IX — Reproducibility", "c:summary": "Remark §X — Conclusion", "c:ack": "Remark §X — Conflict of interest and acknowledgment"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<style id="lm-lean-panel-css">
+.lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
+/* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
+.lm-panel{position:fixed;inset:6vh 7vw;z-index:9999;background:#fff;border:1px solid #c9d3de;border-radius:10px;
+  box-shadow:0 14px 48px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+/* 21-oct, Carles: the name centred, a little larger, with a shadow, on a header with its own colour */
+.lm-panel header{background:linear-gradient(180deg,#f3f7fc 0%,#dde7f3 100%);border-bottom:1px solid #b9c8da;
+  box-shadow:0 2px 6px rgba(26,79,139,.12);padding:.55rem .9rem;display:grid;grid-template-columns:1fr minmax(0,auto) 1fr;
+  gap:.9rem;align-items:center;font:14px Arial,sans-serif}
+.lm-panel header b{grid-column:2;text-align:center;font:600 17px/1.2 "Cascadia Code","JetBrains Mono",Consolas,Menlo,monospace;
+  color:#163f6e;letter-spacing:.01em;text-shadow:0 1px 0 #fff,0 2px 4px rgba(22,63,110,.28);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.lm-panel header button{grid-column:3;justify-self:end}
+.lm-panel header a{color:#1a4f8b}.lm-panel header button{border:0;background:#1a4f8b;color:#fff;border-radius:999px;
+  padding:.15rem .7rem;cursor:pointer;font:14px Arial,sans-serif}
+.lm-panel iframe{flex:1;border:0;width:100%;background:#fbfcfe}
+@media (max-width:700px){.lm-panel{inset:0;border-radius:0}}
+</style>
+<script id="lm-lean-panel">
+/* 21-oct, Carles: the Lean opens in a central window over the blueprint, and closing it leaves the reader where he was */
+(function(){
+  /* the browser's Back (or the phone's back gesture) closes the panel instead of leaving the blueprint: the panel
+     pushes one history entry; closing it by hand takes that entry back out (21-oct: «que pueda volver donde estaba») */
+  function quitar(){var p=document.querySelector('.lm-panel'),v=document.querySelector('.lm-veil');
+    if(p)p.remove();if(v)v.remove();document.removeEventListener('keydown',esc);}
+  function cerrar(){if(history.state&&history.state.lmPanel)history.back();else quitar();}
+  window.addEventListener('popstate',function(){quitar();});
+  function esc(e){if(e.key==='Escape')cerrar();}
+  function abrir(href,nombre,gh){quitar();
+    if(!(history.state&&history.state.lmPanel))history.pushState({lmPanel:1},'');
+    var v=document.createElement('div');v.className='lm-veil';v.onclick=cerrar;
+    var p=document.createElement('div');p.className='lm-panel';p.setAttribute('role','dialog');
+    /* 21-oct, Carles: the window header has the name and Close only; the ✒️ stays in the Lean page's own header
+       inside the window, as GitHub does (Carles: «está en dos sitios», «quita el emoji de esa leyenda») */
+    p.innerHTML='<header><b></b>'+
+      '<button type="button" title="Close (Esc)">✕ Close</button></header><iframe title="Lean source"></iframe>';
+    p.querySelector('b').textContent=nombre||'';
+    /* ?panel=1: the Lean page knows it is inside the window (no Atlas link) and the URL skips an old cached copy */
+    var i=href.indexOf('#'),src=(i<0?href:href.slice(0,i))+'?panel=1'+(i<0?'':href.slice(i));
+    p.querySelector('button').onclick=cerrar;p.querySelector('iframe').src=src;
+    document.body.appendChild(v);document.body.appendChild(p);document.addEventListener('keydown',esc);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lean-github]');
+    if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>
