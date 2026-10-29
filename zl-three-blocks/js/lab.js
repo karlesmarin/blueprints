@@ -96,6 +96,15 @@
     (lab.figures || []).forEach(function (name) {
       var img = document.querySelector('img[alt*="' + name + '"]');
       if (!img || slotOf(name)) return;
+      if (lab.figure_live === false) {  // the figure stays static; only a button to the lab, where it is drawn live
+        if (img.parentElement.querySelector(':scope > .lm-figlink[data-lab="' + lab.id + '"]')) return;
+        var go = document.createElement('button');
+        go.type = 'button'; go.className = 'lm-figlink'; go.setAttribute('data-lab', lab.id);
+        go.textContent = '🧪 ' + (lab.figure_link || 'Your own input: the lab') + ' →';
+        go.addEventListener('click', function () { open(); });
+        img.insertAdjacentElement('afterend', go);
+        return;
+      }
       var slot = document.createElement('div'), tg = document.createElement('button'), a = document.createElement('button');
       slot.className = 'lm-figslot'; slot.setAttribute('data-for', name);
       slot.innerHTML = '<div class="lm-figwait">⏳ the live figure loads here (Python in the browser, first time ~15 s)…</div>';
