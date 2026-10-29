@@ -262,7 +262,11 @@
     function dice() {
       if (!py) { start(); return; }
       try {
-        var r = JSON.parse(py.globals.get('__import__')(lab.module)[lab.random]());
+        // «module.function» names a dice in another file of the lab (30-oct, qsl-diagnostics: one dice module for
+        // several labs); a bare name is looked up in the lab's own module
+        var dot = lab.random.lastIndexOf('.');
+        var rmod = dot > 0 ? lab.random.slice(0, dot) : lab.module, rfun = dot > 0 ? lab.random.slice(dot + 1) : lab.random;
+        var r = JSON.parse(py.globals.get('__import__')(rmod)[rfun]());
         Object.keys(r).forEach(function (k) { var i = box.querySelector('[data-name="' + k + '"]'); if (i) i.value = r[k]; });
         document.querySelectorAll('.lm-figform[data-lab="' + lab.id + '"] input[data-mirror]').forEach(function (m) {
           var i = box.querySelector('[data-name="' + m.dataset.mirror + '"]'); if (i) m.value = i.value;

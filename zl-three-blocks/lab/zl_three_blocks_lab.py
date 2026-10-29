@@ -485,8 +485,9 @@ def random_blocks():
     n = random.randint(3, 12)
     cuts = sorted(random.sample(range(1, n), 2))
     x, y, z = sorted((cuts[0], cuts[1] - cuts[0], n - cuts[1]), reverse=True)
+    # 30-oct (lemmario labcheck: «source» never changed): one throw in five shows the paper's 22 x 5 configuration
     return json.dumps({'n': str(n), 'x': str(x), 'y': str(y), 'z': str(z), 'copies': str(random.randint(1, 3)),
-                       'source': 'module'})
+                       'source': 'paper' if random.random() < 0.2 else 'module'})
 
 
 def random_slopes():

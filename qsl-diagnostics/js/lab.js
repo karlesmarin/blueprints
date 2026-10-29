@@ -96,6 +96,15 @@
     (lab.figures || []).forEach(function (name) {
       var img = document.querySelector('img[alt*="' + name + '"]');
       if (!img || slotOf(name)) return;
+      if (lab.figure_live === false) {  // the figure stays static; only a button to the lab, where it is drawn live
+        if (img.parentElement.querySelector(':scope > .lm-figlink[data-lab="' + lab.id + '"]')) return;
+        var go = document.createElement('button');
+        go.type = 'button'; go.className = 'lm-figlink'; go.setAttribute('data-lab', lab.id);
+        go.textContent = '🧪 ' + (lab.figure_link || 'Your own input: the lab') + ' →';
+        go.addEventListener('click', function () { open(); });
+        img.insertAdjacentElement('afterend', go);
+        return;
+      }
       var slot = document.createElement('div'), tg = document.createElement('button'), a = document.createElement('button');
       slot.className = 'lm-figslot'; slot.setAttribute('data-for', name);
       slot.innerHTML = '<div class="lm-figwait">⏳ the live figure loads here (Python in the browser, first time ~15 s)…</div>';
@@ -176,7 +185,9 @@
       var a = inp.type === 'int' ? ' type="number" min="' + (inp.min !== undefined ? inp.min : '') + '" max="' + (inp.max !== undefined ? inp.max : '') + '"' : ' type="text" size="' + (inp.size || 18) + '"';
       form += '<label>' + esc(inp.label || inp.name) + ' <input data-name="' + inp.name + '"' + a + ' value="' + esc(inp['default']) + '"></label> ';
     });
-    form += '<button type="button" class="lm-run" disabled>Compute</button> <span class="lm-state">⏳ Python loads when you open this lab</span></div>';
+    form += '<button type="button" class="lm-run" disabled>Compute</button>' +
+      (lab.random ? ' <button type="button" class="lm-dice" title="random inputs: see what happens">🎲 random</button>' : '') +
+      ' <span class="lm-state">⏳ Python loads when you open this lab</span></div>';
     if (lab.examples && lab.examples.length) {
       form += '<div class="lm-ex">Examples: ' + lab.examples.map(function (e, i) {
         return '<button type="button" data-ex="' + i + '">' + esc(e.label || Object.values(e).join(', ')) + '</button>';
@@ -247,6 +258,24 @@
       } catch (e) { out.innerHTML = '<p class="lm-err">⚠️ ' + esc(e.message) + '</p>'; }
     }
     run.addEventListener('click', compute);
+    // 29-oct (Carles: «un dado para variables aleatorias»): the lab's own random_inputs() picks valid random inputs
+    function dice() {
+      if (!py) { start(); return; }
+      try {
+        // «module.function» names a dice in another file of the lab (30-oct, qsl-diagnostics: one dice module for
+        // several labs); a bare name is looked up in the lab's own module
+        var dot = lab.random.lastIndexOf('.');
+        var rmod = dot > 0 ? lab.random.slice(0, dot) : lab.module, rfun = dot > 0 ? lab.random.slice(dot + 1) : lab.random;
+        var r = JSON.parse(py.globals.get('__import__')(rmod)[rfun]());
+        Object.keys(r).forEach(function (k) { var i = box.querySelector('[data-name="' + k + '"]'); if (i) i.value = r[k]; });
+        document.querySelectorAll('.lm-figform[data-lab="' + lab.id + '"] input[data-mirror]').forEach(function (m) {
+          var i = box.querySelector('[data-name="' + m.dataset.mirror + '"]'); if (i) m.value = i.value;
+        });
+        compute();
+      } catch (e) { out.innerHTML = '<p class="lm-err">⚠️ ' + esc(e.message) + '</p>'; }
+    }
+    var db = box.querySelector('.lm-dice');
+    if (db) db.addEventListener('click', dice);
     box.querySelectorAll('[data-name]').forEach(function (i) {
       i.addEventListener('change', compute);
       i.addEventListener('keydown', function (e) { if (e.key === 'Enter' && i.tagName !== 'TEXTAREA') compute(); });
@@ -314,11 +343,14 @@
       bar.innerHTML = lab.inputs.filter(function (inp) { return inp.type !== 'textarea'; }).map(function (inp) {
         var a = inp.type === 'int' ? ' type="number" min="' + (inp.min !== undefined ? inp.min : '') + '" max="' + (inp.max !== undefined ? inp.max : '') + '"' : ' type="text" size="' + (inp.size || 18) + '"';
         return '<label>' + esc(inp.label || inp.name) + ' <input data-mirror="' + inp.name + '"' + a + ' value="' + esc(inp['default']) + '"></label>';
-      }).join(' ') + (lab.examples || []).map(function (e, i) {
+      }).join(' ') + (lab.random ? ' <button type="button" class="lm-figex lm-figdice" title="random inputs">🎲 random</button>' : '') +
+      (lab.examples || []).map(function (e, i) {
         return ' <button type="button" class="lm-figex" data-ex="' + i + '">' + esc(e.label || Object.values(e).join(', ')) + '</button>';
       }).join('');
       slot.insertAdjacentElement('beforebegin', bar);
       function go() { if (py && started) compute(); else start(); }
+      var fd = bar.querySelector('.lm-figdice');
+      if (fd) fd.addEventListener('click', function () { if (py && started) dice(); else start(); });
       bar.querySelectorAll('input[data-mirror]').forEach(function (m) {
         function push() { var i = box.querySelector('input[data-name="' + m.dataset.mirror + '"]'); if (i) i.value = m.value; go(); }
         m.addEventListener('change', push); m.addEventListener('keydown', function (e) { if (e.key === 'Enter') push(); });
@@ -346,7 +378,8 @@
 
   var css = document.createElement('style');
   css.textContent = '.lm-form{display:flex;flex-wrap:wrap;gap:.6em;align-items:center;margin:.4em 0}.lm-form input{padding:.15em .3em}' +
-    '.lm-run,.lm-ex button{padding:.2em .8em;cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px}' +
+    '.lm-run,.lm-ex button,.lm-dice{padding:.2em .8em;cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px}' +
+    '.lm-dice,.lm-figdice{background:#fff3e0!important;font-weight:bold}' +
     '.lm-ex{margin:.3em 0}.lm-state{font-size:.9em;color:#555}.lm-err{color:#c62828}' +
     '.lm-tab{border-collapse:collapse;font-size:.9em;margin:.4em 0}.lm-tab td,.lm-tab th{border:1px solid #ddd;padding:.15em .5em}' +
     '.lm-out svg{margin:.4em 0;display:block}' +

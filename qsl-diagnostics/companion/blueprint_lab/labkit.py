@@ -25,17 +25,29 @@ def esc(s):
 
 def svg_plot(series, title='', xlabel='', ylabel='', width=560, height=320, figure=None, logy=False):
     """series: [{'name', 'x': [...], 'y': [...], 'mode': 'points'|'line', 'color', 'size': [...] or number,
-    'highlight': [bool, ...]}]."""
+    'highlight': [bool, ...]}].
+
+    30-oct (qsl-diagnostics, seen with random inputs): the legend goes BELOW the plot, never over the data; the data
+    range has a 6 % margin, so that a point at an extreme is not cut by the frame; lines and points are clipped to the
+    frame."""
     xs = [x for s in series for x in s['x']]
     ys = [(math.log10(y) if logy and y > 0 else y) for s in series for y in s['y']]
     if not xs:
         return {'kind': 'svg', 'svg': '<svg xmlns="http://www.w3.org/2000/svg"/>', 'title': title}
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    L, R, T, B = 60, 16, 28, 44
+    py = 0.06 * ((y1 - y0) or abs(y1) or 1)
+    y0, y1 = y0 - py, y1 + py
+    names = [s.get('name', '') for s in series if s.get('name')]
+    rows = (len(names) + 1) // 2
+    L, R, T, B = 60, 16, 16, 44
+    H = height + 16 * rows                       # the plot keeps its height; the legend adds its rows below
     X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (width - L - R)
     Y = lambda v: height - B - ((math.log10(v) if logy and v > 0 else v) - y0) / ((y1 - y0) or 1) * (height - T - B)
+    clip = 'lmclip%d' % (abs(hash((title, len(xs), x0, x1, y0, y1))) % 10 ** 8)
     o = ['<svg viewBox="0 0 %d %d" style="max-width:100%%;background:#fff" xmlns="http://www.w3.org/2000/svg">'
-         % (width, height)]
+         % (width, H),
+         '<defs><clipPath id="%s"><rect x="%d" y="%d" width="%d" height="%d"/></clipPath></defs>'
+         % (clip, L - 6, T - 6, width - L - R + 12, height - T - B + 12)]
     for i in range(6):  # grid and ticks
         v = y0 + (y1 - y0) * i / 5
         y = height - B - (height - T - B) * i / 5
@@ -45,6 +57,8 @@ def svg_plot(series, title='', xlabel='', ylabel='', width=560, height=320, figu
         xv = x0 + (x1 - x0) * i / 5
         o.append('<text x="%.1f" y="%d" font-size="10" text-anchor="middle">%.3g</text>'
                  % (L + (width - L - R) * i / 5, height - B + 14, xv))
+    o.append('<g clip-path="url(#%s)">' % clip)
+    leg = []
     for k, s in enumerate(series):
         c = s.get('color', PALETTE[k % len(PALETTE)])
         pts = list(zip(s['x'], s['y']))
@@ -58,11 +72,16 @@ def svg_plot(series, title='', xlabel='', ylabel='', width=560, height=320, figu
                 r = sizes[i] if isinstance(sizes, list) else sizes
                 col = PALETTE[1] if hi and hi[i] else c
                 o.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" fill-opacity="0.65"/>' % (X(x), Y(y), r, col))
-        o.append('<rect x="%d" y="%d" width="10" height="3" fill="%s"/><text x="%d" y="%d" font-size="11">%s</text>'
-                 % (L + 8, T + 4 + 14 * k, c, L + 22, T + 8 + 14 * k, esc(s.get('name', ''))))
+        if s.get('name'):
+            leg.append((c, s['name']))
+    o.append('</g>')
     o.append('<text x="%d" y="%d" text-anchor="middle" font-size="12">%s</text>' % (width / 2, height - 8, esc(xlabel)))
     o.append('<text x="14" y="%d" font-size="12" text-anchor="middle" transform="rotate(-90 14 %d)">%s</text>'
              % (height / 2, height / 2, esc(ylabel)))
+    for k, (c, n) in enumerate(leg):
+        lx, ly = L + (k % 2) * (width - L - R) / 2, height + 4 + 16 * (k // 2)
+        o.append('<rect x="%.1f" y="%d" width="10" height="3" fill="%s"/><text x="%.1f" y="%d" font-size="11">%s</text>'
+                 % (lx, ly, c, lx + 14, ly + 4, esc(n)))
     o.append('</svg>')
     out = {'kind': 'svg', 'svg': ''.join(o), 'title': title}
     if figure:

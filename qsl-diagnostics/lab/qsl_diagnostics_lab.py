@@ -91,7 +91,10 @@ def run_fig1(params):
         r = _num(p, 'r', 0.1, 0.1, 1.5, 'the drive fraction r (the measured grid is 0.1 to 1.5)')
     except ValueError as e:
         return K.error(str(e))
-    xs = [280 + 5 * i for i in range(17)]                       # |delta|/2pi, MHz: 280 .. 360
+    # |delta|/2pi, MHz: 280 .. 360 (the IBM processors), widened to hold the reader's |delta| (30-oct: a random
+    # |delta| = 236 MHz put the marker outside the drawn box)
+    x0, x1 = min(280, 20 * math.floor(mhz / 20)), max(360, 20 * math.ceil(mhz / 20))
+    xs = [x0 + (x1 - x0) * i / 16 for i in range(17)]
     ys = [math.log10(0.06) + (math.log10(1.5) - math.log10(0.06)) * i / 30 for i in range(31)]   # log10 r
     meas = [y for y in ys if y >= math.log10(0.1) - 1e-9]
     extra = [y for y in ys if y <= math.log10(0.1) + 1e-9]
@@ -132,11 +135,18 @@ def run_fig1(params):
             'Where r &lt; 0.1 (marked * in the table) the surface is the 1/r continuation of the measured branch, not '
             'a computation; the static figure of the paper holds T|&delta;| constant there.'
             % (mhz, r, t_delta(r), t, ns_limit, t / ns_limit))
-    box = ((280, 360), (math.log10(0.06), math.log10(1.5)), (0, 40))
+    # the time ceiling follows what is drawn: at a low |delta| the 1/r continuation below r = 0.1 passes 40 ns and
+    # was clipped (30-oct, random |delta| = 207 MHz)
+    zs_all = [p[2] for it in fixed + [i for fr in frames for i in fr]
+              for p in (sum(it['grid'], []) if it['type'] == 'surface' else it['points'])
+              if isinstance(p[2], (int, float)) and math.isfinite(p[2])]
+    ztop = max(40, 10 * math.ceil(max(zs_all) / 10))
+    box = ((x0, x1), (math.log10(0.06), math.log10(1.5)), (0, ztop))
     fixed = _scale(fixed, box)
     frames = [_scale(fr, box) for fr in frames]
     plot = K.three_d(fixed, 'Figure 1 live: minimum X-gate time, with IBM processors above it',
-                     axes=('|δ|/2π: 280 to 360 MHz', 'drive fraction Ω/|δ|: 0.06 to 1.5 (log)', 'X-gate time: 0 to 40 ns'),
+                     axes=('|δ|/2π: %d to %d MHz' % (x0, x1), 'drive fraction Ω/|δ|: 0.06 to 1.5 (log)',
+                           'X-gate time: 0 to %d ns' % ztop),
                      slider={'label': 'drive fraction r', 'values': labels, 'items': frames,
                              'start': grid.index(round(r, 4))})
     plot['figure'] = 'paperfig-1'
@@ -224,7 +234,9 @@ def run_fig4(params):
     except ValueError as e:
         return K.error(str(e))
     d = rad_ns(mhz)
-    W, H, L, R, T, B = 600, 340, 62, 18, 30, 48
+    # the legend goes below the plot, in two columns, never over the data (30-oct: with random values the curves
+    # crossed the old lower-left legend); lines are clipped to the frame (the two-level line left it at the bottom)
+    W, H, L, R, T, B, LEG = 600, 390, 62, 18, 30, 98, 50
     x0, x1 = math.log10(0.08), math.log10(2.0)
     law = lambda rr: max(math.pi / rr, LEAK) / d
     ymin = math.log10(min(T_TAB) / d * 0.6)
@@ -234,7 +246,10 @@ def run_fig4(params):
     # explicit width and height: the slot that replaces the paper's figure is a flex item and collapses to 0 px
     # around an svg that only has a viewBox (seen in the browser, 27-oct)
     o = ['<svg viewBox="0 0 %d %d" width="%d" height="%d" style="max-width:100%%;background:#fff" '
-         'xmlns="http://www.w3.org/2000/svg">' % (W, H, W, H)]
+         'xmlns="http://www.w3.org/2000/svg">' % (W, H, W, H),
+         '<defs><clipPath id="lm-f4-frame"><rect x="%d" y="%d" width="%d" height="%d"/></clipPath></defs>'
+         % (L, T, W - L - R, H - T - B),
+         '<rect x="%d" y="%d" width="%d" height="%d" fill="none" stroke="#ccc"/>' % (L, T, W - L - R, H - T - B)]
     for v in (0.1, 0.2, 0.5, 1.0, 2.0):
         o.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%d" stroke="#eee"/><text x="%.1f" y="%d" font-size="10" '
                  'text-anchor="middle">%g</text>' % (X(v), X(v), T, H - B, X(v), H - B + 14, v))
@@ -247,6 +262,7 @@ def run_fig4(params):
                          'text-anchor="end">%g</text>' % (L, W - R, Y(v), Y(v), L - 4, Y(v) + 3, v))
         tick *= 10
     rs = [0.08 * (2.0 / 0.08) ** (i / 80) for i in range(81)]
+    o.append('<g clip-path="url(#lm-f4-frame)">')   # only the data is clipped, not the ticks and their labels
     o.append('<path d="M%s" fill="none" stroke="#9AA7B0" stroke-width="1.5" stroke-dasharray="5 4"/>'
              % ' L'.join('%.1f %.1f' % (X(q), Y(math.pi / q / d)) for q in rs))
     o.append('<path d="M%s" fill="none" stroke="#2E7D32" stroke-width="2.5"/>'
@@ -257,12 +273,15 @@ def run_fig4(params):
     for rt, tt in zip(R_TAB, T_TAB):
         o.append('<circle cx="%.1f" cy="%.1f" r="4.5" fill="#1B6F8C"/>' % (X(rt), Y(tt / d)))
     o.append('<circle cx="%.1f" cy="%.1f" r="7" fill="none" stroke="#000" stroke-width="2"/>' % (X(r), Y(t_x_ns(r, mhz))))
+    o.append('</g>')
     leg = [('#1B6F8C', 'optimal control, Table V (4 levels)'), ('#2E7D32', 'law max(π/Ω, 1.1·2π/|δ|)'),
            ('#9AA7B0', 'two-level limit π/Ω'), ('#B5530F', 'IBM cap r ≈ 0.1'), ('#C62828', 'IBM Falcon X, 35.6 ns')]
     for k, (c, n) in enumerate(leg):
+        lx, ly = L + 10 + (k % 2) * 260, H - LEG + 8 + 14 * (k // 2)
         o.append('<rect x="%d" y="%d" width="12" height="4" fill="%s"/><text x="%d" y="%d" font-size="11">%s</text>'
-                 % (L + 10, H - B - 78 + 14 * k, c, L + 28, H - B - 73 + 14 * k, n))   # lower left: empty
-    o.append('<text x="%d" y="%d" text-anchor="middle" font-size="12">drive bound r = Ω_max/|δ|</text>' % (W / 2, H - 8))
+                 % (lx, ly - 4, c, lx + 18, ly + 1, n))
+    o.append('<text x="%d" y="%d" text-anchor="middle" font-size="12">drive bound r = Ω_max/|δ|</text>'
+             % (W / 2, H - B + 32))
     o.append('<text x="14" y="%d" font-size="12" text-anchor="middle" transform="rotate(-90 14 %d)">minimum X time (ns), '
              '|δ|/2π = %g MHz</text>' % (H / 2, H / 2, mhz))
     o.append('</svg>')

@@ -404,16 +404,27 @@ def run_bloch(params):
     plot = K.three_d(items, 'The pulse on the Bloch sphere: ▶ runs the time', axes=('x', 'y', 'z'),
                      slider={'label': 'time', 'values': labels, 'items': frames, 'start': len(frames) - 1})
     sat = abs(mt - ang) < 1e-3 * max(ang, 1e-9)
+    # 30-oct (a random area of 1.5π): with a fixed axis and area above π the state goes past |1⟩ and comes back, so
+    # the integral (the angle travelled) exceeds the distance between start and end; the axis did NOT move
+    fixed_axis = not beta and not det and (samples is None or min(samples) >= 0)
+    if sat:
+        verdict = ('Fixed axis, f ≥ 0: the bound is met with <b>equality</b>, whatever the shape (Lean: '
+                   'FixedAxis.mandelstam_tamm_integral_eq_solution). This is why a speed-limit estimator read on a π '
+                   'pulse returns ratio 1 by construction.')
+    elif fixed_axis and area > 1:
+        verdict = ('Fixed axis, but the area is above π: the state goes past |1⟩ (south pole) and comes back towards '
+                   '|0⟩. The integral is the angle travelled along the meridian, larger than the Fubini–Study distance '
+                   'between the start and the end; the equality holds for the angle travelled up to the pole (area '
+                   '≤ π).')
+    else:
+        verdict = ('The axis moves (quadrature, detuning, or an envelope that changes sign): the path bends away '
+                   'from the meridian and the integral exceeds the angle; the equality case no longer applies.')
     text = ('A %s pulse of area %gπ in T = %g ns (peak drive %.3f rad/ns)%s%s. The Mandelstam–Tamm integral '
             '∫ΔE dt = <b>%.4f</b>; the Fubini–Study angle actually travelled, arccos|⟨0|ψ_T⟩| = <b>%.4f</b>; ratio '
-            '<b>%.4f</b>. %s Final population of |1⟩: %.6f. Against the two-level limit π/Ω_peak = %.2f ns this pulse '
+            '<b>%s</b>. %s Final population of |1⟩: %.6f. Against the two-level limit π/Ω_peak = %.2f ns this pulse '
             'is %.2f× longer: the shape costs time even when the speed limit is saturated.'
             % (kind, area, T, peak, ', DRAG β = %g' % beta if beta else '', ', detuning %g MHz' % det if det else '',
-               mt, ang, mt / ang if ang > 0 else float('nan'),
-               ('Fixed axis, f ≥ 0: the bound is met with <b>equality</b>, whatever the shape (Lean: '
-                'FixedAxis.mandelstam_tamm_integral_eq_solution). This is why a speed-limit estimator read on a π pulse '
-                'returns ratio 1 by construction.' if sat else
-                'The axis moves (quadrature, detuning, or an envelope that changes sign): the path bends away from the meridian and the integral '
-                'exceeds the angle; the equality case no longer applies.'),
+               mt, ang, ('%.4f' % (mt / ang)) if ang > 1e-6 else '∞ (the state is back at |0⟩)',
+               verdict,
                abs(psi[1]) ** 2, math.pi / peak, T / (math.pi / peak)))
     return K.result(text, [plot])
