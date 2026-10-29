@@ -1491,7 +1491,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <p>  the number of edges of a balanced complete bipartite graph on the \(n-1\) free columns divided by \(n-1\). </p>
 </div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 29-oct-2026 with existe-ya (our Lean, Mathlib, Loogle, LeanSearch, Isabelle/AFP, GitHub, the clones atlas-lean, TauCeti, openai-math, and Rocq/HOL Light/Metamath): not found in any formal library.</details>
-</div><p class="novedad">🆕 <b>Classical and new:</b> the paper: Freixas and Kurz met ⌊k²/4⌋/k as an attained lower bound and conjectured maximum for general simple games; the proof covers only graphical games and does not settle their conjecture.</p><p class="usado">↳ Used in: <a href="#q:distribution"> 6</a></p>
+</div><p class="novedad">🆕 <b>Classical and new:</b> new: the reduction from the canonical base to the graph parameter γ, with a construction attaining the slope. Known: the sharp bound γ(G) ≤ ⌊k²/4⌋/k for graphs (F. Hof, Weight distribution in matching games, University of Twente, 2016, Thm. 7.2; recorded in Hof–Kern–Kurz–Paulusma, SAGT 2018, footnote 7), the graphical case of the Freixas–Kurz conjecture; for odd n the upper bound also follows from the counting in the proof of Lebedev, Thm. 9. The Zenodo version (v1) does not say this; corrected here on 29-oct-2026.</p><p class="usado">↳ Used in: <a href="#q:distribution"> 6</a></p>
 <div class="proof_wrapper" id="a0000000049">
 <div class="proof_heading">
 <span class="proof_caption">
@@ -1532,11 +1532,16 @@ thick border are the main results; click a box to read the statement.</p><div cl
 	<a href="index.html#Hof">16</a>
 	]
 </span>. The minimal-norm argument of Hof et al. plus a parity step bounds it by \(\lfloor k^2/4\rfloor /k\); the balanced complete bipartite graph attains it. </p>
-<p>The values for \(n\le 6\) are also certified by rational duals and realizations. Freixas and Kurz had met \(\lfloor k^2/4\rfloor /k\) as an attained bound and a conjectured maximum for general simple games <span class="cite">
+<p>The values for \(n\le 6\) are also certified by rational duals and realizations. </p>
+<p><b class="bfseries">Attribution (corrected 29-oct-2026; the Zenodo text v1 does not say it).</b> The sharp bound \(\gamma (G)\le \lfloor k^2/4\rfloor /k\) for graphs is known: it is Theorem 7.2 of F. Hof, <em>Weight distribution in matching games</em> (University of Twente, 2016), and it is recorded for odd \(k\) in footnote 7 of Hof, Kern, Kurz and Paulusma (SAGT 2018). It is the graphical case of the Freixas–Kurz conjecture <span class="cite">
 	[
 	<a href="index.html#FreixasKurz">10</a>
 	]
-</span>; the paper’s proof covers only graphical games and does not settle their conjecture. </p>
+</span>. What is new here is the reduction from the canonical base to \(\gamma \) and the construction attaining the slope; the proof in the paper is a self-contained one by the minimal-norm method. For odd \(n\) the upper bound also follows from the counting in the proof of Lebedev’s Theorem 9 <span class="cite">
+	[
+	<a href="index.html#Leb">24</a>
+	]
+</span>. </p>
 </details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> n ≤ 6: rational dual certificates for 2, 8, 90 and 10 688 orbits (independent exact checker) and realizations anchored in one column; n ≤ 5 also by exact linear programming in Sage. <span class="ttfamily">supplement: cert_canonica_3..6.json, zl_cert_canonica.py, cert_canonica_check.py, zl_rho_realiza.py –canonica, zl_rho_exacto.sage</span> </p>
@@ -2087,6 +2092,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>  Is \(\rho _n=\lambda _n\) for every \(n\)? Equivalently (Theorem <a href="index.html#thm:C">C</a>), do three-block modules give \(F_n(m)-O_n(1)\) pairs as \(m\to \infty \)? For \(n\le 6\) the optimal shadows are three-block ones (certified); for \(n=7\) the numerical candidate \(1.8\) equals \(\lambda _7\). The question is about slopes, not exact optima: no exactly optimal configuration obeys the block rule of Lemma <a href="index.html#lem:blocks">4.1</a> when \(n=3\) and \(m\) is even. Indeed, then \(2F_3(m)=m-2\), while without a full row the special rows carry no endpoints and the other rows at most one each, so \(2F_3(m)\le m-3\); hence every optimum has a full row carrying an endpoint, and under the rule a full row carries none, since its type contains every block. Optimal configurations are also not all close to the rule: the even construction of Theorem <a href="index.html#thm:A">A</a> uses \((m-4)/2\) vertical pairs, which the rule never allows, and the optimal four-column families of Theorem <a href="index.html#prop:four">E</a> repeat a module with a pair whose opposite corner is occupied, so in both cases a linear number of rows must be removed to reach the rule. Separate questions are the stability of the <em>supports</em> or of the shadow (are the occupied supports of almost every row unions of two of three blocks?) and the classification of all optimal pairings. A positive answer to the first question would fix the gap slope of Corollary <a href="index.html#cor:gap">6.2</a> at \(g_n=n/6+\delta _n\); the relaxed criteria would then buy \((n-1)/(2\lambda _n)\) times as many pairs per row as the original one, which is \(2\) for \(n=3,4\), \(16/9\) for \(n=5\), \(5/3\) for \(n=6\), and tends to \(3/2\) only as \(n\to \infty \). </p>
 </div>
 </div><p class="usado">↳ Not used by another result of the paper.</p>
+<p><b class="bfseries">Correction to v1 (29-oct-2026).</b> The Zenodo text says that for \(n\le 6\) the optimal shadows are three-block ones. The certificates prove less: three-block shadows <em>attain</em> the optimal value. Other sets of triples can attain it too: for \(n=3\) the program of \(\mathcal H=\{ 123\} \) reaches \(1/2\) with \(x_{13,1}=x_{23,2}=1/2\) and one vertical pair in column \(3\), while the three-block shadow in three columns is empty. So the certificates do not classify the optimal programs. </p>
 <div class="question_thmwrapper theorem-style-definition" id="q:f4">
 <div class="question_thmheading">
 <span class="question_thmcaption">
