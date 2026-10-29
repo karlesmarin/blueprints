@@ -1,0 +1,955 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+</style></head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="cor:gap_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:gap" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">6.2</span></div>
+<div class="thm_thmcontent"><p>  For every fixed \(n\ge 3\) and \(X\in \{ RL,SL,2\} \), </p>
+<div class="displaymath" id="a0000000041">
+  \[  z_X(m,n)-z_L(m,n)=\Big(\frac{n-1}{2}-\rho _n\Big)m+O_n(1),\qquad \frac{n-1}2-\rho _n\  \ge \  \frac12 .  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#cor:gap">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">2.1</span><span class="definition_thmtitle"><span class="cite">
+	[
+	<a href="index.html#QCX-L">26</a>
+	, 
+	Def.
+	
+	2.1
+	]
+</span></span></div>
+<div class="thm_thmcontent"><p>  Let \(E_1\) be a \(C_4\)-free set of cells with \(|E_1|=z(m,n)\), and let \(E_2\) be a family of unordered pairs of distinct cells outside \(E_1\), no cell in two pairs; put \(O=E_1\cup \bigcup E_2\). The family is <em>admissible</em> if every pair \(\{ (i,j),(p,q)\} \) satisfies </p>
+<ol class="enumerate">
+<li><p>if \(i\ne p\) and \(j\ne q\), the opposite cells \((i,q),(p,j)\) are not both in \(O\); </p>
+</li>
+<li><p>no cell \((k,\ell )\) with \(k\notin \{ i,p\} \), \(\ell \notin \{ j,q\} \) has \((k,\ell ),(k,j),(k,q),(i,\ell ),(p,\ell )\in O\). </p>
+</li>
+</ol>
+<p> The <em>limited augmented Zarankiewicz number</em> \(z_L(m,n)\) is the maximum of \(|E_1|+|E_2|\). </p>
+</div>
+<a class="latex_link" href="index.html#def">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:blocks_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:blocks" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">4.1</span><span class="lemma_thmtitle">blocks</span></div>
+<div class="thm_thmcontent"><p>   Partition the columns into blocks, give every row of the grid a type \(T\) of at most two blocks with its occupied support inside \(\bigcup _{x\in T}B_x\), and let every pair join an endpoint of a row of type \(T\) in a block \(x\in T\setminus T'\) to an endpoint of a row of type \(T'\) in a block \(y\in T'\setminus T\). Then the pairs are admissible. </p>
+</div>
+<a class="latex_link" href="index.html#lem:blocks">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:onefull_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:onefull" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">5.2</span><span class="lemma_thmtitle">one full row, any \(n\)</span></div>
+<div class="thm_thmcontent"><p>   If \(n\ge 3\) and \(m\ge \binom n2\), at most one row is completely occupied. </p>
+</div>
+<a class="latex_link" href="index.html#lem:onefull">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:vertical_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:vertical" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">5.1</span><span class="lemma_thmtitle">vertical pairs, any \(n\)</span></div>
+<div class="thm_thmcontent"><p>   If \(m\ge \binom n2\) and \(\{ (i,j),(p,j)\} \in E_2\), then \(S_i\cap S_p=\{ j\} \). </p>
+</div>
+<a class="latex_link" href="index.html#lem:vertical">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:3d_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:3d" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">8.1</span></div>
+<div class="thm_thmcontent"><p>  In \(3\times 3\times 5\) a maximum box-free base has \(34\) cells, and there is an admissible family of \(3\) pairs, so that \(4|E_2|=12{\gt}11\) free cells. </p>
+</div>
+<a class="latex_link" href="index.html#prop:3d">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:cert_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:cert" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">6.1</span></div>
+<div class="thm_thmcontent"><p> For \(n=3,4,5,6\) the shadows form \(2\), \(5\), \(34\) and \(2136\) orbits under column permutations, and each orbit has a rational dual certificate of value at most \(\lambda _n\); an independent checker in exact arithmetic verifies \(33\), \(501\), \(14\, 316\) and \(2\, 892\, 596\) inequalities. </p>
+</div>
+<a class="latex_link" href="index.html#prop:cert">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:family_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:family" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">6.3</span></div>
+<div class="thm_thmcontent"><p>  If \(z(x-1)\ge y(y-1)\), then \(M=\frac{(s-1)((x-1)s+yz)}{s(n-2)}\) with \(s=y+z\); otherwise \(M=\frac{(u+1)(zu+(x-1)(y-1))}{u(n-1)}\) with \(u=x+y-2\). In the first case  </p>
+<div class="displaymath" id="a0000000044">
+  \[  \frac n3-\frac12-M\  =\  \frac{\eta (2\eta -1)}{6(n-2)}+\frac{(s-1)(y-z)^2}{4s(n-2)},\qquad \eta =x-\frac{y+z}2,  \]
+</div>
+<p>  and in the second case </p>
+<div class="displaymath" id="a0000000045">
+  \[  \frac n3-\frac12-M\  =\  \frac{\eta (2\eta -1)}{6(n-1)}+\frac{(u+1)(x-y)^2}{4u(n-1)},\qquad \eta =\frac{x+y}2-z .  \]
+</div>
+<p> (On the boundary \(z(x-1)=y(y-1)\) the two formulas agree wherever both are defined; for \(x=y=z=1\) only the first is defined, and it gives \(M=1/2\).) Consequently \(\max _{x+y+z=n}M=\lambda _n\), attained only by the sizes \((k,k,k)\), \((k+1,k,k)\) and \((k+1,k+1,k)\) according as \(n=3k\), \(3k+1\), \(3k+2\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:family">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:four_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:four" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">E</span></div>
+<div class="thm_thmcontent"><p>  For every \(m\ge 7\),  </p>
+<div class="displaymath" id="a0000000058">
+  \[  F_4(m)=\max \Big\{ \Big\lfloor \frac{2m-3}{3}\Big\rfloor ,\  \Big\lfloor \frac{3m-12}{4}\Big\rfloor \Big\} ,  \]
+</div>
+<p>  and \(F_4(6)=2\). In particular \(z_L(m,4)=m+6+F_4(m)\). The first floor is at least the second for \(m\le 27\) and the second, of slope \(3/4=\lambda _4\), is at least the first for \(m\ge 22\); the lines cross at \(m=24\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:four">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:distribution_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:distribution" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">6</span></div>
+<div class="thm_thmcontent"><p>  The canonical base (all singleton ones in one column) has slope \(\lfloor (n-1)^2/4\rfloor /(n-1)\) (Theorem <a href="index.html#thm:canonical">D</a>), and the best bases reach \(\rho _n\). What is the slope for a prescribed distribution of the singleton ones over the columns? Adding these frequencies to the shadow programs gives a parametric family of linear programs that contains both the canonical and the optimal distributions; is the slope a concave function of the distribution? </p>
+</div>
+<a class="latex_link" href="index.html#q:distribution">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:f4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:f4" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">2</span></div>
+<div class="thm_thmcontent"><p>  Theorem <a href="index.html#thm:period">F</a> says that \(F_n(m)-\rho _nm\) is eventually periodic for every \(n\), and Theorem <a href="index.html#prop:four">E</a> gives period \(4\) and threshold \(22\) for \(n=4\). What are the minimal period and threshold, and the explicit formula, for \(n=5,6\)? The denominators force the period to be a multiple of \(8\) and \(2\); the profile certificates of Section 7 could settle them, as they did for \(n=4\). </p>
+</div>
+<a class="latex_link" href="index.html#q:f4">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:slope_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:slope" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">1</span></div>
+<div class="thm_thmcontent"><p>  Is \(\rho _n=\lambda _n\) for every \(n\)? Equivalently (Theorem <a href="index.html#thm:C">C</a>), do three-block modules give \(F_n(m)-O_n(1)\) pairs as \(m\to \infty \)? For \(n\le 6\) the optimal shadows are three-block ones (certified); for \(n=7\) the numerical candidate \(1.8\) equals \(\lambda _7\). The question is about slopes, not exact optima: no exactly optimal configuration obeys the block rule of Lemma <a href="index.html#lem:blocks">4.1</a> when \(n=3\) and \(m\) is even. Indeed, then \(2F_3(m)=m-2\), while without a full row the special rows carry no endpoints and the other rows at most one each, so \(2F_3(m)\le m-3\); hence every optimum has a full row carrying an endpoint, and under the rule a full row carries none, since its type contains every block. Optimal configurations are also not all close to the rule: the even construction of Theorem <a href="index.html#thm:A">A</a> uses \((m-4)/2\) vertical pairs, which the rule never allows, and the optimal four-column families of Theorem <a href="index.html#prop:four">E</a> repeat a module with a pair whose opposite corner is occupied, so in both cases a linear number of rows must be removed to reach the rule. Separate questions are the stability of the <em>supports</em> or of the shadow (are the occupied supports of almost every row unions of two of three blocks?) and the classification of all optimal pairings. A positive answer to the first question would fix the gap slope of Corollary <a href="index.html#cor:gap">6.2</a> at \(g_n=n/6+\delta _n\); the relaxed criteria would then buy \((n-1)/(2\lambda _n)\) times as many pairs per row as the original one, which is \(2\) for \(n=3,4\), \(16/9\) for \(n=5\), \(5/3\) for \(n=6\), and tends to \(3/2\) only as \(n\to \infty \). </p>
+</div>
+<a class="latex_link" href="index.html#q:slope">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:small_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:small" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">4</span></div>
+<div class="thm_thmcontent"><p>  What replaces the three blocks when \(m{\lt}\binom n2\), where maximum bases are linear hypergraphs with rows of several sizes rather than pairs of columns, for instance when the base is a projective plane? </p>
+</div>
+<a class="latex_link" href="index.html#q:small">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:third_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:third" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">3</span></div>
+<div class="thm_thmcontent"><p>  Is there an exact inequality \(3|E_2|+|E_1|\le mn\) for every maximum base, without the error terms of the density bound? It fails if the base is not maximum, and it holds in every case we computed. For \(n=3,4\) and \(m\ge \binom n2\) it follows from the bound \(2F_n(m)\le (n-2)m-\binom n2+1\) of Section 5; from \(n=5\) on that bound is too weak (it allows a violation from \(m=11\) for \(n=5\)). Asymptotically the inequality says \(\rho _n\le (n-1)/3\), which holds for \(n\le 6\) by the certified slopes (\(9/8{\lt}4/3\), \(3/2{\lt}5/3\)) and would hold for every \(n\) if \(\rho _n=\lambda _n\), since \(\lambda _n{\lt}(n-1)/3\); the exact inequality for every \(m\) is open from \(n=5\) on. </p>
+</div>
+<a class="latex_link" href="index.html#q:third">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:trilinear_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:trilinear" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">5</span></div>
+<div class="thm_thmcontent"><p>  Which three-dimensional analogue, if any, bounds the sum-of-squares rank of trilinear forms, and what plays the role of the hollow triangle there? </p>
+</div>
+<a class="latex_link" href="index.html#q:trilinear">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:A_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:A" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">A</span></div>
+<div class="thm_thmcontent"><p>   For every \(m\ge 3\),  </p>
+<div class="displaymath" id="a0000000012">
+  \[  z_L(m,3)=m+3+\Big\lfloor \frac{m-2}{2}\Big\rfloor ,  \]
+</div>
+<p>  and every maximum base admits at most \(\lfloor (m-2)/2\rfloor \) pairs. The proof is formalized in Lean 4. </p>
+</div>
+<a class="latex_link" href="index.html#thm:A">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.html#L728" data-lean-github="https://github.com/karlesmarin/formalizations/blob/71cea2d0a2595a8bd9be335975a1dee4f756e6d9/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.lean#L728">ZL.zL_three</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.html#L411" data-lean-github="https://github.com/karlesmarin/formalizations/blob/71cea2d0a2595a8bd9be335975a1dee4f756e6d9/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.lean#L411">ZL.zL_le</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.html#L371" data-lean-github="https://github.com/karlesmarin/formalizations/blob/71cea2d0a2595a8bd9be335975a1dee4f756e6d9/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.lean#L371">ZL.card_E2_le</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.html#L285" data-lean-github="https://github.com/karlesmarin/formalizations/blob/71cea2d0a2595a8bd9be335975a1dee4f756e6d9/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.lean#L285">ZL.no_two_full</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.html#L235" data-lean-github="https://github.com/karlesmarin/formalizations/blob/71cea2d0a2595a8bd9be335975a1dee4f756e6d9/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.lean#L235">ZL.z_three</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.html#L715" data-lean-github="https://github.com/karlesmarin/formalizations/blob/71cea2d0a2595a8bd9be335975a1dee4f756e6d9/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.lean#L715">ZL.exists_good</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.html#L539" data-lean-github="https://github.com/karlesmarin/formalizations/blob/71cea2d0a2595a8bd9be335975a1dee4f756e6d9/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.lean#L539">ZL.exists_odd</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.html#L708" data-lean-github="https://github.com/karlesmarin/formalizations/blob/71cea2d0a2595a8bd9be335975a1dee4f756e6d9/Formalizations/Combinatorics/Zarankiewicz/LimitedAugmentedThree.lean#L708">ZL.exists_even</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:B_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:B" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">B</span></div>
+<div class="thm_thmcontent"><p>  For every \(n\ge 3\), \(\liminf _{m\to \infty }F_n(m)/m\ge \lambda _n\), where  </p>
+<div class="displaymath" id="a0000000020">
+  \[  \lambda _n=\begin{cases}  \dfrac {2n-3}{6}, &amp;  n\equiv 0 \pmod3,\\[2mm] \dfrac {(n-1)(2n-5)}{6(n-2)}, &amp;  n\equiv 1 \pmod3,\\[2mm] \dfrac {(n-2)(2n-1)}{6(n-1)}, &amp;  n\equiv 2 \pmod3, \end{cases}  \]
+</div>
+<p>  and \(\lim _{m\to \infty }F_n(m)/m=\lambda _n\) for \(3\le n\le 6\): the slopes are \(1/2\), \(3/4\), \(9/8\) and \(3/2\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:B">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:C_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:C" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">C</span></div>
+<div class="thm_thmcontent"><p>  For every \(n\ge 3\) let \(\rho _n\) be the largest value of the shadow programs over all shadows \(\mathcal H\). Then \(\rho _n\) is rational and  </p>
+<div class="displaymath" id="a0000000038">
+  \[  F_n(m)=\rho _n\, m+O_n(1)\qquad (m\to \infty ).  \]
+</div>
+<p>  Moreover \(\rho _n\ge \lambda _n\), with equality for \(n\le 6\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:C">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:canonical_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:canonical" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">D</span></div>
+<div class="thm_thmcontent"><p>  For every \(n\ge 3\) the largest number of pairs on the canonical base is \(\kappa _nm+O_n(1)\), where  </p>
+<div class="displaymath" id="a0000000050">
+  \[  \kappa _n=\frac{\lfloor (n-1)^2/4\rfloor }{n-1},  \]
+</div>
+<p>  the number of edges of a balanced complete bipartite graph on the \(n-1\) free columns divided by \(n-1\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:canonical">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:period_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:period" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">F</span></div>
+<div class="thm_thmcontent"><p>  For every \(n\ge 3\) there are integers \(P_n\ge 1\) and \(M_n\) such that \(F_n(m+P_n)=F_n(m)+\rho _nP_n\) for all \(m\ge M_n\). If \(\rho _n=a/b\) in lowest terms, every such \(P_n\) is a multiple of \(b\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:period">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"cor:gap"	[label=gap,		shape=ellipse];	"q:slope"	[label=slope,		shape=ellipse];	"cor:gap" -> "q:slope"	[style=dashed];	def	[color=blue,		fillcolor="#A3D6FF",		label=def,		shape=box,		style=filled];	"lem:blocks"	[label=blocks,		shape=ellipse];	def -> "lem:blocks"	[style=dashed];	"lem:vertical"	[label=vertical,		shape=ellipse];	def -> "lem:vertical"	[style=dashed];	"prop:3d"	[label="3d",		shape=ellipse];	def -> "prop:3d"	[style=dashed];	"thm:B"	[label=B,		shape=ellipse];	"lem:blocks" -> "thm:B"	[style=dashed];	"q:small"	[label=small,		shape=ellipse];	"lem:blocks" -> "q:small"	[style=dashed];	"prop:family"	[label=family,		shape=ellipse];	"lem:blocks" -> "prop:family"	[style=dashed];	"thm:canonical"	[label=canonical,		shape=ellipse];	"lem:vertical" -> "thm:canonical"	[style=dashed];	"lem:onefull"	[label=onefull,		shape=ellipse];	"lem:vertical" -> "lem:onefull"	[style=dashed];	"q:trilinear"	[label=trilinear,		shape=ellipse];	"prop:3d" -> "q:trilinear"	[style=dashed];	"thm:C"	[label=C,		shape=ellipse];	"thm:B" -> "thm:C"	[style=dashed];	"prop:family" -> "q:slope"	[style=dashed];	"q:distribution"	[label=distribution,		shape=ellipse];	"thm:canonical" -> "q:distribution"	[style=dashed];	"lem:onefull" -> "cor:gap"	[style=dashed];	"q:third"	[label=third,		shape=ellipse];	"lem:onefull" -> "q:third"	[style=dashed];	"prop:four"	[label=four,		shape=ellipse];	"lem:onefull" -> "prop:four"	[style=dashed];	"thm:A"	[color=green,		fillcolor="#9CEC8B",		label=A,		shape=ellipse,		style=filled];	"lem:onefull" -> "thm:A"	[style=dashed];	"thm:C" -> "cor:gap"	[style=dashed];	"thm:C" -> "thm:canonical"	[style=dashed];	"thm:C" -> "q:third"	[style=dashed];	"thm:C" -> "prop:four"	[style=dashed];	"prop:four" -> "q:slope"	[style=dashed];	"thm:period"	[label=period,		shape=ellipse];	"prop:four" -> "thm:period"	[style=dashed];	"q:f4"	[label=f4,		shape=ellipse];	"thm:period" -> "q:f4"	[style=dashed];	"thm:A" -> "q:slope"	[style=dashed];	"prop:cert"	[color=blue,		label=cert,		shape=ellipse];	"prop:cert" -> "thm:B"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg width="432pt" height="476pt"
+ viewBox="0.00 0.00 432.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<!-- cor:gap -->
+<g id="node1" class="node">
+<title>cor:gap</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="119.51" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="119.51" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">gap</text>
+</g>
+<!-- q:slope -->
+<g id="node2" class="node">
+<title>q:slope</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="78.5" cy="-90" rx="30.37" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="78.5" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">slope</text>
+</g>
+<!-- cor:gap&#45;&gt;q:slope -->
+<g id="edge1" class="edge">
+<title>cor:gap&#45;&gt;q:slope</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M109.79,-144.41C104.99,-136.22 99.09,-126.14 93.71,-116.95"/>
+<polygon fill="black" stroke="black" points="88.77,-108.52 97.7,-114.87 90.68,-111.78 93.82,-117.15 93.82,-117.15 93.82,-117.15 90.68,-111.78 89.94,-119.42 88.77,-108.52"/>
+</g>
+<!-- def -->
+<g id="node3" class="node">
+<title>def</title>
+<polygon fill="#a3d6ff" stroke="blue" stroke-width="1.8" points="313.51,-468 259.51,-468 259.51,-432 313.51,-432 313.51,-468"/>
+<text xml:space="preserve" text-anchor="middle" x="286.51" y="-444.95" font-family="Times New Roman,serif" font-size="14.00">def</text>
+</g>
+<!-- lem:blocks -->
+<g id="node4" class="node">
+<title>lem:blocks</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="124.51" cy="-378" rx="34.97" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="124.51" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">blocks</text>
+</g>
+<!-- def&#45;&gt;lem:blocks -->
+<g id="edge2" class="edge">
+<title>def&#45;&gt;lem:blocks</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M258.66,-436.97C231.71,-425.32 190.71,-407.61 161.13,-394.83"/>
+<polygon fill="black" stroke="black" points="152.3,-391.01 163.26,-390.85 155.77,-392.51 161.48,-394.98 161.48,-394.98 161.48,-394.98 155.77,-392.51 159.69,-399.11 152.3,-391.01"/>
+</g>
+<!-- lem:vertical -->
+<g id="node5" class="node">
+<title>lem:vertical</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="286.51" cy="-306" rx="38.56" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="286.51" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">vertical</text>
+</g>
+<!-- def&#45;&gt;lem:vertical -->
+<g id="edge3" class="edge">
+<title>def&#45;&gt;lem:vertical</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M286.51,-431.3C286.51,-407.26 286.51,-363.99 286.51,-335.38"/>
+<polygon fill="black" stroke="black" points="286.51,-325.69 291.01,-335.69 286.51,-329.47 286.51,-335.69 286.51,-335.69 286.51,-335.69 286.51,-329.47 282.01,-335.69 286.51,-325.69"/>
+</g>
+<!-- prop:3d -->
+<g id="node6" class="node">
+<title>prop:3d</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="362.51" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="362.51" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">3d</text>
+</g>
+<!-- def&#45;&gt;prop:3d -->
+<g id="edge4" class="edge">
+<title>def&#45;&gt;prop:3d</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M305.68,-431.34C315.82,-422 328.34,-410.47 339.04,-400.61"/>
+<polygon fill="black" stroke="black" points="346.26,-393.96 341.96,-404.04 343.48,-396.52 338.91,-400.73 338.91,-400.73 338.91,-400.73 343.48,-396.52 335.86,-397.42 346.26,-393.96"/>
+</g>
+<!-- thm:B -->
+<g id="node7" class="node">
+<title>thm:B</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="202.51" cy="-306" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="202.51" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">B</text>
+</g>
+<!-- lem:blocks&#45;&gt;thm:B -->
+<g id="edge5" class="edge">
+<title>lem:blocks&#45;&gt;thm:B</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M141.82,-361.46C152.58,-351.81 166.57,-339.25 178.41,-328.62"/>
+<polygon fill="black" stroke="black" points="185.66,-322.11 181.22,-332.14 182.85,-324.64 178.22,-328.79 178.22,-328.79 178.22,-328.79 182.85,-324.64 175.21,-325.44 185.66,-322.11"/>
+</g>
+<!-- q:small -->
+<g id="node8" class="node">
+<title>q:small</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="124.51" cy="-306" rx="31.39" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="124.51" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">small</text>
+</g>
+<!-- lem:blocks&#45;&gt;q:small -->
+<g id="edge6" class="edge">
+<title>lem:blocks&#45;&gt;q:small</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M124.51,-359.34C124.51,-352.07 124.51,-343.47 124.51,-335.36"/>
+<polygon fill="black" stroke="black" points="124.51,-325.64 129.01,-335.64 124.51,-329.42 124.51,-335.64 124.51,-335.64 124.51,-335.64 124.51,-329.42 120.01,-335.64 124.51,-325.64"/>
+</g>
+<!-- prop:family -->
+<g id="node9" class="node">
+<title>prop:family</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="35.5" cy="-234" rx="35.49" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="35.5" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">family</text>
+</g>
+<!-- lem:blocks&#45;&gt;prop:family -->
+<g id="edge7" class="edge">
+<title>lem:blocks&#45;&gt;prop:family</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M111.27,-360.73C103.16,-350.46 92.78,-336.77 84.5,-324 71.44,-303.83 58.4,-279.92 49.06,-261.96"/>
+<polygon fill="black" stroke="black" points="44.57,-253.23 53.15,-260.07 46.3,-256.6 49.14,-262.13 49.14,-262.13 49.14,-262.13 46.3,-256.6 45.14,-264.18 44.57,-253.23"/>
+</g>
+<!-- thm:canonical -->
+<g id="node10" class="node">
+<title>thm:canonical</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="357.51" cy="-162" rx="46.23" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="357.51" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">canonical</text>
+</g>
+<!-- lem:vertical&#45;&gt;thm:canonical -->
+<g id="edge8" class="edge">
+<title>lem:vertical&#45;&gt;thm:canonical</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M295.21,-287.59C307.35,-263.32 329.47,-219.07 343.83,-190.36"/>
+<polygon fill="black" stroke="black" points="348.18,-181.64 347.74,-192.6 346.49,-185.02 343.72,-190.59 343.72,-190.59 343.72,-190.59 346.49,-185.02 339.69,-188.58 348.18,-181.64"/>
+</g>
+<!-- lem:onefull -->
+<g id="node11" class="node">
+<title>lem:onefull</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="144.51" cy="-234" rx="37.02" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="144.51" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">onefull</text>
+</g>
+<!-- lem:vertical&#45;&gt;lem:onefull -->
+<g id="edge9" class="edge">
+<title>lem:vertical&#45;&gt;lem:onefull</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M260.13,-292C237.57,-280.88 204.91,-264.78 180.05,-252.52"/>
+<polygon fill="black" stroke="black" points="171.35,-248.24 182.31,-248.62 174.74,-249.91 180.32,-252.66 180.32,-252.66 180.32,-252.66 174.74,-249.91 178.34,-256.69 171.35,-248.24"/>
+</g>
+<!-- q:trilinear -->
+<g id="node12" class="node">
+<title>q:trilinear</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="383.51" cy="-306" rx="40.09" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="383.51" y="-300.95" font-family="Times New Roman,serif" font-size="14.00">trilinear</text>
+</g>
+<!-- prop:3d&#45;&gt;q:trilinear -->
+<g id="edge10" class="edge">
+<title>prop:3d&#45;&gt;q:trilinear</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M367.7,-359.7C369.93,-352.26 372.59,-343.39 375.09,-335.06"/>
+<polygon fill="black" stroke="black" points="377.88,-325.76 379.32,-336.63 376.79,-329.38 375.01,-335.34 375.01,-335.34 375.01,-335.34 376.79,-329.38 370.7,-334.04 377.88,-325.76"/>
+</g>
+<!-- thm:C -->
+<g id="node13" class="node">
+<title>thm:C</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="226.51" cy="-234" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="226.51" y="-228.95" font-family="Times New Roman,serif" font-size="14.00">C</text>
+</g>
+<!-- thm:B&#45;&gt;thm:C -->
+<g id="edge11" class="edge">
+<title>thm:B&#45;&gt;thm:C</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M208.44,-287.7C211.02,-280.15 214.12,-271.12 217.01,-262.68"/>
+<polygon fill="black" stroke="black" points="220.24,-253.25 221.25,-264.17 219.02,-256.83 217,-262.71 217,-262.71 217,-262.71 219.02,-256.83 212.74,-261.25 220.24,-253.25"/>
+</g>
+<!-- prop:family&#45;&gt;q:slope -->
+<g id="edge12" class="edge">
+<title>prop:family&#45;&gt;q:slope</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M24.2,-216.27C13.3,-197.87 0,-167.77 11.5,-144 18.78,-128.96 32.63,-116.89 45.86,-108.1"/>
+<polygon fill="black" stroke="black" points="54.24,-102.91 48.1,-112 51.02,-104.9 45.73,-108.18 45.73,-108.18 45.73,-108.18 51.02,-104.9 43.37,-104.35 54.24,-102.91"/>
+</g>
+<!-- q:distribution -->
+<g id="node14" class="node">
+<title>q:distribution</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="357.51" cy="-90" rx="53.4" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="357.51" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">distribution</text>
+</g>
+<!-- thm:canonical&#45;&gt;q:distribution -->
+<g id="edge13" class="edge">
+<title>thm:canonical&#45;&gt;q:distribution</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M357.51,-143.34C357.51,-136.07 357.51,-127.47 357.51,-119.36"/>
+<polygon fill="black" stroke="black" points="357.51,-109.64 362.01,-119.64 357.51,-113.42 357.51,-119.64 357.51,-119.64 357.51,-119.64 357.51,-113.42 353.01,-119.64 357.51,-109.64"/>
+</g>
+<!-- lem:onefull&#45;&gt;cor:gap -->
+<g id="edge14" class="edge">
+<title>lem:onefull&#45;&gt;cor:gap</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M138.33,-215.7C135.6,-208.07 132.33,-198.92 129.29,-190.4"/>
+<polygon fill="black" stroke="black" points="126.02,-181.25 133.62,-189.15 127.29,-184.81 129.38,-190.66 129.38,-190.66 129.38,-190.66 127.29,-184.81 125.15,-192.18 126.02,-181.25"/>
+</g>
+<!-- q:third -->
+<g id="node15" class="node">
+<title>q:third</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="264.51" cy="-162" rx="28.32" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="264.51" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">third</text>
+</g>
+<!-- lem:onefull&#45;&gt;q:third -->
+<g id="edge15" class="edge">
+<title>lem:onefull&#45;&gt;q:third</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M167.93,-219.34C186.92,-208.26 213.82,-192.57 234.4,-180.56"/>
+<polygon fill="black" stroke="black" points="242.89,-175.6 236.52,-184.53 239.62,-177.51 234.25,-180.65 234.25,-180.65 234.25,-180.65 239.62,-177.51 231.98,-176.76 242.89,-175.6"/>
+</g>
+<!-- prop:four -->
+<g id="node16" class="node">
+<title>prop:four</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="191.51" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="191.51" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">four</text>
+</g>
+<!-- lem:onefull&#45;&gt;prop:four -->
+<g id="edge16" class="edge">
+<title>lem:onefull&#45;&gt;prop:four</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M155.88,-216.05C161.45,-207.77 168.26,-197.62 174.43,-188.42"/>
+<polygon fill="black" stroke="black" points="179.88,-180.32 178.03,-191.13 177.77,-183.46 174.3,-188.62 174.3,-188.62 174.3,-188.62 177.77,-183.46 170.56,-186.11 179.88,-180.32"/>
+</g>
+<!-- thm:A -->
+<g id="node17" class="node">
+<title>thm:A</title>
+<ellipse fill="#9cec8b" stroke="green" stroke-width="1.8" cx="47.5" cy="-162" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="47.5" y="-156.95" font-family="Times New Roman,serif" font-size="14.00">A</text>
+</g>
+<!-- lem:onefull&#45;&gt;thm:A -->
+<g id="edge17" class="edge">
+<title>lem:onefull&#45;&gt;thm:A</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M123.93,-218.15C109.52,-207.75 90.12,-193.75 74.47,-182.46"/>
+<polygon fill="black" stroke="black" points="66.74,-176.88 77.49,-179.09 69.81,-179.1 74.85,-182.74 74.85,-182.74 74.85,-182.74 69.81,-179.1 72.22,-186.38 66.74,-176.88"/>
+</g>
+<!-- thm:C&#45;&gt;cor:gap -->
+<g id="edge18" class="edge">
+<title>thm:C&#45;&gt;cor:gap</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M207.38,-220.49C190.79,-209.64 166.56,-193.79 147.75,-181.48"/>
+<polygon fill="black" stroke="black" points="139.49,-176.08 150.32,-177.79 142.65,-178.15 147.86,-181.55 147.86,-181.55 147.86,-181.55 142.65,-178.15 145.39,-185.32 139.49,-176.08"/>
+</g>
+<!-- thm:C&#45;&gt;thm:canonical -->
+<g id="edge19" class="edge">
+<title>thm:C&#45;&gt;thm:canonical</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M247.55,-221.75C267.3,-211.2 297.25,-195.2 320.9,-182.56"/>
+<polygon fill="black" stroke="black" points="329.53,-177.94 322.84,-186.63 326.2,-179.73 320.71,-182.66 320.71,-182.66 320.71,-182.66 326.2,-179.73 318.59,-178.69 329.53,-177.94"/>
+</g>
+<!-- thm:C&#45;&gt;q:third -->
+<g id="edge20" class="edge">
+<title>thm:C&#45;&gt;q:third</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M235.51,-216.41C239.91,-208.3 245.31,-198.35 250.26,-189.25"/>
+<polygon fill="black" stroke="black" points="254.98,-180.54 254.17,-191.48 253.18,-183.87 250.21,-189.33 250.21,-189.33 250.21,-189.33 253.18,-183.87 246.26,-187.19 254.98,-180.54"/>
+</g>
+<!-- thm:C&#45;&gt;prop:four -->
+<g id="edge21" class="edge">
+<title>thm:C&#45;&gt;prop:four</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M218.03,-216.05C214.08,-208.14 209.28,-198.54 204.85,-189.69"/>
+<polygon fill="black" stroke="black" points="200.44,-180.88 208.94,-187.81 202.13,-184.26 204.92,-189.82 204.92,-189.82 204.92,-189.82 202.13,-184.26 200.89,-191.84 200.44,-180.88"/>
+</g>
+<!-- prop:four&#45;&gt;q:slope -->
+<g id="edge22" class="edge">
+<title>prop:four&#45;&gt;q:slope</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M171.82,-148.81C154.43,-138.03 128.8,-122.16 108.8,-109.77"/>
+<polygon fill="black" stroke="black" points="100.53,-104.64 111.4,-106.09 103.74,-106.64 109.03,-109.91 109.03,-109.91 109.03,-109.91 103.74,-106.64 106.66,-113.74 100.53,-104.64"/>
+</g>
+<!-- thm:period -->
+<g id="node18" class="node">
+<title>thm:period</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="191.51" cy="-90" rx="34.46" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="191.51" y="-84.95" font-family="Times New Roman,serif" font-size="14.00">period</text>
+</g>
+<!-- prop:four&#45;&gt;thm:period -->
+<g id="edge23" class="edge">
+<title>prop:four&#45;&gt;thm:period</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M191.51,-143.34C191.51,-136.07 191.51,-127.47 191.51,-119.36"/>
+<polygon fill="black" stroke="black" points="191.51,-109.64 196.01,-119.64 191.51,-113.42 191.51,-119.64 191.51,-119.64 191.51,-119.64 191.51,-113.42 187.01,-119.64 191.51,-109.64"/>
+</g>
+<!-- thm:A&#45;&gt;q:slope -->
+<g id="edge25" class="edge">
+<title>thm:A&#45;&gt;q:slope</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M55.01,-144.05C58.42,-136.35 62.55,-127.03 66.39,-118.36"/>
+<polygon fill="black" stroke="black" points="70.36,-109.39 70.42,-120.36 68.83,-112.85 66.31,-118.54 66.31,-118.54 66.31,-118.54 68.83,-112.85 62.19,-116.71 70.36,-109.39"/>
+</g>
+<!-- q:f4 -->
+<g id="node19" class="node">
+<title>q:f4</title>
+<ellipse fill="none" stroke="black" stroke-width="1.8" cx="191.51" cy="-18" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="191.51" y="-12.95" font-family="Times New Roman,serif" font-size="14.00">f4</text>
+</g>
+<!-- thm:period&#45;&gt;q:f4 -->
+<g id="edge24" class="edge">
+<title>thm:period&#45;&gt;q:f4</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M191.51,-71.34C191.51,-64.07 191.51,-55.47 191.51,-47.36"/>
+<polygon fill="black" stroke="black" points="191.51,-37.63 196.01,-47.63 191.51,-41.42 191.51,-47.63 191.51,-47.63 191.51,-47.63 191.51,-41.42 187.01,-47.63 191.51,-37.63"/>
+</g>
+<!-- prop:cert -->
+<g id="node20" class="node">
+<title>prop:cert</title>
+<ellipse fill="none" stroke="blue" stroke-width="1.8" cx="204.51" cy="-378" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="204.51" y="-372.95" font-family="Times New Roman,serif" font-size="14.00">cert</text>
+</g>
+<!-- prop:cert&#45;&gt;thm:B -->
+<g id="edge26" class="edge">
+<title>prop:cert&#45;&gt;thm:B</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M204,-359.34C203.79,-352.07 203.55,-343.47 203.32,-335.36"/>
+<polygon fill="black" stroke="black" points="203.03,-325.64 207.82,-335.5 203.14,-329.42 203.33,-335.63 203.33,-335.63 203.33,-335.63 203.14,-329.42 198.83,-335.77 203.03,-325.64"/>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"def": "Definition 2.1 — {\\cite[Def.~2.1]{QCX-L}}", "thm:A": "Theorem A", "thm:B": "Theorem B", "lem:blocks": "Lemma 4.1 — blocks", "lem:vertical": "Lemma 5.1 — vertical pairs, any $n$", "lem:onefull": "Lemma 5.2 — one full row, any $n$", "prop:cert": "Proposition 6.1", "thm:C": "Theorem C", "cor:gap": "Corollary 6.2", "prop:family": "Proposition 6.3", "thm:canonical": "Theorem D", "prop:four": "Theorem E", "thm:period": "Theorem F", "prop:3d": "Proposition 8.1", "q:slope": "Question 1", "q:f4": "Question 2", "q:third": "Question 3", "q:small": "Question 4", "q:trilinear": "Question 5", "q:distribution": "Question 6"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<style id="lm-lean-panel-css">
+.lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
+/* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
+.lm-panel{position:fixed;inset:6vh 7vw;z-index:9999;background:#fff;border:1px solid #c9d3de;border-radius:10px;
+  box-shadow:0 14px 48px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+/* 21-oct, Carles: the name centred, a little larger, with a shadow, on a header with its own colour */
+.lm-panel header{background:linear-gradient(180deg,#f3f7fc 0%,#dde7f3 100%);border-bottom:1px solid #b9c8da;
+  box-shadow:0 2px 6px rgba(26,79,139,.12);padding:.55rem .9rem;display:grid;grid-template-columns:1fr minmax(0,auto) 1fr;
+  gap:.9rem;align-items:center;font:14px Arial,sans-serif}
+.lm-panel header b{grid-column:2;text-align:center;font:600 17px/1.2 "Cascadia Code","JetBrains Mono",Consolas,Menlo,monospace;
+  color:#163f6e;letter-spacing:.01em;text-shadow:0 1px 0 #fff,0 2px 4px rgba(22,63,110,.28);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.lm-panel header button{grid-column:3;justify-self:end}
+.lm-panel header a{color:#1a4f8b}.lm-panel header button{border:0;background:#1a4f8b;color:#fff;border-radius:999px;
+  padding:.15rem .7rem;cursor:pointer;font:14px Arial,sans-serif}
+.lm-panel iframe{flex:1;border:0;width:100%;background:#fbfcfe}
+@media (max-width:700px){.lm-panel{inset:0;border-radius:0}}
+</style>
+<script id="lm-lean-panel">
+/* 21-oct, Carles: the Lean opens in a central window over the blueprint, and closing it leaves the reader where he was */
+(function(){
+  /* the browser's Back (or the phone's back gesture) closes the panel instead of leaving the blueprint: the panel
+     pushes one history entry; closing it by hand takes that entry back out (21-oct: «que pueda volver donde estaba») */
+  function quitar(){var p=document.querySelector('.lm-panel'),v=document.querySelector('.lm-veil');
+    if(p)p.remove();if(v)v.remove();document.removeEventListener('keydown',esc);}
+  function cerrar(){if(history.state&&history.state.lmPanel)history.back();else quitar();}
+  window.addEventListener('popstate',function(){quitar();});
+  function esc(e){if(e.key==='Escape')cerrar();}
+  function abrir(href,nombre,gh){quitar();
+    if(!(history.state&&history.state.lmPanel))history.pushState({lmPanel:1},'');
+    var v=document.createElement('div');v.className='lm-veil';v.onclick=cerrar;
+    var p=document.createElement('div');p.className='lm-panel';p.setAttribute('role','dialog');
+    /* 21-oct, Carles: the window header has the name and Close only; the ✒️ stays in the Lean page's own header
+       inside the window, as GitHub does (Carles: «está en dos sitios», «quita el emoji de esa leyenda») */
+    p.innerHTML='<header><b></b>'+
+      '<button type="button" title="Close (Esc)">✕ Close</button></header><iframe title="Lean source"></iframe>';
+    p.querySelector('b').textContent=nombre||'';
+    /* ?panel=1: the Lean page knows it is inside the window (no Atlas link) and the URL skips an old cached copy */
+    var i=href.indexOf('#'),src=(i<0?href:href.slice(0,i))+'?panel=1'+(i<0?'':href.slice(i));
+    p.querySelector('button').onclick=cerrar;p.querySelector('iframe').src=src;
+    document.body.appendChild(v);document.body.appendChild(p);document.addEventListener('keydown',esc);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lean-github]');
+    if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>

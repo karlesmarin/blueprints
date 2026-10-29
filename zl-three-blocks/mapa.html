@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: Why three blocks? The limited augmented Zarankiewicz number in fixed width</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="pc-map-css">
+html,body{height:100%}
+body.pc-frame{margin:0;display:flex;flex-direction:column;overflow:hidden;background:#e8e8e8}
+body.pc-frame header.pc-head{position:static;width:auto;margin:0;flex-shrink:0}
+.pc-wrap{display:flex;flex:1;overflow:hidden}
+nav.pc-toc{width:28ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0;font-family:serif}
+nav.pc-toc ul{list-style:none;margin:0;padding:0}
+nav.pc-toc a{display:block;padding:.5rem .8rem;color:#fff;text-decoration:none;font-size:1.05rem;
+  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
+nav.pc-toc a:hover{background:#497da5}
+nav.pc-toc li.on>a{background:#89aecb}
+.pc-panel{flex:1;overflow:auto;padding:1rem}
+.pc-panel>.cont{margin:0 auto;max-width:none;padding:0 1rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
+.pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
+.pc-paneltitle .campo{justify-content:center}
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+section.pc-pane .mapa{max-width:100%;overflow:auto}
+/* phone: the parts of the map as a row of tabs above the panel */
+@media (max-width:900px){.pc-wrap{flex-direction:column}
+  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
+  nav.pc-toc ul{display:flex;white-space:nowrap}
+  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+</style><style id="lm-maphere-css">
+g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
+g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
+g.lm-here{animation:lmhere 1.2s ease-in-out 3}
+@keyframes lmhere{50%{opacity:.35}}
+#lm-herebar{font:13px Arial,sans-serif;background:#fff3f2;border:1px solid #f3b9b4;border-radius:6px;padding:.35em .7em;
+            margin:.4em 0}
+#lm-herebar a{color:#b3261e}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:1461pt 1079pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:1413pt !important;height:711pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Why three blocks? The limited augmented Zarankiewicz number in fixed width: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a href="mapa.pdf" class="lm-dl" download="zl-three-blocks-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Why three blocks? The limited augmented Zarankiewicz number in fixed width</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Extremal combinatorics · Zarankiewicz problems · sums of squares of biquadratic forms</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>20</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>1</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>0</b> partly in Lean</span>
+<span class="cifra c-lean" title="statements proved in Isabelle/HOL (ours)">✅ <b>3</b> in Isabelle</span>
+<span class="cifra c-prog">💻 <b>8</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="711pt" style="min-width:760px" viewbox="0.00 0.00 1413.00 711.00" width="1413pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 706.98)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M885.53,-603.65C885.53,-603.65 1013.53,-603.65 1013.53,-603.65 1019.53,-603.65 1025.53,-609.65 1025.53,-615.65 1025.53,-615.65 1025.53,-690.98 1025.53,-690.98 1025.53,-696.98 1019.53,-702.98 1013.53,-702.98 1013.53,-702.98 885.53,-702.98 885.53,-702.98 879.53,-702.98 873.53,-696.98 873.53,-690.98 873.53,-690.98 873.53,-615.65 873.53,-615.65 873.53,-609.65 879.53,-603.65 885.53,-603.65" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="949.53" xml:space="preserve" y="-687.58">From cells to squares</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M336.53,-229.41C336.53,-229.41 661.53,-229.41 661.53,-229.41 667.53,-229.41 673.53,-235.41 673.53,-241.41 673.53,-241.41 673.53,-336.99 673.53,-336.99 673.53,-342.99 667.53,-348.99 661.53,-348.99 661.53,-348.99 336.53,-348.99 336.53,-348.99 330.53,-348.99 324.53,-342.99 324.53,-336.99 324.53,-336.99 324.53,-241.41 324.53,-241.41 324.53,-235.41 330.53,-229.41 336.53,-229.41" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="499.03" xml:space="preserve" y="-333.6">The question in fixed width</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M889.53,-470.82C889.53,-470.82 1009.53,-470.82 1009.53,-470.82 1015.53,-470.82 1021.53,-476.82 1021.53,-482.82 1021.53,-482.82 1021.53,-583.65 1021.53,-583.65 1021.53,-589.65 1015.53,-595.65 1009.53,-595.65 1009.53,-595.65 889.53,-595.65 889.53,-595.65 883.53,-595.65 877.53,-589.65 877.53,-583.65 877.53,-583.65 877.53,-482.82 877.53,-482.82 877.53,-476.82 883.53,-470.82 889.53,-470.82" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="949.53" xml:space="preserve" y="-580.25">Why three blocks?</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M276.53,-357.11C276.53,-357.11 398.53,-357.11 398.53,-357.11 404.53,-357.11 410.53,-363.11 410.53,-369.11 410.53,-369.11 410.53,-577.27 410.53,-577.27 410.53,-583.27 404.53,-589.27 398.53,-589.27 398.53,-589.27 276.53,-589.27 276.53,-589.27 270.53,-589.27 264.53,-583.27 264.53,-577.27 264.53,-577.27 264.53,-369.11 264.53,-369.11 264.53,-363.11 270.53,-357.11 276.53,-357.11" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="337.53" xml:space="preserve" y="-573.88">Three columns</text>
+</g>
+<g class="cluster" id="clust5">
+<title>cluster_4</title>
+<path d="M693.53,-107.33C693.53,-107.33 1006.53,-107.33 1006.53,-107.33 1012.53,-107.33 1018.53,-113.33 1018.53,-119.33 1018.53,-119.33 1018.53,-450.82 1018.53,-450.82 1018.53,-456.82 1012.53,-462.82 1006.53,-462.82 1006.53,-462.82 693.53,-462.82 693.53,-462.82 687.53,-462.82 681.53,-456.82 681.53,-450.82 681.53,-450.82 681.53,-119.33 681.53,-119.33 681.53,-113.33 687.53,-107.33 693.53,-107.33" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="850.03" xml:space="preserve" y="-447.42">Slopes in fixed width</text>
+</g>
+<g class="cluster" id="clust6">
+<title>cluster_5</title>
+<path d="M108.53,-121.96C108.53,-121.96 252.53,-121.96 252.53,-121.96 258.53,-121.96 264.53,-127.96 264.53,-133.96 264.53,-133.96 264.53,-336.99 264.53,-336.99 264.53,-342.99 258.53,-348.99 252.53,-348.99 252.53,-348.99 108.53,-348.99 108.53,-348.99 102.53,-348.99 96.53,-342.99 96.53,-336.99 96.53,-336.99 96.53,-133.96 96.53,-133.96 96.53,-127.96 102.53,-121.96 108.53,-121.96" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="180.53" xml:space="preserve" y="-333.6">Exact values</text>
+</g>
+<g class="cluster" id="clust7">
+<title>cluster_6</title>
+<path d="M1107.49,-477.19C1107.49,-477.19 1231.49,-477.19 1231.49,-477.19 1237.49,-477.19 1243.49,-483.19 1243.49,-489.19 1243.49,-489.19 1243.49,-577.27 1243.49,-577.27 1243.49,-583.27 1237.49,-589.27 1231.49,-589.27 1231.49,-589.27 1107.49,-589.27 1107.49,-589.27 1101.49,-589.27 1095.49,-583.27 1095.49,-577.27 1095.49,-577.27 1095.49,-489.19 1095.49,-489.19 1095.49,-483.19 1101.49,-477.19 1107.49,-477.19" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1169.49" xml:space="preserve" y="-573.88">One dimension more</text>
+</g>
+<g class="cluster" id="clust8">
+<title>cluster_7</title>
+<path d="M474.53,0C474.53,0 1356.49,0 1356.49,0 1362.49,0 1368.49,-6 1368.49,-12 1368.49,-12 1368.49,-87.33 1368.49,-87.33 1368.49,-93.33 1362.49,-99.33 1356.49,-99.33 1356.49,-99.33 474.53,-99.33 474.53,-99.33 468.53,-99.33 462.53,-93.33 462.53,-87.33 462.53,-87.33 462.53,-12 462.53,-12 462.53,-6 468.53,0 474.53,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="915.53" xml:space="preserve" y="-83.93">Open questions</text>
+</g>
+<!-- def -->
+<g class="node" id="node1">
+<title>def</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#def" xlink:title="Definition 2.1: the limited augmented Zarankiewicz number z_L (Qi, Cui and Xu, Def. 2.1)">
+<path d="M1005.33,-672.73C1005.33,-672.73 893.73,-672.73 893.73,-672.73 887.73,-672.73 881.73,-666.73 881.73,-660.73 881.73,-660.73 881.73,-623.65 881.73,-623.65 881.73,-617.65 887.73,-611.65 893.73,-611.65 893.73,-611.65 1005.33,-611.65 1005.33,-611.65 1011.33,-611.65 1017.33,-617.65 1017.33,-623.65 1017.33,-623.65 1017.33,-660.73 1017.33,-660.73 1017.33,-666.73 1011.33,-672.73 1005.33,-672.73" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-657.72">Definition 2.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-644.97">the limited augmented</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-632.22">Zarankiewicz number z_L</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-619.47">(Qi, Cui and Xu, Def. 2.1)</text>
+</a>
+</g>
+</g>
+<!-- lem:blocks -->
+<g class="node" id="node4">
+<title>lem:blocks</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#lem:blocks" xlink:title="Lemma 4.1: the block rule: rows in at most two blocks, pairs across blocks, are admissible">
+<path d="M1001.58,-565.4C1001.58,-565.4 897.47,-565.4 897.47,-565.4 891.47,-565.4 885.47,-559.4 885.47,-553.4 885.47,-553.4 885.47,-490.82 885.47,-490.82 885.47,-484.82 891.47,-478.82 897.47,-478.82 897.47,-478.82 1001.58,-478.82 1001.58,-478.82 1007.58,-478.82 1013.58,-484.82 1013.58,-490.82 1013.58,-490.82 1013.58,-553.4 1013.58,-553.4 1013.58,-559.4 1007.58,-565.4 1001.58,-565.4" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-550.38">Lemma 4.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-537.63">the block rule: rows in at</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-524.88">most two blocks, pairs</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-512.13">across blocks, are</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-499.38">admissible</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-486.63">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- def&#45;&gt;lem:blocks -->
+<g class="edge" id="edge5">
+<title>def-&gt;lem:blocks</title>
+<path d="M949.53,-611.09C949.53,-599.77 949.53,-586.56 949.53,-573.87" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="951.98,-574.14 949.53,-567.14 947.08,-574.14 951.98,-574.14" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:vertical -->
+<g class="node" id="node5">
+<title>lem:vertical</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#lem:vertical" xlink:title="Lemma 5.1: the two rows of a vertical pair share only that column">
+<path d="M390.7,-559.02C390.7,-559.02 284.35,-559.02 284.35,-559.02 278.35,-559.02 272.35,-553.02 272.35,-547.02 272.35,-547.02 272.35,-497.19 272.35,-497.19 272.35,-491.19 278.35,-485.19 284.35,-485.19 284.35,-485.19 390.7,-485.19 390.7,-485.19 396.7,-485.19 402.7,-491.19 402.7,-497.19 402.7,-497.19 402.7,-547.02 402.7,-547.02 402.7,-553.02 396.7,-559.02 390.7,-559.02" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337.53" xml:space="preserve" y="-544.01">Lemma 5.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337.53" xml:space="preserve" y="-531.26">the two rows of a vertical</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337.53" xml:space="preserve" y="-518.51">pair share only that</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337.53" xml:space="preserve" y="-505.76">column</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337.53" xml:space="preserve" y="-493.01">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- def&#45;&gt;lem:vertical -->
+<g class="edge" id="edge6">
+<title>def-&gt;lem:vertical</title>
+<path d="M881.4,-628.05C765.51,-605.69 530.97,-560.43 411.33,-537.35" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="412.09,-535 404.75,-536.08 411.16,-539.81 412.09,-535" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:3d -->
+<g class="node" id="node14">
+<title>prop:3d</title>
+<g id="a_node14"><a target="_top" xlink:href="index.html#prop:3d" xlink:title="Proposition 8.1: one dimension up, the bound of one quarter fails in 3×3×5">
+<path d="M1223.41,-559.02C1223.41,-559.02 1115.56,-559.02 1115.56,-559.02 1109.56,-559.02 1103.56,-553.02 1103.56,-547.02 1103.56,-547.02 1103.56,-497.19 1103.56,-497.19 1103.56,-491.19 1109.56,-485.19 1115.56,-485.19 1115.56,-485.19 1223.41,-485.19 1223.41,-485.19 1229.41,-485.19 1235.41,-491.19 1235.41,-497.19 1235.41,-497.19 1235.41,-547.02 1235.41,-547.02 1235.41,-553.02 1229.41,-559.02 1223.41,-559.02" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1169.49" xml:space="preserve" y="-544.01">Proposition 8.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1169.49" xml:space="preserve" y="-531.26">one dimension up, the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1169.49" xml:space="preserve" y="-518.51">bound of one quarter fails</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1169.49" xml:space="preserve" y="-505.76">in 3×3×5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1169.49" xml:space="preserve" y="-493.01">💻 program</text>
+</a>
+</g>
+</g>
+<!-- def&#45;&gt;prop:3d -->
+<g class="edge" id="edge20">
+<title>def-&gt;prop:3d</title>
+<path d="M1005.61,-611.09C1033.09,-596.35 1066.49,-578.41 1095.99,-562.59" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1097.05,-564.8 1102.05,-559.33 1094.73,-560.48 1097.05,-564.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:A -->
+<g class="node" id="node2">
+<title>thm:A</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:A" xlink:title="Theorem A: three columns: z_L(m,3) = ⌊3m/2⌋ + 2 for every m ≥ 3">
+<path d="M492.7,-311.99C492.7,-311.99 344.35,-311.99 344.35,-311.99 338.35,-311.99 332.35,-305.99 332.35,-299.99 332.35,-299.99 332.35,-256.15 332.35,-256.15 332.35,-250.16 338.35,-244.16 344.35,-244.16 344.35,-244.16 492.7,-244.16 492.7,-244.16 498.7,-244.16 504.7,-250.16 504.7,-256.15 504.7,-256.15 504.7,-299.99 504.7,-299.99 504.7,-305.99 498.7,-311.99 492.7,-311.99" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418.53" xml:space="preserve" y="-295.55">Theorem A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418.53" xml:space="preserve" y="-281.3">three columns: z_L(m,3) =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418.53" xml:space="preserve" y="-267.05">⌊3m/2⌋ + 2 for every m ≥ 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="418.53" xml:space="preserve" y="-252.04">✅ Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- q:slope -->
+<g class="node" id="node15">
+<title>q:slope</title>
+<g id="a_node15"><a target="_top" xlink:href="index.html#q:slope" xlink:title="Question 1: is ρₙ = λₙ for every n? (about slopes, not exact optima)">
+<path d="M885.2,-69.08C885.2,-69.08 787.85,-69.08 787.85,-69.08 781.85,-69.08 775.85,-63.08 775.85,-57.08 775.85,-57.08 775.85,-20 775.85,-20 775.85,-14 781.85,-8 787.85,-8 787.85,-8 885.2,-8 885.2,-8 891.2,-8 897.2,-14 897.2,-20 897.2,-20 897.2,-57.08 897.2,-57.08 897.2,-63.08 891.2,-69.08 885.2,-69.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="836.53" xml:space="preserve" y="-54.06">Question 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="836.53" xml:space="preserve" y="-41.31">is ρₙ = λₙ for every n?</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="836.53" xml:space="preserve" y="-28.56">(about slopes, not exact</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="836.53" xml:space="preserve" y="-15.81">optima)</text>
+</a>
+</g>
+</g>
+<!-- thm:A&#45;&gt;q:slope -->
+<g class="edge" id="edge25">
+<title>thm:A-&gt;q:slope</title>
+<path d="M456.59,-243.01C504.06,-202.77 589.49,-137.49 675.53,-107.33 712.59,-94.34 727.18,-114.2 763.53,-99.33 777.22,-93.73 790.33,-84.64 801.57,-75.22" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="803.14,-77.1 806.81,-70.66 799.92,-73.4 803.14,-77.1" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:B -->
+<g class="node" id="node3">
+<title>thm:B</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#thm:B" xlink:title="Theorem B: the three-block slope λₙ is always reachable, and exact for n ≤ 6">
+<path d="M653.7,-318.74C653.7,-318.74 541.35,-318.74 541.35,-318.74 535.35,-318.74 529.35,-312.74 529.35,-306.74 529.35,-306.74 529.35,-249.4 529.35,-249.4 529.35,-243.4 535.35,-237.4 541.35,-237.4 541.35,-237.4 653.7,-237.4 653.7,-237.4 659.7,-237.4 665.7,-243.4 665.7,-249.4 665.7,-249.4 665.7,-306.74 665.7,-306.74 665.7,-312.74 659.7,-318.74 653.7,-318.74" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="597.53" xml:space="preserve" y="-302.3">Theorem B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="597.53" xml:space="preserve" y="-288.05">the three-block slope λₙ</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="597.53" xml:space="preserve" y="-273.8">is always reachable, and</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="597.53" xml:space="preserve" y="-259.55">exact for n ≤ 6</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="597.53" xml:space="preserve" y="-245.29">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:C -->
+<g class="node" id="node8">
+<title>thm:C</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#thm:C" xlink:title="Theorem C: the slope ρₙ exists for every n and is rational">
+<path d="M855.45,-311.61C855.45,-311.61 753.6,-311.61 753.6,-311.61 747.6,-311.61 741.6,-305.61 741.6,-299.61 741.6,-299.61 741.6,-256.53 741.6,-256.53 741.6,-250.53 747.6,-244.53 753.6,-244.53 753.6,-244.53 855.45,-244.53 855.45,-244.53 861.45,-244.53 867.45,-250.53 867.45,-256.53 867.45,-256.53 867.45,-299.61 867.45,-299.61 867.45,-305.61 861.45,-311.61 855.45,-311.61" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="804.53" xml:space="preserve" y="-295.17">Theorem C</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="804.53" xml:space="preserve" y="-280.92">the slope ρₙ exists for</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="804.53" xml:space="preserve" y="-266.67">every n and is rational</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="804.53" xml:space="preserve" y="-252.42">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:B&#45;&gt;thm:C -->
+<g class="edge" id="edge10">
+<title>thm:B-&gt;thm:C</title>
+<path d="M666.66,-278.07C688.47,-278.07 710.28,-278.07 732.09,-278.07" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="731.92,-280.52 738.92,-278.07 731.92,-275.62 731.92,-280.52" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:blocks&#45;&gt;thm:B -->
+<g class="edge" id="edge3">
+<title>lem:blocks-&gt;thm:B</title>
+<path d="M884.88,-514.28C814.24,-505.64 706.91,-488.69 675.53,-462.82 634.67,-429.13 614.8,-370.19 605.42,-328.15" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="607.85,-327.8 603.99,-321.46 603.05,-328.82 607.85,-327.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:blocks&#45;&gt;thm:C -->
+<g class="edge" id="edge8">
+<title>lem:blocks-&gt;thm:C</title>
+<path d="M885.02,-512.86C826.86,-503.93 747.6,-487.57 728.53,-462.82 699.86,-425.6 710.84,-400.64 728.53,-357.11 734.3,-342.92 744.02,-329.9 754.63,-318.73" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="756.34,-320.48 759.52,-313.79 752.86,-317.04 756.34,-320.48" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:family -->
+<g class="node" id="node10">
+<title>prop:family</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#prop:family" xlink:title="Proposition 6.3: inside the three-block family, balanced blocks are optimal">
+<path d="M998.2,-432.56C998.2,-432.56 900.85,-432.56 900.85,-432.56 894.85,-432.56 888.85,-426.56 888.85,-420.56 888.85,-420.56 888.85,-370.73 888.85,-370.73 888.85,-364.73 894.85,-358.73 900.85,-358.73 900.85,-358.73 998.2,-358.73 998.2,-358.73 1004.2,-358.73 1010.2,-364.73 1010.2,-370.73 1010.2,-370.73 1010.2,-420.56 1010.2,-420.56 1010.2,-426.56 1004.2,-432.56 998.2,-432.56" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-417.55">Proposition 6.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-404.8">inside the three-block</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-392.05">family, balanced blocks</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-379.3">are optimal</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="949.53" xml:space="preserve" y="-366.55">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:blocks&#45;&gt;prop:family -->
+<g class="edge" id="edge13">
+<title>lem:blocks-&gt;prop:family</title>
+<path d="M949.53,-478.28C949.53,-466.28 949.53,-453.22 949.53,-441.13" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="951.98,-441.45 949.53,-434.45 947.08,-441.45 951.98,-441.45" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:blocks&#45;&gt;q:slope -->
+<g class="edge" id="edge22">
+<title>lem:blocks-&gt;q:slope</title>
+<path d="M1010.34,-478.56C1015.5,-473.6 1020.33,-468.33 1024.53,-462.82 1124.19,-331.95 1241.69,-225.76 1127.49,-107.33 1110.69,-89.88 932.2,-107.9 909.53,-99.33 895.31,-93.95 881.8,-84.62 870.36,-74.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="872.23,-73.28 865.36,-70.48 868.98,-76.95 872.23,-73.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:small -->
+<g class="node" id="node18">
+<title>q:small</title>
+<g id="a_node18"><a target="_top" xlink:href="index.html#q:small" xlink:title="Question 4: what replaces the three blocks when m &lt; C(n,2)?">
+<path d="M1193.29,-62.7C1193.29,-62.7 1087.69,-62.7 1087.69,-62.7 1081.69,-62.7 1075.69,-56.7 1075.69,-50.7 1075.69,-50.7 1075.69,-26.38 1075.69,-26.38 1075.69,-20.38 1081.69,-14.38 1087.69,-14.38 1087.69,-14.38 1193.29,-14.38 1193.29,-14.38 1199.29,-14.38 1205.29,-20.38 1205.29,-26.38 1205.29,-26.38 1205.29,-50.7 1205.29,-50.7 1205.29,-56.7 1199.29,-62.7 1193.29,-62.7" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1140.49" xml:space="preserve" y="-47.69">Question 4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1140.49" xml:space="preserve" y="-34.94">what replaces the three</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1140.49" xml:space="preserve" y="-22.19">blocks when m &lt; C(n,2)?</text>
+</a>
+</g>
+</g>
+<!-- lem:blocks&#45;&gt;q:small -->
+<g class="edge" id="edge31">
+<title>lem:blocks-&gt;q:small</title>
+<path d="M1014.11,-501.71C1037.89,-492.48 1063.99,-479.7 1084.49,-462.82 1131.89,-423.84 1142.99,-407.14 1162.49,-348.99 1196.69,-247.11 1191.09,-212.59 1169.49,-107.33 1166.99,-94.9 1162.09,-81.93 1156.99,-70.71" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1159.32,-69.91 1154.13,-64.61 1154.88,-71.99 1159.32,-69.91" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:vertical&#45;&gt;thm:A -->
+<g class="edge" id="edge2">
+<title>lem:vertical-&gt;thm:A</title>
+<path d="M378.74,-484.92C384.51,-478.11 389.74,-470.65 393.53,-462.82 415.22,-417.95 419.82,-360.17 420.07,-321.49" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="422.52,-321.56 420.05,-314.56 417.62,-321.57 422.52,-321.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:onefull -->
+<g class="node" id="node6">
+<title>lem:onefull</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#lem:onefull" xlink:title="Lemma 5.2: at most one row is completely occupied">
+<path d="M368.83,-426.19C368.83,-426.19 284.23,-426.19 284.23,-426.19 278.23,-426.19 272.23,-420.19 272.23,-414.19 272.23,-414.19 272.23,-377.11 272.23,-377.11 272.23,-371.11 278.23,-365.11 284.23,-365.11 284.23,-365.11 368.83,-365.11 368.83,-365.11 374.83,-365.11 380.83,-371.11 380.83,-377.11 380.83,-377.11 380.83,-414.19 380.83,-414.19 380.83,-420.19 374.83,-426.19 368.83,-426.19" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="326.53" xml:space="preserve" y="-411.17">Lemma 5.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="326.53" xml:space="preserve" y="-398.42">at most one row is</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="326.53" xml:space="preserve" y="-385.67">completely occupied</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="326.53" xml:space="preserve" y="-372.92">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- lem:vertical&#45;&gt;lem:onefull -->
+<g class="edge" id="edge7">
+<title>lem:vertical-&gt;lem:onefull</title>
+<path d="M334.32,-484.78C332.92,-469.01 331.29,-450.55 329.88,-434.61" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="332.35,-434.8 329.3,-428.04 327.47,-435.23 332.35,-434.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:canonical -->
+<g class="node" id="node11">
+<title>thm:canonical</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#thm:canonical" xlink:title="Theorem D: the canonical base has slope ⌊(n−1)²/4⌋/(n−1) for every n">
+<path d="M998.33,-197.41C998.33,-197.41 856.73,-197.41 856.73,-197.41 850.73,-197.41 844.73,-191.41 844.73,-185.41 844.73,-185.41 844.73,-127.33 844.73,-127.33 844.73,-121.33 850.73,-115.33 856.73,-115.33 856.73,-115.33 998.33,-115.33 998.33,-115.33 1004.33,-115.33 1010.33,-121.33 1010.33,-127.33 1010.33,-127.33 1010.33,-185.41 1010.33,-185.41 1010.33,-191.41 1004.33,-197.41 998.33,-197.41" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="927.53" xml:space="preserve" y="-180.97">Theorem D</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="927.53" xml:space="preserve" y="-166.72">the canonical base has</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="927.53" xml:space="preserve" y="-152.47">slope ⌊(n−1)²/4⌋/(n−1) for</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="927.53" xml:space="preserve" y="-137.47">every n</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="927.53" xml:space="preserve" y="-123.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:vertical&#45;&gt;thm:canonical -->
+<g class="edge" id="edge14">
+<title>lem:vertical-&gt;thm:canonical</title>
+<path d="M402.98,-503.35C478.79,-479.71 603.05,-431.04 679.53,-348.99 718.81,-306.85 686.91,-268.17 729.53,-229.41 764.99,-197.16 787.5,-213.85 832.53,-197.41 833.55,-197.04 834.57,-196.66 835.59,-196.28" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="836.42,-198.58 842.11,-193.82 834.7,-194 836.42,-198.58" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:onefull&#45;&gt;thm:A -->
+<g class="edge" id="edge1">
+<title>lem:onefull-&gt;thm:A</title>
+<path d="M350.46,-364.59C361.36,-350.9 374.42,-334.49 386.17,-319.73" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="388.08,-321.26 390.52,-314.25 384.25,-318.21 388.08,-321.26" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:gap -->
+<g class="node" id="node9">
+<title>cor:gap</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#cor:gap" xlink:title="Corollary 6.2: a linear gap to the recursive-line, signed and second-order numbers in every width">
+<path d="M807.7,-193.28C807.7,-193.28 701.35,-193.28 701.35,-193.28 695.35,-193.28 689.35,-187.28 689.35,-181.28 689.35,-181.28 689.35,-131.46 689.35,-131.46 689.35,-125.46 695.35,-119.46 701.35,-119.46 701.35,-119.46 807.7,-119.46 807.7,-119.46 813.7,-119.46 819.7,-125.46 819.7,-131.46 819.7,-131.46 819.7,-181.28 819.7,-181.28 819.7,-187.28 813.7,-193.28 807.7,-193.28" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="754.53" xml:space="preserve" y="-178.27">Corollary 6.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="754.53" xml:space="preserve" y="-165.52">a linear gap to the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="754.53" xml:space="preserve" y="-152.77">recursive-line, signed and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="754.53" xml:space="preserve" y="-140.02">second-order numbers in</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="754.53" xml:space="preserve" y="-127.27">every width</text>
+</a>
+</g>
+</g>
+<!-- lem:onefull&#45;&gt;cor:gap -->
+<g class="edge" id="edge11">
+<title>lem:onefull-&gt;cor:gap</title>
+<path d="M314.07,-364.81C301.08,-328.37 286.66,-266.97 318.53,-229.41 364.1,-175.69 568.68,-161.97 680.67,-158.51" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="680.46,-160.97 687.38,-158.31 680.31,-156.07 680.46,-160.97" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:four -->
+<g class="node" id="node12">
+<title>prop:four</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#prop:four" xlink:title="Theorem E: four columns for every m ≥ 6: two linear branches crossing at m = 24">
+<path d="M244.2,-318.74C244.2,-318.74 116.85,-318.74 116.85,-318.74 110.85,-318.74 104.85,-312.74 104.85,-306.74 104.85,-306.74 104.85,-249.4 104.85,-249.4 104.85,-243.4 110.85,-237.4 116.85,-237.4 116.85,-237.4 244.2,-237.4 244.2,-237.4 250.2,-237.4 256.2,-243.4 256.2,-249.4 256.2,-249.4 256.2,-306.74 256.2,-306.74 256.2,-312.74 250.2,-318.74 244.2,-318.74" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="180.53" xml:space="preserve" y="-302.3">Theorem E</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="180.53" xml:space="preserve" y="-288.05">four columns for every m ≥</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="180.53" xml:space="preserve" y="-273.8">6: two linear branches</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="180.53" xml:space="preserve" y="-259.55">crossing at m = 24</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="180.53" xml:space="preserve" y="-245.29">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:onefull&#45;&gt;prop:four -->
+<g class="edge" id="edge16">
+<title>lem:onefull-&gt;prop:four</title>
+<path d="M288.55,-364.59C273.33,-352.54 255.46,-338.39 238.67,-325.11" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="240.25,-323.24 233.24,-320.81 237.21,-327.08 240.25,-323.24" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:third -->
+<g class="node" id="node17">
+<title>q:third</title>
+<g id="a_node17"><a target="_top" xlink:href="index.html#q:third" xlink:title="Question 3: an exact inequality 3|E₂| + |E₁| ≤ mn for every maximum base?">
+<path d="M739.33,-69.08C739.33,-69.08 639.72,-69.08 639.72,-69.08 633.72,-69.08 627.72,-63.08 627.72,-57.08 627.72,-57.08 627.72,-20 627.72,-20 627.72,-14 633.72,-8 639.72,-8 639.72,-8 739.33,-8 739.33,-8 745.33,-8 751.33,-14 751.33,-20 751.33,-20 751.33,-57.08 751.33,-57.08 751.33,-63.08 745.33,-69.08 739.33,-69.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="689.53" xml:space="preserve" y="-54.06">Question 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="689.53" xml:space="preserve" y="-41.31">an exact inequality 3|E₂|</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="689.53" xml:space="preserve" y="-28.56">+ |E₁| ≤ mn for every</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="689.53" xml:space="preserve" y="-15.81">maximum base?</text>
+</a>
+</g>
+</g>
+<!-- lem:onefull&#45;&gt;q:third -->
+<g class="edge" id="edge29">
+<title>lem:onefull-&gt;q:third</title>
+<path d="M271.79,-391.47C209.81,-386.64 114.32,-375.09 90.53,-348.99 18.03,-269.46 0,-183.99 75.53,-107.33 86.03,-96.66 600.43,-104.38 614.53,-99.33 629.08,-94.12 642.94,-84.83 654.69,-75.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="656.14,-77.08 659.85,-70.66 652.94,-73.37 656.14,-77.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:cert -->
+<g class="node" id="node7">
+<title>prop:cert</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#prop:cert" xlink:title="Proposition 6.1: rational dual certificates for every shadow, n ≤ 6">
+<path d="M852.33,-426.19C852.33,-426.19 752.72,-426.19 752.72,-426.19 746.72,-426.19 740.72,-420.19 740.72,-414.19 740.72,-414.19 740.72,-377.11 740.72,-377.11 740.72,-371.11 746.72,-365.11 752.72,-365.11 752.72,-365.11 852.33,-365.11 852.33,-365.11 858.33,-365.11 864.33,-371.11 864.33,-377.11 864.33,-377.11 864.33,-414.19 864.33,-414.19 864.33,-420.19 858.33,-426.19 852.33,-426.19" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="802.53" xml:space="preserve" y="-411.17">Proposition 6.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="802.53" xml:space="preserve" y="-398.42">rational dual certificates</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="802.53" xml:space="preserve" y="-385.67">for every shadow, n ≤ 6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="802.53" xml:space="preserve" y="-372.92">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:cert&#45;&gt;thm:B -->
+<g class="edge" id="edge4">
+<title>prop:cert-&gt;thm:B</title>
+<path d="M740.29,-377.61C718.96,-370.4 695.45,-360.88 675.53,-348.99 664.41,-342.35 653.44,-334 643.39,-325.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="645.28,-323.8 638.4,-321.02 642.04,-327.48 645.28,-323.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:cert&#45;&gt;thm:C -->
+<g class="edge" id="edge9">
+<title>prop:cert-&gt;thm:C</title>
+<path d="M803.05,-364.59C803.28,-351.28 803.55,-335.4 803.8,-320.96" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="806.24,-321.22 803.92,-314.17 801.34,-321.13 806.24,-321.22" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:C&#45;&gt;cor:gap -->
+<g class="edge" id="edge12">
+<title>thm:C-&gt;cor:gap</title>
+<path d="M790.47,-243.41C785.01,-230.34 778.68,-215.2 772.87,-201.29" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="775.24,-200.63 770.29,-195.11 770.72,-202.51 775.24,-200.63" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:C&#45;&gt;thm:canonical -->
+<g class="edge" id="edge15">
+<title>thm:C-&gt;thm:canonical</title>
+<path d="M839.12,-243.41C851.57,-231.3 865.84,-217.4 879.24,-204.36" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="880.93,-206.13 884.24,-199.49 877.51,-202.62 880.93,-206.13" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:C&#45;&gt;prop:four -->
+<g class="edge" id="edge17">
+<title>thm:C-&gt;prop:four</title>
+<path d="M776.74,-312.83C759.76,-330.41 736.3,-348.89 710.03,-353.05 689.23,-356.35 351.83,-356.35 331.03,-353.05 303.2,-348.64 274.97,-336.9 250.58,-323.98" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="251.79,-321.85 244.47,-320.66 249.45,-326.16 251.79,-321.85" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:period -->
+<g class="node" id="node13">
+<title>thm:period</title>
+<g id="a_node13"><a target="_top" xlink:href="index.html#thm:period" xlink:title="Theorem F: Fₙ(m) − ρₙ m is eventually periodic for every n">
+<path d="M244.2,-182.78C244.2,-182.78 122.85,-182.78 122.85,-182.78 116.85,-182.78 110.85,-176.78 110.85,-170.78 110.85,-170.78 110.85,-141.96 110.85,-141.96 110.85,-135.96 116.85,-129.96 122.85,-129.96 122.85,-129.96 244.2,-129.96 244.2,-129.96 250.2,-129.96 256.2,-135.96 256.2,-141.96 256.2,-141.96 256.2,-170.78 256.2,-170.78 256.2,-176.78 250.2,-182.78 244.2,-182.78" fill="#ffffff" stroke="#888888" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="183.53" xml:space="preserve" y="-166.34">Theorem F</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="183.53" xml:space="preserve" y="-152.09">Fₙ(m) − ρₙ m is eventually</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="183.53" xml:space="preserve" y="-137.84">periodic for every n</text>
+</a>
+</g>
+</g>
+<!-- thm:C&#45;&gt;thm:period -->
+<g class="edge" id="edge19">
+<title>thm:C-&gt;thm:period</title>
+<path d="M740.53,-249.57C721.22,-242.12 699.76,-234.67 679.53,-229.41 536.38,-192.21 364.67,-172.65 265.43,-163.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="265.92,-161.28 258.73,-163.11 265.49,-166.17 265.92,-161.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:C&#45;&gt;q:slope -->
+<g class="edge" id="edge26">
+<title>thm:C-&gt;q:slope</title>
+<path d="M868.56,-266.6C938.48,-253.7 1043.69,-229.5 1067.49,-197.41 1091.39,-165.26 1095.09,-136.35 1067.49,-107.33 1055.39,-94.59 925.93,-105.66 909.53,-99.33 895.35,-93.85 881.85,-84.49 870.41,-74.78" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="872.27,-73.16 865.4,-70.37 869.03,-76.83 872.27,-73.16" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:C&#45;&gt;q:third -->
+<g class="edge" id="edge30">
+<title>thm:C-&gt;q:third</title>
+<path d="M868.66,-272.78C919.69,-265.59 988.07,-246.7 1022.53,-197.41 1045.49,-164.6 1050.39,-136.07 1022.53,-107.33 1012.51,-96.99 777.03,-104.34 763.53,-99.33 749.16,-94 735.48,-84.67 723.88,-74.95" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="725.68,-73.28 718.8,-70.53 722.47,-76.97 725.68,-73.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:distribution -->
+<g class="node" id="node20">
+<title>q:distribution</title>
+<g id="a_node20"><a target="_top" xlink:href="index.html#q:distribution" xlink:title="Question 6: the slope for a prescribed distribution of the singleton ones">
+<path d="M1038.95,-69.08C1038.95,-69.08 934.1,-69.08 934.1,-69.08 928.1,-69.08 922.1,-63.08 922.1,-57.08 922.1,-57.08 922.1,-20 922.1,-20 922.1,-14 928.1,-8 934.1,-8 934.1,-8 1038.95,-8 1038.95,-8 1044.95,-8 1050.95,-14 1050.95,-20 1050.95,-20 1050.95,-57.08 1050.95,-57.08 1050.95,-63.08 1044.95,-69.08 1038.95,-69.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="986.53" xml:space="preserve" y="-54.06">Question 6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="986.53" xml:space="preserve" y="-41.31">the slope for a prescribed</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="986.53" xml:space="preserve" y="-28.56">distribution of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="986.53" xml:space="preserve" y="-15.81">singleton ones</text>
+</a>
+</g>
+</g>
+<!-- thm:C&#45;&gt;q:distribution -->
+<g class="edge" id="edge33">
+<title>thm:C-&gt;q:distribution</title>
+<path d="M868.68,-268.67C946,-257.08 1068.99,-233.43 1096.49,-197.41 1120.79,-165.59 1121.29,-138.8 1096.49,-107.33 1087.19,-95.47 1077.09,-105.88 1063.49,-99.33 1050.29,-92.94 1037.19,-84 1025.58,-74.97" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1027.13,-73.08 1020.14,-70.61 1024.07,-76.9 1027.13,-73.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:gap&#45;&gt;q:slope -->
+<g class="edge" id="edge21">
+<title>cor:gap-&gt;q:slope</title>
+<path d="M780.25,-119.04C789.85,-105.48 800.75,-90.08 810.39,-76.47" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="812.38,-77.89 814.42,-70.76 808.38,-75.06 812.38,-77.89" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:family&#45;&gt;q:slope -->
+<g class="edge" id="edge23">
+<title>prop:family-&gt;q:slope</title>
+<path d="M993.2,-358.36C1058.99,-299.53 1168.39,-182.38 1096.49,-107.33 1082.19,-92.31 928.96,-106.74 909.53,-99.33 895.32,-93.91 881.82,-84.56 870.38,-74.84" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="872.25,-73.23 865.38,-70.43 869.01,-76.9 872.25,-73.23" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:canonical&#45;&gt;q:distribution -->
+<g class="edge" id="edge34">
+<title>thm:canonical-&gt;q:distribution</title>
+<path d="M948.5,-114.21C954.64,-102.15 961.32,-89.04 967.34,-77.21" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="969.51,-78.35 970.5,-71 965.14,-76.12 969.51,-78.35" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:four&#45;&gt;thm:period -->
+<g class="edge" id="edge18">
+<title>prop:four-&gt;thm:period</title>
+<path d="M181.55,-236.21C181.91,-221.86 182.31,-205.87 182.66,-192.07" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="185.1,-192.36 182.83,-185.3 180.2,-192.24 185.1,-192.36" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:four&#45;&gt;q:slope -->
+<g class="edge" id="edge24">
+<title>prop:four-&gt;q:slope</title>
+<path d="M125.89,-236.2C114.78,-224.97 104.63,-211.85 98.53,-197.41 82.94,-160.53 70.39,-135.81 98.53,-107.33 111.51,-94.19 746.17,-105.65 763.53,-99.33 777.95,-94.08 791.59,-84.67 803.09,-74.85" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="804.51,-76.86 808.11,-70.37 801.26,-73.2 804.51,-76.86" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:f4 -->
+<g class="node" id="node16">
+<title>q:f4</title>
+<g id="a_node16"><a target="_top" xlink:href="index.html#q:f4" xlink:title="Question 2: minimal period, threshold and explicit formula for n = 5, 6">
+<path d="M590.45,-69.08C590.45,-69.08 482.6,-69.08 482.6,-69.08 476.6,-69.08 470.6,-63.08 470.6,-57.08 470.6,-57.08 470.6,-20 470.6,-20 470.6,-14 476.6,-8 482.6,-8 482.6,-8 590.45,-8 590.45,-8 596.45,-8 602.45,-14 602.45,-20 602.45,-20 602.45,-57.08 602.45,-57.08 602.45,-63.08 596.45,-69.08 590.45,-69.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="536.53" xml:space="preserve" y="-54.06">Question 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="536.53" xml:space="preserve" y="-41.31">minimal period, threshold</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="536.53" xml:space="preserve" y="-28.56">and explicit formula for n</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="536.53" xml:space="preserve" y="-15.81">= 5, 6</text>
+</a>
+</g>
+</g>
+<!-- prop:four&#45;&gt;q:f4 -->
+<g class="edge" id="edge27">
+<title>prop:four-&gt;q:f4</title>
+<path d="M103.88,-245.88C83.93,-233.84 64.86,-217.91 53.53,-197.41 34.15,-162.38 27.26,-137.54 53.53,-107.33 105.53,-47.52 339.75,-38.93 461.89,-38.64" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="461.61,-41.09 468.61,-38.63 461.61,-36.19 461.61,-41.09" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:period&#45;&gt;q:f4 -->
+<g class="edge" id="edge28">
+<title>thm:period-&gt;q:f4</title>
+<path d="M257.1,-131.23C317.24,-111.5 401.89,-83.72 462.23,-63.92" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="462.87,-66.29 468.76,-61.78 461.34,-61.63 462.87,-66.29" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:trilinear -->
+<g class="node" id="node19">
+<title>q:trilinear</title>
+<g id="a_node19"><a target="_top" xlink:href="index.html#q:trilinear" xlink:title="Question 5: which three-dimensional analogue bounds the rank of trilinear forms?">
+<path d="M1348.29,-69.08C1348.29,-69.08 1242.69,-69.08 1242.69,-69.08 1236.69,-69.08 1230.69,-63.08 1230.69,-57.08 1230.69,-57.08 1230.69,-20 1230.69,-20 1230.69,-14 1236.69,-8 1242.69,-8 1242.69,-8 1348.29,-8 1348.29,-8 1354.29,-8 1360.29,-14 1360.29,-20 1360.29,-20 1360.29,-57.08 1360.29,-57.08 1360.29,-63.08 1354.29,-69.08 1348.29,-69.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1295.49" xml:space="preserve" y="-54.06">Question 5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1295.49" xml:space="preserve" y="-41.31">which three-dimensional</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1295.49" xml:space="preserve" y="-28.56">analogue bounds the rank</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1295.49" xml:space="preserve" y="-15.81">of trilinear forms?</text>
+</a>
+</g>
+</g>
+<!-- prop:3d&#45;&gt;q:trilinear -->
+<g class="edge" id="edge32">
+<title>prop:3d-&gt;q:trilinear</title>
+<path d="M1235.99,-513.2C1267.79,-505.71 1302.99,-491.14 1322.49,-462.82 1404.89,-343.24 1344.39,-156.68 1312.19,-77.32" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1314.49,-76.47 1309.56,-70.93 1309.95,-78.33 1314.49,-76.47" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>The limited augmented Zarankiewicz number $z_L(m,n)$ of Qi, Cui and Xu is a lower bound for the largest
+sum-of-squares rank of $m\times n$ biquadratic forms. The paper follows one question: with the number $n$ of columns
+fixed, how many pairs does each new row buy?</p>
+<ul>
+<li>Three columns, exactly: $z_L(m,3)=\lfloor 3m/2\rfloor+2$ for every $m\ge3$ (Theorem A), answering the question of
+Qi, Löfberg and Chen; proof formalized in Lean. The gap to their weak variant grows like $m/6$.</li>
+<li>Every width: $F_n(m)=z_L(m,n)-z(m,n)=\rho_n m+O_n(1)$ with $\rho_n$ rational, the optimum of finitely many linear
+programs (Theorem C), and the error is eventually periodic (Theorem F).</li>
+<li>Pairs around a hollow triangle of three column blocks give $\rho_n\ge\lambda_n=n/3-1/2+O(1/n)$; balanced blocks are
+optimal inside that family (Proposition 6.3), and $\rho_n=\lambda_n$ for $n\le6$ by rational dual certificates checked
+in exact arithmetic (Theorem B). Equality for every $n$ is a conjecture.</li>
+<li>Consequences and companions: a linear gap to the recursive-line, signed and second-order numbers in every width
+(Corollary 6.2); the slope $\lfloor(n-1)^2/4\rfloor/(n-1)$ of Lebedev's canonical base for every $n$ (Theorem D);
+$z_L(m,4)$ for every $m\ge6$ by certified computation (Theorem E); fourteen new exact values; and a three-dimensional
+analogue where the naive bound of one quarter already fails in $3\times3\times5$ (Proposition 8.1).</li>
+</ul>
+<p>The admissibility lemmas behind the constructions are formalized in Isabelle/HOL (submitted to the Archive of Formal
+Proofs). This is a working version, not yet published.</p></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#thm:A"><b>Theorem A</b></a>: three columns: z_L(m,3) = ⌊3m/2⌋ + 2 for every m ≥ 3.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:A"><b>Theorem A</b></a>: three columns: z_L(m,3) = ⌊3m/2⌋ + 2 for every m ≥ 3</li><li><a href="index.html#thm:B"><b>Theorem B</b></a>: the three-block slope λₙ is always reachable, and exact for n ≤ 6</li><li><a href="index.html#thm:C"><b>Theorem C</b></a>: the slope ρₙ exists for every n and is rational</li><li><a href="index.html#thm:canonical"><b>Theorem D</b></a>: the canonical base has slope ⌊(n−1)²/4⌋/(n−1) for every n</li><li><a href="index.html#prop:four"><b>Theorem E</b></a>: four columns for every m ≥ 6: two linear branches crossing at m = 24</li><li><a href="index.html#thm:period"><b>Theorem F</b></a>: Fₙ(m) − ρₙ m is eventually periodic for every n</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Extremal graph theory</b> → Turán’s complete tripartite graph as the model of the three blocks; Lebedev’s three-block construction — <a href="index.html#lem:blocks">Lemma 4.1</a>, <a href="index.html#thm:B">Theorem B</a>, <a href="index.html#prop:family">Proposition 6.3</a></li><li><b>Linear programming and duality</b> → one linear program per shadow of triples, rational dual certificates checked in exact arithmetic — <a href="index.html#prop:cert">Proposition 6.1</a>, <a href="index.html#thm:C">Theorem C</a>, <a href="index.html#prop:four">Theorem E</a></li><li><b>Simple games</b> → the critical threshold of graphical simple games and the minimal-norm argument of Hof, Kern, Kurz, Pashkovich and Paulusma — <a href="index.html#thm:canonical">Theorem D</a></li><li><b>Presburger arithmetic</b> → semilinear sets (Ginsburg–Spanier) applied to the exact profile system — <a href="index.html#thm:period">Theorem F</a></li><li><b>Formal verification</b> → Lean 4 + Mathlib for the three-column theorem; Isabelle/HOL for the admissibility lemmas — <a href="index.html#thm:A">Theorem A</a>, <a href="index.html#lem:blocks">Lemma 4.1</a>, <a href="index.html#lem:vertical">Lemma 5.1</a>, <a href="index.html#lem:onefull">Lemma 5.2</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Sum-of-squares rank of biquadratic forms</b> ← lower bounds BSR ≥ z_A ≥ z_L in fixed width; the gap to the relaxed criteria — <a href="index.html#thm:A">Theorem A</a>, <a href="index.html#cor:gap">Corollary 6.2</a></li><li><b>Higher-dimensional Zarankiewicz problems</b> ← the box-graph analogue and its first counterexample — <a href="index.html#prop:3d">Proposition 8.1</a></li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  if (!panes.length || !box) return;
+  function mark(p){
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+  }
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
+})();
+</script>
+<script src="js/mapzoom.js?v=6dec6255cb" defer></script>
+<script id="lm-maphere">
+(function(){
+  var n = new URLSearchParams(location.search).get('n');
+  if (!n) return;
+  function go(){
+    var a = null;
+    document.querySelectorAll('svg a').forEach(function (x) {
+      var h = x.getAttribute('href') || x.getAttribute('xlink:href') || '';
+      if (!a && h.slice(h.indexOf('#') + 1) === n) a = x;
+    });
+    var g = a && (a.closest('g.node') || a.parentNode);
+    if (!g) return;
+    var pane = g.closest('section.pc-pane');
+    g.classList.add('lm-here');
+    var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
+    var bar = document.getElementById('lm-herebar');
+    if (!bar) {
+      bar = document.createElement('div'); bar.id = 'lm-herebar';
+      var host = (pane || document.body);
+      host.insertBefore(bar, host.firstChild);
+    }
+    bar.innerHTML = '📍 <b></b> on the map · <a href="index.html#' + encodeURIComponent(n) + '">← back to the statement</a>';
+    bar.querySelector('b').textContent = name;
+    setTimeout(function () { g.scrollIntoView({block: 'center', inline: 'center'}); }, 300);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+  window.addEventListener('load', go);
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"def": "Definition 2.1 — {\\cite[Def.~2.1]{QCX-L}}", "thm:A": "Theorem A", "thm:B": "Theorem B", "lem:blocks": "Lemma 4.1 — blocks", "lem:vertical": "Lemma 5.1 — vertical pairs, any $n$", "lem:onefull": "Lemma 5.2 — one full row, any $n$", "prop:cert": "Proposition 6.1", "thm:C": "Theorem C", "cor:gap": "Corollary 6.2", "prop:family": "Proposition 6.3", "thm:canonical": "Theorem D", "prop:four": "Theorem E", "thm:period": "Theorem F", "prop:3d": "Proposition 8.1", "q:slope": "Question 1", "q:f4": "Question 2", "q:third": "Question 3", "q:small": "Question 4", "q:trilinear": "Question 5", "q:distribution": "Question 6"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body></html>
