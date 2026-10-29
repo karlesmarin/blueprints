@@ -28,7 +28,19 @@ def ival(p, k, d, lo, hi):
     return max(lo, min(hi, v))
 
 
-def out(text, plots):
+def out(text, plots, fig=None):
+    """Every plot goes to the paper's figure it redraws (``fig`` for those that name none), each in its own panel in
+    order (a, b, c…): the live figure shows its 2D and 3D views in place, so what the inputs or the die change is seen
+    in the figure itself (29-oct, Carles: in Figure 6 «no se ve nada de forma aleatoria»: the staircase and the 3D views
+    were only inside the lab, and the table, the only panel in place, does not depend on m)."""
+    count = {}
+    for p in plots:
+        if fig and not p.get('figure'):
+            p['figure'] = fig
+        if p.get('figure'):
+            k = count.get(p['figure'], 0)
+            p['panel'] = 'abcdefgh'[k]
+            count[p['figure']] = k + 1
     return json.dumps({'text': text, 'plots': plots})
 
 
@@ -132,7 +144,7 @@ def run_definition(params):
                       'width': 2.5, 'name': ''})
     return out(text, [{'kind': 'svg', 'svg': grid, 'title': 'Definition 2.1 on your grid', 'figure': 'paperfig-2'},
                       {'kind': '3d', 'title': 'the graph R_O: a pair is admissible iff its two cells are at distance ≥ 3',
-                       'axes': ['column', 'row', ''], 'items': items, 'max_width': 900}])
+                       'axes': ['column', 'row', ''], 'items': items, 'max_width': 900}], fig='paperfig-2')
 
 
 # ------------------------------------------------------------------ Figure 4: build your own hollow triangle
@@ -167,10 +179,15 @@ def run_blocks(params):
                 '' if M == lam else ' > M: the split (%d,%d,%d) is not balanced; the balanced one is %s' % (x, y, z, bal),
                 copies, comb(n, 2), m, len(E2), ok(probs), len(E1), Z.c4_free(E1), len(E2), m, len(E2) / m, fr(M),
                 corner.count('A'), corner.count('B'), corner.count('C')))
-    grid = G.grid_svg(m, n, E1, E2, colour_of_pair=lambda t: G.CORNER[corner[t]],
-                      col_colour=lambda c: G.BLOCK[which[c]], bad={t for t, _, _ in probs},
-                      title='the special rows and one module (rows horizontal); pairs coloured by the corner of their angle',
-                      max_rows=min(70, comb(n, 2) + R))
+    # the grid shows ONE module (the special rows are bare: no pair touches them), so that it stays readable for n = 12
+    sp = comb(n, 2)
+    E1m = {(r - sp, c) for (r, c) in E1 if sp <= r < sp + R}
+    keep = [t for t, (u, v) in enumerate(E2) if sp <= u[0] < sp + R]
+    E2m = [((E2[t][0][0] - sp, E2[t][0][1]), (E2[t][1][0] - sp, E2[t][1][1])) for t in keep]
+    grid = G.grid_svg(R, n, E1m, E2m, colour_of_pair=lambda t: G.CORNER[corner[keep[t]]],
+                      col_colour=lambda c: G.BLOCK[which[c]], bad={keep.index(t) for t, _, _ in probs if t in keep},
+                      title='one module, %d rows (the %d special rows are bare); pairs coloured by the corner of their angle'
+                      % (R, sp), max_rows=70)
     # 3D: columns grouped in blocks (gaps between blocks), rows going back; pairs as arches over the floor
     gap = {c: c + 0.8 * 'ABC'.index(which[c]) for c in range(n)}
     special = comb(n, 2)
@@ -207,7 +224,7 @@ def run_blocks(params):
             groups.append((typ, cnt))
     tpl = G.template_svg((x, y, z), groups, fr(M))
     return out(text, [{'kind': 'svg', 'svg': tpl, 'title': 'Figure 3 (right) for your blocks', 'figure': 'paperfig-3'},
-                      {'kind': 'svg', 'svg': grid, 'title': 'your three-block configuration', 'figure': 'paperfig-4'}, td])
+                      {'kind': 'svg', 'svg': grid, 'title': 'your three-block configuration', 'figure': 'paperfig-4'}, td], fig='paperfig-4')
 
 
 def run_paper_22x5():
@@ -234,7 +251,7 @@ def run_paper_22x5():
                       'color': G.CORNER[corner(t)], 'width': 2, 'name': ''})
     return out(text, [{'kind': 'svg', 'svg': grid, 'title': 'Figure 4, live', 'figure': 'paperfig-4'},
                       {'kind': '3d', 'title': 'Figure 4 in 3D: the 20 pairs as arches', 'axes': ['column', 'row', ''],
-                       'items': items, 'max_width': 1000}])
+                       'items': items, 'max_width': 1000}], fig='paperfig-4')
 
 
 # ------------------------------------------------------------------ Figure 5: slopes, and the landscape of M
@@ -286,7 +303,7 @@ def run_slopes(params):
                 Z.balanced(n), worst[0], fr(worst[3])))
     return out(text, [{'kind': 'svg', 'svg': plot, 'title': 'Figure 5, live', 'figure': 'paperfig-5'},
                       {'kind': '3d', 'title': 'the landscape of the three-block family for n = %d: peak at the balanced split' % n,
-                       'axes': ['split (barycentric)', '', 'M(x,y,z)'], 'items': items, 'max_width': 900}])
+                       'axes': ['split (barycentric)', '', 'M(x,y,z)'], 'items': items, 'max_width': 900}], fig='paperfig-5')
 
 
 # ------------------------------------------------------------------ Figure 6: four columns for your m
@@ -309,13 +326,16 @@ def run_f4(params):
                 ('The exact computation of the paper (row types, m ≤ 40) gives %d.' % exact) if exact is not None else
                 'Beyond m = 40 the value rests on the certificates of Theorem E.',
                 len(T), len(E1), Z.c4_free(E1), len(E), ok(probs), Z.profile4(T, E)))
-    top = max(40, min(m + 8, 400))
-    ms = list(range(6, top + 1))
+    # the paper's window (6..40) while m is in it; beyond, a window of 40 rows around m, so the steps stay visible
+    lo = 6 if m <= 40 else m - 32
+    top = 40 if m <= 40 else min(m + 8, 408)
+    ms = list(range(lo, top + 1))
     st = G.lines_svg([
         {'name': 'F₄(m), exact', 'pts': [(k, Z.f4_formula(k)) for k in ms], 'color': G.GREY, 'mode': 'step', 'width': 2.2},
         {'name': '⌊(2m−3)/3⌋', 'pts': [(k, (2 * k - 3) // 3) for k in ms], 'color': '#D55E00', 'dash': True, 'width': 1.2},
         {'name': '⌊(3m−12)/4⌋', 'pts': [(k, (3 * k - 12) // 4) for k in ms], 'color': '#0072B2', 'dash': True, 'width': 1.2},
-    ], 'F₄(m): two lines that cross at m = 24', 'm', 'pairs', marker=(m, f, 'm = %d: %d' % (m, f)))
+    ], ('F₄(m): two lines that cross at m = 24' if m <= 40 else 'F₄(m) around m = %d (rows %d to %d)' % (m, lo, top)),
+       'm', 'pairs', marker=(m, f, 'm = %d: %d' % (m, f)), from_zero=m <= 40)
     tab = G.table_svg(TABLE, highlight=(m, 4) if m <= 14 else None)
     # 3D 1: the table as bars; 3D 2: your witness, pairs as arches over its four columns
     bars = []
@@ -328,17 +348,21 @@ def run_f4(params):
     sy = G.row_scale(show, 4)
     items = [{'type': 'points', 'points': [[c, r * sy, 0] for (r, c) in E1 if r < show], 'color': G.GREY, 'size': 4,
               'name': 'base E₁'}]
+    named = set()
     for t, (u, v) in enumerate(E):
         if u[0] < show and v[0] < show:
-            items.append({'type': 'curve', 'points': G.arc3((u[1], u[0] * sy), (v[1], v[0] * sy), 1.0 + 0.6 * abs(u[0] - v[0]) * sy),
-                          'color': '#B5530F' if u[1] != v[1] else '#0072B2', 'width': 1.6,
-                          'name': ('diagonal pair' if u[1] != v[1] else 'vertical pair') if t < 2 else ''})
+            kind = 'diagonal pair' if u[1] != v[1] else 'vertical pair'
+            h = (1.0 if kind == 'diagonal pair' else 0.45) + 0.5 * abs(u[0] - v[0]) * sy
+            items.append({'type': 'curve', 'points': G.arc3((u[1], u[0] * sy), (v[1], v[0] * sy), h),
+                          'color': '#B5530F' if kind == 'diagonal pair' else '#0072B2', 'width': 1.6,
+                          'name': kind if kind not in named else ''})
+            named.add(kind)
     return out(text, [{'kind': 'svg', 'svg': tab, 'title': 'Figure 6 (left), live', 'figure': 'paperfig-6'},
                       {'kind': 'svg', 'svg': st, 'title': 'Figure 6 (right), live'},
                       {'kind': '3d', 'title': 'z_L(m, n) as a landscape (height z_L/4), coloured by origin',
                        'axes': ['n', 'm', 'z_L / 4'], 'items': bars, 'max_width': 900},
                       {'kind': '3d', 'title': 'the witness for m = %d%s: its pairs as arches' % (m, '' if m <= 80 else ' (first 80 rows)'),
-                       'axes': ['column', 'row', ''], 'items': items, 'max_width': 900}])
+                       'axes': ['column', 'row', ''], 'items': items, 'max_width': 900}], fig='paperfig-6')
 
 
 # ------------------------------------------------------------------ Figure 7: the 3 x 3 x 5 box, in cubes
@@ -376,23 +400,29 @@ def run_tensor(params):
     pc = {}
     for t, (a, b) in enumerate(E2):
         pc[a] = pc[b] = (cols[t % len(cols)], t)
+    # the five slices side by side along the wide axis (k horizontal), each slice a 3 x 3 wall: the box fits the canvas
+    # (29-oct: stacked vertically it was taller than the canvas and was cut at the top and bottom)
+    def corner(c):
+        i, j, k = c
+        return (k - 1) * (1 + sep), j - 1, 3 - i     # x = slice, y = column j, z = row i (row 1 on top)
+
+    def centre(c):
+        x, y, z = corner(c)
+        return [x + 0.43, y + 0.43, z + 0.43]
     items = []
-    for (i, j, k) in sorted(E1):
-        items += G.cube_faces(j - 1, i - 1, (k - 1) * (1 + sep), 0.86, '#bdbdbd', 0.18, name='base cell' if not items else '')
+    for c in sorted(E1):
+        items += G.cube_faces(*corner(c), 0.86, '#bdbdbd', 0.18, name='base cell' if not items else '')
     named = set()
     for c, (col, t) in pc.items():
-        i, j, k = c
-        items += G.cube_faces(j - 1, i - 1, (k - 1) * (1 + sep), 0.86, col, 0.85,
-                              name='pair %d' % (t + 1) if t not in named else '')
+        items += G.cube_faces(*corner(c), 0.86, col, 0.85, name='pair %d' % (t + 1) if t not in named else '')
         named.add(t)
     for t, (a, b) in enumerate(E2):
-        ca = [a[1] - 0.57, a[0] - 0.57, (a[2] - 1) * (1 + sep) + 0.43]
-        cb = [b[1] - 0.57, b[0] - 0.57, (b[2] - 1) * (1 + sep) + 0.43]
-        items.append({'type': 'curve', 'points': [ca, cb], 'color': cols[t % len(cols)], 'width': 3, 'name': ''})
+        items.append({'type': 'curve', 'points': [centre(a), centre(b)], 'color': cols[t % len(cols)], 'width': 3,
+                      'name': ''})
     empty = [c for c in ((i, j, k) for i in range(1, 4) for j in range(1, 4) for k in range(1, 6))
              if c not in E1 and c not in pc]
-    items.append({'type': 'points', 'points': [[c[1] - 0.57, c[0] - 0.57, (c[2] - 1) * (1 + sep) + 0.43] for c in empty],
-                  'color': '#222', 'size': 6, 'name': 'empty cell'})
+    items.append({'type': 'points', 'points': [centre(c) for c in empty], 'color': '#222', 'size': 6,
+                  'name': 'empty cell'})
     # the slices, flat (Figure 7, right)
     cs, o = 22, []
     for kk in range(1, 6):
@@ -414,7 +444,7 @@ def run_tensor(params):
     return out(text, [{'kind': 'svg', 'svg': sl, 'title': 'the five slices: grey base, numbered pairs, × empty',
                        'figure': 'paperfig-7'},
                       {'kind': '3d', 'title': 'the 3 × 3 × 5 box: 34 base cells (glass), your pairs in colour, × empty',
-                       'axes': ['j', 'i', 'k'], 'items': items, 'max_width': 900}])
+                       'axes': ['slice k', 'column j', 'row i'], 'items': items, 'max_width': 900}], fig='paperfig-7')
 
 
 # ------------------------------------------------------------------ 🎲 random inputs (one per lab; valid by construction)

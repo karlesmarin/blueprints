@@ -12,8 +12,10 @@ def esc(s):
 
 
 def svg(w, h, body):
-    return ('<svg viewBox="0 0 %d %d" style="max-width:100%%;background:#fff" xmlns="http://www.w3.org/2000/svg" '
-            'font-family="serif">%s</svg>' % (w, h, ''.join(body)))
+    """At its natural size, never wider than its panel (29-oct: a 3-column grid stretched to the full width showed a
+    giant cut title, and the table of Figure 6 filled the page)."""
+    return ('<svg viewBox="0 0 %d %d" width="%d" height="%d" style="max-width:100%%;height:auto;background:#fff" '
+            'xmlns="http://www.w3.org/2000/svg" font-family="serif">%s</svg>' % (w, h, w, h, ''.join(body)))
 
 
 # ------------------------------------------------------------------ grids
@@ -23,7 +25,7 @@ def grid_svg(m, n, E1, E2, colour_of_pair=None, col_colour=None, bad=(), marks=(
     cells, columns tinted by block; ``bad``: pair indices to ring in red; ``marks``: cells to ring (witnesses)."""
     mm = min(m, max_rows)
     cs = max(9, min(22, int(760 / max(mm, 1)))) if transpose else max(14, min(30, int(420 / max(n, 1))))
-    W = (mm if transpose else n) * cs + 70
+    W = max((mm if transpose else n) * cs + 70, int(6.2 * len(title)) + 20)   # the title fits
     H = (n if transpose else mm) * cs + 60
     o = ['<text x="%d" y="16" font-size="13" text-anchor="middle">%s</text>' % (W / 2, esc(title))]
 
@@ -143,11 +145,17 @@ def bar3(x, y, h, w, color, name=''):
 
 
 # ------------------------------------------------------------------ 2D plots
-def lines_svg(series, title, xlabel, ylabel, marker=None, W=580, H=330):
-    """series: [{'name', 'pts': [(x, y)], 'color', 'mode': 'line'|'dots'|'step', 'dash'}]."""
+def lines_svg(series, title, xlabel, ylabel, marker=None, W=580, H=330, from_zero=True):
+    """series: [{'name', 'pts': [(x, y)], 'color', 'mode': 'line'|'dots'|'step', 'dash'}]; from_zero=False fits the
+    y axis to the data (a window far from the origin would otherwise be flattened against the top)."""
     xs = [p[0] for s in series for p in s['pts']]
     ys = [p[1] for s in series for p in s['pts']]
-    x0, x1, y0, y1 = min(xs), max(xs), min(0, min(ys)), max(ys) * 1.05
+    x0, x1 = min(xs), max(xs)
+    if from_zero:
+        y0, y1 = min(0, min(ys)), max(ys) * 1.05
+    else:
+        pad = (max(ys) - min(ys)) * 0.08 or 1
+        y0, y1 = min(ys) - pad, max(ys) + pad
     L, R, T, B = 52, 14, 30, 42
     X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (W - L - R)
     Y = lambda v: H - B - (v - y0) / ((y1 - y0) or 1) * (H - T - B)
@@ -180,8 +188,10 @@ def lines_svg(series, title, xlabel, ylabel, marker=None, W=580, H=330):
                  % (L + 8, T + 2 + 14 * k, c, L + 24, T + 7 + 14 * k, esc(s['name'])))
     if marker:
         mx, my, lab = marker
+        right = X(mx) > W - R - 110          # near the right edge: the label goes to the left of the marker
         o.append('<circle cx="%.1f" cy="%.1f" r="6" fill="none" stroke="%s" stroke-width="2.5"/><text x="%.1f" '
-                 'y="%.1f" font-size="11" fill="%s">%s</text>' % (X(mx), Y(my), RED, X(mx) + 8, Y(my) - 8, RED, esc(lab)))
+                 'y="%.1f" font-size="11" fill="%s" text-anchor="%s" font-weight="bold">%s</text>'
+                 % (X(mx), Y(my), RED, X(mx) + (-9 if right else 9), Y(my) - 9, RED, 'end' if right else 'start', esc(lab)))
     o.append('<text x="%d" y="%d" text-anchor="middle" font-size="12">%s</text>' % (W / 2, H - 8, esc(xlabel)))
     o.append('<text x="13" y="%d" font-size="12" text-anchor="middle" transform="rotate(-90 13 %d)">%s</text>'
              % (H / 2, H / 2, esc(ylabel)))
