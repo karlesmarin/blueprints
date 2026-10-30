@@ -123,7 +123,7 @@ def _three_d(g_mhz, tg, t1q, t2q, t1c, t2c, lb_min, meas):
     worst = 100 * first_order_error(1.0, max(t1q, t2q / 4), t2q / 2, t1c, t2c) / wall(1.0)
     ztop = max(worst * tmax, meas or 0)
     fixed = [K.surface3(lambda g, s: [g, wall(g), s * ztop], gs, [k / 4 for k in range(5)],
-                        'the speed limit T = π/(√2 g): nothing gets behind this wall', color='#E05252', opacity=0.35)]
+                        'the speed limit T = π/(√2 g): nothing gets behind this wall', color='#E05252', opacity=0.2)]
     s1 = 100 * first_order_error(1.0, t1q, t2q, t1c, t2c) / wall(1.0)
     on_ramp = [g_mhz, tg, s1 * tg]
     at_wall = [g_mhz, wall(g_mhz), s1 * wall(g_mhz)]
