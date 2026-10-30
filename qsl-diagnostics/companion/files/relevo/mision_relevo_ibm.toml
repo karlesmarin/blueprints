@@ -1,0 +1,53 @@
+# encaje: misión de excovery.lanzadera: diagnóstico del relevo cúbit → modo → cúbit de IBM (arXiv 2610.29986); datos en datos/ibm_2610.29986.toml
+nombre = "Suelo de error por coherencia del relevo de IBM al tiempo mínimo (enlace Q240–Q247, g/2π = 9 MHz)"
+fuente = "Sundaresan et al., arXiv:2610.29986v1: ec. (1)–(2), Ext. Data Tables 1–2 (coherence-limited F = 99,37 % en Q240–Q247), Fig. 1f (g/2π = 8–9 MHz); óptimo π/(√2 g): Boscain–Chambrion–Charlot 2005, Thm 1"
+directorio = "E:/proyectos/Curiosity/research/qsl-hardware/relevo"
+proyecto = "qsl-hardware"
+
+[[submision]]
+nombre = "el simulador reproduce la simulación publicada de Heya et al. (SATD, 206 ns)"
+ruta = "mision_heya_satd.toml"
+exige = "SIN CERTIFICADO"
+
+[[control]]
+nombre = "modelo de IBM reproduce su error de coherencia de Q240–Q247 (0,63 %)"
+orden = "python diag_relevo.py modelo datos/ibm_2610.29986.toml Q240–Q247"
+patron = 'modelo Q240–Q247 = ([\d.]+) %'
+esperado = "0.63"
+tolerancia_rel = 0.01
+
+[[control]]
+nombre = "Lindblad con la excitación quieta = ec. (1) de IBM (fija relajación, desfase y estimador)"
+orden = "python lindblad_relevo.py control_estatico"
+patron = 'error estatico = ([\d.]+)'
+esperado = "0.390841"
+tolerancia_rel = 1e-5
+
+[[control]]
+nombre = "sin pérdidas, el protocolo óptimo transfiere entero (fidelidad 1 a π/(√2 g))"
+orden = "python lindblad_relevo.py cerrado"
+patron = 'fidelidad cerrada al optimo = ([\d.]+)'
+esperado = "1.0"
+tolerancia_rel = 1e-8
+
+[[control_negativo]]
+nombre = "desfase mal definido (γφ = 1/T2): NO debe reproducir la ec. (1)"
+orden = "python lindblad_relevo.py control_estatico --desfase_mal"
+patron = 'error estatico = ([\d.]+)'
+distinto_de = "0.390841"
+tolerancia_rel = 0.01
+
+[objetivo]
+nombre = "error por coherencia al óptimo, dinámica entera (Lindblad, superoperador + 6 estados)"
+orden = "python lindblad_relevo.py optimo"
+patron = 'error Lindblad al optimo = ([\d.]+) %'
+afirmado = "0.1289"
+tolerancia_rel = 0.005
+
+[[replica]]
+nombre = "RK4 sobre ρ + fidelidad por F_e con fuga (código aparte)"
+orden = "python lindblad_rk4.py"
+patron = 'error RK4 al optimo = ([\d.]+) %'
+
+[novedad]
+texto = "El modelo aditivo de IBM (ec. 2, «upper bound set by coherence alone») da 0,089 % al óptimo; la dinámica entera da 0,129 %: el desfase durante el intercambio (excitación repartida) añade error y fuga que el modelo por ocupaciones no cuenta (comparar_modelos.py: relajación sola cociente 1,000; desfase cociente 1,5–2,3). Física conocida en general (desfase en paso adiabático); su aplicación al presupuesto de IBM: sin buscar aún en la literatura. Desfase markoviano con T2 de Ramsey: supuesto."

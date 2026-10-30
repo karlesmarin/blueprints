@@ -61,6 +61,22 @@ All scripts read their inputs from the folder they live in; run them from this f
 | Re-evaluation of the saved X pulses with 4, 5, 6, 8, 12 levels and the Duhamel certificate η₄ (4-level pulse at r = 1: 7e-9 in 4 levels, ≈ 7e-4 with more; η₄ = 0.551) | `truncacion_reevaluar.py` | `truncacion_reevaluar_salida.txt` (regenerated) |
 | Higher-order (Magesan–Gambetta 2020) cross-resonance check | `fuentes/cruce_mg2020.py` | `fuentes/cruce_mg2020_salida.txt` |
 
+### Version 2: Section VIII, IBM chip-to-chip state transfer (`relevo/`, run from inside that folder)
+
+| Claim | Script | Data / output |
+|---|---|---|
+| Published values of the four links (each with its table of arXiv:2610.29986) | — | `relevo/datos/ibm_2610.29986.toml` |
+| Ratios T_g/T_min = 5.8–7.9 (single-mode optimum π/(√2 g), g/2π = 8–9 MHz) | `relevo/cocientes.py` | printed |
+| IBM's coherence model reproduced (0.625 % against 0.63 % on Q240–Q247) | `relevo/diag_relevo.py modelo datos/ibm_2610.29986.toml Q240–Q247` | printed |
+| Coherence error of the optimal protocol 0.13–0.26 % (master equation) | `relevo/lindblad_relevo.py`, `relevo/suelo_lindblad.py datos/ibm_2610.29986.toml` | printed |
+| Independent check of the master equation (RK4, other fidelity estimator) | `relevo/lindblad_rk4.py` | printed (0.1289 %) |
+| Additive model exact for relaxation, not for dephasing | `relevo/comparar_modelos.py` | printed |
+| A slower protocol can lose less (not a floor); first-order dephasing formula | `relevo/falsar_v198.py` | printed |
+| Numerical minimal time π/√2 (real and complex controls) | `relevo/tiempo_minimo.py` | printed |
+| Validation against the published Lindblad simulation of Heya et al. (2e-3, 6.2e-3) | `relevo/heya_satd.py cpw`, `relevo/heya_satd.py todo` | printed (2.042e-3, 6.037e-3) |
+| The whole chain with controls and replica (excovery.lanzadera missions) | `relevo/mision_heya_satd.toml`, `relevo/mision_relevo_ibm.toml` | — |
+| Minimal-time lower bound gT ≥ π/√2 and the other relay theorems, machine-checked | `isabelle/Quantum_Speed_Limits/` (Isabelle2026 + HOL-Analysis; `isabelle build -D .`) | — |
+
 Quick check of the witnesses: `python verificar_cz.py cz_best_d3_M8_T0.5500_a10.0.npy` and
 `python epsilon_cz.py cz_best_d3_M8_T0.5500_a10.0.npy` (both run in under a second; need only numpy/scipy).
 The `grape_*_torch.py` scripts need PyTorch and are the long runs that produced the `.npy` files.

@@ -1,0 +1,52 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{isabelle,isabellesym}
+\usepackage{amsmath,amssymb}
+\usepackage{pdfsetup}
+
+\urlstyle{rm}
+\isabellestyle{it}
+
+\begin{document}
+
+\title{Quantum Speed Limits: the Zieli\'nski--Zych Bound and Time--Occupation Bounds for Qubit--Bus--Qubit State Transfer}
+\author{Carles Mar\'in}
+\maketitle
+
+\begin{abstract}
+We prove the family of Zieli\'nski--Zych speed limits~\cite{ZZ06}, $\pi^a\le 2M_a\tau^a$ for every exponent
+$0<a\le 1$, where $M_a$ is the fractional energy moment and $\tau$ a time at which the autocorrelation vanishes,
+together with its limit $a\to 0$. For the relay qubit--bus--qubit with couplings bounded by $|g|\le G$, we prove that
+the transfer time satisfies $GT\ge\pi/\sqrt2$, by means of an explicit calibration function; we prove the dephasing
+excess $\tfrac23 q(1-q)$ over the additive budget and the exact integrals of the optimal protocol, $3\pi/8$,
+$\pi/4$ and their corrected values; and we prove the lower bound $(1-\varepsilon)/(G^2T)$ on the integrated
+occupation of the bus for any control, and the time--occupation frontier $2u\le G^2T\int p$. The trajectories
+are continuous and differentiable outside a countable set of times.
+\end{abstract}
+
+\paragraph{Acknowledgement.} The formalization and the text of this document were prepared with the
+assistance of generative AI systems, and checked by the author.
+
+\tableofcontents
+
+\section*{Introduction}
+
+The theory \texttt{Zielinski\_Zych} proves the speed limits of Zieli\'nski and Zyczkowski~\cite{ZZ06} for a discrete
+spectral measure, and the behaviour of the bound as the exponent tends to zero. The remaining theories concern a relay:
+a qubit~A is coupled to a bus mode and the mode to a qubit~B, with coupling moduli at most~$G$. Let $x=|a_A|$ and
+$z=|a_B|$ be the moduli of the amplitudes of the two qubits; then $1-x^2-z^2$ is the occupation of the bus.
+\texttt{Relay\_Minimal\_Time} gives the minimal transfer time, \texttt{Relay\_Dephasing} the dephasing excess and
+the exact integrals of the optimal protocol, and \texttt{Relay\_Occupation} the lower bound on the integrated
+occupation and the frontier. For time-optimal control of three-level systems see~\cite{BCC05}; for STIRAP-based
+state transfer through a bus under dissipation see~\cite{WYC17}; for the experimental context
+see~\cite{SUN26,MAR26}.
+
+\parindent 0pt\parskip 0.5ex
+
+\input{session}
+
+\bibliographystyle{abbrv}
+\bibliography{root}
+
+\end{document}

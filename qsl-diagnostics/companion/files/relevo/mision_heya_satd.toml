@@ -1,0 +1,38 @@
+# encaje: misión de excovery.lanzadera: validación del simulador del relevo contra la simulación PUBLICADA de Heya et al. (IBM), arXiv:2502.15034v2
+nombre = "Validación: transferencia SATD de Heya et al. reproducida con el simulador propio"
+fuente = "Heya et al., arXiv:2502.15034v2, ecs. (1)–(3), Tabla I, Supl. «Error budget analysis» (toy1 a 206 ns: CPW ≈ 2e-3, todo ≈ 0,0062)"
+directorio = "E:/proyectos/Curiosity/research/qsl-hardware/relevo"
+proyecto = "qsl-hardware"
+
+[[control]]
+nombre = "sin pérdidas, SATD transfiere entero (Heya: ≈ 1e-7 por precisión numérica)"
+orden = "python heya_satd.py unitario"
+patron = 'infidelidad = ([\d.e+-]+)'
+esperado = "1e-7"
+tolerancia_rel = 1.0
+
+[[control]]
+nombre = "solo pérdida del modo del CPW (Heya: 2e-3)"
+orden = "python heya_satd.py cpw"
+patron = 'infidelidad = ([\d.e+-]+)'
+esperado = "2e-3"
+tolerancia_rel = 0.10
+
+[[control_negativo]]
+nombre = "sin las esperas en los cúbits fuera de la región 4: NO debe dar 0,0062"
+orden = "python heya_satd.py todo --espera 0"
+patron = 'infidelidad = ([\d.e+-]+)'
+distinto_de = "0.0062"
+tolerancia_rel = 0.10
+
+[objetivo]
+nombre = "todas las pérdidas, 206 ns (Heya toy1: 0,0062)"
+orden = "python heya_satd.py todo"
+patron = 'infidelidad = ([\d.e+-]+)'
+afirmado = "6.037e-03"
+tolerancia_rel = 0.05
+
+[[replica]]
+nombre = "valor publicado por Heya et al. (toy1, Lindblad, todas las pérdidas)"
+orden = "python -c \"print('publicado: infidelidad = 0.0062')\""
+patron = 'infidelidad = ([\d.e+-]+)'

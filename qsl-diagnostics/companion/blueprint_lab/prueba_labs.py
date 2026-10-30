@@ -129,4 +129,27 @@ t = json.loads(B.run_bloch(json.dumps({'shape': 'custom', 'samples': '0, 2, 5, 1
 check('run_bloch custom: a positive envelope of your own still gives ratio 1', float('ratio <b>1.0000' in t), 1.0, 0)
 t = json.loads(B.run_bloch(json.dumps({'shape': 'custom', 'samples': '0, 3, -1, 3, 0'})))['text']
 must_fail('control: an envelope that changes sign still gives ratio 1', 'ratio <b>1.0000' in t)
+# Section VIII (version 2): the relay lab against the paper and the companion package (relevo/lindblad_rk4.py: 0.1289 %)
+import qsl_relay_lab as RL  # noqa: E402
+check('relay: master-equation error at the minimal time, Q240–Q247 at 9 MHz (%)',
+      100 * RL.lindblad_error(1 / (2 * math.sqrt(2) * 9.0), 121.0, 14.0, 28.8, 36.0), 0.1289, 0.00051)
+rr = json.loads(RL.run_relay(json.dumps({'g_mhz': '9', 'tg_ns': '312', 't1q': '121', 't2q': '14', 't1c': '28.8',
+                                         't2c': '36', 'measured': '0.71'})))
+check('relay: T_g/T_min = 7.94 (Table VII)', float(rr['table']['rows'][1][2]), 7.94, 0)
+check('relay: IBM additive model 0.625 % on Q240–Q247 (paper: 0.63 %)', float('0.625 %' in rr['text']), 1.0, 0)
+check('relay: qubit dephasing dominates at 56 % (IBM: «56 to 76 %»)', float('qubit dephasing (T2 of the qubits) gives 56 %' in rr['text']), 1.0, 0)
+check('relay: coherence explains 88 % of the measured 0.71 %', float('explains 88 %' in rr['text']), 1.0, 0)
+must_fail('control: T2 > 2 T1 is accepted', 'error' not in json.loads(RL.run_relay(json.dumps(
+    {'g_mhz': '9', 'tg_ns': '312', 't1q': '10', 't2q': '30', 't1c': '28', 't2c': '36'}))))
+check('relay: closed first-order form (identity R1) against the master equation, Q240–Q247 (%)',
+      100 * RL.first_order_error(9.0, 121.0, 14.0, 28.8, 36.0), 0.1289, 0.0005)
+check('relay: the 3D figure is there with its slider (4 cable values)',
+      float(rr['plots'][0].get('kind') == '3d' and len(rr['plots'][0]['slider']['values']) == 4), 1.0, 0)
+must_fail('control: the first-order form at twice g is not half the error',
+          abs(RL.first_order_error(18.0, 121.0, 14.0, 28.8, 36.0) / RL.first_order_error(9.0, 121.0, 14.0, 28.8, 36.0) - 0.5) > 1e-12)
+for _ in range(5):
+    d = json.loads(RL.random_relay())
+    out = json.loads(RL.run_relay(json.dumps(d)))
+    check('relay dice: %s MHz, %s ns runs and explains' % (d['g_mhz'], d['tg_ns']),
+          float('error' not in out and 'Reading.' in out['text']), 1.0, 0)
 print('ALL LAB CHECKS:', 'PASS' if OK else 'FAIL')
