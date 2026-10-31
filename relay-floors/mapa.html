@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: Quantum state transfer through a lossy bus: fundamental error limits for every control pulse, with application to IBM's meter-scale interconnects</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="pc-map-css">
+html,body{height:100%}
+body.pc-frame{margin:0;display:flex;flex-direction:column;overflow:hidden;background:#e8e8e8}
+body.pc-frame header.pc-head{position:static;width:auto;margin:0;flex-shrink:0}
+.pc-wrap{display:flex;flex:1;overflow:hidden}
+nav.pc-toc{width:28ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0;font-family:serif}
+nav.pc-toc ul{list-style:none;margin:0;padding:0}
+nav.pc-toc a{display:block;padding:.5rem .8rem;color:#fff;text-decoration:none;font-size:1.05rem;
+  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
+nav.pc-toc a:hover{background:#497da5}
+nav.pc-toc li.on>a{background:#89aecb}
+.pc-panel{flex:1;overflow:auto;padding:1rem}
+.pc-panel>.cont{margin:0 auto;max-width:none;padding:0 1rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
+.pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
+.pc-paneltitle .campo{justify-content:center}
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+section.pc-pane .mapa{max-width:100%;overflow:auto}
+/* phone: the parts of the map as a row of tabs above the panel */
+@media (max-width:900px){.pc-wrap{flex-direction:column}
+  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
+  nav.pc-toc ul{display:flex;white-space:nowrap}
+  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+</style><style id="lm-maphere-css">
+g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
+g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
+g.lm-here{animation:lmhere 1.2s ease-in-out 3}
+@keyframes lmhere{50%{opacity:.35}}
+#lm-herebar{font:13px Arial,sans-serif;background:#fff3f2;border:1px solid #f3b9b4;border-radius:6px;padding:.35em .7em;
+            margin:.4em 0}
+#lm-herebar a{color:#b3261e}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:1083pt 917pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:1035pt !important;height:549pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Quantum state transfer through a lossy bus: fundamental error limits for every control pulse, with application to IBM's meter-scale interconnects: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper 1 (<a href="https://doi.org/10.5281/zenodo.23836449" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.23836449</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="relay-floors-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Quantum state transfer through a lossy bus: fundamental error limits for every control pulse, with application to IBM's meter-scale interconnects</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Quantum state transfer · quantum interconnects · optimal control bounds</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>12</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>0</b> partly in Lean</span>
+<span class="cifra c-lean" title="statements proved in Isabelle/HOL (ours)">✅ <b>5</b> in Isabelle</span>
+<span class="cifra c-prog">💻 <b>7</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="549pt" style="min-width:760px" viewbox="0.00 0.00 1035.00 549.00" width="1035pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 544.57)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M35,-406.74C35,-406.74 330,-406.74 330,-406.74 336,-406.74 342,-412.74 342,-418.74 342,-418.74 342,-528.57 342,-528.57 342,-534.57 336,-540.57 330,-540.57 330,-540.57 35,-540.57 35,-540.57 29,-540.57 23,-534.57 23,-528.57 23,-528.57 23,-418.74 23,-418.74 23,-412.74 29,-406.74 35,-406.74" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="182.5" xml:space="preserve" y="-525.17">The floor</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M518,-256.91C518,-256.91 666,-256.91 666,-256.91 672,-256.91 678,-262.91 678,-268.91 678,-268.91 678,-517.69 678,-517.69 678,-523.69 672,-529.69 666,-529.69 666,-529.69 518,-529.69 518,-529.69 512,-529.69 506,-523.69 506,-517.69 506,-517.69 506,-268.91 506,-268.91 506,-262.91 512,-256.91 518,-256.91" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="592" xml:space="preserve" y="-514.3">The end qubits must be occupied</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M12,0C12,0 206,0 206,0 212,0 218,-6 218,-12 218,-12 218,-374.99 218,-374.99 218,-380.99 212,-386.99 206,-386.99 206,-386.99 12,-386.99 12,-386.99 6,-386.99 0,-380.99 0,-374.99 0,-374.99 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-371.59">Partial transfer and the asymptotic constant</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M698,-121.33C698,-121.33 1015,-121.33 1015,-121.33 1021,-121.33 1027,-127.33 1027,-133.33 1027,-133.33 1027,-385.86 1027,-385.86 1027,-391.86 1021,-397.86 1015,-397.86 1015,-397.86 698,-397.86 698,-397.86 692,-397.86 686,-391.86 686,-385.86 686,-385.86 686,-133.33 686,-133.33 686,-127.33 692,-121.33 698,-121.33" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="856.5" xml:space="preserve" y="-382.47">Dephasing</text>
+</g>
+<g class="cluster" id="clust5">
+<title>cluster_4</title>
+<path d="M363,-423.99C363,-423.99 486,-423.99 486,-423.99 492,-423.99 498,-429.99 498,-435.99 498,-435.99 498,-511.32 498,-511.32 498,-517.32 492,-523.32 486,-523.32 486,-523.32 363,-523.32 363,-523.32 357,-523.32 351,-517.32 351,-511.32 351,-511.32 351,-435.99 351,-435.99 351,-429.99 357,-423.99 363,-423.99" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="424.5" xml:space="preserve" y="-507.92">Prior work and what is new</text>
+</g>
+<g class="cluster" id="clust6">
+<title>cluster_5</title>
+<path d="M784,-406.74C784,-406.74 928,-406.74 928,-406.74 934,-406.74 940,-412.74 940,-418.74 940,-418.74 940,-528.57 940,-528.57 940,-534.57 934,-540.57 928,-540.57 928,-540.57 784,-540.57 784,-540.57 778,-540.57 772,-534.57 772,-528.57 772,-528.57 772,-418.74 772,-418.74 772,-412.74 778,-406.74 784,-406.74" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="856" xml:space="preserve" y="-525.17">The lab: check your link</text>
+</g>
+<!-- thm:floor -->
+<g class="node" id="node1">
+<title>thm:floor</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:floor" xlink:title="Theorem 4.1: the loss floor: P(T) ≤ e^(−γT)/[1 + (κ−γ)/(G²T)] for every pulse and every duration">
+<path d="M165.05,-510.32C165.05,-510.32 42.95,-510.32 42.95,-510.32 36.95,-510.32 30.95,-504.32 30.95,-498.32 30.95,-498.32 30.95,-426.74 30.95,-426.74 30.95,-420.74 36.95,-414.74 42.95,-414.74 42.95,-414.74 165.05,-414.74 165.05,-414.74 171.05,-414.74 177.05,-420.74 177.05,-426.74 177.05,-426.74 177.05,-498.32 177.05,-498.32 177.05,-504.32 171.05,-510.32 165.05,-510.32" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="104" xml:space="preserve" y="-493.88">Theorem 4.1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="104" xml:space="preserve" y="-479.63">the loss floor: P(T) ≤</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="104" xml:space="preserve" y="-465.38">e^(−γT)/[1 + (κ−γ)/(G²T)]</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="104" xml:space="preserve" y="-451.13">for every pulse and every</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="104" xml:space="preserve" y="-436.88">duration</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="104" xml:space="preserve" y="-422.63">✅ Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:frontier -->
+<g class="node" id="node5">
+<title>lem:frontier</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#lem:frontier" xlink:title="Lemma 6.1: frontier for partial transfer: G²T·Ĩ ≥ Ψ(GT, ε) → 2">
+<path d="M134.8,-356.74C134.8,-356.74 23.2,-356.74 23.2,-356.74 17.2,-356.74 11.2,-350.74 11.2,-344.74 11.2,-344.74 11.2,-294.91 11.2,-294.91 11.2,-288.91 17.2,-282.91 23.2,-282.91 23.2,-282.91 134.8,-282.91 134.8,-282.91 140.8,-282.91 146.8,-288.91 146.8,-294.91 146.8,-294.91 146.8,-344.74 146.8,-344.74 146.8,-350.74 140.8,-356.74 134.8,-356.74" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="79" xml:space="preserve" y="-341.72">Lemma 6.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="79" xml:space="preserve" y="-328.97">frontier for partial</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="79" xml:space="preserve" y="-316.22">transfer: G²T·Ĩ ≥ Ψ(GT, ε)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="79" xml:space="preserve" y="-303.47">→ 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="79" xml:space="preserve" y="-290.72">✅ Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:floor&#45;&gt;lem:frontier -->
+<g class="edge" id="edge2">
+<title>thm:floor-&gt;lem:frontier</title>
+<path d="M95.47,-413.5C92.7,-397.92 89.64,-380.7 86.92,-365.38" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="89.35,-365.04 85.71,-358.58 84.52,-365.9 89.35,-365.04" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:asymptotic -->
+<g class="node" id="node6">
+<title>thm:asymptotic</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#thm:asymptotic" xlink:title="Theorem 6.2: asymptotic floor: 1 − P ≥ 2√(2γδ)/G (1 − o(1)) over all controls">
+<path d="M168.93,-210.66C168.93,-210.66 49.07,-210.66 49.07,-210.66 43.07,-210.66 37.08,-204.66 37.08,-198.66 37.08,-198.66 37.08,-155.58 37.08,-155.58 37.08,-149.58 43.08,-143.58 49.08,-143.58 49.08,-143.58 168.93,-143.58 168.93,-143.58 174.93,-143.58 180.93,-149.58 180.93,-155.58 180.93,-155.58 180.93,-198.66 180.93,-198.66 180.93,-204.66 174.93,-210.66 168.93,-210.66" fill="#ffffff" stroke="#888888" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-194.22">Theorem 6.2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-179.97">asymptotic floor: 1 − P ≥</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-165.72">2√(2γδ)/G (1 − o(1)) over</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-151.47">all controls</text>
+</a>
+</g>
+</g>
+<!-- thm:floor&#45;&gt;thm:asymptotic -->
+<g class="edge" id="edge4">
+<title>thm:floor-&gt;thm:asymptotic</title>
+<path d="M151.04,-413.74C154.22,-408.66 156.96,-403.34 159,-397.86 180.85,-339.15 176.48,-317.07 159,-256.91 155.14,-243.64 148.31,-230.47 140.9,-218.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="142.97,-217.5 137.07,-213 138.89,-220.19 142.97,-217.5" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:ramp -->
+<g class="node" id="node2">
+<title>rem:ramp</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#rem:ramp" xlink:title="Remark 4.2: ramped couplings: G²T → J(T) = ∫m², minimal time 2√(A/S) or A/G + G/S">
+<path d="M322.3,-493.07C322.3,-493.07 213.7,-493.07 213.7,-493.07 207.7,-493.07 201.7,-487.07 201.7,-481.07 201.7,-481.07 201.7,-443.99 201.7,-443.99 201.7,-437.99 207.7,-431.99 213.7,-431.99 213.7,-431.99 322.3,-431.99 322.3,-431.99 328.3,-431.99 334.3,-437.99 334.3,-443.99 334.3,-443.99 334.3,-481.07 334.3,-481.07 334.3,-487.07 328.3,-493.07 322.3,-493.07" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="268" xml:space="preserve" y="-478.06">Remark 4.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="268" xml:space="preserve" y="-465.31">ramped couplings: G²T →</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="268" xml:space="preserve" y="-452.56">J(T) = ∫m², minimal time</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="268" xml:space="preserve" y="-439.81">2√(A/S) or A/G + G/S</text>
+</a>
+</g>
+</g>
+<!-- lem:window -->
+<g class="node" id="node3">
+<title>lem:window</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#lem:window" xlink:title="Lemma 5.1: the window lemma: |Φ(w(T)) − Φ(w(0))| ≤ G∫w², Φ(u) = (arcsin u − u√(1−u²))/2">
+<path d="M655.8,-499.45C655.8,-499.45 532.2,-499.45 532.2,-499.45 526.2,-499.45 520.2,-493.45 520.2,-487.45 520.2,-487.45 520.2,-437.62 520.2,-437.62 520.2,-431.62 526.2,-425.62 532.2,-425.62 532.2,-425.62 655.8,-425.62 655.8,-425.62 661.8,-425.62 667.8,-431.62 667.8,-437.62 667.8,-437.62 667.8,-487.45 667.8,-487.45 667.8,-493.45 661.8,-499.45 655.8,-499.45" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="594" xml:space="preserve" y="-484.43">Lemma 5.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="594" xml:space="preserve" y="-471.68">the window lemma: |Φ(w(T))</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="594" xml:space="preserve" y="-458.93">− Φ(w(0))| ≤ G∫w², Φ(u) =</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="594" xml:space="preserve" y="-446.18">(arcsin u − u√(1−u²))/2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="594" xml:space="preserve" y="-433.43">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:endpoints -->
+<g class="node" id="node4">
+<title>thm:endpoints</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#thm:endpoints" xlink:title="Theorem 5.2: the end qubits must be occupied: G∫(x² + z²) ≥ [Φ(x₀) − Φ(x_T)] + [Φ(z_T) − Φ(z₀)], ≥ π/2 for a complete transfer">
+<path d="M657.93,-374.74C657.93,-374.74 526.07,-374.74 526.07,-374.74 520.07,-374.74 514.07,-368.74 514.07,-362.74 514.07,-362.74 514.07,-276.91 514.07,-276.91 514.07,-270.91 520.07,-264.91 526.07,-264.91 526.07,-264.91 657.93,-264.91 657.93,-264.91 663.93,-264.91 669.93,-270.91 669.93,-276.91 669.93,-276.91 669.93,-362.74 669.93,-362.74 669.93,-368.74 663.93,-374.74 657.93,-374.74" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="592" xml:space="preserve" y="-358.3">Theorem 5.2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="592" xml:space="preserve" y="-344.05">the end qubits must be</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="592" xml:space="preserve" y="-329.8">occupied: G∫(x² + z²) ≥</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="592" xml:space="preserve" y="-315.55">[Φ(x₀) − Φ(x_T)] + [Φ(z_T)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="592" xml:space="preserve" y="-301.3">− Φ(z₀)], ≥ π/2 for a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="592" xml:space="preserve" y="-287.05">complete transfer</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="592" xml:space="preserve" y="-272.8">✅ Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:window&#45;&gt;thm:endpoints -->
+<g class="edge" id="edge1">
+<title>lem:window-&gt;thm:endpoints</title>
+<path d="M593.48,-425.29C593.31,-412.7 593.1,-398.19 592.9,-384.06" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="595.35,-384.28 592.8,-377.31 590.45,-384.35 595.35,-384.28" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:windows -->
+<g class="node" id="node9">
+<title>prop:windows</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#prop:windows" xlink:title="Proposition 7.2: windows with a rate per element: the floor of a real device (with f_A(T)² in the balance)">
+<path d="M828.05,-224.91C828.05,-224.91 705.95,-224.91 705.95,-224.91 699.95,-224.91 693.95,-218.91 693.95,-212.91 693.95,-212.91 693.95,-141.33 693.95,-141.33 693.95,-135.33 699.95,-129.33 705.95,-129.33 705.95,-129.33 828.05,-129.33 828.05,-129.33 834.05,-129.33 840.05,-135.33 840.05,-141.33 840.05,-141.33 840.05,-212.91 840.05,-212.91 840.05,-218.91 834.05,-224.91 828.05,-224.91" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="767" xml:space="preserve" y="-208.47">Proposition 7.2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="767" xml:space="preserve" y="-194.22">windows with a rate per</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="767" xml:space="preserve" y="-179.97">element: the floor of a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="767" xml:space="preserve" y="-165.72">real device (with f_A(T)²</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="767" xml:space="preserve" y="-151.47">in the balance)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="767" xml:space="preserve" y="-137.22">✅ Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:window&#45;&gt;prop:windows -->
+<g class="edge" id="edge7">
+<title>lem:window-&gt;prop:windows</title>
+<path d="M654.46,-425.03C664.58,-417 674.29,-407.87 682,-397.86 719.78,-348.87 742.58,-281.06 754.93,-233.78" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="757.24,-234.63 756.59,-227.25 752.49,-233.43 757.24,-234.63" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:endpoints&#45;&gt;prop:windows -->
+<g class="edge" id="edge8">
+<title>thm:endpoints-&gt;prop:windows</title>
+<path d="M660.66,-263.62C673.91,-252.97 687.76,-241.83 700.93,-231.24" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="702.23,-233.34 706.15,-227.05 699.16,-229.52 702.23,-233.34" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:frontier&#45;&gt;thm:asymptotic -->
+<g class="edge" id="edge3">
+<title>lem:frontier-&gt;thm:asymptotic</title>
+<path d="M86.73,-282.59C90.8,-263.5 95.81,-239.98 100.05,-220.09" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="102.43,-220.66 101.5,-213.3 97.64,-219.63 102.43,-220.66" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:joint -->
+<g class="node" id="node11">
+<title>rem:joint</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#rem:joint" xlink:title="Remark 9.1: a joint bound |g_A|² + |g_B|² ≤ G² changes the constant">
+<path d="M473.3,-493.07C473.3,-493.07 376.7,-493.07 376.7,-493.07 370.7,-493.07 364.7,-487.07 364.7,-481.07 364.7,-481.07 364.7,-443.99 364.7,-443.99 364.7,-437.99 370.7,-431.99 376.7,-431.99 376.7,-431.99 473.3,-431.99 473.3,-431.99 479.3,-431.99 485.3,-437.99 485.3,-443.99 485.3,-443.99 485.3,-481.07 485.3,-481.07 485.3,-487.07 479.3,-493.07 473.3,-493.07" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="425" xml:space="preserve" y="-478.06">Remark 9.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="425" xml:space="preserve" y="-465.31">a joint bound |g_A|² +</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="425" xml:space="preserve" y="-452.56">|g_B|² ≤ G² changes the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="425" xml:space="preserve" y="-439.81">constant</text>
+</a>
+</g>
+</g>
+<!-- lem:frontier&#45;&gt;rem:joint -->
+<g class="edge lm-aux" id="edge10">
+<title>lem:frontier-&gt;rem:joint</title>
+<path d="M147.3,-336.39C203.07,-350.56 283,-374.23 348,-406.74 359.19,-412.34 370.55,-419.47 380.99,-426.72" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="379.34,-428.55 386.47,-430.6 382.17,-424.56 379.34,-428.55" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:attain -->
+<g class="node" id="node7">
+<title>thm:attain</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#thm:attain" xlink:title="Theorem 6.3: the constant is attained: ramp–arc–unload gives 1 − P ≤ ℓ₀[1/(1−α) + 1.5β]">
+<path d="M172.3,-89.33C172.3,-89.33 45.7,-89.33 45.7,-89.33 39.7,-89.33 33.7,-83.33 33.7,-77.33 33.7,-77.33 33.7,-20 33.7,-20 33.7,-14 39.7,-8 45.7,-8 45.7,-8 172.3,-8 172.3,-8 178.3,-8 184.3,-14 184.3,-20 184.3,-20 184.3,-77.33 184.3,-77.33 184.3,-83.33 178.3,-89.33 172.3,-89.33" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-72.89">Theorem 6.3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-58.64">the constant is attained:</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-44.39">ramp–arc–unload gives 1 −</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-30.14">P ≤ ℓ₀[1/(1−α) + 1.5β]</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="109" xml:space="preserve" y="-15.89">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:asymptotic&#45;&gt;thm:attain -->
+<g class="edge" id="edge5">
+<title>thm:asymptotic-&gt;thm:attain</title>
+<path d="M109,-142.56C109,-129.23 109,-113.62 109,-99.04" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="111.45,-99.12 109,-92.12 106.55,-99.12 111.45,-99.12" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:coherence -->
+<g class="node" id="node8">
+<title>lem:coherence</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#lem:coherence" xlink:title="Lemma 7.1: coherence is an amplitude: same no-jump equations with rates 2/T₂; 1 − F_B = (1 − P)/6 + (1 − c)/3">
+<path d="M956.43,-367.61C956.43,-367.61 833.57,-367.61 833.57,-367.61 827.57,-367.61 821.57,-361.61 821.57,-355.61 821.57,-355.61 821.57,-284.03 821.57,-284.03 821.57,-278.03 827.57,-272.03 833.57,-272.03 833.57,-272.03 956.43,-272.03 956.43,-272.03 962.43,-272.03 968.43,-278.03 968.43,-284.03 968.43,-284.03 968.43,-355.61 968.43,-355.61 968.43,-361.61 962.43,-367.61 956.43,-367.61" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="895" xml:space="preserve" y="-351.17">Lemma 7.1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="895" xml:space="preserve" y="-336.92">coherence is an amplitude:</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="895" xml:space="preserve" y="-322.67">same no-jump equations</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="895" xml:space="preserve" y="-308.42">with rates 2/T₂; 1 − F_B =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="895" xml:space="preserve" y="-294.17">(1 − P)/6 + (1 − c)/3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="895" xml:space="preserve" y="-279.92">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:coherence&#45;&gt;prop:windows -->
+<g class="edge" id="edge6">
+<title>lem:coherence-&gt;prop:windows</title>
+<path d="M851.31,-270.8C839.98,-258.34 827.71,-244.85 816.12,-232.12" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="818.04,-230.59 811.52,-227.05 814.41,-233.88 818.04,-230.59" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:reciprocity -->
+<g class="node" id="node10">
+<title>prop:reciprocity</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#prop:reciprocity" xlink:title="Proposition 7.3: reciprocity: P_(B←A)[H] = P_(A←B)[Hᵣev], same coherence; the direction is not a design choice">
+<path d="M1006.8,-224.91C1006.8,-224.91 877.2,-224.91 877.2,-224.91 871.2,-224.91 865.2,-218.91 865.2,-212.91 865.2,-212.91 865.2,-141.33 865.2,-141.33 865.2,-135.33 871.2,-129.33 877.2,-129.33 877.2,-129.33 1006.8,-129.33 1006.8,-129.33 1012.8,-129.33 1018.8,-135.33 1018.8,-141.33 1018.8,-141.33 1018.8,-212.91 1018.8,-212.91 1018.8,-218.91 1012.8,-224.91 1006.8,-224.91" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="942" xml:space="preserve" y="-208.47">Proposition 7.3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="942" xml:space="preserve" y="-194.22">reciprocity: P_(B←A)[H] =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="942" xml:space="preserve" y="-179.97">P_(A←B)[Hᵣev], same</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="942" xml:space="preserve" y="-165.72">coherence; the direction</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="942" xml:space="preserve" y="-151.47">is not a design choice</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="942" xml:space="preserve" y="-137.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:coherence&#45;&gt;prop:reciprocity -->
+<g class="edge" id="edge9">
+<title>lem:coherence-&gt;prop:reciprocity</title>
+<path d="M911.04,-270.8C915.01,-258.91 919.3,-246.08 923.38,-233.86" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="925.66,-234.78 925.55,-227.37 921.01,-233.23 925.66,-234.78" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lab:link -->
+<g class="node" id="node12">
+<title>lab:link</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#lab:link" xlink:title="Remark Lab: 🔬 Check your link — the lab: the floor of YOUR link, a pulse, a verdict on your measurement, what to improve">
+<path d="M920.42,-510.32C920.42,-510.32 791.58,-510.32 791.58,-510.32 785.58,-510.32 779.58,-504.32 779.58,-498.32 779.58,-498.32 779.58,-426.74 779.58,-426.74 779.58,-420.74 785.58,-414.74 791.58,-414.74 791.58,-414.74 920.42,-414.74 920.42,-414.74 926.42,-414.74 932.42,-420.74 932.42,-426.74 932.42,-426.74 932.42,-498.32 932.42,-498.32 932.42,-504.32 926.42,-510.32 920.42,-510.32" fill="#ffffff" stroke="#888888" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="856" xml:space="preserve" y="-493.88">Remark Lab</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="856" xml:space="preserve" y="-479.63">🔬 Check your link — the</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="856" xml:space="preserve" y="-465.38">lab: the floor of YOUR</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="856" xml:space="preserve" y="-451.13">link, a pulse, a verdict</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="856" xml:space="preserve" y="-436.88">on your measurement, what</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="856" xml:space="preserve" y="-422.63">to improve</text>
+</a>
+</g>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>A qubit hands its state to another qubit through a lossy bus (a resonator, a waveguide or a cable mode), with each
+coupler bounded by $G$. The paper gives error floors that hold for <em>every</em> control pulse, every duration and any
+number of bus modes, and applies them to IBM’s meter-scale interconnect.</p>
+<ul>
+<li><b>A floor at every duration</b> (Theorem 4.1, Isabelle): $P(T)\le e^{-\gamma T}/[1+(\kappa-\gamma)/(G^2T)]$.</li>
+<li><b>The end qubits cannot be bypassed</b> (Theorem 5.2, Isabelle): the excitation must sit in the end qubits for an
+integrated time whose lower bound tends to $\pi/(2G)$ for a complete transfer.</li>
+<li><b>The asymptotic constant</b> (Theorems 6.2 and 6.3): the perturbative optimum $2\sqrt{2\gamma(\kappa-\gamma)}/G$
+becomes a lower bound over all controls, and an explicit pulse attains it with explicit error terms.</li>
+<li><b>Dephasing and real devices</b> (Section 7): the coherence with the vacuum is an amplitude with rates $2/T_2$; a
+version with a rate for each element gives the floor of a real device; reciprocity makes the direction irrelevant.</li>
+<li><b>IBM’s links</b> (Section 8): floors $6.03$–$10.05\times10^{-4}$ on $1-F_B$, certified with ball arithmetic,
+against measured errors $11$–$16$ times larger; which hardware change lowers the floor; three other platforms.</li>
+</ul>
+<p>The lab <b>Check your link</b> computes the floor of your own link with the same code as the paper’s tables.</p></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#thm:floor"><b>Theorem 4.1</b></a>: the loss floor: P(T) ≤ e^(−γT)/[1 + (κ−γ)/(G²T)] for every pulse and every duration.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:floor"><b>Theorem 4.1</b></a>: the loss floor: P(T) ≤ e^(−γT)/[1 + (κ−γ)/(G²T)] for every pulse and every duration</li><li><a href="index.html#thm:endpoints"><b>Theorem 5.2</b></a>: the end qubits must be occupied: G∫(x² + z²) ≥ [Φ(x₀) − Φ(x_T)] + [Φ(z_T) − Φ(z₀)], ≥ π/2 for a complete transfer</li><li><a href="index.html#thm:asymptotic"><b>Theorem 6.2</b></a>: asymptotic floor: 1 − P ≥ 2√(2γδ)/G (1 − o(1)) over all controls</li><li><a href="index.html#thm:attain"><b>Theorem 6.3</b></a>: the constant is attained: ramp–arc–unload gives 1 − P ≤ ℓ₀[1/(1−α) + 1.5β]</li><li><a href="index.html#lem:coherence"><b>Lemma 7.1</b></a>: coherence is an amplitude: same no-jump equations with rates 2/T₂; 1 − F_B = (1 − P)/6 + (1 − c)/3</li><li><a href="index.html#prop:windows"><b>Proposition 7.2</b></a>: windows with a rate per element: the floor of a real device (with f_A(T)² in the balance)</li><li><a href="index.html#prop:reciprocity"><b>Proposition 7.3</b></a>: reciprocity: P_(B←A)[H] = P_(A←B)[Hᵣev], same coherence; the direction is not a design choice</li><li><a href="index.html#lab:link"><b>Remark Lab</b></a>: 🔬 Check your link — the lab: the floor of YOUR link, a pulse, a verdict on your measurement, what to improve</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Quantum speed limits and optimal control</b> → Cauchy–Schwarz on the integrated bus occupation; comparison with ODE windows; a calibration function Φ for the end qubits — <a href="index.html#thm:floor">Theorem 4.1</a>, <a href="index.html#thm:endpoints">Theorem 5.2</a>, <a href="index.html#lem:frontier">Lemma 6.1</a>, <a href="index.html#prop:windows">Proposition 7.2</a></li><li><b>Open quantum systems</b> → no-jump evolution, Lindblad dephasing, coherence with the vacuum as an amplitude, reciprocity — <a href="index.html#lem:coherence">Lemma 7.1</a>, <a href="index.html#prop:reciprocity">Proposition 7.3</a></li><li><b>Formal verification and certified numerics</b> → Isabelle/HOL-Analysis (entry Quantum_Speed_Limits, public in karlesmarin/formalizations); ball arithmetic (Arb) for the IBM floors — <a href="index.html#thm:floor">Theorem 4.1</a>, <a href="index.html#lem:window">Lemma 5.1</a>, <a href="index.html#thm:endpoints">Theorem 5.2</a>, <a href="index.html#lem:frontier">Lemma 6.1</a>, <a href="index.html#prop:windows">Proposition 7.2</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Hardware design of modular quantum computers</b> ← which parameter lowers the floor of a link most (coupling, worse-qubit dephasing, coupler slope), before any pulse is designed — <a href="index.html#prop:windows">Proposition 7.2</a>, <a href="index.html#prop:reciprocity">Proposition 7.3</a></li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  if (!panes.length || !box) return;
+  function mark(p){
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+  }
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
+})();
+</script>
+<script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
+<script id="lm-maphere">
+(function(){
+  var n = new URLSearchParams(location.search).get('n');
+  if (!n) return;
+  function go(){
+    var a = null;
+    document.querySelectorAll('svg a').forEach(function (x) {
+      var h = x.getAttribute('href') || x.getAttribute('xlink:href') || '';
+      if (!a && h.slice(h.indexOf('#') + 1) === n) a = x;
+    });
+    var g = a && (a.closest('g.node') || a.parentNode);
+    if (!g) return;
+    var pane = g.closest('section.pc-pane');
+    g.classList.add('lm-here');
+    var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
+    var bar = document.getElementById('lm-herebar');
+    if (!bar) {
+      bar = document.createElement('div'); bar.id = 'lm-herebar';
+      var host = (pane || document.body);
+      host.insertBefore(bar, host.firstChild);
+    }
+    bar.innerHTML = '📍 <b></b> on the map · <a href="index.html#' + encodeURIComponent(n) + '">← back to the statement</a>';
+    bar.querySelector('b').textContent = name;
+    setTimeout(function () { g.scrollIntoView({block: 'center', inline: 'center'}); }, 300);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+  window.addEventListener('load', go);
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:floor": "Theorem 4.1 — Loss floor", "rem:ramp": "Remark 4.2 — Ramped couplings", "lem:window": "Lemma 5.1", "thm:endpoints": "Theorem 5.2 — Endpoint occupation", "lem:frontier": "Lemma 6.1 — Frontier for partial transfer", "thm:asymptotic": "Theorem 6.2 — Asymptotic floor", "thm:attain": "Theorem 6.3 — Attaining the constant", "lem:coherence": "Lemma 7.1 — Coherence is an amplitude", "prop:windows": "Proposition 7.2 — Windows with a rate per element", "prop:reciprocity": "Proposition 7.3 — Reciprocity", "rem:joint": "Remark 9.1 — Joint bound", "lab:link": "Remark Lab — Check your link (the lab of this blueprint)"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body></html>

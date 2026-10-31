@@ -1,0 +1,594 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+</style></head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper 1 (<a href="https://doi.org/10.5281/zenodo.23836449" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.23836449</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="lab:link_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lab:link" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">Lab</span><span class="remark_thmtitle">Check your link (the lab of this blueprint)</span></div>
+<div class="thm_thmcontent"><p>  Enter the maximal couplings and the coherence times \(T_1\), \(T_2\) of the three elements of a qubit–bus–qubit link, and, if you have them, the measured error \(1-F_B\) and the duration of your pulse. The lab computes, in your browser and with the same code as the tables of Section 8: the floor on \(1-F_B\) for every pulse (Proposition 7.2 with \(f_A(T)^2\), and reciprocity, Proposition 7.3), the relaxation-only floor, the error of the minimal-time pulse (Lindblad master equation), a verdict on your measured error, and which hardware change lowers the floor most. Every result comes with its explanation. It reproduces Table 1 to four digits. </p>
+</div>
+<a class="latex_link" href="index.html#lab:link">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:coherence_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:coherence" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.1</span><span class="lemma_thmtitle">Coherence is an amplitude</span></div>
+<div class="thm_thmcontent"><p>  Under H1–H3, let \(\rho \) evolve from \((|0\rangle +|A\rangle )/\sqrt2\) and set \(v_j=2\rho _{j0}\) for \(j\) in the single-excitation sector. Then \(v\) obeys the no-jump dynamics (2) with the loss rates replaced by \(\Gamma _j=1/T_{1,j}+2\gamma _{\varphi ,j}=2/T_{2,j}\), and \(v(0)=(1,0,\dots ,0)\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:coherence">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:frontier_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:frontier" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">6.1</span><span class="lemma_thmtitle">Frontier for partial transfer</span></div>
+<div class="thm_thmcontent"><p>   Under (3) with \(\tilde n(0)=1\), \(x(0)=1\), \(y(0)=z(0)=0\), let \(\tilde P=1-\varepsilon \) with \(\varepsilon \le 1/2\). There is \(y_c\in [0,1]\) with </p>
+<div class="displaymath" id="a0000000026">
+  \begin{equation*}  G^2T\, \tilde I\ge \Bigl(\sqrt{2(1-\varepsilon -y_c^2)_+}-\sqrt\varepsilon \Bigr)_+^2\quad \text{and}\quad G\, \tilde I\ge \tfrac {\sqrt2}{6}\, y_c^3 . \end{equation*}
+</div>
+<p> Consequently \(G^2T\, \tilde I\ge \Psi (GT,\varepsilon )\), where </p>
+<div class="displaymath" id="a0000000027">
+  \[  \Psi (\tau ,\varepsilon ):=\min _{y\in [0,1]}\max \Bigl(1-\varepsilon ,\  \bigl(\sqrt{2(1-\varepsilon -y^2)_+}-\sqrt\varepsilon \bigr)_+^2, \tau \tfrac {\sqrt2}{6}y^3\Bigr),  \]
+</div>
+<p> and \(\Psi (\tau ,\varepsilon )\to 2\) as \(\tau \to \infty \) and \(\varepsilon \to 0\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:frontier">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:window_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:window" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">5.1</span></div>
+<div class="thm_thmcontent"><p> Let \(w\) be absolutely continuous and \(y\ge 0\) continuous on \([0,T]\), with \(w\ge 0\), \(w^2+y^2\le 1\), and \(|\dot w|\le G\, y\) outside a null set. Then \(|\Phi (w(T))-\Phi (w(0))|\le G\int _0^Tw^2\, dt\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:window">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:reciprocity_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:reciprocity" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">7.3</span><span class="proposition_thmtitle">Reciprocity</span></div>
+<div class="thm_thmcontent"><p>   Under H1–H3, with local loss and diagonal local dephasing at rates that do not depend on time, let a pulse \(H(t)\) on \([0,T]\) transfer from \(A\) to \(B\), and let \(H_{\rm rev}(t)=H(T-t)^{\mathsf T}\) (time-reversed and transposed, the bus Hamiltonian \(H_C\) included; for real couplings and real \(H_C\), just played backwards). Then \(P_{B\leftarrow A}[H]=P_{A\leftarrow B}[H_{\rm rev}]\) and \(c_{B\leftarrow A}[H]=c_{A\leftarrow B}[H_{\rm rev}]\), so \(F_B\) is the same. If each coupler keeps its own bound and the reversed and transposed pulse is realisable, \(H_{\rm rev}\) is admissible whenever \(H\) is, and the optimal error is the same in both directions. </p>
+</div>
+<a class="latex_link" href="index.html#prop:reciprocity">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:windows_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:windows" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">7.2</span><span class="proposition_thmtitle">Windows with a rate per element</span></div>
+<div class="thm_thmcontent"><p>   Let \(\zeta =z(T)\). Let \(f_A\) solve \(f'=-G\sqrt{1-f^2}-\tfrac {d_A}2f\), \(f(0)=1\), and \(w_\zeta \) solve \(w'=-G\sqrt{1-w^2}+\tfrac {d_B}2w\), \(w(0)=\zeta \), both taken as the solutions that leave their initial value immediately and stopped at \(0\) (\(w_0\equiv 0\)); equivalently \(F_A(f_A(t))=\min (t,\tau _A)\) and \(K_\zeta (w_\zeta (s))=\min (s,\tau _B(\zeta ))\), with \(\tau _A=F_A(0)\), \(\tau _B(\zeta )=K_\zeta (0)\) and \(F_A(u)=\int _u^1dv/(G\sqrt{1-v^2}+\tfrac {d_A}2v)\) and \(K_\zeta (u)=\int _u^\zeta dv/(G\sqrt{1-v^2}-\tfrac {d_B}2v)\). Let \(M_B\) solve \(M'=G\sqrt{1-M^2}-\tfrac {d_B}2M\), \(M(0)=0\), and \(J_B(T)=(1-e^{-d_BT})/d_B\) (\(J_B=T\) if \(d_B=0\)). Put \(a_A(T)=\int _0^Tf_A^2\) and \(b_B(T,\zeta )=\int _0^Tw_\zeta ^2\). Then </p>
+<div class="displaymath" id="a0000000044">
+  \[  \boxed {\zeta \le M_B(T),\qquad \zeta ^2+f_A(T)^2+d_A\, a_A(T)+d_B\, b_B(T,\zeta )+\frac{d_C\, \zeta ^2}{G^2J_B(T)}\le 1,}  \]
+</div>
+<p> and the physical amplitude at \(B\) is at most \(e^{-r_0T/2}\zeta \). </p>
+</div>
+<a class="latex_link" href="index.html#prop:windows">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:joint_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:joint" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">9.1</span><span class="remark_thmtitle">Joint bound</span></div>
+<div class="thm_thmcontent"><p>   With a joint bound \(|g_A|^2+|g_B|^2\le G^2\) the constant changes: in the adiabatic-elimination limit the optimum of Ref. <span class="cite">
+	[
+	<a href="index.html#StefPasp2021">11</a>
+	]
+</span> gives a loss \(\approx (\pi ^2/4)\, \Gamma /(g^2T)\) in our units, against \(2\delta /(G^2T)\) for the box (Lemma <a href="index.html#lem:frontier">6.1</a>). The box is the natural constraint when each coupler has its own maximal strength. </p>
+</div>
+<a class="latex_link" href="index.html#rem:joint">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:ramp_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:ramp" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">4.2</span><span class="remark_thmtitle">Ramped couplings</span></div>
+<div class="thm_thmcontent"><p>  If in addition \(\| \dot g_i(t)\| \le S\) (Euclidean norm of the coupling vector) and \(g_i(0)=g_i(T)=0\), then \(\| g_i(t)\| \le m(t):=\min (St,S(T-t),G)\), and Cauchy–Schwarz with weight \(m\) gives (4) with \(G^2T\) replaced by \(J(T)=\int _0^Tm^2\) (\(S^2T^3/12\) for \(T\le 2G/S\), \(G^2T-4G^3/(3S)\) for \(T\ge 2G/S\)). With \(A=\pi /\sqrt2\), reparametrising time with \(s=\int _0^t m\) gives the minimal time \(2\sqrt{A/S}\) when \(S\le G^2/A\) (triangular envelope), \(A/G+G/S\) otherwise (trapezoidal), attained without losses by \(g_A=g_B=m\). (Proved on paper; not formalised.) </p>
+</div>
+<a class="latex_link" href="index.html#rem:ramp">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:asymptotic_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:asymptotic" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">6.2</span><span class="theorem_thmtitle">Asymptotic floor</span></div>
+<div class="thm_thmcontent"><p>   Let \(L^*=\inf _T\inf _{\text{controls}}(1-P(T))\) and \(\ell _0=2\sqrt{2\gamma \delta }/G\). If \(\gamma /\delta \to 0\) and \(\sqrt{\gamma \delta }/G\to 0\), then </p>
+<div class="displaymath" id="a0000000030">
+  \[ \boxed {L^*\ge \frac{2\sqrt{2\gamma \delta }}{G}\, \bigl(1-o(1)\bigr).} \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:asymptotic">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:attain_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:attain" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">6.3</span><span class="theorem_thmtitle">Attaining the constant</span></div>
+<div class="thm_thmcontent"><p>   Let \(G{\gt}0\), \(\gamma {\gt}0\), \(\delta {\gt}0\), \(\alpha =\sqrt{\gamma \delta }/G\) and \(\beta =\gamma /\delta \), with \(\alpha \le 0.01\) and \(\beta \le 0.01\). Suppose the bus has a mode, an eigenmode of \(H_C\) that the couplers can address alone, whose loss rate is exactly \(\kappa =\gamma +\delta \) (resonant, or with its detuning compensated by the phase of the couplings). There is a control acting on that mode, with \(|g_A|,|g_B|\le G\), such that </p>
+<div class="displaymath" id="a0000000034">
+  \[  \boxed {1-P\le \frac{2\sqrt{2\gamma \delta }}{G}\Bigl(\frac{1}{1-\alpha }+1.5\, \beta \Bigr).}  \]
+</div>
+<p> Together with Theorem <a href="index.html#thm:asymptotic">6.2</a>, \(L^*=\ell _0\, (1+o(1))\) when \(\alpha ,\beta \to 0\), for this realisable one-mode problem. (For a bus whose loss is only bounded below by \(\kappa \), Theorem <a href="index.html#thm:asymptotic">6.2</a> still holds, but the upper bound need not.) </p>
+</div>
+<a class="latex_link" href="index.html#thm:attain">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:endpoints_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:endpoints" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">5.2</span><span class="theorem_thmtitle">Endpoint occupation</span></div>
+<div class="thm_thmcontent"><p>   Let \(x,z\) be absolutely continuous and \(y\) continuous on \([0,T]\), with \(x,y,z\ge 0\), \(x^2+y^2+z^2\le 1\) and \(|\dot x|,|\dot z|\le G\, y\) outside a null set. Then </p>
+<div class="displaymath" id="a0000000019">
+  \begin{equation*}  G\int _0^T(x^2+z^2)\, dt\; \ge \; [\Phi (x(0))-\Phi (x(T))]+[\Phi (z(T))-\Phi (z(0))]. \end{equation*}
+</div>
+<p> In particular, for a complete transfer (\(x:1\to 0\), \(z:0\to 1\)) and every \(T\), </p>
+<div class="displaymath" id="a0000000020">
+  \[ \boxed {G\int _0^T(x^2+z^2)\, dt\ge \frac\pi 2 .} \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:endpoints">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:floor_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:floor" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4.1</span><span class="theorem_thmtitle">Loss floor</span></div>
+<div class="thm_thmcontent"><p>  Under H1–H2 with \(\kappa \ge \gamma \), for every control satisfying (1) and every \(T{\gt}0\), </p>
+<div class="equation" id="a0000000010">
+<p>
+<div class="equation_content">
+    \begin{equation}  \boxed {P(T)\le \frac{e^{-\gamma T}}{1+(\kappa -\gamma )/(G^2T)}} \end{equation}
+  </div>
+<span class="equation_label">1</span>
+</p>
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:floor">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:asymptotic"	[label=asymptotic,		shape=ellipse];	"thm:attain"	[label=attain,		shape=ellipse];	"thm:asymptotic" -> "thm:attain"	[style=dashed];	"lem:window"	[color=blue,		fillcolor="#A3D6FF",		label=window,		shape=ellipse,		style=filled];	"thm:endpoints"	[label=endpoints,		shape=ellipse];	"lem:window" -> "thm:endpoints"	[style=dashed];	"prop:windows"	[label=windows,		shape=ellipse];	"thm:endpoints" -> "prop:windows"	[style=dashed];	"lem:frontier"	[label=frontier,		shape=ellipse];	"lem:frontier" -> "thm:asymptotic"	[style=dashed];	"rem:joint"	[label=joint,		shape=ellipse];	"lem:frontier" -> "rem:joint"	[style=dashed];	"lem:coherence"	[color=blue,		fillcolor="#A3D6FF",		label=coherence,		shape=ellipse,		style=filled];	"lem:coherence" -> "prop:windows"	[style=dashed];	"prop:reciprocity"	[label=reciprocity,		shape=ellipse];	"lem:coherence" -> "prop:reciprocity"	[style=dashed];	"thm:floor"	[color=blue,		fillcolor="#A3D6FF",		label=floor,		shape=ellipse,		style=filled];	"thm:floor" -> "lem:frontier"	[style=dashed];	"rem:ramp"	[color=blue,		label=ramp,		shape=ellipse];	"lab:link"	[color=blue,		label=link,		shape=ellipse];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="260pt" viewbox="0.00 0.00 445.00 260.00" width="445pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 256)">
+<!-- thm:asymptotic -->
+<g class="node" id="node1">
+<title>thm:asymptotic</title>
+<ellipse cx="51.86" cy="-90" fill="none" rx="51.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="51.86" xml:space="preserve" y="-84.95">asymptotic</text>
+</g>
+<!-- thm:attain -->
+<g class="node" id="node2">
+<title>thm:attain</title>
+<ellipse cx="51.86" cy="-18" fill="none" rx="31.39" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="51.86" xml:space="preserve" y="-12.95">attain</text>
+</g>
+<!-- thm:asymptotic&#45;&gt;thm:attain -->
+<g class="edge" id="edge1">
+<title>thm:asymptotic-&gt;thm:attain</title>
+<path d="M51.86,-71.34C51.86,-64.07 51.86,-55.47 51.86,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="51.86,-37.63 56.36,-47.63 51.86,-41.42 51.86,-47.63 51.86,-47.63 51.86,-47.63 51.86,-41.42 47.36,-47.63 51.86,-37.63" stroke="black"></polygon>
+</g>
+<!-- lem:window -->
+<g class="node" id="node3">
+<title>lem:window</title>
+<ellipse cx="245.86" cy="-234" fill="#a3d6ff" rx="40.6" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="245.86" xml:space="preserve" y="-228.95">window</text>
+</g>
+<!-- thm:endpoints -->
+<g class="node" id="node4">
+<title>thm:endpoints</title>
+<ellipse cx="245.86" cy="-162" fill="none" rx="46.75" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="245.86" xml:space="preserve" y="-156.95">endpoints</text>
+</g>
+<!-- lem:window&#45;&gt;thm:endpoints -->
+<g class="edge" id="edge2">
+<title>lem:window-&gt;thm:endpoints</title>
+<path d="M245.86,-215.34C245.86,-208.07 245.86,-199.47 245.86,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="245.86,-181.64 250.36,-191.64 245.86,-185.42 245.86,-191.64 245.86,-191.64 245.86,-191.64 245.86,-185.42 241.36,-191.64 245.86,-181.64" stroke="black"></polygon>
+</g>
+<!-- prop:windows -->
+<g class="node" id="node5">
+<title>prop:windows</title>
+<ellipse cx="245.86" cy="-90" fill="none" rx="44.19" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="245.86" xml:space="preserve" y="-84.95">windows</text>
+</g>
+<!-- thm:endpoints&#45;&gt;prop:windows -->
+<g class="edge" id="edge3">
+<title>thm:endpoints-&gt;prop:windows</title>
+<path d="M245.86,-143.34C245.86,-136.07 245.86,-127.47 245.86,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="245.86,-109.64 250.36,-119.64 245.86,-113.42 245.86,-119.64 245.86,-119.64 245.86,-119.64 245.86,-113.42 241.36,-119.64 245.86,-109.64" stroke="black"></polygon>
+</g>
+<!-- lem:frontier -->
+<g class="node" id="node6">
+<title>lem:frontier</title>
+<ellipse cx="97.86" cy="-162" fill="none" rx="38.56" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="97.86" xml:space="preserve" y="-156.95">frontier</text>
+</g>
+<!-- lem:frontier&#45;&gt;thm:asymptotic -->
+<g class="edge" id="edge4">
+<title>lem:frontier-&gt;thm:asymptotic</title>
+<path d="M86.73,-144.05C81.5,-136.09 75.13,-126.41 69.28,-117.51" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="63.89,-109.3 73.14,-115.18 65.96,-112.46 69.38,-117.65 69.38,-117.65 69.38,-117.65 65.96,-112.46 65.62,-120.13 63.89,-109.3" stroke="black"></polygon>
+</g>
+<!-- rem:joint -->
+<g class="node" id="node7">
+<title>rem:joint</title>
+<ellipse cx="149.86" cy="-90" fill="none" rx="27.81" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="149.86" xml:space="preserve" y="-84.95">joint</text>
+</g>
+<!-- lem:frontier&#45;&gt;rem:joint -->
+<g class="edge" id="edge5">
+<title>lem:frontier-&gt;rem:joint</title>
+<path d="M110.19,-144.41C116.49,-135.92 124.3,-125.41 131.32,-115.96" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="137.26,-107.97 134.91,-118.68 135.01,-111 131.3,-115.99 131.3,-115.99 131.3,-115.99 135.01,-111 127.69,-113.31 137.26,-107.97" stroke="black"></polygon>
+</g>
+<!-- lem:coherence -->
+<g class="node" id="node8">
+<title>lem:coherence</title>
+<ellipse cx="358.86" cy="-162" fill="#a3d6ff" rx="48.28" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="358.86" xml:space="preserve" y="-156.95">coherence</text>
+</g>
+<!-- lem:coherence&#45;&gt;prop:windows -->
+<g class="edge" id="edge6">
+<title>lem:coherence-&gt;prop:windows</title>
+<path d="M334.34,-145.81C318.24,-135.84 296.97,-122.66 279.32,-111.73" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="270.99,-106.56 281.86,-108.01 274.2,-108.55 279.48,-111.83 279.48,-111.83 279.48,-111.83 274.2,-108.55 277.11,-115.66 270.99,-106.56" stroke="black"></polygon>
+</g>
+<!-- prop:reciprocity -->
+<g class="node" id="node9">
+<title>prop:reciprocity</title>
+<ellipse cx="358.86" cy="-90" fill="none" rx="50.84" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="358.86" xml:space="preserve" y="-84.95">reciprocity</text>
+</g>
+<!-- lem:coherence&#45;&gt;prop:reciprocity -->
+<g class="edge" id="edge7">
+<title>lem:coherence-&gt;prop:reciprocity</title>
+<path d="M358.86,-143.34C358.86,-136.07 358.86,-127.47 358.86,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="358.86,-109.64 363.36,-119.64 358.86,-113.42 358.86,-119.64 358.86,-119.64 358.86,-119.64 358.86,-113.42 354.36,-119.64 358.86,-109.64" stroke="black"></polygon>
+</g>
+<!-- thm:floor -->
+<g class="node" id="node10">
+<title>thm:floor</title>
+<ellipse cx="97.86" cy="-234" fill="#a3d6ff" rx="28.83" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="97.86" xml:space="preserve" y="-228.95">floor</text>
+</g>
+<!-- thm:floor&#45;&gt;lem:frontier -->
+<g class="edge" id="edge8">
+<title>thm:floor-&gt;lem:frontier</title>
+<path d="M97.86,-215.34C97.86,-208.07 97.86,-199.47 97.86,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="97.86,-181.64 102.36,-191.64 97.86,-185.42 97.86,-191.64 97.86,-191.64 97.86,-191.64 97.86,-185.42 93.36,-191.64 97.86,-181.64" stroke="black"></polygon>
+</g>
+<!-- rem:ramp -->
+<g class="node" id="node11">
+<title>rem:ramp</title>
+<ellipse cx="334.86" cy="-234" fill="none" rx="30.37" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="334.86" xml:space="preserve" y="-228.95">ramp</text>
+</g>
+<!-- lab:link -->
+<g class="node" id="node12">
+<title>lab:link</title>
+<ellipse cx="409.86" cy="-234" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="409.86" xml:space="preserve" y="-228.95">link</text>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:floor": "Theorem 4.1 — Loss floor", "rem:ramp": "Remark 4.2 — Ramped couplings", "lem:window": "Lemma 5.1", "thm:endpoints": "Theorem 5.2 — Endpoint occupation", "lem:frontier": "Lemma 6.1 — Frontier for partial transfer", "thm:asymptotic": "Theorem 6.2 — Asymptotic floor", "thm:attain": "Theorem 6.3 — Attaining the constant", "lem:coherence": "Lemma 7.1 — Coherence is an amplitude", "prop:windows": "Proposition 7.2 — Windows with a rate per element", "prop:reciprocity": "Proposition 7.3 — Reciprocity", "rem:joint": "Remark 9.1 — Joint bound", "lab:link": "Remark Lab — Check your link (the lab of this blueprint)"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>
