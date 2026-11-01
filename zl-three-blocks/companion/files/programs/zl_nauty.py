@@ -1,4 +1,4 @@
-# Section 7: maximum bases up to isomorphism (nauty) and the largest family for each (CP-SAT).
+# Section 7: maximum bases up to isomorphism (genbg of nauty, from the PATH or the GENBG variable) and the largest family for each (CP-SAT).
 """python zl_nauty.py tabla [--mmax 14] [--nmax 9] [--seg 900]      → tabla_zl_nauty.jsonl
    python zl_nauty.py uno m n [--seg 900]
 
@@ -15,21 +15,20 @@ import networkx as nx
 from zl_km import max_e2
 
 A = Path(__file__).resolve().parent
-GENBG = '/home/sage/sage/local/bin/genbg'
 ENV = {**__import__('os').environ, 'MSYS_NO_PATHCONV': '1'}
+# genbg of nauty (version 2.8): from the PATH; otherwise the command given in the environment variable GENBG, which
+# may be a prefix such as «docker exec <container> /path/to/genbg»; no particular installation is assumed
+GENBG = (ENV.get('GENBG') or __import__('shutil').which('genbg') or '').split()
+if not GENBG:
+    GENBG = ['docker', 'exec', 'cognitive_arch_sage', '/home/sage/sage/local/bin/genbg']   # the author's machine
 
 
 def genbg(m, n, e, contar=False):
-    args = ['docker', 'exec', 'cognitive_arch_sage', GENBG, '-Z1', '-q'] + (['-u'] if contar else []) + \
-        [str(m), str(n), f'{e}:{e}']
-    r = subprocess.run(args, capture_output=True, env=ENV, timeout=7200)
-    if contar:
-        msg = (r.stderr or b'').decode() + (r.stdout or b'').decode()
-        r2 = subprocess.run(args[:4] + ['-u'] + args[5:] if False else
-                            ['docker', 'exec', 'cognitive_arch_sage', GENBG, '-Z1', '-u', str(m), str(n), f'{e}:{e}'],
-                            capture_output=True, env=ENV, timeout=7200)
-        texto = (r2.stderr or b'').decode() + (r2.stdout or b'').decode()
+    if contar:   # -u: count only; the count is printed on stderr as «>Z <k> graphs generated»
+        r = subprocess.run(GENBG + ['-Z1', '-u', str(m), str(n), f'{e}:{e}'], capture_output=True, env=ENV, timeout=7200)
+        texto = (r.stderr or b'').decode() + (r.stdout or b'').decode()
         return int(texto.split('>Z')[1].split('graphs')[0])
+    r = subprocess.run(GENBG + ['-Z1', '-q', str(m), str(n), f'{e}:{e}'], capture_output=True, env=ENV, timeout=7200)
     return [l for l in r.stdout.splitlines() if l.strip()]
 
 

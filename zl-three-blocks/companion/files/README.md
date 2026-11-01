@@ -34,11 +34,11 @@ Every number of the paper traces to a file here. Indices in the data start at 1,
 | `zl_rho_realiza.py` | Theorem C: realization of an optimal shadow program as an actual configuration (also --canonica for Theorem D). |
 | `zl_rho_exacto.sage` | Theorems C and D, n <= 5: the slopes by exact linear programming in Sage. |
 | `modulos_lambda.py` | Theorem B, lower bound: the three-block modules for n = 3..12, checked by both checkers. |
-| `zl_tipos.py` | Section 7: F_n(m) exactly by the integer program over row types (CP-SAT). |
+| `zl_tipos.py` | Section 7: F_4(m) exactly by the integer program over row types (CP-SAT); valid for n <= 4 only (it refuses n >= 5). |
 | `tres_bloques_dual_check.py` | Proposition 6.3: weights, row budgets, modules and the maximum lambda_n in exact arithmetic, every partition with n <= 60. |
 | `tres_bloques_identidades.py` | Proposition 6.3: the two deficit identities, symbolically (SymPy). |
 | `cruce_escalera_m3.py` | Section 5: the three-column ladder 1/2, 2/3, 1 against the published formulas. |
-| `zl_nauty.py` | Section 7: maximum bases up to isomorphism (nauty) and the largest family for each (CP-SAT). |
+| `zl_nauty.py` | Section 7: maximum bases up to isomorphism (genbg of nauty, from the PATH or the GENBG variable) and the largest family for each (CP-SAT). |
 | `zl_e2_sim.py` | Helper of zl_nauty.py: the family search with and without symmetry breaking. |
 | `zl_km.py` | Helper of zl_nauty.py: maximum bases and their automorphisms. |
 | `zl_cpsat.py` | Section 7: z(m, n) and the largest family by constraint programming. |

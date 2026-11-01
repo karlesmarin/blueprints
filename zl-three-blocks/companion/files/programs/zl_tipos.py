@@ -1,4 +1,4 @@
-# Section 7: F_n(m) exactly by the integer program over row types (CP-SAT).
+# Section 7: F_4(m) exactly by the integer program over row types (CP-SAT); valid for n <= 4 only (it refuses n >= 5).
 """python zl_tipos.py n m1 m2 [--seg 600]"""
 import itertools
 import sys
@@ -7,6 +7,10 @@ from ortools.sat.python import cp_model
 
 
 def F(n, m, seg=600):
+    # Scope n <= 4: a row then has at most three cells outside the base, hence at most one horizontal
+    # pair, and counts by type determine the rows. From n = 5 a row can carry several horizontal pairs and the counts
+    # no longer decompose into rows; the exact formulation is the profile system (zl_perfiles.py), types with matchings.
+    assert n <= 4, 'zl_tipos.py is exact only for n <= 4; for n >= 5 use the profile system (zl_perfiles.py)'
     C = range(n)
     pares = [frozenset(p) for p in itertools.combinations(C, 2)]
     t = m - len(pares)

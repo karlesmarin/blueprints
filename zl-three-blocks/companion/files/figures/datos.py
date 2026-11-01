@@ -76,7 +76,7 @@ def pendientes():
     out = []
     for n in range(3, 13):
         if n <= 6:
-            d = json.load(open(ZL / f'cert_sombras_{n}.json'))
+            d = json.load(open(ZL.parent / 'data' / f'shadow_certificate_n{n}.json'))
             assert Fraction(*d['cota']) == lam(n)
             est = 'certificado'
         elif n == 7:
@@ -88,12 +88,10 @@ def pendientes():
 
 
 def f4():
-    """F_4(m) exacto para m = 6..40: tablas fila a fila (m ≤ 14) y reducción por tipos (zl_tipos_n4.log)."""
+    """F_4(m) exacto para m = 6..40: tablas fila a fila (m ≤ 14) y reducción por tipos (data/F4_exact.json)."""
     vals = {}
-    for linea in (ZL / 'zl_tipos_n4.log').read_text(encoding='utf-8').splitlines():
-        mt = re.search(r'm = (\d+): F = (\d+) OPTIMAL', linea)
-        if mt:
-            vals[int(mt.group(1))] = int(mt.group(2))
+    for k, v in json.load(open(ZL.parent / 'data' / 'F4_exact.json'))['F4'].items():
+        vals[int(k)] = v
     for d in map(json.loads, (ZL / 'tabla_zl_nauty.jsonl').read_text(encoding='utf-8').splitlines()):
         if d['n'] == 4 and d['m'] >= 6 and d['exacto']:
             vals[d['m']] = d['zl'] - d['z']
