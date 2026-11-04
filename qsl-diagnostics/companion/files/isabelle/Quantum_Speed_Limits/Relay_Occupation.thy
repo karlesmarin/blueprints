@@ -258,7 +258,7 @@ proof -
     using bnd unfolding y_def p_def by simp
   have p0: "p 0 = 0" unfolding p_def using x0 z0 by simp
   have pT: "p T = 0" unfolding p_def using xT zT by simp
-  \<comment> \<open>Paso 1: cruce\<close>
+  \<comment> \<open>Step 1: crossing\<close>
   obtain tc where tcr: "0 \<le> tc" "tc \<le> T" and tcxz: "x tc = z tc"
   proof -
     have cg: "continuous_on {0..T} (\<lambda>t. x t - z t)" using cx cz by (intro continuous_intros)
@@ -283,7 +283,7 @@ proof -
   define u0' where "u0' = 2 * s\<^sup>2"
   have hnn: "0 \<le> 1 - u0'" using pnn[OF tcD] ptc unfolding u0'_def by simp
   have u0'0: "0 \<le> u0'" unfolding u0'_def by simp
-  \<comment> \<open>Paso 2\<close>
+  \<comment> \<open>Step 2\<close>
   have Gyc: "continuous_on {0..T} (\<lambda>t. G * y t)" using yc by (intro continuous_intros)
   have Gyi: "\<And>a b. 0 \<le> a \<Longrightarrow> b \<le> T \<Longrightarrow> (\<lambda>t. G * y t) integrable_on {a..b}"
     by (rule integrable_continuous_real, rule continuous_on_subset[OF Gyc]) auto
@@ -331,7 +331,7 @@ proof -
     finally have "(2 * s)\<^sup>2 \<le> G\<^sup>2 * (T * I)" .
     thus ?thesis unfolding u0'_def by (simp add: power_mult_distrib algebra_simps)
   qed
-  \<comment> \<open>Paso 3: Lipschitz\<close>
+  \<comment> \<open>Step 3: Lipschitz\<close>
   define M where "M = 2 * sqrt 2 * G"
   have M0: "0 < M" unfolding M_def using G by simp
   have lip: "\<And>a b. 0 \<le> a \<Longrightarrow> a \<le> b \<Longrightarrow> b \<le> T \<Longrightarrow> \<bar>p b - p a\<bar> \<le> M * (b - a)"
@@ -415,7 +415,7 @@ proof -
       thus ?thesis using False ptc_h by (simp add: abs_le_iff abs_of_nonneg)
     qed
   qed
-  \<comment> \<open>integral del triangulo\<close>
+  \<comment> \<open>integral of the triangle\<close>
   have pint: "\<And>a::real. \<And>b::real. 0 \<le> a \<Longrightarrow> b \<le> T \<Longrightarrow> (p has_integral integral {a..b} p) {a..b}"
   proof -
     fix a b :: real assume "0 \<le> a" "b \<le> T"
@@ -466,7 +466,7 @@ proof -
   have n2: "0 \<le> integral {a3..T} p" by (rule nn_int[OF _ a3r(2) order_refl]) (use a1r a3r tcr in linarith)
   have Ilow: "h * w \<le> I" using c1 c2 c3 L R n1 n2 by linarith
   have hwM: "h * w = h\<^sup>2 / M" unfolding w_def by (simp add: power2_eq_square)
-  \<comment> \<open>Paso 4\<close>
+  \<comment> \<open>Step 4\<close>
   show ?thesis unfolding goalI
   proof (cases "u \<le> u0'")
     case True

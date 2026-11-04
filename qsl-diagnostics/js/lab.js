@@ -182,11 +182,30 @@
           (inp.rows || 5) + '" cols="' + (inp.size || 60) + '" spellcheck="false">' + esc(inp['default']) + '</textarea></label> ';
         return;
       }
+      // 31-oct (relay-floors, metric): type 'select' offers fixed choices, options = [{value, label}]
+      if (inp.type === 'select') {
+        form += '<label>' + esc(inp.label || inp.name) + ' <select data-name="' + inp.name + '">' +
+          (inp.options || []).map(function (o) {
+            return '<option value="' + esc(o.value) + '"' + (o.value === inp['default'] ? ' selected' : '') + '>' +
+              esc(o.label || o.value) + '</option>';
+          }).join('') + '</select></label> ';
+        return;
+      }
+      // 31-oct (relay-floors, «what if»): type 'range' is a slider with its value shown; moving it recomputes live
+      if (inp.type === 'range') {
+        form += '<label class="lm-range">' + esc(inp.label || inp.name) + ' <input data-name="' + inp.name + '" type="range" min="' +
+          inp.min + '" max="' + inp.max + '" step="' + (inp.step || 'any') + '" value="' + esc(inp['default']) +
+          '"> <output>' + esc(inp['default']) + '</output></label> ';
+        return;
+      }
       var a = inp.type === 'int' ? ' type="number" min="' + (inp.min !== undefined ? inp.min : '') + '" max="' + (inp.max !== undefined ? inp.max : '') + '"' : ' type="text" size="' + (inp.size || 18) + '"';
       form += '<label>' + esc(inp.label || inp.name) + ' <input data-name="' + inp.name + '"' + a + ' value="' + esc(inp['default']) + '"></label> ';
     });
     form += '<button type="button" class="lm-run" disabled>Compute</button>' +
       (lab.random ? ' <button type="button" class="lm-dice" title="random inputs: see what happens">🎲 random</button>' : '') +
+      // 31-oct (Carles, relay-floors: «el lab con un botón que sea toda la pantalla, parte izquierda datos, parte derecha
+      // figuras»): the whole lab on the screen, data on the left, figures on the right; Esc or the button leaves
+      ' <button type="button" class="lm-full-btn" title="the lab on the whole screen: data left, figures right">⛶ full screen</button>' +
       ' <span class="lm-state">⏳ Python loads when you open this lab</span></div>';
     if (lab.examples && lab.examples.length) {
       form += '<div class="lm-ex">Examples: ' + lab.examples.map(function (e, i) {
@@ -201,18 +220,40 @@
       box.querySelectorAll('[data-name]').forEach(function (i) { v[i.dataset.name] = i.value; });
       return v;
     }
+    // 31-oct (Carles, relay-floors: «si tarda pon un reloj que se vea que está trabajando»): a spinning clock and a
+    // message are painted BEFORE the (synchronous) Python call; the spin is a CSS transform, which the browser's
+    // compositor keeps turning while Python holds the main thread. The time taken is shown afterwards.
+    var busy = null;
     function compute() {
       if (!py) { start(); return; }  // a click before Python is ready: load it, then compute (start() computes)
+      if (!busy) {
+        busy = document.createElement('div');
+        busy.className = 'lm-busy';
+        busy.innerHTML = '<span class="lm-clock">⏳</span> computing… (Python in your browser)';
+        box.insertBefore(busy, out);
+      }
+      busy.hidden = false;
+      var t0 = performance.now();
+      setTimeout(function () {
+        computeNow();
+        busy.hidden = true;
+        state.textContent = '✅ computed in ' + ((performance.now() - t0) / 1000).toFixed(1) + ' s';
+      }, 60);
+    }
+    function computeNow() {
       try {
         var f = py.globals.get('__import__')(lab.module)[lab['function']];
         var res = JSON.parse(f(JSON.stringify(values())));
         if (res.error) { out.innerHTML = '<p class="lm-err">⚠️ ' + esc(res.error) + '</p>'; return; }
-        var h = '';
-        if (res.text) h += '<p>' + res.text + '</p>';
+        var h = '', figs = '';
+        // the text: paragraphs separated by blank lines become paragraphs (a line break inside one stays a line break)
+        // 31-oct (relay-floors): a text that starts with an HTML tag is the lab's own layout (a result card): as is
+        if (res.text && /^\s*</.test(res.text)) h += res.text;
+        else if (res.text) h += res.text.split(/\n\s*\n/).map(function (q) { return '<p>' + q.replace(/\n/g, '<br>') + '</p>'; }).join('');
         if (res.table) h += table(res.table);
         var placed = [];
         [].concat(res.plot || [], res.plots || []).forEach(function (p) {
-          if (p.figure && place(p)) placed.push(p.figure); else h += figure(p);
+          if (p.figure && place(p)) placed.push(p.figure); else figs += figure(p);
         });
         // 27-oct (Carles: «que pueda dar un resumen del resultado»): the live figure carries the lab's summary under it
         placed.filter(function (f, i) { return placed.indexOf(f) === i; }).forEach(function (f) {
@@ -231,7 +272,7 @@
         // the reader takes the result away: the table as CSV, and a link that reopens the lab with these inputs
         h += '<p class="lm-tools">' + (res.table ? '<button type="button" class="lm-csv">⬇ table as CSV</button> ' : '') +
           '<button type="button" class="lm-link">🔗 copy a link with these values</button> <span class="lm-toolmsg"></span></p>';
-        out.innerHTML = h;
+        out.innerHTML = '<div class="lm-data">' + h + '</div><div class="lm-figs">' + figs + '</div>';
         var msg = out.querySelector('.lm-toolmsg'), csvb = out.querySelector('.lm-csv');
         if (csvb) csvb.addEventListener('click', function () {
           var q = function (x) { x = String(x); return /[",\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; };
@@ -276,9 +317,40 @@
     }
     var db = box.querySelector('.lm-dice');
     if (db) db.addEventListener('click', dice);
+    var fb = box.querySelector('.lm-full-btn');
+    function full(on) {
+      box.classList.toggle('lm-full', on);
+      // 31-oct (Carles: «que la ventana se pueda cerrar x»): a ✕ in the window's top-right corner
+      var x = box.querySelector(':scope > .lm-x');
+      if (on && !x) {
+        x = document.createElement('button');
+        x.type = 'button'; x.className = 'lm-x'; x.textContent = '✕'; x.title = 'close (Esc)';
+        x.addEventListener('click', function () { full(false); });
+        box.appendChild(x);
+      } else if (!on && x) x.remove();
+      document.body.classList.toggle('lm-noscroll', on);
+      fb.textContent = on ? '✕ close (Esc)' : '⛶ full screen';
+      if (py && started) compute();  // redraw: the figures take the size of their new column
+      else start();
+    }
+    fb.addEventListener('click', function () { full(!box.classList.contains('lm-full')); });
+    if (lab.button) {  // a fixed button on the page: the lab in the central window, wherever the reader is
+      var cb = document.createElement('button');
+      cb.type = 'button'; cb.className = 'lm-central-btn'; cb.textContent = lab.button;
+      cb.title = 'open the lab in the central window (Esc closes it and leaves you where you were)';
+      // open() first: the lab may sit in a closed block (details) or in another view, where it would not show
+      cb.addEventListener('click', function () { open(); full(true); });
+      document.body.appendChild(cb);
+    }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('lm-full')) full(false); });
+    var live = null;
     box.querySelectorAll('[data-name]').forEach(function (i) {
       i.addEventListener('change', compute);
       i.addEventListener('keydown', function (e) { if (e.key === 'Enter' && i.tagName !== 'TEXTAREA') compute(); });
+      if (i.type === 'range') i.addEventListener('input', function () {   // live: show the value, recompute after a pause
+        var o = i.parentElement.querySelector('output'); if (o) o.textContent = i.value;
+        clearTimeout(live); live = setTimeout(function () { if (py && started) computeNow(); }, 120);
+      });
     });
     box.querySelectorAll('[data-ex]').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -391,6 +463,33 @@
     '.lm-figwait{font:13px Arial,sans-serif;color:#8a4a00}' +
     '.lm-figtoggle{display:block;margin:.3em auto;padding:.15em .8em;cursor:pointer;border:1px solid #8a9aab;background:#fff;border-radius:14px;font:12px Arial,sans-serif}' +
     '.lm-placed{font-size:.92em;color:#555}.lm-goto{cursor:pointer;border:1px solid #8a9aab;background:#fff;border-radius:14px;padding:.05em .7em}' +
+    '.lm-range{display:flex;align-items:center;gap:.4em}.lm-range input{width:150px}.lm-range output{min-width:3.5em;font-weight:bold;color:#1B6F8C}' +
+    '.lm-full>.lm-form .lm-range{flex-direction:row;grid-column:1/3}.lm-full>.lm-form .lm-range input{flex:1}' +
+    '.lm-busy{display:flex;align-items:center;gap:.5em;margin:.4em 0;padding:.45em .8em;background:#fff8e1;' +
+    'border:1px solid #ffe082;border-radius:8px;font:bold 13px Arial,sans-serif;color:#8a5a00}' +
+    '.lm-busy[hidden]{display:none}.lm-full .lm-busy{grid-column:1/3;grid-row:1;align-self:start;justify-self:center;z-index:3;' +
+    'box-shadow:0 2px 10px rgba(0,0,0,.2)}' +
+    '.lm-clock{display:inline-block;font-size:20px;animation:lmspin 1s linear infinite;will-change:transform}' +
+    '@keyframes lmspin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}' +
+    '.lm-full-btn{padding:.2em .8em;cursor:pointer;border:1px solid #1B6F8C;background:#eef5f9;border-radius:14px;font-weight:bold}' +
+    'body.lm-noscroll{overflow:hidden}' +
+    'body.lm-noscroll::before{content:"";position:fixed;inset:0;background:rgba(20,30,40,.45);z-index:99998}' +
+    '.lm-central-btn{position:fixed;right:18px;top:62px;z-index:9000;padding:.55em 1.1em;font:bold 14px Arial,sans-serif;' +
+    'color:#fff;background:#1B6F8C;border:none;border-radius:22px;box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer}' +
+    '.lm-central-btn:hover{background:#155a72}' +
+    '.lm-x{position:absolute;top:8px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid #c5ced8;' +
+    'background:#fff;font:bold 18px Arial,sans-serif;line-height:30px;cursor:pointer;color:#455A64;box-shadow:0 1px 4px rgba(0,0,0,.15)}' +
+    '.lm-x:hover{background:#f3d6d6;color:#b71c1c}' +
+    '.lm-full{position:fixed;inset:2.5vh 2.5vw;z-index:99999;background:#fff;display:grid;grid-template-columns:minmax(330px,36%) 1fr;' +
+    'grid-template-rows:auto auto 1fr;gap:0 1.2em;padding:.8em 1em;box-sizing:border-box;overflow:hidden;border-radius:10px;' +
+    'box-shadow:0 10px 40px rgba(0,0,0,.35)}' +
+    '.lm-full>.lm-form{grid-column:1;grid-row:1;display:grid;grid-template-columns:1fr 1fr;gap:.35em .6em;align-items:end}' +
+    '.lm-full>.lm-form label{display:flex;flex-direction:column;font-size:12px}.lm-full>.lm-form input{width:100%;box-sizing:border-box}' +
+    '.lm-full>.lm-ex{grid-column:1;grid-row:2;font-size:12px}.lm-full>.lm-ex button{margin:.15em 0}' +
+    '.lm-full .lm-out{display:contents}' +
+    '.lm-full .lm-data{grid-column:1;grid-row:3;overflow:auto;font-size:13px;line-height:1.45;padding-right:.4em}' +
+    '.lm-full .lm-figs{grid-column:2;grid-row:1/4;overflow:auto;border-left:1px solid #e3e8ee;padding-left:1em}' +
+    '.lm-full .lm-figs svg{max-width:100%;height:auto}' +
     '.lm-figlink{display:block;margin:.4em auto;padding:.25em 1em;cursor:pointer;border:1px solid #ef6c00;background:#fff8f0;border-radius:14px;font:13px Arial,sans-serif;color:#8a4a00}';
   document.head.appendChild(css);
   function all() { (window.LEMMARIO_LABS || []).forEach(function (l) { setup(l, window.LEMMARIO_LABS); }); }

@@ -577,7 +577,7 @@ proof -
     thus False using xT by simp
   qed
   have G0: "0 \<le> G" using Gpos by simp
-  \<comment> \<open>instantes t1 y t0\<close>
+  \<comment> \<open>the times t1 and t0\<close>
   define Z where "Z = {t \<in> {0..T}. z t = 1}"
   have Zc: "closed Z"
   proof -
@@ -635,7 +635,7 @@ proof -
     hence "t1 \<le> u" using t1min[of u] t0r t1r by simp
     thus False using \<open>u < t1\<close> by simp
   qed
-  \<comment> \<open>la funcion h\<close>
+  \<comment> \<open>the function h\<close>
   define h where "h = (\<lambda>u. G * u + Phi (x u) (z u))"
   have hcont: "continuous_on {t0..t1} h"
   proof -
@@ -644,7 +644,7 @@ proof -
       by (rule cont_Phi) (use sub continuous_on_subset[OF cx sub] continuous_on_subset[OF cz sub] Dt in auto)
     thus ?thesis unfolding h_def by (intro continuous_intros)
   qed
-  \<comment> \<open>el conjunto numerable de excepciones\<close>
+  \<comment> \<open>the countable set of exceptions\<close>
   define B where "B = {t. \<exists>c. c \<noteq> 0 \<and> ((\<lambda>u. x u + z u) has_real_derivative c) (at t) \<and> x t + z t = 1}"
   have Bc: "countable B"
   proof (rule countable_isolated)
@@ -718,7 +718,7 @@ proof -
   have ftc: "(f' has_integral (h t1 - h t0)) {t0..t1}"
     by (rule fundamental_theorem_of_calculus_interior_strong[OF Ec less_imp_le[OF t01] fder hcont])
   have hnn: "0 \<le> h t1 - h t0" by (rule has_integral_nonneg[OF ftc]) (simp add: fnn)
-  \<comment> \<open>valores en los extremos\<close>
+  \<comment> \<open>values at the endpoints\<close>
   have P0: "Phi (x t0) (z t0) = (pi / 2) / sqrt 2" unfolding t0r(3) zt0 by (rule Phi10)
   have P1: "Phi (x t1) (z t1) = - ((pi / 2) / sqrt 2)" unfolding xt1 t1r(3) by (rule Phi01)
   have "pi / sqrt 2 \<le> G * (t1 - t0)"

@@ -1,0 +1,18 @@
+Version 3, upper bound: interval certificate of an explicit finite protocol for the CZ with the second level (d = 3).
+
+Protocol: second-order (Strang) product, N = 64 steps of length delta = double-precision value of T2/N, of the 18 local
+conjugates of H_c (weight 1/18 each) and the local detuning of |m>; then an exact correction (linear programme over
+3000 local conjugates of H_c + Newton), as in the exact-correction lemma.
+Certificate: Krawczyk test in interval arithmetic (mpmath.iv, 40 digits) on the 80 coordinates of SU(9), with
+||U' - I||_F < 1 to fix the phase, and an upper bound of the correction cost over the box (radius 1e-10).
+
+N=64, atoms=3000 | correction 2.134e-05 (LP 8.186e-06, support 41) | Newton residual 1.4e-15
+CERTIFIED: YES | word <= 0.520001649839351 + correction <= 0.000021341632 = TOTAL <= 0.520022991471 /J
+            pi/6 = 0.523598775598 /J, margin 3.576e-03
+
+Negative controls (same test, must fail):
+  centre displaced by 1e-6 in one active coordinate          -> OUTSIDE (rejected)
+  detuning multiplied by (1 + 1e-7), same correction          -> OUTSIDE (rejected)
+NEGATIVE CONTROL: PASSES
+
+The interval tools that produced this output are not part of this package.
