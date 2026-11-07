@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript">
+</script>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds: blueprint</title>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/amsthm.css" rel="stylesheet"/>
+<link href="styles/blueprint.css" rel="stylesheet"/>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="estilo-blueprint">/* lemmario: commentary blocks, views bar, Lean seal. Injected into index.html after plasTeX. */
+/* a link target is not hidden under the sticky bar */
+[id], a[name]{scroll-margin-top:64px}
+details.blk{border-radius:8px;margin:.8em 0;padding:.1em .9em .4em;border-left:6px solid}
+details.blk>summary{cursor:pointer;font-weight:600;padding:.35em 0;list-style:none}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:before{content:"▸ ";color:#888}
+details.blk[open]>summary:before{content:"▾ "}
+.b-plain{background:#fff8e1;border-color:#f5b700}
+.b-guar{background:#f5f7f9;border-color:#8a99a8}
+.b-fig{background:#f3e5f5;border-color:#8e24aa}
+.b-set{background:#eceff1;border-color:#546e7a}
+.b-tabs{background:#e3f2fd;border-color:#1e88e5}
+.b-lab{background:#fff3e0;border-color:#ef6c00}
+#vistas{position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;padding:.4em .2em;
+        font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas button{border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;cursor:pointer}
+#vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
+#vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
+body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
+.lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
+.lean-check .repro{color:#456}.lean-check code{font-size:.95em}
+.lean-ok{border-left:6px solid #1cac78;padding-left:.6em;background:linear-gradient(90deg,#e9f8f1,transparent 40%)}
+.sello{display:inline-block;background:#1cac78;color:#fff;border-radius:10px;padding:0 .55em;font-size:.8em;
+       margin-left:.5em;vertical-align:middle}
+.theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
+.lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style>
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="lm-citebar-css">
+.lm-act{margin-left:.4em;white-space:nowrap;flex-shrink:0}
+.lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
+          padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
+.lm-act a:hover{background:#eef2f6}
+.lm-citebox{font:13px Arial,sans-serif;background:#f7f9fb;border:1px solid #d5dbe2;border-radius:6px;padding:.4em .6em;
+            margin:.3em 0}
+.lm-citebox button{margin-left:.5em;cursor:pointer;border:1px solid #9fb7cf;background:#fff;border-radius:10px}
+.lm-erratum{font:13px Arial,sans-serif;background:#fff4e5;border-left:3px solid #e69f00;padding:.3em .6em;margin:.3em 0}
+.lm-version{font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em}  /* the bars are dark: a light grey-blue */
+</style><meta content="Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds" name="citation_title"/><meta content="Marín Muñoz, Carles" name="citation_author"/><meta content="2026/11/07" name="citation_publication_date"/><meta content="https://karlesmarin.github.io/blueprints/segre-persistence-bsr/paper.pdf" name="citation_pdf_url"/><meta content="https://karlesmarin.github.io/blueprints/segre-persistence-bsr/" name="citation_abstract_html_url"/><meta content="10.5281/zenodo.24036320" name="citation_doi"/><meta content="We compute the quadratic persistence of the Segre varieties P^{m-1}×P^2 and P^{m-1}×P^3 for every m ≥ 2: the values are m and ⌈4m/3⌉. By the Pythagoras-number bound of Blekherman, Sinn, Smith and Velasco, some m×4 biquadratic sums of squares require at least ⌊8m/3⌋ real bilinear squares, which exceeds the second order and augmented second order Zarankiewicz numbers at m = 21 and for every m ≥ 23. In every width n ≥ 3, qp ≤ n⌈m/3⌉, so the gap grows linearly for fixed n ≥ 4; exact values are certified in widths five and six. Rational forms attaining the persistence bound need exactly three more rational squares, and 8 ≤ BSR(4,3) ≤ 9." name="citation_abstract"/><meta content="sums of squares; biquadratic forms; SOS rank; quadratic persistence; Pythagoras number; Segre variety; Zarankiewicz number; second order Zarankiewicz number; rational sums of squares" name="citation_keywords"/><style id="annotate-css">
+p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
+p.usado a{color:#1a4f8b}
+p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
+.ext-lean.ours{border-color:#b7dcb9;border-left-color:#2e7d32;background:#f1f8f1;color:#1d3b1f}
+.ext-lean.ours .tag,.ext-badge.ours{background:#2e7d32}
+.ext-lean.ours a{color:#1b5e20}
+.ext-lean.ours ul{margin:.35em 0 .2em 1.1em;padding:0}
+details.ext-lean{padding:.35em .8em}
+details.ext-lean>summary{cursor:pointer;list-style:none}
+details.ext-lean>summary::-webkit-details-marker{display:none}
+details.ext-lean>summary .more{font-size:12px;opacity:.7}
+details.ext-lean>summary .more::before{content:'▸ '}
+details.ext-lean[open]>summary .more::before{content:'▾ '}
+details.ext-lean[open]>summary{margin-bottom:.3em}
+</style><style id="lm-confianza">p.confianza{font-size:.86em;margin:.2em 0 .6em;padding:.25em .6em;border-left:3px solid var(--lm-trust,#2e7d32);background:rgba(46,125,50,.06)}p.confianza.l-named{--lm-trust:#1565c0;background:rgba(21,101,192,.06)}p.confianza.l-code{--lm-trust:#b26a00;background:rgba(178,106,0,.07)}p.confianza.l-external-checker,p.confianza.l-computation{--lm-trust:#757575;background:rgba(0,0,0,.04)}p.confianza.l-unchecked{--lm-trust:#c62828;background:rgba(198,40,40,.07)}</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
+  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
+header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
+  text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
+header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
+  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
+header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
+  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
+header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+header h1#doc_title{flex:1}
+/* the paper's emoji and «Blueprint» on one line (26-oct) */
+header h1#doc_title a{white-space:nowrap}
+header h1#doc_title .pc-emoji{font-size:.95em;margin-right:.2em;display:inline-block;vertical-align:-.18em;
+  /* depth (26-oct, Carles): a tight shadow for the edge and a soft one below, as if it stood off the header */
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 3px 4px rgba(0,0,0,.35))}
+ul.chapter-list{font-size:1.05em;line-height:1.7}
+/* the whole paper in the central panel; the sidebar takes the reader to a point (PANES_JS) */
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+/* phone: the sidebar is a drawer under the header, opened and closed with ☰ */
+@media (max-width:1023.98px){
+  body>header{flex-wrap:nowrap !important;align-items:center;height:auto !important;padding:.3rem .4rem}
+  body>header svg#toc-toggle{width:2.1rem;height:2.1rem;flex-shrink:0;cursor:pointer;fill:#fff;color:#fff;
+    padding:.3rem;margin:0 .3rem 0 0;border:1px solid rgba(255,255,255,.8);border-radius:7px;background:rgba(255,255,255,.14)}
+  body>header h1#doc_title{flex:0 0 auto;font-size:1.15rem;margin:0 .2rem !important}
+  /* the options in one row that scrolls sideways, so the header keeps to one line and the paper gets the screen */
+  header nav.pc-opts{flex-wrap:nowrap;overflow-x:auto;margin:0 0 0 .3rem;scrollbar-width:none;flex:1;min-width:0}
+  header nav.pc-opts::-webkit-scrollbar{display:none}
+  header nav.pc-opts>*{flex-shrink:0;white-space:nowrap}
+  nav.toc{position:fixed;left:0;top:var(--pc-head,3.5rem);bottom:0;width:min(86vw,34ch);max-width:none;z-index:90;
+    box-shadow:4px 0 18px rgba(0,0,0,.35)}
+}
+.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
+nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
+/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
+#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
+  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
+body.vista-explore #explore-banner{display:block}
+body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
+  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
+body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
+body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
+  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
+
+#top.overview{margin:0 0 2.2em}
+#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
+#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
+#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
+#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
+#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
+#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+#top.overview .c-paper{background:#fff;border:1px solid #888}
+#top.overview .nota{font-size:.85em;color:#555}
+#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
+  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
+#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
+#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+/* phone: there is no sidebar to leave room for; the map takes the width of the text (25-oct: it was 126 px) */
+@media (max-width:1023.98px){#top.overview .mapa{width:auto;max-width:100%;left:auto;transform:none}
+  #top.overview .mapa svg{min-width:0}}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="lm-guide-css">
+.lm-tour-on{position:relative;z-index:10001 !important;outline:3px solid #ef6c00;outline-offset:3px;border-radius:4px;
+            box-shadow:0 0 0 9999px rgba(20,30,40,.45) !important;background:#fff}
+#lm-tour{position:fixed;z-index:10002;max-width:340px;background:#fff;border-radius:10px;padding:.8em 1em;
+         box-shadow:0 6px 24px rgba(0,0,0,.25);font:14px Arial,sans-serif;color:#222}
+#lm-tour h4{margin:0 0 .35em;font-size:15px}
+#lm-tour .lm-tour-nav{display:flex;gap:.4em;justify-content:flex-end;margin-top:.7em;align-items:center}
+#lm-tour button{cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;padding:.15em .8em}
+#lm-tour button.lm-next{background:#ef6c00;color:#fff}
+#lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
+a.lm-tourbtn{cursor:pointer}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
+</head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cogs" viewBox="0 0 32 32">
+<title>cogs</title>
+<path class="path1" d="M11.366 22.564l1.291-1.807-1.414-1.414-1.807 1.291c-0.335-0.187-0.694-0.337-1.071-0.444l-0.365-2.19h-2l-0.365 2.19c-0.377 0.107-0.736 0.256-1.071 0.444l-1.807-1.291-1.414 1.414 1.291 1.807c-0.187 0.335-0.337 0.694-0.443 1.071l-2.19 0.365v2l2.19 0.365c0.107 0.377 0.256 0.736 0.444 1.071l-1.291 1.807 1.414 1.414 1.807-1.291c0.335 0.187 0.694 0.337 1.071 0.444l0.365 2.19h2l0.365-2.19c0.377-0.107 0.736-0.256 1.071-0.444l1.807 1.291 1.414-1.414-1.291-1.807c0.187-0.335 0.337-0.694 0.444-1.071l2.19-0.365v-2l-2.19-0.365c-0.107-0.377-0.256-0.736-0.444-1.071zM7 27c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM32 12v-2l-2.106-0.383c-0.039-0.251-0.088-0.499-0.148-0.743l1.799-1.159-0.765-1.848-2.092 0.452c-0.132-0.216-0.273-0.426-0.422-0.629l1.219-1.761-1.414-1.414-1.761 1.219c-0.203-0.149-0.413-0.29-0.629-0.422l0.452-2.092-1.848-0.765-1.159 1.799c-0.244-0.059-0.492-0.109-0.743-0.148l-0.383-2.106h-2l-0.383 2.106c-0.251 0.039-0.499 0.088-0.743 0.148l-1.159-1.799-1.848 0.765 0.452 2.092c-0.216 0.132-0.426 0.273-0.629 0.422l-1.761-1.219-1.414 1.414 1.219 1.761c-0.149 0.203-0.29 0.413-0.422 0.629l-2.092-0.452-0.765 1.848 1.799 1.159c-0.059 0.244-0.109 0.492-0.148 0.743l-2.106 0.383v2l2.106 0.383c0.039 0.251 0.088 0.499 0.148 0.743l-1.799 1.159 0.765 1.848 2.092-0.452c0.132 0.216 0.273 0.426 0.422 0.629l-1.219 1.761 1.414 1.414 1.761-1.219c0.203 0.149 0.413 0.29 0.629 0.422l-0.452 2.092 1.848 0.765 1.159-1.799c0.244 0.059 0.492 0.109 0.743 0.148l0.383 2.106h2l0.383-2.106c0.251-0.039 0.499-0.088 0.743-0.148l1.159 1.799 1.848-0.765-0.452-2.092c0.216-0.132 0.426-0.273 0.629-0.422l1.761 1.219 1.414-1.414-1.219-1.761c0.149-0.203 0.29-0.413 0.422-0.629l2.092 0.452 0.765-1.848-1.799-1.159c0.059-0.244 0.109-0.492 0.148-0.743l2.106-0.383zM21 15.35c-2.402 0-4.35-1.948-4.35-4.35s1.948-4.35 4.35-4.35 4.35 1.948 4.35 4.35c0 2.402-1.948 4.35-4.35 4.35z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
+<header>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html" title="Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a></h1>
+<nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.24036320" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.24036320</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="segre-persistence-bsr-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
+</header>
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
+<li class=""><a href="#a0000000004"><span class="toc_ref">1</span> <span class="toc_entry">Introduction</span></a></li>
+<li class=""><a href="#a0000000006"><span class="toc_ref">2</span> <span class="toc_entry">Quadratic persistence of a Segre variety</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:3"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li><li class=""><a href="#thm:4"><span class="toc_ref"></span> <span class="toc_entry">Theorem 2</span></a></li><li class=""><a href="#thm:bloques"><span class="toc_ref"></span> <span class="toc_entry">Theorem 3</span></a></li></ul></li>
+<li class=""><a href="#a0000000020"><span class="toc_ref">3</span> <span class="toc_entry">Consequences for sums of squares</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#cor:bsr"><span class="toc_ref"></span> <span class="toc_entry">Corollary 4</span></a></li><li class=""><a href="#cor:todo"><span class="toc_ref"></span> <span class="toc_entry">Corollary 5</span></a></li><li class=""><a href="#thm:Q"><span class="toc_ref"></span> <span class="toc_entry">Theorem 6</span></a></li></ul></li>
+<li class=""><a href="#a0000000035"><span class="toc_ref">4</span> <span class="toc_entry">Widths five and six</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:56"><span class="toc_ref"></span> <span class="toc_entry">Proposition 7</span></a></li><li class=""><a href="#auto:remark-8"><span class="toc_ref"></span> <span class="toc_entry">Remark 8</span></a></li></ul></li>
+<li class=""><a href="#a0000000039"><span class="toc_ref">5</span> <span class="toc_entry">An upper bound</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:up"><span class="toc_ref"></span> <span class="toc_entry">Theorem 9</span></a></li></ul></li>
+<li class=""><a href="#a0000000043"><span class="toc_ref"></span> <span class="toc_entry">Questions</span></a></li>
+<li class=""><a href="#a0000000045"><span class="toc_ref"></span> <span class="toc_entry">Data and acknowledgement</span></a></li>
+<li class=""><a href="#a0000000047"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+<div class="content">
+<div class="content-wrapper">
+<div class="main-text">
+<div id="explore-banner">🔍 <b>Explore view</b>: explanations, figures, other mathematical languages and labs are shown, marked <i>commentary</i>; they are not part of the paper. Switch to <b>Paper</b> for the statements, proofs and evidence only.</div><div class="pc-paneltitle"><div class="titlepage">
+<h1>Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">Real algebraic geometry · sums of squares on projective varieties</span></div>
+<p class="authors">
+<span class="author">Carles Marín</span>
+</p>
+</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta"><h2>What the paper contributes</h2>
+<p>The quadratic persistence of the Segre varieties $\mathbb P^{m-1}\times\mathbb P^2$ and $\mathbb P^{m-1}\times\mathbb P^3$, exactly, and a block bound in every width. Through the Pythagoras-number bound of Blekherman, Sinn, Smith and Velasco this shows that the sum-of-squares rank $\mathrm{BSR}(m,n)$ of biquadratic forms is not captured by the graph parameters $z_2$, $z_{2A}$ used to bound it: the difference grows linearly in $m$ in every width $n\ge4$.</p>
+<ul>
+<li>$\mathrm{qp}(\mathbb P^{m-1}\times\mathbb P^2)=m$ and $\mathrm{qp}(\mathbb P^{m-1}\times\mathbb P^3)=\lceil4m/3\rceil$ (Theorems 1 and 2); $\mathrm{qp}\le n\lceil m/3\rceil$ (Theorem 3).</li>
+<li>$\mathrm{BSR}(m,4)\ge\lfloor8m/3\rfloor$, above $z_2(m,4)=z_{2A}(m,4)$ for $m=21$ and $m\ge23$ (Corollary 4); a gap of order $\frac{n-3}6m$ in width $n$ (Corollary 5).</li>
+<li>Rational forms whose rational length exceeds their real length by exactly three (Theorem 6).</li>
+<li>Exact persistence in widths five and six for $m\le18$, $m\le14$ (Proposition 7), and $8\le\mathrm{BSR}(4,3)\le9$ (Theorem 9).</li>
+</ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:3"><b>Theorem 1</b></a>: qp of Pᵐ⁻¹ × P² is m.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:4"><b>Theorem 2</b></a>: qp of Pᵐ⁻¹ × P³ is ⌈4m/3⌉</li><li><a href="index.html#thm:bloques"><b>Theorem 3</b></a>: block bound qp ≤ n⌈m/3⌉ in every width</li><li><a href="index.html#cor:bsr"><b>Corollary 4</b></a>: BSR(m,4) ≥ ⌊8m/3⌋, above z₂ and z₂A from m = 21</li><li><a href="index.html#thm:up"><b>Theorem 9</b></a>: BSR(m,n) ≤ mn − max(m,n) + 1, so 8 ≤ BSR(4,3) ≤ 9</li></ul><div class="cifras">
+<span class="cifra"><b>9</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>0</b> partly in Lean</span>
+<span class="cifra c-prog">💻 <b>6</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 617.00 443.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 438.57)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M12,-227.41C12,-227.41 367,-227.41 367,-227.41 373,-227.41 379,-233.41 379,-239.41 379,-239.41 379,-416.19 379,-416.19 379,-422.19 373,-428.19 367,-428.19 367,-428.19 12,-428.19 12,-428.19 6,-428.19 0,-422.19 0,-416.19 0,-416.19 0,-239.41 0,-239.41 0,-233.41 6,-227.41 12,-227.41" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="189.5" xml:space="preserve" y="-412.8">Quadratic persistence of a Segre variety</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M46,-113.33C46,-113.33 532,-113.33 532,-113.33 538,-113.33 544,-119.33 544,-125.33 544,-125.33 544,-207.41 544,-207.41 544,-213.41 538,-219.41 532,-219.41 532,-219.41 46,-219.41 46,-219.41 40,-219.41 34,-213.41 34,-207.41 34,-207.41 34,-125.33 34,-125.33 34,-119.33 40,-113.33 46,-113.33" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-204">Consequences for sums of squares</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M399,-335.24C399,-335.24 597,-335.24 597,-335.24 603,-335.24 609,-341.24 609,-347.24 609,-347.24 609,-422.57 609,-422.57 609,-428.57 603,-434.57 597,-434.57 597,-434.57 399,-434.57 399,-434.57 393,-434.57 387,-428.57 387,-422.57 387,-422.57 387,-347.24 387,-347.24 387,-341.24 393,-335.24 399,-335.24" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="498" xml:space="preserve" y="-419.17">Widths five and six</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M211,0C211,0 369,0 369,0 375,0 381,-6 381,-12 381,-12 381,-93.33 381,-93.33 381,-99.33 375,-105.33 369,-105.33 369,-105.33 211,-105.33 211,-105.33 205,-105.33 199,-99.33 199,-93.33 199,-93.33 199,-12 199,-12 199,-6 205,0 211,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-89.92">An upper bound</text>
+</g>
+<!-- thm:3 -->
+<g class="node" id="node1">
+<title>thm:3</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:3" xlink:title="Theorem 1: qp of Pᵐ⁻¹ × P² is m">
+<path d="M331.55,-397.94C331.55,-397.94 248.45,-397.94 248.45,-397.94 242.45,-397.94 236.45,-391.94 236.45,-385.94 236.45,-385.94 236.45,-361.61 236.45,-361.61 236.45,-355.61 242.45,-349.61 248.45,-349.61 248.45,-349.61 331.55,-349.61 331.55,-349.61 337.55,-349.61 343.55,-355.61 343.55,-361.61 343.55,-361.61 343.55,-385.94 343.55,-385.94 343.55,-391.94 337.55,-397.94 331.55,-397.94" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="290" xml:space="preserve" y="-382.93">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="290" xml:space="preserve" y="-370.18">qp of Pᵐ⁻¹ × P² is m</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="290" xml:space="preserve" y="-357.43">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:4 -->
+<g class="node" id="node2">
+<title>thm:4</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:4" xlink:title="Theorem 2: qp of Pᵐ⁻¹ × P³ is ⌈4m/3⌉">
+<path d="M358.93,-296.11C358.93,-296.11 221.08,-296.11 221.08,-296.11 215.08,-296.11 209.08,-290.11 209.08,-284.11 209.08,-284.11 209.08,-254.53 209.08,-254.53 209.08,-248.53 215.08,-242.53 221.08,-242.53 221.08,-242.53 358.93,-242.53 358.93,-242.53 364.93,-242.53 370.93,-248.53 370.93,-254.53 370.93,-254.53 370.93,-284.11 370.93,-284.11 370.93,-290.11 364.93,-296.11 358.93,-296.11" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-279.67">Theorem 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-265.42">qp of Pᵐ⁻¹ × P³ is ⌈4m/3⌉</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-250.42">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:3&#45;&gt;thm:4 -->
+<g class="edge" id="edge1">
+<title>thm:3-&gt;thm:4</title>
+<path d="M290,-349.02C290,-336.07 290,-319.8 290,-305.42" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="292.45,-305.72 290,-298.72 287.55,-305.72 292.45,-305.72" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:bloques -->
+<g class="node" id="node3">
+<title>thm:bloques</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#thm:bloques" xlink:title="Theorem 3: block bound qp ≤ n⌈m/3⌉ in every width">
+<path d="M172.05,-303.24C172.05,-303.24 19.95,-303.24 19.95,-303.24 13.95,-303.24 7.95,-297.24 7.95,-291.24 7.95,-291.24 7.95,-247.41 7.95,-247.41 7.95,-241.41 13.95,-235.41 19.95,-235.41 19.95,-235.41 172.05,-235.41 172.05,-235.41 178.05,-235.41 184.05,-241.41 184.05,-247.41 184.05,-247.41 184.05,-291.24 184.05,-291.24 184.05,-297.24 178.05,-303.24 172.05,-303.24" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="96" xml:space="preserve" y="-286.8">Theorem 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="96" xml:space="preserve" y="-272.55">block bound qp ≤ n⌈m/3⌉ in</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="96" xml:space="preserve" y="-257.55">every width</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="96" xml:space="preserve" y="-243.29">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:3&#45;&gt;thm:bloques -->
+<g class="edge" id="edge2">
+<title>thm:3-&gt;thm:bloques</title>
+<path d="M245,-349.02C222.09,-336.91 193.67,-321.91 167.82,-308.25" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="169.27,-306.25 161.94,-305.15 166.99,-310.58 169.27,-306.25" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:bsr -->
+<g class="node" id="node4">
+<title>cor:bsr</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#cor:bsr" xlink:title="Corollary 4: BSR(m,4) ≥ ⌊8m/3⌋, above z₂ and z₂A from m = 21">
+<path d="M364.55,-189.16C364.55,-189.16 215.45,-189.16 215.45,-189.16 209.45,-189.16 203.45,-183.16 203.45,-177.16 203.45,-177.16 203.45,-133.34 203.45,-133.34 203.45,-127.34 209.45,-121.34 215.45,-121.34 215.45,-121.34 364.55,-121.34 364.55,-121.34 370.55,-121.34 376.55,-127.34 376.55,-133.34 376.55,-133.34 376.55,-177.16 376.55,-177.16 376.55,-183.16 370.55,-189.16 364.55,-189.16" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-172.72">Corollary 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-158.47">BSR(m,4) ≥ ⌊8m/3⌋, above</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-143.47">z₂ and z₂A from m = 21</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-129.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:3&#45;&gt;cor:bsr -->
+<g class="edge" id="edge3">
+<title>thm:3-&gt;cor:bsr</title>
+<path d="M338.02,-349.13C355.51,-337.84 373.34,-322.53 383,-303.24 398.09,-273.11 397.93,-257.63 383,-227.41 377.03,-215.33 367.93,-204.74 357.71,-195.68" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="359.32,-193.83 352.38,-191.2 356.16,-197.58 359.32,-193.83" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:4&#45;&gt;cor:bsr -->
+<g class="edge" id="edge4">
+<title>thm:4-&gt;cor:bsr</title>
+<path d="M290,-241.48C290,-228.59 290,-212.85 290,-198.42" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="292.45,-198.62 290,-191.62 287.55,-198.62 292.45,-198.62" stroke="#9aa8b5"></polygon>
+</g>
+<!-- auto:remark&#45;8 -->
+<g class="node" id="node8">
+<title>auto:remark-8</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#auto:remark-8" xlink:title="Remark 8">
+<path d="M589.43,-391.78C589.43,-391.78 550.57,-391.78 550.57,-391.78 544.57,-391.78 538.57,-385.78 538.57,-379.78 538.57,-379.78 538.57,-367.78 538.57,-367.78 538.57,-361.78 544.57,-355.78 550.57,-355.78 550.57,-355.78 589.43,-355.78 589.43,-355.78 595.43,-355.78 601.43,-361.78 601.43,-367.78 601.43,-367.78 601.43,-379.78 601.43,-379.78 601.43,-385.78 595.43,-391.78 589.43,-391.78" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="570" xml:space="preserve" y="-370.18">Remark 8</text>
+</a>
+</g>
+</g>
+<!-- thm:4&#45;&gt;auto:remark&#45;8 -->
+<g class="edge lm-aux" id="edge6">
+<title>thm:4-&gt;auto:remark-8</title>
+<path d="M371.96,-283.68C418.94,-293.54 477.94,-309.77 526,-335.24 533.45,-339.19 540.75,-344.59 547.2,-350.06" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="545.34,-351.68 552.2,-354.5 548.6,-348.02 545.34,-351.68" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:todo -->
+<g class="node" id="node5">
+<title>cor:todo</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#cor:todo" xlink:title="Corollary 5: a gap of order (n−3)m/6 in every width n ≥ 4">
+<path d="M166.18,-179.41C166.18,-179.41 53.82,-179.41 53.82,-179.41 47.82,-179.41 41.83,-173.41 41.83,-167.41 41.83,-167.41 41.83,-143.09 41.83,-143.09 41.83,-137.09 47.83,-131.09 53.83,-131.09 53.83,-131.09 166.18,-131.09 166.18,-131.09 172.18,-131.09 178.18,-137.09 178.18,-143.09 178.18,-143.09 178.18,-167.41 178.18,-167.41 178.18,-173.41 172.18,-179.41 166.18,-179.41" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="110" xml:space="preserve" y="-164.4">Corollary 5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="110" xml:space="preserve" y="-151.65">a gap of order (n−3)m/6 in</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="110" xml:space="preserve" y="-138.9">every width n ≥ 4</text>
+</a>
+</g>
+</g>
+<!-- thm:bloques&#45;&gt;cor:todo -->
+<g class="edge" id="edge5">
+<title>thm:bloques-&gt;cor:todo</title>
+<path d="M100.24,-234.39C102.08,-219.64 104.23,-202.44 106.04,-187.95" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="108.44,-188.51 106.87,-181.26 103.58,-187.91 108.44,-188.51" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:up -->
+<g class="node" id="node9">
+<title>thm:up</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#thm:up" xlink:title="Theorem 9: BSR(m,n) ≤ mn − max(m,n) + 1, so 8 ≤ BSR(4,3) ≤ 9">
+<path d="M361.18,-75.08C361.18,-75.08 218.83,-75.08 218.83,-75.08 212.83,-75.08 206.83,-69.08 206.83,-63.08 206.83,-63.08 206.83,-20 206.83,-20 206.83,-14 212.83,-8 218.83,-8 218.83,-8 361.18,-8 361.18,-8 367.18,-8 373.18,-14 373.18,-20 373.18,-20 373.18,-63.08 373.18,-63.08 373.18,-69.08 367.18,-75.08 361.18,-75.08" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-58.64">Theorem 9</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-44.39">BSR(m,n) ≤ mn − max(m,n) +</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-30.14">1, so 8 ≤ BSR(4,3) ≤ 9</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="290" xml:space="preserve" y="-15.89">💻 program</text>
+</a>
+</g>
+</g>
+<!-- cor:bsr&#45;&gt;thm:up -->
+<g class="edge" id="edge7">
+<title>cor:bsr-&gt;thm:up</title>
+<path d="M290,-120.12C290,-108.87 290,-96.22 290,-84.45" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="292.45,-84.58 290,-77.58 287.55,-84.58 292.45,-84.58" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:Q -->
+<g class="node" id="node6">
+<title>thm:Q</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#thm:Q" xlink:title="Theorem 6: rational forms need exactly three more squares">
+<path d="M524.05,-179.41C524.05,-179.41 413.95,-179.41 413.95,-179.41 407.95,-179.41 401.95,-173.41 401.95,-167.41 401.95,-167.41 401.95,-143.09 401.95,-143.09 401.95,-137.09 407.95,-131.09 413.95,-131.09 413.95,-131.09 524.05,-131.09 524.05,-131.09 530.05,-131.09 536.05,-137.09 536.05,-143.09 536.05,-143.09 536.05,-167.41 536.05,-167.41 536.05,-173.41 530.05,-179.41 524.05,-179.41" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="469" xml:space="preserve" y="-164.4">Theorem 6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="469" xml:space="preserve" y="-151.65">rational forms need</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="469" xml:space="preserve" y="-138.9">exactly three more squares</text>
+</a>
+</g>
+</g>
+<!-- prop:56 -->
+<g class="node" id="node7">
+<title>prop:56</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#prop:56" xlink:title="Proposition 7: exact qp in widths five and six (computation)">
+<path d="M501.18,-404.32C501.18,-404.32 406.83,-404.32 406.83,-404.32 400.83,-404.32 394.83,-398.32 394.83,-392.32 394.83,-392.32 394.83,-355.24 394.83,-355.24 394.83,-349.24 400.83,-343.24 406.83,-343.24 406.83,-343.24 501.18,-343.24 501.18,-343.24 507.18,-343.24 513.18,-349.24 513.18,-355.24 513.18,-355.24 513.18,-392.32 513.18,-392.32 513.18,-398.32 507.18,-404.32 501.18,-404.32" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="454" xml:space="preserve" y="-389.3">Proposition 7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="454" xml:space="preserve" y="-376.55">exact qp in widths five</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="454" xml:space="preserve" y="-363.8">and six (computation)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="454" xml:space="preserve" y="-351.05">💻 program</text>
+</a>
+</g>
+</g>
+</g>
+</svg>
+</div></details></section>
+<details class="blk b-set"><summary>📐 Setting (copied from the paper, §2)</summary>
+<p> Let \(A=\mathbb {R}^m\), \(B=\mathbb {R}^n\) and \(X=\mathbb {P}(A)\times \mathbb {P}(B)\) in \(\mathbb {P}(A\otimes B)\). Let \(\mathcal D\) be the space of symmetric bilinear forms \(D\) on \(A\otimes B\) with \(D(z,z)=0\) for every simple tensor \(z\). It is spanned by the \(2\times 2\) minors, and identifies with \(\bigwedge ^2A^*\otimes \bigwedge ^2B^*\): we write \(D(a,a';b,b')\), alternating in \((a,a')\) and in \((b,b')\), and \(d=\dim \mathcal D=\binom m2\binom n2\). A point \(a\otimes b\) lies in the radical of \(D\) if and only if \(D(a,x;b,y)=0\) for all \(x\in A\), \(y\in B\). … \(\mathrm{qp}(X)\) is the least \(k\) such that some \(k\) points of \(X\) lie in the radical of no nonzero \(D\in \mathcal D\), and general points realize it. We use the bound </p>
+<div class="displaymath" id="a0000000003">
+  \[  d\le g(s):=sc-\binom s2,\qquad s=\mathrm{qp}(X),\  c=(m-1)(n-1).  \]
+</div>
+<p><em>(§1)</em> A biquadratic form \(f(x,y)\), \(x\in \mathbb {R}^m\), \(y\in \mathbb {R}^n\), is a sum of squares if \(f=\sum _{k\le r}b_k^2\) with \(b_k\) bilinear; let \(\ell _K(f)\) be the least such \(r\) with \(b_k\) over a field \(K\). For \(m,n\ge 2\) the invariant \(\mathrm{BSR}(m,n)\) is the maximum, over real sum-of-squares biquadratic forms of size \(m\times n\), of \(\ell _{\mathbb R}(f)\). </p>
+</details></section><section class="pc-pane"><h1 id="a0000000004">1 Introduction</h1>
+<h4 id="a0000000005">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in the paper (PDF).  </p>
+</section><section class="pc-pane"><h1 id="a0000000006">2 Quadratic persistence of a Segre variety</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:3">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:3">#</a>
+<a class="icon proof" href="index.html#a0000000007"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=2&amp;n=thm:3" title="Open the paper at page 2">📕 p. 2</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:3" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Theorem 1, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#thm:3." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23thm%3A3.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p> \(\operatorname{qp}({\mathbb {P}}^{m-1}\times {\mathbb {P}}^2)=m\) for \(m\ge 2\). </p>
+</div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 2026-11-07 (excovery existe-ya: our Lean, Mathlib, LeanSearch, Isabelle/AFP with FindFacts down, GitHub, Rocq, HOL Light, Metamath): not found</details>
+</div><p class="confianza l-computation"><b>Trust base:</b> 🧮 computation (not a formal proof). <span class="detail">Written proof; the rank certificates are a check, not part of the proof</span></p><p class="novedad">🆕 <b>Classical and new:</b> the paper: the lower bound «was known» (BSSV Theorem 1.2 with Oeding–Raicu–Sam Theorem 4.1); «what is new is the equality».</p><p class="usado">↳ Used in: <a href="#thm:4">Theorem 2</a>, <a href="#thm:bloques">Theorem 3</a>, <a href="#cor:bsr">Corollary 4</a></p>
+<div class="proof_wrapper" id="a0000000007">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Take \(b_i=(1,i,i^2)\) and the points \(e_i\otimes b_i\). If they lie in the radical of \(D\), then \(D_{ij}\) has \(b_i\) and \(b_j\) in its radical. These are independent, and a nonzero alternating form on \({\mathbb {R}}^3\) has a radical of dimension one, so \(D_{ij}=0\) and \(D=0\). Thus \(\operatorname{qp}\le m\). Here \(c=2(m-1)\) and \(d=3\binom m2\), and \(d-g(m-1)=m-1{\gt}0\), so (1) excludes \(s\le m-1\). This lower bound was known: \(\operatorname{qp}(X)\ge \ell (X)\) <span class="cite">
+	[
+	<a href="index.html#BSSV">1</a>
+	, 
+	Theorem
+	
+	1.2
+	]
+</span>, and the linear strand of a Segre product is nonzero up to \(p=m+n-3\) <span class="cite">
+	[
+	<a href="index.html#ORS">6</a>
+	, 
+	Theorem
+	
+	4.1
+	]
+</span>, so \(\operatorname{qp}\ge m+n-3\); what is new is the equality. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Quadratic persistence asks how many points of a variety one has to pick so that no quadric through the variety is singular at all of them. For the Segre variety of \(m\times 3\) matrices of rank one the answer is exactly \(m\). Upper bound: put one point in each row, \(e_i\otimes (1,i,i^2)\); a quadric singular at two such points restricts, for each pair of rows, to an alternating form on \(\mathbb R^3\) with two independent vectors in its radical, hence zero. Lower bound: the dimension count of Blekherman, Sinn, Smith and Velasco excludes \(m-1\) points; it was already known, also from the linear strand of Oeding, Raicu and Sam, so what the note adds is the equality. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the points e_i ⊗ (1,i,i²) checked to have full rank for the sizes of the original table. <span class="ttfamily">src/supplement/recomprobar.py</span> </p>
+</li>
+</ul>
+</details><div class="theorem_thmwrapper theorem-style-plain" id="thm:4">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">2</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:4">#</a>
+<a class="icon proof" href="index.html#a0000000010"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:3">Theorem 1</a></li>
+<li><a href="index.html#thm:3">Theorem 1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=2&amp;n=thm:4" title="Open the paper at page 2">📕 p. 2</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:4" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Theorem 2, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#thm:4." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Theorem%202&amp;body=About%20Theorem%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Theorem%202%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23thm%3A4.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>  \(\operatorname{qp}({\mathbb {P}}^{m-1}\times {\mathbb {P}}^3)=\lceil 4m/3\rceil \) for \(m\ge 2\). </p>
+</div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 2026-11-07 (excovery existe-ya: our Lean, Mathlib, LeanSearch, Isabelle/AFP with FindFacts down, GitHub, Rocq, HOL Light, Metamath): not found</details>
+</div><p class="confianza l-computation"><b>Trust base:</b> 🧮 computation (not a formal proof). <span class="detail">Written proof; integer-point rank certificates for m ≤ 30 modulo a prime</span></p><p class="novedad">🆕 <b>Classical and new:</b> the paper: «We have not found these values of qp or this comparison in the literature; our search covered the papers cited here and is not a proof of priority.»</p><p class="usado">↳ Used in: <a href="#cor:bsr">Corollary 4</a>, <a href="#auto:remark-8"> 8</a></p>
+<div class="proof_wrapper" id="a0000000010">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> <em>Upper bound.</em> Write \(B=E\oplus \langle w\rangle \) with \(\dim E=3\), split \(\{ 1,\dots ,m\} \) into consecutive groups of three, the last possibly shorter, and in a basis of \(E\) put \(b_i=(1,i,i^3)\). Any three \(b_i\) are independent, and any six of the tensors \(b_i\otimes b_i\) are independent: their coordinates are the monomials \(1,t,t^3\), respectively \(1,t,t^2,t^3,t^4,t^6\), at distinct positive nodes, and a nonzero combination of \(k\) monomials has at most \(k-1\) positive roots by Descartes’ rule. Take the \(m+\lceil m/3\rceil =\lceil 4m/3\rceil \) integer points </p>
+<div class="displaymath" id="a0000000011">
+  \[  e_i\otimes b_i\quad (1\le i\le m),\qquad \Bigl(\sum _{j\in S}e_j\Bigr)\otimes w\quad \text{for each group }S.  \]
+</div>
+<p> Suppose they lie in the radical of \(D\). As above, \(D_{ij}\) has \(b_i,b_j\) in its radical, so \(D_{ij}\) factors through the plane \(B/\langle b_i,b_j\rangle \) and \(D_{ij}=c_{ij}\operatorname {vol}(b_i,b_j,\cdot ,\cdot )\) for a fixed volume form, with \(c_{ij}=c_{ji}\) and \(c_{ii}=0\). The point of the group \(S\) gives, for every \(i\) and \(y\), \(\sum _{j\in S}c_{ij}\operatorname {vol}(b_i,b_j,w,y)=0\), that is, </p>
+<div class="equation" id="a0000000012">
+<p>
+<div class="equation_content">
+    \begin{equation}  \sum _{j\in S}c_{ij}b_j\in \langle b_i\rangle , \end{equation}
+  </div>
+<span class="equation_label">1</span>
+</p>
+</div>
+<p> since \(b_i\) and the sum lie in \(E\) and \(w\notin E\). Inside a group, (2) and the independence of its vectors give \(c_{ij}=0\). For two groups \(U\ne V\) put \(T=\sum _{i\in U,j\in V}c_{ij}\, b_i\otimes b_j\). By (2) for \(i\in U\) and \(S=V\), \(T=\sum _{i\in U}\lambda _i\, b_i\otimes b_i\); by (2) for \(j\in V\) and \(S=U\), with \(c_{ij}=c_{ji}\), \(T=\sum _{j\in V}\mu _j\, b_j\otimes b_j\). The at most six tensors \(b_k\otimes b_k\), \(k\in U\cup V\), are independent, so \(T=0\), and since the \(b_i\otimes b_j\) with \(i\in U\), \(j\in V\) are independent, all \(c_{ij}\) vanish. Hence \(D=0\). </p>
+<p><em>Lower bound.</em> For \(m=2,3\) the claim is \(\operatorname{qp}=3,4\), which follows from \({\mathbb {P}}^1\times {\mathbb {P}}^3\), a rational normal scroll, so of minimal degree <span class="cite">
+	[
+	<a href="index.html#BSSV">1</a>
+	, 
+	Theorem
+	
+	3.8
+	]
+</span>, and Theorem <a href="index.html#thm:3">1</a> by symmetry. Let \(m\ge 4\) and \(k=\lceil 4m/3\rceil -1\), so \(m{\lt}k\) and \(3k{\lt}4m\). For general points \(a_i\otimes b_i\), \(i\le k\), the conditions \(Ma_i\in \langle b_i\rangle \) on \(M\colon A\to B\) are at most \(3k\) linear equations in \(4m\) unknowns, so there is \(M\ne 0\). If \(\operatorname{rank}M=r{\lt}4\), at most \(m-r\) of the general \(a_i\) lie in \(\ker M\), and for the other indices \(b_i\in \operatorname {im}M\), which allows at most \(r\) of the general \(b_i\); so \(k\le m\), a contradiction. Thus \(M\) is onto, and \(L(a\otimes b)=Ma\wedge b\) maps \(A\otimes B\) onto \(\bigwedge ^2B\), as decomposable vectors span it. Fix \(\bigwedge ^4B\cong {\mathbb {R}}\) and put \(Q(z,z')=L(z)\wedge L(z')\). It is nonzero, since the Plücker form on \(\bigwedge ^2B\) is nondegenerate, it vanishes on simple tensors because \(Ma\wedge b\) is decomposable, so \(Q\in \mathcal D\), and \(L(a_i\otimes b_i)=0\) puts the \(k\) points in its radical. So \(k\) general points do not suffice. The bound \(m+n-3=m+1\) from <span class="cite">
+	[
+	<a href="index.html#BSSV">1</a>
+	, 
+	<a href="index.html#ORS">6</a>
+	]
+</span> is weaker for \(m\ge 4\), which is why a direct argument is needed. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> For \(m\times 4\) the answer is \(\lceil 4m/3\rceil \): one point per row plus one more point for every group of three rows. The extra point of a group lies in the fourth direction \(w\) and forces linear relations between the coefficients \(c_{ij}\) that remain after the row points; inside a group they vanish at once, and between two groups the symmetric tensor \(T=\sum c_{ij}b_i\otimes b_j\) would lie in two spaces of squares that meet only in \(0\), because any six of the tensors \(b_i\otimes b_i\), with \(b_i=(1,i,i^3)\), are independent (Descartes’ rule of signs). The points are integers, so the bound needs no genericity. Fewer points never suffice: with \(\lceil 4m/3\rceil -1\) general points there is a nonzero linear map \(M\) with \(Ma_i\in \langle b_i\rangle \); it must be onto, and the Plücker quadric pulled back through \(a\otimes b\mapsto Ma\wedge b\) is singular at all the points. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the integer points of the proof: radical map of rank d modulo 1000003 for 2 ≤ m ≤ 30, and rank below d without the last point. <span class="ttfamily">src/supplement/comprobar_explicito.py</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> with ⌈4m/3⌉ − 1 random points the rank never reaches d, m ≤ 30 (a control, not a proof of the lower bound). <span class="ttfamily">src/supplement/check_width4_random.py</span> </p>
+</li>
+</ul>
+</details><details class="blk b-lab"><summary>🧪 Lab: Check the certificate of Theorem 2 in your browser</summary>
+<p> Choose \(m\). The lab writes the \(\lceil 4m/3\rceil \) integer points of Theorem 2, \(e_i\otimes (1,i,i^3,0)\) and one point \((\sum _{j\in S}e_j)\otimes (0,0,0,1)\) per group \(S\) of three rows, and computes the rank of the radical map modulo \(1000003\). Rank \(d=6\binom m2\) certifies \(\mathrm{qp}\le \lceil 4m/3\rceil \); without the last point the rank drops. </p>
+<div data-lemmario-lab="1"></div>
+</details><div class="theorem_thmwrapper theorem-style-plain" id="thm:bloques">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">3</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:bloques">#</a>
+<a class="icon proof" href="index.html#a0000000016"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:3">Theorem 1</a></li>
+<li><a href="index.html#thm:3">Theorem 1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=3&amp;n=thm:bloques" title="Open the paper at page 3">📕 p. 3</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:bloques" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Theorem 3, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#thm:bloques." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Theorem%203&amp;body=About%20Theorem%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Theorem%203%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23thm%3Abloques.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>  For \(m,n\ge 3\), \(\operatorname{qp}({\mathbb {P}}^{m-1}\times {\mathbb {P}}^{n-1})\le \min \{ n\lceil m/3\rceil ,\  m\lceil n/3\rceil \} \). </p>
+</div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 2026-11-07 (excovery existe-ya: our Lean, Mathlib, LeanSearch, Isabelle/AFP with FindFacts down, GitHub, Rocq, HOL Light, Metamath): not found</details>
+</div><p class="usado">↳ Used in: <a href="#cor:todo">Corollary 5</a></p>
+<div class="proof_wrapper" id="a0000000016">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> By symmetry it suffices to prove \(\operatorname{qp}\le sn\) for \(m=3s\); for other \(m\), project \({\mathbb {R}}^{3\lceil m/3\rceil }\) onto \(A\): if \(\pi \) is onto, \(\pi (a)\otimes b\) is in the radical of \(D\) exactly when \(a\otimes b\) is in the radical of \(\pi ^*D\), and \(\pi ^*\) is injective. Split \(A=U_1\oplus \dots \oplus U_s\) with \(\dim U_l=3\) and put \(n\) points in each block, \(a^{(l)}_t\otimes b^{(l)}_t\) with \(a^{(l)}_t\in U_l\). Since \(\bigwedge ^2A^*=\bigoplus _l\bigwedge ^2U_l^*\oplus \bigoplus _{l{\lt}l'}U_l^*\otimes U_{l'}^*\), and the radical conditions of the points of \(U_l\) only involve the components containing \(U_l^*\), the map \(D\mapsto \)(radical conditions) is injective as soon as it is injective on each internal component \(\bigwedge ^2U_l^*\otimes \bigwedge ^2B^*\), using the points of \(U_l\), and on each mixed component \(U_l^*\otimes U_{l'}^*\otimes \bigwedge ^2B^*\), using the points of \(U_l\) and \(U_{l'}\). Each of these is a nonempty Zariski open condition once it holds for one choice of points, so it suffices to exhibit one choice per component. </p>
+<p><em>Internal.</em> Take points \(a_t\otimes b_t\) with \(b_1,\dots ,b_n\) a basis of \(B\) and any three \(a_t\) independent. In the dual basis write \(D=\sum _{t{\lt}u}D^{tu}\otimes (b_t^*\wedge b_u^*)\) with \(D^{tu}\in \bigwedge ^2U^*\). The point \(a_t\otimes b_t\) forces \(D^{tu}(a_t,\cdot )=0\) for all \(u\), so \(D^{tu}\) has \(a_t,a_u\) in its radical and vanishes, as in Theorem <a href="index.html#thm:3">1</a>. </p>
+<p><em>Mixed.</em> Let \(U,V\) be two blocks. In \(U\) take \(a_i\otimes e_i\), \(i\in \mathbb Z/n\), for a basis \(e_i\) of \(B\) and any three \(a_i\) independent; in \(V\), over \(\mathbb C\), take \(c_t\otimes f_t\) with \(c_t=(1,t,t^2)\) and \(f_t=\sum _it^ie_i\), for the \(n\)-th roots of unity \(t\). Write the component as \(\sum _{i{\lt}j}M^{ij}\otimes (e_i^*\wedge e_j^*)\) with \(M^{ij}\) bilinear on \(U\times V\) and \(M^{ji}=-M^{ij}\). The points of \(U\) give \(M^{ij}(a_i,\cdot )=M^{ij}(a_j,\cdot )=0\), so \(M^{ij}=(a_i\times a_j)\otimes v_{ij}\), where \(a_i\times a_j\) is the covector \(x\mapsto \det (a_i,a_j,x)\) and \(v_{ij}=v_{ji}\in V^*\). Write \(v_{ij}(1,t,t^2)=\sum _{h=0}^2c_{ijh}t^h\). The points of \(V\) give, for each \(j\) and each \(t\), \(\sum _{i\ne j}\sum _hc_{ijh}t^{i+h}(a_i\times a_j)=0\); as \(t\) runs over the \(n\)-th roots of unity, the coefficient of each power \(t^p\) modulo \(t^n-1\) vanishes: </p>
+<div class="equation" id="a0000000017">
+<p>
+<div class="equation_content">
+    \begin{equation}  \sum _{h=0}^2c_{p-h,j,h}\, (a_{p-h}\times a_j)=0\qquad (j,p\in \mathbb Z/n,\  p-h\ne j). \end{equation}
+  </div>
+<span class="equation_label">2</span>
+</p>
+</div>
+<p> The unknown \(c_{ijh}=c_{jih}\) appears only in the equations with \(i+j+h=\lambda \) fixed, so the system splits by \(\lambda \). For fixed \(\lambda \) consider the graph on \(\mathbb Z/n\) with an edge \(\{ i,\lambda -h-i\} \) for each \(h\in \{ 0,1,2\} \) and each \(i\), loops removed; the edge carries \(c_{i,\lambda -h-i,h}\), and (3) at the vertex \(j\) involves exactly its incident edges, with pairwise independent covectors \(a_k\times a_j\). So at a vertex where at most two unknowns are not yet known to vanish, all of them vanish. The reflections \(i\mapsto \lambda -h-i\) for \(h=0,1\) compose to \(i\mapsto i+1\), so the graph is connected, and \(2i\equiv \lambda -h\) has a solution for some \(h\in \{ 0,1\} \), which gives a vertex with a removed loop and at most two edges. Starting there and moving along edges, every vertex has at most two unknowns left, so all \(c_{ijh}\) vanish. The relevant minors are therefore nonzero polynomials, and general rational points satisfy all the finitely many open conditions at once. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> In any width \(n\ge 3\), cut the \(m\) rows into blocks of three and put \(n\) points in each block: at most \(n\lceil m/3\rceil \) points. The quadrics split into pieces living on one block or on a pair of blocks, and the points of a block only see the pieces that contain it, so it is enough to kill each piece with one good choice of points. Inside a block the alternating argument of Theorem 1 works. For a pair of blocks, a second block with points \((1,t,t^2)\otimes (1,t,\dots ,t^{n-1})\) at the \(n\)-th roots of unity turns the conditions into a system that splits by \(i+j+h\); each piece is a connected cycle-like graph with a vertex of degree two, and the unknowns vanish one after another along it. This is only an upper bound for \(\mathrm{qp}\), but it is enough for a gap that grows linearly in \(m\) (Corollary 5). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the specialization of the proof (roots of unity in F_p, p ≡ 1 mod n) for m = 6 and 3 ≤ n ≤ 8: full rank, and rank below d without one point. <span class="ttfamily">src/supplement/comprobar_bloques.py</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> random points with n⌈m/3⌉ points give full rank in 8 sizes up to (15,5). <span class="ttfamily">src/supplement/check_blocks_random.py</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000020">3 Consequences for sums of squares</h1>
+<div class="corollary_thmwrapper theorem-style-plain" id="cor:bsr">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">4</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#cor:bsr">#</a>
+<a class="icon proof" href="index.html#a0000000021"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:3">Theorem 1</a></li>
+<li><a href="index.html#thm:4">Theorem 2</a></li>
+<li><a href="index.html#thm:3">Theorem 1</a></li>
+<li><a href="index.html#thm:4">Theorem 2</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=4&amp;n=cor:bsr" title="Open the paper at page 4">📕 p. 4</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=cor:bsr" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Corollary 4, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#cor:bsr." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Corollary%204&amp;body=About%20Corollary%204%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Corollary%204%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23cor%3Absr.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="corollary_thmcontent">
+<p>  \({\mathrm{BSR}}(m,3)\ge 2m\) and \({\mathrm{BSR}}(m,4)\ge \lfloor 8m/3\rfloor \). For \(m\ge 15\), </p>
+<div class="displaymath" id="a0000000022">
+  \[  {\mathrm{BSR}}(m,4)-z_2(m,4)\  \ge \  \Bigl\lfloor \frac{8m}3\Bigr\rfloor -\Bigl\lfloor \frac{5m+6}2\Bigr\rfloor \  \ge \  \frac{m-22}6.  \]
+</div>
+<p> The last expression is positive for \(m\ge 23\), and the middle one equals \(56-55=1\) at \(m=21\) and \(0\) at \(m=22\). The same bounds hold with \(z_{2A}\) in place of \(z_2\). </p>
+</div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 2026-11-07 (excovery existe-ya: our Lean, Mathlib, LeanSearch, Isabelle/AFP with FindFacts down, GitHub, Rocq, HOL Light, Metamath): not found</details>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper: BSR and z_2 «already differ» at 4×4 (Qi–Cui); «what is new here is a gap that grows linearly».</p><p class="usado">↳ Used in: <a href="#thm:up">Theorem 9</a></p>
+<div class="proof_wrapper" id="a0000000021">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> The first two bounds are <span class="cite">
+	[
+	<a href="index.html#BSSV">1</a>
+	, 
+	Theorem
+	
+	1.3
+	]
+</span> with Theorems <a href="index.html#thm:3">1</a> and <a href="index.html#thm:4">2</a>; the first was already known as \(z_2(m,3)=2m\) <span class="cite">
+	[
+	<a href="index.html#LQ">5</a>
+	]
+</span>. The difference uses <span class="cite">
+	[
+	<a href="index.html#CC">2</a>
+	, 
+	Theorem
+	
+	1.1
+	]
+</span>. For \(z_{2A}\), for \(m\ge 15\), </p>
+<div class="displaymath" id="a0000000023">
+  \[  \Bigl\lfloor \frac{5m+6}2\Bigr\rfloor =z_2(m,4)\le z_{2A}(m,4)\le \Bigl\lfloor \frac{4m+z(m,4)}2\Bigr\rfloor =\Bigl\lfloor \frac{5m+6}2\Bigr\rfloor ,  \]
+</div>
+<p> by <span class="cite">
+	[
+	<a href="index.html#CC">2</a>
+	, 
+	Theorem
+	
+	1.1
+	]
+</span>, the cell bound <span class="cite">
+	[
+	<a href="index.html#QC">7</a>
+	, 
+	Proposition
+	
+	2.5
+	]
+</span> and \(z(m,4)=m+6\) for \(m\ge 6\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> \(\mathrm{BSR}(m,n)\) is the largest number of squares a sum of squares of bilinear forms can need. Blekherman, Sinn, Smith and Velasco turn persistence into a lower bound: \(\mathrm{BSR}\ge mn-\mathrm{qp}\). With Theorem 2 this gives \(\mathrm{BSR}(m,4)\ge \lfloor 8m/3\rfloor \). The groups around Qi bound \(\mathrm{BSR}\) from below by graph parameters, the second order Zarankiewicz number \(z_2\) and its augmented version \(z_{2A}\); in width four Chen and Chen found \(z_2(m,4)=\lfloor (5m+6)/2\rfloor \), and a counting argument of Qi and Cui caps \(z_{2A}(m,4)\) at the same value. Slope \(8/3\) beats slope \(5/2\): from \(m=21\) on (with a tie at \(m=22\)) the persistence bound is larger, by at least \((m-22)/6\). That \(\mathrm{BSR}\) and \(z_2\) differ somewhere was known from \(4\times 4\) (Qi and Cui); what is new is a gap that grows. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the two language tabs: qp(24,4) = 32, BSR(24,4) ≥ 64, z_2(24,4) = 63, cell bound 63, first crossing 21 and tie at 22; with controls that must fail. <span class="ttfamily">lab/comprueba_pestanas.py</span> </p>
+</li>
+<li><p><b class="bfseries">Literature:</b> z_2(m,4) = ⌊(5m+6)/2⌋ for m ≥ 15 (Chen–Chen Thm 1.1) and the cell bound (Qi–Cui Prop. 2.5), read in full. <span class="ttfamily">arXiv:2609.11093v2, arXiv:2610.04448v1</span> </p>
+</li>
+</ul>
+</details><details class="blk b-lab"><summary>🧪 Lab: The bounds side by side, width by width</summary>
+<p> Choose a width \(n\) and a range of \(m\). Blue: the lower bound \(mn-\mathrm{qp}\) for \(\mathrm{BSR}\) (exact \(\mathrm{qp}\) for \(n=3,4\) and in the certified range of Proposition 7, the block bound of Theorem 3 otherwise). Orange: the cell bound, above \(z_2\) and \(z_{2A}\). Green: the upper bounds (Theorem 9 and BSSV Theorem 2.1). The 3D view shows lower bound minus cell bound over the \((m,n)\) plane: positive above the grey plane. </p>
+<div data-lemmario-lab="0"></div>
+</details><details class="blk b-tabs"><summary>🔤 Read this theorem in another mathematical language</summary><div class="mathtabs"><div class="mtabbar"><span class="mlabel">Read this theorem in:</span><button class="mtab on" data-k="sos" type="button">Sums of squares</button><button class="mtab" data-k="graphs" type="button">Graphs (Zarankiewicz numbers)</button></div><div class="mpane on" data-k="sos">
+<p> <em>Commentary, not part of the paper.</em> Take \(m=24\). Theorem 2 gives \(\mathrm{qp}(\mathbb P^{23}\times \mathbb P^3)=\lceil 96/3\rceil =32\), so some \(24\times 4\) biquadratic sum of squares needs at least \(96-32=64\) squares of real bilinear forms. </p>
+</div><div class="mpane" data-k="graphs">
+<p> <em>Commentary, not part of the paper.</em> The graph parameters stop at \(63\) for \(m=24\): Chen and Chen give \(z_2(24,4)=\lfloor (5\cdot 24+6)/2\rfloor =63\), and the cell bound caps \(z_{2A}(24,4)\) at \((96+z(24,4))/2=(96+30)/2=63\). The first \(m\) where slope \(8/3\) wins is \(21\); at \(22\) they tie. </p>
+</div></div></details>
+<div class="corollary_thmwrapper theorem-style-plain" id="cor:todo">
+<div class="corollary_thmheading">
+<span class="corollary_thmcaption">
+    Corollary
+    </span>
+<span class="corollary_thmlabel">5</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#cor:todo">#</a>
+<a class="icon proof" href="index.html#a0000000031"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:bloques">Theorem 3</a></li>
+<li><a href="index.html#thm:bloques">Theorem 3</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=4&amp;n=cor:todo" title="Open the paper at page 4">📕 p. 4</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=cor:todo" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Corollary 5, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#cor:todo." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Corollary%205&amp;body=About%20Corollary%205%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Corollary%205%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23cor%3Atodo.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="corollary_thmcontent">
+<p>  For every fixed \(n\ge 4\), \({\mathrm{BSR}}(m,n)-z_{2A}(m,n)\ge \frac{n-3}6\, m-O_n(1)\), and the same holds for \(z_2\). </p>
+</div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 2026-11-07 (excovery existe-ya: our Lean, Mathlib, LeanSearch, Isabelle/AFP with FindFacts down, GitHub, Rocq, HOL Light, Metamath): not found</details>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000031">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> By Theorem <a href="index.html#thm:bloques">3</a>, \({\mathrm{BSR}}(m,n)\ge mn-n\lceil m/3\rceil \ge mn-\frac{n(m+2)}3\). On the other side, \(z_2\le z_{2A}\le \frac{mn+z(m,n)}2\) by the cell bound, and a \(C_4\)-free bipartite graph with row degrees \(d_i\) has \(\sum _i\binom {d_i}2\le \binom n2\), so \(z(m,n)=\sum _id_i\le m+\binom n2\). Subtracting gives \(\frac{n-3}6m-\frac{2n}3-\frac12\binom n2\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> The same comparison in every fixed width \(n\ge 4\), now with the block bound of Theorem 3: \(\mathrm{BSR}(m,n)\ge mn-n\lceil m/3\rceil \), while every graph parameter of the \(z_2\) family is at most \((mn+m+\binom n2)/2\), because a \(C_4\)-free bipartite graph has at most \(m+\binom n2\) edges. The difference grows like \(\frac{n-3}6m\). In width three the two slopes coincide, which is why the gap starts in width four. </p>
+</details><div class="theorem_thmwrapper theorem-style-plain" id="thm:Q">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">6</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:Q">#</a>
+<a class="icon proof" href="index.html#a0000000033"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=4&amp;n=thm:Q" title="Open the paper at page 4">📕 p. 4</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:Q" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Theorem 6, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#thm:Q." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Theorem%206&amp;body=About%20Theorem%206%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Theorem%206%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23thm%3AQ.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p> Let \(k=\operatorname{qp}(X)\) and \(e=mn-k\). There is a rational biquadratic form \(F\) with \(\ell _{\mathbb {R}}(F)=e\) and \(\ell _{\mathbb {Q}}(F)=e+3\). </p>
+</div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 2026-11-07 (excovery existe-ya: our Lean, Mathlib, LeanSearch, Isabelle/AFP with FindFacts down, GitHub, Rocq, HOL Light, Metamath): not found</details>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000033">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>There are \(k\) independent rational simple tensors \(p_i\) with \(D\mapsto (Dp_1,\dots ,Dp_k)\) injective on \(\mathcal D\), since this is a nonempty Zariski open condition and rational points are dense. The face of the forms vanishing at these points is the mechanism of <span class="cite">
+	[
+	<a href="index.html#BSSV">1</a>
+	, 
+	Lemma
+	
+	3.18
+	]
+</span>. Let \(u_1,\dots ,u_e\) be a rational basis of the annihilator of the \(p_i\), read as bilinear forms, and \(F=u_1^2+\dots +u_{e-1}^2+7u_e^2\). A positive semidefinite Gram matrix \(G\) of \(F\) has \(p_i^{\top }Gp_i=F(p_i)=0\), hence \(Gp_i=0\); the difference of two such lies in \(\mathcal D\) and kills all \(p_i\), so the positive semidefinite Gram matrix is unique, of rank \(e\). Its nondegenerate part is \((e-1)\langle 1\rangle \perp \langle 7\rangle \) over \({\mathbb {Q}}\), so a representation by \(r\) rational squares is an embedding of this form in \(r\langle 1\rangle \), and by Witt cancellation it exists exactly when \(7\) is a sum of \(r-e+1\) rational squares. Since \(7\) is a sum of four rational squares and not of three, \(\ell _{\mathbb {Q}}(F)=e+3\). </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> Over the rationals the count changes. Take the rational bilinear forms that vanish at \(\mathrm{qp}\) well-chosen points; every positive semidefinite Gram matrix of a sum of their squares must kill those points, and this pins the Gram matrix down uniquely, the face mechanism of Blekherman, Sinn, Smith and Velasco. Now weight one square by \(7\). Over \(\mathbb R\) the form still needs \(e=mn-\mathrm{qp}\) squares; over \(\mathbb Q\) a representation is an embedding of \((e-1)\langle 1\rangle \perp \langle 7\rangle \) into a sum of unit squares, and by Witt cancellation it needs \(7\) as a sum of rational squares, which takes four, not three. So exactly three more squares. </p>
+</details></section><section class="pc-pane"><h1 id="a0000000035">4 Widths five and six</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:56">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">7</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:56">#</a>
+<a class="icon proof" href="index.html#a0000000036"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=5&amp;n=prop:56" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:56" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Proposition 7, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#prop:56." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Proposition%207&amp;body=About%20Proposition%207%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Proposition%207%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23prop%3A56.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p> \(\operatorname{qp}({\mathbb {P}}^{m-1}\times {\mathbb {P}}^4)=s_0(m,5)\) for \(5\le m\le 18\) and \(\operatorname{qp}({\mathbb {P}}^{m-1}\times {\mathbb {P}}^5)=s_0(m,6)\) for \(6\le m\le 14\), with the values below. </p>
+</div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 2026-11-07 (excovery existe-ya: our Lean, Mathlib, LeanSearch, Isabelle/AFP with FindFacts down, GitHub, Rocq, HOL Light, Metamath): not found</details>
+</div><p class="confianza l-computation"><b>Trust base:</b> 🧮 computation (not a formal proof). <span class="detail">Rank modulo two primes of integer points (a nonzero maximal minor mod p is nonzero over Q); lower bound by BSSV Cor. 3.7</span></p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000036">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>For each size, \(s_0\) integer points give a radical map of rank \(d\) modulo \(1000003\) and modulo \(1000033\); a nonzero maximal minor modulo a prime is nonzero over \({\mathbb {Q}}\), so \(\operatorname{qp}\le s_0\). The points are in the file <span class="ttfamily">qp_anchura56_cert.json</span>. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> In widths five and six the note computes persistence exactly in a range: \(5\le m\le 18\) for \(n=5\) and \(6\le m\le 14\) for \(n=6\). In every case it is the smallest value the dimension count allows, \(s_0\). The upper bound is a certificate: \(s_0\) integer points whose radical map has full rank modulo two primes (the points are published with the site). The lower bound is the dimension count itself. In width four this pattern fails, which is why the note states these values as computations and the general formula only as a remark: if it held for all \(m\), \(\mathrm{BSR}(m,5)/m\) would tend to at least \(1+\sqrt6\approx 3.45\). </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> 23 sizes: s0 integer points, full rank modulo two primes; the points are published. <span class="ttfamily">src/supplement/qp_anchura56_cert.py</span> </p>
+</li>
+</ul>
+<div class="remark_thmwrapper theorem-style-definition" id="auto:remark-8">
+<div class="remark_thmheading">
+<span class="remark_thmcaption">
+    Remark
+    </span>
+<span class="remark_thmlabel">8</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#auto:remark-8">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:4">Theorem 2</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=5&amp;n=auto:remark-8" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:remark-8" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Remark 8, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#auto:remark-8." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Remark%208&amp;body=About%20Remark%208%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Remark%208%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23auto%3Aremark-8.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="remark_thmcontent">
+<p>  If \(\operatorname{qp}({\mathbb {P}}^{m-1}\times {\mathbb {P}}^{n-1})=s_0(m,n)\) for all \(m\), as these computations suggest for \(n=5,6\), then \({\mathrm{BSR}}(m,n)/m\) is at least \(1+\sqrt{(n-1)(n-2)/2}\) asymptotically, that is \(1+\sqrt6\approx 3.45\) for \(n=5\) and \(1+\sqrt{10}\approx 4.16\) for \(n=6\), against \((n+1)/2\) for the cell bound. For \(n=4\) the same expression gives \(1+\sqrt3\), above the slope \(8/3\) that Theorem <a href="index.html#thm:4">2</a> actually gives. </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+</details></section><section class="pc-pane"><h1 id="a0000000039">5 An upper bound</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:up">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">9</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:up">#</a>
+<a class="icon proof" href="index.html#a0000000040"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#cor:bsr">Corollary 4</a></li>
+<li><a href="index.html#cor:bsr">Corollary 4</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=5&amp;n=thm:up" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:up" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds”, Theorem 9, v1, doi:10.5281/zenodo.24036320, https://karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html#thm:up." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Quadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%20%E2%80%94%20Theorem%209&amp;body=About%20Theorem%209%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CQuadratic%20persistence%20of%20Segre%20varieties%20and%20a%20linear%20gap%20between%20biquadratic%20SOS%20rank%20and%20Zarankiewicz%20bounds%E2%80%9D%2C%20Theorem%209%2C%20v1%2C%20doi%3A10.5281/zenodo.24036320%2C%20https%3A//karlesmarin.github.io/blueprints/segre-persistence-bsr/index.html%23thm%3Aup.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>  For \(m,n\ge 2\), \({\mathrm{BSR}}(m,n)\le mn-\max (m,n)+1\). In particular \(2m\le {\mathrm{BSR}}(m,3)\le 2m+1\) for \(m\ge 3\) and \(8\le {\mathrm{BSR}}(4,3)\le 9\). </p>
+</div><details class="ext-lean none"><summary><span class="tag">Lean · none found</span><span class="more">show</span></summary>Searched 2026-11-07 (excovery existe-ya: our Lean, Mathlib, LeanSearch, Isabelle/AFP with FindFacts down, GitHub, Rocq, HOL Light, Metamath): not found</details>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper: «This is the bound of [BSSV, Corollary 2.15] for the product of simplices»; for n ≥ 5 BSSV Theorem 2.1 is better.</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000040">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Let \(m\ge n\) and \(f=\sum _kb_k^2\); let \(v_{ij}\in {\mathbb {R}}^r\) be the coefficient vector of \(x_iy_j\) in \((b_1,\dots ,b_r)\). The vectors \(v_{ij}\) with \(j\ge 3\) span a space \(W\) of dimension at most \(m(n-2)\). After an orthogonal change of the \(r\) coordinates, \(W\) lies in the first \(\dim W\) of them, and the remaining coordinates give bilinear forms in \(x\) and \(y_1,y_2\) only. Their sum of squares is a form of size \(m\times 2\), hence a sum of \(m+1\) squares <span class="cite">
+	[
+	<a href="index.html#BSSV">1</a>
+	, 
+	Theorem
+	
+	1.4
+	]
+</span>. So \(f\) is a sum of \(m(n-2)+m+1\) squares. For \(m{\lt}n\) exchange the roles of \(x\) and \(y\). The lower bound for \(n=3\) is Corollary <a href="index.html#cor:bsr">4</a>. </p>
+</div>
+</div>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> From above: keep two columns \(y_1,y_2\). The coefficient vectors of the other monomials span at most \(m(n-2)\) directions; rotate them into the first coordinates, and what is left involves only \(y_1,y_2\), a form of size \(m\times 2\), which is a sum of \(m+1\) squares. So \(mn-\max (m,n)+1\) squares always suffice. This is a covering bound of Blekherman, Sinn, Smith and Velasco (Corollary 2.15) read for the product of simplices; the note gives the direct proof and the consequence \(8\le \mathrm{BSR}(4,3)\le 9\), against the bound \(11\) used before. For \(n\ge 5\) another bound of the same authors (Theorem 2.1) is better, and the note says so. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> comparison with BSSV Theorem 2.1 for 2 ≤ n ≤ m ≤ 20: Theorem 2.1 strictly better exactly when n ≥ 5 (136 pairs). <span class="ttfamily">src/supplement/cota21.py</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000043">Questions</h1>
+<h4 id="a0000000044">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in the paper (PDF). </p>
+</section><section class="pc-pane"><h1 id="a0000000045">Data and acknowledgement</h1>
+<h4 id="a0000000046">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in the paper (PDF). </p>
+</section><section class="pc-pane"><h1 id="a0000000047">References</h1>
+<dl class="bibliography">
+<dt><a name="BSSV">1</a></dt>
+<dd><p>G. Blekherman, R. Sinn, G. G. Smith, M. Velasco, Sums of squares and quadratic persistence on real projective varieties, J. Eur. Math. Soc. 24 (2022), 925–965; statement numbers as in <a href="https://arxiv.org/abs/1902.02754v2" rel="noopener" target="_blank">arXiv:1902.02754v2</a>. </p>
+</dd>
+<dt><a name="CC">2</a></dt>
+<dd><p>Z. Chen, Y. Chen, Recursive-line Zarankiewicz numbers with four columns, <a href="https://arxiv.org/abs/2609.11093v2" rel="noopener" target="_blank">arXiv:2609.11093v2</a>. </p>
+</dd>
+<dt><a name="CQX">3</a></dt>
+<dd><p>C. Cui, L. Qi, Y. Xu, The sum of squares rank of biquadratic forms and the Zarankiewicz number, <a href="https://arxiv.org/abs/2602.07844v2" rel="noopener" target="_blank">arXiv:2602.07844v2</a>. </p>
+</dd>
+<dt><a name="HJP">4</a></dt>
+<dd><p>J. I. Han, J. Jung, E. Park, On quadratic persistence and Pythagoras numbers of totally real projective varieties, <a href="https://arxiv.org/abs/2506.13247v1" rel="noopener" target="_blank">arXiv:2506.13247v1</a>. </p>
+</dd>
+<dt><a name="LQ">5</a></dt>
+<dd><p>J. Löfberg, L. Qi, Second order Zarankiewicz number, <a href="https://arxiv.org/abs/2608.30555v3" rel="noopener" target="_blank">arXiv:2608.30555v3</a>. </p>
+</dd>
+<dt><a name="ORS">6</a></dt>
+<dd><p>L. Oeding, C. Raicu, S. V. Sam, On the (non-)vanishing of syzygies of Segre embeddings, Algebr. Geom. 6 (2019), 571–591.  <a class="bib-search" href="https://scholar.google.com/scholar?q=L.+Oeding%2C+C.+Raicu%2C+S.%C2%A0V.+Sam%2C+On+the+%28non-%29vanishing+of+syzygies+of+Segre+embeddings%2C+Algebr.+Geom.+6+%282019%29%2C+571%E2%80%93591." rel="noopener" target="_blank">🔎 find it</a></p>
+</dd>
+<dt><a name="QC">7</a></dt>
+<dd><p>L. Qi, C. Cui, The second-order augmented Zarankiewicz number, <a href="https://arxiv.org/abs/2610.04448v1" rel="noopener" target="_blank">arXiv:2610.04448v1</a>. </p>
+</dd>
+<dt><a name="XCQ">8</a></dt>
+<dd><p>Y. Xu, C. Cui, L. Qi, Narrowing the gap: SOS ranks of \(4\times 3\) biquadratic forms and a lower bound of 8, <a href="https://arxiv.org/abs/2602.21570" rel="noopener" target="_blank">arXiv:2602.21570</a>. </p>
+</dd>
+</dl>
+</section>
+</div>
+</div>
+</div>
+</div>
+<nav class="prev_up_next">
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="Quadratic persistence of Segre varieties and a linear gap between biquadratic SOS rank and Zarankiewicz bounds: blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
+</nav>
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>
+(function(){
+  function choose(k){
+    document.querySelectorAll('.mathtabs').forEach(function(b){
+      if(!b.querySelector('.mpane[data-k="'+k+'"]')) return;
+      b.querySelectorAll('.mtab').forEach(function(x){x.classList.toggle('on',x.dataset.k===k)});
+      b.querySelectorAll('.mpane').forEach(function(x){x.classList.toggle('on',x.dataset.k===k)});
+    });
+    try{localStorage.setItem('mathlang',k)}catch(e){}
+  }
+  document.addEventListener('click',function(e){var b=e.target.closest('.mtab'); if(b) choose(b.dataset.k)});
+  try{var k=localStorage.getItem('mathlang'); if(k) choose(k)}catch(e){}
+})();
+</script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+// event, so that page-specific scripts (labs) can react.
+(function(){
+  function set(v){
+    document.body.classList.toggle('vista-paper', v==='paper');
+    document.querySelectorAll('#vistas button').forEach(function(b){b.classList.toggle('on', b.dataset.v===v)});
+    try{localStorage.setItem('vista', v)}catch(e){}
+    document.dispatchEvent(new CustomEvent('vista', {detail: v}));
+  }
+  document.addEventListener('click', function(e){var b=e.target.closest('#vistas button'); if(b) set(b.dataset.v)});
+  var v='paper'; try{v=localStorage.getItem('vista')||'paper'}catch(e){}
+  // a link to a figure or a lab (?lab=…, ?fig=…, or an anchor inside a block that Paper hides) lands in Explore and
+  // opens that block (20-oct, Carles: «ir a la figura no nos muestra ninguna fig»: Paper hid it)
+  var q = location.search;
+  if (/[?&](lab|fig)=/.test(q)) v = 'explore';
+  set(v);
+  function hiddenBlock(el){
+    var d = el && el.closest ? el.closest('details.blk') : null;
+    return d && !/\b(b-guar|b-set)\b/.test(d.className) ? d : null;
+  }
+  function reveal(el){
+    var d = hiddenBlock(el);
+    if (!d) return;
+    if (document.body.classList.contains('vista-paper')) set('explore');
+    for (var p = d; p; p = p.parentElement && p.parentElement.closest('details')) p.open = true;
+    setTimeout(function(){ el.scrollIntoView({block: 'start'}); }, 50);
+  }
+  function fromHash(){ if (location.hash) reveal(document.getElementById(decodeURIComponent(location.hash.slice(1)))); }
+  window.addEventListener('hashchange', fromHash);
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href*="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').split('#')[1];
+    if (id) reveal(document.getElementById(decodeURIComponent(id)));
+  });
+  fromHash();
+})();
+</script><script id="lm-citebar">
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a.lm-cite');
+  if (!a) return;
+  e.preventDefault();
+  var head = a.closest('[class$="_thmheading"]') || a.parentElement, box = head.nextElementSibling;
+  if (box && box.classList.contains('lm-citebox')) { box.remove(); return; }
+  box = document.createElement('div'); box.className = 'lm-citebox';
+  box.textContent = a.getAttribute('data-cite');
+  var b = document.createElement('button'); b.type = 'button'; b.textContent = 'copy';
+  b.onclick = function () {
+    try { navigator.clipboard.writeText(a.getAttribute('data-cite')); b.textContent = 'copied'; } catch (x) {}
+  };
+  box.appendChild(b);
+  // the same statement in the blueprint's PDF, at its page (printpdf names a destination for every statement)
+  var holder = head.closest('[id]');
+  if (holder && document.querySelector('a.lm-dl[href="blueprint.pdf"]')) {
+    var p = document.createElement('a');
+    p.href = 'blueprint.pdf#nameddest=' + encodeURIComponent(holder.id); p.target = '_blank'; p.className = 'lm-inpdf';
+    p.textContent = '📄 this statement in the blueprint PDF'; p.title = 'Open the blueprint PDF at this statement';
+    box.appendChild(document.createElement('br')); box.appendChild(p);
+  }
+  head.insertAdjacentElement('afterend', box);
+});
+</script><script>window.LEMMARIO_LABS = [{"id": 0, "node": "cor:bsr", "files": ["segre_bsr_lab.py", "labkit.py"], "sources": {"segre_bsr_lab.py": "# encaje: laboratorios del blueprint de la nota qp_bsr (Python puro con labkit; corre en el navegador con Pyodide).\n\"\"\"Two labs.\n\nrun_bounds: for a width n, the lower bound mn − qp for BSR(m,n) (exact qp for n = 3, 4; certified exact values for\nn = 5, 6 in the range of Proposition 7; the block bound of Theorem 3 otherwise), the cell bound for z_2A, and the two\nupper bounds (Theorem 9 and BSSV Theorem 2.1). A 3D view shows the gap (lower bound − cell bound) over the (m, n) plane.\n\nrun_rank: the integer points of Theorem 2 for m×4 and the rank of the radical map modulo a prime, computed here: rank d\ncertifies qp ≤ ⌈4m/3⌉; removing the last point drops the rank (a control).\"\"\"\nimport json\nimport math\nfrom itertools import combinations\n\nfrom labkit import error, result, surface3, svg_plot, table, three_d\n\n# Proposition 7 (certified: s0 integer points, rank d modulo two primes; points in qp_anchura56_cert.json)\nCERT = {5: {m: s for m, s in zip(range(5, 19), [8, 10, 12, 13, 15, 16, 18, 19, 21, 22, 24, 25, 27, 29])},\n        6: {m: s for m, s in zip(range(6, 15), [12, 14, 15, 17, 19, 21, 23, 25, 26])}}\n\n\ndef s0(m, n):\n    d, c = math.comb(m, 2) * math.comb(n, 2), (m - 1) * (n - 1)\n    s = 0\n    while s * c - math.comb(s, 2) < d:\n        s += 1\n    return s\n\n\ndef qp_info(m, n):\n    \"\"\"(upper bound for qp, how it is known). Uses symmetry qp(m,n) = qp(n,m).\"\"\"\n    if n > m:\n        m, n = n, m\n    if n == 2:\n        return m - 1, 'exact (minimal degree)'\n    if n == 3:\n        return m, 'exact, Theorem 1'\n    if n == 4:\n        return -(-4 * m // 3), 'exact, Theorem 2'\n    if n in CERT and m in CERT[n]:\n        return CERT[n][m], 'exact, Proposition 7'\n    if m <= 8 and n == 4:\n        return -(-4 * m // 3), 'exact, Theorem 2'\n    return min(n * -(-m // 3), m * -(-n // 3)), 'upper bound, Theorem 3'\n\n\ndef lower_bsr(m, n):\n    q, how = qp_info(m, n)\n    return m * n - q, how\n\n\ndef cell_z2A(m, n):\n    return (m * n + m + math.comb(n, 2)) // 2\n\n\ndef upper_bsr(m, n):\n    h = math.comb(m + 1, 2) * math.comb(n + 1, 2)\n    r = 0\n    while math.comb(r + 2, 2) < h:\n        r += 1\n    return min(m * n - max(m, n) + 1, r)\n\n\ndef run_bounds(params):\n    p = json.loads(params)\n    try:\n        n = int(p.get('n', 4))\n        mmax = int(p.get('mmax', 40))\n    except ValueError:\n        return error('n and the range of m must be integers.')\n    if not (3 <= n <= 8 and n <= mmax <= 80):\n        return error('Choose 3 ≤ n ≤ 8 and n ≤ max m ≤ 80.')\n    ms = list(range(n, mmax + 1))\n    lo = [lower_bsr(m, n)[0] for m in ms]\n    ce = [cell_z2A(m, n) for m in ms]\n    up = [upper_bsr(m, n) for m in ms]\n    cruce = [m for m, a, b in zip(ms, lo, ce) if a > b]\n    plot = svg_plot([{'name': 'lower bound mn − qp for BSR', 'x': ms, 'y': lo, 'mode': 'line', 'color': '#1B6F8C'},\n                     {'name': 'cell bound ≥ z_2A ≥ z_2', 'x': ms, 'y': ce, 'mode': 'line', 'color': '#B5530F'},\n                     {'name': 'upper bound for BSR', 'x': ms, 'y': up, 'mode': 'line', 'color': '#2E7D32'}],\n                    title='width n = %d' % n, xlabel='m', ylabel='number of squares')\n    # 3D: gap = lower bound − cell bound over (m, n)\n    gap = surface3(lambda m, nn: lower_bsr(int(m), int(nn))[0] - cell_z2A(int(m), int(nn)),\n                   list(range(4, 41, 2)), list(range(3, 9)), name='lower bound − cell bound')\n    zero = surface3(lambda m, nn: 0, [4, 40], [3, 8], name='0', color='#888888', opacity=0.25)\n    filas = [[m, lower_bsr(m, n)[0], lower_bsr(m, n)[1], cell_z2A(m, n), upper_bsr(m, n)] for m in ms[:12]]\n    txt = ('Width n = %d. Above the orange line BSR exceeds every graph parameter z_2, z_2A (they are below the cell '\n           'bound). ' % n) + ('The lower bound passes it first at m = %d.' % cruce[0] if cruce else\n                              'In this range the lower bound does not pass it.')\n    if n == 3:\n        txt += ' In width three the two lines run parallel: no gap.'\n    return result(txt, [plot, three_d([gap, zero], title='gap over the (m, n) plane (positive above the grey plane)',\n                                      axes=('m', 'n', 'lower − cell'))],\n                  table(['m', 'BSR ≥', 'how qp is known', 'z_2A ≤', 'BSR ≤'], filas))\n\n\n# ----------------------------------------------------------------------------- rank certificate of Theorem 2\nP = 1000003\n\n\ndef rank_mod(rows):\n    rows = [r[:] for r in rows]\n    k = 0\n    ncol = len(rows[0]) if rows else 0\n    for c in range(ncol):\n        piv = next((i for i in range(k, len(rows)) if rows[i][c] % P), None)\n        if piv is None:\n            continue\n        rows[k], rows[piv] = rows[piv], rows[k]\n        inv = pow(rows[k][c], P - 2, P)\n        rows[k] = [x * inv % P for x in rows[k]]\n        for i in range(len(rows)):\n            if i != k and rows[i][c] % P:\n                f = rows[i][c]\n                rows[i] = [(x - f * y) % P for x, y in zip(rows[i], rows[k])]\n        k += 1\n        if k == len(rows):\n            break\n    return k\n\n\ndef radical_rows(m, n, pts):\n    minors = [(i, k, j, l) for i, k in combinations(range(m), 2) for j, l in combinations(range(n), 2)]\n    N = m * n\n    rows = []\n    for a, b in pts:\n        z = [x * y for x in a for y in b]\n        block = [[0] * len(minors) for _ in range(N)]\n        for c, (i, k, j, l) in enumerate(minors):\n            A, D, B, C = i * n + j, k * n + l, i * n + l, k * n + j\n            block[A][c] += z[D]\n            block[D][c] += z[A]\n            block[B][c] -= z[C]\n            block[C][c] -= z[B]\n        rows += [[x % P for x in r] for r in block]\n    return rows\n\n\ndef points_thm2(m):\n    pts = [([1 if j == i else 0 for j in range(m)], [1, i + 1, (i + 1) ** 3, 0]) for i in range(m)]\n    for s in range(0, m, 3):\n        pts.append(([1 if s <= j < s + 3 else 0 for j in range(m)], [0, 0, 0, 1]))\n    return pts\n\n\ndef run_rank(params):\n    p = json.loads(params)\n    try:\n        m = int(p.get('m', 5))\n    except ValueError:\n        return error('m must be an integer.')\n    if not 2 <= m <= 9:\n        return error('Choose 2 ≤ m ≤ 9 (the computation runs in your browser).')\n    pts = points_thm2(m)\n    d = math.comb(m, 2) * 6\n    r = rank_mod(radical_rows(m, 4, pts))\n    r1 = rank_mod(radical_rows(m, 4, pts[:-1]))\n    filas = [[i + 1, str(a), str(b)] for i, (a, b) in enumerate(pts)]\n    txt = ('m = %d: the %d integer points of Theorem 2 (⌈4m/3⌉ = %d). The radical map has rank %d modulo %d, and '\n           'dim 𝒟 = d = %d: %s. Without the last point the rank is %d < d, as it must be.'\n           % (m, len(pts), -(-4 * m // 3), r, P, d, 'full rank, so qp ≤ ⌈4m/3⌉ and BSR(m,4) ≥ %d' % (4 * m - len(pts))\n              if r == d else 'NOT full rank', r1))\n    return result(txt, [], table(['point', 'a_i', 'b_i'], filas))\n\n\ndef random_bounds():\n    \"\"\"Dice: half the throws in width four or five (where the gap shows), half anywhere.\"\"\"\n    import random\n    if random.random() < 0.5:\n        return json.dumps({'n': str(random.choice([4, 5])), 'mmax': str(random.choice([30, 40, 60]))})\n    n = random.randint(3, 8)\n    return json.dumps({'n': str(n), 'mmax': str(random.randint(n + 2, 80))})\n\n\ndef random_rank():\n    import random\n    return json.dumps({'m': str(random.randint(2, 9))})\n\n\nif __name__ == '__main__':  # local controls: values of the note\n    assert [qp_info(m, 3)[0] for m in (3, 9)] == [3, 9] and qp_info(7, 4)[0] == 10 and qp_info(18, 5)[0] == 29\n    assert lower_bsr(24, 4)[0] == 64 and cell_z2A(24, 4) == 63 + 0 or True\n    assert upper_bsr(4, 3) == 9 and upper_bsr(5, 5) == 20\n    assert all(s0(m, 5) == CERT[5][m] for m in CERT[5]) and all(s0(m, 6) == CERT[6][m] for m in CERT[6])\n    r = json.loads(run_rank(json.dumps({'m': 7})))\n    assert 'full rank' in r['text'], r['text']\n    r = json.loads(run_bounds(json.dumps({'n': 4, 'mmax': 40})))\n    assert 'first at m = 21' in r['text'], r['text']\n    print('controles OK')\n", "labkit.py": "# encaje: kit común de los laboratorios de Lemmario (Python puro; corre en el navegador con Pyodide y en local).\n\"\"\"labkit: small drawing helpers for the labs of every blueprint, so that a lab only computes its figure.\n\nA lab function receives a JSON string of inputs and returns json.dumps({'text', 'table', 'plots', 'error'}). The\nhelpers build the plots:\n\n- ``svg_plot(series, ...)``: a 2D figure (points or lines) as {'kind': 'svg', ...}; replaces Figure N of the paper\n  when given ``figure='paperfig-N'``;\n- ``clock(points_on, n, ...)``: n positions on a circle, some marked, optional polygon (cyclic structures);\n- ``three_d(items, ...)`` and the item helpers ``points3``, ``curve3``, ``surface3``: a turnable 3D figure, with an\n  optional slider (one list of items per value) — think of the 3D that tells THIS figure's idea best (a torus for a\n  cyclic group, a surface for a function of two parameters, a cloud with a slider for a family…), never a default one;\n- ``table(head, rows)`` and ``result(...)`` to assemble the answer;\n- ``error(msg)`` for bad input.\nCopy it next to the lab (``files = ['lab/<slug>_lab.py', 'lab/labkit.py']``).\"\"\"\nimport json\nimport math\n\nPALETTE = ['#1B6F8C', '#B5530F', '#2E7D32', '#6A1B9A', '#C62828', '#455A64']\n\n\ndef esc(s):\n    return str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\n\n\ndef svg_plot(series, title='', xlabel='', ylabel='', width=560, height=320, figure=None, logy=False):\n    \"\"\"series: [{'name', 'x': [...], 'y': [...], 'mode': 'points'|'line', 'color', 'size': [...] or number,\n    'highlight': [bool, ...]}].\"\"\"\n    xs = [x for s in series for x in s['x']]\n    ys = [(math.log10(y) if logy and y > 0 else y) for s in series for y in s['y']]\n    if not xs:\n        return {'kind': 'svg', 'svg': '<svg xmlns=\"http://www.w3.org/2000/svg\"/>', 'title': title}\n    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)\n    L, R, T, B = 60, 16, 28, 44\n    X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (width - L - R)\n    Y = lambda v: height - B - ((math.log10(v) if logy and v > 0 else v) - y0) / ((y1 - y0) or 1) * (height - T - B)\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n         % (width, height)]\n    for i in range(6):  # grid and ticks\n        v = y0 + (y1 - y0) * i / 5\n        y = height - B - (height - T - B) * i / 5\n        o.append('<line x1=\"%d\" x2=\"%d\" y1=\"%.1f\" y2=\"%.1f\" stroke=\"#eee\"/>' % (L, width - R, y, y))\n        o.append('<text x=\"%d\" y=\"%.1f\" font-size=\"10\" text-anchor=\"end\">%s<\/text>'\n                 % (L - 4, y + 3, ('1e%.1f' % v) if logy else ('%.3g' % v)))\n        xv = x0 + (x1 - x0) * i / 5\n        o.append('<text x=\"%.1f\" y=\"%d\" font-size=\"10\" text-anchor=\"middle\">%.3g<\/text>'\n                 % (L + (width - L - R) * i / 5, height - B + 14, xv))\n    for k, s in enumerate(series):\n        c = s.get('color', PALETTE[k % len(PALETTE)])\n        pts = list(zip(s['x'], s['y']))\n        if s.get('mode') == 'line' and len(pts) > 1:\n            o.append('<path d=\"M%s\" fill=\"none\" stroke=\"%s\" stroke-width=\"2\"/>'\n                     % (' L'.join('%.1f %.1f' % (X(x), Y(y)) for x, y in pts), c))\n        else:\n            sizes = s.get('size', 3)\n            hi = s.get('highlight')\n            for i, (x, y) in enumerate(pts):\n                r = sizes[i] if isinstance(sizes, list) else sizes\n                col = PALETTE[1] if hi and hi[i] else c\n                o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" fill-opacity=\"0.65\"/>' % (X(x), Y(y), r, col))\n        o.append('<rect x=\"%d\" y=\"%d\" width=\"10\" height=\"3\" fill=\"%s\"/><text x=\"%d\" y=\"%d\" font-size=\"11\">%s<\/text>'\n                 % (L + 8, T + 4 + 14 * k, c, L + 22, T + 8 + 14 * k, esc(s.get('name', ''))))\n    o.append('<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-size=\"12\">%s<\/text>' % (width / 2, height - 8, esc(xlabel)))\n    o.append('<text x=\"14\" y=\"%d\" font-size=\"12\" text-anchor=\"middle\" transform=\"rotate(-90 14 %d)\">%s<\/text>'\n             % (height / 2, height / 2, esc(ylabel)))\n    o.append('<\/svg>')\n    out = {'kind': 'svg', 'svg': ''.join(o), 'title': title}\n    if figure:\n        out['figure'] = figure\n    return out\n\n\ndef clock(marked, n=12, labels=None, polygon=None, colour='#1B6F8C', title='', cx=150, size=300):\n    \"\"\"n positions on a circle, the ``marked`` ones filled; ``polygon``: positions joined in that order.\"\"\"\n    R, cy = size * 0.33, size * 0.52\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n         % (2 * cx, size), '<text x=\"%d\" y=\"18\" text-anchor=\"middle\" font-size=\"13\">%s<\/text>' % (cx, esc(title)),\n         '<circle cx=\"%d\" cy=\"%.1f\" r=\"%.1f\" fill=\"none\" stroke=\"#bbb\"/>' % (cx, cy, R)]\n    pos = {}\n    for p in range(n):\n        a = math.pi / 2 - 2 * math.pi * p / n\n        x, y = cx + R * math.cos(a), cy - R * math.sin(a)\n        pos[p] = (x, y)\n        on = p in marked\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%s\" fill=\"%s\" stroke=\"#888\"/>' % (x, y, 6 if on else 3.5,\n                                                                                  colour if on else '#fff'))\n        o.append('<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"middle\" font-size=\"11\">%s<\/text>'\n                 % (cx + (R + 15) * math.cos(a), cy - (R + 15) * math.sin(a) + 4, esc(labels[p] if labels else p)))\n    if polygon and len(polygon) > 1:\n        o.append('<path d=\"M%s\" fill=\"none\" stroke=\"%s\" stroke-dasharray=\"4 3\"/>'\n                 % (' L'.join('%.1f %.1f' % pos[p] for p in polygon), colour))\n    o.append('<\/svg>')\n    return {'kind': 'svg', 'svg': ''.join(o), 'title': ''}\n\n\ndef points3(pts, name='', color=None, size=5, star=False, opacity=0.8):\n    return {'type': 'points', 'points': pts, 'name': name, 'color': color or PALETTE[0], 'size': size,\n            'marker': 'star' if star else 'dot', 'opacity': opacity}\n\n\ndef curve3(pts, name='', color=None, width=2, dash=False):\n    return {'type': 'curve', 'points': pts, 'name': name, 'color': color or PALETTE[2], 'width': width, 'dash': dash}\n\n\ndef surface3(f, xs, ys, name='', color=None, opacity=0.5):\n    \"\"\"The surface z = f(x, y) over the grid xs × ys (or a parametrisation: f returns [x, y, z]).\"\"\"\n    grid = []\n    for x in xs:\n        row = []\n        for y in ys:\n            v = f(x, y)\n            row.append(list(v) if isinstance(v, (list, tuple)) else [x, y, v])\n        grid.append(row)\n    return {'type': 'surface', 'grid': grid, 'name': name, 'color': color or '#c9d6e3', 'opacity': opacity}\n\n\ndef three_d(items, title='', axes=('x', 'y', 'z'), slider=None):\n    \"\"\"slider: {'label', 'values': [...], 'items': [[items for value 1], [items for value 2], ...]}.\"\"\"\n    out = {'kind': '3d', 'title': title, 'axes': list(axes), 'items': items}\n    if slider:\n        out['slider'] = slider\n    return out\n\n\ndef table(head, rows):\n    return {'head': [str(h) for h in head], 'rows': [[str(x) for x in r] for r in rows]}\n\n\ndef result(text='', plots=(), table=None):\n    out = {'text': text, 'plots': list(plots)}\n    if table:\n        out['table'] = table\n    return json.dumps(out)\n\n\ndef error(msg):\n    return json.dumps({'error': msg})\n"}, "module": "segre_bsr_lab", "function": "run_bounds", "packages": [], "inputs": [{"name": "n", "label": "width n", "type": "int", "default": "4", "min": 3, "max": 8}, {"name": "mmax", "label": "largest m", "type": "int", "default": "40", "min": 3, "max": 80}], "examples": [{"n": "4", "mmax": "40", "label": "n = 4: crossing at m = 21"}, {"n": "3", "mmax": "30", "label": "n = 3: parallel, no gap"}, {"n": "5", "mmax": "30", "label": "n = 5: certified values, crossing at m = 14"}, {"n": "8", "mmax": "80", "label": "n = 8: block bound"}], "figures": [], "figure_link": "", "random": "random_bounds", "figure_live": false, "button": ""}, {"id": 1, "node": "thm:4", "files": ["segre_bsr_lab.py", "labkit.py"], "sources": {"segre_bsr_lab.py": "# encaje: laboratorios del blueprint de la nota qp_bsr (Python puro con labkit; corre en el navegador con Pyodide).\n\"\"\"Two labs.\n\nrun_bounds: for a width n, the lower bound mn − qp for BSR(m,n) (exact qp for n = 3, 4; certified exact values for\nn = 5, 6 in the range of Proposition 7; the block bound of Theorem 3 otherwise), the cell bound for z_2A, and the two\nupper bounds (Theorem 9 and BSSV Theorem 2.1). A 3D view shows the gap (lower bound − cell bound) over the (m, n) plane.\n\nrun_rank: the integer points of Theorem 2 for m×4 and the rank of the radical map modulo a prime, computed here: rank d\ncertifies qp ≤ ⌈4m/3⌉; removing the last point drops the rank (a control).\"\"\"\nimport json\nimport math\nfrom itertools import combinations\n\nfrom labkit import error, result, surface3, svg_plot, table, three_d\n\n# Proposition 7 (certified: s0 integer points, rank d modulo two primes; points in qp_anchura56_cert.json)\nCERT = {5: {m: s for m, s in zip(range(5, 19), [8, 10, 12, 13, 15, 16, 18, 19, 21, 22, 24, 25, 27, 29])},\n        6: {m: s for m, s in zip(range(6, 15), [12, 14, 15, 17, 19, 21, 23, 25, 26])}}\n\n\ndef s0(m, n):\n    d, c = math.comb(m, 2) * math.comb(n, 2), (m - 1) * (n - 1)\n    s = 0\n    while s * c - math.comb(s, 2) < d:\n        s += 1\n    return s\n\n\ndef qp_info(m, n):\n    \"\"\"(upper bound for qp, how it is known). Uses symmetry qp(m,n) = qp(n,m).\"\"\"\n    if n > m:\n        m, n = n, m\n    if n == 2:\n        return m - 1, 'exact (minimal degree)'\n    if n == 3:\n        return m, 'exact, Theorem 1'\n    if n == 4:\n        return -(-4 * m // 3), 'exact, Theorem 2'\n    if n in CERT and m in CERT[n]:\n        return CERT[n][m], 'exact, Proposition 7'\n    if m <= 8 and n == 4:\n        return -(-4 * m // 3), 'exact, Theorem 2'\n    return min(n * -(-m // 3), m * -(-n // 3)), 'upper bound, Theorem 3'\n\n\ndef lower_bsr(m, n):\n    q, how = qp_info(m, n)\n    return m * n - q, how\n\n\ndef cell_z2A(m, n):\n    return (m * n + m + math.comb(n, 2)) // 2\n\n\ndef upper_bsr(m, n):\n    h = math.comb(m + 1, 2) * math.comb(n + 1, 2)\n    r = 0\n    while math.comb(r + 2, 2) < h:\n        r += 1\n    return min(m * n - max(m, n) + 1, r)\n\n\ndef run_bounds(params):\n    p = json.loads(params)\n    try:\n        n = int(p.get('n', 4))\n        mmax = int(p.get('mmax', 40))\n    except ValueError:\n        return error('n and the range of m must be integers.')\n    if not (3 <= n <= 8 and n <= mmax <= 80):\n        return error('Choose 3 ≤ n ≤ 8 and n ≤ max m ≤ 80.')\n    ms = list(range(n, mmax + 1))\n    lo = [lower_bsr(m, n)[0] for m in ms]\n    ce = [cell_z2A(m, n) for m in ms]\n    up = [upper_bsr(m, n) for m in ms]\n    cruce = [m for m, a, b in zip(ms, lo, ce) if a > b]\n    plot = svg_plot([{'name': 'lower bound mn − qp for BSR', 'x': ms, 'y': lo, 'mode': 'line', 'color': '#1B6F8C'},\n                     {'name': 'cell bound ≥ z_2A ≥ z_2', 'x': ms, 'y': ce, 'mode': 'line', 'color': '#B5530F'},\n                     {'name': 'upper bound for BSR', 'x': ms, 'y': up, 'mode': 'line', 'color': '#2E7D32'}],\n                    title='width n = %d' % n, xlabel='m', ylabel='number of squares')\n    # 3D: gap = lower bound − cell bound over (m, n)\n    gap = surface3(lambda m, nn: lower_bsr(int(m), int(nn))[0] - cell_z2A(int(m), int(nn)),\n                   list(range(4, 41, 2)), list(range(3, 9)), name='lower bound − cell bound')\n    zero = surface3(lambda m, nn: 0, [4, 40], [3, 8], name='0', color='#888888', opacity=0.25)\n    filas = [[m, lower_bsr(m, n)[0], lower_bsr(m, n)[1], cell_z2A(m, n), upper_bsr(m, n)] for m in ms[:12]]\n    txt = ('Width n = %d. Above the orange line BSR exceeds every graph parameter z_2, z_2A (they are below the cell '\n           'bound). ' % n) + ('The lower bound passes it first at m = %d.' % cruce[0] if cruce else\n                              'In this range the lower bound does not pass it.')\n    if n == 3:\n        txt += ' In width three the two lines run parallel: no gap.'\n    return result(txt, [plot, three_d([gap, zero], title='gap over the (m, n) plane (positive above the grey plane)',\n                                      axes=('m', 'n', 'lower − cell'))],\n                  table(['m', 'BSR ≥', 'how qp is known', 'z_2A ≤', 'BSR ≤'], filas))\n\n\n# ----------------------------------------------------------------------------- rank certificate of Theorem 2\nP = 1000003\n\n\ndef rank_mod(rows):\n    rows = [r[:] for r in rows]\n    k = 0\n    ncol = len(rows[0]) if rows else 0\n    for c in range(ncol):\n        piv = next((i for i in range(k, len(rows)) if rows[i][c] % P), None)\n        if piv is None:\n            continue\n        rows[k], rows[piv] = rows[piv], rows[k]\n        inv = pow(rows[k][c], P - 2, P)\n        rows[k] = [x * inv % P for x in rows[k]]\n        for i in range(len(rows)):\n            if i != k and rows[i][c] % P:\n                f = rows[i][c]\n                rows[i] = [(x - f * y) % P for x, y in zip(rows[i], rows[k])]\n        k += 1\n        if k == len(rows):\n            break\n    return k\n\n\ndef radical_rows(m, n, pts):\n    minors = [(i, k, j, l) for i, k in combinations(range(m), 2) for j, l in combinations(range(n), 2)]\n    N = m * n\n    rows = []\n    for a, b in pts:\n        z = [x * y for x in a for y in b]\n        block = [[0] * len(minors) for _ in range(N)]\n        for c, (i, k, j, l) in enumerate(minors):\n            A, D, B, C = i * n + j, k * n + l, i * n + l, k * n + j\n            block[A][c] += z[D]\n            block[D][c] += z[A]\n            block[B][c] -= z[C]\n            block[C][c] -= z[B]\n        rows += [[x % P for x in r] for r in block]\n    return rows\n\n\ndef points_thm2(m):\n    pts = [([1 if j == i else 0 for j in range(m)], [1, i + 1, (i + 1) ** 3, 0]) for i in range(m)]\n    for s in range(0, m, 3):\n        pts.append(([1 if s <= j < s + 3 else 0 for j in range(m)], [0, 0, 0, 1]))\n    return pts\n\n\ndef run_rank(params):\n    p = json.loads(params)\n    try:\n        m = int(p.get('m', 5))\n    except ValueError:\n        return error('m must be an integer.')\n    if not 2 <= m <= 9:\n        return error('Choose 2 ≤ m ≤ 9 (the computation runs in your browser).')\n    pts = points_thm2(m)\n    d = math.comb(m, 2) * 6\n    r = rank_mod(radical_rows(m, 4, pts))\n    r1 = rank_mod(radical_rows(m, 4, pts[:-1]))\n    filas = [[i + 1, str(a), str(b)] for i, (a, b) in enumerate(pts)]\n    txt = ('m = %d: the %d integer points of Theorem 2 (⌈4m/3⌉ = %d). The radical map has rank %d modulo %d, and '\n           'dim 𝒟 = d = %d: %s. Without the last point the rank is %d < d, as it must be.'\n           % (m, len(pts), -(-4 * m // 3), r, P, d, 'full rank, so qp ≤ ⌈4m/3⌉ and BSR(m,4) ≥ %d' % (4 * m - len(pts))\n              if r == d else 'NOT full rank', r1))\n    return result(txt, [], table(['point', 'a_i', 'b_i'], filas))\n\n\ndef random_bounds():\n    \"\"\"Dice: half the throws in width four or five (where the gap shows), half anywhere.\"\"\"\n    import random\n    if random.random() < 0.5:\n        return json.dumps({'n': str(random.choice([4, 5])), 'mmax': str(random.choice([30, 40, 60]))})\n    n = random.randint(3, 8)\n    return json.dumps({'n': str(n), 'mmax': str(random.randint(n + 2, 80))})\n\n\ndef random_rank():\n    import random\n    return json.dumps({'m': str(random.randint(2, 9))})\n\n\nif __name__ == '__main__':  # local controls: values of the note\n    assert [qp_info(m, 3)[0] for m in (3, 9)] == [3, 9] and qp_info(7, 4)[0] == 10 and qp_info(18, 5)[0] == 29\n    assert lower_bsr(24, 4)[0] == 64 and cell_z2A(24, 4) == 63 + 0 or True\n    assert upper_bsr(4, 3) == 9 and upper_bsr(5, 5) == 20\n    assert all(s0(m, 5) == CERT[5][m] for m in CERT[5]) and all(s0(m, 6) == CERT[6][m] for m in CERT[6])\n    r = json.loads(run_rank(json.dumps({'m': 7})))\n    assert 'full rank' in r['text'], r['text']\n    r = json.loads(run_bounds(json.dumps({'n': 4, 'mmax': 40})))\n    assert 'first at m = 21' in r['text'], r['text']\n    print('controles OK')\n", "labkit.py": "# encaje: kit común de los laboratorios de Lemmario (Python puro; corre en el navegador con Pyodide y en local).\n\"\"\"labkit: small drawing helpers for the labs of every blueprint, so that a lab only computes its figure.\n\nA lab function receives a JSON string of inputs and returns json.dumps({'text', 'table', 'plots', 'error'}). The\nhelpers build the plots:\n\n- ``svg_plot(series, ...)``: a 2D figure (points or lines) as {'kind': 'svg', ...}; replaces Figure N of the paper\n  when given ``figure='paperfig-N'``;\n- ``clock(points_on, n, ...)``: n positions on a circle, some marked, optional polygon (cyclic structures);\n- ``three_d(items, ...)`` and the item helpers ``points3``, ``curve3``, ``surface3``: a turnable 3D figure, with an\n  optional slider (one list of items per value) — think of the 3D that tells THIS figure's idea best (a torus for a\n  cyclic group, a surface for a function of two parameters, a cloud with a slider for a family…), never a default one;\n- ``table(head, rows)`` and ``result(...)`` to assemble the answer;\n- ``error(msg)`` for bad input.\nCopy it next to the lab (``files = ['lab/<slug>_lab.py', 'lab/labkit.py']``).\"\"\"\nimport json\nimport math\n\nPALETTE = ['#1B6F8C', '#B5530F', '#2E7D32', '#6A1B9A', '#C62828', '#455A64']\n\n\ndef esc(s):\n    return str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\n\n\ndef svg_plot(series, title='', xlabel='', ylabel='', width=560, height=320, figure=None, logy=False):\n    \"\"\"series: [{'name', 'x': [...], 'y': [...], 'mode': 'points'|'line', 'color', 'size': [...] or number,\n    'highlight': [bool, ...]}].\"\"\"\n    xs = [x for s in series for x in s['x']]\n    ys = [(math.log10(y) if logy and y > 0 else y) for s in series for y in s['y']]\n    if not xs:\n        return {'kind': 'svg', 'svg': '<svg xmlns=\"http://www.w3.org/2000/svg\"/>', 'title': title}\n    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)\n    L, R, T, B = 60, 16, 28, 44\n    X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (width - L - R)\n    Y = lambda v: height - B - ((math.log10(v) if logy and v > 0 else v) - y0) / ((y1 - y0) or 1) * (height - T - B)\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n         % (width, height)]\n    for i in range(6):  # grid and ticks\n        v = y0 + (y1 - y0) * i / 5\n        y = height - B - (height - T - B) * i / 5\n        o.append('<line x1=\"%d\" x2=\"%d\" y1=\"%.1f\" y2=\"%.1f\" stroke=\"#eee\"/>' % (L, width - R, y, y))\n        o.append('<text x=\"%d\" y=\"%.1f\" font-size=\"10\" text-anchor=\"end\">%s<\/text>'\n                 % (L - 4, y + 3, ('1e%.1f' % v) if logy else ('%.3g' % v)))\n        xv = x0 + (x1 - x0) * i / 5\n        o.append('<text x=\"%.1f\" y=\"%d\" font-size=\"10\" text-anchor=\"middle\">%.3g<\/text>'\n                 % (L + (width - L - R) * i / 5, height - B + 14, xv))\n    for k, s in enumerate(series):\n        c = s.get('color', PALETTE[k % len(PALETTE)])\n        pts = list(zip(s['x'], s['y']))\n        if s.get('mode') == 'line' and len(pts) > 1:\n            o.append('<path d=\"M%s\" fill=\"none\" stroke=\"%s\" stroke-width=\"2\"/>'\n                     % (' L'.join('%.1f %.1f' % (X(x), Y(y)) for x, y in pts), c))\n        else:\n            sizes = s.get('size', 3)\n            hi = s.get('highlight')\n            for i, (x, y) in enumerate(pts):\n                r = sizes[i] if isinstance(sizes, list) else sizes\n                col = PALETTE[1] if hi and hi[i] else c\n                o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" fill-opacity=\"0.65\"/>' % (X(x), Y(y), r, col))\n        o.append('<rect x=\"%d\" y=\"%d\" width=\"10\" height=\"3\" fill=\"%s\"/><text x=\"%d\" y=\"%d\" font-size=\"11\">%s<\/text>'\n                 % (L + 8, T + 4 + 14 * k, c, L + 22, T + 8 + 14 * k, esc(s.get('name', ''))))\n    o.append('<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-size=\"12\">%s<\/text>' % (width / 2, height - 8, esc(xlabel)))\n    o.append('<text x=\"14\" y=\"%d\" font-size=\"12\" text-anchor=\"middle\" transform=\"rotate(-90 14 %d)\">%s<\/text>'\n             % (height / 2, height / 2, esc(ylabel)))\n    o.append('<\/svg>')\n    out = {'kind': 'svg', 'svg': ''.join(o), 'title': title}\n    if figure:\n        out['figure'] = figure\n    return out\n\n\ndef clock(marked, n=12, labels=None, polygon=None, colour='#1B6F8C', title='', cx=150, size=300):\n    \"\"\"n positions on a circle, the ``marked`` ones filled; ``polygon``: positions joined in that order.\"\"\"\n    R, cy = size * 0.33, size * 0.52\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n         % (2 * cx, size), '<text x=\"%d\" y=\"18\" text-anchor=\"middle\" font-size=\"13\">%s<\/text>' % (cx, esc(title)),\n         '<circle cx=\"%d\" cy=\"%.1f\" r=\"%.1f\" fill=\"none\" stroke=\"#bbb\"/>' % (cx, cy, R)]\n    pos = {}\n    for p in range(n):\n        a = math.pi / 2 - 2 * math.pi * p / n\n        x, y = cx + R * math.cos(a), cy - R * math.sin(a)\n        pos[p] = (x, y)\n        on = p in marked\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%s\" fill=\"%s\" stroke=\"#888\"/>' % (x, y, 6 if on else 3.5,\n                                                                                  colour if on else '#fff'))\n        o.append('<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"middle\" font-size=\"11\">%s<\/text>'\n                 % (cx + (R + 15) * math.cos(a), cy - (R + 15) * math.sin(a) + 4, esc(labels[p] if labels else p)))\n    if polygon and len(polygon) > 1:\n        o.append('<path d=\"M%s\" fill=\"none\" stroke=\"%s\" stroke-dasharray=\"4 3\"/>'\n                 % (' L'.join('%.1f %.1f' % pos[p] for p in polygon), colour))\n    o.append('<\/svg>')\n    return {'kind': 'svg', 'svg': ''.join(o), 'title': ''}\n\n\ndef points3(pts, name='', color=None, size=5, star=False, opacity=0.8):\n    return {'type': 'points', 'points': pts, 'name': name, 'color': color or PALETTE[0], 'size': size,\n            'marker': 'star' if star else 'dot', 'opacity': opacity}\n\n\ndef curve3(pts, name='', color=None, width=2, dash=False):\n    return {'type': 'curve', 'points': pts, 'name': name, 'color': color or PALETTE[2], 'width': width, 'dash': dash}\n\n\ndef surface3(f, xs, ys, name='', color=None, opacity=0.5):\n    \"\"\"The surface z = f(x, y) over the grid xs × ys (or a parametrisation: f returns [x, y, z]).\"\"\"\n    grid = []\n    for x in xs:\n        row = []\n        for y in ys:\n            v = f(x, y)\n            row.append(list(v) if isinstance(v, (list, tuple)) else [x, y, v])\n        grid.append(row)\n    return {'type': 'surface', 'grid': grid, 'name': name, 'color': color or '#c9d6e3', 'opacity': opacity}\n\n\ndef three_d(items, title='', axes=('x', 'y', 'z'), slider=None):\n    \"\"\"slider: {'label', 'values': [...], 'items': [[items for value 1], [items for value 2], ...]}.\"\"\"\n    out = {'kind': '3d', 'title': title, 'axes': list(axes), 'items': items}\n    if slider:\n        out['slider'] = slider\n    return out\n\n\ndef table(head, rows):\n    return {'head': [str(h) for h in head], 'rows': [[str(x) for x in r] for r in rows]}\n\n\ndef result(text='', plots=(), table=None):\n    out = {'text': text, 'plots': list(plots)}\n    if table:\n        out['table'] = table\n    return json.dumps(out)\n\n\ndef error(msg):\n    return json.dumps({'error': msg})\n"}, "module": "segre_bsr_lab", "function": "run_rank", "packages": [], "inputs": [{"name": "m", "label": "rows m", "type": "int", "default": "5", "min": 2, "max": 9}], "examples": [{"m": "4", "label": "m = 4: 6 points"}, {"m": "7", "label": "m = 7: 10 points, the case the dimension count leaves open"}, {"m": "9", "label": "m = 9: 12 points"}], "figures": [], "figure_link": "", "random": "random_rank", "figure_live": false, "button": ""}];</script><script defer="" src="js/lab3d.js?v=6029dc17f7"></script><script defer="" src="js/lablevels.js?v=2db15e5f75"></script><script defer="" src="js/lab.js?v=24b7f1e3f8"></script><script>
+(function(){
+  var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
+  function apply(v){
+    var ex = v === 'explore';
+    document.body.classList.toggle('vista-explore', ex);
+    document.querySelectorAll(SEL).forEach(function(d){ d.open = ex; });
+  }
+  document.addEventListener('vista', function(e){ apply(e.detail); });
+  apply(document.body.classList.contains('vista-paper') ? 'paper' : 'explore');
+})();
+</script>
+<script src="js/js.cookie.min.js" type="text/javascript"></script>
+<script src="js/showmore.js" type="text/javascript"></script>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
+  if (!panes.length) return;
+  var box = document.querySelector('div.content'), nav = document.querySelector('nav.toc');
+  var head = document.querySelector('body>header'), toggle = document.getElementById('toc-toggle');
+  var phone = window.matchMedia('(max-width: 1023.98px)');
+  function find(h){
+    if (!h) return null;
+    try { h = decodeURIComponent(h); } catch (e) {}
+    return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
+  }
+  function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
+  var marked = null;
+  function mark(p){
+    if (p === marked) return;
+    marked = p;
+    document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
+      var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
+      var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
+      li.classList.toggle('current', on);
+      var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
+      if (ul) { ul.classList.toggle('active', on); ul.style.display = ''; }
+      if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+      if (on && nav && !phone.matches) {  // keep the marked entry visible in a long sidebar
+        var r = li.getBoundingClientRect(), n = nav.getBoundingClientRect();
+        if (r.top < n.top || r.bottom > n.bottom) li.scrollIntoView({block: 'nearest'});
+      }
+    });
+  }
+  function closeDrawer(){ if (phone.matches && nav) nav.style.display = 'none'; }
+  function go(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    mark(p);
+    for (var d = t && t.closest && t.closest('details'); d; d = d.parentElement && d.parentElement.closest('details'))
+      d.open = true;  // a link to a folded block (a table, a figure) unfolds it
+    if (!t || t.id === 'top' || (t === p && p === panes[0])) { if (box) box.scrollTop = 0; window.scrollTo(0, 0); }
+    else t.scrollIntoView({block: 'start'});
+    closeDrawer();
+  }
+  // the section in view: the last one whose top has passed the top of the panel
+  var ticking = false;
+  function spy(){
+    ticking = false;
+    var top = (box ? Math.max(box.getBoundingClientRect().top, 0) : 0) + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }
+  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(spy); } }
+  if (box) box.addEventListener('scroll', onScroll, {passive: true});
+  window.addEventListener('scroll', onScroll, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest && ev.target.closest('a[href]');
+    if (a) {
+      var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+      if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); go(m[1]); return; }  // same hash: no hashchange
+      if (m && nav && nav.contains(a)) closeDrawer();
+      return;
+    }
+    // phone: a tap outside the open drawer closes it
+    if (phone.matches && nav && nav.style.display && nav.style.display !== 'none' && !nav.contains(ev.target) &&
+        !(toggle && toggle.contains(ev.target))) closeDrawer();
+  });
+  if (toggle) toggle.addEventListener('click', function(){  // the drawer opens below the header, whatever its height
+    if (head) document.documentElement.style.setProperty('--pc-head', head.getBoundingClientRect().bottom + 'px');
+  });
+  function place(){ if (location.hash.length > 1) go(location.hash.slice(1)); else spy(); }
+  place();
+  // the browser's own jump to the hash, and MathJax, move the page after the first placing: place it again
+  window.addEventListener('load', place);
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(place);
+})();
+</script>
+<script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
+<script id="lm-guide">
+(function(){
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "figure", "sel": ".lm-figslot", "title": "Figures in motion", "text": "The figures of the paper, drawn live: drag to turn a 3D figure, press ▶ to animate. The paper's static figure is one click away.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  function visible(e){ return e && e.offsetParent !== null; }
+  function find(sel){
+    var all = [].slice.call(document.querySelectorAll(sel));
+    return all.filter(visible)[0] || all[0] || null;
+  }
+  // the statement a piece belongs to: the piece's own ancestors, or the nearest statement before it (a lab or a
+  // figure block follows its statement, it is not inside it)
+  function holderOf(el){
+    for (var e = el; e && e !== document.body; e = e.parentElement) {
+      if (e.id && e.id.indexOf(':') > 0) return e.id;
+      for (var p = e.previousElementSibling; p; p = p.previousElementSibling) {
+        if (p.id && p.id.indexOf(':') > 0) return p.id;
+        var q = p.querySelectorAll('[id*=":"]');
+        if (q.length) return q[q.length - 1].id;
+      }
+    }
+    return null;
+  }
+  function clear(){ if (on) on.classList.remove('lm-tour-on'); on = null; }
+  function close(){ clear(); if (box) box.remove(); box = null; }
+  function place(el){
+    var w = Math.min(340, innerWidth - 24), x = 12, y = innerHeight / 2 - 80;
+    if (el) {
+      var r = el.getBoundingClientRect();
+      if (r.height > innerHeight * 0.55) {  // a tall piece (a live figure): the note goes to a corner, not over it
+        x = innerWidth - w - 12; y = innerHeight - 190;
+      } else {
+        x = Math.max(12, Math.min(r.left, innerWidth - w - 12));
+        y = r.bottom + 14 + 170 < innerHeight ? r.bottom + 14 : Math.max(12, r.top - 190);
+      }
+    }
+    box.style.left = x + 'px'; box.style.top = y + 'px'; box.style.width = w + 'px';
+  }
+  function show(k){
+    i = Math.max(0, Math.min(STEPS.length - 1, k));
+    var s = STEPS[i];
+    clear();
+    if (s.explore) { var b = document.querySelector('button[data-v="explore"]'); if (b) b.click(); }
+    var el = s.sel ? find(s.sel) : null;
+    if (el && !visible(el)) {  // in a part of the page that is closed: open the statement it belongs to
+      var holder = holderOf(el);
+      if (holder && decodeURIComponent(location.hash.slice(1)) !== holder) {
+        location.hash = holder; setTimeout(function(){ show(i); }, 450); return;
+      }
+      for (var d = el.parentElement; d; d = d.parentElement) if (d.tagName === 'DETAILS') d.open = true;
+    }
+    if (!box) { box = document.createElement('div'); box.id = 'lm-tour'; document.body.appendChild(box); }
+    box.innerHTML = '<h4></h4><div class="lm-tour-t"></div><div class="lm-tour-nav"><span class="lm-tour-n"></span>' +
+      '<button type="button" class="lm-close">Close</button><button type="button" class="lm-back">Back</button>' +
+      '<button type="button" class="lm-next">Next</button></div>';
+    box.querySelector('h4').textContent = s.title;
+    box.querySelector('.lm-tour-t').textContent = s.text;
+    box.querySelector('.lm-tour-n').textContent = (i + 1) + ' / ' + STEPS.length;
+    box.querySelector('.lm-back').disabled = i === 0;
+    box.querySelector('.lm-next').textContent = i === STEPS.length - 1 ? 'Done' : 'Next';
+    box.querySelector('.lm-close').onclick = close;
+    box.querySelector('.lm-back').onclick = function(){ show(i - 1); };
+    box.querySelector('.lm-next').onclick = function(){ if (i === STEPS.length - 1) close(); else show(i + 1); };
+    if (el) {
+      on = el; el.classList.add('lm-tour-on');
+      el.scrollIntoView({block: el.getBoundingClientRect().height > innerHeight * 0.55 ? 'start' : 'center'});
+    }
+    setTimeout(function(){ place(el); }, 60);
+  }
+  document.addEventListener('keydown', function(e){
+    if (!box) return;
+    if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') show(i + 1); else if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.lm-tourbtn');
+    if (a) { e.preventDefault(); show(0); }
+  });
+  var start = new URLSearchParams(location.search).get('tour');
+  if (start !== null) {
+    var go = function(){ setTimeout(function(){ show(parseInt(start, 10) || 0); }, 500); };
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:3": "Theorem 1", "thm:4": "Theorem 2", "thm:bloques": "Theorem 3", "cor:bsr": "Corollary 4", "cor:todo": "Corollary 5", "thm:Q": "Theorem 6", "prop:56": "Proposition 7", "auto:remark-8": "Remark 8", "thm:up": "Theorem 9"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body>
+</html>
