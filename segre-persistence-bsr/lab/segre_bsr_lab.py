@@ -11,7 +11,7 @@ import json
 import math
 from itertools import combinations
 
-from labkit import error, result, surface3, svg_plot, table, three_d
+from labkit import curve3, error, points3, result, surface3, svg_plot, table, three_d
 
 # Proposition 7 (certified: s0 integer points, rank d modulo two primes; points in qp_anchura56_cert.json)
 CERT = {5: {m: s for m, s in zip(range(5, 19), [8, 10, 12, 13, 15, 16, 18, 19, 21, 22, 24, 25, 27, 29])},
@@ -159,7 +159,18 @@ def run_rank(params):
            'dim 𝒟 = d = %d: %s. Without the last point the rank is %d < d, as it must be.'
            % (m, len(pts), -(-4 * m // 3), r, P, d, 'full rank, so qp ≤ ⌈4m/3⌉ and BSR(m,4) ≥ %d' % (4 * m - len(pts))
               if r == d else 'NOT full rank', r1))
-    return result(txt, [], table(['point', 'a_i', 'b_i'], filas))
+    # 2D: the rank grows point by point and reaches d exactly at the last point (7-nov: the lab had no figure)
+    ks = list(range(1, len(pts) + 1))
+    ranks = [rank_mod(radical_rows(m, 4, pts[:k])) for k in ks]
+    rank_plot = svg_plot([{'name': 'rank of the radical map', 'x': ks, 'y': ranks, 'mode': 'line', 'color': '#1B6F8C'},
+                          {'name': 'd = dim 𝒟 = 6·C(m,2)', 'x': [1, len(pts)], 'y': [d, d], 'mode': 'line', 'color': '#B5530F'}],
+                         title='rank after each point (m = %d)' % m, xlabel='number of points', ylabel='rank modulo 1000003')
+    # 3D: the vectors b_i = (1, i, i³) of the proof on their curve; any three are independent (Descartes)
+    curva = curve3([[1, t / 10, (t / 10) ** 3] for t in range(10, 10 * m + 1)], name='t ↦ (1, t, t³)', color='#c9d6e3')
+    bs = points3([[1, i, i ** 3] for i in range(1, m + 1)], name='b_i = (1, i, i³), i = 1..m', color='#1B6F8C', size=6)
+    vista = three_d([curva, bs], title='the integer points b_i of Theorem 2: any three independent, any six b_i ⊗ b_i too',
+                    axes=('1', 'i', 'i³'))
+    return result(txt, [rank_plot, vista], table(['point', 'a_i', 'b_i'], filas))
 
 
 def random_bounds():
