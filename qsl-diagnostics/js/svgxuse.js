@@ -133,7 +133,7 @@
                     // failed to get bounding rectangle of the use element
                     bcr = false;
                 }
-                url = uses[i].getAttributeNS(xlinkNS, 'href').split('#');
+                url = (uses[i].getAttributeNS(xlinkNS, 'href') || uses[i].getAttribute('href') || '').split('#');
                 base = url[0];
                 hash = url[1];
                 isHidden = bcr && bcr.left === 0 && bcr.right === 0 && bcr.top === 0 && bcr.bottom === 0;

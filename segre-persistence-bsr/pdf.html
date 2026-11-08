@@ -75,19 +75,27 @@ var LM_PDF = {"en": {"file": "paper.pdf", "pages": {"thm:3": 2, "thm:4": 2, "thm
       a.classList.toggle('on', a.getAttribute('data-lang') === L);
     });
   }
-  // the language switch is drawn here, in whatever bar the layout gave the page (the classic layout rebuilds it)
+  // the language switch floats over the PDF, bottom right (8-nov, Carles: «en gh solo sale castellano»): at the end of
+  // the top bar it fell off-screen below ~1200 px, and with «es» remembered the reader had no way back to English
   var langs = Object.keys(LM_PDF);
-  if (langs.length > 1) {
-    var bar = document.querySelector('header.pc-head nav, nav.pc-opts, #vistas');
-    if (bar && !bar.querySelector('a[data-lang]')) {
-      var NAMES = {"en": "English", "es": "Español", "fr": "Français", "de": "Deutsch", "it": "Italiano", "ca": "Català"};
-      langs.forEach(function (l) {
-        var a = document.createElement('a'); a.href = '#'; a.setAttribute('data-lang', l);
-        a.textContent = NAMES[l] || l; a.title = 'The paper in ' + (NAMES[l] || l);
-        bar.appendChild(a);
-      });
-    }
+  if (langs.length > 1 && !document.getElementById('lmlang')) {
+    var NAMES = {"en": "English", "es": "Español", "fr": "Français", "de": "Deutsch", "it": "Italiano", "ca": "Català"};
+    var box = document.createElement('div'); box.id = 'lmlang';
+    box.setAttribute('style', 'position:fixed;right:16px;bottom:16px;z-index:1000;display:flex;gap:6px;' +
+      'background:rgba(255,255,255,.95);border:1px solid #b9cde2;border-radius:8px;padding:6px 8px;' +
+      'box-shadow:0 2px 8px rgba(0,0,0,.18);font:13px Arial,sans-serif');
+    langs.forEach(function (l) {
+      var a = document.createElement('a'); a.href = '#'; a.setAttribute('data-lang', l);
+      a.textContent = NAMES[l] || l; a.title = 'The paper in ' + (NAMES[l] || l);
+      a.setAttribute('style', 'border:1px solid #9fb7cf;border-radius:4px;padding:3px 10px;color:#222;' +
+        'text-decoration:none;background:#fff');
+      box.appendChild(a);
+    });
+    document.body.appendChild(box);
   }
+  var css = document.createElement('style');
+  css.textContent = '#lmlang a.on{background:#8e24aa !important;color:#fff !important;border-color:#8e24aa !important;font-weight:600}';
+  document.head.appendChild(css);
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[data-lang]');
     if (!a) return;
