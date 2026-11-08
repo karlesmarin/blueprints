@@ -38,7 +38,21 @@ details.blk[open]>summary:before{content:"▾ "}
 #vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
 #vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
         text-decoration:none;font-weight:600;white-space:nowrap}
-body.vista-paper details.blk:not(.b-guar):not(.b-set){display:none}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
 body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 .lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
 .lean-check .repro{color:#456}.lean-check code{font-size:.95em}
@@ -47,6 +61,20 @@ body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
        margin-left:.5em;vertical-align:middle}
 .theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
 .lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style id="lm-tables-css">
+.lm-table{background:#fff;border:1px solid #d3dbe4;border-left:4px solid #2b6cb0;border-radius:6px;
+  padding:.6em .9em;margin:0 0 1.4em}
+.lm-table>summary{cursor:pointer;line-height:1.5;padding:.15em 0}
+.lm-table>summary::marker{color:#2b6cb0}
+.lm-table[open]>summary{margin-bottom:.5em;border-bottom:1px solid #e3e8ee;padding-bottom:.4em}
+.lm-table .lm-tscroll{overflow-x:auto}
+.lm-table table{border-collapse:collapse;width:auto;min-width:60%;margin:.3em 0;background:#fff}
+.lm-table td,.lm-table th{border:1px solid #d9dee5;padding:.3em .6em;vertical-align:top;font-size:.95em}
+.lm-table tr:first-child td{background:#eef3f8;font-weight:600}
+.lm-table .lm-tmeta{font:13px Helvetica,Arial,sans-serif;color:#444;margin:.5em 0 0;display:flex;flex-wrap:wrap;gap:.5em}
+.lm-table .lm-tmeta a,.lm-table .lm-tmeta span.lm-chip{border:1px solid #c9d3de;border-radius:999px;padding:.1em .7em;
+  text-decoration:none;color:#1f4e79;background:#f5f8fc}
+.lm-table .lm-tev{font-size:.9em;margin:.4em 0 0;padding:.3em .6em;background:#eef7f1;border-left:3px solid #1cac78}
 </style><style>
 .campo-index{justify-content:center}
 .campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
@@ -58,10 +86,14 @@ body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><style id="lm-citebar-css">
-.lm-act{margin-left:.4em;white-space:nowrap}
+.lm-act{margin-left:.4em;white-space:nowrap;flex-shrink:0}
 .lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
           padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
 .lm-act a:hover{background:#eef2f6}
@@ -74,7 +106,34 @@ a.pdfp:hover{background:#f0e1f6}
 p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
 p.usado a{color:#1a4f8b}
 p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
-</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
+.ext-lean.ours{border-color:#b7dcb9;border-left-color:#2e7d32;background:#f1f8f1;color:#1d3b1f}
+.ext-lean.ours .tag,.ext-badge.ours{background:#2e7d32}
+.ext-lean.ours a{color:#1b5e20}
+.ext-lean.ours ul{margin:.35em 0 .2em 1.1em;padding:0}
+details.ext-lean{padding:.35em .8em}
+details.ext-lean>summary{cursor:pointer;list-style:none}
+details.ext-lean>summary::-webkit-details-marker{display:none}
+details.ext-lean>summary .more{font-size:12px;opacity:.7}
+details.ext-lean>summary .more::before{content:'▸ '}
+details.ext-lean[open]>summary .more::before{content:'▾ '}
+details.ext-lean[open]>summary{margin-bottom:.3em}
+</style><style id="lm-confianza">p.confianza{font-size:.86em;margin:.2em 0 .6em;padding:.25em .6em;border-left:3px solid var(--lm-trust,#2e7d32);background:rgba(46,125,50,.06)}p.confianza.l-named{--lm-trust:#1565c0;background:rgba(21,101,192,.06)}p.confianza.l-code{--lm-trust:#b26a00;background:rgba(178,106,0,.07)}p.confianza.l-external-checker,p.confianza.l-computation{--lm-trust:#757575;background:rgba(0,0,0,.04)}p.confianza.l-unchecked{--lm-trust:#c62828;background:rgba(198,40,40,.07)}</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
 header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
   font:13px Helvetica,Arial,sans-serif;text-shadow:none}
 header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
@@ -87,9 +146,27 @@ header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;backgrou
   font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
 header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
 header h1#doc_title{flex:1}
+/* the paper's emoji and «Blueprint» on one line (26-oct) */
+header h1#doc_title a{white-space:nowrap}
+header h1#doc_title .pc-emoji{font-size:.95em;margin-right:.2em;display:inline-block;vertical-align:-.18em;
+  /* depth (26-oct, Carles): a tight shadow for the edge and a soft one below, as if it stood off the header */
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 3px 4px rgba(0,0,0,.35))}
 ul.chapter-list{font-size:1.05em;line-height:1.7}
-/* master-detail: the header and the sidebar stay; the right panel shows one part at a time */
-section.pc-pane[hidden]{display:none !important}
+/* the whole paper in the central panel; the sidebar takes the reader to a point (PANES_JS) */
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+/* phone: the sidebar is a drawer under the header, opened and closed with ☰ */
+@media (max-width:1023.98px){
+  body>header{flex-wrap:nowrap !important;align-items:center;height:auto !important;padding:.3rem .4rem}
+  body>header svg#toc-toggle{width:2.1rem;height:2.1rem;flex-shrink:0;cursor:pointer;fill:#fff;color:#fff;
+    padding:.3rem;margin:0 .3rem 0 0;border:1px solid rgba(255,255,255,.8);border-radius:7px;background:rgba(255,255,255,.14)}
+  body>header h1#doc_title{flex:0 0 auto;font-size:1.15rem;margin:0 .2rem !important}
+  /* the options in one row that scrolls sideways, so the header keeps to one line and the paper gets the screen */
+  header nav.pc-opts{flex-wrap:nowrap;overflow-x:auto;margin:0 0 0 .3rem;scrollbar-width:none;flex:1;min-width:0}
+  header nav.pc-opts::-webkit-scrollbar{display:none}
+  header nav.pc-opts>*{flex-shrink:0;white-space:nowrap}
+  nav.toc{position:fixed;left:0;top:var(--pc-head,3.5rem);bottom:0;width:min(86vw,34ch);max-width:none;z-index:90;
+    box-shadow:4px 0 18px rgba(0,0,0,.35)}
+}
 .pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
 .pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
 nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
@@ -118,6 +195,9 @@ body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600
   box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
 #top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
 #top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+/* phone: there is no sidebar to leave room for; the map takes the width of the text (25-oct: it was 126 px) */
+@media (max-width:1023.98px){#top.overview .mapa{width:auto;max-width:100%;left:auto;transform:none}
+  #top.overview .mapa svg{min-width:0}}
 </style><script id="pc-embed">
 (function(){
   if (window.self === window.top) return;
@@ -153,7 +233,7 @@ body{display:block !important}
   position:static !important;max-height:none !important}
 section.pc-pane,section.pc-pane[hidden]{display:block !important}
 nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
-button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
   display:none !important}
 a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
 .lm-was-summary{font-weight:600;margin:.2em 0 .4em}
@@ -168,19 +248,50 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
 </head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cogs" viewBox="0 0 32 32">
+<title>cogs</title>
+<path class="path1" d="M11.366 22.564l1.291-1.807-1.414-1.414-1.807 1.291c-0.335-0.187-0.694-0.337-1.071-0.444l-0.365-2.19h-2l-0.365 2.19c-0.377 0.107-0.736 0.256-1.071 0.444l-1.807-1.291-1.414 1.414 1.291 1.807c-0.187 0.335-0.337 0.694-0.443 1.071l-2.19 0.365v2l2.19 0.365c0.107 0.377 0.256 0.736 0.444 1.071l-1.291 1.807 1.414 1.414 1.807-1.291c0.335 0.187 0.694 0.337 1.071 0.444l0.365 2.19h2l0.365-2.19c0.377-0.107 0.736-0.256 1.071-0.444l1.807 1.291 1.414-1.414-1.291-1.807c0.187-0.335 0.337-0.694 0.444-1.071l2.19-0.365v-2l-2.19-0.365c-0.107-0.377-0.256-0.736-0.444-1.071zM7 27c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM32 12v-2l-2.106-0.383c-0.039-0.251-0.088-0.499-0.148-0.743l1.799-1.159-0.765-1.848-2.092 0.452c-0.132-0.216-0.273-0.426-0.422-0.629l1.219-1.761-1.414-1.414-1.761 1.219c-0.203-0.149-0.413-0.29-0.629-0.422l0.452-2.092-1.848-0.765-1.159 1.799c-0.244-0.059-0.492-0.109-0.743-0.148l-0.383-2.106h-2l-0.383 2.106c-0.251 0.039-0.499 0.088-0.743 0.148l-1.159-1.799-1.848 0.765 0.452 2.092c-0.216 0.132-0.426 0.273-0.629 0.422l-1.761-1.219-1.414 1.414 1.219 1.761c-0.149 0.203-0.29 0.413-0.422 0.629l-2.092-0.452-0.765 1.848 1.799 1.159c-0.059 0.244-0.109 0.492-0.148 0.743l-2.106 0.383v2l2.106 0.383c0.039 0.251 0.088 0.499 0.148 0.743l-1.799 1.159 0.765 1.848 2.092-0.452c0.132 0.216 0.273 0.426 0.422 0.629l-1.219 1.761 1.414 1.414 1.761-1.219c0.203 0.149 0.413 0.29 0.629 0.422l-0.452 2.092 1.848 0.765 1.159-1.799c0.244 0.059 0.492 0.109 0.743 0.148l0.383 2.106h2l0.383-2.106c0.251-0.039 0.499-0.088 0.743-0.148l1.159 1.799 1.848-0.765-0.452-2.092c0.216-0.132 0.426-0.273 0.629-0.422l1.761 1.219 1.414-1.414-1.219-1.761c0.149-0.203 0.29-0.413 0.422-0.629l2.092 0.452 0.765-1.848-1.799-1.159c0.059-0.244 0.109-0.492 0.148-0.743l2.106-0.383zM21 15.35c-2.402 0-4.35-1.948-4.35-4.35s1.948-4.35 4.35-4.35 4.35 1.948 4.35 4.35c0 2.402-1.948 4.35-4.35 4.35z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
 <header>
-<svg class="icon icon-list-numbered" id="toc-toggle"><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
-<h1 id="doc_title"><a href="index.html" title="The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: blueprint">Blueprint</a></h1>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html" title="The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a></h1>
 <nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20693064" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20693064</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="newton-inequalities-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
 <div class="wrapper">
 <nav class="toc">
 <ul class="sub-toc-0">
 <li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
-<li class=""><a href="#a0000000003"><span class="toc_ref">1</span> <span class="toc_entry">Q1: what does reality of the roots force on the coefficients?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:newton" title="Newton’s inequalities, in Lean 4; Newton.newton_inequality"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
-<li class=""><a href="#a0000000007"><span class="toc_ref">5</span> <span class="toc_entry">The building blocks</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#auto:lemma-1" title="RealRooted.derivative , RealRooted.iterate_derivative"><span class="toc_ref"></span> <span class="toc_entry">Lemma 1</span></a></li><li class=""><a href="#auto:lemma-2" title="RealRooted.reverse"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2</span></a></li><li class=""><a href="#auto:lemma-3" title="realRooted_discrim_coeff"><span class="toc_ref"></span> <span class="toc_entry">Lemma 3</span></a></li></ul></li>
-<li class=""><a href="#a0000000010"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li class=""><a href="#a0000000003"><span class="toc_ref"></span> <span class="toc_entry">Introduction</span></a></li>
+<li class=""><a href="#a0000000006"><span class="toc_ref">1</span> <span class="toc_entry">Q1: what does reality of the roots force on the coefficients?</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:newton" title="Newton’s inequalities, in Lean 4; Newton.newton_inequality"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000011"><span class="toc_ref">2</span> <span class="toc_entry">Q2: how do you make it a one-line check for a machine?</span></a></li>
+<li class=""><a href="#a0000000014"><span class="toc_ref">3</span> <span class="toc_entry">Q3: what did the machine catch that the textbook glides over?</span></a></li>
+<li class=""><a href="#a0000000016"><span class="toc_ref">4</span> <span class="toc_entry">Q4: with Newton certified, what falls out for free?</span></a></li>
+<li class=""><a href="#a0000000018"><span class="toc_ref">5</span> <span class="toc_entry">The building blocks</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#auto:lemma-1" title="RealRooted.derivative , RealRooted.iterate_derivative"><span class="toc_ref"></span> <span class="toc_entry">Lemma 1</span></a></li><li class=""><a href="#auto:lemma-2" title="RealRooted.reverse"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2</span></a></li><li class=""><a href="#auto:lemma-3" title="realRooted_discrim_coeff"><span class="toc_ref"></span> <span class="toc_entry">Lemma 3</span></a></li></ul></li>
+<li class=""><a href="#a0000000022"><span class="toc_ref">6</span> <span class="toc_entry">The boundary of the contribution</span></a></li>
+<li class=""><a href="#a0000000024"><span class="toc_ref">7</span> <span class="toc_entry">Open questions</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#q:1"><span class="toc_ref"></span> <span class="toc_entry">Question 1</span></a></li><li class=""><a href="#q:2"><span class="toc_ref"></span> <span class="toc_entry">Question 2</span></a></li><li class=""><a href="#q:3"><span class="toc_ref"></span> <span class="toc_entry">Question 3</span></a></li><li class=""><a href="#q:4"><span class="toc_ref"></span> <span class="toc_entry">Question 4</span></a></li><li class=""><a href="#q:5"><span class="toc_ref"></span> <span class="toc_entry">Question 5</span></a></li><li class=""><a href="#a0000000025"><span class="toc_ref"></span> <span class="toc_entry">Question</span></a></li></ul></li>
+<li class=""><a href="#a0000000026"><span class="toc_ref"></span> <span class="toc_entry">Reproducing</span></a></li>
+<li class=""><a href="#lm-tables"><span class="toc_ref"></span> <span class="toc_entry">📊 Tables</span></a></li>
+<li class=""><a href="#a0000000028"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
 <li><a href="dep_graph_document.html">Dependency graph</a></li>
 </ul>
 </nav>
@@ -206,79 +317,213 @@ coefficient-form discriminant for degree ≤ 2, which also absorbs the degenerat
 <li><b>Boundary</b>: the mathematics is classical; the paper claims the formalization (to the author's knowledge the
 first in any proof assistant, June 2026). The equality cases and Maclaurin's chain are named, not proved.</li>
 </ul></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:newton"><b>Theorem 1</b></a>: Newton's inequalities for a monic real-rooted polynomial, and log-concavity of the normalized means.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:newton"><b>Theorem 1</b></a>: Newton's inequalities for a monic real-rooted polynomial, and log-concavity of the normalized means</li></ul><div class="cifras">
-<span class="cifra"><b>4</b> results</span>
-<span class="cifra c-lean">✅ <b>1</b> formalized in Lean</span>
-<span class="cifra c-part">◐ <b>0</b> with a part in Lean</span>
+<span class="cifra"><b>9</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>4</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>0</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>1</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 666.00 156.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 152.08)">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 766.00 396.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 392.24)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M12,0C12,0 283,0 283,0 289,0 295,-6 295,-12 295,-12 295,-136.08 295,-136.08 295,-142.08 289,-148.08 283,-148.08 283,-148.08 12,-148.08 12,-148.08 6,-148.08 0,-142.08 0,-136.08 0,-136.08 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="147.5" xml:space="preserve" y="-132.67">Q1: what does reality of the roots force on the coefficients?</text>
+<path d="M177,-120.08C177,-120.08 448,-120.08 448,-120.08 454,-120.08 460,-126.08 460,-132.08 460,-132.08 460,-256.16 460,-256.16 460,-262.16 454,-268.16 448,-268.16 448,-268.16 177,-268.16 177,-268.16 171,-268.16 165,-262.16 165,-256.16 165,-256.16 165,-132.08 165,-132.08 165,-126.08 171,-120.08 177,-120.08" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="312.5" xml:space="preserve" y="-252.75">Q1: what does reality of the roots force on the coefficients?</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M315,-30.75C315,-30.75 646,-30.75 646,-30.75 652,-30.75 658,-36.75 658,-42.75 658,-42.75 658,-105.33 658,-105.33 658,-111.33 652,-117.33 646,-117.33 646,-117.33 315,-117.33 315,-117.33 309,-117.33 303,-111.33 303,-105.33 303,-105.33 303,-42.75 303,-42.75 303,-36.75 309,-30.75 315,-30.75" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="480.5" xml:space="preserve" y="-101.92">The building blocks</text>
+<path d="M328,-276.16C328,-276.16 720,-276.16 720,-276.16 726,-276.16 732,-282.16 732,-288.16 732,-288.16 732,-376.24 732,-376.24 732,-382.24 726,-388.24 720,-388.24 720,-388.24 328,-388.24 328,-388.24 322,-388.24 316,-382.24 316,-376.24 316,-376.24 316,-288.16 316,-288.16 316,-282.16 322,-276.16 328,-276.16" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="524" xml:space="preserve" y="-372.84">The building blocks</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M12,0C12,0 746,0 746,0 752,0 758,-6 758,-12 758,-12 758,-100.08 758,-100.08 758,-106.08 752,-112.08 746,-112.08 746,-112.08 12,-112.08 12,-112.08 6,-112.08 0,-106.08 0,-100.08 0,-100.08 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="379" xml:space="preserve" y="-96.67">Open questions</text>
 </g>
 <!-- thm:newton -->
 <g class="node" id="node1">
 <title>thm:newton</title>
 <g id="a_node1"><a target="_top" xlink:href="index.html#thm:newton" xlink:title="Theorem 1: Newton's inequalities for a monic real-rooted polynomial, and log-concavity of the normalized means">
-<path d="M204.68,-117.83C204.68,-117.83 89.32,-117.83 89.32,-117.83 83.32,-117.83 77.33,-111.83 77.33,-105.83 77.33,-105.83 77.33,-20 77.33,-20 77.33,-14 83.33,-8 89.33,-8 89.33,-8 204.68,-8 204.68,-8 210.68,-8 216.68,-14 216.68,-20 216.68,-20 216.68,-105.83 216.68,-105.83 216.68,-111.83 210.68,-117.83 204.68,-117.83" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="147" xml:space="preserve" y="-101.39">Theorem 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="147" xml:space="preserve" y="-87.14">Newton's inequalities for</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="147" xml:space="preserve" y="-72.89">a monic real-rooted</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="147" xml:space="preserve" y="-58.64">polynomial, and log-</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="147" xml:space="preserve" y="-44.39">concavity of the</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="147" xml:space="preserve" y="-30.14">normalized means</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="147" xml:space="preserve" y="-15.89">✅ Lean · 💻 program</text>
+<path d="M434.68,-237.91C434.68,-237.91 319.33,-237.91 319.33,-237.91 313.33,-237.91 307.33,-231.91 307.33,-225.91 307.33,-225.91 307.33,-140.08 307.33,-140.08 307.33,-134.08 313.33,-128.08 319.33,-128.08 319.33,-128.08 434.68,-128.08 434.68,-128.08 440.68,-128.08 446.68,-134.08 446.68,-140.08 446.68,-140.08 446.68,-225.91 446.68,-225.91 446.68,-231.91 440.68,-237.91 434.68,-237.91" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="377" xml:space="preserve" y="-221.47">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="377" xml:space="preserve" y="-207.22">Newton's inequalities for</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="377" xml:space="preserve" y="-192.97">a monic real-rooted</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="377" xml:space="preserve" y="-178.72">polynomial, and log-</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="377" xml:space="preserve" y="-164.47">concavity of the</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="377" xml:space="preserve" y="-150.22">normalized means</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="377" xml:space="preserve" y="-135.97">✅ Lean · 💻 program</text>
 </a>
 </g>
+</g>
+<!-- q:1 -->
+<g class="node" id="node5">
+<title>q:1</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#q:1" xlink:title="Question 1: why a constraint on zeros becomes a constraint on coefficient sizes">
+<path d="M272.8,-75.46C272.8,-75.46 167.2,-75.46 167.2,-75.46 161.2,-75.46 155.2,-69.46 155.2,-63.46 155.2,-63.46 155.2,-26.38 155.2,-26.38 155.2,-20.38 161.2,-14.38 167.2,-14.38 167.2,-14.38 272.8,-14.38 272.8,-14.38 278.8,-14.38 284.8,-20.38 284.8,-26.38 284.8,-26.38 284.8,-63.46 284.8,-63.46 284.8,-69.46 278.8,-75.46 272.8,-75.46" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="220" xml:space="preserve" y="-60.44">Question 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="220" xml:space="preserve" y="-47.69">why a constraint on zeros</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="220" xml:space="preserve" y="-34.94">becomes a constraint on</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="220" xml:space="preserve" y="-22.19">coefficient sizes</text>
+</a>
+</g>
+</g>
+<!-- thm:newton&#45;&gt;q:1 -->
+<g class="edge" id="edge4">
+<title>thm:newton-&gt;q:1</title>
+<path d="M313.59,-127.04C295.86,-111.67 277.07,-95.38 261,-81.45" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="262.8,-79.77 255.9,-77.04 259.59,-83.47 262.8,-79.77" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:2 -->
+<g class="node" id="node6">
+<title>q:2</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#q:2" xlink:title="Question 2: the certificate hierarchy between real-rootedness (PF) and log-concavity (PF₂)">
+<path d="M118.43,-81.83C118.43,-81.83 19.58,-81.83 19.58,-81.83 13.58,-81.83 7.58,-75.83 7.58,-69.83 7.58,-69.83 7.58,-20 7.58,-20 7.58,-14 13.58,-8 19.58,-8 19.58,-8 118.43,-8 118.43,-8 124.43,-8 130.43,-14 130.43,-20 130.43,-20 130.43,-69.83 130.43,-69.83 130.43,-75.83 124.43,-81.83 118.43,-81.83" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-66.82">Question 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-54.07">the certificate hierarchy</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-41.32">between real-rootedness</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-28.57">(PF) and log-concavity</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-15.82">(PF₂)</text>
+</a>
+</g>
+</g>
+<!-- thm:newton&#45;&gt;q:2 -->
+<g class="edge" id="edge5">
+<title>thm:newton-&gt;q:2</title>
+<path d="M306.23,-169.33C258.08,-158.73 194.07,-140.64 143,-112.08 131.29,-105.53 119.86,-96.85 109.62,-87.93" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="111.39,-86.23 104.54,-83.38 108.12,-89.87 111.39,-86.23" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:4 -->
+<g class="node" id="node8">
+<title>q:4</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#q:4" xlink:title="Question 4: is Newton the one-variable shadow of Lorentzian polynomials?">
+<path d="M433.8,-75.46C433.8,-75.46 322.2,-75.46 322.2,-75.46 316.2,-75.46 310.2,-69.46 310.2,-63.46 310.2,-63.46 310.2,-26.38 310.2,-26.38 310.2,-20.38 316.2,-14.38 322.2,-14.38 322.2,-14.38 433.8,-14.38 433.8,-14.38 439.8,-14.38 445.8,-20.38 445.8,-26.38 445.8,-26.38 445.8,-63.46 445.8,-63.46 445.8,-69.46 439.8,-75.46 433.8,-75.46" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-60.44">Question 4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-47.69">is Newton the one-variable</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-34.94">shadow of Lorentzian</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="378" xml:space="preserve" y="-22.19">polynomials?</text>
+</a>
+</g>
+</g>
+<!-- thm:newton&#45;&gt;q:4 -->
+<g class="edge" id="edge8">
+<title>thm:newton-&gt;q:4</title>
+<path d="M377.4,-127.04C377.51,-112.76 377.62,-97.68 377.72,-84.45" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="380.17,-84.57 377.77,-77.56 375.27,-84.54 380.17,-84.57" stroke="#9aa8b5"></polygon>
 </g>
 <!-- auto:lemma&#45;1 -->
 <g class="node" id="node2">
 <title>auto:lemma-1</title>
-<g id="a_node2"><a target="_top" xlink:href="index.html#auto:lemma-1" xlink:title="Lemma 1: RealRooted.derivative, RealRooted.iterate">
-<path d="M417.18,-87.08C417.18,-87.08 322.82,-87.08 322.82,-87.08 316.82,-87.08 310.82,-81.08 310.82,-75.08 310.82,-75.08 310.82,-50.75 310.82,-50.75 310.82,-44.75 316.82,-38.75 322.82,-38.75 322.82,-38.75 417.18,-38.75 417.18,-38.75 423.18,-38.75 429.18,-44.75 429.18,-50.75 429.18,-50.75 429.18,-75.08 429.18,-75.08 429.18,-81.08 423.18,-87.08 417.18,-87.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="370" xml:space="preserve" y="-72.07">Lemma 1</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="370" xml:space="preserve" y="-59.32">RealRooted.derivative,</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="370" xml:space="preserve" y="-46.57">RealRooted.iterate</text>
+<g id="a_node2"><a target="_top" xlink:href="index.html#auto:lemma-1" xlink:title="Lemma 1: real roots survive differentiation, hence every iterated derivative">
+<path d="M436.18,-357.99C436.18,-357.99 335.82,-357.99 335.82,-357.99 329.82,-357.99 323.82,-351.99 323.82,-345.99 323.82,-345.99 323.82,-296.16 323.82,-296.16 323.82,-290.16 329.82,-284.16 335.82,-284.16 335.82,-284.16 436.18,-284.16 436.18,-284.16 442.18,-284.16 448.18,-290.16 448.18,-296.16 448.18,-296.16 448.18,-345.99 448.18,-345.99 448.18,-351.99 442.18,-357.99 436.18,-357.99" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="386" xml:space="preserve" y="-342.97">Lemma 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="386" xml:space="preserve" y="-330.22">real roots survive</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="386" xml:space="preserve" y="-317.47">differentiation, hence</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="386" xml:space="preserve" y="-304.72">every iterated derivative</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="386" xml:space="preserve" y="-291.97">✅ Lean</text>
 </a>
 </g>
+</g>
+<!-- auto:lemma&#45;1&#45;&gt;thm:newton -->
+<g class="edge" id="edge1">
+<title>auto:lemma-1-&gt;thm:newton</title>
+<path d="M383.59,-283.61C382.84,-272.37 382,-259.66 381.18,-247.16" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="383.65,-247.33 380.74,-240.51 378.76,-247.66 383.65,-247.33" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:3 -->
+<g class="node" id="node7">
+<title>q:3</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#q:3" xlink:title="Question 3: is the sufficiency of differentiation and reversal itself a theorem?">
+<path d="M587.05,-75.46C587.05,-75.46 482.95,-75.46 482.95,-75.46 476.95,-75.46 470.95,-69.46 470.95,-63.46 470.95,-63.46 470.95,-26.38 470.95,-26.38 470.95,-20.38 476.95,-14.38 482.95,-14.38 482.95,-14.38 587.05,-14.38 587.05,-14.38 593.05,-14.38 599.05,-20.38 599.05,-26.38 599.05,-26.38 599.05,-63.46 599.05,-63.46 599.05,-69.46 593.05,-75.46 587.05,-75.46" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="535" xml:space="preserve" y="-60.44">Question 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="535" xml:space="preserve" y="-47.69">is the sufficiency of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="535" xml:space="preserve" y="-34.94">differentiation and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="535" xml:space="preserve" y="-22.19">reversal itself a theorem?</text>
+</a>
+</g>
+</g>
+<!-- auto:lemma&#45;1&#45;&gt;q:3 -->
+<g class="edge" id="edge6">
+<title>auto:lemma-1-&gt;q:3</title>
+<path d="M448.72,-285.82C455.15,-280.52 461.1,-274.63 466,-268.16 488.15,-238.9 513.61,-139.24 526.53,-83.84" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="528.89,-84.52 528.08,-77.15 524.11,-83.41 528.89,-84.52" stroke="#9aa8b5"></polygon>
 </g>
 <!-- auto:lemma&#45;2 -->
 <g class="node" id="node3">
 <title>auto:lemma-2</title>
-<g id="a_node3"><a target="_top" xlink:href="index.html#auto:lemma-2" xlink:title="Lemma 2: RealRooted.reverse">
-<path d="M545.68,-80.92C545.68,-80.92 466.33,-80.92 466.33,-80.92 460.33,-80.92 454.33,-74.92 454.33,-68.92 454.33,-68.92 454.33,-56.92 454.33,-56.92 454.33,-50.92 460.33,-44.92 466.33,-44.92 466.33,-44.92 545.68,-44.92 545.68,-44.92 551.68,-44.92 557.68,-50.92 557.68,-56.92 557.68,-56.92 557.68,-68.92 557.68,-68.92 557.68,-74.92 551.68,-80.92 545.68,-80.92" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="506" xml:space="preserve" y="-65.69">Lemma 2</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="506" xml:space="preserve" y="-52.94">RealRooted.reverse</text>
+<g id="a_node3"><a target="_top" xlink:href="index.html#auto:lemma-2" xlink:title="Lemma 2: real roots survive reversal x ↦ 1/x">
+<path d="M559.05,-351.61C559.05,-351.61 484.95,-351.61 484.95,-351.61 478.95,-351.61 472.95,-345.61 472.95,-339.61 472.95,-339.61 472.95,-302.53 472.95,-302.53 472.95,-296.53 478.95,-290.53 484.95,-290.53 484.95,-290.53 559.05,-290.53 559.05,-290.53 565.05,-290.53 571.05,-296.53 571.05,-302.53 571.05,-302.53 571.05,-339.61 571.05,-339.61 571.05,-345.61 565.05,-351.61 559.05,-351.61" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="522" xml:space="preserve" y="-336.6">Lemma 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="522" xml:space="preserve" y="-323.85">real roots survive</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="522" xml:space="preserve" y="-311.1">reversal x ↦ 1/x</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="522" xml:space="preserve" y="-298.35">✅ Lean</text>
 </a>
 </g>
+</g>
+<!-- auto:lemma&#45;2&#45;&gt;thm:newton -->
+<g class="edge" id="edge2">
+<title>auto:lemma-2-&gt;thm:newton</title>
+<path d="M490.18,-290.21C475.92,-276.83 458.57,-260.54 441.77,-244.78" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="443.49,-243.04 436.71,-240.04 440.14,-246.61 443.49,-243.04" stroke="#9aa8b5"></polygon>
+</g>
+<!-- auto:lemma&#45;2&#45;&gt;q:3 -->
+<g class="edge" id="edge7">
+<title>auto:lemma-2-&gt;q:3</title>
+<path d="M523.43,-289.95C525.81,-239.78 530.58,-139.18 533.19,-84.11" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="535.63,-84.29 533.52,-77.18 530.74,-84.06 535.63,-84.29" stroke="#9aa8b5"></polygon>
 </g>
 <!-- auto:lemma&#45;3 -->
 <g class="node" id="node4">
 <title>auto:lemma-3</title>
-<g id="a_node4"><a target="_top" xlink:href="index.html#auto:lemma-3" xlink:title="Lemma 3: realRooted">
-<path d="M637.68,-80.92C637.68,-80.92 594.32,-80.92 594.32,-80.92 588.32,-80.92 582.32,-74.92 582.32,-68.92 582.32,-68.92 582.32,-56.92 582.32,-56.92 582.32,-50.92 588.32,-44.92 594.32,-44.92 594.32,-44.92 637.68,-44.92 637.68,-44.92 643.68,-44.92 649.68,-50.92 649.68,-56.92 649.68,-56.92 649.68,-68.92 649.68,-68.92 649.68,-74.92 643.68,-80.92 637.68,-80.92" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="616" xml:space="preserve" y="-65.69">Lemma 3</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="616" xml:space="preserve" y="-52.94">realRooted</text>
+<g id="a_node4"><a target="_top" xlink:href="index.html#auto:lemma-3" xlink:title="Lemma 3: base case: a real-rooted q of degree ≤ 2 has coeff₁² ≥ 4 coeff₂ coeff₀">
+<path d="M712.05,-357.99C712.05,-357.99 607.95,-357.99 607.95,-357.99 601.95,-357.99 595.95,-351.99 595.95,-345.99 595.95,-345.99 595.95,-296.16 595.95,-296.16 595.95,-290.16 601.95,-284.16 607.95,-284.16 607.95,-284.16 712.05,-284.16 712.05,-284.16 718.05,-284.16 724.05,-290.16 724.05,-296.16 724.05,-296.16 724.05,-345.99 724.05,-345.99 724.05,-351.99 718.05,-357.99 712.05,-357.99" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-342.97">Lemma 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-330.22">base case: a real-rooted q</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-317.47">of degree ≤ 2 has coeff₁²</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-304.72">≥ 4 coeff₂ coeff₀</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="660" xml:space="preserve" y="-291.97">✅ Lean</text>
 </a>
 </g>
+</g>
+<!-- auto:lemma&#45;3&#45;&gt;thm:newton -->
+<g class="edge" id="edge3">
+<title>auto:lemma-3-&gt;thm:newton</title>
+<path d="M598.08,-283.59C593.35,-281.02 588.62,-278.51 584,-276.16 542.27,-254.89 494.58,-233.47 455.5,-216.64" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="456.6,-214.45 449.2,-213.93 454.66,-218.95 456.6,-214.45" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:5 -->
+<g class="node" id="node9">
+<title>q:5</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#q:5" xlink:title="Question 5: is «reach for the weakest base hypothesis» a principle of machine proof?">
+<path d="M738.3,-81.83C738.3,-81.83 635.7,-81.83 635.7,-81.83 629.7,-81.83 623.7,-75.83 623.7,-69.83 623.7,-69.83 623.7,-20 623.7,-20 623.7,-14 629.7,-8 635.7,-8 635.7,-8 738.3,-8 738.3,-8 744.3,-8 750.3,-14 750.3,-20 750.3,-20 750.3,-69.83 750.3,-69.83 750.3,-75.83 744.3,-81.83 738.3,-81.83" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="687" xml:space="preserve" y="-66.82">Question 5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="687" xml:space="preserve" y="-54.07">is «reach for the weakest</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="687" xml:space="preserve" y="-41.32">base hypothesis» a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="687" xml:space="preserve" y="-28.57">principle of machine</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="687" xml:space="preserve" y="-15.82">proof?</text>
+</a>
+</g>
+</g>
+<!-- auto:lemma&#45;3&#45;&gt;q:5 -->
+<g class="edge" id="edge9">
+<title>auto:lemma-3-&gt;q:5</title>
+<path d="M663.59,-283.67C668.5,-233.76 677.32,-144.16 682.62,-90.35" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="685.04,-90.75 683.29,-83.54 680.17,-90.27 685.04,-90.75" stroke="#9aa8b5"></polygon>
 </g>
 </g>
 </svg>
 </div></details></section>
 <details class="blk b-set"><summary>📐 Setting (copied from the paper, §1)</summary>
 <p> Write a real-rooted polynomial through its roots, \(p(x)=\sum _{k=0}^{n}(-1)^k e_k\, x^{n-k}\), where \(e_k\) is the \(k\)-th <em>elementary symmetric function</em> of the roots, and form the <em>normalized means</em> \(p_k=e_k/\binom {n}{k}\). <em>(§2)</em> I work over \({\mathbb {R}}\). A polynomial is <em>real-rooted</em> () when it splits into linear factors over \({\mathbb {R}}\)—Mathlib’s intrinsic ; equivalently it has \(\deg p\) real roots counted with multiplicity. For the roots multiset \(s=p.\mathtt{roots}\), the elementary symmetric function is \(e_k=\lean{Multiset.esymm}\, s\, k\), and \(\binom {n}{k}=\lean{Nat.choose}\). </p>
-</details></section><section class="pc-pane"><h1 id="a0000000003">1 Q1: what does reality of the roots force on the coefficients?</h1>
+</details></section><section class="pc-pane"><h1 id="a0000000003">Introduction</h1>
+<h4 id="a0000000004">No numbered statement in this section.</h4>
+<p> Its figures and tables are below; its text is in the paper (PDF). </p>
+<details class="blk b-fig"><summary>🖼️ Figure 1</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-1.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
+</div>
+<p> The reader’s map. From a hypothesis on the roots to a certified inequality and its corollaries; each arrow is the question its section answers. Every node is a block of <span class="ttfamily">sorry</span>-free Lean. </p>
+</details></section><section class="pc-pane"><h1 id="a0000000006">1 Q1: what does reality of the roots force on the coefficients?</h1>
 <div class="theorem_thmwrapper theorem-style-plain lean-ok" id="thm:newton">
 <div class="theorem_thmheading">
 <span class="theorem_thmcaption">
@@ -293,32 +538,48 @@ thick border are the main results; click a box to read the statement.</p><div cl
         </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#thm:newton">#</a>
-<a class="icon proof" href="index.html#a0000000004"><svg class="icon icon-cogs"><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000007"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#auto:lemma-1">Lemma 1</a></li>
+<li><a href="index.html#auto:lemma-2">Lemma 2</a></li>
+<li><a href="index.html#auto:lemma-3">Lemma 3</a></li>
+</ul>
+</div>
+</div>
 <button class="modal lean">L∃∀N</button>
 <div class="modal-container">
 <div class="modal-content">
 <header>
 <h1>Lean declarations</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" data-lean-missing="Newton.newton_inequality">Newton.newton_inequality</a></li>
-<li><a class="lean_decl" data-lean-missing="Newton.newton_logConcave">Newton.newton_logConcave</a></li>
-<li><a class="lean_decl" data-lean-missing="Newton.newton_inequality_coeff">Newton.newton_inequality_coeff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L306" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L306">Newton.newton_inequality</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L351" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L351">Newton.newton_logConcave</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L171" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L171">Newton.newton_inequality_coeff</a></li>
 </ul>
 </div>
 </div>
 </div>
 <a class="pdfp" href="pdf.html#page=2&amp;n=thm:newton" title="Open the paper at page 2">📕 p. 2</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:newton" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Theorem 1, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#thm:newton." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23thm%3Anewton.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="theorem_thmcontent">
-<p>   For a <em>monic</em> real-rooted real polynomial \(p\) of degree \(n\) and every \(1\le k\le n-1\), </p>
+<p>    For a <em>monic</em> real-rooted real polynomial \(p\) of degree \(n\) and every \(1\le k\le n-1\), </p>
 <div class="centered">\(\displaystyle e_k^2\, \binom {n}{k-1}\binom {n}{k+1}\; \ge \; e_{k-1}\, e_{k+1}\, \binom {n}{k}^{2}.\)</div>
 <p> Equivalently (<span class="ttfamily">newton_logConcave</span>) the normalized means \(p_k=e_k/\binom {n}{k}\) are log-concave, \(p_{k-1}\, p_{k+1}\le p_k^2\). Both are <span class="ttfamily">sorry</span>-free; <span class="ttfamily">#print axioms</span> on each reports only <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span>. </p>
-</div>
-</div><p class="lean-check">✅ Checked when this page was built: NewtonInequalities.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — newton_inequality, newton_logConcave, newton_inequality_coeff: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean NewtonInequalities.lean</code> (SHA-256 of the compiled file: <code>69dd05da620a4eb0…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical: stated by Newton (1707), proved by Sylvester, textbook account in Hardy–Littlewood–Pólya; the paper claims the formalization, to the author's knowledge the first in any proof assistant (searches of June 2026, §6).</p><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="proof_wrapper" id="a0000000004">
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L306" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L306"><code>Newton.newton_inequality</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L351" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L351"><code>Newton.newton_logConcave</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L171" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L171"><code>Newton.newton_inequality_coeff</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: NewtonInequalities.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — newton_inequality, newton_logConcave, newton_inequality_coeff: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean NewtonInequalities.lean</code> (SHA-256 of the compiled file: <code>69dd05da620a4eb0…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only. <span class="detail">Lean: 3 results, standard axioms only</span></p><p class="novedad">🆕 <b>Classical and new:</b> classical: stated by Newton (1707), proved by Sylvester, textbook account in Hardy–Littlewood–Pólya; the paper claims the formalization, to the author's knowledge the first in any proof assistant (searches of June 2026, §6).</p><p class="usado">↳ Used in: <a href="#q:1"> 1</a>, <a href="#q:2"> 2</a>, <a href="#q:4"> 4</a></p>
+<div class="proof_wrapper" id="a0000000007">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -329,74 +590,452 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <p>Formalized in Lean (see the linked declarations). </p>
 </div>
 </div>
-<details class="blk b-fig"><summary>🖼️ Figure 1</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-1.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
-</div>
-<p> The reader’s map. From a hypothesis on the roots to a certified inequality and its corollaries; each arrow is the question its section answers. Every node is a block of <span class="ttfamily">sorry</span>-free Lean. </p>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> 1. If all roots of a polynomial are real, its coefficients cannot be arbitrary: the normalized means \(p_k=e_k/\binom {n}{k}\) satisfy \(p_{k-1}p_{k+1}\le p_k^2\), so on a log scale they bow inward. For \((x-1)(x-2)(x-4)=x^3-7x^2+14x-8\) the two inequalities read \(147\ge 126\) and \(588\ge 504\); \((x-1)^4\) gives equality everywhere, and \(x^2+1\), whose roots are not real, fails (\(0\not\ge 4\)). 2. Why it is true (the classical proof, here checked by Lean): differentiation (Rolle) and reversal \(x\mapsto 1/x\) both keep all roots real. Differentiating \(i-1\) times, reversing and differentiating again leaves a real-rooted polynomial of degree at most \(2\) whose three coefficients are positive factorial multiples of \(a_{i-1},a_i,a_{i+1}\); its discriminant is \(\ge 0\), and that is the inequality once the factorials are cleared. The base case is stated with \(\deg \le 2\), which also covers \(a_{i-1}=0\) without a separate case. 3. New and not new, as the paper says: the inequalities are Newton’s (1707), proved by Sylvester, in Hardy–Littlewood–Pólya; the paper claims the formalization, to the author’s knowledge the first in any proof assistant (§6). Lean checks the symmetric-function form for monic \(p\) (no loss: the \(e_k\) depend only on the roots) and the coefficient form with no normalization; the equality cases and Maclaurin’s chain are not proved. </p>
 </details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> the worked instances: e_k of (x−1)(x−2)(x−4), the Newton gaps 21 and 84, the zero gaps of (x−1)⁴ and the gap −4 of x²+1 (numpy, with tolerance); script in the paper repository, not in the Zenodo record. <span class="ttfamily">figures/newton_fig1_bow.py</span> </p>
 </li>
 </ul>
-</details></section><section class="pc-pane"><h1 id="a0000000007">5 The building blocks</h1>
-<div class="lemma_thmwrapper theorem-style-plain" id="auto:lemma-1">
-<div class="lemma_thmheading">
-<span class="lemma_thmcaption">
-    Lemma
-    </span>
-<span class="lemma_thmlabel">1</span>
-<span class="lemma_thmtitle"><span class="ttfamily">RealRooted.derivative</span>, <span class="ttfamily">RealRooted.iterate_derivative</span></span>
-<div class="thm_header_extras">
-</div>
-<div class="thm_header_hidden_extras">
-<a class="icon proof" href="index.html#auto:lemma-1">#</a>
-</div>
-<a class="pdfp" href="pdf.html#page=6&amp;n=auto:lemma-1" title="Open the paper at page 6">📕 p. 6</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:lemma-1" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Lemma 1, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#auto:lemma-1." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Lemma%201&amp;body=About%20Lemma%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Lemma%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23auto%3Alemma-1.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
-<div class="lemma_thmcontent">
-<p>  If \(p\) is real-rooted then so is \(p'\), and hence every iterated derivative \(p^{(k)}\). </p>
-</div>
-</div><p class="usado">↳ Not used by another result of the paper.</p>
+</details>
 <details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0002.png" style="width:100%;max-width:100%"/>
 </div>
 <p> <em>Left:</em> the normalized means of \((x-1)(x-2)(x-4)\), plotted on a log axis; each interior mean sits above the geometric mean of its neighbours (the amber arrows), so the sequence is concave—it “bows inward.” <em>Right:</em> the Newton gap \(e_k^2\binom {n}{k-1}\binom {n}{k+1}-e_{k-1}e_{k+1}\binom {n}{k}^2\) at every interior \(k\): positive for the real-rooted cubic, exactly zero for \((x-1)^4\) (the sharp case), and <em>negative</em> for \(x^2+1\). The generating script asserts every plotted value against exact integer arithmetic. </p>
-</details>
+</details></section><section class="pc-pane"><h1 id="a0000000011">2 Q2: how do you make it a one-line check for a machine?</h1>
+<h4 id="a0000000012">No numbered statement in this section.</h4>
+<p> Its figures and tables are below; its text is in <a href="pdf.html#page=3">the paper, p. 3</a>. </p>
 <details class="blk b-fig"><summary>🖼️ Figure 3</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-3.png}" src="images/img-0003.png" style="width:100%;max-width:100%"/>
 </div>
 <p> The differentiate–reverse reduction, worked on the running cubic at \(i=1\) (relating \(a_0,a_1,a_2=-8,14,-7\)). The final object is a quadratic; a real-rooted quadratic has non-negative discriminant; the factorials the proof cancels are the proportionality constant. </p>
-</details><div class="lemma_thmwrapper theorem-style-plain" id="auto:lemma-2">
+</details></section><section class="pc-pane"><h1 id="a0000000014">3 Q3: what did the machine catch that the textbook glides over?</h1>
+<h4 id="a0000000015">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in <a href="pdf.html#page=5">the paper, p. 5</a>.  </p>
+</section><section class="pc-pane"><h1 id="a0000000016">4 Q4: with Newton certified, what falls out for free?</h1>
+<h4 id="a0000000017">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in <a href="pdf.html#page=5">the paper, p. 5</a>.  </p>
+</section><section class="pc-pane"><h1 id="a0000000018">5 The building blocks</h1>
+<div class="lemma_thmwrapper theorem-style-plain lean-ok" id="auto:lemma-1">
 <div class="lemma_thmheading">
 <span class="lemma_thmcaption">
     Lemma
     </span>
-<span class="lemma_thmlabel">2</span>
+<span class="lemma_thmlabel">1</span><span class="sello">✅ Lean</span>
+<span class="lemma_thmtitle"><span class="ttfamily">RealRooted.derivative</span>, <span class="ttfamily">RealRooted.iterate_derivative</span></span>
+<div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#auto:lemma-1">#</a>
+<a class="icon proof" href="index.html#a0000000019"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L56" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L56">Newton.RealRooted.derivative</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L127" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L127">Newton.RealRooted.iterate_derivative</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=6&amp;n=auto:lemma-1" title="Open the paper at page 6">📕 p. 6</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:lemma-1" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Lemma 1, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#auto:lemma-1." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Lemma%201&amp;body=About%20Lemma%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Lemma%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23auto%3Alemma-1.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="lemma_thmcontent">
+<p>   If \(p\) is real-rooted then so is \(p'\), and hence every iterated derivative \(p^{(k)}\). </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L56" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L56"><code>Newton.RealRooted.derivative</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L127" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L127"><code>Newton.RealRooted.iterate_derivative</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: NewtonInequalities.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — derivative, iterate_derivative: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean NewtonInequalities.lean</code> (SHA-256 of the compiled file: <code>69dd05da620a4eb0…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only. <span class="detail">Lean: 2 results, standard axioms only</span></p><p class="novedad">🆕 <b>Classical and new:</b> the paper: one of «four reusable building blocks» (§5); Rolle for polynomials is Mathlib’s card_roots_le_derivative.</p><p class="usado">↳ Used in: <a href="#thm:newton">Theorem 1</a>, <a href="#q:3"> 3</a></p>
+<div class="proof_wrapper" id="a0000000019">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain lean-ok" id="auto:lemma-2">
+<div class="lemma_thmheading">
+<span class="lemma_thmcaption">
+    Lemma
+    </span>
+<span class="lemma_thmlabel">2</span><span class="sello">✅ Lean</span>
 <span class="lemma_thmtitle"><span class="ttfamily">RealRooted.reverse</span></span>
 <div class="thm_header_extras">
-</div>
+
+    
+    ✓
+        </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#auto:lemma-2">#</a>
+<a class="icon proof" href="index.html#a0000000020"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L71" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L71">Newton.RealRooted.reverse</a></li>
+</ul>
+</div>
+</div>
 </div>
 <a class="pdfp" href="pdf.html#page=6&amp;n=auto:lemma-2" title="Open the paper at page 6">📕 p. 6</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:lemma-2" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Lemma 2, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#auto:lemma-2." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Lemma%202&amp;body=About%20Lemma%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Lemma%202%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23auto%3Alemma-2.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="lemma_thmcontent">
-<p>  If \(p\) is real-rooted then so is its reversal \(p^{\mathrm{rev}}\). </p>
+<p>   If \(p\) is real-rooted then so is its reversal \(p^{\mathrm{rev}}\). </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L71" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L71"><code>Newton.RealRooted.reverse</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: NewtonInequalities.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — reverse: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean NewtonInequalities.lean</code> (SHA-256 of the compiled file: <code>69dd05da620a4eb0…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only. <span class="detail">Lean: 1 result, standard axioms only</span></p><p class="novedad">🆕 <b>Classical and new:</b> the paper: a reusable block; «the constant-term hypothesis the textbook attaches is unnecessary and is dropped» (§5).</p><p class="usado">↳ Used in: <a href="#thm:newton">Theorem 1</a>, <a href="#q:3"> 3</a></p>
+<div class="proof_wrapper" id="a0000000020">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
 </div>
-</div><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="lemma_thmwrapper theorem-style-plain" id="auto:lemma-3">
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain lean-ok" id="auto:lemma-3">
 <div class="lemma_thmheading">
 <span class="lemma_thmcaption">
     Lemma
     </span>
-<span class="lemma_thmlabel">3</span>
+<span class="lemma_thmlabel">3</span><span class="sello">✅ Lean</span>
 <span class="lemma_thmtitle"><span class="ttfamily">realRooted_discrim_coeff</span></span>
 <div class="thm_header_extras">
-</div>
+
+    
+    ✓
+        </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#auto:lemma-3">#</a>
+<a class="icon proof" href="index.html#a0000000021"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L138" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L138">Newton.realRooted_discrim_coeff</a></li>
+</ul>
+</div>
+</div>
 </div>
 <a class="pdfp" href="pdf.html#page=6&amp;n=auto:lemma-3" title="Open the paper at page 6">📕 p. 6</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:lemma-3" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Lemma 3, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#auto:lemma-3." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Lemma%203&amp;body=About%20Lemma%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Lemma%203%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23auto%3Alemma-3.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="lemma_thmcontent">
-<p>  A real-rooted \(q\) with \(\deg q\le 2\) satisfies \(q.\mathtt{coeff}\, 1^2\ge 4\, q.\mathtt{coeff}\, 2\cdot q.\mathtt{coeff}\, 0\). </p>
+<p>   A real-rooted \(q\) with \(\deg q\le 2\) satisfies \(q.\mathtt{coeff}\, 1^2\ge 4\, q.\mathtt{coeff}\, 2\cdot q.\mathtt{coeff}\, 0\). </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours</span><span class="more">show</span></summary><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.html#L138" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/Polynomial/RealRoots/NewtonInequalities.lean#L138"><code>Newton.realRooted_discrim_coeff</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: NewtonInequalities.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — realRooted_discrim_coeff: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean NewtonInequalities.lean</code> (SHA-256 of the compiled file: <code>69dd05da620a4eb0…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only. <span class="detail">Lean: 1 result, standard axioms only</span></p><p class="novedad">🆕 <b>Classical and new:</b> the paper: the base case in coefficient form, «the source of the dissolved case split» (§3, §5).</p><p class="usado">↳ Used in: <a href="#thm:newton">Theorem 1</a>, <a href="#q:5"> 5</a></p>
+<div class="proof_wrapper" id="a0000000021">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>Formalized in Lean (see the linked declarations). </p>
+</div>
+</div>
+<div class="table" id="tab:inventory">
+<small class="small"> <table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> Lean name </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> statement </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> role </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p><span class="ttfamily">newton_inequality</span> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px">
+<p> \(e_k^2\binom {n}{k-1}\binom {n}{k+1}\ge e_{k-1}e_{k+1}\binom {n}{k}^2\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> Theorem <a href="index.html#thm:newton">1</a> </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">newton_logConcave</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(p_{k-1}p_{k+1}\le p_k^2\) (normalized means) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> corollary </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">newton_inequality_coeff</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(a_i^2\binom {n}{i-1}\binom {n}{i+1}\ge a_{i-1}a_{i+1}\binom {n}{i}^2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> coefficient form </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">realRooted_discrim_coeff</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> real-rooted, \(\deg \le 2\Rightarrow a_1^2\ge 4a_2a_0\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> base case </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">RealRooted.derivative</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(p\) real-rooted \(\Rightarrow p'\) real-rooted </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> block (Rolle) </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="None">
+<p><span class="ttfamily">RealRooted.iterate_derivative</span> </p>
+</td>
+<td colspan="" rowspan="" style="None">
+<p> \(p\) real-rooted \(\Rightarrow p^{(k)}\) real-rooted </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> block </p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p><span class="ttfamily">RealRooted.reverse</span> </p>
+</td>
+<td colspan="" rowspan="" style="border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(p\) real-rooted \(\Rightarrow p^{\mathrm{rev}}\) real-rooted </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> block </p>
+</td>
+</tr>
+</table> <figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">1</span>
+<span class="caption_text">The load-bearing results, all <span class="ttfamily">sorry</span>-free in <span class="ttfamily">Newton.lean</span> of the repository (346 lines, on <span class="ttfamily">RealStable.lean</span> and Mathlib). Axioms of every entry: <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span> only; no <span class="ttfamily">native_decide</span>, no custom axiom.</span>
+</figcaption> </small>
+</div>
+</section><section class="pc-pane"><h1 id="a0000000022">6 The boundary of the contribution</h1>
+<h4 id="a0000000023">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in <a href="pdf.html#page=7">the paper, p. 7</a>.  </p>
+</section><section class="pc-pane"><h1 id="a0000000024">7 Open questions</h1>
+<div class="question_thmwrapper theorem-style-definition" id="q:1">
+<div class="question_thmheading">
+<span class="question_thmcaption">
+    Question
+    </span>
+<span class="question_thmlabel">1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#q:1">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:newton">Theorem 1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=7&amp;n=q:1" title="Open the paper at page 7">📕 p. 7</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=q:1" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Question 1, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#q:1." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Question%201&amp;body=About%20Question%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Question%201%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23q%3A1.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="question_thmcontent">
+<p>Newton’s inequalities are now a theorem in the library. The concrete next targets—Maclaurin’s mean chain, the equality cases, log-concavity of the matching numbers—are named in Section 4; what follows are the questions I would rather carry away than tick off, one per turn of the argument, the last one the one to keep. </p>
+<ol class="enumerate">
+<li><p><em>Why zeros become magnitudes.</em> Reality of the roots is a statement about <em>where</em> a polynomial vanishes; log-concavity is a statement about the <em>size</em> of its coefficients. Newton is the first and cheapest bridge between the two. What is the deepest reason a constraint on a polynomial’s zeros should turn, window by window, into a constraint on the magnitude of its coefficients? </p>
+</li>
+<li><p><em>The certificate hierarchy.</em> For a sequence of non-negative reals, real-rootedness of the generating polynomial is equivalent to being a Pólya frequency sequence (Aissen–Schoenberg–Whitney), strictly stronger than log-concavity (which is \(\mathrm{PF}_2\)). Newton derives the weak end from the strong. </p>
+</li>
+</ol>
 </div>
 </div><p class="usado">↳ Not used by another result of the paper.</p>
-</section><section class="pc-pane"><h1 id="a0000000010">References</h1>
+<div class="question_thmwrapper theorem-style-definition" id="q:2">
+<div class="question_thmheading">
+<span class="question_thmcaption">
+    Question
+    </span>
+<span class="question_thmlabel">2</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#q:2">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:newton">Theorem 1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=7&amp;n=q:2" title="Open the paper at page 7">📕 p. 7</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=q:2" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Question 2, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#q:2." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Question%202&amp;body=About%20Question%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Question%202%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23q%3A2.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="question_thmcontent">
+<p>  What exactly lives in the gap between the rungs, and is there a <em>cheapest</em> certificate for each that a proof assistant could be taught to choose? <em>The closure, made explicit.</em> Differentiation and reversal each preserve real-rootedness, and that pair alone already exposes any three consecutive coefficients as a quadratic. </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="question_thmwrapper theorem-style-definition" id="q:3">
+<div class="question_thmheading">
+<span class="question_thmcaption">
+    Question
+    </span>
+<span class="question_thmlabel">3</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#q:3">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#auto:lemma-1">Lemma 1</a></li>
+<li><a href="index.html#auto:lemma-2">Lemma 2</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=7&amp;n=q:3" title="Open the paper at page 7">📕 p. 7</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=q:3" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Question 3, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#q:3." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Question%203&amp;body=About%20Question%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Question%203%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23q%3A3.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="question_thmcontent">
+<p>  What is the full monoid of real-rootedness-preserving operations on coefficient windows, and is “reaches every quadratic window” a theorem one could state and check—i.e. is the sufficiency of <em>these two</em> stones itself a theorem? <em>Above the real-rooted floor.</em> Where no real-rooted polynomial exists—matroids—log-concavity needs Hodge theory <span class="cite">
+	[
+	<a href="index.html#AHK2018">6</a>
+	]
+</span>, with Brändén’s Lorentzian polynomials interpolating between the two worlds. </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="question_thmwrapper theorem-style-definition" id="q:4">
+<div class="question_thmheading">
+<span class="question_thmcaption">
+    Question
+    </span>
+<span class="question_thmlabel">4</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#q:4">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#thm:newton">Theorem 1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=7&amp;n=q:4" title="Open the paper at page 7">📕 p. 7</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=q:4" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Question 4, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#q:4." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Question%204&amp;body=About%20Question%204%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Question%204%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23q%3A4.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="question_thmcontent">
+<p>  Is Newton the one-variable shadow of Lorentzian-ness, and what is the smallest formalized fragment that would make it one storey of a single building rather than an isolated classical fact? <em>One to keep.</em> The only thing formalizing added beyond transcription was that the <em>weakest honest</em> base-case hypothesis dissolved a case split (Section 3)—“without loss of generality” cost nothing, but only once a machine made me look. </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="question_thmwrapper theorem-style-definition" id="q:5">
+<div class="question_thmheading">
+<span class="question_thmcaption">
+    Question
+    </span>
+<span class="question_thmlabel">5</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#q:5">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#auto:lemma-3">Lemma 3</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=7&amp;n=q:5" title="Open the paper at page 7">📕 p. 7</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=q:5" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4”, Question 5, v1, doi:10.5281/zenodo.20693064, https://karlesmarin.github.io/blueprints/newton-inequalities/index.html#q:5." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=The%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%20%E2%80%94%20Question%205&amp;body=About%20Question%205%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CThe%20Inward%20Bow%20of%20a%20Real-Rooted%20Polynomial%3A%20Newton%27s%20Inequalities%2C%20Machine-Checked%20in%20Lean%204%E2%80%9D%2C%20Question%205%2C%20v1%2C%20doi%3A10.5281/zenodo.20693064%2C%20https%3A//karlesmarin.github.io/blueprints/newton-inequalities/index.html%23q%3A5.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="question_thmcontent">
+<p>  In a theory three centuries old and re-proved many times, how often is the WLOG genuinely free, and is “always reach for the weakest base hypothesis” a transferable principle of machine proof or a happy accident of this one? </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+<ol class="enumerate">
+</ol>
+<div class="question_thmwrapper theorem-style-definition" id="a0000000025">
+<div class="question_thmheading">
+<span class="question_thmcaption">
+    Question
+    </span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#a0000000025">#</a>
+</div>
+</div>
+<div class="question_thmcontent">
+</div>
+</div>
+</section><section class="pc-pane"><h1 id="a0000000026">Reproducing</h1>
+<h4 id="a0000000027">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in the paper (PDF). </p>
+</section><section class="pc-pane"><h1 id="lm-tables">📊 Tables</h1><p class="lm-tintro">Every table of the paper, in its order: click one to unfold it, with where the paper cites it, how its numbers were checked, and its data as CSV. The typeset table is one click away, on its page of the PDF.</p><details class="lm-table" id="tab:inventory"><summary><b>Table 1.</b> The load-bearing results, all <code>sorry</code>-free in <code>Newton.lean</code> of the repository
+(346 lines, on <code>RealStable.lean</code> and Mathlib). Axioms of every entry: <code>propext</code>,
+<code>Classical.choice</code>, <code>Quot.sound</code> only; no <code>native_decide</code>, no custom axiom.</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>Lean name</td><td>statement</td><td>role</td></tr><tr><td><code>newton_inequality</code></td><td>$e_k^2\binom{n}{k-1}\binom{n}{k+1}\ge e_{k-1}e_{k+1}\binom{n}{k}^2$</td><td>Theorem <a href='"#thm:newton"'>1</a></td></tr><tr><td><code>newton_logConcave</code></td><td>$p_{k-1}p_{k+1}\le p_k^2$ (normalized means)</td><td>corollary</td></tr><tr><td><code>newton_inequality_coeff</code></td><td>$a_i^2\binom{n}{i-1}\binom{n}{i+1}\ge a_{i-1}a_{i+1}\binom{n}{i}^2$</td><td>coefficient form</td></tr><tr><td><code>realRooted_discrim_coeff</code></td><td>real-rooted, $\deg\le2\Rightarrow a_1^2\ge4a_2a_0$</td><td>base case</td></tr><tr><td><code>RealRooted.derivative</code></td><td>$p$ real-rooted $\Rightarrow p'$ real-rooted</td><td>block (Rolle)</td></tr><tr><td><code>RealRooted.iterate_derivative</code></td><td>$p$ real-rooted $\Rightarrow p^{(k)}$ real-rooted</td><td>block</td></tr><tr><td><code>RealRooted.reverse</code></td><td>$p$ real-rooted $\Rightarrow p^{\mathrm{rev}}$ real-rooted</td><td>block</td></tr></table></div><div class="lm-tmeta"><a class="pdfp" href="pdf.html#page=7" title="The typeset table, on its page of the paper">📄 p. 7 in the PDF</a><a download="newton-inequalities-table-1.csv" href="data:text/csv;charset=utf-8,%EF%BB%BFLean%20name%2Cstatement%2Crole%0D%0Anewton_inequality%2Ce_k%5E2%5Cbinom%7Bn%7D%7Bk-1%7D%5Cbinom%7Bn%7D%7Bk%2B1%7D%5Cge%20e_%7Bk-1%7De_%7Bk%2B1%7D%5Cbinom%7Bn%7D%7Bk%7D%5E2%2CTheorem%20%5Cref%7Bthm%3Anewton%7D%0D%0Anewton_logConcave%2Cp_%7Bk-1%7Dp_%7Bk%2B1%7D%5Cle%20p_k%5E2%20%28normalized%20means%29%2Ccorollary%0D%0Anewton_inequality_coeff%2Ca_i%5E2%5Cbinom%7Bn%7D%7Bi-1%7D%5Cbinom%7Bn%7D%7Bi%2B1%7D%5Cge%20a_%7Bi-1%7Da_%7Bi%2B1%7D%5Cbinom%7Bn%7D%7Bi%7D%5E2%2Ccoefficient%20form%0D%0ArealRooted_discrim_coeff%2C%22real-rooted%2C%20%5Cdeg%5Cle2%5CRightarrow%20a_1%5E2%5Cge4a_2a_0%22%2Cbase%20case%0D%0ARealRooted.derivative%2Cp%20real-rooted%20%5CRightarrow%20p%27%20real-rooted%2Cblock%20%28Rolle%29%0D%0ARealRooted.iterate_derivative%2Cp%20real-rooted%20%5CRightarrow%20p%5E%7B%28k%29%7D%20real-rooted%2Cblock%0D%0ARealRooted.reverse%2Cp%20real-rooted%20%5CRightarrow%20p%5E%7B%5Cmathrm%7Brev%7D%7D%20real-rooted%2Cblock%0D%0A" title="The cells as text">⬇ CSV</a><span class="lm-chip">cited in the opening, before §1</span><span class="lm-chip">cited in §4 Q4: with Newton certified, what falls out for free?</span><span class="lm-chip">cited in §5 The building blocks</span><span class="lm-chip">cited in §7 Open questions</span></div></details></section><section class="pc-pane"><h1 id="a0000000028">References</h1>
 <dl class="bibliography">
 <dt><a name="Newton1707">1</a></dt>
 <dd><p>I. Newton, <em>Arithmetica Universalis</em> (1707); the inequalities among the coefficients of a polynomial with real roots are stated there without proof.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Arithmetica+Universalis" rel="noopener" target="_blank">🔎 find it</a></p>
@@ -432,12 +1071,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 </div>
 <nav class="prev_up_next">
-<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
-<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
-<a href="index.html" title="The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: blueprint"><svg class="icon icon-arrow-up"><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg></a>
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
 </nav>
-<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and the figures and keeps the evidence
-// blocks; Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
 // event, so that page-specific scripts (labs) can react.
 (function(){
   function set(v){
@@ -516,39 +1155,74 @@ document.addEventListener('click', function (e) {
 (function(){
   var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
   if (!panes.length) return;
-  var box = document.querySelector('div.content');
+  var box = document.querySelector('div.content'), nav = document.querySelector('nav.toc');
+  var head = document.querySelector('body>header'), toggle = document.getElementById('toc-toggle');
+  var phone = window.matchMedia('(max-width: 1023.98px)');
   function find(h){
     if (!h) return null;
     try { h = decodeURIComponent(h); } catch (e) {}
     return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
   }
   function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
-  function show(h){
-    var t = find(h), p = paneOf(t) || panes[0];
-    panes.forEach(function(x){ x.hidden = x !== p; });
+  var marked = null;
+  function mark(p){
+    if (p === marked) return;
+    marked = p;
     document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
       var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
       var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
       li.classList.toggle('current', on);
       var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
-      if (ul) ul.classList.toggle('active', on);
+      if (ul) { ul.classList.toggle('active', on); ul.style.display = ''; }
       if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+      if (on && nav && !phone.matches) {  // keep the marked entry visible in a long sidebar
+        var r = li.getBoundingClientRect(), n = nav.getBoundingClientRect();
+        if (r.top < n.top || r.bottom > n.bottom) li.scrollIntoView({block: 'nearest'});
+      }
     });
-    if (!t || t === p || t.tagName === 'H1' || t.id === 'top') { if (box) box.scrollTop = 0; }
-    else t.scrollIntoView({block: 'start'});
   }
-  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
-  document.addEventListener('click', function(ev){  // a link to the hash already in the URL fires no hashchange
+  function closeDrawer(){ if (phone.matches && nav) nav.style.display = 'none'; }
+  function go(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    mark(p);
+    for (var d = t && t.closest && t.closest('details'); d; d = d.parentElement && d.parentElement.closest('details'))
+      d.open = true;  // a link to a folded block (a table, a figure) unfolds it
+    if (!t || t.id === 'top' || (t === p && p === panes[0])) { if (box) box.scrollTop = 0; window.scrollTo(0, 0); }
+    else t.scrollIntoView({block: 'start'});
+    closeDrawer();
+  }
+  // the section in view: the last one whose top has passed the top of the panel
+  var ticking = false;
+  function spy(){
+    ticking = false;
+    var top = (box ? Math.max(box.getBoundingClientRect().top, 0) : 0) + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }
+  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(spy); } }
+  if (box) box.addEventListener('scroll', onScroll, {passive: true});
+  window.addEventListener('scroll', onScroll, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){
     var a = ev.target.closest && ev.target.closest('a[href]');
-    if (!a) return;
-    var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
-    if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); show(m[1]); }
+    if (a) {
+      var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+      if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); go(m[1]); return; }  // same hash: no hashchange
+      if (m && nav && nav.contains(a)) closeDrawer();
+      return;
+    }
+    // phone: a tap outside the open drawer closes it
+    if (phone.matches && nav && nav.style.display && nav.style.display !== 'none' && !nav.contains(ev.target) &&
+        !(toggle && toggle.contains(ev.target))) closeDrawer();
   });
-  show(location.hash.slice(1));
-  // the browser's own jump to the hash, and MathJax, move the page after the first show(): place it again
-  window.addEventListener('load', function(){ show(location.hash.slice(1)); });
-  if (window.MathJax && MathJax.startup && MathJax.startup.promise)
-    MathJax.startup.promise.then(function(){ show(location.hash.slice(1)); });
+  if (toggle) toggle.addEventListener('click', function(){  // the drawer opens below the header, whatever its height
+    if (head) document.documentElement.style.setProperty('--pc-head', head.getBoundingClientRect().bottom + 'px');
+  });
+  function place(){ if (location.hash.length > 1) go(location.hash.slice(1)); else spy(); }
+  place();
+  // the browser's own jump to the hash, and MathJax, move the page after the first placing: place it again
+  window.addEventListener('load', place);
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(place);
 })();
 </script>
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
@@ -636,7 +1310,7 @@ document.addEventListener('click', function (e) {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:newton": "Theorem 1 — Newton's inequalities, in Lean~4; \\paperlean{Newton.newton\\_inequality}", "auto:lemma-1": "Lemma 1 — \\paperlean{RealRooted.derivative}, \\paperlean{RealRooted.iterate\\_derivative}", "auto:lemma-2": "Lemma 2 — \\paperlean{RealRooted.reverse}", "auto:lemma-3": "Lemma 3 — \\paperlean{realRooted\\_discrim\\_coeff}"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:newton": "Theorem 1 — Newton's inequalities, in Lean~4; \\paperlean{Newton.newton\\_inequality}", "auto:lemma-1": "Lemma 1 — \\paperlean{RealRooted.derivative}, \\paperlean{RealRooted.iterate\\_derivative}", "auto:lemma-2": "Lemma 2 — \\paperlean{RealRooted.reverse}", "auto:lemma-3": "Lemma 3 — \\paperlean{realRooted\\_discrim\\_coeff}", "q:1": "Question 1", "q:2": "Question 2", "q:3": "Question 3", "q:4": "Question 4", "q:5": "Question 5"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
@@ -673,6 +1347,53 @@ document.addEventListener('click', function (e) {
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<style id="lm-lean-panel-css">
+.lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
+/* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
+.lm-panel{position:fixed;inset:6vh 7vw;z-index:9999;background:#fff;border:1px solid #c9d3de;border-radius:10px;
+  box-shadow:0 14px 48px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+/* 21-oct, Carles: the name centred, a little larger, with a shadow, on a header with its own colour */
+.lm-panel header{background:linear-gradient(180deg,#f3f7fc 0%,#dde7f3 100%);border-bottom:1px solid #b9c8da;
+  box-shadow:0 2px 6px rgba(26,79,139,.12);padding:.55rem .9rem;display:grid;grid-template-columns:1fr minmax(0,auto) 1fr;
+  gap:.9rem;align-items:center;font:14px Arial,sans-serif}
+.lm-panel header b{grid-column:2;text-align:center;font:600 17px/1.2 "Cascadia Code","JetBrains Mono",Consolas,Menlo,monospace;
+  color:#163f6e;letter-spacing:.01em;text-shadow:0 1px 0 #fff,0 2px 4px rgba(22,63,110,.28);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.lm-panel header button{grid-column:3;justify-self:end}
+.lm-panel header a{color:#1a4f8b}.lm-panel header button{border:0;background:#1a4f8b;color:#fff;border-radius:999px;
+  padding:.15rem .7rem;cursor:pointer;font:14px Arial,sans-serif}
+.lm-panel iframe{flex:1;border:0;width:100%;background:#fbfcfe}
+@media (max-width:700px){.lm-panel{inset:0;border-radius:0}}
+</style>
+<script id="lm-lean-panel">
+/* 21-oct, Carles: the Lean opens in a central window over the blueprint, and closing it leaves the reader where he was */
+(function(){
+  /* the browser's Back (or the phone's back gesture) closes the panel instead of leaving the blueprint: the panel
+     pushes one history entry; closing it by hand takes that entry back out (21-oct: «que pueda volver donde estaba») */
+  function quitar(){var p=document.querySelector('.lm-panel'),v=document.querySelector('.lm-veil');
+    if(p)p.remove();if(v)v.remove();document.removeEventListener('keydown',esc);}
+  function cerrar(){if(history.state&&history.state.lmPanel)history.back();else quitar();}
+  window.addEventListener('popstate',function(){quitar();});
+  function esc(e){if(e.key==='Escape')cerrar();}
+  function abrir(href,nombre,gh){quitar();
+    if(!(history.state&&history.state.lmPanel))history.pushState({lmPanel:1},'');
+    var v=document.createElement('div');v.className='lm-veil';v.onclick=cerrar;
+    var p=document.createElement('div');p.className='lm-panel';p.setAttribute('role','dialog');
+    /* 21-oct, Carles: the window header has the name and Close only; the ✒️ stays in the Lean page's own header
+       inside the window, as GitHub does (Carles: «está en dos sitios», «quita el emoji de esa leyenda») */
+    p.innerHTML='<header><b></b>'+
+      '<button type="button" title="Close (Esc)">✕ Close</button></header><iframe title="Lean source"></iframe>';
+    p.querySelector('b').textContent=nombre||'';
+    /* ?panel=1: the Lean page knows it is inside the window (no Atlas link) and the URL skips an old cached copy */
+    var i=href.indexOf('#'),src=(i<0?href:href.slice(0,i))+'?panel=1'+(i<0?'':href.slice(i));
+    p.querySelector('button').onclick=cerrar;p.querySelector('iframe').src=src;
+    document.body.appendChild(v);document.body.appendChild(p);document.addEventListener('keydown',esc);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lean-github]');
+    if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
 })();
 </script>
 <script id="lm-notranslate">

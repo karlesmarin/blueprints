@@ -20,7 +20,11 @@
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><script id="pc-embed">
 (function(){
@@ -56,8 +60,18 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
   border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
 </style></head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
 <header>
 <a class="toc" href="index.html">Home</a>
 <h1 id="doc_title">Dependencies</h1>
@@ -85,26 +99,26 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 </div>
 <div id="graph"></div>
 <div id="statements">
-<div class="dep-modal-container" id="a0000000038_modal">
+<div class="dep-modal-container" id="a0000000040_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
-<div class="thm" id="a0000000038" style="display: none">
+<div class="thm" id="a0000000040" style="display: none">
 <div class="thm_thmheading">
 <span class="corollary_thmcaption">
       Corollary
       </span>
 </div>
 <div class="thm_thmcontent"></div>
-<a class="latex_link" href="index.html#a0000000038">LaTeX</a>
+<a class="latex_link" href="index.html#a0000000040">LaTeX</a>
 </div>
 </div>
 </div>
 <div class="dep-modal-container" id="cor:cuantos_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="cor:cuantos" style="display: none">
 <div class="thm_thmheading">
@@ -113,7 +127,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="corollary_thmlabel">13</span><span class="corollary_thmtitle">how many components vanish, and which</span></div>
 <div class="thm_thmcontent"><p>   Let \(f\ge 5\) be <em>prime</em>, let \(t\) be the order of \(2\) in \(({\mathbb {Z}}/f)^\times \) and \(d=\varphi (f)/2\). On the diagonal \(m=(f-1)/2\) the components that vanish are exactly those at the odd characters trivial on \(\langle 2\rangle \), so their number is </p>
-<div class="displaymath" id="a0000000060">
+<div class="displaymath" id="a0000000062">
   \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle \# \{ \chi \  \text{odd}:\  T(m,\chi )=0\} = \begin{cases} 0,&amp; -1\in \langle 2\rangle ,\\[2pt] d/t,&amp; -1\notin \langle 2\rangle .\end{cases}$}}  \]
 </div>
 </div>
@@ -124,7 +138,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="cor:digitos_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="cor:digitos" style="display: none">
 <div class="thm_thmheading">
@@ -144,22 +158,22 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L132" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L132">SegmentoII.zero_step</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L143" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L143">SegmentoII.zeros_from_digits</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L166" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L166">DigitosII.zero_step</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L174" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L174">DigitosII.zeros_from_digits</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L630" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L630">DigitosII.cor_digitos_a_digits</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L664" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L664">DigitosII.cor_digitos_a</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L571" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L571">DigitosII.Tq_even</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L608" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L608">DigitosII.G_card</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L676" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L676">DigitosII.cor_digitos_b</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L531" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L531">DigitosII.cor_digitos_c</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L548" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L548">DigitosII.cor_digitos_c_three</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L520" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L520">DigitosII.dvd_zseq</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L192" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L192">DigitosII.cor_digitos_d</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L200" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L200">DigitosII.cor_digitos_d_four</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L212" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L212">DigitosII.cor_digitos_e</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L219" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L219">DigitosII.cor_digitos_e_zeros</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L132" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L132">SegmentoII.zero_step</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L143" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L143">SegmentoII.zeros_from_digits</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L166" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L166">DigitosII.zero_step</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L174" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L174">DigitosII.zeros_from_digits</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L630" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L630">DigitosII.cor_digitos_a_digits</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L664" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L664">DigitosII.cor_digitos_a</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L571" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L571">DigitosII.Tq_even</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L608" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L608">DigitosII.G_card</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L676" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L676">DigitosII.cor_digitos_b</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L531" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L531">DigitosII.cor_digitos_c</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L548" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L548">DigitosII.cor_digitos_c_three</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L520" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L520">DigitosII.dvd_zseq</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L192" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L192">DigitosII.cor_digitos_d</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L200" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L200">DigitosII.cor_digitos_d_four</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L212" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L212">DigitosII.cor_digitos_e</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L219" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L219">DigitosII.cor_digitos_e_zeros</a></li>
 </ul>
 </div>
 </div>
@@ -168,7 +182,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="cor:filas_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="cor:filas" style="display: none">
 <div class="thm_thmheading">
@@ -185,7 +199,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="cor:orden_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="cor:orden" style="display: none">
 <div class="thm_thmheading">
@@ -199,9 +213,9 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L419" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L419">DigitosII.cor_orden_iff</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L444" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L444">DigitosII.cor_orden_zeros</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L469" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L469">DigitosII.cor_orden_trivial_on_two</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L419" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L419">DigitosII.cor_orden_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L444" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L444">DigitosII.cor_orden_zeros</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L469" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L469">DigitosII.cor_orden_trivial_on_two</a></li>
 </ul>
 </div>
 </div>
@@ -210,7 +224,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="lem:cola_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="lem:cola" style="display: none">
 <div class="thm_thmheading">
@@ -219,7 +233,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="lemma_thmlabel">1, tail</span><span class="lemma_thmtitle">The analytic tail (the inequality in the proof of Theorem <a href="index.html#thm:A">1</a>, range \(m\ge 10^8\))</span></div>
 <div class="thm_thmcontent"><p>   For \(M\ge 10^8\), \(L=\log M\), with \(Q\) the primes of \((M/2,M]\), \(K=2\alpha \le 56M^2/n\) and \(B_*\) as in Lemma <a href="index.html#lem:momento">2</a>, </p>
-<div class="displaymath" id="a0000000021">
+<div class="displaymath" id="a0000000023">
   \[ \frac{B_*(M)+K}{P_Q}\  \le \  \frac43\, \frac{L\sqrt{L+13}}{\sqrt M}+\frac{3808\, L^2}{M}\  {\lt}\  0.027\qquad (M\ge 10^8), \]
 </div>
 <p> both terms decreasing in \(M\). </p>
@@ -231,7 +245,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="lem:comp_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="lem:comp" style="display: none">
 <div class="thm_thmheading">
@@ -240,7 +254,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="lemma_thmlabel">12</span><span class="lemma_thmtitle">the components</span></div>
 <div class="thm_thmcontent"><p>  Let \(f\) be prime. Then \(\widehat S(\chi )=\bigl(1-\chi (-1)\bigr)T(m,\chi )\), which is \(2T(m,\chi )\) for \(\chi \) odd and \(0\) for \(\chi \) even, and </p>
-<div class="displaymath" id="a0000000057">
+<div class="displaymath" id="a0000000059">
   \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle \operatorname {rank}_{{\mathbb {Q}}}\mathcal M=\# \{ \chi \  \text{odd}:\  T(m,\chi )\neq 0\} .$}}  \]
 </div>
 <p> In particular \(\mathcal M\) has rank below \((f-1)/2\) over \({\mathbb {Q}}\) exactly when some odd character has \(T(m,\chi )=0\), and its defect counts those characters. </p>
@@ -252,7 +266,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="lem:intervalos_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="lem:intervalos" style="display: none">
 <div class="thm_thmheading">
@@ -282,12 +296,12 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L64" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L64">IntervalosFilas.intervalos_a</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L76" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L76">IntervalosFilas.SS_symm</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L84" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L84">IntervalosFilas.intervalos_a_sym</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L222" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L222">SegmentoII.pairs_subset_sum</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L184" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L184">SegmentoII.complete_range</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L162" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L162">SegmentoII.complete_list</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L64" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L64">IntervalosFilas.intervalos_a</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L76" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L76">IntervalosFilas.SS_symm</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L84" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L84">IntervalosFilas.intervalos_a_sym</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L222" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L222">SegmentoII.pairs_subset_sum</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L184" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L184">SegmentoII.complete_range</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L162" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L162">SegmentoII.complete_list</a></li>
 </ul>
 </div>
 </div>
@@ -296,7 +310,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="lem:momento_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="lem:momento" style="display: none">
 <div class="thm_thmheading">
@@ -305,7 +319,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="lemma_thmlabel">2</span><span class="lemma_thmtitle">the second moment</span></div>
 <div class="thm_thmcontent"><p>  Give the primes outside \(Q\) independent uniform signs. Then </p>
-<div class="displaymath" id="a0000000013">
+<div class="displaymath" id="a0000000015">
   \[  \mathbb E\, R_Q^2\le \frac{m^3(\log m+13)}{9},  \]
 </div>
 <p> so some choice has \(|R_Q|\le B_*(m):=\tfrac 13m^{3/2}\sqrt{\log m+13}\). </p>
@@ -317,7 +331,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="prop:bloques_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="prop:bloques" style="display: none">
 <div class="thm_thmheading">
@@ -326,7 +340,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="proposition_thmlabel">9</span><span class="proposition_thmtitle">blocks</span></div>
 <div class="thm_thmcontent"><p>    Let \(q\equiv 3\pmod4\), \(q{\gt}3\), \(s=1\), \(h=h(-q)\) and \(D(r)=C(r)-h\). Suppose that \(B\) has base-\(q\) digits \(d_{L-1},\dots ,d_0\) with </p>
-<div class="displaymath" id="a0000000045">
+<div class="displaymath" id="a0000000046">
   \[  \sum _{i{\lt}L}D(d_i)=0\qquad \text{and}\qquad S_\chi (B)=hB .  \]
 </div>
 <p> Then, with \(Q=q^L\), every \(m_t=q\, B\, (1+Q+\dots +Q^{t-1})\), \(t\ge 1\), is a zero of \(S_\chi \). </p>
@@ -335,9 +349,9 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L262" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L262">DigitosII.prop_bloques</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L238" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L238">DigitosII.block_append</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L231" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L231">DigitosII.digit_D</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L262" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L262">DigitosII.prop_bloques</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L238" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L238">DigitosII.block_append</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L231" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L231">DigitosII.digit_D</a></li>
 </ul>
 </div>
 </div>
@@ -346,7 +360,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="prop:conrey_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="prop:conrey" style="display: none">
 <div class="thm_thmheading">
@@ -363,7 +377,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="prop:dirichlet_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="prop:dirichlet" style="display: none">
 <div class="thm_thmheading">
@@ -372,7 +386,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="corollary_thmlabel">15</span><span class="corollary_thmtitle">Dirichlet’s family</span></div>
 <div class="thm_thmcontent"><p>   Let \(f\equiv 3\pmod4\) be squarefree and \(\chi \) the quadratic character of conductor \(f\), which is odd. Then </p>
-<div class="displaymath" id="a0000000065">
+<div class="displaymath" id="a0000000068">
   \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle \sum _{c=1}^{(f-1)/2}c\, \chi (c)= \begin{cases} \  f\, h(-f)\, \dfrac {2}{w(-f)}, &amp;  f\equiv 3\pmod8,\\[4pt] \  0, &amp;  f\equiv 7\pmod8.\end{cases}$}}  \]
 </div>
 </div>
@@ -383,7 +397,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="prop:filas_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="prop:filas" style="display: none">
 <div class="thm_thmheading">
@@ -392,7 +406,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="proposition_thmlabel">16</span><span class="proposition_thmtitle">the rows that can be occupied</span></div>
 <div class="thm_thmcontent"><p>   Let \(n=2m+1\) and let \(\varepsilon \) be any function on \(1,\dots ,m\) with values \(\pm 1\). Then </p>
-<div class="displaymath" id="a0000000067">
+<div class="displaymath" id="a0000000070">
   \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle \sum _{c=1}^{m}c\, \varepsilon (c)\equiv \frac{n^2-1}{8}\pmod2,\qquad \text{so it can vanish only if }\  \Bigl(\frac2n\Bigr)=1 .$}}  \]
 </div>
 <p> In particular, if \(\chi \) is quadratic of conductor \(f\) with \(\gcd (f,m!)=1\), then \(T(m,\chi )\) does not vanish unless \(\bigl(\tfrac 2n\bigr)=1\) at the <em>length</em> \(n\) of the segment. </p>
@@ -401,11 +415,11 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L111" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L111">IntervalosFilas.filas_parity</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L147" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L147">IntervalosFilas.filas_vanish</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L176" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L176">IntervalosFilas.filas_char</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L122" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L122">IntervalosFilas.even_eighth_iff</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L104" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L104">IntervalosFilas.eighth</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L111" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L111">IntervalosFilas.filas_parity</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L147" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L147">IntervalosFilas.filas_vanish</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L176" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L176">IntervalosFilas.filas_char</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L122" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L122">IntervalosFilas.even_eighth_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.html#L104" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/SubsetSumsAndRows.lean#L104">IntervalosFilas.eighth</a></li>
 </ul>
 </div>
 </div>
@@ -414,7 +428,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="prop:ordenalto_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="prop:ordenalto" style="display: none">
 <div class="thm_thmheading">
@@ -437,7 +451,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="prop:prefijos_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="prop:prefijos" style="display: none">
 <div class="thm_thmheading">
@@ -454,7 +468,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="rem:orden_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="rem:orden" style="display: none">
 <div class="thm_thmheading">
@@ -463,7 +477,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="remark_thmlabel">19</span><span class="remark_thmtitle">the order \(2\) is critical</span></div>
 <div class="thm_thmcontent"><p>   For \(f(p)\) independent and uniform in \(\mu _r\), extended completely multiplicatively, \(\mathbb E\, f(n)\overline{f(k)}=1\) exactly when \(n/k\) is an \(r\)-th power of a rational, and writing \(n=da^r\), \(k=db^r\) with \(\gcd (a,b)=1\), </p>
-<div class="displaymath" id="a0000000075">
+<div class="displaymath" id="a0000000077">
   \[  \mathbb E\Bigl|\sum _{n\le m}nf(n)\Bigr|^2=\sum _{\gcd (a,b)=1}a^rb^r\sum _{d\le m/\max (a,b)^r}d^2,  \]
 </div>
 <p> which is \(\sim C_rm^3\) for \(r\ge 3\) but of order \(m^3\log m\) for \(r=2\). The logarithm in Lemma <a href="index.html#lem:momento">2</a> is a feature of real signs. <em>Measured</em>: The identity against the exact average over all \(r^{\pi (m)}\) assignments, \(r=2,3,4\), \(m\le 20\); \(C_4=0.3402817\ldots \) by the series and by the limit at \(m=10^{10}\). </p>
@@ -475,7 +489,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:A_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:A" style="display: none">
 <div class="thm_thmheading">
@@ -484,7 +498,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">1</span><span class="theorem_thmtitle">every admissible length</span></div>
 <div class="thm_thmcontent"><p>   For every \(m\ge 3\) with \(m\equiv 0\) or \(3\pmod4\) there is a completely multiplicative \(\varepsilon :\mathbb N\to \{ \pm 1\} \) with </p>
-<div class="displaymath" id="a0000000005">
+<div class="displaymath" id="a0000000009">
   \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle \sum _{n\le m}n\, \varepsilon (n)=0.$}}  \]
 </div>
 </div>
@@ -495,7 +509,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:diag_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:diag" style="display: none">
 <div class="thm_thmheading">
@@ -504,7 +518,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">7</span><span class="theorem_thmtitle">the weighted half sum</span></div>
 <div class="thm_thmcontent"><p>   Let \(f\) be odd and let \(\chi \) be an odd Dirichlet character modulo \(f\). Then </p>
-<div class="displaymath" id="a0000000035">
+<div class="displaymath" id="a0000000037">
   \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle \sum _{c=1}^{(f-1)/2}c\, \chi (c)\; =\; \frac f2\, B_{1,\chi }\, \bigl(\chi (2)^{-1}-1\bigr).$}}  \]
 </div>
 <p> If moreover \(\chi \) is primitive, so that \(B_{1,\chi }\neq 0\), the sum vanishes if and only if \(\chi (2)=1\). </p>
@@ -513,11 +527,11 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.html#L133" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.lean#L133">DiagKK.thm_diag</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.html#L151" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.lean#L151">DiagKK.thm_diag_iff</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.lean#L141">DiagKK.thm_diag_half</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.html#L106" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.lean#L106">DiagKK.diag_char</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L316" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L316">DigitosII.diag</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.html#L133" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.lean#L133">DiagKK.thm_diag</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.html#L151" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.lean#L151">DiagKK.thm_diag_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.lean#L141">DiagKK.thm_diag_half</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.html#L106" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/WeightedHalfSum.lean#L106">DiagKK.diag_char</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L316" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L316">DigitosII.diag</a></li>
 </ul>
 </div>
 </div>
@@ -526,7 +540,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:dicotomia_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:dicotomia" style="display: none">
 <div class="thm_thmheading">
@@ -543,7 +557,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:digitos_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:digitos" style="display: none">
 <div class="thm_thmheading">
@@ -552,7 +566,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">6</span><span class="theorem_thmtitle">a digit recursion</span></div>
 <div class="thm_thmcontent"><p>   For \(k\ge 0\) and \(0\le r{\lt}q\), </p>
-<div class="displaymath" id="a0000000030">
+<div class="displaymath" id="a0000000032">
   \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle S_\chi (qk+r)=s\, q\, S_\chi (k)+k\bigl(T_q+q\, C(r)\bigr)+T(r).$}}  \]
 </div>
 </div>
@@ -560,10 +574,10 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L107" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L107">SegmentoII.digit_recursion</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L138" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L138">DigitosII.digit_recursion</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L156" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L156">DigitosII.digit_zero</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L409" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L409">DigitosII.hyp_of_odd</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.html#L107" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitRecursion.lean#L107">SegmentoII.digit_recursion</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L138" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L138">DigitosII.digit_recursion</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L156" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L156">DigitosII.digit_zero</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.html#L409" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/DigitCorollaries.lean#L409">DigitosII.hyp_of_odd</a></li>
 </ul>
 </div>
 </div>
@@ -572,7 +586,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:rango_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:rango" style="display: none">
 <div class="thm_thmheading">
@@ -581,7 +595,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="theorem_thmlabel">14</span><span class="theorem_thmtitle">the rank on the diagonal; Jager–Lenstra, Girstmair</span></div>
 <div class="thm_thmcontent"><p>   Let \(f\ge 3\) be odd, \(m=(f-1)/2\), and let \(\mathcal M=[\, S(u^{-1}c)\, ]\) be the moment matrix of the full period, with rows \(u\in G=({\mathbb {Z}}/f)^\times \) and a column for every class \(c\in {\mathbb {Z}}/f\). Then </p>
-<div class="displaymath" id="a0000000063">
+<div class="displaymath" id="a0000000065">
   \[  {\setlength{\fboxsep }{6pt}\setlength{\fboxrule }{0.6pt}\fcolorbox {azul!45}{fondoficha}{$\displaystyle d-\operatorname {rank}_{{\mathbb {Q}}}\mathcal M=\# \{ \chi \  \text{odd}:\  \chi (2)=1\} = \begin{cases} 0,&amp; -1\in \langle 2\rangle ,\\[2pt] d/t,&amp; -1\notin \langle 2\rangle ,\end{cases}$}}  \]
 </div>
 <p> with \(d=\varphi (f)/2\) and \(t\) the order of \(2\) modulo \(f\). </p>
@@ -593,7 +607,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="dep-modal-container" id="thm:sinceros_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:sinceros" style="display: none">
 <div class="thm_thmheading">
@@ -607,17 +621,17 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L419" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L419">SegmentoIISinCeros.S_ne_zero_179</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L425" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L425">SegmentoIISinCeros.S_ne_zero_227</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L342" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L342">SegmentoIISinCeros.no_zero_of_valid</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L414" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L414">SegmentoIISinCeros.valid179</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L416" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L416">SegmentoIISinCeros.valid227</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L448" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L448">SegmentoIISinCeros.leg_eq_legendreSym</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L525" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L525">SegmentoIISinCeros.S_ne_zero_179_legendreSym</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L533" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L533">SegmentoIISinCeros.S_ne_zero_227_legendreSym</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L489" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L489">SegmentoIISinCeros.chi0_spec</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L541" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L541">SegmentoIISinCeros.S_chi0_ne_zero_179</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L546" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L546">SegmentoIISinCeros.S_chi0_ne_zero_227</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L419" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L419">SegmentoIISinCeros.S_ne_zero_179</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L425" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L425">SegmentoIISinCeros.S_ne_zero_227</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L342" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L342">SegmentoIISinCeros.no_zero_of_valid</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L414" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L414">SegmentoIISinCeros.valid179</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L416" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L416">SegmentoIISinCeros.valid227</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L448" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L448">SegmentoIISinCeros.leg_eq_legendreSym</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L525" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L525">SegmentoIISinCeros.S_ne_zero_179_legendreSym</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L533" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L533">SegmentoIISinCeros.S_ne_zero_227_legendreSym</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L489" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L489">SegmentoIISinCeros.chi0_spec</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L541" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L541">SegmentoIISinCeros.S_chi0_ne_zero_179</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.html#L546" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/NumberTheory/WeightedCharacterSums/NoZeros.lean#L546">SegmentoIISinCeros.S_chi0_ne_zero_227</a></li>
 </ul>
 </div>
 </div>
@@ -640,7 +654,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:diag"	[color=blue,		fillcolor="#A3D6FF",		label=diag,		shape=ellipse,		style=filled];	"cor:orden"	[label=orden,		shape=ellipse];	"thm:diag" -> "cor:orden"	[style=dashed];	"cor:digitos"	[label=digitos,		shape=ellipse];	"thm:diag" -> "cor:digitos"	[style=dashed];	"thm:rango"	[label=rango,		shape=ellipse];	"thm:diag" -> "thm:rango"	[style=dashed];	"prop:dirichlet"	[label=dirichlet,		shape=ellipse];	"thm:diag" -> "prop:dirichlet"	[style=dashed];	"cor:cuantos"	[label=cuantos,		shape=ellipse];	"thm:diag" -> "cor:cuantos"	[style=dashed];	"prop:conrey"	[label=conrey,		shape=ellipse];	"cor:digitos" -> "prop:conrey"	[style=dashed];	"prop:prefijos"	[label=prefijos,		shape=ellipse];	"thm:dicotomia"	[label=dicotomia,		shape=ellipse];	"prop:prefijos" -> "thm:dicotomia"	[style=dashed];	"prop:bloques"	[color=blue,		fillcolor="#A3D6FF",		label=bloques,		shape=ellipse,		style=filled];	"prop:filas"	[color=green,		fillcolor="#1CAC78",		label=filas,		shape=ellipse,		style=filled];	"cor:filas"	[label=filas,		shape=ellipse];	"prop:filas" -> "cor:filas"	[style=dashed];	a0000000038	[color=blue,		label=a0000000038,		shape=ellipse];	"rem:orden"	[label=orden,		shape=ellipse];	"lem:comp"	[color=blue,		fillcolor="#A3D6FF",		label=comp,		shape=ellipse,		style=filled];	"lem:comp" -> "thm:rango"	[style=dashed];	"thm:sinceros"	[color=green,		fillcolor="#1CAC78",		label=sinceros,		shape=ellipse,		style=filled];	"lem:momento"	[color=blue,		fillcolor="#A3D6FF",		label=momento,		shape=ellipse,		style=filled];	"lem:momento" -> "rem:orden"	[style=dashed];	"lem:cola"	[label=cola,		shape=ellipse];	"lem:momento" -> "lem:cola"	[style=dashed];	"thm:A"	[label=A,		shape=ellipse];	"lem:cola" -> "thm:A"	[style=dashed];	"thm:A" -> "prop:prefijos"	[style=dashed];	"thm:A" -> "cor:filas"	[style=dashed];	"lem:intervalos"	[color=blue,		fillcolor="#A3D6FF",		label=intervalos,		shape=ellipse,		style=filled];	"lem:intervalos" -> "lem:cola"	[style=dashed];	"prop:ordenalto"	[color=blue,		fillcolor="#A3D6FF",		label=ordenalto,		shape=ellipse,		style=filled];	"thm:digitos"	[color=green,		fillcolor="#1CAC78",		label=digitos,		shape=ellipse,		style=filled];	"thm:digitos" -> "cor:orden"	[style=dashed];	"thm:digitos" -> "cor:digitos"	[style=dashed];	"thm:digitos" -> "prop:bloques"	[style=dashed];	"thm:digitos" -> "thm:sinceros"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"cor:orden"	[label=orden,		shape=ellipse];	"lem:momento"	[color=blue,		fillcolor="#A3D6FF",		label=momento,		shape=ellipse,		style=filled];	"lem:cola"	[label=cola,		shape=ellipse];	"lem:momento" -> "lem:cola"	[style=dashed];	"rem:orden"	[label=orden,		shape=ellipse];	"lem:momento" -> "rem:orden"	[style=dashed];	"thm:A"	[label=A,		shape=ellipse];	"lem:cola" -> "thm:A"	[style=dashed];	"cor:filas"	[label=filas,		shape=ellipse];	"thm:A" -> "cor:filas"	[style=dashed];	"prop:prefijos"	[label=prefijos,		shape=ellipse];	"thm:A" -> "prop:prefijos"	[style=dashed];	"thm:dicotomia"	[label=dicotomia,		shape=ellipse];	"prop:prefijos" -> "thm:dicotomia"	[style=dashed];	"lem:comp"	[color=blue,		fillcolor="#A3D6FF",		label=comp,		shape=ellipse,		style=filled];	"thm:rango"	[label=rango,		shape=ellipse];	"lem:comp" -> "thm:rango"	[style=dashed];	"prop:conrey"	[label=conrey,		shape=ellipse];	"thm:diag"	[color=blue,		fillcolor="#A3D6FF",		label=diag,		shape=ellipse,		style=filled];	"thm:diag" -> "cor:orden"	[style=dashed];	"thm:diag" -> "thm:rango"	[style=dashed];	"prop:dirichlet"	[label=dirichlet,		shape=ellipse];	"thm:diag" -> "prop:dirichlet"	[style=dashed];	"cor:digitos"	[label=digitos,		shape=ellipse];	"thm:diag" -> "cor:digitos"	[style=dashed];	"cor:cuantos"	[label=cuantos,		shape=ellipse];	"thm:diag" -> "cor:cuantos"	[style=dashed];	"cor:digitos" -> "prop:conrey"	[style=dashed];	"thm:digitos"	[color=green,		fillcolor="#1CAC78",		label=digitos,		shape=ellipse,		style=filled];	"thm:digitos" -> "cor:orden"	[style=dashed];	"thm:digitos" -> "cor:digitos"	[style=dashed];	"prop:bloques"	[color=blue,		fillcolor="#A3D6FF",		label=bloques,		shape=ellipse,		style=filled];	"thm:digitos" -> "prop:bloques"	[style=dashed];	"thm:sinceros"	[color=green,		fillcolor="#1CAC78",		label=sinceros,		shape=ellipse,		style=filled];	"thm:digitos" -> "thm:sinceros"	[style=dashed];	"lem:intervalos"	[color=blue,		fillcolor="#A3D6FF",		label=intervalos,		shape=ellipse,		style=filled];	"lem:intervalos" -> "lem:cola"	[style=dashed];	"prop:ordenalto"	[color=blue,		fillcolor="#A3D6FF",		label=ordenalto,		shape=ellipse,		style=filled];	a0000000040	[color=blue,		label=a0000000040,		shape=ellipse];	"prop:filas"	[color=green,		fillcolor="#1CAC78",		label=filas,		shape=ellipse,		style=filled];	"prop:filas" -> "cor:filas"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -676,253 +690,253 @@ function interactive() {
 }
 
 </script>
-<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="332pt" viewbox="0.00 0.00 1114.00 332.00" width="1114pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="332pt" viewbox="0.00 0.00 1075.00 332.00" width="1075pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 328)">
-<!-- thm:diag -->
-<g class="node" id="node1">
-<title>thm:diag</title>
-<ellipse cx="409.12" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="409.12" xml:space="preserve" y="-300.95">diag</text>
-</g>
 <!-- cor:orden -->
-<g class="node" id="node2">
+<g class="node" id="node1">
 <title>cor:orden</title>
-<ellipse cx="320.12" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="320.12" xml:space="preserve" y="-228.95">orden</text>
-</g>
-<!-- thm:diag&#45;&gt;cor:orden -->
-<g class="edge" id="edge1">
-<title>thm:diag-&gt;cor:orden</title>
-<path d="M391.96,-291.5C379.24,-281.5 361.66,-267.67 347.07,-256.2" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="339.41,-250.17 350.05,-252.82 342.38,-252.51 347.27,-256.36 347.27,-256.36 347.27,-256.36 342.38,-252.51 344.49,-259.89 339.41,-250.17" stroke="black"></polygon>
-</g>
-<!-- cor:digitos -->
-<g class="node" id="node3">
-<title>cor:digitos</title>
-<ellipse cx="234.12" cy="-234" fill="none" rx="36" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="234.12" xml:space="preserve" y="-228.95">digitos</text>
-</g>
-<!-- thm:diag&#45;&gt;cor:digitos -->
-<g class="edge" id="edge2">
-<title>thm:diag-&gt;cor:digitos</title>
-<path d="M385.88,-295.7C356.89,-284.11 306.94,-264.13 272.3,-250.27" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="263.21,-246.64 274.17,-246.17 266.72,-248.04 272.5,-250.35 272.5,-250.35 272.5,-250.35 266.72,-248.04 270.83,-254.53 263.21,-246.64" stroke="black"></polygon>
-</g>
-<!-- thm:rango -->
-<g class="node" id="node4">
-<title>thm:rango</title>
-<ellipse cx="600.12" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="600.12" xml:space="preserve" y="-228.95">rango</text>
-</g>
-<!-- thm:diag&#45;&gt;thm:rango -->
-<g class="edge" id="edge3">
-<title>thm:diag-&gt;thm:rango</title>
-<path d="M433.42,-296.86C463.21,-286.78 515.15,-268.87 559.12,-252 560.85,-251.34 562.61,-250.65 564.4,-249.94" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="573.48,-246.28 565.89,-254.19 569.97,-247.69 564.21,-250.02 564.21,-250.02 564.21,-250.02 569.97,-247.69 562.52,-245.85 573.48,-246.28" stroke="black"></polygon>
-</g>
-<!-- prop:dirichlet -->
-<g class="node" id="node5">
-<title>prop:dirichlet</title>
-<ellipse cx="508.12" cy="-234" fill="none" rx="41.63" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="508.12" xml:space="preserve" y="-228.95">dirichlet</text>
-</g>
-<!-- thm:diag&#45;&gt;prop:dirichlet -->
-<g class="edge" id="edge4">
-<title>thm:diag-&gt;prop:dirichlet</title>
-<path d="M427.27,-292.16C441.4,-282.17 461.32,-268.09 477.85,-256.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="485.64,-250.89 480.07,-260.34 482.55,-253.08 477.47,-256.67 477.47,-256.67 477.47,-256.67 482.55,-253.08 474.87,-252.99 485.64,-250.89" stroke="black"></polygon>
-</g>
-<!-- cor:cuantos -->
-<g class="node" id="node6">
-<title>cor:cuantos</title>
-<ellipse cx="409.12" cy="-234" fill="none" rx="39.07" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="409.12" xml:space="preserve" y="-228.95">cuantos</text>
-</g>
-<!-- thm:diag&#45;&gt;cor:cuantos -->
-<g class="edge" id="edge5">
-<title>thm:diag-&gt;cor:cuantos</title>
-<path d="M409.12,-287.34C409.12,-280.07 409.12,-271.47 409.12,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="409.12,-253.64 413.62,-263.64 409.12,-257.42 409.12,-263.64 409.12,-263.64 409.12,-263.64 409.12,-257.42 404.62,-263.64 409.12,-253.64" stroke="black"></polygon>
-</g>
-<!-- prop:conrey -->
-<g class="node" id="node7">
-<title>prop:conrey</title>
-<ellipse cx="234.12" cy="-162" fill="none" rx="36" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="234.12" xml:space="preserve" y="-156.95">conrey</text>
-</g>
-<!-- cor:digitos&#45;&gt;prop:conrey -->
-<g class="edge" id="edge6">
-<title>cor:digitos-&gt;prop:conrey</title>
-<path d="M234.12,-215.34C234.12,-208.07 234.12,-199.47 234.12,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="234.12,-181.64 238.62,-191.64 234.12,-185.42 234.12,-191.64 234.12,-191.64 234.12,-191.64 234.12,-185.42 229.62,-191.64 234.12,-181.64" stroke="black"></polygon>
-</g>
-<!-- prop:prefijos -->
-<g class="node" id="node8">
-<title>prop:prefijos</title>
-<ellipse cx="797.12" cy="-90" fill="none" rx="39.07" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="797.12" xml:space="preserve" y="-84.95">prefijos</text>
-</g>
-<!-- thm:dicotomia -->
-<g class="node" id="node9">
-<title>thm:dicotomia</title>
-<ellipse cx="797.12" cy="-18" fill="none" rx="48.28" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="797.12" xml:space="preserve" y="-12.95">dicotomia</text>
-</g>
-<!-- prop:prefijos&#45;&gt;thm:dicotomia -->
-<g class="edge" id="edge7">
-<title>prop:prefijos-&gt;thm:dicotomia</title>
-<path d="M797.12,-71.34C797.12,-64.07 797.12,-55.47 797.12,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="797.12,-37.63 801.62,-47.63 797.12,-41.42 797.12,-47.63 797.12,-47.63 797.12,-47.63 797.12,-41.42 792.62,-47.63 797.12,-37.63" stroke="black"></polygon>
-</g>
-<!-- prop:bloques -->
-<g class="node" id="node10">
-<title>prop:bloques</title>
-<ellipse cx="140.12" cy="-234" fill="#a3d6ff" rx="39.58" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="140.12" xml:space="preserve" y="-228.95">bloques</text>
-</g>
-<!-- prop:filas -->
-<g class="node" id="node11">
-<title>prop:filas</title>
-<ellipse cx="713.12" cy="-162" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="713.12" xml:space="preserve" y="-156.95">filas</text>
-</g>
-<!-- cor:filas -->
-<g class="node" id="node12">
-<title>cor:filas</title>
-<ellipse cx="713.12" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="713.12" xml:space="preserve" y="-84.95">filas</text>
-</g>
-<!-- prop:filas&#45;&gt;cor:filas -->
-<g class="edge" id="edge8">
-<title>prop:filas-&gt;cor:filas</title>
-<path d="M713.12,-143.34C713.12,-136.07 713.12,-127.47 713.12,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="713.12,-109.64 717.62,-119.64 713.12,-113.42 713.12,-119.64 713.12,-119.64 713.12,-119.64 713.12,-113.42 708.62,-119.64 713.12,-109.64" stroke="black"></polygon>
-</g>
-<!-- a0000000038 -->
-<g class="node" id="node13">
-<title>a0000000038</title>
-<ellipse cx="935.12" cy="-306" fill="none" rx="61.08" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="935.12" xml:space="preserve" y="-300.95">a0000000038</text>
-</g>
-<!-- rem:orden -->
-<g class="node" id="node14">
-<title>rem:orden</title>
-<ellipse cx="697.12" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="697.12" xml:space="preserve" y="-228.95">orden</text>
-</g>
-<!-- lem:comp -->
-<g class="node" id="node15">
-<title>lem:comp</title>
-<ellipse cx="600.12" cy="-306" fill="#a3d6ff" rx="31.9" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="600.12" xml:space="preserve" y="-300.95">comp</text>
-</g>
-<!-- lem:comp&#45;&gt;thm:rango -->
-<g class="edge" id="edge9">
-<title>lem:comp-&gt;thm:rango</title>
-<path d="M600.12,-287.34C600.12,-280.07 600.12,-271.47 600.12,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="600.12,-253.64 604.62,-263.64 600.12,-257.42 600.12,-263.64 600.12,-263.64 600.12,-263.64 600.12,-257.42 595.62,-263.64 600.12,-253.64" stroke="black"></polygon>
-</g>
-<!-- thm:sinceros -->
-<g class="node" id="node16">
-<title>thm:sinceros</title>
-<ellipse cx="41.12" cy="-234" fill="#1cac78" rx="41.12" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="41.12" xml:space="preserve" y="-228.95">sinceros</text>
+<ellipse cx="401.9" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="401.9" xml:space="preserve" y="-228.95">orden</text>
 </g>
 <!-- lem:momento -->
-<g class="node" id="node17">
+<g class="node" id="node2">
 <title>lem:momento</title>
-<ellipse cx="697.12" cy="-306" fill="#a3d6ff" rx="46.75" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="697.12" xml:space="preserve" y="-300.95">momento</text>
-</g>
-<!-- lem:momento&#45;&gt;rem:orden -->
-<g class="edge" id="edge10">
-<title>lem:momento-&gt;rem:orden</title>
-<path d="M697.12,-287.34C697.12,-280.07 697.12,-271.47 697.12,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="697.12,-253.64 701.62,-263.64 697.12,-257.42 697.12,-263.64 697.12,-263.64 697.12,-263.64 697.12,-257.42 692.62,-263.64 697.12,-253.64" stroke="black"></polygon>
+<ellipse cx="770.9" cy="-306" fill="#a3d6ff" rx="46.75" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="770.9" xml:space="preserve" y="-300.95">momento</text>
 </g>
 <!-- lem:cola -->
-<g class="node" id="node18">
+<g class="node" id="node3">
 <title>lem:cola</title>
-<ellipse cx="791.12" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="791.12" xml:space="preserve" y="-228.95">cola</text>
+<ellipse cx="676.9" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="676.9" xml:space="preserve" y="-228.95">cola</text>
 </g>
 <!-- lem:momento&#45;&gt;lem:cola -->
-<g class="edge" id="edge11">
+<g class="edge" id="edge1">
 <title>lem:momento-&gt;lem:cola</title>
-<path d="M718.45,-289.12C732.17,-278.89 750.11,-265.53 764.73,-254.65" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="772.36,-248.97 767.03,-258.55 769.33,-251.23 764.34,-254.94 764.34,-254.94 764.34,-254.94 769.33,-251.23 761.65,-251.33 772.36,-248.97" stroke="black"></polygon>
+<path d="M749.57,-289.12C735.85,-278.89 717.91,-265.53 703.29,-254.65" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="695.66,-248.97 706.37,-251.33 698.69,-251.23 703.68,-254.94 703.68,-254.94 703.68,-254.94 698.69,-251.23 700.99,-258.55 695.66,-248.97" stroke="black"></polygon>
+</g>
+<!-- rem:orden -->
+<g class="node" id="node4">
+<title>rem:orden</title>
+<ellipse cx="770.9" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="770.9" xml:space="preserve" y="-228.95">orden</text>
+</g>
+<!-- lem:momento&#45;&gt;rem:orden -->
+<g class="edge" id="edge2">
+<title>lem:momento-&gt;rem:orden</title>
+<path d="M770.9,-287.34C770.9,-280.07 770.9,-271.47 770.9,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="770.9,-253.64 775.4,-263.64 770.9,-257.42 770.9,-263.64 770.9,-263.64 770.9,-263.64 770.9,-257.42 766.4,-263.64 770.9,-253.64" stroke="black"></polygon>
 </g>
 <!-- thm:A -->
-<g class="node" id="node19">
+<g class="node" id="node5">
 <title>thm:A</title>
-<ellipse cx="791.12" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="791.12" xml:space="preserve" y="-156.95">A</text>
+<ellipse cx="676.9" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="676.9" xml:space="preserve" y="-156.95">A</text>
 </g>
 <!-- lem:cola&#45;&gt;thm:A -->
-<g class="edge" id="edge12">
+<g class="edge" id="edge3">
 <title>lem:cola-&gt;thm:A</title>
-<path d="M791.12,-215.34C791.12,-208.07 791.12,-199.47 791.12,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="791.12,-181.64 795.62,-191.64 791.12,-185.42 791.12,-191.64 791.12,-191.64 791.12,-191.64 791.12,-185.42 786.62,-191.64 791.12,-181.64" stroke="black"></polygon>
+<path d="M676.9,-215.34C676.9,-208.07 676.9,-199.47 676.9,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="676.9,-181.64 681.4,-191.64 676.9,-185.42 676.9,-191.64 676.9,-191.64 676.9,-191.64 676.9,-185.42 672.4,-191.64 676.9,-181.64" stroke="black"></polygon>
 </g>
-<!-- thm:A&#45;&gt;prop:prefijos -->
-<g class="edge" id="edge13">
-<title>thm:A-&gt;prop:prefijos</title>
-<path d="M792.63,-143.34C793.25,-136.07 793.99,-127.47 794.68,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="795.52,-109.63 799.14,-119.98 795.19,-113.4 794.66,-119.6 794.66,-119.6 794.66,-119.6 795.19,-113.4 790.18,-119.21 795.52,-109.63" stroke="black"></polygon>
+<!-- cor:filas -->
+<g class="node" id="node6">
+<title>cor:filas</title>
+<ellipse cx="598.9" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="598.9" xml:space="preserve" y="-84.95">filas</text>
 </g>
 <!-- thm:A&#45;&gt;cor:filas -->
-<g class="edge" id="edge14">
+<g class="edge" id="edge4">
 <title>thm:A-&gt;cor:filas</title>
-<path d="M775.33,-146.83C764.41,-137.03 749.66,-123.8 737.27,-112.68" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="730.05,-106.19 740.49,-109.53 732.86,-108.72 737.49,-112.88 737.49,-112.88 737.49,-112.88 732.86,-108.72 734.48,-116.22 730.05,-106.19" stroke="black"></polygon>
+<path d="M661.12,-146.83C650.2,-137.03 635.45,-123.8 623.06,-112.68" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="615.84,-106.19 626.28,-109.53 618.65,-108.72 623.28,-112.88 623.28,-112.88 623.28,-112.88 618.65,-108.72 620.27,-116.22 615.84,-106.19" stroke="black"></polygon>
 </g>
-<!-- lem:intervalos -->
-<g class="node" id="node20">
-<title>lem:intervalos</title>
-<ellipse cx="809.12" cy="-306" fill="#a3d6ff" rx="47.26" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="809.12" xml:space="preserve" y="-300.95">intervalos</text>
+<!-- prop:prefijos -->
+<g class="node" id="node7">
+<title>prop:prefijos</title>
+<ellipse cx="682.9" cy="-90" fill="none" rx="39.07" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="682.9" xml:space="preserve" y="-84.95">prefijos</text>
 </g>
-<!-- lem:intervalos&#45;&gt;lem:cola -->
-<g class="edge" id="edge15">
-<title>lem:intervalos-&gt;lem:cola</title>
-<path d="M804.57,-287.34C802.68,-279.98 800.44,-271.27 798.34,-263.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="795.89,-253.6 802.75,-262.16 796.84,-257.26 798.39,-263.28 798.39,-263.28 798.39,-263.28 796.84,-257.26 794.04,-264.41 795.89,-253.6" stroke="black"></polygon>
+<!-- thm:A&#45;&gt;prop:prefijos -->
+<g class="edge" id="edge5">
+<title>thm:A-&gt;prop:prefijos</title>
+<path d="M678.42,-143.34C679.04,-136.07 679.78,-127.47 680.47,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="681.31,-109.63 684.93,-119.98 680.98,-113.4 680.45,-119.6 680.45,-119.6 680.45,-119.6 680.98,-113.4 675.97,-119.21 681.31,-109.63" stroke="black"></polygon>
 </g>
-<!-- prop:ordenalto -->
-<g class="node" id="node21">
-<title>prop:ordenalto</title>
-<ellipse cx="1060.1" cy="-306" fill="#a3d6ff" rx="45.72" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1060.1" xml:space="preserve" y="-300.95">ordenalto</text>
+<!-- thm:dicotomia -->
+<g class="node" id="node8">
+<title>thm:dicotomia</title>
+<ellipse cx="682.9" cy="-18" fill="none" rx="48.28" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="682.9" xml:space="preserve" y="-12.95">dicotomia</text>
+</g>
+<!-- prop:prefijos&#45;&gt;thm:dicotomia -->
+<g class="edge" id="edge6">
+<title>prop:prefijos-&gt;thm:dicotomia</title>
+<path d="M682.9,-71.34C682.9,-64.07 682.9,-55.47 682.9,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="682.9,-37.63 687.4,-47.63 682.9,-41.42 682.9,-47.63 682.9,-47.63 682.9,-47.63 682.9,-41.42 678.4,-47.63 682.9,-37.63" stroke="black"></polygon>
+</g>
+<!-- lem:comp -->
+<g class="node" id="node9">
+<title>lem:comp</title>
+<ellipse cx="31.9" cy="-306" fill="#a3d6ff" rx="31.9" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="31.9" xml:space="preserve" y="-300.95">comp</text>
+</g>
+<!-- thm:rango -->
+<g class="node" id="node10">
+<title>thm:rango</title>
+<ellipse cx="31.9" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="31.9" xml:space="preserve" y="-228.95">rango</text>
+</g>
+<!-- lem:comp&#45;&gt;thm:rango -->
+<g class="edge" id="edge7">
+<title>lem:comp-&gt;thm:rango</title>
+<path d="M31.9,-287.34C31.9,-280.07 31.9,-271.47 31.9,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="31.9,-253.64 36.4,-263.64 31.9,-257.42 31.9,-263.64 31.9,-263.64 31.9,-263.64 31.9,-257.42 27.4,-263.64 31.9,-253.64" stroke="black"></polygon>
+</g>
+<!-- prop:conrey -->
+<g class="node" id="node11">
+<title>prop:conrey</title>
+<ellipse cx="315.9" cy="-162" fill="none" rx="36" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="315.9" xml:space="preserve" y="-156.95">conrey</text>
+</g>
+<!-- thm:diag -->
+<g class="node" id="node12">
+<title>thm:diag</title>
+<ellipse cx="219.9" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="219.9" xml:space="preserve" y="-300.95">diag</text>
+</g>
+<!-- thm:diag&#45;&gt;cor:orden -->
+<g class="edge" id="edge8">
+<title>thm:diag-&gt;cor:orden</title>
+<path d="M243.45,-296.42C271.52,-286.14 319.8,-268.24 360.9,-252 362.63,-251.32 364.39,-250.62 366.17,-249.9" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="375.24,-246.2 367.68,-254.14 371.74,-247.63 365.98,-249.98 365.98,-249.98 365.98,-249.98 371.74,-247.63 364.28,-245.81 375.24,-246.2" stroke="black"></polygon>
+</g>
+<!-- thm:diag&#45;&gt;thm:rango -->
+<g class="edge" id="edge9">
+<title>thm:diag-&gt;thm:rango</title>
+<path d="M195.84,-296.71C166.62,-286.56 115.91,-268.66 72.9,-252 71.17,-251.33 69.41,-250.64 67.63,-249.93" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="58.55,-246.26 69.5,-245.84 62.05,-247.68 67.82,-250.01 67.82,-250.01 67.82,-250.01 62.05,-247.68 66.13,-254.18 58.55,-246.26" stroke="black"></polygon>
+</g>
+<!-- prop:dirichlet -->
+<g class="node" id="node13">
+<title>prop:dirichlet</title>
+<ellipse cx="219.9" cy="-234" fill="none" rx="41.63" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="219.9" xml:space="preserve" y="-228.95">dirichlet</text>
+</g>
+<!-- thm:diag&#45;&gt;prop:dirichlet -->
+<g class="edge" id="edge10">
+<title>thm:diag-&gt;prop:dirichlet</title>
+<path d="M219.9,-287.34C219.9,-280.07 219.9,-271.47 219.9,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="219.9,-253.64 224.4,-263.64 219.9,-257.42 219.9,-263.64 219.9,-263.64 219.9,-263.64 219.9,-257.42 215.4,-263.64 219.9,-253.64" stroke="black"></polygon>
+</g>
+<!-- cor:digitos -->
+<g class="node" id="node14">
+<title>cor:digitos</title>
+<ellipse cx="315.9" cy="-234" fill="none" rx="36" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="315.9" xml:space="preserve" y="-228.95">digitos</text>
+</g>
+<!-- thm:diag&#45;&gt;cor:digitos -->
+<g class="edge" id="edge11">
+<title>thm:diag-&gt;cor:digitos</title>
+<path d="M237.96,-291.83C251.76,-281.77 271.06,-267.69 287.01,-256.07" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="294.96,-250.28 289.53,-259.8 291.9,-252.51 286.87,-256.17 286.87,-256.17 286.87,-256.17 291.9,-252.51 284.22,-252.53 294.96,-250.28" stroke="black"></polygon>
+</g>
+<!-- cor:cuantos -->
+<g class="node" id="node15">
+<title>cor:cuantos</title>
+<ellipse cx="120.9" cy="-234" fill="none" rx="39.07" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="120.9" xml:space="preserve" y="-228.95">cuantos</text>
+</g>
+<!-- thm:diag&#45;&gt;cor:cuantos -->
+<g class="edge" id="edge12">
+<title>thm:diag-&gt;cor:cuantos</title>
+<path d="M201.74,-292.16C187.52,-282.1 167.43,-267.9 150.84,-256.17" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="143.03,-250.64 153.8,-252.75 146.12,-252.83 151.2,-256.42 151.2,-256.42 151.2,-256.42 146.12,-252.83 148.6,-260.09 143.03,-250.64" stroke="black"></polygon>
+</g>
+<!-- cor:digitos&#45;&gt;prop:conrey -->
+<g class="edge" id="edge13">
+<title>cor:digitos-&gt;prop:conrey</title>
+<path d="M315.9,-215.34C315.9,-208.07 315.9,-199.47 315.9,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="315.9,-181.64 320.4,-191.64 315.9,-185.42 315.9,-191.64 315.9,-191.64 315.9,-191.64 315.9,-185.42 311.4,-191.64 315.9,-181.64" stroke="black"></polygon>
 </g>
 <!-- thm:digitos -->
-<g class="node" id="node22">
+<g class="node" id="node16">
 <title>thm:digitos</title>
-<ellipse cx="187.12" cy="-306" fill="#1cac78" rx="36" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="187.12" xml:space="preserve" y="-300.95">digitos</text>
+<ellipse cx="446.9" cy="-306" fill="#1cac78" rx="36" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="446.9" xml:space="preserve" y="-300.95">digitos</text>
 </g>
 <!-- thm:digitos&#45;&gt;cor:orden -->
-<g class="edge" id="edge16">
+<g class="edge" id="edge14">
 <title>thm:digitos-&gt;cor:orden</title>
-<path d="M211.82,-292C233.02,-280.84 263.76,-264.66 287.07,-252.39" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="295.8,-247.8 289.05,-256.44 292.46,-249.56 286.95,-252.45 286.95,-252.45 286.95,-252.45 292.46,-249.56 284.86,-248.47 295.8,-247.8" stroke="black"></polygon>
+<path d="M436.01,-288.05C430.81,-279.97 424.48,-270.12 418.69,-261.11" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="413.36,-252.81 422.55,-258.79 415.4,-256 418.77,-261.23 418.77,-261.23 418.77,-261.23 415.4,-256 414.98,-263.66 413.36,-252.81" stroke="black"></polygon>
 </g>
 <!-- thm:digitos&#45;&gt;cor:digitos -->
-<g class="edge" id="edge17">
+<g class="edge" id="edge15">
 <title>thm:digitos-&gt;cor:digitos</title>
-<path d="M198.49,-288.05C203.98,-279.89 210.67,-269.91 216.78,-260.82" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="222.16,-252.8 220.33,-263.61 220.05,-255.94 216.59,-261.11 216.59,-261.11 216.59,-261.11 220.05,-255.94 212.85,-258.6 222.16,-252.8" stroke="black"></polygon>
+<path d="M422.57,-292C402.07,-281.05 372.53,-265.26 349.73,-253.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="341.18,-248.51 352.12,-249.26 344.52,-250.29 350,-253.22 350,-253.22 350,-253.22 344.52,-250.29 347.88,-257.19 341.18,-248.51" stroke="black"></polygon>
+</g>
+<!-- prop:bloques -->
+<g class="node" id="node17">
+<title>prop:bloques</title>
+<ellipse cx="591.9" cy="-234" fill="#a3d6ff" rx="39.58" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="591.9" xml:space="preserve" y="-228.95">bloques</text>
 </g>
 <!-- thm:digitos&#45;&gt;prop:bloques -->
-<g class="edge" id="edge18">
+<g class="edge" id="edge16">
 <title>thm:digitos-&gt;prop:bloques</title>
-<path d="M175.74,-288.05C170.25,-279.89 163.56,-269.91 157.45,-260.82" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="152.07,-252.8 161.38,-258.6 154.18,-255.94 157.64,-261.11 157.64,-261.11 157.64,-261.11 154.18,-255.94 153.91,-263.61 152.07,-252.8" stroke="black"></polygon>
+<path d="M472.49,-292.65C495.46,-281.56 529.44,-265.16 555.28,-252.68" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="564,-248.47 556.95,-256.87 560.6,-250.11 555,-252.82 555,-252.82 555,-252.82 560.6,-250.11 553.04,-248.76 564,-248.47" stroke="black"></polygon>
+</g>
+<!-- thm:sinceros -->
+<g class="node" id="node18">
+<title>thm:sinceros</title>
+<ellipse cx="492.9" cy="-234" fill="#1cac78" rx="41.12" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="492.9" xml:space="preserve" y="-228.95">sinceros</text>
 </g>
 <!-- thm:digitos&#45;&gt;thm:sinceros -->
-<g class="edge" id="edge19">
+<g class="edge" id="edge17">
 <title>thm:digitos-&gt;thm:sinceros</title>
-<path d="M161.35,-292.65C138.37,-281.63 104.44,-265.36 78.48,-252.91" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="69.71,-248.71 80.67,-248.97 73.12,-250.34 78.73,-253.03 78.73,-253.03 78.73,-253.03 73.12,-250.34 76.78,-257.09 69.71,-248.71" stroke="black"></polygon>
+<path d="M458.04,-288.05C463.35,-279.97 469.82,-270.12 475.74,-261.11" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="481.2,-252.81 479.46,-263.64 479.12,-255.97 475.71,-261.16 475.71,-261.16 475.71,-261.16 479.12,-255.97 471.95,-258.69 481.2,-252.81" stroke="black"></polygon>
+</g>
+<!-- lem:intervalos -->
+<g class="node" id="node19">
+<title>lem:intervalos</title>
+<ellipse cx="658.9" cy="-306" fill="#a3d6ff" rx="47.26" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="658.9" xml:space="preserve" y="-300.95">intervalos</text>
+</g>
+<!-- lem:intervalos&#45;&gt;lem:cola -->
+<g class="edge" id="edge18">
+<title>lem:intervalos-&gt;lem:cola</title>
+<path d="M663.44,-287.34C665.34,-279.98 667.58,-271.27 669.68,-263.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="672.12,-253.6 673.99,-264.41 671.18,-257.26 669.63,-263.29 669.63,-263.29 669.63,-263.29 671.18,-257.26 665.27,-262.16 672.12,-253.6" stroke="black"></polygon>
+</g>
+<!-- prop:ordenalto -->
+<g class="node" id="node20">
+<title>prop:ordenalto</title>
+<ellipse cx="880.9" cy="-306" fill="#a3d6ff" rx="45.72" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="880.9" xml:space="preserve" y="-300.95">ordenalto</text>
+</g>
+<!-- a0000000040 -->
+<g class="node" id="node21">
+<title>a0000000040</title>
+<ellipse cx="1005.9" cy="-306" fill="none" rx="61.08" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1005.9" xml:space="preserve" y="-300.95">a0000000040</text>
+</g>
+<!-- prop:filas -->
+<g class="node" id="node22">
+<title>prop:filas</title>
+<ellipse cx="598.9" cy="-162" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="598.9" xml:space="preserve" y="-156.95">filas</text>
+</g>
+<!-- prop:filas&#45;&gt;cor:filas -->
+<g class="edge" id="edge19">
+<title>prop:filas-&gt;cor:filas</title>
+<path d="M598.9,-143.34C598.9,-136.07 598.9,-127.47 598.9,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="598.9,-109.64 603.4,-119.64 598.9,-113.42 598.9,-119.64 598.9,-119.64 598.9,-119.64 598.9,-113.42 594.4,-119.64 598.9,-109.64" stroke="black"></polygon>
 </g>
 </g>
 </svg>
@@ -940,7 +954,7 @@ function interactive() {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:A": "Theorem 1 — every admissible length", "lem:momento": "Lemma 2 — the second moment", "lem:intervalos": "Lemma 3 — intervals of subset sums", "lem:cola": "Lemma 1, tail — The analytic tail (the inequality in the proof of Theorem~\\ref{thm:A}, range $m\\ge10^8$)", "prop:prefijos": "Proposition 4 — prefixes", "thm:dicotomia": "Theorem 5 — a generic set of probability zero", "thm:digitos": "Theorem 6 — a digit recursion", "thm:diag": "Theorem 7 — the weighted half sum", "cor:digitos": "Corollary 8 — zeros from digits", "prop:bloques": "Proposition 9 — blocks", "cor:orden": "Corollary 10 — every order", "prop:conrey": "Proposition 11 — positivity empties the digit set", "lem:comp": "Lemma 12 — the components", "cor:cuantos": "Corollary 13 — how many components vanish, and which", "thm:rango": "Theorem 14 — the rank on the diagonal; Jager--Lenstra, Girstmair", "prop:dirichlet": "Corollary 15 — Dirichlet's family", "prop:filas": "Proposition 16 — the rows that can be occupied", "cor:filas": "Corollary 17 — the rows", "prop:ordenalto": "Proposition 18 — higher order off the diagonal", "rem:orden": "Remark 19 — the order $2$ is critical", "thm:sinceros": "Theorem N1 (after publication) — No zeros at $q=179$ and $q=227$ (added after publication; not part of the paper)"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:A": "Theorem 1 — every admissible length", "lem:momento": "Lemma 2 — the second moment", "lem:intervalos": "Lemma 3 — intervals of subset sums", "lem:cola": "Lemma 1, tail — The analytic tail (the inequality in the proof of Theorem~\\ref{thm:A}, range $m\\ge10^8$)", "prop:prefijos": "Proposition 4 — prefixes", "thm:dicotomia": "Theorem 5 — a generic set of probability zero", "thm:digitos": "Theorem 6 — a digit recursion", "thm:diag": "Theorem 7 — the weighted half sum", "cor:digitos": "Corollary 8 — zeros from digits", "prop:bloques": "Proposition 9 — blocks", "cor:orden": "Corollary 10 — every order", "prop:conrey": "Proposition 11 — positivity empties the digit set", "lem:comp": "Lemma 12 — the components", "cor:cuantos": "Corollary 13 — how many components vanish, and which", "thm:rango": "Theorem 14 — the rank on the diagonal; Jager--Lenstra, Girstmair", "prop:dirichlet": "Corollary 15 — Dirichlet's family", "prop:filas": "Proposition 16 — the rows that can be occupied", "cor:filas": "Corollary 17 — the rows", "prop:ordenalto": "Proposition 18 — higher order off the diagonal", "rem:orden": "Remark 19 — the order $2$ is critical", "thm:sinceros": "Theorem N1 (after publication) — No zeros at $q=179$ and $q=227$ (added after publication; not part of the paper)"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
@@ -974,25 +988,6 @@ function interactive() {
     var due = null;
     new MutationObserver(function () {
       if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
@@ -1043,6 +1038,25 @@ function interactive() {
     var a=e.target.closest&&e.target.closest('a[data-lean-github]');
     if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
     e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
 </body>

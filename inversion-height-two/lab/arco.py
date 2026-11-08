@@ -222,3 +222,9 @@ def figure_2b(sq, k):
     return {'title': 'Figure 2(b) for k = %d: the scalar λ with U_i(t, t^%d)² = λI — the three curves coincide' % (k, k),
             'xlabel': 't', 'ylabel': 'λ', 'x': ts, 'step': False, 'series': series,
             'figure': 'fig_3_arco_exacto', 'panel': 'b'}
+
+
+def random_arco():
+    """The dice of the lab (lemmario labcheck): a k of the allowed range."""
+    import random
+    return json.dumps({'k': str(random.randint(1, 12))})

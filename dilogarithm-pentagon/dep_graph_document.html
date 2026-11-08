@@ -20,7 +20,11 @@
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><script id="pc-embed">
 (function(){
@@ -56,8 +60,18 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
   border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
 </style></head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
 <header>
 <a class="toc" href="index.html">Home</a>
 <h1 id="doc_title">Dependencies</h1>
@@ -85,10 +99,26 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 </div>
 <div id="graph"></div>
 <div id="statements">
+<div class="dep-modal-container" id="a0000000024_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="a0000000024" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+</div>
+<div class="thm_thmcontent"></div>
+<a class="latex_link" href="index.html#a0000000024">LaTeX</a>
+</div>
+</div>
+</div>
 <div class="dep-modal-container" id="auto:lemma-1_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="auto:lemma-1" style="display: none">
 <div class="thm_thmheading">
@@ -96,16 +126,17 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Lemma
       </span>
 <span class="lemma_thmlabel">1</span><span class="lemma_thmtitle"><span class="ttfamily">Dilog.hasDerivAt_rogersL</span></span></div>
-<div class="thm_thmcontent"><p>  On \((0,1)\), \(\displaystyle \operatorname{L}'(x)=-\tfrac 12\Big(\tfrac {\log (1-x)}{x}+\tfrac {\log x}{1-x}\Big)\). </p>
+<div class="thm_thmcontent"><p>   On \((0,1)\), \(\displaystyle \operatorname{L}'(x)=-\tfrac 12\Big(\tfrac {\log (1-x)}{x}+\tfrac {\log x}{1-x}\Big)\). </p>
 </div>
 <a class="latex_link" href="index.html#auto:lemma-1">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L43" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L43">Lean</a>
 </div>
 </div>
 </div>
 <div class="dep-modal-container" id="auto:lemma-2_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="auto:lemma-2" style="display: none">
 <div class="thm_thmheading">
@@ -113,16 +144,17 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Lemma
       </span>
 <span class="lemma_thmlabel">2</span><span class="lemma_thmtitle"><span class="ttfamily">Dilog.tendsto_rogersL_nhdsGT_zero</span></span></div>
-<div class="thm_thmcontent"><p>  \(\operatorname{L}(t)\to 0\) as \(t\to 0^+\). </p>
+<div class="thm_thmcontent"><p>   \(\operatorname{L}(t)\to 0\) as \(t\to 0^+\). </p>
 </div>
 <a class="latex_link" href="index.html#auto:lemma-2">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L134" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L134">Lean</a>
 </div>
 </div>
 </div>
 <div class="dep-modal-container" id="auto:lemma-3_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="auto:lemma-3" style="display: none">
 <div class="thm_thmheading">
@@ -130,16 +162,144 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Lemma
       </span>
 <span class="lemma_thmlabel">3</span><span class="lemma_thmtitle"><span class="ttfamily">Dilog.continuousAt_rogersL</span></span></div>
-<div class="thm_thmcontent"><p>  \(\operatorname{L}\) is continuous at every \(x\in (0,1)\). </p>
+<div class="thm_thmcontent"><p>   \(\operatorname{L}\) is continuous at every \(x\in (0,1)\). </p>
 </div>
 <a class="latex_link" href="index.html#auto:lemma-3">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L176" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L176">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:1" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">1</span></div>
+<div class="thm_thmcontent">
+<p>The pentagon is now a theorem in the library. Standing on it, six questions worth the next effort—the last one is the one I would keep. </p>
+<ol class="enumerate">
+<li><p><em>Ladders as a generated family.</em> Each row of Table <a href="index.html#tab:instances">1</a> is the five-term relation evaluated at a point; mechanizing the substitution so that every ladder <em>prints</em> from the one theorem would turn a catalogue into a corollary. How much of the classical table of dilogarithm values is a finite orbit of the five-term relation under \(\mathbb {Q}\)-rational substitution—and where does that orbit stop? </p>
+</li>
+<li><p><em>The Bloch–Wigner sequel.</em> The same relation holds for the single-valued Bloch–Wigner function on \(\mathbb {C}\), where it underlies hyperbolic volume and scissors congruence <span class="cite">
+	[
+	<a href="index.html#suslin">8</a>
+	, 
+	<a href="index.html#neumannzagier">9</a>
+	, 
+	<a href="index.html#goncharov">10</a>
+	]
+</span>. </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#q:1">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:2" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">2</span></div>
+<div class="thm_thmcontent"><p>  What is the smallest faithful Lean account of the Bloch group in which \(\mathrm{Vol}\) of a hyperbolic \(3\)-manifold becomes a computable, certified number? <em>The quantum limit.</em> The Faddeev–Kashaev quantum dilogarithm satisfies a pentagon identity <span class="cite">
+	[
+	<a href="index.html#faddeevkashaev">12</a>
+	]
+</span> whose \(\hbar \to 0\) limit is the relation proved here. </p>
+</div>
+<a class="latex_link" href="index.html#q:2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:3" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">3</span></div>
+<div class="thm_thmcontent"><p>  Can a proof assistant make that limit a theorem rather than a heuristic—and would doing so expose, as the classical proof did, a step the physics literature skates over? <em>Universality, formalized.</em> Wojtkowiak and de Jeu reduce <em>every</em> rational functional equation of \({\mathrm{Li}_2}\) to the five-term relation <span class="cite">
+	[
+	<a href="index.html#wojtkowiak">5</a>
+	, 
+	<a href="index.html#dejeu">6</a>
+	]
+</span>. That reduction is an algorithm. </p>
+</div>
+<a class="latex_link" href="index.html#q:3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:4" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">4</span></div>
+<div class="thm_thmcontent"><p>  What would it take to run it inside Lean, so that an arbitrary claimed dilogarithm identity is <em>decided</em> against the generator? <em>What the machine sees and the page hides.</em> Section 3 found one place where the formal proof was strictly sharper than the informal one—an ordered rewrite the pen trusts. </p>
+</div>
+<a class="latex_link" href="index.html#q:4">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:5" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">5</span></div>
+<div class="thm_thmcontent"><p>  In a subject two centuries old and re-proved a dozen times, how many such silent steps remain, and is “the proof a human believes” ever quite the proof a machine will accept? <em>One to keep.</em> The five-term relation says five dilogarithm values, read around a pentagon, sum to nothing new. It is the defining relation of the Bloch group, of cluster mutation, of the quantum dilogarithm—one identity wearing the masks of geometry, algebra, and physics. </p>
+</div>
+<a class="latex_link" href="index.html#q:5">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:6_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:6" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">6</span></div>
+<div class="thm_thmcontent"><p>  Now that it is machine-checked, the question is not whether it is true but why it is <em>everywhere</em>: what is it about a pentagon that so many parts of mathematics are, underneath, the same five steps that return you home? </p>
+</div>
+<a class="latex_link" href="index.html#q:6">LaTeX</a>
 </div>
 </div>
 </div>
 <div class="dep-modal-container" id="thm:five_modal">
 <div class="dep-modal-content">
 <button class="dep-closebtn">
-<svg class="icon icon-cross"><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
 </button>
 <div class="thm" id="thm:five" style="display: none">
 <div class="thm_thmheading">
@@ -147,8 +307,8 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Theorem
       </span>
 <span class="theorem_thmlabel">1</span><span class="theorem_thmtitle"><span class="ttfamily">Dilog.rogersL_fiveterm</span></span></div>
-<div class="thm_thmcontent"><p>   For all \(x,y\in (0,1)\), </p>
-<div class="displaymath" id="a0000000006">
+<div class="thm_thmcontent"><p>    For all \(x,y\in (0,1)\), </p>
+<div class="displaymath" id="a0000000011">
   \[  \operatorname{L}(x)+\operatorname{L}(y)=\operatorname{L}(xy)+\operatorname{L}\! \Big(\tfrac {x(1-y)}{1-xy}\Big) +\operatorname{L}\! \Big(\tfrac {y(1-x)}{1-xy}\Big).  \]
 </div>
 </div>
@@ -156,11 +316,8 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="tooltip">
 <span class="lean_link">Lean</span>
 <ul class="tooltip_list">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L191" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L191">Dilog.rogersL_fiveterm</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L74" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L74">Dilog.fiveterm_hasDerivAt_zero</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L43" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L43">Dilog.hasDerivAt_rogersL</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L134" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L134">Dilog.tendsto_rogersL_nhdsGT_zero</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L176" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L176">Dilog.continuousAt_rogersL</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L191" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L191">Dilog.rogersL_fiveterm</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.html#L74" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Analysis/SpecialFunctions/Dilogarithm/FiveTerm.lean#L74">Dilog.fiveterm_hasDerivAt_zero</a></li>
 </ul>
 </div>
 </div>
@@ -183,7 +340,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"auto:lemma-1"	[color=blue,		label="lemma-1",		shape=ellipse];	"thm:five"	[color=green,		fillcolor="#1CAC78",		label=five,		shape=ellipse,		style=filled];	"auto:lemma-2"	[color=blue,		label="lemma-2",		shape=ellipse];	"auto:lemma-3"	[color=blue,		label="lemma-3",		shape=ellipse];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"q:1"	[color=blue,		label=1,		shape=ellipse];	"q:3"	[color=blue,		label=3,		shape=ellipse];	"q:6"	[color=blue,		label=6,		shape=ellipse];	a0000000024	[color=blue,		label=a0000000024,		shape=ellipse];	"auto:lemma-1"	[color=green,		fillcolor="#1CAC78",		label="lemma-1",		shape=ellipse,		style=filled];	"thm:five"	[color=green,		fillcolor="#1CAC78",		label=five,		shape=ellipse,		style=filled];	"auto:lemma-1" -> "thm:five"	[style=dashed];	"thm:five" -> "q:1"	[style=dashed];	"thm:five" -> "q:3"	[style=dashed];	"thm:five" -> "q:6"	[style=dashed];	"q:2"	[color=blue,		label=2,		shape=ellipse];	"thm:five" -> "q:2"	[style=dashed];	"q:4"	[color=blue,		label=4,		shape=ellipse];	"thm:five" -> "q:4"	[style=dashed];	"q:5"	[color=blue,		label=5,		shape=ellipse];	"thm:five" -> "q:5"	[style=dashed];	"auto:lemma-3"	[color=green,		fillcolor="#1CAC78",		label="lemma-3",		shape=ellipse,		style=filled];	"auto:lemma-3" -> "thm:five"	[style=dashed];	"auto:lemma-2"	[color=green,		fillcolor="#1CAC78",		label="lemma-2",		shape=ellipse,		style=filled];	"auto:lemma-2" -> "thm:five"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -219,31 +376,127 @@ function interactive() {
 }
 
 </script>
-<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="44pt" viewbox="0.00 0.00 384.00 44.00" width="384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 40)">
-<!-- auto:lemma&#45;1 -->
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="188pt" viewbox="0.00 0.00 507.00 188.00" width="507pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 184)">
+<!-- q:1 -->
 <g class="node" id="node1">
+<title>q:1</title>
+<ellipse cx="27" cy="-18" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="27" xml:space="preserve" y="-12.95">1</text>
+</g>
+<!-- q:3 -->
+<g class="node" id="node2">
+<title>q:3</title>
+<ellipse cx="99" cy="-18" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="99" xml:space="preserve" y="-12.95">3</text>
+</g>
+<!-- q:6 -->
+<g class="node" id="node3">
+<title>q:6</title>
+<ellipse cx="171" cy="-18" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="171" xml:space="preserve" y="-12.95">6</text>
+</g>
+<!-- a0000000024 -->
+<g class="node" id="node4">
+<title>a0000000024</title>
+<ellipse cx="438" cy="-162" fill="none" rx="61.08" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="438" xml:space="preserve" y="-156.95">a0000000024</text>
+</g>
+<!-- auto:lemma&#45;1 -->
+<g class="node" id="node5">
 <title>auto:lemma-1</title>
-<ellipse cx="44.7" cy="-18" fill="none" rx="44.7" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="44.7" xml:space="preserve" y="-12.95">lemma-1</text>
+<ellipse cx="100" cy="-162" fill="#1cac78" rx="44.7" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="100" xml:space="preserve" y="-156.95">lemma-1</text>
 </g>
 <!-- thm:five -->
-<g class="node" id="node2">
+<g class="node" id="node6">
 <title>thm:five</title>
-<ellipse cx="134.7" cy="-18" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="134.7" xml:space="preserve" y="-12.95">five</text>
+<ellipse cx="207" cy="-90" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="207" xml:space="preserve" y="-84.95">five</text>
 </g>
-<!-- auto:lemma&#45;2 -->
-<g class="node" id="node3">
-<title>auto:lemma-2</title>
-<ellipse cx="224.7" cy="-18" fill="none" rx="44.7" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="224.7" xml:space="preserve" y="-12.95">lemma-2</text>
+<!-- auto:lemma&#45;1&#45;&gt;thm:five -->
+<g class="edge" id="edge1">
+<title>auto:lemma-1-&gt;thm:five</title>
+<path d="M123.22,-145.81C139.5,-135.16 161.37,-120.85 178.68,-109.53" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="186.74,-104.26 180.84,-113.5 183.58,-106.33 178.37,-109.73 178.37,-109.73 178.37,-109.73 183.58,-106.33 175.91,-105.97 186.74,-104.26" stroke="black"></polygon>
+</g>
+<!-- thm:five&#45;&gt;q:1 -->
+<g class="edge" id="edge2">
+<title>thm:five-&gt;q:1</title>
+<path d="M182.8,-80.83C153.98,-70.93 104.52,-53.4 63,-36 61.53,-35.38 60.02,-34.74 58.51,-34.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="49.67,-30.07 60.64,-30.1 53.12,-31.63 58.78,-34.2 58.78,-34.2 58.78,-34.2 53.12,-31.63 56.92,-38.29 49.67,-30.07" stroke="black"></polygon>
+</g>
+<!-- thm:five&#45;&gt;q:3 -->
+<g class="edge" id="edge3">
+<title>thm:five-&gt;q:3</title>
+<path d="M187.69,-76.48C170.95,-65.64 146.5,-49.79 127.51,-37.48" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="119.16,-32.07 130,-33.73 122.34,-34.12 127.56,-37.51 127.56,-37.51 127.56,-37.51 122.34,-34.12 125.11,-41.28 119.16,-32.07" stroke="black"></polygon>
+</g>
+<!-- thm:five&#45;&gt;q:6 -->
+<g class="edge" id="edge4">
+<title>thm:five-&gt;q:6</title>
+<path d="M198.29,-72.06C194.22,-64.14 189.28,-54.54 184.73,-45.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="180.19,-36.87 188.77,-43.7 181.92,-40.23 184.77,-45.76 184.77,-45.76 184.77,-45.76 181.92,-40.23 180.77,-47.82 180.19,-36.87" stroke="black"></polygon>
+</g>
+<!-- q:2 -->
+<g class="node" id="node7">
+<title>q:2</title>
+<ellipse cx="243" cy="-18" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="243" xml:space="preserve" y="-12.95">2</text>
+</g>
+<!-- thm:five&#45;&gt;q:2 -->
+<g class="edge" id="edge5">
+<title>thm:five-&gt;q:2</title>
+<path d="M215.71,-72.06C219.78,-64.14 224.72,-54.54 229.27,-45.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="233.81,-36.87 233.23,-47.82 232.08,-40.23 229.23,-45.76 229.23,-45.76 229.23,-45.76 232.08,-40.23 225.23,-43.7 233.81,-36.87" stroke="black"></polygon>
+</g>
+<!-- q:4 -->
+<g class="node" id="node8">
+<title>q:4</title>
+<ellipse cx="315" cy="-18" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="315" xml:space="preserve" y="-12.95">4</text>
+</g>
+<!-- thm:five&#45;&gt;q:4 -->
+<g class="edge" id="edge6">
+<title>thm:five-&gt;q:4</title>
+<path d="M226.31,-76.48C243.05,-65.64 267.5,-49.79 286.49,-37.48" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="294.84,-32.07 288.89,-41.28 291.66,-34.12 286.44,-37.51 286.44,-37.51 286.44,-37.51 291.66,-34.12 284,-33.73 294.84,-32.07" stroke="black"></polygon>
+</g>
+<!-- q:5 -->
+<g class="node" id="node9">
+<title>q:5</title>
+<ellipse cx="387" cy="-18" fill="none" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="387" xml:space="preserve" y="-12.95">5</text>
+</g>
+<!-- thm:five&#45;&gt;q:5 -->
+<g class="edge" id="edge7">
+<title>thm:five-&gt;q:5</title>
+<path d="M231.2,-80.83C260.02,-70.93 309.48,-53.4 351,-36 352.47,-35.38 353.98,-34.74 355.49,-34.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="364.33,-30.07 357.08,-38.29 360.89,-31.63 355.22,-34.2 355.22,-34.2 355.22,-34.2 360.89,-31.63 353.36,-30.1 364.33,-30.07" stroke="black"></polygon>
 </g>
 <!-- auto:lemma&#45;3 -->
-<g class="node" id="node4">
+<g class="node" id="node10">
 <title>auto:lemma-3</title>
-<ellipse cx="331.7" cy="-18" fill="none" rx="44.7" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="331.7" xml:space="preserve" y="-12.95">lemma-3</text>
+<ellipse cx="207" cy="-162" fill="#1cac78" rx="44.7" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="207" xml:space="preserve" y="-156.95">lemma-3</text>
+</g>
+<!-- auto:lemma&#45;3&#45;&gt;thm:five -->
+<g class="edge" id="edge8">
+<title>auto:lemma-3-&gt;thm:five</title>
+<path d="M207,-143.34C207,-136.07 207,-127.47 207,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="207,-109.64 211.5,-119.64 207,-113.42 207,-119.64 207,-119.64 207,-119.64 207,-113.42 202.5,-119.64 207,-109.64" stroke="black"></polygon>
+</g>
+<!-- auto:lemma&#45;2 -->
+<g class="node" id="node11">
+<title>auto:lemma-2</title>
+<ellipse cx="314" cy="-162" fill="#1cac78" rx="44.7" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="314" xml:space="preserve" y="-156.95">lemma-2</text>
+</g>
+<!-- auto:lemma&#45;2&#45;&gt;thm:five -->
+<g class="edge" id="edge9">
+<title>auto:lemma-2-&gt;thm:five</title>
+<path d="M290.78,-145.81C274.5,-135.16 252.63,-120.85 235.32,-109.53" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="227.26,-104.26 238.09,-105.97 230.42,-106.33 235.63,-109.73 235.63,-109.73 235.63,-109.73 230.42,-106.33 233.16,-113.5 227.26,-104.26" stroke="black"></polygon>
 </g>
 </g>
 </svg>
@@ -261,7 +514,7 @@ function interactive() {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:five": "Theorem 1 — \\paperlean{Dilog.rogersL\\_fiveterm}", "auto:lemma-1": "Lemma 1 — \\paperlean{Dilog.hasDerivAt\\_rogersL}", "auto:lemma-2": "Lemma 2 — \\paperlean{Dilog.tendsto\\_rogersL\\_nhdsGT\\_zero}", "auto:lemma-3": "Lemma 3 — \\paperlean{Dilog.continuousAt\\_rogersL}"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:five": "Theorem 1 — \\paperlean{Dilog.rogersL\\_fiveterm}", "auto:lemma-1": "Lemma 1 — \\paperlean{Dilog.hasDerivAt\\_rogersL}", "auto:lemma-2": "Lemma 2 — \\paperlean{Dilog.tendsto\\_rogersL\\_nhdsGT\\_zero}", "auto:lemma-3": "Lemma 3 — \\paperlean{Dilog.continuousAt\\_rogersL}", "q:1": "Question 1", "q:2": "Question 2", "q:3": "Question 3", "q:4": "Question 4", "q:5": "Question 5", "q:6": "Question 6"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
@@ -295,25 +548,6 @@ function interactive() {
     var due = null;
     new MutationObserver(function () {
       if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
@@ -364,6 +598,25 @@ function interactive() {
     var a=e.target.closest&&e.target.closest('a[data-lean-github]');
     if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
     e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
 </body>

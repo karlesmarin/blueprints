@@ -30,12 +30,21 @@ def nu(parts, j):
     return sum(1 for p in parts if p is None or p >= j)
 
 
+def _data():
+    """smith_profiles.json: beside the page in the browser (Pyodide's working directory), beside this file locally
+    (8-nov: lemmario labcheck runs from another directory and every throw failed with FileNotFoundError)."""
+    import os
+    if os.path.exists('smith_profiles.json'):
+        return 'smith_profiles.json'
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'smith_profiles.json')
+
+
 def run(params):
     p = json.loads(params)
     key = str(p.get('panel', 'a')).strip().lower().strip('()')
     if key not in PANELS:
         return json.dumps({'error': 'panel must be a, b, c or d (the four panels of Figure 4)'})
-    every = json.load(open('smith_profiles.json', encoding='utf8'))['panels']
+    every = json.load(open(_data(), encoding='utf8'))['panels']
     figs, texts = {}, {}
     for k in sorted(PANELS):
         r = panel(k, every[k])
@@ -85,3 +94,9 @@ def _raw(data, col):
             if tex(name) == col['name'] and role == col['role']:
                 return name
     raise KeyError(col['name'])
+
+
+def random_panel():
+    """The dice of the lab (lemmario labcheck): one of the four panels of Figure 4."""
+    import random
+    return json.dumps({'panel': random.choice(sorted(PANELS))})

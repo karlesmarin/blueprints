@@ -108,6 +108,8 @@
   }
 
   function mount(host, spec) {
+    // the canvas fills its panel up to MAXW (21-oct, Carles: «igual de ancho que el panel», never wider)
+    var MAXW = Number(spec.max_width) || 680;
     var sl = spec.slider, nf = sl ? sl.values.length : 0, frame = sl ? (sl.start !== undefined ? sl.start : nf - 1) : 0;
     host.innerHTML = '<div class="l3"><div class="l3-title">' + esc(spec.title || '') + '</div>' +
       '<canvas aria-label="' + esc(spec.title || '3D figure') + '"></canvas>' +
@@ -155,7 +157,8 @@
     }
 
     function draw() {
-      var w = Math.min(host.clientWidth || 560, 680), h = Math.round(w * 0.72), r = window.devicePixelRatio || 1;
+      // spec.max_width (21-oct, Carles: «haz el 3D más grande»): a figure may ask for more than the default 680 px
+      var w = Math.min(host.clientWidth || 560, MAXW), h = Math.round(w * 0.72), r = window.devicePixelRatio || 1;
       if (w !== width) { width = w; cv.width = w * r; cv.height = h * r; cv.style.width = w + 'px'; cv.style.height = h + 'px'; }
       ctx.setTransform(r, 0, 0, r, 0, 0);
       ctx.clearRect(0, 0, w, h);
@@ -213,7 +216,7 @@
         last = now;
         if (frame < nf - 1) { frame += 1; range.value = frame; showFrame(); } else { playing = false; play.textContent = '▶'; }
       }
-      if (dirty || (host.clientWidth && Math.min(host.clientWidth, 680) !== width)) draw();
+      if (dirty || (host.clientWidth && Math.min(host.clientWidth, MAXW) !== width)) draw();
       requestAnimationFrame(tick);
     }
     showFrame();

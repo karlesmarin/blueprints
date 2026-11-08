@@ -168,3 +168,12 @@ def run(params):
              'the closest word touches it): it shrinks, it never closes.' % (BLOOM, far, CLIP))
     return json.dumps({'text': text, 'table': {'head': ['prefix', 'quaternion', 'norm', 'residue mod 5', 'nonzero'],
                                                'rows': rows}, 'plots': [fig, plot]})
+
+
+def random_word():
+    """The dice of the lab (lemmario labcheck): a random reduced word of length 1 to 12."""
+    import random
+    w = ''
+    for _ in range(random.randint(1, 12)):
+        w += random.choice([ch for ch in UNIT if not (w and ch != w[-1] and ch.lower() == w[-1].lower())])
+    return json.dumps({'word': w})
