@@ -20,7 +20,11 @@
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><script id="pc-embed">
 (function(){
@@ -56,6 +60,13 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
   border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
 </style></head>
 <body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
 <title>cross</title>
@@ -99,9 +110,10 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       Observation
       </span>
 <span class="observation_thmlabel">1</span><span class="observation_thmtitle">finiteness of a cell</span></div>
-<div class="thm_thmcontent"><p>  Fix a cell \((A_4, 8D)\) inside the moment cone, so that \(A_4 \ge A_4^{\rm gauge}\). The seven generators with \(A_4^{(j)} \ge 1\) satisfy \(\sum _j n_j A_4^{(j)} = A_4 - A_4^{\rm gauge}\) with every term non-negative, so \(\sum _j n_j\) is bounded and each of the seven with it; and the multiplicity of \(\mathbf{7}(+,+)\) is then <em>forced</em> by \(8D\), since among the generators left it is the only one that still moves it. The cell is a finite set, enumerated rather than searched. </p>
+<div class="thm_thmcontent"><p>   Fix a cell \((A_4, 8D)\) inside the moment cone, so that \(A_4 \ge A_4^{\rm gauge}\). The seven generators with \(A_4^{(j)} \ge 1\) satisfy \(\sum _j n_j A_4^{(j)} = A_4 - A_4^{\rm gauge}\) with every term non-negative, so \(\sum _j n_j\) is bounded and each of the seven with it; and the multiplicity of \(\mathbf{7}(+,+)\) is then <em>forced</em> by \(8D\), since among the generators left it is the only one that still moves it. The cell is a finite set, enumerated rather than searched. </p>
 </div>
 <a class="latex_link" href="index.html#obs:fin">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7WeightChannels.html#L229" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7WeightChannels.lean#L229">Lean</a>
 </div>
 </div>
 </div>
@@ -119,7 +131,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
 <div class="thm_thmcontent"><p>   Fix \(8D\). Two contents with the same \((1/R_5, m_h)\) have the same \(A_4\), hence the same \(G\), hence the same \((U,V)\). So at fixed \(8D\) the two observables determine four of the five invariants — \(A_4\), \(8D\), \(2U\), \(V\) — and leave only \(W\) free. </p>
 </div>
 <a class="latex_link" href="index.html#prop:four">LaTeX</a>
-<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/TwoThreeIndependence.html#L31" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/TwoThreeIndependence.lean#L31">Lean</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/TwoThreeIndependence.html#L31" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/TwoThreeIndependence.lean#L31">Lean</a>
 </div>
 </div>
 </div>
@@ -135,11 +147,11 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="proposition_thmlabel">1</span><span class="proposition_thmtitle">the \(G\)-window</span></div>
 <div class="thm_thmcontent"><p>   Fix a cell \((A_4, 8D)\) with \(8D {\gt} 0\), and move along the curve (2)(II). Then </p>
-<div class="displaymath" id="a0000000005">
+<div class="displaymath" id="a0000000010">
   \[  \frac{dG}{dx} \; =\;  \frac{A_4}{x} - \frac{12\zeta (3)\, (8D)/8}{x^3} \; =\;  \frac{A_4x^2 - x^2(6\mu + A_4)}{x^3} \; =\;  -\frac{6\mu }{x} \; {\lt}\;  0 ,  \]
 </div>
 <p> so \(G\) is strictly decreasing in \(x\). The admissible \(x\) are themselves an interval, because solving (2)(II) for \(\mu \) gives </p>
-<div class="displaymath" id="a0000000006">
+<div class="displaymath" id="a0000000011">
   \[  \mu (x) \; =\;  \frac{\zeta (3)\, (8D)}{4x^2} - \frac{A_4}{6}, \qquad \text{so}\qquad \frac{d\mu }{dx} \; =\;  -\frac{\zeta (3)\, (8D)}{2x^3} \; {\lt}\;  0 ,  \]
 </div>
 <p> which makes \(\{ x{\gt}0 : \mu (x) \in [\mu _-,\mu _+]\} \) an interval; intersecting it with \([x_-,x_+]\) leaves an interval \([x_{\min }, x_{\max }]\) <em>when that intersection is non-empty</em>. Hence the set of \(G\) a target box admits on this cell is the interval \([\, G(x_{\max }),\, G(x_{\min })\, ]\), and both ends are evaluations. When the intersection is empty the cell admits no \(G\) at all, and the target has no content there — which is a decision and not a failed search, by §4. </p>
@@ -160,7 +172,7 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
       </span>
 <span class="proposition_thmlabel">2</span><span class="proposition_thmtitle">the rung recursion, and it is the classical one</span></div>
 <div class="thm_thmcontent"><p>   Write \(P(T,Q)\) for the number of contents built from the seven generators with \(A_4^{(j)}\ge 1\) alone that reach \((T,Q) = (A_4 - A_4^{\rm gauge},\,  8D - 8D^{\rm gauge})\). Then </p>
-<div class="displaymath" id="a0000000012">
+<div class="displaymath" id="a0000000019">
   \[  N(A_4,\  8D+6) \; =\;  N(A_4,\  8D)\; -\; P(A_4 - A_4^{\rm gauge},\  8D - 8D^{\rm gauge}).  \]
 </div>
 </div>
@@ -314,25 +326,6 @@ function interactive() {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
 <style id="lm-lean-panel-css">
 .lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
 /* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
@@ -378,6 +371,25 @@ function interactive() {
     var a=e.target.closest&&e.target.closest('a[data-lean-github]');
     if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
     e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
 </body>

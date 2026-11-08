@@ -37,7 +37,11 @@ a{color:#1a4f8b}
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><style id="pc-map-css">
 html,body{height:100%}
@@ -55,9 +59,13 @@ nav.pc-toc li.on>a{background:#89aecb}
 .pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
 .pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
 .pc-paneltitle .campo{justify-content:center}
-section.pc-pane[hidden]{display:none !important}
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
 section.pc-pane .mapa{max-width:100%;overflow:auto}
-@media (max-width:900px){nav.pc-toc{display:none}}
+/* phone: the parts of the map as a row of tabs above the panel */
+@media (max-width:900px){.pc-wrap{flex-direction:column}
+  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
+  nav.pc-toc ul{display:flex;white-space:nowrap}
+  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
 </style><script id="pc-embed">
 (function(){
   if (window.self === window.top) return;
@@ -92,6 +100,13 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
   border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
 </style><style id="lm-maphere-css">
 g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
 g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
@@ -108,7 +123,7 @@ body{display:block !important}
   position:static !important;max-height:none !important}
 section.pc-pane,section.pc-pane[hidden]{display:block !important}
 nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
-button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
   display:none !important}
 a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
 .lm-was-summary{font-weight:600;margin:.2em 0 .4em}
@@ -126,106 +141,106 @@ a{text-decoration:none}
 header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
 #pane-deps{break-after:page}
 section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
-section.pc-pane .mapa svg{width:530pt !important;height:284pt !important;max-width:none !important;
+section.pc-pane .mapa svg{width:554pt !important;height:284pt !important;max-width:none !important;
   max-height:none !important;min-width:0 !important}
 </style>
-</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII): blueprint">Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22159037" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22159037</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="su7-certified-gap-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII): blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22159037" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22159037</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="su7-certified-gap-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
 <div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>A Certified 2.68 TeV Gap in the Closed-Form Map of the Compactification Scale in SU(7) Grand Gauge-Higgs Unification, and the Invariant Its Two Observables Cannot See (Part VIII)</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">High-energy physics · grand gauge-Higgs unification</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
 <span class="cifra"><b>4</b> results</span>
 <span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
-<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>2</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>4</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="284pt" viewbox="0.00 0.00 530.00 284.00" width="530pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="284pt" viewbox="0.00 0.00 554.00 284.00" width="554pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 280.41)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M12,0C12,0 138,0 138,0 144,0 150,-6 150,-12 150,-12 150,-121.83 150,-121.83 150,-127.83 144,-133.83 138,-133.83 138,-133.83 12,-133.83 12,-133.83 6,-133.83 0,-127.83 0,-121.83 0,-121.83 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-118.42">The inversion</text>
+<path d="M15,0C15,0 141,0 141,0 147,0 153,-6 153,-12 153,-12 153,-121.83 153,-121.83 153,-127.83 147,-133.83 141,-133.83 141,-133.83 15,-133.83 15,-133.83 9,-133.83 3,-127.83 3,-121.83 3,-121.83 3,-12 3,-12 3,-6 9,0 15,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-118.42">The inversion</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M95,-149.33C95,-149.33 234,-149.33 234,-149.33 240,-149.33 246,-155.33 246,-161.33 246,-161.33 246,-256.91 246,-256.91 246,-262.91 240,-268.91 234,-268.91 234,-268.91 95,-268.91 95,-268.91 89,-268.91 83,-262.91 83,-256.91 83,-256.91 83,-161.33 83,-161.33 83,-155.33 89,-149.33 95,-149.33" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="164.5" xml:space="preserve" y="-253.5">Why “no content” is a decision</text>
+<path d="M12,-148.95C12,-148.95 256,-148.95 256,-148.95 262,-148.95 268,-154.95 268,-160.95 268,-160.95 268,-257.28 268,-257.28 268,-263.28 262,-269.28 256,-269.28 256,-269.28 12,-269.28 12,-269.28 6,-269.28 0,-263.28 0,-257.28 0,-257.28 0,-160.95 0,-160.95 0,-154.95 6,-148.95 12,-148.95" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="134" xml:space="preserve" y="-253.89">Why “no content” is a decision</text>
 </g>
 <g class="cluster" id="clust3">
 <title>cluster_2</title>
-<path d="M171,-4.5C171,-4.5 305,-4.5 305,-4.5 311,-4.5 317,-10.5 317,-16.5 317,-16.5 317,-117.33 317,-117.33 317,-123.33 311,-129.33 305,-129.33 305,-129.33 171,-129.33 171,-129.33 165,-129.33 159,-123.33 159,-117.33 159,-117.33 159,-16.5 159,-16.5 159,-10.5 165,-4.5 171,-4.5" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="238" xml:space="preserve" y="-113.92">How large is a cell</text>
+<path d="M174,-4.5C174,-4.5 308,-4.5 308,-4.5 314,-4.5 320,-10.5 320,-16.5 320,-16.5 320,-117.33 320,-117.33 320,-123.33 314,-129.33 308,-129.33 308,-129.33 174,-129.33 174,-129.33 168,-129.33 162,-123.33 162,-117.33 162,-117.33 162,-16.5 162,-16.5 162,-10.5 168,-4.5 174,-4.5" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="241" xml:space="preserve" y="-113.92">How large is a cell</text>
 </g>
 <g class="cluster" id="clust4">
 <title>cluster_3</title>
-<path d="M266,-141.83C266,-141.83 510,-141.83 510,-141.83 516,-141.83 522,-147.83 522,-153.83 522,-153.83 522,-264.41 522,-264.41 522,-270.41 516,-276.41 510,-276.41 510,-276.41 266,-276.41 266,-276.41 260,-276.41 254,-270.41 254,-264.41 254,-264.41 254,-153.83 254,-153.83 254,-147.83 260,-141.83 266,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-261">The reachable set on the published seed</text>
+<path d="M290,-141.83C290,-141.83 534,-141.83 534,-141.83 540,-141.83 546,-147.83 546,-153.83 546,-153.83 546,-264.41 546,-264.41 546,-270.41 540,-276.41 534,-276.41 534,-276.41 290,-276.41 290,-276.41 284,-276.41 278,-270.41 278,-264.41 278,-264.41 278,-153.83 278,-153.83 278,-147.83 284,-141.83 290,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-261">The reachable set on the published seed</text>
 </g>
 <!-- prop:mono -->
 <g class="node" id="node1">
 <title>prop:mono</title>
 <g id="a_node1"><a target="_top" xlink:href="index.html#prop:mono" xlink:title="Proposition 1: on a cell with 8D &gt; 0, a target box pulls back to one interval of G, with both ends evaluations">
-<path d="M129.68,-103.58C129.68,-103.58 20.32,-103.58 20.32,-103.58 14.32,-103.58 8.32,-97.58 8.32,-91.58 8.32,-91.58 8.32,-20 8.32,-20 8.32,-14 14.32,-8 20.32,-8 20.32,-8 129.68,-8 129.68,-8 135.68,-8 141.68,-14 141.68,-20 141.68,-20 141.68,-91.58 141.68,-91.58 141.68,-97.58 135.68,-103.58 129.68,-103.58" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-87.14">Proposition 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-72.89">on a cell with 8D &gt; 0, a</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-58.64">target box pulls back to</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-44.39">one interval of G, with</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-30.14">both ends evaluations</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-15.89">💻 program</text>
+<path d="M132.68,-103.58C132.68,-103.58 23.32,-103.58 23.32,-103.58 17.32,-103.58 11.32,-97.58 11.32,-91.58 11.32,-91.58 11.32,-20 11.32,-20 11.32,-14 17.32,-8 23.32,-8 23.32,-8 132.68,-8 132.68,-8 138.68,-8 144.68,-14 144.68,-20 144.68,-20 144.68,-91.58 144.68,-91.58 144.68,-97.58 138.68,-103.58 132.68,-103.58" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-87.14">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-72.89">on a cell with 8D &gt; 0, a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-58.64">target box pulls back to</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-44.39">one interval of G, with</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-30.14">both ends evaluations</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="78" xml:space="preserve" y="-15.89">💻 program</text>
 </a>
 </g>
 </g>
 <!-- obs:fin -->
 <g class="node" id="node2">
 <title>obs:fin</title>
-<g id="a_node2"><a target="_top" xlink:href="index.html#obs:fin" xlink:title="Observation 1: a cell (A₄, 8D) is a finite set, because only 7(+,+) has A₄ = 0">
-<path d="M208.43,-238.66C208.43,-238.66 103.57,-238.66 103.57,-238.66 97.57,-238.66 91.57,-232.66 91.57,-226.66 91.57,-226.66 91.57,-169.32 91.57,-169.32 91.57,-163.32 97.57,-157.32 103.57,-157.32 103.57,-157.32 208.43,-157.32 208.43,-157.32 214.43,-157.32 220.43,-163.32 220.43,-169.32 220.43,-169.32 220.43,-226.66 220.43,-226.66 220.43,-232.66 214.43,-238.66 208.43,-238.66" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-222.22">Observation 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-207.97">a cell (A₄, 8D) is a</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-193.72">finite set, because only</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-179.47">7(+,+) has A₄ = 0</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="156" xml:space="preserve" y="-165.22">💻 program</text>
+<g id="a_node2"><a target="_top" xlink:href="index.html#obs:fin" xlink:title="Observation 1: a cell (A₄, 8D) is a finite set, because only 7(+,+) has A₄ = 0. In Lean: added to the Lean repository after publication: the input of the observation, the moments (8D, 2A₄) of the eight bulk generators computed from the weights by decide, of which only 7(+,+) has 2A₄ = 0; the finiteness of a cell itself is not formalized">
+<path d="M248.3,-239.03C248.3,-239.03 19.7,-239.03 19.7,-239.03 13.7,-239.03 7.7,-233.03 7.7,-227.03 7.7,-227.03 7.7,-168.95 7.7,-168.95 7.7,-162.95 13.7,-156.95 19.7,-156.95 19.7,-156.95 248.3,-156.95 248.3,-156.95 254.3,-156.95 260.3,-162.95 260.3,-168.95 260.3,-168.95 260.3,-227.03 260.3,-227.03 260.3,-233.03 254.3,-239.03 248.3,-239.03" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="134" xml:space="preserve" y="-222.59">Observation 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="134" xml:space="preserve" y="-208.34">a cell (A₄, 8D) is a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="134" xml:space="preserve" y="-194.09">finite set, because only</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="134" xml:space="preserve" y="-179.84">7(+,+) has A₄ = 0</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="134" xml:space="preserve" y="-165.59">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
 <!-- obs:fin&#45;&gt;prop:mono -->
 <g class="edge" id="edge1">
 <title>obs:fin-&gt;prop:mono</title>
-<path d="M132.35,-156.07C124.37,-142.24 115.32,-126.58 106.81,-111.84" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="109.06,-110.84 103.44,-106.01 104.82,-113.3 109.06,-110.84" stroke="#9aa8b5"></polygon>
+<path d="M117.5,-155.69C112.11,-142.19 106.03,-126.98 100.29,-112.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="102.57,-111.71 97.7,-106.12 98.02,-113.53 102.57,-111.71" stroke="#9aa8b5"></polygon>
 </g>
 <!-- prop:rec -->
 <g class="node" id="node3">
 <title>prop:rec</title>
 <g id="a_node3"><a target="_top" xlink:href="index.html#prop:rec" xlink:title="Proposition 2: the rung recursion N(A₄, 8D+6) = N(A₄, 8D) − P: the classical restricted-partition recursion">
-<path d="M297.18,-99.08C297.18,-99.08 178.82,-99.08 178.82,-99.08 172.82,-99.08 166.82,-93.08 166.82,-87.08 166.82,-87.08 166.82,-24.5 166.82,-24.5 166.82,-18.5 172.82,-12.5 178.82,-12.5 178.82,-12.5 297.18,-12.5 297.18,-12.5 303.18,-12.5 309.18,-18.5 309.18,-24.5 309.18,-24.5 309.18,-87.08 309.18,-87.08 309.18,-93.08 303.18,-99.08 297.18,-99.08" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-84.06">Proposition 2</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-71.31">the rung recursion N(A₄,</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-58.56">8D+6) = N(A₄, 8D) − P: the</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-45.81">classical restricted-</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-33.06">partition recursion</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="238" xml:space="preserve" y="-20.31">💻 program</text>
+<path d="M300.18,-99.08C300.18,-99.08 181.82,-99.08 181.82,-99.08 175.82,-99.08 169.82,-93.08 169.82,-87.08 169.82,-87.08 169.82,-24.5 169.82,-24.5 169.82,-18.5 175.82,-12.5 181.82,-12.5 181.82,-12.5 300.18,-12.5 300.18,-12.5 306.18,-12.5 312.18,-18.5 312.18,-24.5 312.18,-24.5 312.18,-87.08 312.18,-87.08 312.18,-93.08 306.18,-99.08 300.18,-99.08" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="241" xml:space="preserve" y="-84.06">Proposition 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="241" xml:space="preserve" y="-71.31">the rung recursion N(A₄,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="241" xml:space="preserve" y="-58.56">8D+6) = N(A₄, 8D) − P: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="241" xml:space="preserve" y="-45.81">classical restricted-</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="241" xml:space="preserve" y="-33.06">partition recursion</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="241" xml:space="preserve" y="-20.31">💻 program</text>
 </a>
 </g>
 </g>
 <!-- obs:fin&#45;&gt;prop:rec -->
 <g class="edge" id="edge2">
 <title>obs:fin-&gt;prop:rec</title>
-<path d="M179.94,-156.07C188.96,-140.64 199.32,-122.93 208.76,-106.78" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="210.85,-108.07 212.27,-100.79 206.62,-105.59 210.85,-108.07" stroke="#9aa8b5"></polygon>
+<path d="M165.52,-155.69C177.5,-140 191.25,-121.98 203.7,-105.66" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="205.37,-107.51 207.67,-100.46 201.47,-104.54 205.37,-107.51" stroke="#9aa8b5"></polygon>
 </g>
 <!-- prop:four -->
 <g class="node" id="node4">
 <title>prop:four</title>
 <g id="a_node4"><a target="_top" xlink:href="index.html#prop:four" xlink:title="Proposition 3: on a fixed rung the two observables fix A₄, G and (U, V), and leave only W free. In Lean: added to the Lean repository after publication (21-oct-2026): 2ᵃ 3ᵇ = 1 with integer exponents forces a = b = 0">
-<path d="M502.3,-246.16C502.3,-246.16 273.7,-246.16 273.7,-246.16 267.7,-246.16 261.7,-240.16 261.7,-234.16 261.7,-234.16 261.7,-161.83 261.7,-161.83 261.7,-155.83 267.7,-149.83 273.7,-149.83 273.7,-149.83 502.3,-149.83 502.3,-149.83 508.3,-149.83 514.3,-155.83 514.3,-161.83 514.3,-161.83 514.3,-234.16 514.3,-234.16 514.3,-240.16 508.3,-246.16 502.3,-246.16" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-229.72">Proposition 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-215.47">on a fixed rung the two</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-201.22">observables fix A₄, G and</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-186.97">(U, V), and leave only W</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-172.72">free</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="388" xml:space="preserve" y="-158.47">◐ part in Lean · after publication · 💻 program</text>
+<path d="M526.3,-246.16C526.3,-246.16 297.7,-246.16 297.7,-246.16 291.7,-246.16 285.7,-240.16 285.7,-234.16 285.7,-234.16 285.7,-161.83 285.7,-161.83 285.7,-155.83 291.7,-149.83 297.7,-149.83 297.7,-149.83 526.3,-149.83 526.3,-149.83 532.3,-149.83 538.3,-155.83 538.3,-161.83 538.3,-161.83 538.3,-234.16 538.3,-234.16 538.3,-240.16 532.3,-246.16 526.3,-246.16" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-229.72">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-215.47">on a fixed rung the two</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-201.22">observables fix A₄, G and</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-186.97">(U, V), and leave only W</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-172.72">free</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="412" xml:space="preserve" y="-158.47">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
@@ -254,16 +269,30 @@ by dynamic programming, which reproduces the enumerator’s totals over 69 milli
 <script>
 (function(){
   var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
-  function show(h){
-    var p = document.getElementById('pane-' + h) || panes[0];
-    panes.forEach(function(x){ x.hidden = x !== p; });
+  if (!panes.length || !box) return;
+  function mark(p){
     document.querySelectorAll('nav.pc-toc li').forEach(function(li){
       li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
     });
-    box.scrollTop = 0;
   }
-  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
-  show(location.hash.slice(1));
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
 })();
 </script>
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
@@ -280,7 +309,6 @@ by dynamic programming, which reproduces the enumerator’s totals over 69 milli
     var g = a && (a.closest('g.node') || a.parentNode);
     if (!g) return;
     var pane = g.closest('section.pc-pane');
-    if (pane) document.querySelectorAll('section.pc-pane').forEach(function (p) { p.hidden = p !== pane; });
     g.classList.add('lm-here');
     var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
     var bar = document.getElementById('lm-herebar');

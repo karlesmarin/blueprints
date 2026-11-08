@@ -37,7 +37,11 @@ a{color:#1a4f8b}
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><style id="pc-map-css">
 html,body{height:100%}
@@ -55,9 +59,13 @@ nav.pc-toc li.on>a{background:#89aecb}
 .pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
 .pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
 .pc-paneltitle .campo{justify-content:center}
-section.pc-pane[hidden]{display:none !important}
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
 section.pc-pane .mapa{max-width:100%;overflow:auto}
-@media (max-width:900px){nav.pc-toc{display:none}}
+/* phone: the parts of the map as a row of tabs above the panel */
+@media (max-width:900px){.pc-wrap{flex-direction:column}
+  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
+  nav.pc-toc ul{display:flex;white-space:nowrap}
+  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
 </style><script id="pc-embed">
 (function(){
   if (window.self === window.top) return;
@@ -92,6 +100,13 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
   border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
 </style><style id="lm-maphere-css">
 g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
 g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
@@ -108,7 +123,7 @@ body{display:block !important}
   position:static !important;max-height:none !important}
 section.pc-pane,section.pc-pane[hidden]{display:block !important}
 nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
-button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
   display:none !important}
 a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
 .lm-was-summary{font-weight:600;margin:.2em 0 .4em}
@@ -122,81 +137,138 @@ img{display:inline !important;max-width:100%;break-inside:avoid}
 [class$="_thmwrapper"]{break-inside:avoid-page}
 a{text-decoration:none}
 @page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
-@page graph{size:842pt 652pt;margin:24pt}
+@page graph{size:1427pt 511pt;margin:24pt}
 header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
 #pane-deps{break-after:page}
 section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
-section.pc-pane .mapa svg{width:472pt !important;height:284pt !important;max-width:none !important;
+section.pc-pane .mapa svg{width:1379pt !important;height:143pt !important;max-width:none !important;
   max-height:none !important;min-width:0 !important}
 </style>
-</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI): blueprint">Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22033303" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22033303</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="su7-proton-decay-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI): blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22033303" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22033303</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="su7-proton-decay-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
 <div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">High-energy physics · grand gauge-Higgs unification</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
-<span class="cifra"><b>3</b> results</span>
+<span class="cifra"><b>7</b> results</span>
 <span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
-<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
-<span class="cifra c-prog">💻 <b>3</b> checked by a program</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>2</b> partly in Lean</span>
+<span class="cifra c-prog">💻 <b>4</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="284pt" viewbox="0.00 0.00 472.00 284.00" width="472pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 280.41)">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="143pt" style="min-width:760px" viewbox="0.00 0.00 1379.00 143.00" width="1379pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 138.58)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M48,-141.83C48,-141.83 452,-141.83 452,-141.83 458,-141.83 464,-147.83 464,-153.83 464,-153.83 464,-264.41 464,-264.41 464,-270.41 458,-276.41 452,-276.41 452,-276.41 48,-276.41 48,-276.41 42,-276.41 36,-270.41 36,-264.41 36,-264.41 36,-153.83 36,-153.83 36,-147.83 42,-141.83 48,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-261">A ladder inside their own SU(7)</text>
+<path d="M12,-11.25C12,-11.25 194,-11.25 194,-11.25 200,-11.25 206,-17.25 206,-23.25 206,-23.25 206,-111.33 206,-111.33 206,-117.33 200,-123.33 194,-123.33 194,-123.33 12,-123.33 12,-123.33 6,-123.33 0,-117.33 0,-111.33 0,-111.33 0,-23.25 0,-23.25 0,-17.25 6,-11.25 12,-11.25" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="103" xml:space="preserve" y="-107.92">What is inherited, and what is computed</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M12,0C12,0 211,0 211,0 217,0 223,-6 223,-12 223,-12 223,-121.83 223,-121.83 223,-127.83 217,-133.83 211,-133.83 211,-133.83 12,-133.83 12,-133.83 6,-133.83 0,-127.83 0,-121.83 0,-121.83 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111.5" xml:space="preserve" y="-118.42">The selection rule is a half-line, not a tuning</text>
+<path d="M226,0C226,0 630,0 630,0 636,0 642,-6 642,-12 642,-12 642,-122.58 642,-122.58 642,-128.58 636,-134.58 630,-134.58 630,-134.58 226,-134.58 226,-134.58 220,-134.58 214,-128.58 214,-122.58 214,-122.58 214,-12 214,-12 214,-6 220,0 226,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="428" xml:space="preserve" y="-119.17">A ladder inside their own SU(7)</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M663,0C663,0 1060,0 1060,0 1066,0 1072,-6 1072,-12 1072,-12 1072,-122.58 1072,-122.58 1072,-128.58 1066,-134.58 1060,-134.58 1060,-134.58 663,-134.58 663,-134.58 657,-134.58 651,-128.58 651,-122.58 651,-122.58 651,-12 651,-12 651,-6 657,0 663,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="861.5" xml:space="preserve" y="-119.17">The selection rule is a half-line, not a tuning</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M1093,-4.88C1093,-4.88 1359,-4.88 1359,-4.88 1365,-4.88 1371,-10.88 1371,-16.88 1371,-16.88 1371,-117.7 1371,-117.7 1371,-123.7 1365,-129.7 1359,-129.7 1359,-129.7 1093,-129.7 1093,-129.7 1087,-129.7 1081,-123.7 1081,-117.7 1081,-117.7 1081,-16.88 1081,-16.88 1081,-10.88 1087,-4.88 1093,-4.88" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1226" xml:space="preserve" y="-114.3">The instrument, and where it fails</text>
+</g>
+<!-- auto:observation&#45;1 -->
+<g class="node" id="node1">
+<title>auto:observation-1</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#auto:observation-1" xlink:title="Observation 1: a partial match is more dangerous than none: the nested Cartan fits 11 of 13 constants and is wrong">
+<path d="M155.55,-93.08C155.55,-93.08 48.45,-93.08 48.45,-93.08 42.45,-93.08 36.45,-87.08 36.45,-81.08 36.45,-81.08 36.45,-31.25 36.45,-31.25 36.45,-25.25 42.45,-19.25 48.45,-19.25 48.45,-19.25 155.55,-19.25 155.55,-19.25 161.55,-19.25 167.55,-25.25 167.55,-31.25 167.55,-31.25 167.55,-81.08 167.55,-81.08 167.55,-87.08 161.55,-93.08 155.55,-93.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-78.07">Observation 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-65.32">a partial match is more</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-52.57">dangerous than none: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-39.82">nested Cartan fits 11 of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-27.07">13 constants and is wrong</text>
+</a>
+</g>
 </g>
 <!-- prop:identity -->
-<g class="node" id="node1">
+<g class="node" id="node2">
 <title>prop:identity</title>
-<g id="a_node1"><a target="_top" xlink:href="index.html#prop:identity" xlink:title="Proposition 1: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges">
-<path d="M166.42,-245.78C166.42,-245.78 55.57,-245.78 55.57,-245.78 49.57,-245.78 43.57,-239.78 43.57,-233.78 43.57,-233.78 43.57,-162.2 43.57,-162.2 43.57,-156.2 49.57,-150.2 55.57,-150.2 55.57,-150.2 166.42,-150.2 166.42,-150.2 172.42,-150.2 178.42,-156.2 178.42,-162.2 178.42,-162.2 178.42,-233.78 178.42,-233.78 178.42,-239.78 172.42,-245.78 166.42,-245.78" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-229.34">Proposition 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-215.09">the left-handed SU(2)</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-200.84">anomaly of U(1)′ is half</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-186.59">the sum of the proton-</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-172.34">operator charges</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-158.09">💻 program</text>
+<g id="a_node2"><a target="_top" xlink:href="index.html#prop:identity" xlink:title="Proposition 1: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges">
+<path d="M344.43,-103.96C344.43,-103.96 233.57,-103.96 233.57,-103.96 227.57,-103.96 221.57,-97.96 221.57,-91.96 221.57,-91.96 221.57,-20.38 221.57,-20.38 221.57,-14.38 227.57,-8.38 233.57,-8.38 233.57,-8.38 344.43,-8.38 344.43,-8.38 350.43,-8.38 356.43,-14.38 356.43,-20.38 356.43,-20.38 356.43,-91.96 356.43,-91.96 356.43,-97.96 350.43,-103.96 344.43,-103.96" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-87.52">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-73.27">the left-handed SU(2)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-59.02">anomaly of U(1)′ is half</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-44.77">the sum of the proton-</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-30.52">operator charges</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-16.27">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:real -->
+<g class="node" id="node3">
+<title>prop:real</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#prop:real" xlink:title="Proposition 2: under diagonal ±1 parities a real representation furnishes no chiral generation. In Lean: added to the Lean repository after publication (21-oct-2026): the pairing (i, j̄) ↦ (j, ī) for diagonal ±1 parities, and the counts 18/18, 24/24 with the controls 10 and 34">
+<path d="M622.3,-104.33C622.3,-104.33 393.7,-104.33 393.7,-104.33 387.7,-104.33 381.7,-98.33 381.7,-92.33 381.7,-92.33 381.7,-20 381.7,-20 381.7,-14 387.7,-8 393.7,-8 393.7,-8 622.3,-8 622.3,-8 628.3,-8 634.3,-14 634.3,-20 634.3,-20 634.3,-92.33 634.3,-92.33 634.3,-98.33 628.3,-104.33 622.3,-104.33" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-87.89">Proposition 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-73.64">under diagonal ±1 parities</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-59.39">a real representation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-45.14">furnishes no chiral</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-30.89">generation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-16.64">◐ part in Lean · after publication · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- auto:observation&#45;2 -->
+<g class="node" id="node4">
+<title>auto:observation-2</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#auto:observation-2" xlink:title="Observation 2: their own X_Q = −1/6 forces the permissive reading of what may live at a fixed point">
+<path d="M775.05,-93.08C775.05,-93.08 670.95,-93.08 670.95,-93.08 664.95,-93.08 658.95,-87.08 658.95,-81.08 658.95,-81.08 658.95,-31.25 658.95,-31.25 658.95,-25.25 664.95,-19.25 670.95,-19.25 670.95,-19.25 775.05,-19.25 775.05,-19.25 781.05,-19.25 787.05,-25.25 787.05,-31.25 787.05,-31.25 787.05,-81.08 787.05,-81.08 787.05,-87.08 781.05,-93.08 775.05,-93.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-78.07">Observation 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-65.32">their own X_Q = −1/6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-52.57">forces the permissive</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-39.82">reading of what may live</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-27.07">at a fixed point</text>
 </a>
 </g>
 </g>
 <!-- prop:closed -->
-<g class="node" id="node3">
+<g class="node" id="node5">
 <title>prop:closed</title>
-<g id="a_node3"><a target="_top" xlink:href="index.html#prop:closed" xlink:title="Proposition 3: protection fails iff qφ = |Aⱼ|/n: a set with a maximum, so protection is a half-line">
-<path d="M172.05,-103.58C172.05,-103.58 49.95,-103.58 49.95,-103.58 43.95,-103.58 37.95,-97.58 37.95,-91.58 37.95,-91.58 37.95,-20 37.95,-20 37.95,-14 43.95,-8 49.95,-8 49.95,-8 172.05,-8 172.05,-8 178.05,-8 184.05,-14 184.05,-20 184.05,-20 184.05,-91.58 184.05,-91.58 184.05,-97.58 178.05,-103.58 172.05,-103.58" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-87.14">Proposition 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-72.89">protection fails iff qφ =</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-58.64">|Aⱼ|/n: a set with a</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-44.39">maximum, so protection is</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-30.14">a half-line</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-15.89">💻 program</text>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:closed" xlink:title="Proposition 3: protection fails iff qφ = |Aⱼ|/n: a set with a maximum, so protection is a half-line. In Lean: added to the Lean repository after publication (23-oct-2026): for Aⱼ ≠ 0: protection fails at q iff q = |Aⱼ|/n, n ≥ 1, and the failure set has maximum maxⱼ |Aⱼ|">
+<path d="M1052.3,-104.33C1052.3,-104.33 823.7,-104.33 823.7,-104.33 817.7,-104.33 811.7,-98.33 811.7,-92.33 811.7,-92.33 811.7,-20 811.7,-20 811.7,-14 817.7,-8 823.7,-8 823.7,-8 1052.3,-8 1052.3,-8 1058.3,-8 1064.3,-14 1064.3,-20 1064.3,-20 1064.3,-92.33 1064.3,-92.33 1064.3,-98.33 1058.3,-104.33 1052.3,-104.33" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-87.89">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-73.64">protection fails iff qφ =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-59.39">|Aⱼ|/n: a set with a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-45.14">maximum, so protection is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-30.89">a half-line</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-16.64">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
-<!-- prop:identity&#45;&gt;prop:closed -->
-<g class="edge" id="edge1">
-<title>prop:identity-&gt;prop:closed</title>
-<path d="M111,-149.14C111,-137.41 111,-124.75 111,-112.68" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="113.45,-112.94 111,-105.94 108.55,-112.94 113.45,-112.94" stroke="#9aa8b5"></polygon>
+<!-- obs:looporder -->
+<g class="node" id="node6">
+<title>obs:looporder</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#obs:looporder" xlink:title="Observation 3: the exclusion list is the one-loop list: loop order is a fourth candidate, of the same size">
+<path d="M1202.55,-99.46C1202.55,-99.46 1101.45,-99.46 1101.45,-99.46 1095.45,-99.46 1089.45,-93.46 1089.45,-87.46 1089.45,-87.46 1089.45,-24.88 1089.45,-24.88 1089.45,-18.88 1095.45,-12.88 1101.45,-12.88 1101.45,-12.88 1202.55,-12.88 1202.55,-12.88 1208.55,-12.88 1214.55,-18.88 1214.55,-24.88 1214.55,-24.88 1214.55,-87.46 1214.55,-87.46 1214.55,-93.46 1208.55,-99.46 1202.55,-99.46" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-84.44">Observation 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-71.69">the exclusion list is the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-58.94">one-loop list: loop order</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-46.19">is a fourth candidate, of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-33.44">the same size</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-20.69">💻 program</text>
+</a>
 </g>
-<!-- prop:real -->
-<g class="node" id="node2">
-<title>prop:real</title>
-<g id="a_node2"><a target="_top" xlink:href="index.html#prop:real" xlink:title="Proposition 2: under diagonal ±1 parities a real representation furnishes no chiral generation. In Lean: added to the Lean repository after publication (21-oct-2026): the pairing (i, j̄) ↦ (j, ī) for diagonal ±1 parities, and the counts 18/18, 24/24 with the controls 10 and 34">
-<path d="M444.3,-246.16C444.3,-246.16 215.7,-246.16 215.7,-246.16 209.7,-246.16 203.7,-240.16 203.7,-234.16 203.7,-234.16 203.7,-161.83 203.7,-161.83 203.7,-155.83 209.7,-149.83 215.7,-149.83 215.7,-149.83 444.3,-149.83 444.3,-149.83 450.3,-149.83 456.3,-155.83 456.3,-161.83 456.3,-161.83 456.3,-234.16 456.3,-234.16 456.3,-240.16 450.3,-246.16 444.3,-246.16" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-229.72">Proposition 2</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-215.47">under diagonal ±1 parities</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-201.22">a real representation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-186.97">furnishes no chiral</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-172.72">generation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-158.47">◐ part in Lean · after publication · 💻 program</text>
+</g>
+<!-- auto:observation&#45;4 -->
+<g class="node" id="node7">
+<title>auto:observation-4</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#auto:observation-4" xlink:title="Observation 4: the guard lied first: a control that does not re-run the search measures nothing">
+<path d="M1350.8,-93.08C1350.8,-93.08 1251.2,-93.08 1251.2,-93.08 1245.2,-93.08 1239.2,-87.08 1239.2,-81.08 1239.2,-81.08 1239.2,-31.25 1239.2,-31.25 1239.2,-25.25 1245.2,-19.25 1251.2,-19.25 1251.2,-19.25 1350.8,-19.25 1350.8,-19.25 1356.8,-19.25 1362.8,-25.25 1362.8,-31.25 1362.8,-31.25 1362.8,-81.08 1362.8,-81.08 1362.8,-87.08 1356.8,-93.08 1350.8,-93.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-78.07">Observation 4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-65.32">the guard lied first: a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-52.57">control that does not re-</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-39.82">run the search measures</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-27.07">nothing</text>
 </a>
 </g>
 </g>
@@ -224,16 +296,30 @@ claim); the verdict holds on a wedge of multiplicative repairs, and two-loop saf
 <script>
 (function(){
   var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
-  function show(h){
-    var p = document.getElementById('pane-' + h) || panes[0];
-    panes.forEach(function(x){ x.hidden = x !== p; });
+  if (!panes.length || !box) return;
+  function mark(p){
     document.querySelectorAll('nav.pc-toc li').forEach(function(li){
       li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
     });
-    box.scrollTop = 0;
   }
-  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
-  show(location.hash.slice(1));
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
 })();
 </script>
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
@@ -250,7 +336,6 @@ claim); the verdict holds on a wedge of multiplicative repairs, and two-loop saf
     var g = a && (a.closest('g.node') || a.parentNode);
     if (!g) return;
     var pane = g.closest('section.pc-pane');
-    if (pane) document.querySelectorAll('section.pc-pane').forEach(function (p) { p.hidden = p !== pane; });
     g.classList.add('lm-here');
     var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
     var bar = document.getElementById('lm-herebar');
@@ -269,7 +354,7 @@ claim); the verdict holds on a wedge of multiplicative repairs, and two-loop saf
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:identity": "Proposition 1 — the identity that decides it", "prop:real": "Proposition 2 — a real representation under diagonal $\\pm1$ parities furnishes no chiral\ngeneration", "prop:closed": "Proposition 3 — the rule in closed form"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"auto:observation-1": "Observation 1 — a partial match is more dangerous than none", "prop:identity": "Proposition 1 — the identity that decides it", "prop:real": "Proposition 2 — a real representation under diagonal $\\pm1$ parities furnishes no chiral\ngeneration", "auto:observation-2": "Observation 2 — the permissive reading is theirs, not a licence we take", "prop:closed": "Proposition 3 — the rule in closed form", "obs:looporder": "Observation 3 — the exclusion list above is the one-loop list, and it is not the whole space", "auto:observation-4": "Observation 4 — the guard lied first, and it is recorded"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;

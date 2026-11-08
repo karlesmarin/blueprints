@@ -61,6 +61,20 @@ body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
        margin-left:.5em;vertical-align:middle}
 .theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
 .lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style id="lm-tables-css">
+.lm-table{background:#fff;border:1px solid #d3dbe4;border-left:4px solid #2b6cb0;border-radius:6px;
+  padding:.6em .9em;margin:0 0 1.4em}
+.lm-table>summary{cursor:pointer;line-height:1.5;padding:.15em 0}
+.lm-table>summary::marker{color:#2b6cb0}
+.lm-table[open]>summary{margin-bottom:.5em;border-bottom:1px solid #e3e8ee;padding-bottom:.4em}
+.lm-table .lm-tscroll{overflow-x:auto}
+.lm-table table{border-collapse:collapse;width:auto;min-width:60%;margin:.3em 0;background:#fff}
+.lm-table td,.lm-table th{border:1px solid #d9dee5;padding:.3em .6em;vertical-align:top;font-size:.95em}
+.lm-table tr:first-child td{background:#eef3f8;font-weight:600}
+.lm-table .lm-tmeta{font:13px Helvetica,Arial,sans-serif;color:#444;margin:.5em 0 0;display:flex;flex-wrap:wrap;gap:.5em}
+.lm-table .lm-tmeta a,.lm-table .lm-tmeta span.lm-chip{border:1px solid #c9d3de;border-radius:999px;padding:.1em .7em;
+  text-decoration:none;color:#1f4e79;background:#f5f8fc}
+.lm-table .lm-tev{font-size:.9em;margin:.4em 0 0;padding:.3em .6em;background:#eef7f1;border-left:3px solid #1cac78}
 </style><style>
 .campo-index{justify-content:center}
 .campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
@@ -72,10 +86,14 @@ body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
 #vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
         text-decoration:none;font-weight:600;white-space:nowrap}
 a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd}
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
 a.pdfp:hover{background:#f0e1f6}
 </style><style id="lm-citebar-css">
-.lm-act{margin-left:.4em;white-space:nowrap}
+.lm-act{margin-left:.4em;white-space:nowrap;flex-shrink:0}
 .lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
           padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
 .lm-act a:hover{background:#eef2f6}
@@ -115,7 +133,7 @@ details.ext-lean>summary .more{font-size:12px;opacity:.7}
 details.ext-lean>summary .more::before{content:'▸ '}
 details.ext-lean[open]>summary .more::before{content:'▾ '}
 details.ext-lean[open]>summary{margin-bottom:.3em}
-</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+</style><style id="lm-confianza">p.confianza{font-size:.86em;margin:.2em 0 .6em;padding:.25em .6em;border-left:3px solid var(--lm-trust,#2e7d32);background:rgba(46,125,50,.06)}p.confianza.l-named{--lm-trust:#1565c0;background:rgba(21,101,192,.06)}p.confianza.l-code{--lm-trust:#b26a00;background:rgba(178,106,0,.07)}p.confianza.l-external-checker,p.confianza.l-computation{--lm-trust:#757575;background:rgba(0,0,0,.04)}p.confianza.l-unchecked{--lm-trust:#c62828;background:rgba(198,40,40,.07)}</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
 header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
   font:13px Helvetica,Arial,sans-serif;text-shadow:none}
 header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
@@ -128,9 +146,27 @@ header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;backgrou
   font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
 header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
 header h1#doc_title{flex:1}
+/* the paper's emoji and «Blueprint» on one line (26-oct) */
+header h1#doc_title a{white-space:nowrap}
+header h1#doc_title .pc-emoji{font-size:.95em;margin-right:.2em;display:inline-block;vertical-align:-.18em;
+  /* depth (26-oct, Carles): a tight shadow for the edge and a soft one below, as if it stood off the header */
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 3px 4px rgba(0,0,0,.35))}
 ul.chapter-list{font-size:1.05em;line-height:1.7}
-/* master-detail: the header and the sidebar stay; the right panel shows one part at a time */
-section.pc-pane[hidden]{display:none !important}
+/* the whole paper in the central panel; the sidebar takes the reader to a point (PANES_JS) */
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+/* phone: the sidebar is a drawer under the header, opened and closed with ☰ */
+@media (max-width:1023.98px){
+  body>header{flex-wrap:nowrap !important;align-items:center;height:auto !important;padding:.3rem .4rem}
+  body>header svg#toc-toggle{width:2.1rem;height:2.1rem;flex-shrink:0;cursor:pointer;fill:#fff;color:#fff;
+    padding:.3rem;margin:0 .3rem 0 0;border:1px solid rgba(255,255,255,.8);border-radius:7px;background:rgba(255,255,255,.14)}
+  body>header h1#doc_title{flex:0 0 auto;font-size:1.15rem;margin:0 .2rem !important}
+  /* the options in one row that scrolls sideways, so the header keeps to one line and the paper gets the screen */
+  header nav.pc-opts{flex-wrap:nowrap;overflow-x:auto;margin:0 0 0 .3rem;scrollbar-width:none;flex:1;min-width:0}
+  header nav.pc-opts::-webkit-scrollbar{display:none}
+  header nav.pc-opts>*{flex-shrink:0;white-space:nowrap}
+  nav.toc{position:fixed;left:0;top:var(--pc-head,3.5rem);bottom:0;width:min(86vw,34ch);max-width:none;z-index:90;
+    box-shadow:4px 0 18px rgba(0,0,0,.35)}
+}
 .pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
 .pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
 nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
@@ -159,6 +195,9 @@ body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600
   box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
 #top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
 #top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+/* phone: there is no sidebar to leave room for; the map takes the width of the text (25-oct: it was 126 px) */
+@media (max-width:1023.98px){#top.overview .mapa{width:auto;max-width:100%;left:auto;transform:none}
+  #top.overview .mapa svg{min-width:0}}
 </style><script id="pc-embed">
 (function(){
   if (window.self === window.top) return;
@@ -194,7 +233,7 @@ body{display:block !important}
   position:static !important;max-height:none !important}
 section.pc-pane,section.pc-pane[hidden]{display:block !important}
 nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
-button,.lm-figslot,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
   display:none !important}
 a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
 .lm-was-summary{font-weight:600;margin:.2em 0 .4em}
@@ -229,22 +268,31 @@ a{text-decoration:none}
 </symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
 <title>list-numbered</title>
 <path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
-</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
-<title>mindmap</title>
-<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
 </symbol></defs></svg>
 <header>
 <svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
-<h1 id="doc_title"><a href="index.html" title="Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI): blueprint">Blueprint</a></h1>
+<h1 id="doc_title"><a href="index.html" title="Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI): blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a></h1>
 <nav class="pc-opts"><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22033303" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22033303</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="su7-proton-decay-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
 </header>
 <div class="wrapper">
 <nav class="toc">
 <ul class="sub-toc-0">
 <li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
-<li class=""><a href="#a0000000006"><span class="toc_ref">4</span> <span class="toc_entry">A ladder inside their own \(SU(7)\)</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:identity" title="the identity that decides it"><span class="toc_ref"></span> <span class="toc_entry">Proposition 1</span></a></li><li class=""><a href="#prop:real" title="a real representation under diagonal \(\pm 1\) parities furnishes no chiral generation"><span class="toc_ref"></span> <span class="toc_entry">Proposition 2</span></a></li></ul></li>
-<li class=""><a href="#a0000000012"><span class="toc_ref">6</span> <span class="toc_entry">The selection rule is a half-line, not a tuning</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:closed" title="the rule in closed form"><span class="toc_ref"></span> <span class="toc_entry">Proposition 3</span></a></li></ul></li>
-<li class=""><a href="#a0000000019"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li class=""><a href="#a0000000006"><span class="toc_ref">1</span> <span class="toc_entry">Introduction</span></a></li>
+<li class=""><a href="#a0000000009"><span class="toc_ref">2</span> <span class="toc_entry">What is inherited, and what is computed</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#auto:observation-1" title="a partial match is more dangerous than none"><span class="toc_ref"></span> <span class="toc_entry">Observation 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000010"><span class="toc_ref">3</span> <span class="toc_entry">All six channels, and what they force</span></a></li>
+<li class=""><a href="#a0000000012"><span class="toc_ref">4</span> <span class="toc_entry">A ladder inside their own \(SU(7)\)</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:identity" title="the identity that decides it"><span class="toc_ref"></span> <span class="toc_entry">Proposition 1</span></a></li><li class=""><a href="#prop:real" title="a real representation under diagonal \(\pm 1\) parities furnishes no chiral generation"><span class="toc_ref"></span> <span class="toc_entry">Proposition 2</span></a></li></ul></li>
+<li class=""><a href="#a0000000019"><span class="toc_ref">5</span> <span class="toc_entry">The bill, in eighths</span></a></li>
+<li class=""><a href="#a0000000022"><span class="toc_ref">6</span> <span class="toc_entry">The selection rule is a half-line, not a tuning</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#auto:observation-2" title="the permissive reading is theirs, not a licence we take"><span class="toc_ref"></span> <span class="toc_entry">Observation 2</span></a></li><li class=""><a href="#prop:closed" title="the rule in closed form"><span class="toc_ref"></span> <span class="toc_entry">Proposition 3</span></a></li></ul></li>
+<li class=""><a href="#a0000000025"><span class="toc_ref">7</span> <span class="toc_entry">The instrument, and where it fails</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#obs:looporder" title="the exclusion list above is the one-loop list, and it is not the whole space"><span class="toc_ref"></span> <span class="toc_entry">Observation 3</span></a></li><li class=""><a href="#auto:observation-4" title="the guard lied first, and it is recorded"><span class="toc_ref"></span> <span class="toc_entry">Observation 4</span></a></li></ul></li>
+<li class=""><a href="#a0000000028"><span class="toc_ref">8</span> <span class="toc_entry">Why the discrepancy does not reach the conclusion</span></a></li>
+<li class=""><a href="#a0000000032"><span class="toc_ref">9</span> <span class="toc_entry">Attribution</span></a></li>
+<li class=""><a href="#a0000000034"><span class="toc_ref">10</span> <span class="toc_entry">Verification</span></a></li>
+<li class=""><a href="#a0000000037"><span class="toc_ref">11</span> <span class="toc_entry">Open problems</span></a></li>
+<li class=""><a href="#a0000000040"><span class="toc_ref"></span> <span class="toc_entry">Data availability</span></a></li>
+<li class=""><a href="#a0000000042"><span class="toc_ref"></span> <span class="toc_entry">Acknowledgements</span></a></li>
+<li class=""><a href="#lm-tables"><span class="toc_ref"></span> <span class="toc_entry">📊 Tables</span></a></li>
+<li class=""><a href="#a0000000044"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
 <li><a href="dep_graph_document.html">Dependency graph</a></li>
 </ul>
 </nav>
@@ -275,72 +323,129 @@ q<sub>φ</sub> = 3/2 protects for every half-integer brane-quark charge.</li>
 <li><b>The instrument, audited.</b> Their α<sub>min</sub> column is not reproduced (an open question, not a defect
 claim); the verdict holds on a wedge of multiplicative repairs, and two-loop safety is left open.</li>
 </ul></div><p>🚀 <b>Start here:</b> <a href="index.html#prop:identity"><b>Proposition 1</b></a>: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges.</p><p><b>Main results:</b></p><ul><li><a href="index.html#prop:identity"><b>Proposition 1</b></a>: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges</li><li><a href="index.html#prop:real"><b>Proposition 2</b></a>: under diagonal ±1 parities a real representation furnishes no chiral generation</li><li><a href="index.html#prop:closed"><b>Proposition 3</b></a>: protection fails iff qφ = |Aⱼ|/n: a set with a maximum, so protection is a half-line</li></ul><div class="cifras">
-<span class="cifra"><b>3</b> results</span>
+<span class="cifra"><b>7</b> results</span>
 <span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
-<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
-<span class="cifra c-prog">💻 <b>3</b> checked by a program</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>2</b> partly in Lean</span>
+<span class="cifra c-prog">💻 <b>4</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 472.00 284.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 280.41)">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 1379.00 143.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 138.58)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M48,-141.83C48,-141.83 452,-141.83 452,-141.83 458,-141.83 464,-147.83 464,-153.83 464,-153.83 464,-264.41 464,-264.41 464,-270.41 458,-276.41 452,-276.41 452,-276.41 48,-276.41 48,-276.41 42,-276.41 36,-270.41 36,-264.41 36,-264.41 36,-153.83 36,-153.83 36,-147.83 42,-141.83 48,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-261">A ladder inside their own SU(7)</text>
+<path d="M12,-11.25C12,-11.25 194,-11.25 194,-11.25 200,-11.25 206,-17.25 206,-23.25 206,-23.25 206,-111.33 206,-111.33 206,-117.33 200,-123.33 194,-123.33 194,-123.33 12,-123.33 12,-123.33 6,-123.33 0,-117.33 0,-111.33 0,-111.33 0,-23.25 0,-23.25 0,-17.25 6,-11.25 12,-11.25" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="103" xml:space="preserve" y="-107.92">What is inherited, and what is computed</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M12,0C12,0 211,0 211,0 217,0 223,-6 223,-12 223,-12 223,-121.83 223,-121.83 223,-127.83 217,-133.83 211,-133.83 211,-133.83 12,-133.83 12,-133.83 6,-133.83 0,-127.83 0,-121.83 0,-121.83 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111.5" xml:space="preserve" y="-118.42">The selection rule is a half-line, not a tuning</text>
+<path d="M226,0C226,0 630,0 630,0 636,0 642,-6 642,-12 642,-12 642,-122.58 642,-122.58 642,-128.58 636,-134.58 630,-134.58 630,-134.58 226,-134.58 226,-134.58 220,-134.58 214,-128.58 214,-122.58 214,-122.58 214,-12 214,-12 214,-6 220,0 226,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="428" xml:space="preserve" y="-119.17">A ladder inside their own SU(7)</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M663,0C663,0 1060,0 1060,0 1066,0 1072,-6 1072,-12 1072,-12 1072,-122.58 1072,-122.58 1072,-128.58 1066,-134.58 1060,-134.58 1060,-134.58 663,-134.58 663,-134.58 657,-134.58 651,-128.58 651,-122.58 651,-122.58 651,-12 651,-12 651,-6 657,0 663,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="861.5" xml:space="preserve" y="-119.17">The selection rule is a half-line, not a tuning</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M1093,-4.88C1093,-4.88 1359,-4.88 1359,-4.88 1365,-4.88 1371,-10.88 1371,-16.88 1371,-16.88 1371,-117.7 1371,-117.7 1371,-123.7 1365,-129.7 1359,-129.7 1359,-129.7 1093,-129.7 1093,-129.7 1087,-129.7 1081,-123.7 1081,-117.7 1081,-117.7 1081,-16.88 1081,-16.88 1081,-10.88 1087,-4.88 1093,-4.88" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1226" xml:space="preserve" y="-114.3">The instrument, and where it fails</text>
+</g>
+<!-- auto:observation&#45;1 -->
+<g class="node" id="node1">
+<title>auto:observation-1</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#auto:observation-1" xlink:title="Observation 1: a partial match is more dangerous than none: the nested Cartan fits 11 of 13 constants and is wrong">
+<path d="M155.55,-93.08C155.55,-93.08 48.45,-93.08 48.45,-93.08 42.45,-93.08 36.45,-87.08 36.45,-81.08 36.45,-81.08 36.45,-31.25 36.45,-31.25 36.45,-25.25 42.45,-19.25 48.45,-19.25 48.45,-19.25 155.55,-19.25 155.55,-19.25 161.55,-19.25 167.55,-25.25 167.55,-31.25 167.55,-31.25 167.55,-81.08 167.55,-81.08 167.55,-87.08 161.55,-93.08 155.55,-93.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-78.07">Observation 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-65.32">a partial match is more</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-52.57">dangerous than none: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-39.82">nested Cartan fits 11 of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="102" xml:space="preserve" y="-27.07">13 constants and is wrong</text>
+</a>
+</g>
 </g>
 <!-- prop:identity -->
-<g class="node" id="node1">
+<g class="node" id="node2">
 <title>prop:identity</title>
-<g id="a_node1"><a target="_top" xlink:href="index.html#prop:identity" xlink:title="Proposition 1: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges">
-<path d="M166.42,-245.78C166.42,-245.78 55.57,-245.78 55.57,-245.78 49.57,-245.78 43.57,-239.78 43.57,-233.78 43.57,-233.78 43.57,-162.2 43.57,-162.2 43.57,-156.2 49.57,-150.2 55.57,-150.2 55.57,-150.2 166.42,-150.2 166.42,-150.2 172.42,-150.2 178.42,-156.2 178.42,-162.2 178.42,-162.2 178.42,-233.78 178.42,-233.78 178.42,-239.78 172.42,-245.78 166.42,-245.78" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-229.34">Proposition 1</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-215.09">the left-handed SU(2)</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-200.84">anomaly of U(1)′ is half</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-186.59">the sum of the proton-</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-172.34">operator charges</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-158.09">💻 program</text>
+<g id="a_node2"><a target="_top" xlink:href="index.html#prop:identity" xlink:title="Proposition 1: the left-handed SU(2) anomaly of U(1)′ is half the sum of the proton-operator charges">
+<path d="M344.43,-103.96C344.43,-103.96 233.57,-103.96 233.57,-103.96 227.57,-103.96 221.57,-97.96 221.57,-91.96 221.57,-91.96 221.57,-20.38 221.57,-20.38 221.57,-14.38 227.57,-8.38 233.57,-8.38 233.57,-8.38 344.43,-8.38 344.43,-8.38 350.43,-8.38 356.43,-14.38 356.43,-20.38 356.43,-20.38 356.43,-91.96 356.43,-91.96 356.43,-97.96 350.43,-103.96 344.43,-103.96" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-87.52">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-73.27">the left-handed SU(2)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-59.02">anomaly of U(1)′ is half</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-44.77">the sum of the proton-</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-30.52">operator charges</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="289" xml:space="preserve" y="-16.27">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:real -->
+<g class="node" id="node3">
+<title>prop:real</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#prop:real" xlink:title="Proposition 2: under diagonal ±1 parities a real representation furnishes no chiral generation. In Lean: added to the Lean repository after publication (21-oct-2026): the pairing (i, j̄) ↦ (j, ī) for diagonal ±1 parities, and the counts 18/18, 24/24 with the controls 10 and 34">
+<path d="M622.3,-104.33C622.3,-104.33 393.7,-104.33 393.7,-104.33 387.7,-104.33 381.7,-98.33 381.7,-92.33 381.7,-92.33 381.7,-20 381.7,-20 381.7,-14 387.7,-8 393.7,-8 393.7,-8 622.3,-8 622.3,-8 628.3,-8 634.3,-14 634.3,-20 634.3,-20 634.3,-92.33 634.3,-92.33 634.3,-98.33 628.3,-104.33 622.3,-104.33" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-87.89">Proposition 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-73.64">under diagonal ±1 parities</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-59.39">a real representation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-45.14">furnishes no chiral</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-30.89">generation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="508" xml:space="preserve" y="-16.64">◐ part in Lean · after publication · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- auto:observation&#45;2 -->
+<g class="node" id="node4">
+<title>auto:observation-2</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#auto:observation-2" xlink:title="Observation 2: their own X_Q = −1/6 forces the permissive reading of what may live at a fixed point">
+<path d="M775.05,-93.08C775.05,-93.08 670.95,-93.08 670.95,-93.08 664.95,-93.08 658.95,-87.08 658.95,-81.08 658.95,-81.08 658.95,-31.25 658.95,-31.25 658.95,-25.25 664.95,-19.25 670.95,-19.25 670.95,-19.25 775.05,-19.25 775.05,-19.25 781.05,-19.25 787.05,-25.25 787.05,-31.25 787.05,-31.25 787.05,-81.08 787.05,-81.08 787.05,-87.08 781.05,-93.08 775.05,-93.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-78.07">Observation 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-65.32">their own X_Q = −1/6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-52.57">forces the permissive</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-39.82">reading of what may live</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="723" xml:space="preserve" y="-27.07">at a fixed point</text>
 </a>
 </g>
 </g>
 <!-- prop:closed -->
-<g class="node" id="node3">
+<g class="node" id="node5">
 <title>prop:closed</title>
-<g id="a_node3"><a target="_top" xlink:href="index.html#prop:closed" xlink:title="Proposition 3: protection fails iff qφ = |Aⱼ|/n: a set with a maximum, so protection is a half-line">
-<path d="M172.05,-103.58C172.05,-103.58 49.95,-103.58 49.95,-103.58 43.95,-103.58 37.95,-97.58 37.95,-91.58 37.95,-91.58 37.95,-20 37.95,-20 37.95,-14 43.95,-8 49.95,-8 49.95,-8 172.05,-8 172.05,-8 178.05,-8 184.05,-14 184.05,-20 184.05,-20 184.05,-91.58 184.05,-91.58 184.05,-97.58 178.05,-103.58 172.05,-103.58" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-87.14">Proposition 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-72.89">protection fails iff qφ =</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-58.64">|Aⱼ|/n: a set with a</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-44.39">maximum, so protection is</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-30.14">a half-line</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="111" xml:space="preserve" y="-15.89">💻 program</text>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:closed" xlink:title="Proposition 3: protection fails iff qφ = |Aⱼ|/n: a set with a maximum, so protection is a half-line. In Lean: added to the Lean repository after publication (23-oct-2026): for Aⱼ ≠ 0: protection fails at q iff q = |Aⱼ|/n, n ≥ 1, and the failure set has maximum maxⱼ |Aⱼ|">
+<path d="M1052.3,-104.33C1052.3,-104.33 823.7,-104.33 823.7,-104.33 817.7,-104.33 811.7,-98.33 811.7,-92.33 811.7,-92.33 811.7,-20 811.7,-20 811.7,-14 817.7,-8 823.7,-8 823.7,-8 1052.3,-8 1052.3,-8 1058.3,-8 1064.3,-14 1064.3,-20 1064.3,-20 1064.3,-92.33 1064.3,-92.33 1064.3,-98.33 1058.3,-104.33 1052.3,-104.33" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-87.89">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-73.64">protection fails iff qφ =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-59.39">|Aⱼ|/n: a set with a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-45.14">maximum, so protection is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-30.89">a half-line</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="938" xml:space="preserve" y="-16.64">◐ part in Lean · after publication · 💻 program</text>
 </a>
 </g>
 </g>
-<!-- prop:identity&#45;&gt;prop:closed -->
-<g class="edge" id="edge1">
-<title>prop:identity-&gt;prop:closed</title>
-<path d="M111,-149.14C111,-137.41 111,-124.75 111,-112.68" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="113.45,-112.94 111,-105.94 108.55,-112.94 113.45,-112.94" stroke="#9aa8b5"></polygon>
+<!-- obs:looporder -->
+<g class="node" id="node6">
+<title>obs:looporder</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#obs:looporder" xlink:title="Observation 3: the exclusion list is the one-loop list: loop order is a fourth candidate, of the same size">
+<path d="M1202.55,-99.46C1202.55,-99.46 1101.45,-99.46 1101.45,-99.46 1095.45,-99.46 1089.45,-93.46 1089.45,-87.46 1089.45,-87.46 1089.45,-24.88 1089.45,-24.88 1089.45,-18.88 1095.45,-12.88 1101.45,-12.88 1101.45,-12.88 1202.55,-12.88 1202.55,-12.88 1208.55,-12.88 1214.55,-18.88 1214.55,-24.88 1214.55,-24.88 1214.55,-87.46 1214.55,-87.46 1214.55,-93.46 1208.55,-99.46 1202.55,-99.46" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-84.44">Observation 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-71.69">the exclusion list is the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-58.94">one-loop list: loop order</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-46.19">is a fourth candidate, of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-33.44">the same size</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1152" xml:space="preserve" y="-20.69">💻 program</text>
+</a>
 </g>
-<!-- prop:real -->
-<g class="node" id="node2">
-<title>prop:real</title>
-<g id="a_node2"><a target="_top" xlink:href="index.html#prop:real" xlink:title="Proposition 2: under diagonal ±1 parities a real representation furnishes no chiral generation. In Lean: added to the Lean repository after publication (21-oct-2026): the pairing (i, j̄) ↦ (j, ī) for diagonal ±1 parities, and the counts 18/18, 24/24 with the controls 10 and 34">
-<path d="M444.3,-246.16C444.3,-246.16 215.7,-246.16 215.7,-246.16 209.7,-246.16 203.7,-240.16 203.7,-234.16 203.7,-234.16 203.7,-161.83 203.7,-161.83 203.7,-155.83 209.7,-149.83 215.7,-149.83 215.7,-149.83 444.3,-149.83 444.3,-149.83 450.3,-149.83 456.3,-155.83 456.3,-161.83 456.3,-161.83 456.3,-234.16 456.3,-234.16 456.3,-240.16 450.3,-246.16 444.3,-246.16" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-229.72">Proposition 2</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-215.47">under diagonal ±1 parities</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-201.22">a real representation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-186.97">furnishes no chiral</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-172.72">generation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="330" xml:space="preserve" y="-158.47">◐ part in Lean · after publication · 💻 program</text>
+</g>
+<!-- auto:observation&#45;4 -->
+<g class="node" id="node7">
+<title>auto:observation-4</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#auto:observation-4" xlink:title="Observation 4: the guard lied first: a control that does not re-run the search measures nothing">
+<path d="M1350.8,-93.08C1350.8,-93.08 1251.2,-93.08 1251.2,-93.08 1245.2,-93.08 1239.2,-87.08 1239.2,-81.08 1239.2,-81.08 1239.2,-31.25 1239.2,-31.25 1239.2,-25.25 1245.2,-19.25 1251.2,-19.25 1251.2,-19.25 1350.8,-19.25 1350.8,-19.25 1356.8,-19.25 1362.8,-25.25 1362.8,-31.25 1362.8,-31.25 1362.8,-81.08 1362.8,-81.08 1362.8,-87.08 1356.8,-93.08 1350.8,-93.08" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-78.07">Observation 4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-65.32">the guard lied first: a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-52.57">control that does not re-</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-39.82">run the search measures</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1301" xml:space="preserve" y="-27.07">nothing</text>
 </a>
 </g>
 </g>
@@ -365,7 +470,38 @@ thick border are the main results; click a box to read the statement.</p><div cl
   \[  A=3X_Q+\tfrac 12 .  \]
 </div>
 <p> <em>(§4)</em> \(\mathrm{extra}(L)=\frac{1-k}{2}\) — a ladder spaced by \(1/2\) and indexed by how many index-7 boxes the multiplet carries. <em>(§6)</em> A vacuum expectation value of charge \(q_\varphi \) does not destroy the symmetry: it breaks \(U(1)'\) to a discrete subgroup, and an operator of charge \(A\) can be dressed with \(\langle \varphi \rangle \) insertions only if \(A/q_\varphi \in {\mathbb {Z}}\). </p>
-</details></section><section class="pc-pane"><h1 id="a0000000006">4 A ladder inside their own \(SU(7)\)</h1>
+</details></section><section class="pc-pane"><h1 id="a0000000006">1 Introduction</h1>
+<h4 id="a0000000007">No numbered statement in this section.</h4>
+<p> Its figures and tables are below; its text is in <a href="pdf.html#page=2">the paper, p. 2</a>. </p>
+<details class="blk b-fig"><summary>🖼️ Figure 1</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-1.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
+</div>
+<p> The chain, and it is one chain: every statement in this paper descends from the six anomaly channels evaluated on <span class="cite">
+	[
+	<a href="index.html#KM25">1</a>
+	]
+</span>’s own content. Left, the thread; right, what each link buys and where it is done. Read top-down it is an <em>obstruction</em> (the first three links, which depend on no extension of ours), then a <em>classification of the escapes</em> (the next two, which assume three generations and their inventory), then a <em>benchmark</em> (the next two). The green box selects the row worth computing in full; it does not compute it. The dashed box is not a link but the edge of the chain. </p>
+</details></section><section class="pc-pane"><h1 id="a0000000009">2 What is inherited, and what is computed</h1>
+<div class="observation_thmwrapper theorem-style-definition" id="auto:observation-1">
+<div class="observation_thmheading">
+<span class="observation_thmcaption">
+    Observation
+    </span>
+<span class="observation_thmlabel">1</span>
+<span class="observation_thmtitle">a partial match is more dangerous than none</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#auto:observation-1">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=6&amp;n=auto:observation-1" title="Open the paper at page 6">📕 p. 6</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:observation-1" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Observation 1, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#auto:observation-1." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Observation%201&amp;body=About%20Observation%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Observation%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23auto%3Aobservation-1.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="observation_thmcontent">
+<p>  The obvious Cartan for their generator labels — the nested chain \(SU(2)\subset SU(3)\subset \dots \subset SU(7)\), whose diagonal generators sit at \(3,8,15,24,35,48\), where theirs sit — reproduces <em>eleven of the thirteen</em> constants of their eq. (54) and fails on the three diagonal ones. It reads as “their paper has two errors in the diagonal sector.” It is not: the guess is wrong, refuted by their own eqs. (78) and (79), and it puts \(T^{48}\) — which they state commutes with the Wilson line — on a generator that does not. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper: the guess «reads as “their paper has two errors in the diagonal sector.” It is not: the guess is wrong, refuted by their own eqs. (78) and (79)» (§2).</p><p class="usado">↳ Not used by another result of the paper.</p>
+</section><section class="pc-pane"><h1 id="a0000000010">3 All six channels, and what they force</h1>
+<h4 id="a0000000011">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in <a href="pdf.html#page=7">the paper, p. 7</a>.  </p>
+</section><section class="pc-pane"><h1 id="a0000000012">4 A ladder inside their own \(SU(7)\)</h1>
 <div class="proposition_thmwrapper theorem-style-plain" id="prop:identity">
 <div class="proposition_thmheading">
 <span class="proposition_thmcaption">
@@ -381,18 +517,13 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <a class="pdfp" href="pdf.html#page=9&amp;n=prop:identity" title="Open the paper at page 9">📕 p. 9</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:identity" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Proposition 1, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#prop:identity." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Proposition%201&amp;body=About%20Proposition%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Proposition%201%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23prop%3Aidentity.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="proposition_thmcontent">
 <p>  For \(N\) generations with proton-operator charges \(A_j=3a_j+l_j\), </p>
-<div class="displaymath" id="a0000000007">
+<div class="displaymath" id="a0000000013">
   \[  [SU(2)_L]^2\, U(1)'=\tfrac 12\sum _j A_j\qquad \text{exactly}.  \]
 </div>
 </div>
-</div><p class="novedad">🆕 <b>Classical and new:</b> the paper lists it among what is ours (§9); at N = 1 it is the entry 3X_Q/2 + 1/4 = A/2 of the anomaly table; the family-dependent cure it mirrors is Lee–Ma [FamilyU1].</p><p class="usado">↳ Used in: <a href="#prop:closed">Proposition 3</a></p>
-<details class="blk b-fig"><summary>🖼️ Figure 1</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-1.png}" src="images/img-0001.png" style="width:100%;max-width:100%"/>
-</div>
-<p> The chain, and it is one chain: every statement in this paper descends from the six anomaly channels evaluated on <span class="cite">
-	[
-	<a href="index.html#KM25">1</a>
-	]
-</span>’s own content. Left, the thread; right, what each link buys and where it is done. Read top-down it is an <em>obstruction</em> (the first three links, which depend on no extension of ours), then a <em>classification of the escapes</em> (the next two, which assume three generations and their inventory), then a <em>benchmark</em> (the next two). The green box selects the row worth computing in full; it does not compute it. The dashed box is not a link but the edge of the chain. </p>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper lists it among what is ours (§9); at N = 1 it is the entry 3X_Q/2 + 1/4 = A/2 of the anomaly table; the family-dependent cure it mirrors is Lee–Ma [FamilyU1].</p><p class="usado">↳ Not used by another result of the paper.</p>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> 1. Give each of \(N\) generations a proton-operator charge \(A_j=3a_j+l_j\) under the leftover \(U(1)'\). Then the mixed anomaly \([SU(2)_L]^2\, U(1)'\) is exactly half of \(\sum _jA_j\). 2. Why it matters: anomaly cancellation asks for \(\sum _jA_j=0\), and proton protection asks for \(A_j\ne 0\) for every \(j\). With one generation these are the same equation, so the published one-generation model cannot have both: that is the obstruction of §3, where the \(SU(2)_L\) channel is \(\tfrac 32X_Q+\tfrac 14=A/2\). With three generations a sum can vanish with no term vanishing, so a family-dependent charge escapes, and inside \(SU(7)\) the lepton charges come from the ladder \(\mathrm{extra}(L)=(1-k)/2\). 3. The paper obtains the identity by summing the anomaly state by state over the generations. The family-dependent cure itself is Lee and Ma’s; what the paper claims is the identity and the ladder inside this model. Imposing all six channels leaves 14 assignments, of which exactly two fit inside the model’s own tensors, and both need a singlet of charge \(-1\). </p>
 </details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> the ladder extra(L) = (1−k)/2, the identity summed state by state over N generations, the 14 anomaly-free assignments. <span class="ttfamily">scripts/su7_family_u1.py</span> </p>
@@ -413,7 +544,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </div>
 <div class="thm_header_hidden_extras">
 <a class="icon proof" href="index.html#prop:real">#</a>
-<a class="icon proof" href="index.html#a0000000010"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+<a class="icon proof" href="index.html#a0000000016"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
 </a>
 <button class="modal lean">L∃∀N</button>
 <div class="modal-container">
@@ -424,12 +555,12 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L105" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L105">GaugeHiggsUnification.SU7RealPairing.adjoint_vectorLike</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L189" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L189">GaugeHiggsUnification.SU7RealPairing.adjoint_unpaired_eq_zero</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L183">GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pp</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L185" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L185">GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pm</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L212" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L212">GaugeHiggsUnification.SU7RealPairing.sym2_unpaired</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L218" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L218">GaugeHiggsUnification.SU7RealPairing.sym3_unpaired</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L105" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L105">GaugeHiggsUnification.SU7RealPairing.adjoint_vectorLike</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L189" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L189">GaugeHiggsUnification.SU7RealPairing.adjoint_unpaired_eq_zero</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L183">GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pp</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L185" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L185">GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pm</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L212" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L212">GaugeHiggsUnification.SU7RealPairing.sym2_unpaired</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L218" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L218">GaugeHiggsUnification.SU7RealPairing.sym3_unpaired</a></li>
 </ul>
 </div>
 </div>
@@ -437,9 +568,9 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <a class="pdfp" href="pdf.html#page=10&amp;n=prop:real" title="Open the paper at page 10">📕 p. 10</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:real" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Proposition 2, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#prop:real." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Proposition%202&amp;body=About%20Proposition%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Proposition%202%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23prop%3Areal.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
 <div class="proposition_thmcontent">
 <p>   Let the orbifold parities \(P_5,P_5'\) act diagonally on the indices of the fundamental, so that a component of a bulk multiplet survives in the multiplet of parities \((\eta ,\eta ')\) iff \(P_5P_5'=\eta \eta '\) and then carries \(4\)D chirality \(-\eta \, P_5\) (their eqs. (37)–(40)). Then for a <em>real</em> representation the surviving spectrum is vector-like, with no chiral state at either choice of \((\eta ,\eta ')\). </p>
-</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (21-oct-2026): the pairing (i, j̄) ↦ (j, ī) for diagonal ±1 parities, and the counts 18/18, 24/24 with the controls 10 and 34</p><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L105" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L105"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_vectorLike</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L189" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L189"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_unpaired_eq_zero</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L183"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pp</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L185" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L185"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pm</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L212" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L212"><code>GaugeHiggsUnification.SU7RealPairing.sym2_unpaired</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L218" data-lean-github="https://github.com/karlesmarin/formalizations/blob/6469d92e49e756b089e4c9b6fa85ce4f84e9c3f6/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L218"><code>GaugeHiggsUnification.SU7RealPairing.sym3_unpaired</code></a></li></ul></details>
-</div><p class="lean-check">✅ Checked when this page was built: SU7RealPairing.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — adjoint_vectorLike: propext, Classical.choice; adjoint_unpaired_eq_zero, adjoint_survivors_pp, adjoint_survivors_pm, sym2_unpaired, sym3_unpaired: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean SU7RealPairing.lean</code> (SHA-256 of the compiled file: <code>179d657feb7879fa…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="novedad">🆕 <b>Classical and new:</b> not claimed as new: that adjoint matter is vector-like is stated as well known by Gogoladze–Mimura–Nandi [GMN], who cure it with a Z₃ projection; the paper claims the specialisation to the ±1 diagonal parities, the counts and the chiral controls (§9).</p><p class="usado">↳ Not used by another result of the paper.</p>
-<div class="proof_wrapper" id="a0000000010">
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (21-oct-2026): the pairing (i, j̄) ↦ (j, ī) for diagonal ±1 parities, and the counts 18/18, 24/24 with the controls 10 and 34</p><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L105" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L105"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_vectorLike</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L189" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L189"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_unpaired_eq_zero</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L183"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pp</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L185" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L185"><code>GaugeHiggsUnification.SU7RealPairing.adjoint_survivors_pm</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L212" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L212"><code>GaugeHiggsUnification.SU7RealPairing.sym2_unpaired</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.html#L218" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7RealPairing.lean#L218"><code>GaugeHiggsUnification.SU7RealPairing.sym3_unpaired</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: SU7RealPairing.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — adjoint_vectorLike: propext, Classical.choice; adjoint_unpaired_eq_zero, adjoint_survivors_pp, adjoint_survivors_pm, sym2_unpaired, sym3_unpaired: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean SU7RealPairing.lean</code> (SHA-256 of the compiled file: <code>179d657feb7879fa…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only — <b>only part of the statement is formal</b> (see the box). <span class="detail">Lean: 6 results, standard axioms only</span></p><p class="novedad">🆕 <b>Classical and new:</b> not claimed as new: that adjoint matter is vector-like is stated as well known by Gogoladze–Mimura–Nandi [GMN], who cure it with a Z₃ projection; the paper claims the specialisation to the ±1 diagonal parities, the counts and the chiral controls (§9).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proof_wrapper" id="a0000000016">
 <div class="proof_heading">
 <span class="proof_caption">
     Proof
@@ -454,45 +585,18 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </span>. Their eqs. (37)–(40) are \({\mathbb {Z}}_2\), so that escape is closed in their model and not in general. <span class="qed">□</span></p>
 </div>
 </div>
-<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> 1. When the orbifold parities are diagonal with entries \(\pm 1\), a bulk multiplet in a real representation, such as the adjoint \(\mathbf{48}\), leaves only vector-like zero modes: no chiral state, whatever parities \((\eta ,\eta ')\) it carries. So the \(\mathbf{48}\) cannot host a lepton generation. 2. Why: the conjugate of the adjoint component \((i,\bar\jmath )\) is \((j,\bar\imath )\), in the same multiplet; with diagonal parities both components have the same parity products, so they survive together and with the same chirality, and the pair can be given a Dirac mass. Counted on the model’s content: \(18\) of \(18\) surviving states paired in \(\mathbf{48}^{(+,+)}\), \(24\) of \(24\) in \(\mathbf{48}^{(+,-)}\); the control, the \(\mathbf{28}\) and the \(\mathbf{84}\), leaves \(10\) and \(34\) unpaired. 3. Not new as a mechanism, as the paper says: that adjoint matter is vector-like is stated as well known by Gogoladze, Mimura and Nandi, who cure it with a \(\mathbb Z_3\) projection, unavailable with \(\pm 1\) parities. What matters here is the price: a \(\mathbf{48}^{(+,+)}\) costs exactly \(D=0\), so had it been able to host the escape, case (3) would have paid nothing and the selection of case (2) would fail. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
 <ul class="itemize">
 <li><p><b class="bfseries">Program:</b> the 48 at both parities: 18 of 18 and 24 of 24 surviving states paired with their conjugates; control: the 28 and the 84 leave 10 and 34 unpaired. <span class="ttfamily">scripts/su7_adjoint_is_vectorlike.py</span> </p>
 </li>
 <li><p><b class="bfseries">Program:</b> the adversarial run that made the proposition necessary: the brane escape priced, every other gate open. <span class="ttfamily">scripts/su7_brane_partner.py</span> </p>
 </li>
 </ul>
-</details></section><section class="pc-pane"><h1 id="a0000000012">6 The selection rule is a half-line, not a tuning</h1>
-<div class="proposition_thmwrapper theorem-style-plain" id="prop:closed">
-<div class="proposition_thmheading">
-<span class="proposition_thmcaption">
-    Proposition
-    </span>
-<span class="proposition_thmlabel">3</span>
-<span class="proposition_thmtitle">the rule in closed form</span>
-<div class="thm_header_extras">
-</div>
-<div class="thm_header_hidden_extras">
-<a class="icon proof" href="index.html#prop:closed">#</a>
-<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
-</button>
-<div class="modal-container">
-<div class="modal-content">
-<header>
-<h1>Uses</h1>
-<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
-</button>
-</header>
-<ul class="uses">
-<li><a href="index.html#prop:identity">Proposition 1</a></li>
-</ul>
-</div>
-</div>
-</div>
-<a class="pdfp" href="pdf.html#page=14&amp;n=prop:closed" title="Open the paper at page 14">📕 p. 14</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:closed" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Proposition 3, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#prop:closed." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Proposition%203&amp;body=About%20Proposition%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Proposition%203%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23prop%3Aclosed.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
-<div class="proposition_thmcontent">
-<p>   Protection fails at \(q_\varphi \) iff \(q_\varphi =|A_j|/n\) for some generation \(j\) and some integer \(n\ge 1\). That set is countable and has a <em>maximum</em>, so protection is a half-line. </p>
-</div>
-</div><p class="novedad">🆕 <b>Classical and new:</b> the mechanism (a residual discrete gauge symmetry from a broken U(1)) is Krauss–Wilczek and Ibáñez–Ross, and the leftover-U(1) breaking in gauge-Higgs unification is Dong [GHK]; the paper claims the closed-form rule for this model (§9).</p><p class="usado">↳ Not used by another result of the paper.</p>
+</details></section><section class="pc-pane"><h1 id="a0000000019">5 The bill, in eighths</h1>
+<h4 id="a0000000020">No numbered statement in this section.</h4>
+<p> Its figures and tables are below; its text is in <a href="pdf.html#page=11">the paper, p. 11</a>. </p>
 <details class="blk b-fig"><summary>🖼️ Figure 2</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-2.png}" src="images/img-0002.png" style="width:100%;max-width:100%"/>
 </div>
 <p> Table 1 of <span class="cite">
@@ -504,11 +608,123 @@ thick border are the main results; click a box to read the statement.</p><div cl
 	<a href="index.html#KM25">1</a>
 	]
 </span> single out as <em>particularly interesting</em> — has only \(9/8\) to spend against a cost of \(10/8\). Generated by <span class="ttfamily">make_figures_su7.py</span> from the archived <span class="ttfamily">su7_repair_space.json</span>. </p>
+</details></section><section class="pc-pane"><h1 id="a0000000022">6 The selection rule is a half-line, not a tuning</h1>
+<div class="observation_thmwrapper theorem-style-definition" id="auto:observation-2">
+<div class="observation_thmheading">
+<span class="observation_thmcaption">
+    Observation
+    </span>
+<span class="observation_thmlabel">2</span>
+<span class="observation_thmtitle">the permissive reading is theirs, not a licence we take</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#auto:observation-2">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=14&amp;n=auto:observation-2" title="Open the paper at page 14">📕 p. 14</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:observation-2" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Observation 2, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#auto:observation-2." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Observation%202&amp;body=About%20Observation%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Observation%202%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23auto%3Aobservation-2.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="observation_thmcontent">
+<p>  Three anomaly channels force \(X_Q=-1/6\), and \(-1/6\) is not a multiple of \(1/2\). So, absent a Green–Schwarz mechanism, their own consistency forces the <em>permissive</em> reading of what may live at a fixed point — and the permissive reading is precisely what puts the dangerous point \(A=0\) within reach. Their construction already uses it: the reason they give for localising the quarks, in the sentence before their eq. (47), is that the fractional hypercharges of quarks cannot be obtained from tensor products of \(\mathbf{7}\)s. A brane field of theirs therefore already carries a charge off the bulk lattice — for hypercharge — and \(X_Q\) inherits exactly that freedom. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper: «the permissive reading is theirs, not a licence we take»; their quarks are already localised for their fractional hypercharges (§6).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:closed">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">3</span>
+<span class="proposition_thmtitle">the rule in closed form</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:closed">#</a>
+<button class="modal lean">L∃∀N</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Lean declarations</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7QPhiSelection.html#L44" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7QPhiSelection.lean#L44">GaugeHiggsUnification.SU7QPhi.fails_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7QPhiSelection.html#L77" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7QPhiSelection.lean#L77">GaugeHiggsUnification.SU7QPhi.isGreatest_failSet</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=14&amp;n=prop:closed" title="Open the paper at page 14">📕 p. 14</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:closed" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Proposition 3, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#prop:closed." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Proposition%203&amp;body=About%20Proposition%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Proposition%203%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23prop%3Aclosed.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>   Protection fails at \(q_\varphi \) iff \(q_\varphi =|A_j|/n\) for some generation \(j\) and some integer \(n\ge 1\). That set is countable and has a <em>maximum</em>, so protection is a half-line. </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (23-oct-2026): for A_j ≠ 0: protection fails at q iff q = |A_j|/n, n ≥ 1, and the failure set has maximum max_j |A_j|</p><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7QPhiSelection.html#L44" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7QPhiSelection.lean#L44"><code>GaugeHiggsUnification.SU7QPhi.fails_iff</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7QPhiSelection.html#L77" data-lean-github="https://github.com/karlesmarin/formalizations/blob/ab9845d0eaf591b6131e80307e93c8ce2bbd78e7/Formalizations/Physics/Particles/GaugeHiggsUnification/SU7QPhiSelection.lean#L77"><code>GaugeHiggsUnification.SU7QPhi.isGreatest_failSet</code></a></li></ul></details>
+</div><p class="lean-check">✅ Checked when this page was built: SU7QPhiSelection.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — fails_iff, isGreatest_failSet: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean SU7QPhiSelection.lean</code> (SHA-256 of the compiled file: <code>39be48b8fd929263…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only — <b>only part of the statement is formal</b> (see the box). <span class="detail">Lean: 2 results, standard axioms only</span></p><p class="novedad">🆕 <b>Classical and new:</b> the mechanism (a residual discrete gauge symmetry from a broken U(1)) is Krauss–Wilczek and Ibáñez–Ross, and the leftover-U(1) breaking in gauge-Higgs unification is Dong [GHK]; the paper claims the closed-form rule for this model (§9).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<details class="blk b-plain"><summary>💡 In plain words (commentary, not part of the paper)</summary>
+<p> 1. A scalar of charge \(q_\varphi \) that breaks \(U(1)'\) leaves a discrete symmetry, and an operator of charge \(A\) survives only if \(A/q_\varphi \) is an integer. So protection of the proton operators fails exactly when \(q_\varphi =|A_j|/n\) for some generation \(j\) and some integer \(n\ge 1\). That set of bad charges is countable and has a largest element: above it every charge protects, so protection is a half-line, not a fine tuning. 2. The paper checks the closed form against a brute scan of every rational \(p/q\le 2\) with \(q\le 36\) for all 14 assignments: \(18\, 648\) values, no disagreement. For the minimal assignment, with \(A=(\tfrac 16,\tfrac 16,-\tfrac 13)\), the bad set is \(\{ 1/(3n)\} \), so all three charges the model can supply (\(\tfrac 12,1,\tfrac 32\)) protect it. 3. And \(q_\varphi =3/2\), the charge of the pure index-7 component of the \(\mathbf{84}\), forbids the four operators for every half-integer brane-quark charge, by a mod-3 argument, with preconditions the paper writes in: one condensing scalar only (any second one from the model’s content collapses the residual group), a fixed normalisation, and only the dimension-6 operators. The mechanism (a residual discrete gauge symmetry) is Krauss–Wilczek and Ibáñez–Ross; the paper claims the closed-form rule for this model. </p>
+</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> closed form against a brute scan of every rational p/q ≤ 2 with q ≤ 36, for the 14 assignments: 18 648 values, 0 disagreements. <span class="ttfamily">scripts/su7_qphi.py</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> adversarial audit: qφ = 1/2 fails at every m, qφ = 1 at every odd m, qφ = 3/2 never. <span class="ttfamily">scripts/su7_qphi_socratic.py</span> </p>
+</li>
+<li><p><b class="bfseries">Program:</b> the residual group and what a second condensing scalar does to it. <span class="ttfamily">scripts/su7_residual_group.py</span> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000025">7 The instrument, and where it fails</h1>
+<div class="observation_thmwrapper theorem-style-definition" id="obs:looporder">
+<div class="observation_thmheading">
+<span class="observation_thmcaption">
+    Observation
+    </span>
+<span class="observation_thmlabel">3</span>
+<span class="observation_thmtitle">the exclusion list above is the one-loop list, and it is not the whole space</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#obs:looporder">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=17&amp;n=obs:looporder" title="Open the paper at page 17">📕 p. 17</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=obs:looporder" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Observation 3, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#obs:looporder." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Observation%203&amp;body=About%20Observation%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Observation%203%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23obs%3Alooporder.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="observation_thmcontent">
+<p>  Everything excluded in this section lives at one loop, and the three structural candidates named above are the one-loop candidates. There is a fourth: <em>loop order</em>. The Wilson-line potential is the Polyakov-loop potential of thermal gauge theory, where the two-loop calculation is old. At two loops in pure gauge it is a multiplicative, background-independent rescaling of the one-loop result, \(\Omega ^{(2)}/\Omega ^{(1)}=-5g^2C_2(A)/(16\pi ^2)\) for any classical or exceptional group <span class="cite">
+	[
+	<a href="index.html#DGKA">22</a>
+	]
+</span> — which is excluded here already, because the \(\lambda \) the \({\alpha _{\min }}\) column wants is not one number. With fermions that proportionality fails <span class="cite">
+	[
+	<a href="index.html#GuoDu">23</a>
+	]
+</span>, and the expressions carry Bernoulli polynomials of the individual background angles <em>and of their pairwise differences</em>. Those angles are the Wilson-line charges, so a product of two such structures generates cosines at \(c_b\pm c_d\): with \(c\in \{ 1,2,3\} \) that reaches \(c\in \{ 0,\dots ,6\} \), and \(4,5,6\) lie outside the set. Numerically \(5g^2C_2(A)/(16\pi ^2)\) is \(7\)–\(14\, \% \) for \(g_4\in [0.55,0.80]\) at \(C_2(A)=7\), against the \(4\)–\(20\, \% \) rescaling the \({\alpha _{\min }}\) column asks for: <em>the same order</em>. We have not computed this term for this model and nothing here depends on it; what it establishes is that the list above is the one-loop list. It does not rescue Table 1 either, since their potential, their \(m_h\) and the finiteness that motivates gauge-Higgs unification are all one-loop statements. The bounded question it leaves is group-theoretic and needs no loop integral, and we answer it: <em>does the two-loop fermionic potential depend on the representation only through the multiset of its charges?</em> It does not. With \(\mathrm{Tr}(T^aT^b)=\delta ^{ab}/2\), their weight is exactly \(2\sum _a|T^a_{ij}|^2\) on the fundamental, so the general-\(R\) replacement is forced to be \(W(w,w')=\sum _a|\langle w|T^a_R|w'\rangle |^2\), whose row sums are \(C_2(R)\); and \(\mathbf{48}^{(+)}\) against \(4\times \mathbf{7}^{(+)}+\mathbf{7}^{(-)}+\mathbf{28}^{(+)}\) have identical one-loop term tables — hence identical \(F\), \({\alpha _{\min }}\), \(m_h\) and \(D\) — with \(\sum C_2\) of \(7\) against \(24.8571\). The one-loop potential is blind to the charge-zero states, so it fixes the Dynkin index and not the Casimir. Neither member of that pair is a Table 1 content, so nothing published here is separated by it. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the two-loop facts are Dumitru–Guo–Korthals Altes [DGKA] (pure gauge) and Guo–Du [GuoDu] (with fermions); the paper says «We have not computed this term for this model and nothing here depends on it», and answers only the group-theoretic question (two contents with identical one-loop tables and Σ C₂ of 7 against 24.8571).</p><p class="usado">↳ Not used by another result of the paper.</p>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the transplanted two-loop ratio against the wedge, with the control that a common rescaling returns exactly 1. <span class="ttfamily">scripts/twoloop_wedge.py</span> </p>
+</li>
+<li><p><b class="bfseries">Numerical illustration (not a proof):</b> archived data only: the Casimirs and the colliding pairs 48(±) against 4×7 + 7 + 28 (Σ C₂ = 7 against 24.857); the script that wrote this file is not among the published scripts. <span class="ttfamily">paper_data/su7_twoloop_weight.json</span> </p>
+</li>
+</ul>
+<div class="observation_thmwrapper theorem-style-definition" id="auto:observation-4">
+<div class="observation_thmheading">
+<span class="observation_thmcaption">
+    Observation
+    </span>
+<span class="observation_thmlabel">4</span>
+<span class="observation_thmtitle">the guard lied first, and it is recorded</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#auto:observation-4">#</a>
+</div>
+<a class="pdfp" href="pdf.html#page=18&amp;n=auto:observation-4" title="Open the paper at page 18">📕 p. 18</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:observation-4" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Proton Decay in SU(7) Grand Gauge-Higgs Unification: An Obstruction, Its Minimal Escapes, and the One Row of Their Table 1 That Can Pay for Them (Part VI)”, Observation 4, v1, doi:10.5281/zenodo.22033303, https://karlesmarin.github.io/blueprints/su7-proton-decay/index.html#auto:observation-4." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Proton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%20%E2%80%94%20Observation%204&amp;body=About%20Observation%204%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CProton%20Decay%20in%20SU%287%29%20Grand%20Gauge-Higgs%20Unification%3A%20An%20Obstruction%2C%20Its%20Minimal%20Escapes%2C%20and%20the%20One%20Row%20of%20Their%20Table%201%20That%20Can%20Pay%20for%20Them%20%28Part%20VI%29%E2%80%9D%2C%20Observation%204%2C%20v1%2C%20doi%3A10.5281/zenodo.22033303%2C%20https%3A//karlesmarin.github.io/blueprints/su7-proton-decay/index.html%23auto%3Aobservation-4.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="observation_thmcontent">
+<p>  The first version of that control was this programme’s usual one: fix \((c,p,s)\) at the winner, reverse the \({\alpha _{\min }}\) column, re-solve. It returns ratios \(3.41\) and \(3.51\) and the verdict “informative” on tests that are dead. Scanning is itself a search, so a control that does not re-run the search measures nothing. Both the broken guard and the fix are in the archived output. </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper records its own failed control: fixing the winner gave ratios 3.41 and 3.51 and the verdict «informative» on tests that are dead; both the broken guard and the fix are in the archived output (§7).</p><p class="usado">↳ Not used by another result of the paper.</p>
 </details>
 <details class="blk b-fig"><summary>🖼️ Figure 3</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-3.png}" src="images/img-0003.png" style="width:100%;max-width:100%"/>
 </div>
 <p> The control that decides §??’s last exclusion. Each candidate repair is a scan — one extra channel \(v\sum _n s^n\cos (c\pi n\alpha )/n^p\) over \(c\in [0.5,40]\), \(p\in \{ 3,\dots ,7\} \), \(s=\pm 1\), or the fermion sector run as \(1/n^q\) — so the control must re-run the <em>whole scan</em> on scrambled data, not re-solve at the winning parameters. Grey dots: the best residual of the full search on each of the \(118\) non-trivial permutations of their own \({\alpha _{\min }}\) column, divided by the real fit’s. A discrimination needs the whole cloud beyond the dashed threshold; every cloud instead straddles \(1\), and on two of the three tests the scrambled data <em>beats</em> the real data. Generated by <span class="ttfamily">make_figures_su7.py</span>. </p>
-</details>
+</details></section><section class="pc-pane"><h1 id="a0000000028">8 Why the discrepancy does not reach the conclusion</h1>
+<h4 id="a0000000029">No numbered statement in this section.</h4>
+<p> Its figures and tables are below; its text is in <a href="pdf.html#page=19">the paper, p. 19</a>. </p>
 <details class="blk b-fig"><summary>🖼️ Figure 4</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-4.png}" src="images/img-0004.png" style="width:100%;max-width:100%"/>
 </div>
 <p> <b class="bfseries">Left:</b> the \((w(\mathbf{28}),w(\mathbf{84}))\) plane, coloured by verdict after donating one \(\mathbf{84}^{(+,+)}\). The amber region is where case (2) survives and case (3) does not — the conclusion of this paper. Open marks are every repair the anchor discrepancy has ever been fitted to (§??); all of them lie inside it, and so does \(w=1\). The dashed diagonal carries the interval \((27/46,\, 27/26)=(0.587,\, 1.038)\), which reproduces the \(\lambda _{\rm crit}\) of §?? by a different route. <b class="bfseries">Right:</b> why it is a wedge — \(D\) for the two rows is two planes over the same square, with slopes \(15/4\) and \(5/4\) in \(w(\mathbf{84})\), and the conclusion is the slab between their zero sets. Generated by <span class="ttfamily">make_figures_su7.py</span>. </p>
@@ -524,7 +740,493 @@ thick border are the main results; click a box to read the statement.</p><div cl
 	<a href="index.html#GuoDu">23</a>
 	]
 </span>’s fermionic one, against the four-dimensional coupling of those results. It crosses the ceiling at \(g_4=0.6205\), and at the \(g_4=0.63\) this series uses it sits \(0.13\, \% \) above: on the <em>wrong</em> side, and by less than half a per cent. <b class="bfseries">Not drawn, and deliberately: the five row-by-row reweightings the \({\alpha _{\min }}\) column asks for.</b> They are a fit and not a measurement of \(w\), the argument that used them is withdrawn on the previous page, and a figure may not keep making an argument the text has retracted. Drawn by <span class="ttfamily">make_figures_su7.py</span> from the archived <span class="ttfamily">twoloop_wedge.json</span>. </p>
-</details>
+</details></section><section class="pc-pane"><h1 id="a0000000032">9 Attribution</h1>
+<h4 id="a0000000033">No numbered statement in this section.</h4>
+<p> Its figures and tables are below; its text is in <a href="pdf.html#page=23">the paper, p. 23</a>. </p>
+<table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>mechanism </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> status</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>the anomaly-free \(U(1)\) extensions of the Standard Model are \(\mathrm{span}\{ Y,B-L\} \), and gauged \(B-L\) needs right-handed neutrinos of charge \(-1\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> textbook, forty years old</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>a gauged \(B-L\) fails to forbid the \(B-L\)-conserving proton operators; the cure is a family-dependent \(B-x_iL\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> <span class="cite">
+	[
+	<a href="index.html#FamilyU1">7</a>
+	]
+</span>, verbatim in its abstract; the dimension-6 statement is Weinberg and Wilczek–Zee <span class="cite">
+	[
+	<a href="index.html#Weinberg">5</a>
+	, 
+	<a href="index.html#WZ">6</a>
+	]
+</span></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>placing families in different representations or at different fixed points of an orbifold GUT, and thereby suppressing proton decay </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> standard orbifold-GUT model building <span class="cite">
+	[
+	<a href="index.html#Raby">14</a>
+	, 
+	<a href="index.html#OrbGUT">15</a>
+	]
+</span></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>a broken extra \(U(1)\) leaves a residual <em>discrete gauge</em> symmetry that can forbid the dimension-4, -5 and -6 proton operators </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> <span class="cite">
+	[
+	<a href="index.html#KW">8</a>
+	, 
+	<a href="index.html#IR">9</a>
+	, 
+	<a href="index.html#DiscGauge">10</a>
+	, 
+	<a href="index.html#Orth">11</a>
+	]
+</span></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>localised anomalies constrain brane charges, and Green–Schwarz can absorb mixed \(U(1)\) ones </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> von Gersdorff–Quirós; Kojima–Takenaga–Yamashita <span class="cite">
+	[
+	<a href="index.html#KTY">12</a>
+	]
+</span>, which <span class="cite">
+	[
+	<a href="index.html#KM25">1</a>
+	]
+</span> cite as their ref. [13]</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>brane fields in orbifold GUTs need not furnish representations inherited from the bulk </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> standard practice; it is why their own quarks can be localised at all</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>matter in the adjoint — a real representation — is vector-like, and it is a \({\mathbb {Z}}_3\) projection that chiralises it </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> <span class="cite">
+	[
+	<a href="index.html#GMN">13</a>
+	]
+</span>, verbatim in its introduction: <em>“It is well known that… The matter in the adjoint representation is always vector-like, but one can project out the vector-like partner by a \(Z_3\) transformation.”</em> Proposition <a href="index.html#prop:real">2</a> is the specialisation to their \(\pm 1\) diagonal parities, where that cure is unavailable; the counts and the chiral controls are ours</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>a leftover \(U(1)\) in gauge-Higgs unification broken by a scalar with a vacuum expectation value of order \(1/R\), with the surviving charge read off the direction of that value </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> <span class="cite">
+	[
+	<a href="index.html#GHK">19</a>
+	]
+</span>, eqs. (50)–(54), (77), (79) — the mechanism of §6 is theirs</p>
+</td>
+</tr>
+<tr>
+<td colspan="" data-colour="neg" rowspan="" style="text-align:left;background:#fbdcdc">
+<p>no local brane Yukawa for the charged leptons in gauge-Higgs unification, and the obstruction is called generic </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> <span class="cite">
+	[
+	<a href="index.html#SSS">16</a>
+	, 
+	<a href="index.html#Maru19">17</a>
+	]
+</span> — relevant to the rung-by-rung Yukawa closure of §4, which is why that closure is a control and not a result</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>a rule of thumb selecting the fermion content from the curvature of the Wilson-line potential <em>at the origin</em> </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> <span class="cite">
+	[
+	<a href="index.html#AdachiMaru">18</a>
+	]
+</span>. This is the closest prior art to §5: their Hessian factorises at \(\alpha =0\) and their selection rule is our arithmetic — <b class="bfseries">at the origin, and only there</b>. What is not theirs is the exact rational \(D\) per multiplet, and the donation cost that follows from it</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p>minimality plus anomaly cancellation fixing the Standard-Model family content </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> <span class="cite">
+	[
+	<a href="index.html#GengMarshak">20</a>
+	]
+</span> — background to §3, which is a relative statement inside a fixed model rather than a classification</p>
+</td>
+</tr>
+</table><p class="tabcolour">Colour: red = no / fails.</p>
+</section><section class="pc-pane"><h1 id="a0000000034">10 Verification</h1>
+<h4 id="a0000000035">No numbered statement in this section.</h4>
+<p> Its figures and tables are below; its text is in <a href="pdf.html#page=24">the paper, p. 24</a>. </p>
+<div class="table" id="a0000000036">
+<figcaption>
+<span class="caption_title">Table</span>
+<span class="caption_ref">1</span>
+<span class="caption_text">Every claim of this paper against the evidence that carries it. The blocks are, in order: what is claimed; what is reported as <em>data</em> of <span class="cite">
+	[
+	<a href="index.html#KM25">1</a>
+	]
+</span> rather than as a defect; what is <em>open</em>; and what an earlier draft claimed and this one retracts.</span>
+</figcaption> <table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p><b class="bfseries">Claim</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> <b class="bfseries">Where, and on what</b></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>Three anomaly channels force \(X_Q=-1/6\), which is exactly \(A=0\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> §3; six channels, re-derived independently under Sage from the \(A_6\) character ring</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(U(1)'=T_{3L}+Y-(B-L)\) on every field, and all four operators have \(Y=B-L=0\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §3, an identity</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Two channels cannot cancel and demand a singlet of charge \(-1\); it exists in the \(\mathbf{28}\) and nowhere else, so only rows (2),(3) supply it </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §3; \(\sum x=-1\) and \(\sum x^3=-1\) are independent</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>A \(\mathbf{28}\) is <em>necessary</em> and not merely minimal: the solution set is \(e=-1-4w\), \(u=5w\), so the net \(\mathbf{28}\) number is never zero </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §3; and a brute-force scan with no \(\mathbf{28}\) returns nothing while the same scan with one condition dropped returns solutions</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Only two of the fourteen assignments fit inside their own tensors, and both require charge \(-1\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §4; rung \(\ge 2\) is unhostable — four boxes for the tensor powers, and for the \(\mathbf{48}\), which is not one, no chiral zero mode. The fourteen are re-derived by an independent implementation</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Proposition <a href="index.html#prop:real">2</a> — the mechanism is <span class="cite">
+	[
+	<a href="index.html#GMN">13</a>
+	]
+</span>’s, the specialisation ours: under their \(\pm 1\) diagonal parities a real representation furnishes no chiral generation, so the \(\mathbf{48}\) cannot host the escape — and a \(\mathbf{48}^{(+,+)}\) would have cost \(D=0\) exactly </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §4, proved in three lines and counted in <span class="ttfamily">su7_adjoint_is_vectorlike.py</span>, with the \(\mathbf{28}\) and \(\mathbf{84}\) as the control that must come out chiral and does (\(10\) and \(34\) unpaired states). Case (3) holds three \(\mathbf{48}\)s, so this is a step and not an aside</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Their eq. (81), quoted for the 5D \(SU(4)\) model, is forced by their own eq. (54): the \(W\) carries Wilson-line charge \(\tfrac 12\) and the photon \(0\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §2; the charge-\(1\) modes exist, so the control is not vacuous</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(\mathrm{extra}(L)=(1-k)/2\), and \(\mathrm{extra}(L)+\mathrm{extra}(e^c)=1/2\) on every rung </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §4; rung 0 returns their own eq. (43)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Proposition <a href="index.html#prop:identity">1</a>: \([SU(2)_L]^2U(1)'=\tfrac 12\sum _jA_j\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §4, exact; 14 assignments survive all six channels</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Rung 1 is hosted by an \(\mathbf{84}^{(+,+)}\), which is in every row of Table 1; the \(\mathbf{35}\) cannot host it </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §4, from their eqs. (37)–(40)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(V''(0)=-\pi ^2\zeta (3)D\), \(D\) rational; \(\mathbf{48}^{(+,+)}\mapsto 0\), \(\mathbf{84}^{(+,+)}\mapsto 5/4\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §5; the truncation residual is <em>predicted</em> to \(2\, \% \)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p><b class="bfseries">Case (2) is the only one of the five published rows that supplies the \(\nu _R\) and survives the donation — within the minimal extension, at one-loop curvature</b> </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §3 \(+\) §5, Fig. 2; everything in eighths. A benchmark selected, not a model delivered: the modified potential is not recomputed. <em>Depends on their eq. (67)</em>: the verdict holds on \(w\in [74/99,118/151)\) and only \(w=3/4\) is admissible there</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Proposition <a href="index.html#prop:closed">3</a>: protection fails iff \(q_\varphi =|A_j|/n\); the set has a maximum </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §6; \(18\, 648\) brute-scan values, \(0\) disagreements</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(q_\varphi =3/2\) forbids all four operators to all orders for every half-integer \(X_Q\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §6; and \(q_\varphi =1/2\), \(1\) both fail, so it is not vacuous</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(K=m_h{\alpha _{\min }}/\sqrt{F''({\alpha _{\min }})}\) is row-independent, \(R_5,R_6,k\) cancelling </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §7, verified symbolically</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(D(\mathbf{48})\equiv 0\), and the conclusion is a wedge containing \(w=1\) and every fitted repair </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §8, Fig. 4; rebuilt from group theory in Sage</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Their \(\mathbf{48}\)-subscripted terms in eq. (76) must be \(\mathbf{84}\) terms, identified by a count </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §7; the \(\mathbf{84}\)’s fifteen doublets come out only then</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(F=\sum m\, \mathrm{Re}\, \mathrm{Li}_5(s\, e^{ic\pi \alpha })\) and \(F''\) a sum of \(\mathrm{Re}\, \mathrm{Li}_3\), with no truncation </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §7, verified in Sage; it is what makes the \(30\)-digit \(F''(0.021)\) exact</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Their eqs. (54),(41),(57),(69),(70) and their KK spectrum are derived, not assumed, and nothing in them is wrong </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §2; \(13/13\) structure constants, the omitted one exactly zero, charges \(\{ 0,\pm \tfrac 12,\pm 1\} \) with multiplicities \(26,20,2\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Their eq. (68) too: its three coefficients follow from the adjoint’s \((q,P_5P_5',P_6)\) table with two weights, \(a=2\) and \(b=\tfrac 12\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §2; overdetermined, and the two rows that fix \(a\) agree. This is the sector the wedge holds fixed, and it was the only one checked against nothing but their own eq. (62)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p><b class="bfseries">Unstated in their paper, reported as data and not as defects</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> <b class="bfseries">Where</b></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>Their \(\mathbf{28}\) is \(\mathrm{Sym}^2(\mathbf{\bar7})\), the conjugate </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> §2; \(4/4\) against \(2/4\), and the test discriminates (\(\mathbf{84}\): \(10/10\) against \(1/10\)). Invisible to \(V_{\rm eff}\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(\pi _5=\pi _7\): the two indices the Wilson line mixes carry the same \(P_5P_5'\), without which their eq. (72) is not well defined </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §2, §8; the first thing the Sage construction checks</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Their spectrum requires a right-handed neutrino, not stated in their paper </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §3</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Their Table 1 is internally consistent: eq. (82) makes \(1/R_5\) a function of \({\alpha _{\min }}\), and all five printed pairs agree </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §7; a control on <em>their</em> table that could have fired. On rows (3),(4) the \(1/R_5\) column is the sharper constraint</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p><b class="bfseries">Open, and stated as open</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> <b class="bfseries">Why</b></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>Their Table 1 \({\alpha _{\min }}\) is not reproduced from their eqs. (68),(72)–(76) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> §7; gauge sector exact, truncation irrelevant, transcription verified three ways, no multiplicative or single-channel repair survives its control</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>Case (3) has \(F''{\lt}0\) at its own published \({\alpha _{\min }}\) under our assembly </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §7; exact to 30 digits, and the inflection is at \(1.133\times \) that value</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p><b class="bfseries">The exclusion list above is the <em>one-loop</em> list</b> </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §7, Observation <a href="index.html#obs:looporder">3</a>. Two-loop pure gauge is multiplicative and therefore already excluded; with fermions it is not, and its size is the same order as the rescaling the \({\alpha _{\min }}\) column wants. Not computed here, and stated so</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p><b class="bfseries">And so is the wedge</b>: it tolerates \(1/27\) of relative gauge-versus-fermion rescaling, and the published two-loop rescalings put the transplant <em>over</em> it at the nominal coupling </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §8. With <span class="cite">
+	[
+	<a href="index.html#GuoDu">23</a>
+	]
+</span>’s fermionic half included, \(0.78\)–\(1.72\) times the margin over \(g_4\in [0.55,0.80]\) — not the \(1.8\)–\(3.8\) of a gauge-only reading — crossing at \(g_4=0.6205\) and at \(1.033\) at \(g_4=0.63\). An earlier draft answered this with the anchor column; that answer is <b class="bfseries">withdrawn</b></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p><b class="bfseries">And both inputs of that estimate are four-dimensional and thermal</b> </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> their group factors are this algebra, their loop integrals are not, and the \(6/5\) is made of the latter. <span class="cite">
+	[
+	<a href="index.html#DGKA">22</a>
+	]
+</span> add a limitation of their own, in their own words: they have <em>“not succeeded in finding a general proof”</em> of eq. (66) that avoids explicit evaluation, and do not know how the combinatorics works <em>inside</em> the Weyl chamber — their proof covers the straight paths from the origin to the \(Z(N)\) minima, along its edges. An \({\alpha _{\min }}\simeq 0.05\) is on neither</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>The two rows that fail are exactly the two containing a \(\mathbf{48}\), and the one satisfiable system asks for \(w(\mathbf{48})=5.59\), \([5.20,6.00]\) at \(95\, \% \) under their own rounding </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §7; confounded with their being the two smallest \({\alpha _{\min }}\), and five rows cannot separate the readings. Their eq. (75) is verified twice over, so no defect is claimed</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>The instrument is validated only <em>as an approach</em> </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> §7: Part V’s independent implementation reproduces <span class="cite">
+	[
+	<a href="index.html#AHMN">2</a>
+	]
+</span> exactly, but it is a different implementation, so it does not certify the \(SU(7)\) assembly</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p><b class="bfseries">Retracted, and left visible</b> </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> <b class="bfseries">Why</b></p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>“the exact eqs. (62)–(65) need \(k\approx 1.2\)” </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> never computed; a conclusion line printed as a literal string. The real correction is \(1.5\, \% \) at \(k=1.2\). §7</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p>“one extra channel repairs the anchor, and the control says it is informative” </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> the control fixed the winner instead of re-running the search. §7, Fig. 3</p>
+</td>
+</tr>
+</table>
+</div>
+</section><section class="pc-pane"><h1 id="a0000000037">11 Open problems</h1>
+<h4 id="a0000000038">No numbered statement in this section.</h4>
+<p> Its figures and tables are below; its text is in <a href="pdf.html#page=27">the paper, p. 27</a>. </p>
 <details class="blk b-fig"><summary>🖼️ Figure 6</summary><div class="centered"> <img alt="\includegraphics[width=1.0\textwidth ]{figures/paperfig-6.png}" src="images/img-0006.png" style="width:100%;max-width:100%"/>
 </div>
 <p> <b class="bfseries">Why the two-loop group factor cannot be cubic.</b> The loop number of a connected vacuum graph is \(L=1+\frac12\sum _k V_k(k-2)\), a function of the valences alone. Background legs (green) are external classical fields and carry weight zero, so they may be attached without limit — including at the three-gluon vertex that <span class="cite">
@@ -532,16 +1234,93 @@ thick border are the main results; click a box to read the statement.</p><div cl
 	<a href="index.html#HMTY">24</a>
 	]
 </span> name as the non-abelian frontier, fourth panel, which is a genuine two-loop diagram whose matter trace is nevertheless only \(\mathrm{tr}_R(T^aT^b)\): its new structure lives in the gauge vertex, hence in the integral, not in the group factor. Only matter-gauge vertices carry both weight and a generator, so the trace order \(a+2b\) is bounded by the total weight \(2\). The fifth panel is the cheapest way to a cubic trace and it costs a third loop. </p>
-</details><details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
-<ul class="itemize">
-<li><p><b class="bfseries">Program:</b> closed form against a brute scan of every rational p/q ≤ 2 with q ≤ 36, for the 14 assignments: 18 648 values, 0 disagreements. <span class="ttfamily">scripts/su7_qphi.py</span> </p>
-</li>
-<li><p><b class="bfseries">Program:</b> adversarial audit: qφ = 1/2 fails at every m, qφ = 1 at every odd m, qφ = 3/2 never. <span class="ttfamily">scripts/su7_qphi_socratic.py</span> </p>
-</li>
-<li><p><b class="bfseries">Program:</b> the residual group and what a second condensing scalar does to it. <span class="ttfamily">scripts/su7_residual_group.py</span> </p>
-</li>
-</ul>
-</details></section><section class="pc-pane"><h1 id="a0000000019">References</h1>
+</details></section><section class="pc-pane"><h1 id="a0000000040">Data availability</h1>
+<h4 id="a0000000041">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in the paper (PDF). </p>
+</section><section class="pc-pane"><h1 id="a0000000042">Acknowledgements</h1>
+<h4 id="a0000000043">No numbered statement in this section.</h4>
+<p> It is prose only (no statement, figure or table): read it in the paper (PDF). </p>
+</section><section class="pc-pane"><h1 id="lm-tables">📊 Tables</h1><p class="lm-tintro">Every table of the paper, in its order: click one to unfold it, with where the paper cites it, how its numbers were checked, and its data as CSV. The typeset table is one click away, on its page of the PDF.</p><details class="lm-table" id="lm-table-u1"><summary><b>Table without a number</b>, in the text of §3 All six channels, and what they force</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>channel</td><td>coefficient, as a polynomial in $X_Q$</td><td>vanishes at</td></tr><tr><td>$[\su3_C]^2\,X$</td><td>$0$</td><td>every $X_Q$</td></tr><tr><td>$[\su2_L]^2\,X$</td><td>$\tfrac32X_Q+\tfrac14$</td><td>$X_Q=-1/6$</td></tr><tr><td>$X^2Y$</td><td>$-3X_Q-\tfrac12$</td><td>$X_Q=-1/6$</td></tr><tr><td>$XY^2$</td><td>$-\tfrac32X_Q-\tfrac14$</td><td>$X_Q=-1/6$</td></tr><tr><td>$X\cdot\mathrm{grav}^2$</td><td>$1$</td><td><b>never</b></td></tr><tr><td>$X^3$</td><td>$1$</td><td><b>never</b></td></tr></table></div><div class="lm-tmeta"><a download="su7-proton-decay-table-u1.csv" href="data:text/csv;charset=utf-8,%EF%BB%BFchannel%2C%22coefficient%2C%20as%20a%20polynomial%20in%20X_Q%22%2Cvanishes%20at%0D%0A%5B%5Csu3_C%5D%5E2%20X%2C0%2Cevery%20X_Q%0D%0A%5B%5Csu2_L%5D%5E2%20X%2C%5Ctfrac32X_Q%2B%5Ctfrac14%2CX_Q%3D-1/6%0D%0AX%5E2Y%2C-3X_Q-%5Ctfrac12%2CX_Q%3D-1/6%0D%0AXY%5E2%2C-%5Ctfrac32X_Q-%5Ctfrac14%2CX_Q%3D-1/6%0D%0AX%5Ccdot%5Cmathrm%7Bgrav%7D%5E2%2C1%2Cnever%0D%0AX%5E3%2C1%2Cnever%0D%0A" title="The cells as text">⬇ CSV</a></div></details><details class="lm-table" id="lm-table-u2"><summary><b>Table without a number</b>, in the text of §4 A ladder inside their own $\su7$</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>$k$</td><td>boxes</td><td>$L$</td><td>$\mathrm{extra}(L)$</td><td>$e_R$ (their eq. (46): $5\leftrightarrow7$)</td><td>$\mathrm{extra}(L)+\mathrm{extra}(e^c)$</td></tr><tr><td data-colour="value" style="background:rgba(43,108,176,0.08)">$0$</td><td data-colour="value" style="background:rgba(43,108,176,0.08)">2</td><td>$(5,6)$</td><td>$\phantom{-}1/2$</td><td>$(6,7)$</td><td>$1/2$</td></tr><tr><td data-colour="value" style="background:rgba(43,108,176,0.29)">$1$</td><td data-colour="value" style="background:rgba(43,108,176,0.29)">3</td><td>$(5,6,7)$</td><td>$\phantom{-}0$</td><td>$(6,7,7)$</td><td>$1/2$</td></tr><tr><td data-colour="value" style="background:rgba(43,108,176,0.50)">$2$</td><td data-colour="value" style="background:rgba(43,108,176,0.50)">4</td><td>$(5,6,7,7)$</td><td>$-1/2$</td><td>$(6,7,7,7)$</td><td>$1/2$</td></tr></table><p class="tabcolour">Colour: blue shade = the number’s size within its column.</p></div><div class="lm-tmeta"><a download="su7-proton-decay-table-u2.csv" href="data:text/csv;charset=utf-8,%EF%BB%BFk%2Cboxes%2CL%2C%5Cmathrm%7Bextra%7D%28L%29%2Ce_R%20%28their%20eq.%20%2846%29%3A%205%5Cleftrightarrow7%29%2C%5Cmathrm%7Bextra%7D%28L%29%2B%5Cmathrm%7Bextra%7D%28e%5Ec%29%0D%0A0%2C2%2C%22%285%2C6%29%22%2C%5Cphantom%7B-%7D1/2%2C%22%286%2C7%29%22%2C1/2%0D%0A1%2C3%2C%22%285%2C6%2C7%29%22%2C%5Cphantom%7B-%7D0%2C%22%286%2C7%2C7%29%22%2C1/2%0D%0A2%2C4%2C%22%285%2C6%2C7%2C7%29%22%2C-1/2%2C%22%286%2C7%2C7%2C7%29%22%2C1/2%0D%0A" title="The cells as text">⬇ CSV</a></div></details><details class="lm-table" id="lm-table-u3"><summary><b>Table without a number</b>, in the text of §4 A ladder inside their own $\su7$</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>representation</td><td>rung $k$</td><td>hosted at</td></tr><tr><td>$\rep{21}$, $\rep{28}$</td><td>0</td><td>$(\eta,\eta')=(-1,+1)$ — their own eq. (43)</td></tr><tr><td>$\rep{35}=\Lambda^3$</td><td>1</td><td><b>never</b> — $e_R=(6,7,7)$ needs a repeated index, which an
+antisymmetric tensor has not</td></tr><tr><td>$\rep{84}$</td><td>1</td><td>$(\eta,\eta')=(+1,+1)$</td></tr><tr><td>$\rep{48}=\text{adj}$</td><td>0, 2</td><td><b>never</b> — it carries four lepton doublets, but
+$\langle A_5\rangle$ takes none of them to a charged-lepton singlet</td></tr></table></div><div class="lm-tmeta"><a download="su7-proton-decay-table-u3.csv" href="data:text/csv;charset=utf-8,%EF%BB%BFrepresentation%2Crung%20k%2Chosted%20at%0D%0A%22%5Crep%7B21%7D%2C%20%5Crep%7B28%7D%22%2C0%2C%22%28%5Ceta%2C%5Ceta%27%29%3D%28-1%2C%2B1%29%20---%20their%20own%20eq.%20%2843%29%22%0D%0A%5Crep%7B35%7D%3D%5CLambda%5E3%2C1%2C%22never%20---%20e_R%3D%286%2C7%2C7%29%20needs%20a%20repeated%20index%2C%20which%20an%20antisymmetric%20tensor%20has%20not%22%0D%0A%5Crep%7B84%7D%2C1%2C%22%28%5Ceta%2C%5Ceta%27%29%3D%28%2B1%2C%2B1%29%22%0D%0A%5Crep%7B48%7D%3D%5Ctext%7Badj%7D%2C%220%2C%202%22%2C%22never%20---%20it%20carries%20four%20lepton%20doublets%2C%20but%20%5Clangle%20A_5%5Crangle%20takes%20none%20of%20them%20to%20a%20charged-lepton%20singlet%22%0D%0A" title="The cells as text">⬇ CSV</a></div></details><details class="lm-table" id="lm-table-u4"><summary><b>Table without a number</b>, in the text of §5 The bill, in eighths</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>multiplet</td><td>$D$</td><td>multiplet</td><td>$D$</td></tr><tr><td>gauge sector</td><td>$-27/8$</td><td>$\rep{28}^{(+,+)}$</td><td>$2$</td></tr><tr><td>$\rep7^{(+,+)}$</td><td>$-3/4$</td><td>$\rep{28}^{(+,-)}$</td><td>$1/4$</td></tr><tr><td>$\rep7^{(+,-)}$</td><td>$1$</td><td>$\rep{48}^{(+,+)}$</td><td>$\mathbf{0}$</td></tr><tr><td></td><td></td><td>$\rep{84}^{(+,+)}$</td><td>$\mathbf{5/4}$</td></tr></table></div><div class="lm-tmeta"><a download="su7-proton-decay-table-u4.csv" href="data:text/csv;charset=utf-8,%EF%BB%BFmultiplet%2CD%2Cmultiplet%2CD%0D%0Agauge%20sector%2C-27/8%2C%22%5Crep%7B28%7D%5E%7B%28%2B%2C%2B%29%7D%22%2C2%0D%0A%22%5Crep7%5E%7B%28%2B%2C%2B%29%7D%22%2C-3/4%2C%22%5Crep%7B28%7D%5E%7B%28%2B%2C-%29%7D%22%2C1/4%0D%0A%22%5Crep7%5E%7B%28%2B%2C-%29%7D%22%2C1%2C%22%5Crep%7B48%7D%5E%7B%28%2B%2C%2B%29%7D%22%2C%5Cmathbf%7B0%7D%0D%0A%2C%2C%22%5Crep%7B84%7D%5E%7B%28%2B%2C%2B%29%7D%22%2C%5Cmathbf%7B5/4%7D%0D%0A" title="The cells as text">⬇ CSV</a></div></details><details class="lm-table" id="lm-table-u5"><summary><b>Table without a number</b>, in the text of §5 The bill, in eighths</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>case</td><td>$D$ theirs</td><td>$D$ after donating an $\rep{84}$</td><td>$\lambda_{\rm crit}$</td><td>verdict</td></tr><tr><td>(1)</td><td>$15/8$</td><td>$5/8$</td><td>$0.8438$</td><td>EWSB survives</td></tr><tr><td><b>(2)</b></td><td>$\mathbf{29/8}$</td><td>$\mathbf{19/8}$</td><td>$\mathbf{0.5870}$</td><td><b>survives, largest
+margin of the five</b></td></tr><tr><td><b>(3)</b></td><td>$\mathbf{9/8}$</td><td>$\mathbf{-1/8}$</td><td>$\mathbf{1.0385}$</td><td><b>EWSB LOST</b>: the
+symmetric point becomes the vacuum</td></tr><tr><td>(4)</td><td>$11/8$</td><td>$1/8$</td><td>$0.9643$</td><td>survives, barely</td></tr><tr><td>(5)</td><td>$15/8$</td><td>$5/8$</td><td>$0.8438$</td><td>EWSB survives</td></tr></table></div><div class="lm-tmeta"><a download="su7-proton-decay-table-u5.csv" href="data:text/csv;charset=utf-8,%EF%BB%BFcase%2CD%20theirs%2CD%20after%20donating%20an%20%5Crep%7B84%7D%2C%5Clambda_%7B%5Crm%20crit%7D%2Cverdict%0D%0A%281%29%2C15/8%2C5/8%2C0.8438%2CEWSB%20survives%0D%0A%282%29%2C%5Cmathbf%7B29/8%7D%2C%5Cmathbf%7B19/8%7D%2C%5Cmathbf%7B0.5870%7D%2C%22survives%2C%20largest%20margin%20of%20the%20five%22%0D%0A%283%29%2C%5Cmathbf%7B9/8%7D%2C%5Cmathbf%7B-1/8%7D%2C%5Cmathbf%7B1.0385%7D%2CEWSB%20LOST%3A%20the%20symmetric%20point%20becomes%20the%20vacuum%0D%0A%284%29%2C11/8%2C1/8%2C0.9643%2C%22survives%2C%20barely%22%0D%0A%285%29%2C15/8%2C5/8%2C0.8438%2CEWSB%20survives%0D%0A" title="The cells as text">⬇ CSV</a></div></details><details class="lm-table" id="lm-table-u6"><summary><b>Table without a number</b>, in the text of §9 Attribution</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>mechanism</td><td>status</td></tr><tr><td>the anomaly-free $U(1)$ extensions of the Standard Model are
+$\mathrm{span}\{Y,B-L\}$, and gauged $B-L$ needs right-handed neutrinos of charge $-1$</td><td>textbook, forty years old</td></tr><tr><td>a gauged $B-L$ fails to forbid the $B-L$-conserving proton operators; the cure is a
+family-dependent $B-x_iL$</td><td>[FamilyU1], verbatim in its abstract; the dimension-6 statement is
+Weinberg and Wilczek–Zee [Weinberg,WZ]</td></tr><tr><td>placing families in different representations or at different fixed points of an orbifold GUT, and
+thereby suppressing proton decay</td><td>standard orbifold-GUT model building [Raby,OrbGUT]</td></tr><tr><td>a broken extra $U(1)$ leaves a residual <em>discrete gauge</em> symmetry that can forbid the
+dimension-4, -5 and -6 proton operators</td><td>[KW,IR,DiscGauge,Orth]</td></tr><tr><td>localised anomalies constrain brane charges, and Green–Schwarz can absorb mixed $U(1)$ ones</td><td>von Gersdorff–Quirós; Kojima–Takenaga–Yamashita [KTY], which [KM25] cite as their
+ref. [13]</td></tr><tr><td>brane fields in orbifold GUTs need not furnish representations inherited from the bulk</td><td>standard
+practice; it is why their own quarks can be localised at all</td></tr><tr><td>matter in the adjoint — a real representation — is vector-like, and it is a ${\mathbb{Z}}_3$ projection
+that chiralises it</td><td>[GMN], verbatim in its introduction: <em>“It is well known that\
+The matter in the adjoint representation is always vector-like, but one can project out the
+vector-like partner by a </em>$Z_3$ transformation.” Proposition <a href='"#prop:real"'>2</a> is the specialisation
+to their $\pm1$ diagonal parities, where that cure is unavailable; the counts and the chiral controls
+are ours</td></tr><tr><td>a leftover $U(1)$ in gauge-Higgs unification broken by a scalar with a vacuum expectation value of
+order $1/R$, with the surviving charge read off the direction of that value</td><td>[GHK],
+eqs. (50)–(54), (77), (79) — the mechanism of §<a href='"pdf.html"'>6</a> is theirs</td></tr><tr><td data-colour="neg" style="background:#fbdcdc">no local brane Yukawa for the charged leptons in gauge-Higgs unification, and the obstruction is
+called generic</td><td>[SSS,Maru19] — relevant to the rung-by-rung Yukawa closure of
+§<a href='"pdf.html"'>4</a>, which is why that closure is a control and not a result</td></tr><tr><td>a rule of thumb selecting the fermion content from the curvature of the Wilson-line potential
+<em>at the origin</em></td><td>[AdachiMaru]. This is the closest prior art to §<a href='"pdf.html"'>5</a>: their
+Hessian factorises at $\alpha=0$ and their selection rule is our arithmetic — <b>at the
+origin, and only there</b>. What is not theirs is the exact rational $D$ per multiplet, and the
+donation cost that follows from it</td></tr><tr><td>minimality plus anomaly cancellation fixing the Standard-Model family content</td><td>[GengMarshak] — background to §<a href='"pdf.html"'>3</a>, which is a relative statement inside a fixed
+model rather than a classification</td></tr></table><p class="tabcolour">Colour: red = no / fails.</p></div><div class="lm-tmeta"><a download="su7-proton-decay-table-u6.csv" href="data:text/csv;charset=utf-8,%EF%BB%BFmechanism%2Cstatus%0D%0A%22the%20anomaly-free%20U%281%29%20extensions%20of%20the%20Standard%20Model%20are%20%5Cmathrm%7Bspan%7D%5C%7BY%2CB-L%5C%7D%2C%20and%20gauged%20B-L%20needs%20right-handed%20neutrinos%20of%20charge%20-1%22%2C%22textbook%2C%20forty%20years%20old%22%0D%0Aa%20gauged%20B-L%20fails%20to%20forbid%20the%20B-L-conserving%20proton%20operators%3B%20the%20cure%20is%20a%20family-dependent%20B-x_iL%2C%22%5Ccite%7BFamilyU1%7D%2C%20verbatim%20in%20its%20abstract%3B%20the%20dimension-6%20statement%20is%20Weinberg%20and%20Wilczek--Zee%20%5Ccite%7BWeinberg%2CWZ%7D%22%0D%0A%22placing%20families%20in%20different%20representations%20or%20at%20different%20fixed%20points%20of%20an%20orbifold%20GUT%2C%20and%20thereby%20suppressing%20proton%20decay%22%2C%22standard%20orbifold-GUT%20model%20building%20%5Ccite%7BRaby%2COrbGUT%7D%22%0D%0A%22a%20broken%20extra%20U%281%29%20leaves%20a%20residual%20discrete%20gauge%20symmetry%20that%20can%20forbid%20the%20dimension-4%2C%20-5%20and%20-6%20proton%20operators%22%2C%22%5Ccite%7BKW%2CIR%2CDiscGauge%2COrth%7D%22%0D%0A%22localised%20anomalies%20constrain%20brane%20charges%2C%20and%20Green--Schwarz%20can%20absorb%20mixed%20U%281%29%20ones%22%2C%22von%20Gersdorff--Quir%5C%27os%3B%20Kojima--Takenaga--Yamashita%20%5Ccite%7BKTY%7D%2C%20which%20%5Ccite%7BKM25%7D%20cite%20as%20their%20ref.%20%5B13%5D%22%0D%0Abrane%20fields%20in%20orbifold%20GUTs%20need%20not%20furnish%20representations%20inherited%20from%20the%20bulk%2Cstandard%20practice%3B%20it%20is%20why%20their%20own%20quarks%20can%20be%20localised%20at%20all%0D%0A%22matter%20in%20the%20adjoint%20---%20a%20real%20representation%20---%20is%20vector-like%2C%20and%20it%20is%20a%20%5CZZ_3%20projection%20that%20chiralises%20it%22%2C%22%5Ccite%7BGMN%7D%2C%20verbatim%20in%20its%20introduction%3A%20%60%60It%20is%20well%20known%20that%5Cdots%5C%20The%20matter%20in%20the%20adjoint%20representation%20is%20always%20vector-like%2C%20but%20one%20can%20project%20out%20the%20vector-like%20partner%20by%20a%20Z_3%20transformation.%27%27%20Proposition%20%5Cref%7Bprop%3Areal%7D%20is%20the%20specialisation%20to%20their%20%5Cpm1%20diagonal%20parities%2C%20where%20that%20cure%20is%20unavailable%3B%20the%20counts%20and%20the%20chiral%20controls%20are%20ours%22%0D%0A%22a%20leftover%20U%281%29%20in%20gauge-Higgs%20unification%20broken%20by%20a%20scalar%20with%20a%20vacuum%20expectation%20value%20of%20order%201/R%2C%20with%20the%20surviving%20charge%20read%20off%20the%20direction%20of%20that%20value%22%2C%22%5Ccite%7BGHK%7D%2C%20eqs.%20%2850%29--%2854%29%2C%20%2877%29%2C%20%2879%29%20---%20the%20mechanism%20of%20%5CS%5Cref%7Bsec%3Aqphi%7D%20is%20theirs%22%0D%0A%22no%20local%20brane%20Yukawa%20for%20the%20charged%20leptons%20in%20gauge-Higgs%20unification%2C%20and%20the%20obstruction%20is%20called%20generic%22%2C%22%5Ccite%7BSSS%2CMaru19%7D%20---%20relevant%20to%20the%20rung-by-rung%20Yukawa%20closure%20of%20%5CS%5Cref%7Bsec%3Aladder%7D%2C%20which%20is%20why%20that%20closure%20is%20a%20control%20and%20not%20a%20result%22%0D%0Aa%20rule%20of%20thumb%20selecting%20the%20fermion%20content%20from%20the%20curvature%20of%20the%20Wilson-line%20potential%20at%20the%20origin%2C%22%5Ccite%7BAdachiMaru%7D.%20This%20is%20the%20closest%20prior%20art%20to%20%5CS%5Cref%7Bsec%3Avacuum%7D%3A%20their%20Hessian%20factorises%20at%20%5Calpha%3D0%20and%20their%20selection%20rule%20is%20our%20arithmetic%20---%20at%20the%20origin%2C%20and%20only%20there.%20What%20is%20not%20theirs%20is%20the%20exact%20rational%20D%20per%20multiplet%2C%20and%20the%20donation%20cost%20that%20follows%20from%20it%22%0D%0Aminimality%20plus%20anomaly%20cancellation%20fixing%20the%20Standard-Model%20family%20content%2C%22%5Ccite%7BGengMarshak%7D%20---%20background%20to%20%5CS%5Cref%7Bsec%3Aanom%7D%2C%20which%20is%20a%20relative%20statement%20inside%20a%20fixed%20model%20rather%20than%20a%20classification%22%0D%0A" title="The cells as text">⬇ CSV</a></div></details><details class="lm-table" id="lm-table-1"><summary><b>Table 1.</b> Every claim of this paper against the evidence that carries it. The blocks are, in order:
+what is claimed; what is reported as <em>data</em> of [KM25] rather than as a defect; what is
+<em>open</em>; and what an earlier draft claimed and this one retracts.</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td><b>Claim</b></td><td><b>Where, and on what</b></td></tr><tr><td>Three anomaly channels force $X_Q=-1/6$, which is exactly $A=0$</td><td>§<a href='"pdf.html"'>3</a>; six channels,
+re-derived independently under Sage from the $A_6$ character ring</td></tr><tr><td>$U(1)'=T_{3L}+Y-(B-L)$ on every field, and all four operators have $Y=B-L=0$</td><td>§<a href='"pdf.html"'>3</a>,
+an identity</td></tr><tr><td>Two channels cannot cancel and demand a singlet of charge $-1$; it exists in the $\rep{28}$ and
+nowhere else, so only rows (2),(3) supply it</td><td>§<a href='"pdf.html"'>3</a>; $\sum x=-1$ and $\sum x^3=-1$ are
+independent</td></tr><tr><td>A $\rep{28}$ is <em>necessary</em> and not merely minimal: the solution set is $e=-1-4w$, $u=5w$, so
+the net $\rep{28}$ number is never zero</td><td>§<a href='"pdf.html"'>3</a>; and a brute-force scan with no $\rep{28}$
+returns nothing while the same scan with one condition dropped returns solutions</td></tr><tr><td>Only two of the fourteen assignments fit inside their own tensors, and both require charge $-1$</td><td>§<a href='"pdf.html"'>4</a>; rung $\ge2$ is unhostable — four boxes for the tensor powers, and for the
+$\rep{48}$, which is not one, no chiral zero mode. The fourteen are re-derived by an
+independent implementation</td></tr><tr><td>Proposition <a href='"#prop:real"'>2</a> — the mechanism is [GMN]'s, the specialisation
+ours: under their $\pm1$ diagonal parities a real representation furnishes no chiral generation, so
+the $\rep{48}$ cannot host the escape — and a $\rep{48}^{(+,+)}$ would have cost
+$D=0$ exactly</td><td>§<a href='"pdf.html"'>4</a>, proved in three lines and counted in
+<code>su7_adjoint_is_vectorlike.py</code>, with the $\rep{28}$ and
+$\rep{84}$ as the control that must come out chiral and does ($10$ and $34$ unpaired states). Case
+(3) holds three $\rep{48}$s, so this is a step and not an aside</td></tr><tr><td>Their eq. (81), quoted for the 5D $\su4$ model, is forced by their own eq. (54): the $W$ carries
+Wilson-line charge $\tfrac12$ and the photon $0$</td><td>§<a href='"pdf.html"'>2</a>; the charge-$1$ modes exist,
+so the control is not vacuous</td></tr><tr><td>$\mathrm{extra}(L)=(1-k)/2$, and $\mathrm{extra}(L)+\mathrm{extra}(e^c)=1/2$ on every rung</td><td>§<a href='"pdf.html"'>4</a>; rung 0 returns their own eq. (43)</td></tr><tr><td>Proposition <a href='"#prop:identity"'>1</a>: $[\su2_L]^2U(1)'=\tfrac12\sum_jA_j$</td><td>§<a href='"pdf.html"'>4</a>, exact;
+14 assignments survive all six channels</td></tr><tr><td>Rung 1 is hosted by an $\rep{84}^{(+,+)}$, which is in every row of Table 1; the $\rep{35}$ cannot
+host it</td><td>§<a href='"pdf.html"'>4</a>, from their eqs. (37)–(40)</td></tr><tr><td>$V''(0)=-\pi^2\zeta(3)D$, $D$ rational; $\rep{48}^{(+,+)}\mapsto0$, $\rep{84}^{(+,+)}\mapsto5/4$</td><td>§<a href='"pdf.html"'>5</a>; the truncation residual is <em>predicted</em> to $2\,\%$</td></tr><tr><td><b>Case (2) is the only one of the five published rows that supplies the
+</b>$\nu_R$ and survives the donation — within the minimal extension, at one-loop curvature</td><td>§<a href='"pdf.html"'>3</a> $+$ §<a href='"pdf.html"'>5</a>, Fig. <a href='"pdf.html"'>2</a>; everything in eighths. A benchmark
+selected, not a model delivered: the modified potential is not recomputed. <em>Depends on their
+eq. (67)</em>: the verdict holds on $w\in[74/99,118/151)$ and only $w=3/4$ is admissible there</td></tr><tr><td>Proposition <a href='"#prop:closed"'>3</a>: protection fails iff $q_\varphi=|A_j|/n$; the set has a maximum</td><td>§<a href='"pdf.html"'>6</a>; $18\,648$ brute-scan values, $0$ disagreements</td></tr><tr><td>$q_\varphi=3/2$ forbids all four operators to all orders for every half-integer $X_Q$</td><td>§<a href='"pdf.html"'>6</a>; and $q_\varphi=1/2$, $1$ both fail, so it is not vacuous</td></tr><tr><td>$K=m_h{\alpha_{\min}}/\sqrt{F''({\alpha_{\min}})}$ is row-independent, $R_5,R_6,k$ cancelling</td><td>§<a href='"pdf.html"'>7</a>,
+verified symbolically</td></tr><tr><td>$D(\rep{48})\equiv0$, and the conclusion is a wedge containing $w=1$ and every fitted repair</td><td>§<a href='"pdf.html"'>8</a>, Fig. <a href='"pdf.html"'>4</a>; rebuilt from group theory in Sage</td></tr><tr><td>Their $\rep{48}$-subscripted terms in eq. (76) must be $\rep{84}$ terms, identified by a count</td><td>§<a href='"pdf.html"'>7</a>; the $\rep{84}$'s fifteen doublets come out only then</td></tr><tr><td>$F=\sum m\,\mathrm{Re}\,\mathrm{Li}_5(s\,e^{ic\pi\alpha})$ and $F''$ a sum of
+$\mathrm{Re}\,\mathrm{Li}_3$, with no truncation</td><td>§<a href='"pdf.html"'>7</a>, verified in Sage; it is
+what makes the $30$-digit $F''(0.021)$ exact</td></tr><tr><td>Their eqs. (54),(41),(57),(69),(70) and their KK spectrum are derived, not assumed, and nothing in
+them is wrong</td><td>§<a href='"pdf.html"'>2</a>; $13/13$ structure constants, the omitted one exactly zero,
+charges $\{0,\pm\tfrac12,\pm1\}$ with multiplicities $26,20,2$</td></tr><tr><td>Their eq. (68) too: its three coefficients follow from the adjoint's
+$(q,P_5P_5',P_6)$ table with two weights, $a=2$ and $b=\tfrac12$</td><td>§<a href='"pdf.html"'>2</a>; overdetermined, and the two rows that fix $a$ agree. This is the sector the
+wedge holds fixed, and it was the only one checked against nothing but their own eq. (62)</td></tr><tr><td><b>Unstated in their paper, reported as data and not as defects</b></td><td><b>Where</b></td></tr><tr><td>Their $\rep{28}$ is $\mathrm{Sym}^2(\rep{\bar7})$, the conjugate</td><td>§<a href='"pdf.html"'>2</a>; $4/4$ against
+$2/4$, and the test discriminates ($\rep{84}$: $10/10$ against $1/10$). Invisible to $V_{\rm eff}$</td></tr><tr><td>$\pi_5=\pi_7$: the two indices the Wilson line mixes carry the same $P_5P_5'$, without which their
+eq. (72) is not well defined</td><td>§<a href='"pdf.html"'>2</a>, §<a href='"pdf.html"'>8</a>; the first thing the Sage
+construction checks</td></tr><tr><td>Their spectrum requires a right-handed neutrino, not stated in their paper</td><td>§<a href='"pdf.html"'>3</a></td></tr><tr><td>Their Table 1 is internally consistent: eq. (82) makes $1/R_5$ a function of ${\alpha_{\min}}$, and all five
+printed pairs agree</td><td>§<a href='"pdf.html"'>7</a>; a control on <em>their</em> table that could have fired.
+On rows (3),(4) the $1/R_5$ column is the sharper constraint</td></tr><tr><td><b>Open, and stated as open</b></td><td><b>Why</b></td></tr><tr><td>Their Table 1 ${\alpha_{\min}}$ is not reproduced from their eqs. (68),(72)–(76)</td><td>§<a href='"pdf.html"'>7</a>;
+gauge sector exact, truncation irrelevant, transcription verified three ways, no multiplicative or
+single-channel repair survives its control</td></tr><tr><td>Case (3) has $F''&lt;0$ at its own published ${\alpha_{\min}}$ under our assembly</td><td>§<a href='"pdf.html"'>7</a>; exact
+to 30 digits, and the inflection is at $1.133\times$ that value</td></tr><tr><td><b>The exclusion list above is the <em>one-loop</em> list</b></td><td>§<a href='"pdf.html"'>7</a>, Observation <a href='"#obs:looporder"'>3</a>. Two-loop pure gauge is multiplicative and
+therefore already excluded; with fermions it is not, and its size is the same order as the
+rescaling the ${\alpha_{\min}}$ column wants. Not computed here, and stated so</td></tr><tr><td><b>And so is the wedge</b>: it tolerates $1/27$ of relative
+gauge-versus-fermion rescaling, and the published two-loop rescalings put the transplant
+<em>over</em> it at the nominal coupling</td><td>§<a href='"pdf.html"'>8</a>. With [GuoDu]'s fermionic half included, $0.78$–$1.72$ times the margin
+over $g_4\in[0.55,0.80]$ — not the $1.8$–$3.8$ of a gauge-only reading — crossing at
+$g_4=0.6205$ and at $1.033$ at $g_4=0.63$. An earlier draft answered this with the anchor column;
+that answer is <b>withdrawn</b></td></tr><tr><td><b>And both inputs of that estimate are four-dimensional and thermal</b></td><td>their group factors are this algebra, their loop integrals are not, and the $6/5$ is made of the
+latter. [DGKA] add a limitation of their own, in their own words: they have <em>“not
+succeeded in finding a general proof”</em> of eq. (66) that avoids explicit evaluation, and do not know
+how the combinatorics works <em>inside</em> the Weyl chamber — their proof covers the straight paths
+from the origin to the $Z(N)$ minima, along its edges. An ${\alpha_{\min}}\simeq0.05$ is on neither</td></tr><tr><td>The two rows that fail are exactly the two containing a $\rep{48}$, and the one satisfiable system
+asks for $w(\rep{48})=5.59$, $[5.20,6.00]$ at $95\,\%$ under their own rounding</td><td>§<a href='"pdf.html"'>7</a>; confounded with their being the two smallest ${\alpha_{\min}}$, and five rows cannot
+separate the readings. Their eq. (75) is verified twice over, so no defect is claimed</td></tr><tr><td>The instrument is validated only <em>as an approach</em></td><td>§<a href='"pdf.html"'>7</a>: Part V's
+independent implementation reproduces [AHMN] exactly, but it is a different implementation, so
+it does not certify the $\su7$ assembly</td></tr><tr><td><b>Retracted, and left visible</b></td><td><b>Why</b></td></tr><tr><td>“the exact eqs. (62)–(65) need $k\approx1.2$”</td><td>never computed; a conclusion line printed as a
+literal string. The real correction is $1.5\,\%$ at $k=1.2$. §<a href='"pdf.html"'>7</a></td></tr><tr><td>“one extra channel repairs the anchor, and the control says it is informative”</td><td>the control fixed
+the winner instead of re-running the search. §<a href='"pdf.html"'>7</a>, Fig. <a href='"pdf.html"'>3</a></td></tr></table></div><div class="lm-tmeta"><a class="pdfp" href="pdf.html#page=24" title="The typeset table, on its page of the paper">📄 p. 24 in the PDF</a><a download="su7-proton-decay-table-1.csv" href="data:text/csv;charset=utf-8,%EF%BB%BFClaim%2C%22Where%2C%20and%20on%20what%22%0D%0A%22Three%20anomaly%20channels%20force%20X_Q%3D-1/6%2C%20which%20is%20exactly%20A%3D0%22%2C%22%5CS%5Cref%7Bsec%3Aanom%7D%3B%20six%20channels%2C%20re-derived%20independently%20under%20Sage%20from%20the%20A_6%20character%20ring%22%0D%0A%22U%281%29%27%3DT_%7B3L%7D%2BY-%28B-L%29%20on%20every%20field%2C%20and%20all%20four%20operators%20have%20Y%3DB-L%3D0%22%2C%22%5CS%5Cref%7Bsec%3Aanom%7D%2C%20an%20identity%22%0D%0A%22Two%20channels%20cannot%20cancel%20and%20demand%20a%20singlet%20of%20charge%20-1%3B%20it%20exists%20in%20the%20%5Crep%7B28%7D%20and%20nowhere%20else%2C%20so%20only%20rows%20%282%29%2C%283%29%20supply%20it%22%2C%5CS%5Cref%7Bsec%3Aanom%7D%3B%20%5Csum%20x%3D-1%20and%20%5Csum%20x%5E3%3D-1%20are%20independent%0D%0A%22A%20%5Crep%7B28%7D%20is%20necessary%20and%20not%20merely%20minimal%3A%20the%20solution%20set%20is%20e%3D-1-4w%2C%20u%3D5w%2C%20so%20the%20net%20%5Crep%7B28%7D%20number%20is%20never%20zero%22%2C%5CS%5Cref%7Bsec%3Aanom%7D%3B%20and%20a%20brute-force%20scan%20with%20no%20%5Crep%7B28%7D%20returns%20nothing%20while%20the%20same%20scan%20with%20one%20condition%20dropped%20returns%20solutions%0D%0A%22Only%20two%20of%20the%20fourteen%20assignments%20fit%20inside%20their%20own%20tensors%2C%20and%20both%20require%20charge%20-1%22%2C%22%5CS%5Cref%7Bsec%3Aladder%7D%3B%20rung%20%5Cge2%20is%20unhostable%20---%20four%20boxes%20for%20the%20tensor%20powers%2C%20and%20for%20the%20%5Crep%7B48%7D%2C%20which%20is%20not%20one%2C%20no%20chiral%20zero%20mode.%20The%20fourteen%20are%20re-derived%20by%20an%20independent%20implementation%22%0D%0A%22Proposition%20%5Cref%7Bprop%3Areal%7D%20---%20the%20mechanism%20is%20%5Ccite%7BGMN%7D%27s%2C%20the%20specialisation%20ours%3A%20under%20their%20%5Cpm1%20diagonal%20parities%20a%20real%20representation%20furnishes%20no%20chiral%20generation%2C%20so%20the%20%5Crep%7B48%7D%20cannot%20host%20the%20escape%20---%20and%20a%20%5Crep%7B48%7D%5E%7B%28%2B%2C%2B%29%7D%20would%20have%20cost%20D%3D0%20exactly%22%2C%22%5CS%5Cref%7Bsec%3Aladder%7D%2C%20proved%20in%20three%20lines%20and%20counted%20in%20su7_adjoint_is_vectorlike.py%2C%20with%20the%20%5Crep%7B28%7D%20and%20%5Crep%7B84%7D%20as%20the%20control%20that%20must%20come%20out%20chiral%20and%20does%20%2810%20and%2034%20unpaired%20states%29.%20Case%20%283%29%20holds%20three%20%5Crep%7B48%7Ds%2C%20so%20this%20is%20a%20step%20and%20not%20an%20aside%22%0D%0A%22Their%20eq.%20%2881%29%2C%20quoted%20for%20the%205D%20%5Csu4%20model%2C%20is%20forced%20by%20their%20own%20eq.%20%2854%29%3A%20the%20W%20carries%20Wilson-line%20charge%20%5Ctfrac12%20and%20the%20photon%200%22%2C%22%5CS%5Cref%7Bsec%3Asetting%7D%3B%20the%20charge-1%20modes%20exist%2C%20so%20the%20control%20is%20not%20vacuous%22%0D%0A%22%5Cmathrm%7Bextra%7D%28L%29%3D%281-k%29/2%2C%20and%20%5Cmathrm%7Bextra%7D%28L%29%2B%5Cmathrm%7Bextra%7D%28e%5Ec%29%3D1/2%20on%20every%20rung%22%2C%5CS%5Cref%7Bsec%3Aladder%7D%3B%20rung%200%20returns%20their%20own%20eq.%20%2843%29%0D%0AProposition%20%5Cref%7Bprop%3Aidentity%7D%3A%20%5B%5Csu2_L%5D%5E2U%281%29%27%3D%5Ctfrac12%5Csum_jA_j%2C%22%5CS%5Cref%7Bsec%3Aladder%7D%2C%20exact%3B%2014%20assignments%20survive%20all%20six%20channels%22%0D%0A%22Rung%201%20is%20hosted%20by%20an%20%5Crep%7B84%7D%5E%7B%28%2B%2C%2B%29%7D%2C%20which%20is%20in%20every%20row%20of%20Table%201%3B%20the%20%5Crep%7B35%7D%20cannot%20host%20it%22%2C%22%5CS%5Cref%7Bsec%3Aladder%7D%2C%20from%20their%20eqs.%20%2837%29--%2840%29%22%0D%0A%22V%27%27%280%29%3D-%5Cpi%5E2%5Czeta%283%29D%2C%20D%20rational%3B%20%5Crep%7B48%7D%5E%7B%28%2B%2C%2B%29%7D%5Cmapsto0%2C%20%5Crep%7B84%7D%5E%7B%28%2B%2C%2B%29%7D%5Cmapsto5/4%22%2C%5CS%5Cref%7Bsec%3Avacuum%7D%3B%20the%20truncation%20residual%20is%20predicted%20to%202%20%5C%25%0D%0A%22Case%20%282%29%20is%20the%20only%20one%20of%20the%20five%20published%20rows%20that%20supplies%20the%20%5Cnu_R%20and%20survives%20the%20donation%20---%20within%20the%20minimal%20extension%2C%20at%20one-loop%20curvature%22%2C%22%5CS%5Cref%7Bsec%3Aanom%7D%20%2B%20%5CS%5Cref%7Bsec%3Avacuum%7D%2C%20Fig.%20%5Cref%7Bfig%3Averdicts%7D%3B%20everything%20in%20eighths.%20A%20benchmark%20selected%2C%20not%20a%20model%20delivered%3A%20the%20modified%20potential%20is%20not%20recomputed.%20Depends%20on%20their%20eq.%20%2867%29%3A%20the%20verdict%20holds%20on%20w%5Cin%5B74/99%2C118/151%29%20and%20only%20w%3D3/4%20is%20admissible%20there%22%0D%0AProposition%20%5Cref%7Bprop%3Aclosed%7D%3A%20protection%20fails%20iff%20q_%5Cvarphi%3D%7CA_j%7C/n%3B%20the%20set%20has%20a%20maximum%2C%22%5CS%5Cref%7Bsec%3Aqphi%7D%3B%2018%20648%20brute-scan%20values%2C%200%20disagreements%22%0D%0Aq_%5Cvarphi%3D3/2%20forbids%20all%20four%20operators%20to%20all%20orders%20for%20every%20half-integer%20X_Q%2C%22%5CS%5Cref%7Bsec%3Aqphi%7D%3B%20and%20q_%5Cvarphi%3D1/2%2C%201%20both%20fail%2C%20so%20it%20is%20not%20vacuous%22%0D%0A%22K%3Dm_h%5Camin/%5Csqrt%7BF%27%27%28%5Camin%29%7D%20is%20row-independent%2C%20R_5%2CR_6%2Ck%20cancelling%22%2C%22%5CS%5Cref%7Bsec%3Ainstrument%7D%2C%20verified%20symbolically%22%0D%0A%22D%28%5Crep%7B48%7D%29%5Cequiv0%2C%20and%20the%20conclusion%20is%20a%20wedge%20containing%20w%3D1%20and%20every%20fitted%20repair%22%2C%22%5CS%5Cref%7Bsec%3Arepair%7D%2C%20Fig.%20%5Cref%7Bfig%3Arepair%7D%3B%20rebuilt%20from%20group%20theory%20in%20Sage%22%0D%0A%22Their%20%5Crep%7B48%7D-subscripted%20terms%20in%20eq.%20%2876%29%20must%20be%20%5Crep%7B84%7D%20terms%2C%20identified%20by%20a%20count%22%2C%5CS%5Cref%7Bsec%3Ainstrument%7D%3B%20the%20%5Crep%7B84%7D%27s%20fifteen%20doublets%20come%20out%20only%20then%0D%0A%22F%3D%5Csum%20m%20%5Cmathrm%7BRe%7D%20%5Cmathrm%7BLi%7D_5%28s%20e%5E%7Bic%5Cpi%5Calpha%7D%29%20and%20F%27%27%20a%20sum%20of%20%5Cmathrm%7BRe%7D%20%5Cmathrm%7BLi%7D_3%2C%20with%20no%20truncation%22%2C%22%5CS%5Cref%7Bsec%3Ainstrument%7D%2C%20verified%20in%20Sage%3B%20it%20is%20what%20makes%20the%2030-digit%20F%27%27%280.021%29%20exact%22%0D%0A%22Their%20eqs.%20%2854%29%2C%2841%29%2C%2857%29%2C%2869%29%2C%2870%29%20and%20their%20KK%20spectrum%20are%20derived%2C%20not%20assumed%2C%20and%20nothing%20in%20them%20is%20wrong%22%2C%22%5CS%5Cref%7Bsec%3Asetting%7D%3B%2013/13%20structure%20constants%2C%20the%20omitted%20one%20exactly%20zero%2C%20charges%20%5C%7B0%2C%5Cpm%5Ctfrac12%2C%5Cpm1%5C%7D%20with%20multiplicities%2026%2C20%2C2%22%0D%0A%22Their%20eq.%20%2868%29%20too%3A%20its%20three%20coefficients%20follow%20from%20the%20adjoint%27s%20%28q%2CP_5P_5%27%2CP_6%29%20table%20with%20two%20weights%2C%20a%3D2%20and%20b%3D%5Ctfrac12%22%2C%22%5CS%5Cref%7Bsec%3Asetting%7D%3B%20overdetermined%2C%20and%20the%20two%20rows%20that%20fix%20a%20agree.%20This%20is%20the%20sector%20the%20wedge%20holds%20fixed%2C%20and%20it%20was%20the%20only%20one%20checked%20against%20nothing%20but%20their%20own%20eq.%20%2862%29%22%0D%0A%22Unstated%20in%20their%20paper%2C%20reported%20as%20data%20and%20not%20as%20defects%22%2CWhere%0D%0A%22Their%20%5Crep%7B28%7D%20is%20%5Cmathrm%7BSym%7D%5E2%28%5Crep%7B%5Cbar7%7D%29%2C%20the%20conjugate%22%2C%22%5CS%5Cref%7Bsec%3Asetting%7D%3B%204/4%20against%202/4%2C%20and%20the%20test%20discriminates%20%28%5Crep%7B84%7D%3A%2010/10%20against%201/10%29.%20Invisible%20to%20V_%7B%5Crm%20eff%7D%22%0D%0A%22%5Cpi_5%3D%5Cpi_7%3A%20the%20two%20indices%20the%20Wilson%20line%20mixes%20carry%20the%20same%20P_5P_5%27%2C%20without%20which%20their%20eq.%20%2872%29%20is%20not%20well%20defined%22%2C%22%5CS%5Cref%7Bsec%3Asetting%7D%2C%20%5CS%5Cref%7Bsec%3Arepair%7D%3B%20the%20first%20thing%20the%20Sage%20construction%20checks%22%0D%0A%22Their%20spectrum%20requires%20a%20right-handed%20neutrino%2C%20not%20stated%20in%20their%20paper%22%2C%5CS%5Cref%7Bsec%3Aanom%7D%0D%0A%22Their%20Table%201%20is%20internally%20consistent%3A%20eq.%20%2882%29%20makes%201/R_5%20a%20function%20of%20%5Camin%2C%20and%20all%20five%20printed%20pairs%20agree%22%2C%22%5CS%5Cref%7Bsec%3Ainstrument%7D%3B%20a%20control%20on%20their%20table%20that%20could%20have%20fired.%20On%20rows%20%283%29%2C%284%29%20the%201/R_5%20column%20is%20the%20sharper%20constraint%22%0D%0A%22Open%2C%20and%20stated%20as%20open%22%2CWhy%0D%0A%22Their%20Table%201%20%5Camin%20is%20not%20reproduced%20from%20their%20eqs.%20%2868%29%2C%2872%29--%2876%29%22%2C%22%5CS%5Cref%7Bsec%3Ainstrument%7D%3B%20gauge%20sector%20exact%2C%20truncation%20irrelevant%2C%20transcription%20verified%20three%20ways%2C%20no%20multiplicative%20or%20single-channel%20repair%20survives%20its%20control%22%0D%0ACase%20%283%29%20has%20F%27%27%3C0%20at%20its%20own%20published%20%5Camin%20under%20our%20assembly%2C%22%5CS%5Cref%7Bsec%3Ainstrument%7D%3B%20exact%20to%2030%20digits%2C%20and%20the%20inflection%20is%20at%201.133%5Ctimes%20that%20value%22%0D%0AThe%20exclusion%20list%20above%20is%20the%20%5Cemph%7Bone-loop%20list%7D%2C%22%5CS%5Cref%7Bsec%3Ainstrument%7D%2C%20Observation%20%5Cref%7Bobs%3Alooporder%7D.%20Two-loop%20pure%20gauge%20is%20multiplicative%20and%20therefore%20already%20excluded%3B%20with%20fermions%20it%20is%20not%2C%20and%20its%20size%20is%20the%20same%20order%20as%20the%20rescaling%20the%20%5Camin%20column%20wants.%20Not%20computed%20here%2C%20and%20stated%20so%22%0D%0A%22And%20so%20is%20the%20wedge%3A%20it%20tolerates%201/27%20of%20relative%20gauge-versus-fermion%20rescaling%2C%20and%20the%20published%20two-loop%20rescalings%20put%20the%20transplant%20over%20it%20at%20the%20nominal%20coupling%22%2C%22%5CS%5Cref%7Bsec%3Arepair%7D.%20With%20%5Ccite%7BGuoDu%7D%27s%20fermionic%20half%20included%2C%200.78--1.72%20times%20the%20margin%20over%20g_4%5Cin%5B0.55%2C0.80%5D%20---%20not%20the%201.8--3.8%20of%20a%20gauge-only%20reading%20---%20crossing%20at%20g_4%3D0.6205%20and%20at%201.033%20at%20g_4%3D0.63.%20An%20earlier%20draft%20answered%20this%20with%20the%20anchor%20column%3B%20that%20answer%20is%20withdrawn%22%0D%0AAnd%20both%20inputs%20of%20that%20estimate%20are%20four-dimensional%20and%20thermal%2C%22their%20group%20factors%20are%20this%20algebra%2C%20their%20loop%20integrals%20are%20not%2C%20and%20the%206/5%20is%20made%20of%20the%20latter.%20%5Ccite%7BDGKA%7D%20add%20a%20limitation%20of%20their%20own%2C%20in%20their%20own%20words%3A%20they%20have%20%60%60not%20succeeded%20in%20finding%20a%20general%20proof%27%27%20of%20eq.%20%2866%29%20that%20avoids%20explicit%20evaluation%2C%20and%20do%20not%20know%20how%20the%20combinatorics%20works%20inside%20the%20Weyl%20chamber%20---%20their%20proof%20covers%20the%20straight%20paths%20from%20the%20origin%20to%20the%20Z%28N%29%20minima%2C%20along%20its%20edges.%20An%20%5Camin%5Csimeq0.05%20is%20on%20neither%22%0D%0A%22The%20two%20rows%20that%20fail%20are%20exactly%20the%20two%20containing%20a%20%5Crep%7B48%7D%2C%20and%20the%20one%20satisfiable%20system%20asks%20for%20w%28%5Crep%7B48%7D%29%3D5.59%2C%20%5B5.20%2C6.00%5D%20at%2095%20%5C%25%20under%20their%20own%20rounding%22%2C%22%5CS%5Cref%7Bsec%3Ainstrument%7D%3B%20confounded%20with%20their%20being%20the%20two%20smallest%20%5Camin%2C%20and%20five%20rows%20cannot%20separate%20the%20readings.%20Their%20eq.%20%2875%29%20is%20verified%20twice%20over%2C%20so%20no%20defect%20is%20claimed%22%0D%0AThe%20instrument%20is%20validated%20only%20as%20an%20approach%2C%22%5CS%5Cref%7Bsec%3Ainstrument%7D%3A%20Part%20V%27s%20independent%20implementation%20reproduces%20%5Ccite%7BAHMN%7D%20exactly%2C%20but%20it%20is%20a%20different%20implementation%2C%20so%20it%20does%20not%20certify%20the%20%5Csu7%20assembly%22%0D%0A%22Retracted%2C%20and%20left%20visible%22%2CWhy%0D%0A%60%60the%20exact%20eqs.%20%2862%29--%2865%29%20need%20k%5Capprox1.2%27%27%2Cnever%20computed%3B%20a%20conclusion%20line%20printed%20as%20a%20literal%20string.%20The%20real%20correction%20is%201.5%20%5C%25%20at%20k%3D1.2.%20%5CS%5Cref%7Bsec%3Ainstrument%7D%0D%0A%22%60%60one%20extra%20channel%20repairs%20the%20anchor%2C%20and%20the%20control%20says%20it%20is%20informative%27%27%22%2C%22the%20control%20fixed%20the%20winner%20instead%20of%20re-running%20the%20search.%20%5CS%5Cref%7Bsec%3Ainstrument%7D%2C%20Fig.%20%5Cref%7Bfig%3Acontrols%7D%22%0D%0A" title="The cells as text">⬇ CSV</a><span class="lm-chip">not cited in the text</span></div></details></section><section class="pc-pane"><h1 id="a0000000044">References</h1>
 <dl class="bibliography">
 <dt><a name="KM25">1</a></dt>
 <dd><p>Y. Komori, N. Maru, <em>\(SU(7)\) Grand Gauge-Higgs Unification</em>, NITEP 240, <a href="https://arxiv.org/abs/2503.04090" rel="noopener" target="_blank">arXiv:2503.04090</a>. </p>
@@ -736,39 +1515,74 @@ document.addEventListener('click', function (e) {
 (function(){
   var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
   if (!panes.length) return;
-  var box = document.querySelector('div.content');
+  var box = document.querySelector('div.content'), nav = document.querySelector('nav.toc');
+  var head = document.querySelector('body>header'), toggle = document.getElementById('toc-toggle');
+  var phone = window.matchMedia('(max-width: 1023.98px)');
   function find(h){
     if (!h) return null;
     try { h = decodeURIComponent(h); } catch (e) {}
     return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
   }
   function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
-  function show(h){
-    var t = find(h), p = paneOf(t) || panes[0];
-    panes.forEach(function(x){ x.hidden = x !== p; });
+  var marked = null;
+  function mark(p){
+    if (p === marked) return;
+    marked = p;
     document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
       var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
       var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
       li.classList.toggle('current', on);
       var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
-      if (ul) ul.classList.toggle('active', on);
+      if (ul) { ul.classList.toggle('active', on); ul.style.display = ''; }
       if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+      if (on && nav && !phone.matches) {  // keep the marked entry visible in a long sidebar
+        var r = li.getBoundingClientRect(), n = nav.getBoundingClientRect();
+        if (r.top < n.top || r.bottom > n.bottom) li.scrollIntoView({block: 'nearest'});
+      }
     });
-    if (!t || t === p || t.tagName === 'H1' || t.id === 'top') { if (box) box.scrollTop = 0; }
-    else t.scrollIntoView({block: 'start'});
   }
-  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
-  document.addEventListener('click', function(ev){  // a link to the hash already in the URL fires no hashchange
+  function closeDrawer(){ if (phone.matches && nav) nav.style.display = 'none'; }
+  function go(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    mark(p);
+    for (var d = t && t.closest && t.closest('details'); d; d = d.parentElement && d.parentElement.closest('details'))
+      d.open = true;  // a link to a folded block (a table, a figure) unfolds it
+    if (!t || t.id === 'top' || (t === p && p === panes[0])) { if (box) box.scrollTop = 0; window.scrollTo(0, 0); }
+    else t.scrollIntoView({block: 'start'});
+    closeDrawer();
+  }
+  // the section in view: the last one whose top has passed the top of the panel
+  var ticking = false;
+  function spy(){
+    ticking = false;
+    var top = (box ? Math.max(box.getBoundingClientRect().top, 0) : 0) + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }
+  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(spy); } }
+  if (box) box.addEventListener('scroll', onScroll, {passive: true});
+  window.addEventListener('scroll', onScroll, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){
     var a = ev.target.closest && ev.target.closest('a[href]');
-    if (!a) return;
-    var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
-    if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); show(m[1]); }
+    if (a) {
+      var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+      if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); go(m[1]); return; }  // same hash: no hashchange
+      if (m && nav && nav.contains(a)) closeDrawer();
+      return;
+    }
+    // phone: a tap outside the open drawer closes it
+    if (phone.matches && nav && nav.style.display && nav.style.display !== 'none' && !nav.contains(ev.target) &&
+        !(toggle && toggle.contains(ev.target))) closeDrawer();
   });
-  show(location.hash.slice(1));
-  // the browser's own jump to the hash, and MathJax, move the page after the first show(): place it again
-  window.addEventListener('load', function(){ show(location.hash.slice(1)); });
-  if (window.MathJax && MathJax.startup && MathJax.startup.promise)
-    MathJax.startup.promise.then(function(){ show(location.hash.slice(1)); });
+  if (toggle) toggle.addEventListener('click', function(){  // the drawer opens below the header, whatever its height
+    if (head) document.documentElement.style.setProperty('--pc-head', head.getBoundingClientRect().bottom + 'px');
+  });
+  function place(){ if (location.hash.length > 1) go(location.hash.slice(1)); else spy(); }
+  place();
+  // the browser's own jump to the hash, and MathJax, move the page after the first placing: place it again
+  window.addEventListener('load', place);
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(place);
 })();
 </script>
 <script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
@@ -856,7 +1670,7 @@ document.addEventListener('click', function (e) {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:identity": "Proposition 1 — the identity that decides it", "prop:real": "Proposition 2 — a real representation under diagonal $\\pm1$ parities furnishes no chiral\ngeneration", "prop:closed": "Proposition 3 — the rule in closed form"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"auto:observation-1": "Observation 1 — a partial match is more dangerous than none", "prop:identity": "Proposition 1 — the identity that decides it", "prop:real": "Proposition 2 — a real representation under diagonal $\\pm1$ parities furnishes no chiral\ngeneration", "auto:observation-2": "Observation 2 — the permissive reading is theirs, not a licence we take", "prop:closed": "Proposition 3 — the rule in closed form", "obs:looporder": "Observation 3 — the exclusion list above is the one-loop list, and it is not the whole space", "auto:observation-4": "Observation 4 — the guard lied first, and it is recorded"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
@@ -893,39 +1707,6 @@ document.addEventListener('click', function (e) {
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-print-js">
-(function(){
-  var opened = [], shown = [];
-  addEventListener('beforeprint', function(){
-    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
-    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
-      i.style.display = ''; shown.push(i); });
-  });
-  addEventListener('afterprint', function(){
-    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
-    opened = []; shown = [];
-  });
 })();
 </script>
 <style id="lm-lean-panel-css">
@@ -973,6 +1754,39 @@ document.addEventListener('click', function (e) {
     var a=e.target.closest&&e.target.closest('a[data-lean-github]');
     if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
     e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
 })();
 </script>
 </body>
