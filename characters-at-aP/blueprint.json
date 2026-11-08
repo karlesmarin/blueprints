@@ -1,0 +1,251 @@
+{
+ "schema": "lemmario-blueprint/1",
+ "statements": [
+  {
+   "id": "thm:crit",
+   "number": "Theorem 3.1",
+   "title": "the zero-count criterion: χ_λ(g_{p/q}) ≠ 0 iff N_q(λ+ρ) = N_q(ρ), at every rational point of the ρ-line",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:alph",
+   "number": "",
+   "title": "the alphabet of a_P^k is d·μ_q less two letters: two copies of 1 (d even), or 1 and −1 (d odd)",
+   "status": "part",
+   "formal_part": "added to the Lean repository after publication (23-oct-2026): Covers Proposition 4.1 in full, as multisets over an arbitrary field with a primitive (2m+2)-th root of unity.",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:clasif",
+   "number": "Theorem 5.1",
+   "title": "every character is an integer at g_{1/q} exactly for q | 2m, q | 2m+1, q | 2m+2, or q = 6 with m ≡ 1 (mod 3)",
+   "status": "part",
+   "formal_part": "the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m, 2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "conj:cap",
+   "number": "Corollary 6.1",
+   "title": "type C: χ_λ(a_P^k) ≠ 0 iff no folded class modulo q holds more than d of the ℓ_i (⌊d/2⌋ on a fixed class)",
+   "status": "part",
+   "formal_part": "the counting half over ZMod q: N_q(x) ≥ N_q(ρ), with equality iff the capacities hold (the link to the character is Theorem 3.1, not formalized)",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "thm:crit",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:slack",
+   "number": "Proposition 6.2",
+   "title": "the one unit of slack: m = dq/2 − 1 rows against a total capacity dq/2 (d even) or dq/2 − 1 (d odd)",
+   "status": "part",
+   "formal_part": "in the unfolded form over ZMod q: the deficits d − o_x(g) add up to 2, and under the capacities exactly one folded class falls one short (d even) or the occupancies are saturated (d odd)",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "conj:cap",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:signo",
+   "number": "Theorem 7.1",
+   "title": "the value at every power, sign included: χ_λ(a_P^k) = (−1)^{E_{p,q}(λ)} Z_q(λ+ρ)/Z_q(ρ) on the survivors, 0 elsewhere",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:crit",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:alph",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "conj:val",
+   "number": "",
+   "title": "at k = 2, the absolute value is a product of one factor per folded class",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:Ms",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:Ms",
+   "number": "",
+   "title": "the non-vanishing part of the C_{q−1} Weyl product over μ_q less one point does not depend on the point",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:valgen",
+   "number": "",
+   "title": "the absolute value at any power is the ratio of the vanishing root values, |χ| = Z_q(ℓ)/Z_q(ρ)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:crit",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:unit",
+   "number": "",
+   "title": "the surviving factors of the limit have modulus one",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:Ms",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:res",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:res",
+   "number": "",
+   "title": "the residue lemma: ℛ_x = (P_x(X)² + P_x(X²))/2 − m in ℤ[X]/(X^q − 1), and ℛ_{λ+ρ} = ℛ_ρ under the capacities",
+   "status": "part",
+   "formal_part": "the identity in the form 2ℛ_x + 2m = P_x² + P_x(X²) over a finite abelian group, and ℛ_x = ℛ_ρ under the capacities over ZMod q",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:resid",
+   "number": "Proposition 9.2",
+   "title": "the difference of the two residue histograms is the histogram of another root system, C_r or D_r",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:cuenta",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:res",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:dims",
+   "number": "",
+   "title": "the modulus factors as κ ∈ {1, 2} times dimensions of GL_n, Sp_2n and SO_2n+1 representations, one per folded class",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "conj:cap",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:valgen",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:cuenta",
+   "number": "",
+   "title": "a closed count of the surviving residues modulo q, for every q, in type C",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "conj:cap",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:g2",
+   "number": "",
+   "title": "in G_2 the vanishing at q = 3 and q = 2 is a congruence on (a, b)",
+   "status": "part",
+   "formal_part": "added to the Lean repository after publication (23-oct-2026): The Lean covers the arithmetic of the G₂ corollary (the two congruences on N_q versus r_q); the link to the vanishing of the character is the paper criterion and is not formalized.",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "thm:crit",
+     "kind": "uses"
+    }
+   ],
+   "to_check_by_hand": true
+  },
+  {
+   "id": "obs:types",
+   "number": "Observation 13.1",
+   "title": "read through coroots, R_P(q) contains the R(q) of the dual group, with equality when gcd(q, r) = 1",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "to_check_by_hand": true
+  }
+ ],
+ "counts": {
+  "formal": 0,
+  "part": 6,
+  "computation": 9,
+  "hand": 1,
+  "cited": 0,
+  "to_check": 16
+ }
+}
