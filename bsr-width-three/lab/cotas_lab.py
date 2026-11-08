@@ -43,8 +43,15 @@ def run_cotas(params):
         extra = ' Here min(m, n) = 3, so this is the exact value 2·max(m, n) of Theorem 1.'
     elif (m, n) == (4, 4):
         extra = ' With the lower bound 11 of Qi and Cui: 11 ≤ BSR(4,4) ≤ 12.'
-    txt = ('m = %d, n = %d: covering bound %d, [BSSV, Theorem 2.1] %d; %s.%s Only in width four is the bound new '
-           '(Corollary 7); for n ≥ 5 [BSSV, Theorem 2.1] is as good or better.' % (m, n, cub, b21, veredicto, extra))
+    # 8-nov (V245: con (4,5) decía «para n ≥ 5 BSSV es igual o mejor» y la tabla mostraba 15 < 16): la frase general
+    # depende de min(m, n), como en el paper, y la del caso sale de los mismos valores que la tabla (arriba)
+    s = min(m, n)
+    general = ('Here min(m, n) = 4: the case of Corollary 7 (exchanging x and y if needed), where the bound is new.'
+               if s == 4 else
+               'Here min(m, n) = %d ≥ 5: there [BSSV, Theorem 2.1] is never worse than mn − max(m, n) (the identity '
+               'after Corollary 7).' % s if s >= 5 else '')
+    txt = ('m = %d, n = %d: covering bound %d, [BSSV, Theorem 2.1] %d; %s.%s %s'
+           % (m, n, cub, b21, veredicto, extra, general))
     ms = list(range(3, 31))
     serie = lambda k, nombre, color, modo: {'name': nombre, 'x': ms, 'y': [cotas(x, n)[k] - x * n for x in ms],
                                            'mode': modo, 'color': color}

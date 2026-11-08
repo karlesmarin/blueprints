@@ -89,12 +89,12 @@
   // inputs and its plots that name the figure ({figure, panel}) replace the image, which stays one click away (and
   // shows meanwhile, or if Python cannot load). The lab's own inputs then redraw the figure in place, not twice.
   function slotOf(name) {
-    var img = document.querySelector('img[alt*="' + name + '"]');
+    var img = document.querySelector('img[data-fig="' + name + '"], img[alt*="' + name + '"]');
     return img ? img.parentElement.querySelector(':scope > .lm-figslot[data-for="' + name + '"]') : null;
   }
   function figureSlots(lab, open, start) {
     (lab.figures || []).forEach(function (name) {
-      var img = document.querySelector('img[alt*="' + name + '"]');
+      var img = document.querySelector('img[data-fig="' + name + '"], img[alt*="' + name + '"]');
       if (!img || slotOf(name)) return;
       if (lab.figure_live === false) {  // the figure stays static; only a button to the lab, where it is drawn live
         if (img.parentElement.querySelector(':scope > .lm-figlink[data-lab="' + lab.id + '"]')) return;
@@ -143,7 +143,7 @@
     }
     box.innerHTML = figure(p);
     mount3d(box);
-    var img = slot.parentElement.querySelector('img[alt*="' + p.figure + '"]'), tg = slot.parentElement.querySelector(':scope > .lm-figtoggle');
+    var img = slot.parentElement.querySelector('img[data-fig="' + p.figure + '"], img[alt*="' + p.figure + '"]'), tg = slot.parentElement.querySelector(':scope > .lm-figtoggle');
     if (tg && tg.hidden) { tg.hidden = false; img.style.display = 'none'; }  // first time: the live figure replaces the image
     return true;
   }
