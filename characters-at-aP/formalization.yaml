@@ -16,7 +16,7 @@ project:
 repository:
   substantive_formalization:
     id: https://github.com/karlesmarin/formalizations
-    revision: 6780efec37e45ee88d2f65aed7e18eb80127512b
+    revision: 24858c904d214952e162fb4b69874a54c3f0ef6a
 sources:
 - title: Integer character values on the ρ-line of Sp(2m)
   authors:
@@ -38,26 +38,83 @@ classification:
   - 17B22
   - 11R18
 status:
-  scope: '16 statements: 0 formalized whole, 6 in part (of 6 with a formal part); the rest by hand or by computation,
+  scope: '16 statements: 0 formalized whole, 10 in part (of 10 with a formal part); the rest by hand or by computation,
     as the blueprint says statement by statement'
   main_results:
+  - declaration: RhoLine.thm_crit
+    file: ''
+    system: Lean 4
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 3.1 from the product (2): if F_ρ·Q
+      = F_ℓ, then Q(ζ) ≠ 0 at a primitive q-th root iff N_q(ℓ) = N_q(ρ), and N_q(ρ) ≤ N_q(ℓ); eval_quot gives the
+      exact value when the counts agree. Not formalized: that ζ^{−(λ,ρ)}Q(ζ) is the character (formula (2), Weyl),
+      certified exactly in certificar_exacto.py (C1); and that F_ρ divides F_ℓ, taken as hypothesis.'
+  - declaration: RhoLine.eval_quot
+    file: ''
+    system: Lean 4
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 3.1 from the product (2): if F_ρ·Q
+      = F_ℓ, then Q(ζ) ≠ 0 at a primitive q-th root iff N_q(ℓ) = N_q(ρ), and N_q(ρ) ≤ N_q(ℓ); eval_quot gives the
+      exact value when the counts agree. Not formalized: that ζ^{−(λ,ρ)}Q(ζ) is the character (formula (2), Weyl),
+      certified exactly in certificar_exacto.py (C1); and that F_ρ divides F_ℓ, taken as hypothesis.'
   - declaration: Segmentos.lem_seg
     file: ''
     system: Lean 4
     note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
       kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
-      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}'
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
   - declaration: Segmentos.seg_stable_of_dvd
     file: ''
     system: Lean 4
     note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
       kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
-      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}'
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
+  - declaration: Segmentos.stable_iff_cond
+    file: ''
+    system: Lean 4
+    note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
+      kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
+  - declaration: Segmentos.esymm_int_iff_stable
+    file: ''
+    system: Lean 4
+    note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
+      kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
+  - declaration: Segmentos.thm_clasif_spectral
+    file: ''
+    system: Lean 4
+    note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
+      kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
   counts:
     formal: 0
-    part: 6
-    computation: 9
-    hand: 1
+    part: 10
+    computation: 6
+    hand: 0
     cited: 0
     to_check: 16
 automation:
@@ -70,18 +127,33 @@ automation:
   notes: Isabelle theories compiled without quick_and_dirty and with a negative control (a false lemma added must
     make the build fail).
 fidelity:
-  divergences: 'prop:alph: added to the Lean repository after publication (23-oct-2026): Covers Proposition 4.1
-    in full, as multisets over an arbitrary field with a primitive (2m+2)-th root of unity.; Theorem 5.1: the classification
+  divergences: 'Theorem 3.1: added to the Lean repository after publication (08-nov-2026): Theorem 3.1 from the
+    product (2): if F_ρ·Q = F_ℓ, then Q(ζ) ≠ 0 at a primitive q-th root iff N_q(ℓ) = N_q(ρ), and N_q(ρ) ≤ N_q(ℓ);
+    eval_quot gives the exact value when the counts agree. Not formalized: that ζ^{−(λ,ρ)}Q(ζ) is the character
+    (formula (2), Weyl), certified exactly in certificar_exacto.py (C1); and that F_ρ divides F_ℓ, taken as hypothesis.;
+    Proposition 4.1: added to the Lean repository after publication (23-oct-2026): Covers Proposition 4.1 in full,
+    as multisets over an arbitrary field with a primitive (2m+2)-th root of unity.; Theorem 5.1: the classification
     of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet kernels of the proof): for
     n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m, 2m+1 or 2m+2; not the link with
-    integrality, nor q ∈ {3, 4, 6}; Corollary 6.1: the counting half over ZMod q: N_q(x) ≥ N_q(ρ), with equality
-    iff the capacities hold (the link to the character is Theorem 3.1, not formalized); Proposition 6.2: in the
-    unfolded form over ZMod q: the deficits d − o_x(g) add up to 2, and under the capacities exactly one folded
-    class falls one short (d even) or the occupancies are saturated (d odd); prop:res: the identity in the form
-    2ℛ_x + 2m = P_x² + P_x(X²) over a finite abelian group, and ℛ_x = ℛ_ρ under the capacities over ZMod q; cor:g2:
-    added to the Lean repository after publication (23-oct-2026): The Lean covers the arithmetic of the G₂ corollary
-    (the two congruences on N_q versus r_q); the link to the vanishing of the character is the paper criterion and
-    is not formalized.'
+    integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication (08-nov-2026): Theorem 5.1 at
+    the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum {±1, …, ±m} is Galois-stable
+    iff the divisibility condition holds, and the elementary symmetric functions of the spectrum are integers iff
+    it is Galois-stable. Not formalized: that every character of Sp(2m) is an integer iff those symmetric functions
+    are (the representation ring), certified exactly in certificar_exacto.py (C2).; Corollary 6.1: the counting
+    half over ZMod q: N_q(x) ≥ N_q(ρ), with equality iff the capacities hold (the link to the character is Theorem
+    3.1, not formalized); Proposition 6.2: in the unfolded form over ZMod q: the deficits d − o_x(g) add up to 2,
+    and under the capacities exactly one folded class falls one short (d even) or the occupancies are saturated
+    (d odd); prop:Ms: added to the Lean repository after publication (08-nov-2026): Proposition 8.2 in full, in
+    the ordered form M_s² = V_s·C_s·D_s: the punctured Vandermonde is q^{q−2} and C_s·D_s = q^{q−2}·D, so the product
+    does not depend on the removed point.; Theorem 8.3: added to the Lean repository after publication (08-nov-2026):
+    Theorem 8.3: at the powers of a_P (dq = 2m + 2), ‖Q(ζ)‖ = ∏_{q∣(ℓ,α)}(ℓ,α) / ∏_{q∣(ρ,α)}(ρ,α), for any ℓ with
+    positive pairings and N_q(ℓ) = N_q(ρ); with formula (2) and the divisibility as in Theorem 3.1.; Lemma 8.4:
+    added to the Lean repository after publication (08-nov-2026): Lemma 8.4 in full: the non-vanishing factors of
+    ℓ and of ρ have the same modulus at a primitive q-th root, q | 2m + 2, through the residue lemma (ResidueCapacity.prop_res_cap).;
+    Proposition 9.1: the identity in the form 2ℛ_x + 2m = P_x² + P_x(X²) over a finite abelian group, and ℛ_x =
+    ℛ_ρ under the capacities over ZMod q; cor:g2: added to the Lean repository after publication (23-oct-2026):
+    The Lean covers the arithmetic of the G₂ corollary (the two congruences on N_q versus r_q); the link to the
+    vanishing of the character is the paper criterion and is not formalized.'
 review:
   status: self-assessed
   reviewers: []
@@ -89,23 +161,35 @@ review:
 alignment:
   statements:
   - source: Theorem 3.1
-    status: not-formalized
-  - source: prop:alph
+    status: 'other: partly formalized'
+    lean: RhoLine.thm_crit
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 3.1 from the product (2): if F_ρ·Q
+      = F_ℓ, then Q(ζ) ≠ 0 at a primitive q-th root iff N_q(ℓ) = N_q(ρ), and N_q(ρ) ≤ N_q(ℓ); eval_quot gives the
+      exact value when the counts agree. Not formalized: that ζ^{−(λ,ρ)}Q(ζ) is the character (formula (2), Weyl),
+      certified exactly in certificar_exacto.py (C1); and that F_ρ divides F_ℓ, taken as hypothesis.'
+  - source: Theorem 3.1
+    status: 'other: partly formalized'
+    lean: RhoLine.eval_quot
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 3.1 from the product (2): if F_ρ·Q
+      = F_ℓ, then Q(ζ) ≠ 0 at a primitive q-th root iff N_q(ℓ) = N_q(ρ), and N_q(ρ) ≤ N_q(ℓ); eval_quot gives the
+      exact value when the counts agree. Not formalized: that ζ^{−(λ,ρ)}Q(ζ) is the character (formula (2), Weyl),
+      certified exactly in certificar_exacto.py (C1); and that F_ρ divides F_ℓ, taken as hypothesis.'
+  - source: Proposition 4.1
     status: 'other: partly formalized'
     lean: KostantAlphabet.alphabet_eq_even
     note: 'added to the Lean repository after publication (23-oct-2026): Covers Proposition 4.1 in full, as multisets
       over an arbitrary field with a primitive (2m+2)-th root of unity.'
-  - source: prop:alph
+  - source: Proposition 4.1
     status: 'other: partly formalized'
     lean: KostantAlphabet.alphabet_eq_odd
     note: 'added to the Lean repository after publication (23-oct-2026): Covers Proposition 4.1 in full, as multisets
       over an arbitrary field with a primitive (2m+2)-th root of unity.'
-  - source: prop:alph
+  - source: Proposition 4.1
     status: 'other: partly formalized'
     lean: KostantAlphabet.alphabet_add_even
     note: 'added to the Lean repository after publication (23-oct-2026): Covers Proposition 4.1 in full, as multisets
       over an arbitrary field with a primitive (2m+2)-th root of unity.'
-  - source: prop:alph
+  - source: Proposition 4.1
     status: 'other: partly formalized'
     lean: KostantAlphabet.alphabet_add_odd
     note: 'added to the Lean repository after publication (23-oct-2026): Covers Proposition 4.1 in full, as multisets
@@ -115,13 +199,56 @@ alignment:
     lean: Segmentos.lem_seg
     note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
       kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
-      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}'
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
   - source: Theorem 5.1
     status: 'other: partly formalized'
     lean: Segmentos.seg_stable_of_dvd
     note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
       kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
-      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}'
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
+  - source: Theorem 5.1
+    status: 'other: partly formalized'
+    lean: Segmentos.stable_iff_cond
+    note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
+      kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
+  - source: Theorem 5.1
+    status: 'other: partly formalized'
+    lean: Segmentos.esymm_int_iff_stable
+    note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
+      kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
+  - source: Theorem 5.1
+    status: 'other: partly formalized'
+    lean: Segmentos.thm_clasif_spectral
+    note: 'the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet
+      kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m,
+      2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication
+      (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum
+      {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions
+      of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an
+      integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py
+      (C2).'
   - source: Corollary 6.1
     status: 'other: partly formalized'
     lean: ResidueCapacity.conj_cap
@@ -157,17 +284,46 @@ alignment:
   - source: conj:val
     status: not-formalized
   - source: prop:Ms
-    status: not-formalized
-  - source: thm:valgen
-    status: not-formalized
-  - source: lem:unit
-    status: not-formalized
-  - source: prop:res
+    status: 'other: partly formalized'
+    lean: WeylProductMs.prop_Ms
+    note: 'added to the Lean repository after publication (08-nov-2026): Proposition 8.2 in full, in the ordered
+      form M_s² = V_s·C_s·D_s: the punctured Vandermonde is q^{q−2} and C_s·D_s = q^{q−2}·D, so the product does
+      not depend on the removed point.'
+  - source: prop:Ms
+    status: 'other: partly formalized'
+    lean: WeylProductMs.prop_Ms_zmod
+    note: 'added to the Lean repository after publication (08-nov-2026): Proposition 8.2 in full, in the ordered
+      form M_s² = V_s·C_s·D_s: the punctured Vandermonde is q^{q−2} and C_s·D_s = q^{q−2}·D, so the product does
+      not depend on the removed point.'
+  - source: prop:Ms
+    status: 'other: partly formalized'
+    lean: WeylProductMs.vandermonde_punctured
+    note: 'added to the Lean repository after publication (08-nov-2026): Proposition 8.2 in full, in the ordered
+      form M_s² = V_s·C_s·D_s: the punctured Vandermonde is q^{q−2} and C_s·D_s = q^{q−2}·D, so the product does
+      not depend on the removed point.'
+  - source: prop:Ms
+    status: 'other: partly formalized'
+    lean: WeylProductMs.CD_punctured
+    note: 'added to the Lean repository after publication (08-nov-2026): Proposition 8.2 in full, in the ordered
+      form M_s² = V_s·C_s·D_s: the punctured Vandermonde is q^{q−2} and C_s·D_s = q^{q−2}·D, so the product does
+      not depend on the removed point.'
+  - source: Theorem 8.3
+    status: 'other: partly formalized'
+    lean: RhoLine.thm_valgen
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 8.3: at the powers of a_P (dq =
+      2m + 2), ‖Q(ζ)‖ = ∏_{q∣(ℓ,α)}(ℓ,α) / ∏_{q∣(ρ,α)}(ρ,α), for any ℓ with positive pairings and N_q(ℓ) = N_q(ρ);
+      with formula (2) and the divisibility as in Theorem 3.1.'
+  - source: Lemma 8.4
+    status: 'other: partly formalized'
+    lean: RhoLine.lem_unit
+    note: 'added to the Lean repository after publication (08-nov-2026): Lemma 8.4 in full: the non-vanishing factors
+      of ℓ and of ρ have the same modulus at a primitive q-th root, q | 2m + 2, through the residue lemma (ResidueCapacity.prop_res_cap).'
+  - source: Proposition 9.1
     status: 'other: partly formalized'
     lean: ResidueCapacity.eq_res
     note: the identity in the form 2ℛ_x + 2m = P_x² + P_x(X²) over a finite abelian group, and ℛ_x = ℛ_ρ under the
       capacities over ZMod q
-  - source: prop:res
+  - source: Proposition 9.1
     status: 'other: partly formalized'
     lean: ResidueCapacity.prop_res_cap
     note: the identity in the form 2ℛ_x + 2m = P_x² + P_x(X²) over a finite abelian group, and ℛ_x = ℛ_ρ under the
