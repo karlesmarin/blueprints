@@ -68,6 +68,45 @@ def survivors_map(lam, m, d, q, p):
     return K.svg_plot(series, title='Sp(2) at the power: χ against λ1', xlabel='λ1', ylabel='χ', legend_below=True)
 
 
+def survivors_3d(lam, m, d, q, p):
+    """8-nov (Carles: «lo ideal es hacer uno en 2D con otro 3D»): the survivors in 3D. For m ≥ 3, the cloud
+    (λ1, λ2, λ3) with λ4.. fixed as the reader's, as Figures 3 and 4 of the paper (Sp(6)); for m = 2, the value χ as
+    the height over the plane (λ1, λ2). Blue χ > 0, orange χ < 0, the size grows with |χ|; the reader's λ is a star."""
+    if m < 2:
+        return None
+    N = min(14, max(8, lam[0] + 2))
+    groups = {}
+    pts_you = []
+    if m >= 3:
+        rest = lam[3:]
+        low = rest[0] if rest else 0
+        for a in range(low, N + 1):
+            for b in range(low, a + 1):
+                for c in range(low, b + 1):
+                    v = value([a, b, c] + rest, m, d, q, p)
+                    if v:
+                        k = (v > 0, min(3, int(math.log2(1 + abs(float(v))) // 2)))
+                        groups.setdefault(k, []).append([a, b, c])
+        pts_you = [lam[:3]]
+        axes, title = ('λ1', 'λ2', 'λ3'), 'Sp(%d): the surviving weights in (λ1, λ2, λ3)%s' % (
+            2 * m, (' with λ4.. = (%s)' % ', '.join(map(str, lam[3:]))) if lam[3:] else '')
+    else:
+        for a in range(0, N + 1):
+            for b in range(0, a + 1):
+                v = value([a, b], m, d, q, p)
+                if v:
+                    k = (v > 0, min(3, int(math.log2(1 + abs(float(v))) // 2)))
+                    groups.setdefault(k, []).append([a, b, float(v)])
+        pts_you = [[lam[0], lam[1], float(value(lam, m, d, q, p))]]
+        axes, title = ('λ1', 'λ2', 'χ'), 'Sp(4): the value χ as a height over (λ1, λ2)'
+    items = []
+    for (pos, k), pts in sorted(groups.items()):
+        items.append(K.points3(pts, name='%s, |χ| ~ 4^%d' % ('χ > 0' if pos else 'χ < 0', k),
+                               color='#1B6F8C' if pos else '#B5530F', size=3 + 2 * k, opacity=0.75))
+    items.append(K.points3(pts_you, name='your λ', color='#C62828', size=12, star=True, opacity=1))
+    return K.three_d(items, title=title, axes=axes)
+
+
 def run(params):
     try:
         m, k, lam = parse(json.loads(params))
@@ -164,6 +203,9 @@ def run(params):
         lines.append('<b>The character itself</b> (Jacobi–Trudi, exact): \\(\\chi_\\lambda(a_P^{\\,%d}) = %d\\).' % (k, chi))
     plots = [F.boxes(classes, q, d, 'The folded classes mod %d and their capacities (Corollary 6.1; * = fixed class)' % q),
              survivors_map(lam, m, d, q, p)]
+    tres = survivors_3d(lam, m, d, q, p)
+    if tres:
+        plots.append(tres)
     return K.result('<br>'.join(lines), plots,
                     K.table(['folded class mod q', 'capacity', 'occupancy', 'entries ℓ_i', ''], rows))
 
