@@ -20,6 +20,19 @@
     svg.style.width = '100%'; svg.style.minWidth = '0'; svg.style.height = natural(); svg.style.cursor = 'grab';
     svg.style.touchAction = 'none';
     function set() { svg.setAttribute('viewBox', vb.join(' ')); }
+    // a phone (20-oct, Carles: «los maps en móvil no se ven bien»): the whole map fitted to 390 px is drawn at ~15 %,
+    // with 2 px letters. When fitting would go below READABLE, start at a readable scale on the top left of the map
+    // (drag or pinch to move; ⟲ still shows the whole map) in a taller box.
+    var READABLE = 0.9, w0 = box.clientWidth || 900;  // 0.6 measured 6.4 px letters on a phone: too small
+    if (w0 / vb0[2] < 0.45) {
+      var hpx = Math.round(window.innerHeight * 0.7);
+      svg.style.height = hpx + 'px';
+      vb = [vb0[0], vb0[1], w0 / READABLE, hpx / READABLE]; set();
+      var hint = document.createElement('div');
+      hint.className = 'mz-phone';
+      hint.textContent = 'Drag to move · pinch to zoom · ⟲ shows the whole map';
+      box.parentNode.insertBefore(hint, box);
+    }
 
     // --- controls -------------------------------------------------------------------------------------------
     var bar = document.createElement('div');
@@ -149,6 +162,8 @@
     '.mz-bar button,.mz-bar a{font:13px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;' +
     'padding:.15em .6em;cursor:pointer;color:#222;text-decoration:none}.mz-bar button:hover,.mz-bar a:hover{background:#e3edf7}' +
     '.mz-help{color:#666;font-size:12px;margin:0 .4em}.mz-secs{display:flex;flex-wrap:wrap;gap:.3em;width:100%}' +
+    '.mz-phone{font-size:13px;color:#456;background:#eef4fa;border:1px solid #c9d6e3;border-radius:6px;' +
+    'padding:.3em .6em;margin:.3em 0}@media (max-width:700px){.mz-help{display:none}}' +
     '.mz-secs button{font-size:12px;background:#f5f8fc}' +
     'g.mz-dim{opacity:.12;transition:opacity .15s}g.edge.mz-on path{stroke-width:2.2}g.edge.mz-on polygon{stroke-width:2}' +
     'g.edge.lm-aux{opacity:.18}g.edge.lm-aux.mz-on{opacity:1}' +
