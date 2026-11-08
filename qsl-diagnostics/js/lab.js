@@ -253,7 +253,10 @@
         if (res.table) h += table(res.table);
         var placed = [];
         [].concat(res.plot || [], res.plots || []).forEach(function (p) {
-          if (p.figure && place(p)) placed.push(p.figure); else figs += figure(p);
+          // 8-nov (Carles, integer-frieze: «el lab "Figures 4 and 5 live" no muestra nada»): a figure placed in the
+          // paper ALSO shows in the lab itself; the reader in Explore saw only text and «go to the figure»
+          if (p.figure && place(p)) placed.push(p.figure);
+          figs += figure(p);
         });
         // 27-oct (Carles: «que pueda dar un resumen del resultado»): the live figure carries the lab's summary under it
         placed.filter(function (f, i) { return placed.indexOf(f) === i; }).forEach(function (f) {
@@ -266,7 +269,7 @@
           if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([sum]).catch(function () {});
         });
         if (placed.length) {
-          h += '<p class="lm-placed">🖼 The paper\'s figure shows these values, in its place: <button type="button" ' +
+          h += '<p class="lm-placed">🖼 The paper\'s figure also shows these values, in its place: <button type="button" ' +
             'class="lm-goto" data-fig="' + esc(placed[0]) + '">go to the figure ↑</button></p>';
         }
         // the reader takes the result away: the table as CSV, and a link that reopens the lab with these inputs
