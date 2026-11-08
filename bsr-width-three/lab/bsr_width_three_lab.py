@@ -93,13 +93,17 @@ def run_regular(params):
         rc, _ = rank_dphi(k, Q=Pm)
         ms.append(k); rs.append(r); ns.append(N); cs.append(rc)
         filas.append([k, N, r, 'onto' if r == N else 'NOT onto', rc])
-    plot = K.svg_plot([{'name': 'N = dim of biquadratic forms', 'x': ms, 'y': ns, 'mode': 'line', 'color': '#888888'},
-                       {'name': 'rank of dΦ at [I P Q] (Lemma 2)', 'x': ms, 'y': rs, 'mode': 'points', 'color': '#1B6F8C', 'size': 7},
-                       {'name': 'control: Q = P (commuting)', 'x': ms, 'y': cs, 'mode': 'points', 'color': '#B5530F', 'size': 6}],
-                      title='the regular point of Lemma 2, modulo 1000003', xlabel='m', ylabel='rank')
+    # 8-nov (Carles: «que sean diferentes las figuras… parece una copia del anterior»): en vez de la curva de rangos
+    # (como el laboratorio de qp_bsr), las matrices de la prueba y la razón por la que funciona: diag(PQ − QP).
+    import figuras as FG
+    Pm = [[1 if a == (c + 1) % m else 0 for c in range(m)] for a in range(m)]
+    fig = FG.matrices_svg(Pm, _Q_default(m), 'Lemma 2 for m = %d: C = [I P Q] and why it works' % m)
+    ctl = FG.matrices_svg(Pm, Pm, 'control: Q = P, the two matrices commute')
     txt = ('For m = %d: rank of dΦ_{2m} = %d and N = %d, so dΦ is onto and the set of sums of 2m squares has interior. '
-           'With Q = P the matrices commute, the argument of Lemma 2 fails and the rank is %d < N.' % (m, rs[-1], ns[-1], cs[-1]))
-    return K.result(txt, [plot], K.table(['m', 'N', 'rank at [I P Q]', 'dΦ', 'rank with Q = P'], filas))
+           'The proof: a multiplier vanishing on ker C is CᵀMC with MP, MQ, PᵀMQ symmetric, and then M(PQ − QP) = 0; '
+           'the diagonal of PQ − QP has no zero, so M = 0. With Q = P the matrices commute, PQ − QP = 0 and the rank '
+           'is %d < N (computed modulo 1000003).' % (m, rs[-1], ns[-1], cs[-1]))
+    return K.result(txt, [fig, ctl], K.table(['m', 'N', 'rank at [I P Q]', 'dΦ', 'rank with Q = P'], filas))
 
 
 def witness_squares(m):
