@@ -16,7 +16,7 @@ project:
 repository:
   substantive_formalization:
     id: https://github.com/karlesmarin/formalizations
-    revision: ccb85296b5621fd37eeb7a9dd9fa25cdcd1fc6ae
+    revision: 32875fa349bcb6c0a83e2e347c961bd32a8ae1c8
 sources:
 - title: Integer character values on the ρ-line of Sp(2m)
   authors:
@@ -38,7 +38,7 @@ classification:
   - 17B22
   - 11R18
 status:
-  scope: '16 statements: 0 formalized whole, 11 in part (of 11 with a formal part); the rest by hand or by computation,
+  scope: '16 statements: 0 formalized whole, 12 in part (of 12 with a formal part); the rest by hand or by computation,
     as the blueprint says statement by statement'
   main_results:
   - declaration: RhoLine.thm_crit
@@ -112,8 +112,8 @@ status:
       (C2).'
   counts:
     formal: 0
-    part: 11
-    computation: 5
+    part: 12
+    computation: 4
     hand: 0
     cited: 0
     to_check: 16
@@ -151,12 +151,15 @@ fidelity:
     added to the Lean repository after publication (08-nov-2026): Lemma 8.4 in full: the non-vanishing factors of
     ℓ and of ρ have the same modulus at a primitive q-th root, q | 2m + 2, through the residue lemma (ResidueCapacity.prop_res_cap).;
     Proposition 9.1: the identity in the form 2ℛ_x + 2m = P_x² + P_x(X²) over a finite abelian group, and ℛ_x =
-    ℛ_ρ under the capacities over ZMod q; cor:g2: added to the Lean repository after publication (23-oct-2026):
-    The Lean covers the arithmetic of the G₂ corollary (the two congruences on N_q versus r_q); the link to the
-    vanishing of the character is the paper criterion and is not formalized.; Observation 13.1: added to the Lean
-    repository after publication (08-nov-2026): Observation 13.1 over any crystallographic root pairing with a base:
-    the coroot coefficients in the dual base, ht_P(α) = ((α,α)/2)·ht(α^∨) = (ρ,α), and the three clauses. Taken
-    as hypotheses: the two root lengths ((α,α)/2 ∈ {1, r}) and a ρ with ⟨ρ, α_i^∨⟩ = 1.'
+    ℛ_ρ under the capacities over ZMod q; thm:cuenta: added to the Lean repository after publication (08-nov-2026):
+    Theorem 11.1 in full, for every q (no q | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal
+    profiles in both regimes, and the closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators
+    cleared.; Corollary 12.1: added to the Lean repository after publication (23-oct-2026): The Lean covers the
+    arithmetic of the G₂ corollary (the two congruences on N_q versus r_q); the link to the vanishing of the character
+    is the paper criterion and is not formalized.; Observation 13.1: added to the Lean repository after publication
+    (08-nov-2026): Observation 13.1 over any crystallographic root pairing with a base: the coroot coefficients
+    in the dual base, ht_P(α) = ((α,α)/2)·ht(α^∨) = (ρ,α), and the three clauses. Taken as hypotheses: the two root
+    lengths ((α,α)/2 ∈ {1, r}) and a ρ with ⟨ρ, α_i^∨⟩ = 1.'
 review:
   status: self-assessed
   reviewers: []
@@ -336,26 +339,60 @@ alignment:
   - source: thm:dims
     status: not-formalized
   - source: thm:cuenta
-    status: not-formalized
-  - source: cor:g2
+    status: 'other: partly formalized'
+    lean: SurvivorCount.thm_cuenta_le
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 11.1 in full, for every q (no q
+      | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal profiles in both regimes, and the
+      closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators cleared.'
+  - source: thm:cuenta
+    status: 'other: partly formalized'
+    lean: SurvivorCount.thm_cuenta_gt
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 11.1 in full, for every q (no q
+      | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal profiles in both regimes, and the
+      closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators cleared.'
+  - source: thm:cuenta
+    status: 'other: partly formalized'
+    lean: SurvivorCount.min_profile_case1
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 11.1 in full, for every q (no q
+      | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal profiles in both regimes, and the
+      closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators cleared.'
+  - source: thm:cuenta
+    status: 'other: partly formalized'
+    lean: SurvivorCount.min_profile_case2
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 11.1 in full, for every q (no q
+      | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal profiles in both regimes, and the
+      closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators cleared.'
+  - source: thm:cuenta
+    status: 'other: partly formalized'
+    lean: SurvivorCount.cost_eq_two_Nq
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 11.1 in full, for every q (no q
+      | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal profiles in both regimes, and the
+      closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators cleared.'
+  - source: thm:cuenta
+    status: 'other: partly formalized'
+    lean: SurvivorCount.fibre_count
+    note: 'added to the Lean repository after publication (08-nov-2026): Theorem 11.1 in full, for every q (no q
+      | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal profiles in both regimes, and the
+      closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators cleared.'
+  - source: Corollary 12.1
     status: 'other: partly formalized'
     lean: KostantAlphabet.G2Counts.N_three_eq_iff
     note: 'added to the Lean repository after publication (23-oct-2026): The Lean covers the arithmetic of the G₂
       corollary (the two congruences on N_q versus r_q); the link to the vanishing of the character is the paper
       criterion and is not formalized.'
-  - source: cor:g2
+  - source: Corollary 12.1
     status: 'other: partly formalized'
     lean: KostantAlphabet.G2Counts.N_two_eq_iff
     note: 'added to the Lean repository after publication (23-oct-2026): The Lean covers the arithmetic of the G₂
       corollary (the two congruences on N_q versus r_q); the link to the vanishing of the character is the paper
       criterion and is not formalized.'
-  - source: cor:g2
+  - source: Corollary 12.1
     status: 'other: partly formalized'
     lean: KostantAlphabet.G2Counts.N_three_gt_iff
     note: 'added to the Lean repository after publication (23-oct-2026): The Lean covers the arithmetic of the G₂
       corollary (the two congruences on N_q versus r_q); the link to the vanishing of the character is the paper
       criterion and is not formalized.'
-  - source: cor:g2
+  - source: Corollary 12.1
     status: 'other: partly formalized'
     lean: KostantAlphabet.G2Counts.N_two_gt_iff
     note: 'added to the Lean repository after publication (23-oct-2026): The Lean covers the arithmetic of the G₂
