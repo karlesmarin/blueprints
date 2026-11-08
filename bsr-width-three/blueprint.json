@@ -6,33 +6,38 @@
    "number": "Theorem 1",
    "title": "BSR(m,3) = 2m for every m ≥ 2",
    "status": "part",
-   "formal_part": "partly: the lower bound 2m (Lemma 6), the algebraic core of Lemma 2 and the case e = 1 of the induction; Proposition 3, Lemma 5, the case e ≥ 2 and the assembly of the upper bound are not formalized",
+   "formal_part": "partly: the lower bound 2m (Lemma 6, for the witness with slopes 0, …, m−1), the algebraic core of Lemma 2 and the second-variation inequality of the case e = 1 under the hypothesis L ⪰ 0; outside the formal part: the passage from a representation to the three summands x₀ ⊗ y_j in adapted coordinates and the deduction of L ⪰ 0, Proposition 3, Lemma 5, the case e ≥ 2 and the assembly of the upper bound",
    "systems": [
     "Isabelle/HOL"
    ],
    "relations": [
     {
      "to": "lem:regular",
-     "kind": "uses"
+     "kind": "assumes"
     },
     {
      "to": "prop:boundary",
-     "kind": "uses"
+     "kind": "assumes"
     },
     {
      "to": "cor:boundary",
-     "kind": "uses"
+     "kind": "assumes"
     },
     {
      "to": "lem:support",
-     "kind": "uses"
+     "kind": "assumes"
     },
     {
      "to": "lem:witness",
-     "kind": "uses"
+     "kind": "assumes"
     }
    ],
-   "fidelity": null,
+   "fidelity": {
+    "verdict": "block",
+    "by": "V249",
+    "date": "2026-11-08",
+    "note": "La cota inferior \\(2m\\) está formalizada, pero para anunciar todo el caso \\(e=1\\) falta pasar de la representación original a los tres sumandos \\(x_0\\otimes y_j\\) en coordenadas adaptadas y deducir para ella la hipótesis \\(L\\succeq0\\) de `width_three_trace`."
+   },
    "to_check_by_hand": true
   },
   {
@@ -45,7 +50,12 @@
     "Isabelle/HOL"
    ],
    "relations": [],
-   "fidelity": null,
+   "fidelity": {
+    "verdict": "approve",
+    "by": "V249",
+    "date": "2026-11-08",
+    "note": "Para cada \\(m\\ge2\\), `regular_point_hankel` expresa que \\(\\ker[I\\ P\\ Q]\\subseteq\\ker H\\) obliga a anular todas las entradas de \\(H\\) en los índices del artículo, con el paso por dualidad expresamente fuera de la cobertura."
+   },
    "to_check_by_hand": true
   },
   {
@@ -85,14 +95,19 @@
    "id": "lem:witness",
    "number": "Lemma 6",
    "title": "an explicit form that needs 2m squares",
-   "status": "formal",
-   "formal_part": "",
+   "status": "part",
+   "formal_part": "the witness with slopes 0, …, m−1 (F_wit): its 2m squares and the lower bound 2m; the paper’s F_m uses slopes 1, …, m, and the change y₂ ↦ y₂ − y₁ that carries one to the other (with the conservation of the SOS length) is not formalized",
    "systems": [
     "Isabelle/HOL"
    ],
    "relations": [],
-   "fidelity": null,
-   "to_check_by_hand": false
+   "fidelity": {
+    "verdict": "block",
+    "by": "V249",
+    "date": "2026-11-08",
+    "note": "`F_wit` usa pendientes \\(0,\\ldots,m-1\\) y el artículo usa \\(1,\\ldots,m\\), por lo que para cubrir el testigo enunciado falta formalizar, tras reindexar las filas, el cambio invertible \\(y_2\\mapsto y_2-y_1\\) y la conservación de la longitud SOS."
+   },
+   "to_check_by_hand": true
   },
   {
    "id": "cor:wider",
@@ -109,7 +124,12 @@
      "kind": "assumes"
     }
    ],
-   "fidelity": null,
+   "fidelity": {
+    "verdict": "approve",
+    "by": "V249",
+    "date": "2026-11-08",
+    "note": "`bsr_width_four` deduce \\(\\mathrm{BSR}(m,4)\\le3m\\) de la cota explícita en anchura tres, y `bssv_identity` prueba en \\(\\mathbb Z\\) la identidad exacta usada en las dos comparaciones."
+   },
    "to_check_by_hand": true
   },
   {
@@ -134,11 +154,11 @@
   }
  ],
  "counts": {
-  "formal": 1,
-  "part": 3,
+  "formal": 0,
+  "part": 4,
   "computation": 1,
   "hand": 2,
   "cited": 1,
-  "to_check": 6
+  "to_check": 7
  }
 }
