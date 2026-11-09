@@ -1,0 +1,210 @@
+{
+ "schema": "lemmario-blueprint/1",
+ "statements": [
+  {
+   "id": "lab:link",
+   "number": "",
+   "title": "🔬 Check your link — the lab: the floor of YOUR link, a pulse, a verdict on your measurement, what to improve",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:windows",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:reciprocity",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:coherence",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:floor",
+   "number": "",
+   "title": "the loss floor: P(T) ≤ e^{−γT}/[1 + (κ−γ)/(G²T)] for every pulse and every duration",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "rem:ramp",
+   "number": "",
+   "title": "ramped couplings: G²T → J(T) = ∫m², minimal time 2√(A/S) or A/G + G/S",
+   "status": "part",
+   "formal_part": "the minimal time 2√(A/S) or A/G + G/S, after publication; the replacement G²T → J(T) in the loss floor is on paper",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:window",
+   "number": "",
+   "title": "the window lemma: |Φ(w(T)) − Φ(w(0))| ≤ G∫w², Φ(u) = (arcsin u − u√(1−u²))/2",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:endpoints",
+   "number": "",
+   "title": "the end qubits must be occupied: G∫(x² + z²) ≥ [Φ(x₀) − Φ(x_T)] + [Φ(z_T) − Φ(z₀)], ≥ π/2 for a complete transfer",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:window",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:frontier",
+   "number": "",
+   "title": "frontier for partial transfer: G²T·Ĩ ≥ Ψ(GT, ε) → 2",
+   "status": "part",
+   "formal_part": "the two inequalities from the reduced inequalities; Ψ and its limit 2 are on paper",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "thm:floor",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:asymptotic",
+   "number": "",
+   "title": "asymptotic floor: 1 − P ≥ 2√(2γδ)/G (1 − o(1)) over all controls",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:floor",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:frontier",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:attain",
+   "number": "",
+   "title": "the constant is attained: ramp–arc–unload gives 1 − P ≤ ℓ₀[1/(1−α) + 1.5β]",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:asymptotic",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:coherence",
+   "number": "",
+   "title": "coherence is an amplitude: same no-jump equations with rates 2/T₂; 1 − F_B = (1 − P)/6 + (1 − c)/3",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "prop:windows",
+   "number": "",
+   "title": "windows with a rate per element: the floor of a real device (with f_A(T)² in the balance)",
+   "status": "part",
+   "formal_part": "the emitter and receiver windows and the norm chain with one common excess rate; the three-rate balance, f_A(T)² and J_B are on paper",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:coherence",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:endpoints",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:reciprocity",
+   "number": "",
+   "title": "reciprocity: P_{B←A}[H] = P_{A←B}[H_rev], same coherence; the direction is not a design choice",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:coherence",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "rem:joint",
+   "number": "",
+   "title": "a joint bound |g_A|² + |g_B|² ≤ G² changes the constant",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  }
+ ],
+ "counts": {
+  "formal": 4,
+  "part": 3,
+  "computation": 2,
+  "hand": 3,
+  "cited": 0,
+  "to_check": 8
+ }
+}

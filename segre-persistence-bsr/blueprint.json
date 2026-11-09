@@ -1,0 +1,183 @@
+{
+ "schema": "lemmario-blueprint/1",
+ "statements": [
+  {
+   "id": "thm:3",
+   "number": "Theorem 1",
+   "title": "qp of P^{m-1} × P^2 is m",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:4",
+   "number": "",
+   "title": "qp of P^{m-1} × P^3 is ⌈4m/3⌉",
+   "status": "part",
+   "formal_part": "upper bound: Descartes independence of the b_i and of the b_i ⊗ b_i, and the vanishing of the coefficients c_ij in one group and between two groups. Lower bound, for points in general position: the map M ≠ 0 with M a_i ∈ ⟨b_i⟩ (dimension count), M has rank 4, and the pulled-back Plücker form is a nonzero symmetric form vanishing on simple tensors with every a_i ⊗ b_i in its radical. Not formalized: the passage from radical conditions to the relations c_ij, that general points compute qp (BSSV Lemma 3.3) and the identification of these forms with 𝒟",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:bloques",
+   "number": "Theorem 3",
+   "title": "block bound qp ≤ n⌈m/3⌉ in every width",
+   "status": "part",
+   "formal_part": "the mixed component: propagation along the cyclic graph on Z/n kills every c_ijh from the vertex equations (mixto); the extraction of the coefficients of t^p over the n-th roots of unity; the internal 3 × 3 component. Not formalized: the reduction to blocks and the splitting of ⋀²A*, the factorization M^ij = (a_i × a_j) ⊗ v_ij, the derivation of (mixto) from the radical conditions, and the Zariski-open passage to rational points",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:bsr",
+   "number": "Corollary 4",
+   "title": "BSR(m,4) ≥ ⌊8m/3⌋, above z_2 and z_2A from m = 21",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "cor:todo",
+   "number": "",
+   "title": "a gap of order (n−3)m/6 in every width n ≥ 4",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:Q",
+   "number": "",
+   "title": "rational forms need exactly three more squares",
+   "status": "part",
+   "formal_part": "the uniqueness step: two PSD Gram matrices differing by an element of 𝒟, vanishing at points where the radical map is injective, coincide; the Gram matrix of Σ c_j u_j² (c_j > 0, u_j killing the points) is PSD, kills the points and has rank e. Uses Mathlib Matrix.PosSemidef.dotProduct_mulVec_zero_iff. Not formalized: that 𝒟 is the space of Segre relations and the existence of the points",
+   "systems": [
+    "Isabelle/HOL",
+    "Lean 4"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:56",
+   "number": "Proposition 7",
+   "title": "exact qp in widths five and six (computation)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:up",
+   "number": "",
+   "title": "BSR(m,n) ≤ mn − max(m,n) + 1, so 8 ≤ BSR(4,3) ≤ 9",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:1",
+   "number": "",
+   "title": "a closed formula for qp(P^{m-1} × P^{n-1}) when n ≥ 5",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:bloques",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:56",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "q:2",
+   "number": "",
+   "title": "is BSR(4,3) equal to 8 or 9?",
+   "status": "part",
+   "formal_part": "not in the note (added 7-nov-2026): above the length-eight form Q of Xu–Cui–Qi, F_t = Q + t(x₂y₁ + x₃y₂ + x₄y₃)² is a sum of eight squares for t ≥ 1/2 although its nine-square Gram matrix is extreme of rank nine (the extremality is a computation, not formalized)",
+   "systems": [
+    "Isabelle/HOL",
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "thm:up",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:4",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "q:3",
+   "number": "Question 3",
+   "title": "the limit of BSR(m,n)/m for fixed n",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:bloques",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:todo",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:up",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  }
+ ],
+ "counts": {
+  "formal": 4,
+  "part": 4,
+  "computation": 1,
+  "hand": 1,
+  "cited": 1,
+  "to_check": 6
+ }
+}
