@@ -6,7 +6,7 @@
    "number": "Theorem 3.1",
    "title": "the zero-count criterion: χ_λ(g_{p/q}) ≠ 0 iff N_q(λ+ρ) = N_q(ρ), at every rational point of the ρ-line",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (08-nov-2026): Theorem 3.1 from the product (2): if F_ρ·Q = F_ℓ, then Q(ζ) ≠ 0 at a primitive q-th root iff N_q(ℓ) = N_q(ρ), and N_q(ρ) ≤ N_q(ℓ); eval_quot gives the exact value when the counts agree. Not formalized: that ζ^{−(λ,ρ)}Q(ζ) is the character (formula (2), Weyl), certified exactly in certificar_exacto.py (C1); and that F_ρ divides F_ℓ, taken as hypothesis.",
+   "formal_part": "added to the Lean repository after publication (08-nov-2026): Theorem 3.1 from the product (2): if F_ρ·Q = F_ℓ, then Q(ζ) ≠ 0 at a primitive q-th root iff N_q(ℓ) = N_q(ρ), and N_q(ρ) ≤ N_q(ℓ); eval_quot gives the exact value when the counts agree. Not formalized: that ζ^{−(λ,ρ)}Q(ζ) is the character (formula (2), Weyl), certified exactly in certificar_exacto.py (C1); and that F_ρ divides F_ℓ, taken as hypothesis.; added to the Lean repository after publication (09-nov-2026): The product (2) is a polynomial: F_ρ divides F_ℓ for every ℓ of length m with positive pairings (ρ minimizes N_d for every d), so Theorems 3.1, 7.1 and 8.3 hold in Lean without the quotient hypothesis. Only the identification of ζ^{−(λ,ρ)}Q(ζ) with the character (formula (2), Weyl) is outside Lean.",
    "systems": [
     "Lean 4"
    ],
@@ -80,17 +80,19 @@
    "id": "thm:signo",
    "number": "Theorem 7.1",
    "title": "the value at every power, sign included: χ_λ(a_P^k) = (−1)^{E_{p,q}(λ)} Z_q(λ+ρ)/Z_q(ρ) on the survivors, 0 elsewhere",
-   "status": "computation",
-   "formal_part": "",
-   "systems": [],
+   "status": "part",
+   "formal_part": "added to the Lean repository after publication (09-nov-2026): Theorem 7.1 in full, as stated in the note (no adjustment of E): the exact value with its sign at every power, from formula (2), with the divisibility F_ρ | F_ℓ as a hypothesis as in Theorem 3.1.",
+   "systems": [
+    "Lean 4"
+   ],
    "relations": [
     {
      "to": "thm:crit",
-     "kind": "uses"
+     "kind": "assumes"
     },
     {
      "to": "prop:alph",
-     "kind": "uses"
+     "kind": "assumes"
     }
    ],
    "fidelity": null,
@@ -98,7 +100,7 @@
   },
   {
    "id": "conj:val",
-   "number": "",
+   "number": "Theorem 8.1",
    "title": "at k = 2, the absolute value is a product of one factor per folded class",
    "status": "part",
    "formal_part": "added to the Lean repository after publication (08-nov-2026): Theorem 8.1 in the form by pairings: at k = 2 every divisible pairing of ρ equals q, so ‖Q(ζ)‖ = ∏_{q∣(ℓ,α)} (ℓ,α)/q. The regrouping into one factor D_c per folded class is notation over this product and is not stated separately; formula (2) and the divisibility as in Theorem 3.1.",
@@ -184,9 +186,11 @@
    "id": "prop:resid",
    "number": "Proposition 9.2",
    "title": "the difference of the two residue histograms is the histogram of another root system, C_r or D_r",
-   "status": "computation",
-   "formal_part": "",
-   "systems": [],
+   "status": "part",
+   "formal_part": "added to the Lean repository after publication (09-nov-2026): Proposition 9.2 in full, in both regimes (type C_r for v ≤ a, type D_r for v > a), with S₀ identified as ρ_H. S is given as a list of representatives in arbitrary order (the note orders it decreasingly; the histograms do not see the order).",
+   "systems": [
+    "Lean 4"
+   ],
    "relations": [
     {
      "to": "thm:cuenta",
@@ -202,19 +206,21 @@
   },
   {
    "id": "thm:dims",
-   "number": "",
+   "number": "Theorem 10.1",
    "title": "the modulus factors as κ ∈ {1, 2} times dimensions of GL_n, Sp_2n and SO_2n+1 representations, one per folded class",
-   "status": "computation",
-   "formal_part": "",
-   "systems": [],
+   "status": "part",
+   "formal_part": "added to the Lean repository after publication (09-nov-2026): Theorem 10.1 for odd d (κ = 1), in modulus: one dimension per folded class (GL on the non-fixed classes, Sp on the class 0, SO on the class q/2). The occupancies of the classes (s, s, 2s+1) are hypotheses, not yet derived from the capacities; the case of even d (κ ∈ {1, 2}) is not formalized.; added to the Lean repository after publication (09-nov-2026): Theorem 10.1 in both parities, with κ ∈ {1, 2} and the occupancies derived from N_q(ℓ) = N_q(ρ). The partitions ν^{(c)} and the oriented rows are taken as given data with their defining equations (that ν is a partition is not proved), and the statement is for lists ℓ of length m (the step from a dominant λ to ℓ = λ + ρ is not stated).",
+   "systems": [
+    "Lean 4"
+   ],
    "relations": [
     {
      "to": "conj:cap",
-     "kind": "uses"
+     "kind": "assumes"
     },
     {
      "to": "thm:valgen",
-     "kind": "uses"
+     "kind": "assumes"
     }
    ],
    "fidelity": null,
@@ -222,7 +228,7 @@
   },
   {
    "id": "thm:cuenta",
-   "number": "",
+   "number": "Theorem 11.1",
    "title": "a closed count of the surviving residues modulo q, for every q, in type C",
    "status": "part",
    "formal_part": "added to the Lean repository after publication (08-nov-2026): Theorem 11.1 in full, for every q (no q | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal profiles in both regimes, and the closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators cleared.",
@@ -272,8 +278,8 @@
  ],
  "counts": {
   "formal": 0,
-  "part": 13,
-  "computation": 3,
+  "part": 16,
+  "computation": 0,
   "hand": 0,
   "cited": 0,
   "to_check": 16
