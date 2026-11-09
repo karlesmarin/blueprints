@@ -25,10 +25,10 @@ header.pc-head nav{display:flex;flex-wrap:wrap;gap:.4em}
 header.pc-head nav a{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
   background:rgba(255,255,255,.14);border-radius:999px;padding:.25em .85em;white-space:nowrap}
 header.pc-head nav a:hover{background:rgba(255,255,255,.3)}
-@media (max-width:700px){header.pc-head{flex-wrap:nowrap;padding:.3rem 12px}
+@media (max-width:700px){header.pc-head{flex-wrap:wrap;padding:.3rem 12px;row-gap:.3rem}
   header.pc-head .pc-title{flex:0 0 auto;font-size:1em;white-space:nowrap}
-  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
-  header.pc-head nav::-webkit-scrollbar{display:none}}
+  /* 9-nov: antes era una fila con scroll oculto y «Atlas» quedaba fuera de la pantalla sin ninguna pista; ahora baja de línea */
+  header.pc-head nav{flex-wrap:wrap;flex:1 1 100%;min-width:0;gap:.3em}}
 
 main{max-width:1240px;margin:0 auto;padding:0 16px 2em}
 footer{max-width:1240px;margin:0 auto;padding:1em 16px 2em;color:var(--mut);font:13px Arial,sans-serif;
@@ -51,6 +51,27 @@ h2 .fichero{text-transform:none;letter-spacing:0;font:400 12px ui-monospace,Cons
 .badge.ok{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
 .badge.up{color:var(--up);border-color:var(--up);background:var(--up-bg)}
 .badge.mal{color:var(--mal);border-color:var(--mal)}
+.badge.api{color:var(--acc);border-color:var(--acc);font-weight:600}
+.badge.show{color:var(--mut);border-style:dashed}
+.estado{font:14px Arial,sans-serif;margin:.2em 0 .6em}
+.local{font:13px Arial,sans-serif;border:1px dashed var(--up);color:var(--up);background:var(--up-bg);
+  border-radius:6px;padding:.4em .8em;margin:.4em 0}
+
+/* «Use this theorem»: one block at the top of each page, four copyable steps */
+.usar{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:8px;
+  padding:.2em 1em .6em;margin:.6em 0 1em}
+.usar .usar-t{font-size:1rem;text-transform:none;letter-spacing:0;color:var(--fg);margin:.5em 0 .3em}
+.usar .codigo{background:var(--bg)}
+.pasos{list-style:none;counter-reset:paso;padding:0;margin:0;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:0 1.4em}
+.pasos li{counter-increment:paso;min-width:0}
+.pasos li:nth-child(3){grid-column:2;grid-row:1 / span 3}
+.pasos h3{font-size:.92rem;margin:.5em 0 .25em;font-weight:600}
+.pasos h3::before{content:counter(paso);display:inline-block;width:1.5em;height:1.5em;line-height:1.5em;
+  text-align:center;border-radius:50%;background:var(--acc);color:var(--bg);margin-right:.4em;font-size:.75rem}
+.pasos p{margin:.1em 0 .4em}
+.usar .alt{margin:.2em 0 0}
+.aviso{color:var(--up);font-weight:600}
 .vacio{display:inline-block;border:1px dashed var(--vacio);color:var(--vacio);border-radius:4px;padding:0 .4em;
   font:12px Arial,sans-serif;min-width:6em}
 .rid{font:12px ui-monospace,Consolas,monospace;color:var(--mut);border:1px solid var(--line);border-radius:4px;
@@ -114,7 +135,8 @@ dl.meta{margin:.3em 0 0;display:grid;gap:.15em}
 
 @media (max-width:900px){
   .uso{grid-template-columns:1fr}
-  .pliegue,.debajo{grid-template-columns:minmax(0,1fr)}
+  .pliegue,.debajo,.pasos{grid-template-columns:minmax(0,1fr)}
+  .pasos li:nth-child(3){grid-column:auto;grid-row:auto}
   .fila{grid-template-columns:minmax(0,1fr);gap:.1em}
   .tarjetas{grid-template-columns:minmax(0,1fr)}
   .buscar{top:40px}
