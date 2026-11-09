@@ -6,7 +6,7 @@
    "number": "Theorem 3.1",
    "title": "the zero-count criterion: χ_λ(g_{p/q}) ≠ 0 iff N_q(λ+ρ) = N_q(ρ), at every rational point of the ρ-line",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (08-nov-2026): Theorem 3.1 from the product (2): if F_ρ·Q = F_ℓ, then Q(ζ) ≠ 0 at a primitive q-th root iff N_q(ℓ) = N_q(ρ), and N_q(ρ) ≤ N_q(ℓ); eval_quot gives the exact value when the counts agree. Not formalized: that ζ^{−(λ,ρ)}Q(ζ) is the character (formula (2), Weyl), certified exactly in certificar_exacto.py (C1); and that F_ρ divides F_ℓ, taken as hypothesis.; added to the Lean repository after publication (09-nov-2026): The product (2) is a polynomial: F_ρ divides F_ℓ for every ℓ of length m with positive pairings (ρ minimizes N_d for every d), so Theorems 3.1, 7.1 and 8.3 hold in Lean without the quotient hypothesis. Only the identification of ζ^{−(λ,ρ)}Q(ζ) with the character (formula (2), Weyl) is outside Lean.",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): in type C_m, for the products F_x(X) = ∏_{α>0}(1 − X^{(x,α)}), Lean proves that F_ρ divides F_ℓ (dvd_rho_ring over any commutative ring, dvd_rho over fields of characteristic zero), so the quotient Q with F_ρ·Q = F_ℓ is a polynomial and no divisibility is assumed; and the criterion for Q(ζ) at every q, for the positive pairings of type C_m (thm_crit, thm_crit′), with N_q(ρ) ≤ N_q(ℓ) (Nq_rho_le, N_rho_le). Not formalized: the identification χ_λ(g_{p/q}) = ζ^{−(λ,ρ)}Q(ζ) from Weyl’s formula (§3; checked exactly on 85 weights, certificate C1); the step from a dominant λ to ℓ = λ+ρ (Lean takes ℓ as a list of m integers with positive pairings); and the theorem outside type C_m, where it is printed but not formalized.",
    "systems": [
     "Lean 4"
    ],
@@ -18,21 +18,21 @@
    "id": "prop:alph",
    "number": "Proposition 4.1",
    "title": "the alphabet of a_P^k is d·μ_q less two letters: two copies of 1 (d even), or 1 and −1 (d odd)",
-   "status": "part",
-   "formal_part": "added to the Lean repository after publication (23-oct-2026): Covers Proposition 4.1 in full, as multisets over an arbitrary field with a primitive (2m+2)-th root of unity.",
+   "status": "formal",
+   "formal_part": "",
    "systems": [
     "Lean 4"
    ],
    "relations": [],
    "fidelity": null,
-   "to_check_by_hand": true
+   "to_check_by_hand": false
   },
   {
    "id": "thm:clasif",
    "number": "Theorem 5.1",
    "title": "every character is an integer at g_{1/q} exactly for q | 2m, q | 2m+1, q | 2m+2, or q = 6 with m ≡ 1 (mod 3)",
    "status": "part",
-   "formal_part": "the classification of the Galois-stable segments, by another route (Amiot’s lemma, not the Dirichlet kernels of the proof): for n ≥ 3 and a unit a ≢ ±1, {±1, …, ±m} mod n is stable under a iff n divides 2m, 2m+1 or 2m+2; not the link with integrality, nor q ∈ {3, 4, 6}; added to the Lean repository after publication (08-nov-2026): Theorem 5.1 at the level of the spectrum, for every q ≥ 2 (q = 3, 4, 6 included): the spectrum {±1, …, ±m} is Galois-stable iff the divisibility condition holds, and the elementary symmetric functions of the spectrum are integers iff it is Galois-stable. Not formalized: that every character of Sp(2m) is an integer iff those symmetric functions are (the representation ring), certified exactly in certificar_exacto.py (C2).",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): for q ≥ 2 and a primitive q-th root ζ, all elementary symmetric functions of the multiset {ζ^{±j} : 1 ≤ j ≤ m} are integers iff one of the four conditions of the theorem holds (Segmentos.thm_clasif_spectral, in IntegralPoints, with stable_iff_cond and esymm_int_iff_stable); lem_seg and seg_stable_of_dvd classify the stable segments for n ≥ 3 by Amiot’s lemma, another route than the Dirichlet kernels of the proof. Not formalized: the equivalence of §5 with the integrality of all characters of Sp(2m) (checked exactly on 455 characters, 44 pairs, certificate C2).",
    "systems": [
     "Lean 4"
    ],
@@ -45,7 +45,7 @@
    "number": "Corollary 6.1",
    "title": "type C: χ_λ(a_P^k) ≠ 0 iff no folded class modulo q holds more than d of the ℓ_i (⌊d/2⌋ on a fixed class)",
    "status": "part",
-   "formal_part": "the counting half over ZMod q: N_q(x) ≥ N_q(ρ), with equality iff the capacities hold (the link to the character is Theorem 3.1, not formalized)",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): the capacity criterion on the side of the counts, over ZMod q: N_q(x) ≥ N_q(ρ), with equality iff no capacity is exceeded (ResidueCapacity). The link to the character is Theorem 3.1, with the scope stated there.",
    "systems": [
     "Lean 4"
    ],
@@ -63,7 +63,7 @@
    "number": "Proposition 6.2",
    "title": "the one unit of slack: m = dq/2 − 1 rows against a total capacity dq/2 (d even) or dq/2 − 1 (d odd)",
    "status": "part",
-   "formal_part": "in the unfolded form over ZMod q: the deficits d − o_x(g) add up to 2, and under the capacities exactly one folded class falls one short (d even) or the occupancies are saturated (d odd)",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): the total deficit of two letters behind the proposition (ResidueCapacity.sum_deficit: the deficits d − o_x(g) add up to 2); and, in the unfolded form over ZMod q, under the capacities exactly one folded class falls one short (d even) or the occupancies are saturated (d odd) (shape_even, shape_odd).",
    "systems": [
     "Lean 4"
    ],
@@ -81,18 +81,18 @@
    "number": "Theorem 7.1",
    "title": "the value at every power, sign included: χ_λ(a_P^k) = (−1)^{E_{p,q}(λ)} Z_q(λ+ρ)/Z_q(ρ) on the survivors, 0 elsewhere",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (09-nov-2026): Theorem 7.1 in full, as stated in the note (no adjustment of E): the exact value with its sign at every power, from formula (2), with the divisibility F_ρ | F_ℓ as a hypothesis as in Theorem 3.1.",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): on the surviving weights, ζ^{−(λ,ρ)}Q(ζ) = (−1)^{E_{p,q}(λ)} Z_q(ℓ)/Z_q(ρ) at ζ = e^{2πip/q} with gcd(p,q) = 1 and dq = 2m+2 (thm_signo, thm_signo′, in RhoLineSign and RhoLineDvd); with thm_crit for the vanishing case, the whole statement for Q, sign included. Not formalized: the identification of ζ^{−(λ,ρ)}Q(ζ) with χ_λ (Weyl’s formula) and the step from a dominant λ to ℓ, as in Theorem 3.1.",
    "systems": [
     "Lean 4"
    ],
    "relations": [
     {
      "to": "thm:crit",
-     "kind": "assumes"
+     "kind": "uses"
     },
     {
      "to": "prop:alph",
-     "kind": "assumes"
+     "kind": "uses"
     }
    ],
    "fidelity": null,
@@ -103,7 +103,7 @@
    "number": "Theorem 8.1",
    "title": "at k = 2, the absolute value is a product of one factor per folded class",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (08-nov-2026): Theorem 8.1 in the form by pairings: at k = 2 every divisible pairing of ρ equals q, so ‖Q(ζ)‖ = ∏_{q∣(ℓ,α)} (ℓ,α)/q. The regrouping into one factor D_c per folded class is notation over this product and is not stated separately; formula (2) and the divisibility as in Theorem 3.1.",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): at k = 2, |Q(ζ)| is the product over the pairings divisible by q of (ℓ,α)/q (thm_val_k2, thm_val_k2_norm; every divisible pairing of ρ equals q, rho_div_pairs_eq_q). Not formalized: the regrouping into one factor D_c per folded class, which is how the theorem is stated; and, as in Theorem 3.1, the identification with χ_λ and the step from λ to ℓ.",
    "systems": [
     "Lean 4"
    ],
@@ -121,7 +121,7 @@
    "number": "Proposition 8.2",
    "title": "the non-vanishing part of the C_{q−1} Weyl product over μ_q less one point does not depend on the point",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (08-nov-2026): Proposition 8.2 in full, in the ordered form M_s² = V_s·C_s·D_s: the punctured Vandermonde is q^{q−2} and C_s·D_s = q^{q−2}·D, so the product does not depend on the removed point.",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): the version with ordered pairs, M_s² = V_s·C_s·D_s with the punctured Vandermonde q^{q−2} and C_s·D_s = q^{q−2}·D, which the note identifies with M_s² = M_0². Not formalized: the step from the unordered product M_s = A_sB_sD_s to that expression.",
    "systems": [
     "Lean 4"
    ],
@@ -134,7 +134,7 @@
    "number": "Theorem 8.3",
    "title": "the absolute value at any power is the ratio of the vanishing root values, |χ| = Z_q(ℓ)/Z_q(ρ)",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (08-nov-2026): Theorem 8.3: at the powers of a_P (dq = 2m + 2), ‖Q(ζ)‖ = ∏_{q∣(ℓ,α)}(ℓ,α) / ∏_{q∣(ρ,α)}(ρ,α), for any ℓ with positive pairings and N_q(ℓ) = N_q(ρ); with formula (2) and the divisibility as in Theorem 3.1.",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): at the powers of a_P (dq = 2m + 2), |Q(ζ)| = ∏_{q∣(ℓ,α)}(ℓ,α) / ∏_{q∣(ρ,α)}(ρ,α) for any ℓ with positive pairings and N_q(ℓ) = N_q(ρ) (thm_valgen; thm_valgen′ with F_ρ·Q = F_ℓ now proved). Not formalized: the identification with χ_λ and the step from λ to ℓ, as in Theorem 3.1.",
    "systems": [
     "Lean 4"
    ],
@@ -152,7 +152,7 @@
    "number": "Lemma 8.4",
    "title": "the surviving factors of the limit have modulus one",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (08-nov-2026): Lemma 8.4 in full: the non-vanishing factors of ℓ and of ρ have the same modulus at a primitive q-th root, q | 2m + 2, through the residue lemma (ResidueCapacity.prop_res_cap).",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): with ζ primitive, dq = 2m+2 and equal counts, the non-vanishing factors of ℓ and of ρ have equal modulus, without any divisibility of the products (lem_unit, through the residue lemma ResidueCapacity.prop_res_cap). Not formalized: the step from a dominant λ to ℓ = λ+ρ (ℓ is a list of m integers with positive pairings).",
    "systems": [
     "Lean 4"
    ],
@@ -174,7 +174,7 @@
    "number": "Proposition 9.1",
    "title": "the residue lemma: ℛ_x = (P_x(X)² + P_x(X²))/2 − m in ℤ[X]/(X^q − 1), and ℛ_{λ+ρ} = ℛ_ρ under the capacities",
    "status": "part",
-   "formal_part": "the identity in the form 2ℛ_x + 2m = P_x² + P_x(X²) over a finite abelian group, and ℛ_x = ℛ_ρ under the capacities over ZMod q",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): the residue identities: the identity in the form 2ℛ_x + 2m = P_x² + P_x(X²) over a finite abelian group (eq_res), and ℛ_x = ℛ_ρ under the capacities over ZMod q (prop_res_cap).",
    "systems": [
     "Lean 4"
    ],
@@ -186,8 +186,8 @@
    "id": "prop:resid",
    "number": "Proposition 9.2",
    "title": "the difference of the two residue histograms is the histogram of another root system, C_r or D_r",
-   "status": "part",
-   "formal_part": "added to the Lean repository after publication (09-nov-2026): Proposition 9.2 in full, in both regimes (type C_r for v ≤ a, type D_r for v > a), with S₀ identified as ρ_H. S is given as a list of representatives in arbitrary order (the note orders it decreasingly; the histograms do not see the order).",
+   "status": "formal",
+   "formal_part": "",
    "systems": [
     "Lean 4"
    ],
@@ -202,25 +202,25 @@
     }
    ],
    "fidelity": null,
-   "to_check_by_hand": true
+   "to_check_by_hand": false
   },
   {
    "id": "thm:dims",
    "number": "Theorem 10.1",
    "title": "the modulus factors as κ ∈ {1, 2} times dimensions of GL_n, Sp_2n and SO_2n+1 representations, one per folded class",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (09-nov-2026): Theorem 10.1 for odd d (κ = 1), in modulus: one dimension per folded class (GL on the non-fixed classes, Sp on the class 0, SO on the class q/2). The occupancies of the classes (s, s, 2s+1) are hypotheses, not yet derived from the capacities; the case of even d (κ ∈ {1, 2}) is not formalized.; added to the Lean repository after publication (09-nov-2026): Theorem 10.1 in both parities, with κ ∈ {1, 2} and the occupancies derived from N_q(ℓ) = N_q(ρ). The partitions ν^{(c)} and the oriented rows are taken as given data with their defining equations (that ν is a partition is not proved), and the statement is for lists ℓ of length m (the step from a dominant λ to ℓ = λ + ρ is not stated).",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): both parities: the factorisation of Z_q(ℓ)/Z_q(ρ) into κ·|D_0|·|D_{q/2}|·∏_c|D_c|, with κ = 1 when d is odd or the free place lies in the class 0 and κ = 2 otherwise (dims_odd, dims_odd_occ, dims_even_occ; GL on the non-fixed classes, Sp on the class 0, SO on the class q/2); the occupancies of the folded classes are derived from N_q(ℓ) = N_q(ρ) (occ_odd, occ_even). Not formalized: the partitions ν^{(c)} and the oriented rows enter as data with their defining equations (that ν^{(c)} is a partition is not proved), for lists ℓ of length m (the step from a dominant λ to ℓ is not stated).",
    "systems": [
     "Lean 4"
    ],
    "relations": [
     {
      "to": "conj:cap",
-     "kind": "assumes"
+     "kind": "uses"
     },
     {
      "to": "thm:valgen",
-     "kind": "assumes"
+     "kind": "uses"
     }
    ],
    "fidelity": null,
@@ -230,8 +230,8 @@
    "id": "thm:cuenta",
    "number": "Theorem 11.1",
    "title": "a closed count of the surviving residues modulo q, for every q, in type C",
-   "status": "part",
-   "formal_part": "added to the Lean repository after publication (08-nov-2026): Theorem 11.1 in full, for every q (no q | 2m + 2): N_q as the convex cost of the folded occupancies, the minimal profiles in both regimes, and the closed count #{x ∈ (ℤ/q)^m : N_q(x) = N_q(ρ)}, stated in ℕ with the denominators cleared.",
+   "status": "formal",
+   "formal_part": "",
    "systems": [
     "Lean 4"
    ],
@@ -242,14 +242,14 @@
     }
    ],
    "fidelity": null,
-   "to_check_by_hand": true
+   "to_check_by_hand": false
   },
   {
    "id": "cor:g2",
    "number": "Corollary 12.1",
    "title": "in G_2 the vanishing at q = 3 and q = 2 is a congruence on (a, b)",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (23-oct-2026): The Lean covers the arithmetic of the G₂ corollary (the two congruences on N_q versus r_q); the link to the vanishing of the character is the paper criterion and is not formalized.",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): the two congruences on the counts (G2Counts: N_q against r_q at q = 3 and q = 2). The link to the vanishing of the character is the criterion of Theorem 3.1; the signed value of G_2 in the box after the corollary is not formalized.",
    "systems": [
     "Lean 4"
    ],
@@ -267,7 +267,7 @@
    "number": "Observation 13.1",
    "title": "read through coroots, R_P(q) contains the R(q) of the dual group, with equality when gcd(q, r) = 1",
    "status": "part",
-   "formal_part": "added to the Lean repository after publication (08-nov-2026): Observation 13.1 over any crystallographic root pairing with a base: the coroot coefficients in the dual base, ht_P(α) = ((α,α)/2)·ht(α^∨) = (ρ,α), and the three clauses. Taken as hypotheses: the two root lengths ((α,α)/2 ∈ {1, r}) and a ρ with ⟨ρ, α_i^∨⟩ = 1.",
+   "formal_part": "In the paper (Formalization, Lean 4 + Mathlib, commit 6283de8): the arithmetic statement over any crystallographic root pairing with a base (PHeight): the coroot coefficients in the dual base, ht_P(α) = ((α,α)/2)·ht(α^∨) = (ρ,α), and the three clauses, under the stated hypothesis on the two root lengths ((α,α)/2 ∈ {1, r}) and a ρ with ⟨ρ, α_i^∨⟩ = 1.",
    "systems": [
     "Lean 4"
    ],
@@ -277,11 +277,11 @@
   }
  ],
  "counts": {
-  "formal": 0,
-  "part": 16,
+  "formal": 3,
+  "part": 13,
   "computation": 0,
   "hand": 0,
   "cited": 0,
-  "to_check": 16
+  "to_check": 13
  }
 }
