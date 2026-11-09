@@ -109,6 +109,36 @@ h2 .fichero{text-transform:none;letter-spacing:0;font:400 12px ui-monospace,Cons
 .tarjeta .nombre{font-size:12px;color:var(--mut);background:none;border:0;padding:0;margin-top:auto;
   overflow-wrap:anywhere}
 .t-top{display:flex;align-items:center;gap:.4em;flex-wrap:wrap}
+.emo{font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;font-style:normal;line-height:1}
+.t-top > .emo{display:inline-grid;place-items:center;width:1.9em;height:1.9em;border-radius:8px;
+  background:var(--up-bg);border:1px solid var(--line);font-size:1.15rem}
+.area h2 .emo{font-size:1.25em;vertical-align:-.1em}
+.area h2 .emo,.chip .emo,.fila .emo{margin-right:.35em}
+.badge .emo{margin-right:.25em;filter:none}
+/* relieve 3D: fichas con sombra en capas, borde de luz arriba e icono en baldosa abombada */
+.tarjeta{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(0,0,0,.025)),var(--bg);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),
+    0 12px 24px -12px rgba(15,23,42,.18)}
+.tarjeta:hover{transform:translateY(-4px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),
+    0 22px 40px -14px rgba(31,111,235,.35)}
+.t-top > .emo{background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(0,0,0,.04)),var(--up-bg);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.9),inset 0 -2px 3px rgba(0,0,0,.10),0 2px 4px rgba(15,23,42,.15)}
+.emo{filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.30))}
+.badge{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 1px 2px rgba(15,23,42,.10)}
+.chip{box-shadow:0 1px 2px rgba(15,23,42,.10),inset 0 1px 0 rgba(255,255,255,.5)}
+@media (prefers-color-scheme:dark){
+  .tarjeta{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.15)),var(--bg);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 4px rgba(0,0,0,.4),0 12px 24px -10px rgba(0,0,0,.6)}
+  .tarjeta:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 4px 8px rgba(0,0,0,.45),
+    0 22px 40px -14px rgba(88,166,255,.35)}
+  .t-top > .emo{background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(0,0,0,.25)),var(--up-bg);
+    box-shadow:inset 0 1px 1px rgba(255,255,255,.18),inset 0 -2px 3px rgba(0,0,0,.35),0 2px 4px rgba(0,0,0,.5)}
+  .badge,.chip{box-shadow:0 1px 2px rgba(0,0,0,.4)}
+}
+.tarjeta:hover{transform:translateY(-4px)}
+@media (prefers-reduced-motion:reduce){.tarjeta{transition:none}.tarjeta:hover{transform:none}}
 [hidden]{display:none !important}
 
 /* one page per jewel: everything that matters above the fold */
