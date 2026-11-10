@@ -1,0 +1,957 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+</style></head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22886543" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22886543</a>) · 2 errata, marked on the statement</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="cor:modular_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:modular" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">17</span><span class="corollary_thmtitle">the criterion is a dimension</span></div>
+<div class="thm_thmcontent"><p>   For every \(k\ge 3\), </p>
+<div class="displaymath" id="a0000000081">
+  \[  { \boxed {\displaystyle C_k(3,p)\  \text{is elementary} \iff \dim M_{2k}(\mathrm{SL}_2({\mathbb {Z}}))=1 .}}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#cor:modular">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:factorreal_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:factorreal" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">21</span><span class="lemma_thmtitle">the real roots form a factor</span></div>
+<div class="thm_thmcontent"><p>  Suppose \(f_u\) is reducible over \({\mathbb {Q}}(u)\) for every root \(u\) of \(Q_k\), and let \(y(u)\in (0,1)\) be the real root of \(f_u\). Then the set \(\{ y(u):Q_k(u)=0\} \) is stable under \(\operatorname {Gal}(\overline{\mathbb {Q}}/{\mathbb {Q}})\), and the primitive integral multiple \(h\) of \(\prod _u(Y-y(u))\) lies in \({\mathbb {Z}}[Y]\), has degree \(d\), divides \(P_k\), and has leading coefficient \(B\mid A\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:factorreal">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:nocancela_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:nocancela" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">14</span><span class="lemma_thmtitle">the nonabelian part cannot cancel</span></div>
+<div class="thm_thmcontent"><p>   Let \(L/{\mathbb {Q}}\) be a finite Galois extension containing the roots of \(Q_k\) and of every \(f_{u_0}\) for \(u_0\) a root of \(Q_k\), and let \(G=\operatorname {Gal}(L/{\mathbb {Q}})\). Fix a \(G\)-orbit \(\mathcal O\) of roots of \(Q_k\), let \(H\) be the stabiliser of one of them, and let \(K=\ker \bigl(H\to S_3\bigr)\) for the action of \(H\) on the three roots of that fibre’s cubic. For \(p\) unramified in \(L\) and \(p\nmid 6k\mathfrak D_k\), let \(N_{\mathcal O}(p)\) be the number of roots of \(Q_k\) in \(\mathcal O\) that lie in \({\mathbb {F}}_p\) and whose cubic splits completely. Then </p>
+<div class="displaymath" id="a0000000067">
+  \[  { \boxed {\displaystyle |H/K|\; N_{\mathcal O}(p)\; =\; \chi _{E[G/K]}(\operatorname {Frob}_p)}} , \qquad \text{so}\qquad 6\, N_{\mathcal O}(p)=\frac{6}{|H/K|}\, \chi _{E[G/K]}(\operatorname {Frob}_p) ,  \]
+</div>
+<p> with \(E\) a splitting field for \(G\) as in (5), the factor \(6/|H/K|\) being a positive rational. If moreover \(H/K\simeq S_3\) — which Proposition <a href="index.html#prop:s3">13</a> provides for some orbit, and where the factor is \(1\) — then \(E[G/K]\) has an irreducible constituent of dimension greater than one. Since the orbits enter Theorem <a href="index.html#thm:columna">12</a> with coefficient \(+1\) each, that constituent cannot cancel, and \(C_k(3,p)\) is not PORC. </p>
+</div>
+<a class="latex_link" href="index.html#lem:nocancela">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:sing_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:sing" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">1</span><span class="lemma_thmtitle">the singular locus; the case \(k=3\) is Segre’s</span></div>
+<div class="thm_thmcontent"><p>  Let \(\lambda =(w_1,\dots ,w_l)\) with \(w_i\) positive and \(\sum _iw_i=n\), and let \(V_\lambda \) be as in (1) over an algebraically closed field of characteristic \(0\) or \(p{\gt}\max (n,k)\). A point \(z\in V_\lambda \) is singular if and only if, after scaling, \(z_i\in \mu _m\) for every \(i\) and \(\sum _iw_iz_i=0\). All such singularities are ordinary double points. </p>
+</div>
+<a class="latex_link" href="index.html#lem:sing">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="obs:dosfallos_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="obs:dosfallos" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">20</span><span class="observation_thmtitle">the two failures are not the same failure; cf. <span class="cite">
+	[
+	<a href="index.html#Isham">17</a>
+	]
+</span></span></div>
+<div class="thm_thmcontent">
+<p>At \(n=3\), \(k=6\) the count takes exactly two polynomial values, \(p-1\) and \(0\), and the partition of the primes between them is a splitting condition in a nonabelian extension — the class function is the indicator of a conjugacy class, not a character. It is therefore not PORC but it <em>is</em> polynomial on Frobenius sets, POFS in the sense of Stanojkovski–Voll <span class="cite">
+	[
+	<a href="index.html#SV">47</a>
+	, 
+	§
+	1.5.2
+	]
+</span>. For \(n\ge 4\) the surviving object is the Frobenius trace of a curve of positive genus, and the count is not POFS either — not because of how many values it takes, but because a POFS function is Artin–Tate in the sense of (5) and Theorem <a href="index.html#thm:clasificacion">8</a> rules that out by weight one. The two failures are therefore separated by <em>weight</em>, and the numerical growth of the set of values is an illustration of the difference rather than the argument for it. The archetype usually offered for the first mode is du Sautoy–Vaughan-Lee <span class="cite">
+	[
+	<a href="index.html#dSVL">5</a>
+	]
+</span>, whose non-PORC behaviour is likewise a finite-valued count partitioned by a nonabelian splitting condition rather than a surviving trace; Isham’s separation <span class="cite">
+	[
+	<a href="index.html#Isham">17</a>
+	, 
+	§
+	2.4.2
+	]
+</span> is the one that already contains both. </p>
+</div>
+<a class="latex_link" href="index.html#obs:dosfallos">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:contra_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:contra" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">5</span><span class="proposition_thmtitle">the converse fails at \(k=5\), \(n=6\)</span></div>
+<div class="thm_thmcontent"><p>   Let \(k=5\), so \(m=4\), and \(\lambda =(3,1,1,1)\). Then \(V_\lambda \) is a geometrically irreducible plane quintic with exactly one node, its normalisation has genus \(5\), and consequently \(C_5(6,p)\) is not elementary — although \(\lambda =(3,1,1,1)\) and the other length-four partition \((2,2,1,1)\) of \(6\) are both singular, so that \(6\in S_4\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:contra">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:gcd_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:gcd" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">2</span><span class="proposition_thmtitle">the invariant is \(\gcd (m,6)\)</span></div>
+<div class="thm_thmcontent"><p>  Let \(\lambda \) have length four. Whether \(V_\lambda \) is singular depends on \(m\) only through \(\gcd (m,6)\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:gcd">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:grado_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:grado" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">15</span><span class="proposition_thmtitle">the degree of \(Q_k\)</span></div>
+<div class="thm_thmcontent"><p>   For every \(k\ge 3\), </p>
+<div class="displaymath" id="a0000000071">
+  \[  { \boxed {\displaystyle \deg Q_k=\Bigl\lfloor \frac k6\Bigr\rfloor -\bigl[\, k\equiv 1\  (\mathrm{mod}\  6)\, \bigr]}} .  \]
+</div>
+<p> In particular \(\deg Q_k=0\) exactly for \(k\in \{ 3,4,5,7\} \), and since the degree is nondecreasing along each residue class modulo \(6\), no further \(k\) can return to zero. </p>
+</div>
+<a class="latex_link" href="index.html#prop:grado">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L74" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L74">P3d.card_degreePairs</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L80" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L80">P3d.card_degreePairs_eq_one_iff</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:modular_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:modular" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">16</span><span class="proposition_thmtitle">the degree is a dimension of modular forms</span></div>
+<div class="thm_thmcontent"><p>  Substitute \(e_2=-3E_4\) and \(e_3=2E_6\), with \(E_4,E_6\) the normalised Eisenstein series. Then \(\mathcal F_k=s_k(-3E_4,2E_6)\) is a modular form of weight \(2k\) for \(\mathrm{SL}_2({\mathbb {Z}})\), and since \(M_*(\mathrm{SL}_2({\mathbb {Z}}))=\mathbf C[E_4,E_6]\) a basis of \(M_{2k}\) is indexed by the solutions of \(2a+3b=k\) — the same set that indexes the terms of \(s_k\). Hence </p>
+<div class="displaymath" id="a0000000078">
+  \[  { \boxed {\displaystyle \dim M_{2k}=\deg Q_k+1}},  \]
+</div>
+<p> and \(\dim M_{2k}=1\) exactly for \(k\in \{ 3,4,5,7\} \). </p>
+</div>
+<a class="latex_link" href="index.html#prop:modular">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:n3k6_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:n3k6" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">11</span></div>
+<div class="thm_thmcontent"><p> For \(p\nmid 66\), </p>
+<div class="displaymath" id="a0000000052">
+  \[  { \boxed {\displaystyle C_6(3,p)=(p-1)\cdot \mathbf1\bigl\{ \, 2Y^{3}+3Y-3\  \text{splits completely over } {\mathbb {F}}_p\, \bigr\} }} .  \]
+</div>
+<p> The cubic \(2Y^3+3Y-3\) is irreducible over \({\mathbb {Q}}\) with discriminant \(-1188=-36\cdot 33\), so its Galois group is \(S_3\) and complete splitting is not determined by any congruence on \(p\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:n3k6">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:s3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:s3" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">13</span><span class="proposition_thmtitle">an \(S_3\)-fibre exists</span></div>
+<div class="thm_thmcontent"><p>   If \(\deg Q_k{\gt}0\) then \(Q_k\) has a root \(u_0\) for which \(f_{u_0}(Y)=Y^3+u_0Y-u_0\) has Galois group \(S_3\) over \({\mathbb {Q}}(u_0)\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:s3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:alto_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:alto" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">6</span><span class="remark_thmtitle">the higher strata still contribute nothing of weight one, and why</span></div>
+<div class="thm_thmcontent"><p>   For \(l\ge 5\) the variety \(V_\lambda \) has dimension \(d=l-3\ge 2\) and is cut in \(\mathbf P^{l-1}\) by \(r=2\) forms, so Ghorpade–Lachaud <span class="cite">
+	[
+	<a href="index.html#GL">7</a>
+	, 
+	Prop.
+	
+	3.2
+	]
+</span> gives \(H^i(\mathbf P^{l-1})\to H^i(V_\lambda )\) an isomorphism for \(i\le l-1-2-1=l-4\); taking \(i=1\) needs exactly \(l\ge 5\), and yields \(H^1(V_\lambda )=0\). Blowing up the nodes, the exceptional fibres are smooth quadrics of dimension \(d-1\ge 1\), connected and with vanishing \(H^1\), so proper base change gives \(H^1(Y_\lambda )=0\) on the resolution as well; the quadrics contribute only even weights. What must be stressed is that this uses that the singularities are <em>nodes</em>, supplied by Lemma <a href="index.html#lem:sing">1</a>; it is not an assertion about singular hypersurfaces in general. </p>
+</div>
+<a class="latex_link" href="index.html#rem:alto">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:mann_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:mann" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">3</span><span class="remark_thmtitle">the minimality hypothesis is where the work is</span></div>
+<div class="thm_thmcontent"><p>   It is worth saying why the second case must be treated separately rather than absorbed into the first. Mann’s theorem bounds the ratios <em>inside</em> a minimal subsum, not between two of them, and four terms splitting as \(2+2\) can have ratios of arbitrarily large order: </p>
+<div class="displaymath" id="a0000000017">
+  \[  1+(-1)+\zeta _7+(-\zeta _7)=0  \]
+</div>
+<p> is a vanishing sum of four roots of unity with positive rational weights in which one ratio has order \(7\). A proof of Proposition <a href="index.html#prop:gcd">2</a> that decomposed into minimal subsums and then applied Mann to the whole relation would be answering a different question. For four terms Mann’s bound is already sharp — the relation \(2\cdot 1+(-1)+\omega +\omega ^{2}=0\) realises a ratio of order exactly \(6\) — and the sharper bound of Conway and Jones <span class="cite">
+	[
+	<a href="index.html#CJ">23</a>
+	, 
+	Thm.
+	
+	5
+	]
+</span>, which requires \(l\ge \sum _{q\mid r}(q-2)+2\), agrees with it here and only improves on it from five terms onwards. </p>
+</div>
+<a class="latex_link" href="index.html#rem:mann">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:quintica_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:quintica" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">7</span><span class="remark_thmtitle">“no weight one” does not mean “Artin–Tate”</span></div>
+<div class="thm_thmcontent"><p>  At the same parameters \(k=5\), \(n=6\), take \(\lambda =(2,1,1,1,1)\). Then \(V_\lambda \) is a nodal quintic surface in \(\mathbf P^3\); its dualising sheaf is \(\mathcal O(1)\) and resolving ordinary double points preserves the geometric genus, so the resolution has \(h^{2,0}=4\). Its \(H^2\) is genuinely not Artin–Tate, even though \(H^1\) vanishes. The weight-one argument is therefore an <em>obstruction</em> and not a converse theorem: it can prove that a count fails to be elementary, never that it succeeds. Every positive statement below is proved by exhibiting the formula. </p>
+</div>
+<a class="latex_link" href="index.html#rem:quintica">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:svdm_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:svdm" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">10</span><span class="remark_thmtitle">the case \(k=4\) has a name, and is classified</span></div>
+<div class="thm_thmcontent"><p>  For \(n=3\) and \(k=4\), Newton under \(e_1=0\) gives \(s_4=2e_2^2\), so the condition \(s_1=s_4=0\) is \(s_1=s_2=0\); a triple of distinct elements with \(s_1=s_2=0\) and \(s_3\ne 0\) is precisely a <em>super-Vandermonde set</em> of size three in the sense of Sziklai–Takáts <span class="cite">
+	[
+	<a href="index.html#ST">45</a>
+	]
+</span>, whose Theorem 1.12 shows that such a set of size \(t{\lt}p\) is a coset of a multiplicative subgroup — for \(t=3\), exactly the sets \(a\{ 1,\omega ,\omega ^2\} \) that the proof above produces. Our first formula therefore <em>recovers</em> a classification that has been available since 2008, by a different route; we claim nothing for it, and Blokhuis et al. <span class="cite">
+	[
+	<a href="index.html#BMMP">22</a>
+	]
+</span> is the current state of that line. What is not in that literature is our actual object: the invariant \(w_T\) there is by construction the first non-vanishing moment, so the prescribed condition is always an initial segment \(s_1=\dots =s_{t-1}=0\), whereas we prescribe \(s_1=s_k=0\) and leave everything between them free. Already at \(p=19\) and \(k=6\), all eighteen triples with \(s_1=s_6=0\) have \(s_2\ne 0\) and are therefore not Vandermonde sets of any kind. </p>
+</div>
+<a class="latex_link" href="index.html#rem:svdm">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:torsion_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:torsion" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">18</span><span class="remark_thmtitle">what the column is really counting</span></div>
+<div class="thm_thmcontent"><p>  Normalise the cubic attached to a root \(u\) of \(Q_k\) as \(f_u(Y)=Y^3+uY-u\), with \(\operatorname {disc}(f_u)=-u^{2}(4u+27)\), and let \(E_u\) be the elliptic curve \(V^2=f_u(Y)\), of \(j\)-invariant \(6912u/(4u+27)\). Then </p>
+<div class="displaymath" id="a0000000082">
+  \[  { \boxed {\displaystyle f_u\  \text{splits completely over }{\mathbb {F}}_p \iff E_u[2]\subseteq E_u({\mathbb {F}}_p)}} ,  \]
+</div>
+<p> because \(S_3=\mathrm{GL}_2({\mathbb {F}}_2)\) acting on the three nonzero \(2\)-torsion points is exactly the Galois action on the roots. So at \(n=3\) the count is of fibres with fully rational \(2\)-torsion, over a finite set of values of the modular parameter. This resolves what looks like a paradox in Observation <a href="index.html#obs:dosfallos">20</a>: there are elliptic curves behind the zero-dimensional problem too, but what is counted there is their <em>torsion</em>, which takes finitely many states, and not their trace. </p>
+</div>
+<a class="latex_link" href="index.html#rem:torsion">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:ventana_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:ventana" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">19</span><span class="remark_thmtitle">a null that a short window would have manufactured</span></div>
+<div class="thm_thmcontent"><p>  For \(k=9\) one has \(s_9=-3e_3(3e_2^3-e_3^2)\), so the count should take two values. Over the \(14\) primes \(5\le p\le 53\) it takes <em>one</em>: the second family first appears at \(p=71\), and then at \(83,97,131,193,257\). A family of Chebotarev density \(1/6\) is expected about twice in fourteen primes, so its absence there is not evidence of absence. We record this because the criterion is general: a null result on a window too short to see the predicted density is not a null result. </p>
+</div>
+<a class="latex_link" href="index.html#rem:ventana">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:clasificacion_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:clasificacion" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">8</span><span class="theorem_thmtitle">all \(k\), all \(n\)</span></div>
+<div class="thm_thmcontent"><p>   Say \(C_k(n,p)\) is <em>Artin–Tate</em> if there are a number field \(L/{\mathbb {Q}}\) finite Galois with group \(\Gamma \), a number field \(E\) splitting \(\Gamma \), and class functions \(\alpha _0,\dots ,\alpha _d\) on \(\Gamma \) with values in \(E\) — equivalently, \(E\)-linear combinations of Artin characters — such that </p>
+<div class="equation" id="a0000000036">
+<p>
+<div class="equation_content">
+    \begin{equation}  C_k(n,p)\; =\; \sum _{j=0}^{d}p^{\, j}\, \alpha _j(\operatorname {Frob}_p) \end{equation}
+  </div>
+<span class="equation_label">8</span>
+</p>
+</div>
+<p> for all but finitely many \(p\). Then </p>
+<div class="displaymath" id="a0000000037">
+  \[  { \boxed {\displaystyle \{ \, n\ge 3:\  C_k(n,p)\  \text{is Artin--Tate}\, \} = \begin{cases}  \{ 3,4,6\} , &amp;  k=3,\\ \{ 3,4\} , &amp;  k=5,\\ \{ 3\} , &amp;  k\ne 3,5. \end{cases}}}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:clasificacion">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:columna_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:columna" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">12</span><span class="theorem_thmtitle">the column \(n=3\)</span></div>
+<div class="thm_thmcontent"><p>   For every prime \(p\nmid 6k\mathfrak D_k\), </p>
+<div class="displaymath" id="a0000000060">
+  \[  { \boxed {\displaystyle \begin{aligned}  \frac{6\, C_k(3,p)}{p-1} &amp; =\bigl[e_2\mid s_k\bigr]\bigl(1+\chi _p(-3)\bigr)+3\bigl[e_3\mid s_k\bigr]\\[2pt]&amp; \qquad +6\, \# \bigl\{ u_0\in {\mathbb {F}}_p:\  Q_k(u_0)=0,\  f_{u_0}\  \text{splits completely}\bigr\}  \end{aligned}}}  \]
+</div>
+<p> with \(f_u\) as in (7). Consequently \(C_k(3,p)\) is elementary — expressible in quadratic characters of fixed integers — if and only if \(Q_k\) is constant, that is, if and only if \(s_k\) is a monomial in \(e_2\) and \(e_3\). That happens exactly for </p>
+<div class="displaymath" id="a0000000061">
+  \[  { \boxed {\displaystyle k\in \{ 3,4,5,7\} }} .  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:columna">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:formulas_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:formulas" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">9</span></div>
+<div class="thm_thmcontent"><p> For \(p{\gt}3\), </p>
+<div class="displaymath" id="a0000000047">
+  \[  { \boxed {\displaystyle C_4(3,p)=\frac{(p-1)\bigl(1+\chi _p(-3)\bigr)}{6}}},\qquad { \boxed {\displaystyle C_5(3,p)=\frac{(p-1)\bigl(4+\chi _p(-3)\bigr)}{6}}},  \]
+</div>
+<p> and </p>
+<div class="displaymath" id="a0000000048">
+  \[  { \boxed {\displaystyle C_5(4,p)=\frac{p-1}{24}\Bigl(4p-17-6\chi _p(-2)-3\chi _p(-1)\Bigr)}} .  \]
+</div>
+<p> At \(p=3\) the three counts are \(0\), \(1\) and \(0\); the two formulas for \(k=5\) also hold at \(p=5\), where they give \(2\) and \(1\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:formulas">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:tricotomia_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:tricotomia" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4</span><span class="theorem_thmtitle">the trichotomy</span></div>
+<div class="thm_thmcontent"><p>   For \(m\ge 1\) let \(S_m\) be the set of \(n\ge 3\) such that <em>every</em> \(\lambda \vdash n\) of length four has \(V_\lambda \) singular. Then </p>
+<div class="displaymath" id="a0000000019">
+  \[  { \boxed {\displaystyle S_m=\begin{cases}  \{ 3\}  &amp;  \text{if } m \text{ is odd},\\ \{ 3,4,6\}  &amp;  \text{if } 2\mid m,\  3\nmid m,\\ \{ 3,4,5,6\}  &amp;  \text{if } 6\mid m. \end{cases}}}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:tricotomia">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:factorreal"	[color=blue,		fillcolor="#A3D6FF",		label=factorreal,		shape=ellipse,		style=filled];	"prop:s3"	[label=s3,		shape=ellipse];	"lem:factorreal" -> "prop:s3"	[style=dashed];	"lem:nocancela"	[label=nocancela,		shape=ellipse];	"prop:s3" -> "lem:nocancela"	[style=dashed];	"thm:columna"	[label=columna,		shape=ellipse];	"lem:nocancela" -> "thm:columna"	[style=dashed];	"prop:n3k6"	[color=blue,		fillcolor="#A3D6FF",		label=n3k6,		shape=ellipse,		style=filled];	"thm:clasificacion"	[label=clasificacion,		shape=ellipse];	"prop:n3k6" -> "thm:clasificacion"	[style=dashed];	"obs:dosfallos"	[label=dosfallos,		shape=ellipse];	"thm:clasificacion" -> "obs:dosfallos"	[style=dashed];	"thm:tricotomia"	[label=tricotomia,		shape=ellipse];	"thm:tricotomia" -> "thm:clasificacion"	[style=dashed];	"prop:gcd"	[color=blue,		fillcolor="#A3D6FF",		label=gcd,		shape=ellipse,		style=filled];	"prop:gcd" -> "thm:tricotomia"	[style=dashed];	"rem:mann"	[label=mann,		shape=ellipse];	"prop:gcd" -> "rem:mann"	[style=dashed];	"prop:contra"	[label=contra,		shape=ellipse];	"prop:modular"	[color=blue,		label=modular,		shape=ellipse];	"cor:modular"	[label=modular,		shape=ellipse];	"prop:modular" -> "cor:modular"	[style=dashed];	"thm:formulas"	[color=blue,		fillcolor="#A3D6FF",		label=formulas,		shape=ellipse,		style=filled];	"thm:formulas" -> "thm:clasificacion"	[style=dashed];	"rem:alto"	[label=alto,		shape=ellipse];	"rem:ventana"	[color=blue,		label=ventana,		shape=ellipse];	"lem:sing"	[color=blue,		fillcolor="#A3D6FF",		label=sing,		shape=ellipse,		style=filled];	"lem:sing" -> "prop:contra"	[style=dashed];	"lem:sing" -> "rem:alto"	[style=dashed];	"rem:svdm"	[color=blue,		label=svdm,		shape=ellipse];	"thm:columna" -> "cor:modular"	[style=dashed];	"prop:grado"	[color=blue,		fillcolor="#A3D6FF",		label=grado,		shape=ellipse,		style=filled];	"prop:grado" -> "thm:columna"	[style=dashed];	"rem:torsion"	[color=blue,		label=torsion,		shape=ellipse];	"rem:quintica"	[color=blue,		label=quintica,		shape=ellipse];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="332pt" viewbox="0.00 0.00 1035.00 332.00" width="1035pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 328)">
+<!-- lem:factorreal -->
+<g class="node" id="node1">
+<title>lem:factorreal</title>
+<ellipse cx="47.77" cy="-306" fill="#a3d6ff" rx="46.23" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="47.77" xml:space="preserve" y="-300.95">factorreal</text>
+</g>
+<!-- prop:s3 -->
+<g class="node" id="node2">
+<title>prop:s3</title>
+<ellipse cx="47.77" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="47.77" xml:space="preserve" y="-228.95">s3</text>
+</g>
+<!-- lem:factorreal&#45;&gt;prop:s3 -->
+<g class="edge" id="edge1">
+<title>lem:factorreal-&gt;prop:s3</title>
+<path d="M47.77,-287.34C47.77,-280.07 47.77,-271.47 47.77,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="47.77,-253.64 52.27,-263.64 47.77,-257.42 47.77,-263.64 47.77,-263.64 47.77,-263.64 47.77,-257.42 43.27,-263.64 47.77,-253.64" stroke="black"></polygon>
+</g>
+<!-- lem:nocancela -->
+<g class="node" id="node3">
+<title>lem:nocancela</title>
+<ellipse cx="47.77" cy="-162" fill="none" rx="47.77" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="47.77" xml:space="preserve" y="-156.95">nocancela</text>
+</g>
+<!-- prop:s3&#45;&gt;lem:nocancela -->
+<g class="edge" id="edge2">
+<title>prop:s3-&gt;lem:nocancela</title>
+<path d="M47.77,-215.34C47.77,-208.07 47.77,-199.47 47.77,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="47.77,-181.64 52.27,-191.64 47.77,-185.42 47.77,-191.64 47.77,-191.64 47.77,-191.64 47.77,-185.42 43.27,-191.64 47.77,-181.64" stroke="black"></polygon>
+</g>
+<!-- thm:columna -->
+<g class="node" id="node4">
+<title>thm:columna</title>
+<ellipse cx="96.77" cy="-90" fill="none" rx="43.16" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="96.77" xml:space="preserve" y="-84.95">columna</text>
+</g>
+<!-- lem:nocancela&#45;&gt;thm:columna -->
+<g class="edge" id="edge3">
+<title>lem:nocancela-&gt;thm:columna</title>
+<path d="M59.88,-143.7C65.46,-135.73 72.2,-126.1 78.38,-117.26" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="84.1,-109.1 82.05,-119.87 81.93,-112.2 78.36,-117.29 78.36,-117.29 78.36,-117.29 81.93,-112.2 74.68,-114.71 84.1,-109.1" stroke="black"></polygon>
+</g>
+<!-- cor:modular -->
+<g class="node" id="node13">
+<title>cor:modular</title>
+<ellipse cx="147.77" cy="-18" fill="none" rx="42.14" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="147.77" xml:space="preserve" y="-12.95">modular</text>
+</g>
+<!-- thm:columna&#45;&gt;cor:modular -->
+<g class="edge" id="edge13">
+<title>thm:columna-&gt;cor:modular</title>
+<path d="M109.11,-72.06C115.07,-63.89 122.33,-53.91 128.95,-44.82" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="134.82,-36.77 132.56,-47.5 132.59,-39.83 128.93,-44.85 128.93,-44.85 128.93,-44.85 132.59,-39.83 125.29,-42.2 134.82,-36.77" stroke="black"></polygon>
+</g>
+<!-- prop:n3k6 -->
+<g class="node" id="node5">
+<title>prop:n3k6</title>
+<ellipse cx="206.77" cy="-234" fill="#a3d6ff" rx="29.34" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="206.77" xml:space="preserve" y="-228.95">n3k6</text>
+</g>
+<!-- thm:clasificacion -->
+<g class="node" id="node6">
+<title>thm:clasificacion</title>
+<ellipse cx="303.77" cy="-162" fill="none" rx="57.49" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="303.77" xml:space="preserve" y="-156.95">clasificacion</text>
+</g>
+<!-- prop:n3k6&#45;&gt;thm:clasificacion -->
+<g class="edge" id="edge4">
+<title>prop:n3k6-&gt;thm:clasificacion</title>
+<path d="M225.47,-219.5C238.82,-209.87 257.08,-196.69 272.61,-185.49" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="280.39,-179.87 274.92,-189.37 277.33,-182.09 272.28,-185.73 272.28,-185.73 272.28,-185.73 277.33,-182.09 269.65,-182.08 280.39,-179.87" stroke="black"></polygon>
+</g>
+<!-- obs:dosfallos -->
+<g class="node" id="node7">
+<title>obs:dosfallos</title>
+<ellipse cx="303.77" cy="-90" fill="none" rx="44.19" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="303.77" xml:space="preserve" y="-84.95">dosfallos</text>
+</g>
+<!-- thm:clasificacion&#45;&gt;obs:dosfallos -->
+<g class="edge" id="edge5">
+<title>thm:clasificacion-&gt;obs:dosfallos</title>
+<path d="M303.77,-143.34C303.77,-136.07 303.77,-127.47 303.77,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="303.77,-109.64 308.27,-119.64 303.77,-113.42 303.77,-119.64 303.77,-119.64 303.77,-119.64 303.77,-113.42 299.27,-119.64 303.77,-109.64" stroke="black"></polygon>
+</g>
+<!-- thm:tricotomia -->
+<g class="node" id="node8">
+<title>thm:tricotomia</title>
+<ellipse cx="303.77" cy="-234" fill="none" rx="49.31" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="303.77" xml:space="preserve" y="-228.95">tricotomia</text>
+</g>
+<!-- thm:tricotomia&#45;&gt;thm:clasificacion -->
+<g class="edge" id="edge6">
+<title>thm:tricotomia-&gt;thm:clasificacion</title>
+<path d="M303.77,-215.34C303.77,-208.07 303.77,-199.47 303.77,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="303.77,-181.64 308.27,-191.64 303.77,-185.42 303.77,-191.64 303.77,-191.64 303.77,-191.64 303.77,-185.42 299.27,-191.64 303.77,-181.64" stroke="black"></polygon>
+</g>
+<!-- prop:gcd -->
+<g class="node" id="node9">
+<title>prop:gcd</title>
+<ellipse cx="352.77" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="352.77" xml:space="preserve" y="-300.95">gcd</text>
+</g>
+<!-- prop:gcd&#45;&gt;thm:tricotomia -->
+<g class="edge" id="edge7">
+<title>prop:gcd-&gt;thm:tricotomia</title>
+<path d="M341.4,-288.76C335.7,-280.61 328.64,-270.53 322.18,-261.31" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="316.46,-253.12 325.87,-258.74 318.62,-256.22 322.18,-261.32 322.18,-261.32 322.18,-261.32 318.62,-256.22 318.5,-263.89 316.46,-253.12" stroke="black"></polygon>
+</g>
+<!-- rem:mann -->
+<g class="node" id="node10">
+<title>rem:mann</title>
+<ellipse cx="402.77" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="402.77" xml:space="preserve" y="-228.95">mann</text>
+</g>
+<!-- prop:gcd&#45;&gt;rem:mann -->
+<g class="edge" id="edge8">
+<title>prop:gcd-&gt;rem:mann</title>
+<path d="M364.11,-289.12C370.17,-280.64 377.76,-270.02 384.6,-260.43" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="390.41,-252.3 388.26,-263.05 388.21,-255.38 384.6,-260.44 384.6,-260.44 384.6,-260.44 388.21,-255.38 380.93,-257.82 390.41,-252.3" stroke="black"></polygon>
+</g>
+<!-- prop:contra -->
+<g class="node" id="node11">
+<title>prop:contra</title>
+<ellipse cx="592.77" cy="-234" fill="none" rx="33.95" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="592.77" xml:space="preserve" y="-228.95">contra</text>
+</g>
+<!-- prop:modular -->
+<g class="node" id="node12">
+<title>prop:modular</title>
+<ellipse cx="199.77" cy="-90" fill="none" rx="42.14" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="199.77" xml:space="preserve" y="-84.95">modular</text>
+</g>
+<!-- prop:modular&#45;&gt;cor:modular -->
+<g class="edge" id="edge9">
+<title>prop:modular-&gt;cor:modular</title>
+<path d="M187.18,-72.06C181.05,-63.8 173.55,-53.7 166.74,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="160.97,-36.77 170.54,-42.11 163.22,-39.8 166.93,-44.79 166.93,-44.79 166.93,-44.79 163.22,-39.8 163.32,-47.48 160.97,-36.77" stroke="black"></polygon>
+</g>
+<!-- thm:formulas -->
+<g class="node" id="node14">
+<title>thm:formulas</title>
+<ellipse cx="496.77" cy="-234" fill="#a3d6ff" rx="44.19" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="496.77" xml:space="preserve" y="-228.95">formulas</text>
+</g>
+<!-- thm:formulas&#45;&gt;thm:clasificacion -->
+<g class="edge" id="edge10">
+<title>thm:formulas-&gt;thm:clasificacion</title>
+<path d="M464.03,-221.13C433.13,-209.92 386.45,-192.99 351.43,-180.29" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="342.11,-176.91 353.05,-176.09 345.67,-178.2 351.51,-180.32 351.51,-180.32 351.51,-180.32 345.67,-178.2 349.98,-184.55 342.11,-176.91" stroke="black"></polygon>
+</g>
+<!-- rem:alto -->
+<g class="node" id="node15">
+<title>rem:alto</title>
+<ellipse cx="671.77" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="671.77" xml:space="preserve" y="-228.95">alto</text>
+</g>
+<!-- rem:ventana -->
+<g class="node" id="node16">
+<title>rem:ventana</title>
+<ellipse cx="716.77" cy="-306" fill="none" rx="39.58" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="716.77" xml:space="preserve" y="-300.95">ventana</text>
+</g>
+<!-- lem:sing -->
+<g class="node" id="node17">
+<title>lem:sing</title>
+<ellipse cx="631.77" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="631.77" xml:space="preserve" y="-300.95">sing</text>
+</g>
+<!-- lem:sing&#45;&gt;prop:contra -->
+<g class="edge" id="edge11">
+<title>lem:sing-&gt;prop:contra</title>
+<path d="M622.53,-288.41C618.07,-280.42 612.63,-270.64 607.61,-261.64" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="602.81,-253.02 611.61,-259.57 604.65,-256.33 607.68,-261.76 607.68,-261.76 607.68,-261.76 604.65,-256.33 603.75,-263.95 602.81,-253.02" stroke="black"></polygon>
+</g>
+<!-- lem:sing&#45;&gt;rem:alto -->
+<g class="edge" id="edge12">
+<title>lem:sing-&gt;rem:alto</title>
+<path d="M641.25,-288.41C645.93,-280.22 651.69,-270.14 656.94,-260.95" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="661.76,-252.53 660.7,-263.44 659.88,-255.81 656.79,-261.21 656.79,-261.21 656.79,-261.21 659.88,-255.81 652.89,-258.98 661.76,-252.53" stroke="black"></polygon>
+</g>
+<!-- rem:svdm -->
+<g class="node" id="node18">
+<title>rem:svdm</title>
+<ellipse cx="805.77" cy="-306" fill="none" rx="31.39" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="805.77" xml:space="preserve" y="-300.95">svdm</text>
+</g>
+<!-- prop:grado -->
+<g class="node" id="node19">
+<title>prop:grado</title>
+<ellipse cx="145.77" cy="-162" fill="#a3d6ff" rx="31.9" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="145.77" xml:space="preserve" y="-156.95">grado</text>
+</g>
+<!-- prop:grado&#45;&gt;thm:columna -->
+<g class="edge" id="edge14">
+<title>prop:grado-&gt;thm:columna</title>
+<path d="M134.16,-144.41C128.44,-136.25 121.42,-126.22 115.01,-117.07" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="109.34,-108.96 118.76,-114.58 111.5,-112.06 115.07,-117.15 115.07,-117.15 115.07,-117.15 111.5,-112.06 111.38,-119.73 109.34,-108.96" stroke="black"></polygon>
+</g>
+<!-- rem:torsion -->
+<g class="node" id="node20">
+<title>rem:torsion</title>
+<ellipse cx="891.77" cy="-306" fill="none" rx="36.51" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="891.77" xml:space="preserve" y="-300.95">torsion</text>
+</g>
+<!-- rem:quintica -->
+<g class="node" id="node21">
+<title>rem:quintica</title>
+<ellipse cx="986.77" cy="-306" fill="none" rx="40.6" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="986.77" xml:space="preserve" y="-300.95">quintica</text>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"lem:sing": "Lemma 1 — the singular locus; the case $k=3$ is Segre's", "prop:gcd": "Proposition 2 — the invariant is $\\gcd(m,6)$", "rem:mann": "Remark 3 — the minimality hypothesis is where the work is", "thm:tricotomia": "Theorem 4 — the trichotomy", "prop:contra": "Proposition 5 — the converse fails at $k=5$, $n=6$", "rem:alto": "Remark 6 — the higher strata still contribute nothing of weight one, and why", "rem:quintica": "Remark 7 — ``no weight one'' does not mean ``Artin--Tate''", "thm:clasificacion": "Theorem 8 — all $k$, all $n$", "thm:formulas": "Theorem 9", "rem:svdm": "Remark 10 — the case $k=4$ has a name, and is classified", "prop:n3k6": "Proposition 11", "thm:columna": "Theorem 12 — the column $n=3$", "prop:s3": "Proposition 13 — an $S_3$-fibre exists", "lem:nocancela": "Lemma 14 — the nonabelian part cannot cancel", "prop:grado": "Proposition 15 — the degree of $Q_k$", "prop:modular": "Proposition 16 — the degree is a dimension of modular forms", "cor:modular": "Corollary 17 — the criterion is a dimension", "rem:torsion": "Remark 18 — what the column is really counting", "rem:ventana": "Remark 19 — a null that a short window would have manufactured", "obs:dosfallos": "Observation 20 — the two failures are not the same failure; cf.~\\cite{Isham}", "lem:factorreal": "Lemma 21 — the real roots form a factor"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<style id="lm-lean-panel-css">
+.lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
+/* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
+.lm-panel{position:fixed;inset:6vh 7vw;z-index:9999;background:#fff;border:1px solid #c9d3de;border-radius:10px;
+  box-shadow:0 14px 48px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+/* 21-oct, Carles: the name centred, a little larger, with a shadow, on a header with its own colour */
+.lm-panel header{background:linear-gradient(180deg,#f3f7fc 0%,#dde7f3 100%);border-bottom:1px solid #b9c8da;
+  box-shadow:0 2px 6px rgba(26,79,139,.12);padding:.55rem .9rem;display:grid;grid-template-columns:1fr minmax(0,auto) 1fr;
+  gap:.9rem;align-items:center;font:14px Arial,sans-serif}
+.lm-panel header b{grid-column:2;text-align:center;font:600 17px/1.2 "Cascadia Code","JetBrains Mono",Consolas,Menlo,monospace;
+  color:#163f6e;letter-spacing:.01em;text-shadow:0 1px 0 #fff,0 2px 4px rgba(22,63,110,.28);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.lm-panel header button{grid-column:3;justify-self:end}
+.lm-panel header a{color:#1a4f8b}.lm-panel header button{border:0;background:#1a4f8b;color:#fff;border-radius:999px;
+  padding:.15rem .7rem;cursor:pointer;font:14px Arial,sans-serif}
+.lm-panel iframe{flex:1;border:0;width:100%;background:#fbfcfe}
+@media (max-width:700px){.lm-panel{inset:0;border-radius:0}}
+</style>
+<script id="lm-lean-panel">
+/* 21-oct, Carles: the Lean opens in a central window over the blueprint, and closing it leaves the reader where he was */
+(function(){
+  /* the browser's Back (or the phone's back gesture) closes the panel instead of leaving the blueprint: the panel
+     pushes one history entry; closing it by hand takes that entry back out (21-oct: «que pueda volver donde estaba») */
+  function quitar(){var p=document.querySelector('.lm-panel'),v=document.querySelector('.lm-veil');
+    if(p)p.remove();if(v)v.remove();document.removeEventListener('keydown',esc);}
+  function cerrar(){if(history.state&&history.state.lmPanel)history.back();else quitar();}
+  window.addEventListener('popstate',function(){quitar();});
+  function esc(e){if(e.key==='Escape')cerrar();}
+  function abrir(href,nombre,gh){quitar();
+    if(!(history.state&&history.state.lmPanel))history.pushState({lmPanel:1},'');
+    var v=document.createElement('div');v.className='lm-veil';v.onclick=cerrar;
+    var p=document.createElement('div');p.className='lm-panel';p.setAttribute('role','dialog');
+    /* 21-oct, Carles: the window header has the name and Close only; the ✒️ stays in the Lean page's own header
+       inside the window, as GitHub does (Carles: «está en dos sitios», «quita el emoji de esa leyenda») */
+    p.innerHTML='<header><b></b>'+
+      '<button type="button" title="Close (Esc)">✕ Close</button></header><iframe title="Lean source"></iframe>';
+    p.querySelector('b').textContent=nombre||'';
+    /* ?panel=1: the Lean page knows it is inside the window (no Atlas link) and the URL skips an old cached copy */
+    var i=href.indexOf('#'),src=(i<0?href:href.slice(0,i))+'?panel=1'+(i<0?'':href.slice(i));
+    p.querySelector('button').onclick=cerrar;p.querySelector('iframe').src=src;
+    document.body.appendChild(v);document.body.appendChild(p);document.addEventListener('keydown',esc);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lean-github]');
+    if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>
