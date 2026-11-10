@@ -34,13 +34,20 @@
   var q = document.getElementById('q');
   if (!q) return;
   var tarjetas = Array.prototype.slice.call(document.querySelectorAll('.tarjeta'));
-  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
-  var area = '';
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip[data-area]'));
+  var todas = document.getElementById('todas');  // "Show all": only visible while one area is selected
+  var area = null;  // null = every area
+  function elegir(a) {
+    area = a;
+    chips.forEach(function (d) { d.classList.toggle('on', area !== null && d.getAttribute('data-area') === area); });
+    if (todas) todas.hidden = area === null;
+    filtrar();
+  }
   function filtrar() {
     var terms = norm(q.value).split(/\s+/).filter(Boolean), n = 0;
     tarjetas.forEach(function (t) {
       var txt = norm(t.getAttribute('data-q'));
-      var ok = (!area || t.getAttribute('data-area') === area) &&
+      var ok = (area === null || t.getAttribute('data-area') === area) &&
         terms.every(function (w) { return txt.indexOf(w) >= 0; });
       t.hidden = !ok; if (ok) n++;
     });
@@ -49,16 +56,15 @@
     });
     document.getElementById('nada').hidden = n > 0;
     document.getElementById('cuenta').textContent =
-      (terms.length || area) ? n + ' of ' + tarjetas.length + ' results' : '';
+      (terms.length || area !== null) ? n + ' of ' + tarjetas.length + ' results' : '';
   }
   q.addEventListener('input', filtrar);
   chips.forEach(function (c) {
     c.addEventListener('click', function () {
-      area = area === c.getAttribute('data-area') ? '' : c.getAttribute('data-area');
-      chips.forEach(function (d) { d.classList.toggle('on', d.getAttribute('data-area') === area); });
-      filtrar();
+      elegir(area === c.getAttribute('data-area') ? null : c.getAttribute('data-area'));
     });
   });
+  if (todas) todas.addEventListener('click', function () { q.value = ''; elegir(null); });
   var h = new URLSearchParams(location.search).get('q');
   if (h) { q.value = h; }
   filtrar();
