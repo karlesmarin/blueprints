@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+</style></head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper 1.1 (<a href="https://doi.org/10.5281/zenodo.23123219" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.23123219</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="thm:connection_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:connection" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">3</span><span class="theorem_thmtitle">Fourier–energy equivalence</span></div>
+<div class="thm_thmcontent"><p>    For every strictly admissible \(V\) and every seven-element \(A\subseteq {\mathbb {Z}_{12}}\), </p>
+<div class="displaymath" id="a0000000028">
+  \[  \boxed {\quad |{\widehat A}(5)|=2+\sqrt3\quad \Longleftrightarrow \quad E_V(A)=E_V(D).\quad }  \]
+</div>
+<p> Both sides hold precisely for the twelve transpositions of \(D\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:connection">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L183" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/DiatonicExtremality.lean#L183">MusicTheory.DiatonicExtremality.spectral_energy_equivalence</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L128" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/DiatonicExtremality.lean#L128">MusicTheory.DiatonicExtremality.diatonic_norm_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L179" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/Huddling.lean#L179">MusicTheory.Huddling.fifth_frequency_unique</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:energy_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:energy" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">2</span><span class="theorem_thmtitle">Diatonic energy minimum</span></div>
+<div class="thm_thmcontent"><p>   For every admissible \(V\) and every \(A\subseteq {\mathbb {Z}_{12}}\) with \(|A|=7\), \(E_V(D)\le E_V(A)\). If \(V\) is strictly admissible, then </p>
+<div class="displaymath" id="a0000000024">
+  \[  E_V(A)=E_V(D)\  \Longleftrightarrow \  A\in {\mathcal O_D}.  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:energy">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/AllPairsEvenness.html#L124" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/AllPairsEvenness.lean#L124">MusicTheory.AllPairsEvenness.abel_bridge</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/DiatonicExtremality.html#L171" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/DiatonicExtremality.lean#L171">MusicTheory.DiatonicExtremality.diatonic_energy_unique</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:huddling_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:huddling" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">1</span><span class="theorem_thmtitle">Huddling in \({\mathbb {Z}_{12}}\)</span></div>
+<div class="thm_thmcontent"><p>   For every \(A\subseteq {\mathbb {Z}_{12}}\), with \(k=|A|\) and \(C_k=\{ 0,\ldots ,k-1\} \), </p>
+<div class="displaymath" id="a0000000012">
+  \[  S_1(A)\le S_1(C_k),\qquad S_1(A)=S_1(C_k)\  \Longleftrightarrow \  A=T_sC_k\text{ for some }s\in {\mathbb {Z}_{12}}.  \]
+</div>
+<p> The same inequality and equality condition hold for Fourier magnitudes. </p>
+</div>
+<a class="latex_link" href="index.html#thm:huddling">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L132" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/Huddling.lean#L132">MusicTheory.Huddling.arc_maximizes_power</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/Huddling.html#L141" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/Huddling.lean#L141">MusicTheory.Huddling.arc_unique</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/MTransform.html#L355" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/MTransform.lean#L355">MusicTheory.MTransform.powerSpec_one_re_le_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingGeometry.html#L366" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/CyclicHuddlingGeometry.lean#L366">MusicTheory.CyclicHuddling.norm_Ahat_unit_le_arc</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingGeometry.html#L445" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/CyclicHuddlingGeometry.lean#L445">MusicTheory.CyclicHuddling.norm_Ahat_unit_eq_arc_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L89" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L89">MusicTheory.CyclicHuddling.norm_Ahat_unit_le_sine_ratio</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L97" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L97">MusicTheory.CyclicHuddling.norm_Ahat_unit_eq_sine_ratio_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/CyclicHuddlingClosedForm.html#L61" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/CyclicHuddlingClosedForm.lean#L61">MusicTheory.CyclicHuddling.norm_Ahat_arc_sine_ratio</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:pentatonic_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:pentatonic" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4</span><span class="theorem_thmtitle">Pentatonic extremality</span></div>
+<div class="thm_thmcontent"><p>    For every five-element \(A\subseteq {\mathbb {Z}_{12}}\), \(|{\widehat A}(5)|\le 2+\sqrt3\). For every admissible \(V\), \(E_V(P)\le E_V(A)\). Under strict admissibility, </p>
+<div class="displaymath" id="a0000000044">
+  \[  |{\widehat A}(5)|=2+\sqrt3\quad \Longleftrightarrow \quad E_V(A)=E_V(P)\quad \Longleftrightarrow \quad A=T_sP\text{ for some }s.  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:pentatonic">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L237" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/ExtremalityConnections.lean#L237">MusicTheory.ExtremalityConnections.pentatonic_spectral_energy_equivalence</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L222" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/ExtremalityConnections.lean#L222">MusicTheory.ExtremalityConnections.pentatonic_energy_gap</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/MusicTheory/ExtremalityConnections.html#L172" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/MusicTheory/ExtremalityConnections.lean#L172">MusicTheory.ExtremalityConnections.energy_compl</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:huddling"	[color=blue,		label=huddling,		shape=ellipse];	"thm:connection"	[color=green,		fillcolor="#9CEC8B",		label=connection,		shape=ellipse,		style=filled];	"thm:huddling" -> "thm:connection"	[style=dashed];	"thm:pentatonic"	[color=green,		fillcolor="#9CEC8B",		label=pentatonic,		shape=ellipse,		style=filled];	"thm:connection" -> "thm:pentatonic"	[style=dashed];	"thm:energy"	[color=blue,		label=energy,		shape=ellipse];	"thm:energy" -> "thm:connection"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="188pt" viewbox="0.00 0.00 186.00 188.00" width="186pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 184)">
+<!-- thm:huddling -->
+<g class="node" id="node1">
+<title>thm:huddling</title>
+<ellipse cx="43.68" cy="-162" fill="none" rx="43.68" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="43.68" xml:space="preserve" y="-156.95">huddling</text>
+</g>
+<!-- thm:connection -->
+<g class="node" id="node2">
+<title>thm:connection</title>
+<ellipse cx="92.68" cy="-90" fill="#9cec8b" rx="51.35" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="92.68" xml:space="preserve" y="-84.95">connection</text>
+</g>
+<!-- thm:huddling&#45;&gt;thm:connection -->
+<g class="edge" id="edge1">
+<title>thm:huddling-&gt;thm:connection</title>
+<path d="M55.54,-144.05C61.17,-136.01 68.03,-126.2 74.32,-117.23" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="79.88,-109.28 77.84,-120.05 77.72,-112.38 74.15,-117.47 74.15,-117.47 74.15,-117.47 77.72,-112.38 70.46,-114.89 79.88,-109.28" stroke="black"></polygon>
+</g>
+<!-- thm:pentatonic -->
+<g class="node" id="node3">
+<title>thm:pentatonic</title>
+<ellipse cx="92.68" cy="-18" fill="#9cec8b" rx="49.31" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="92.68" xml:space="preserve" y="-12.95">pentatonic</text>
+</g>
+<!-- thm:connection&#45;&gt;thm:pentatonic -->
+<g class="edge" id="edge2">
+<title>thm:connection-&gt;thm:pentatonic</title>
+<path d="M92.68,-71.34C92.68,-64.07 92.68,-55.47 92.68,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="92.68,-37.63 97.18,-47.63 92.68,-41.42 92.68,-47.63 92.68,-47.63 92.68,-47.63 92.68,-41.42 88.18,-47.63 92.68,-37.63" stroke="black"></polygon>
+</g>
+<!-- thm:energy -->
+<g class="node" id="node4">
+<title>thm:energy</title>
+<ellipse cx="141.67" cy="-162" fill="none" rx="36" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="141.67" xml:space="preserve" y="-156.95">energy</text>
+</g>
+<!-- thm:energy&#45;&gt;thm:connection -->
+<g class="edge" id="edge3">
+<title>thm:energy-&gt;thm:connection</title>
+<path d="M130.06,-144.41C124.35,-136.25 117.33,-126.22 110.92,-117.07" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="105.24,-108.96 114.66,-114.57 107.41,-112.06 110.98,-117.15 110.98,-117.15 110.98,-117.15 107.41,-112.06 107.29,-119.73 105.24,-108.96" stroke="black"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:huddling": "Theorem 1 — Huddling in $\\Ztwelve$", "thm:energy": "Theorem 2 — Diatonic energy minimum", "thm:connection": "Theorem 3 — Fourier--energy equivalence", "thm:pentatonic": "Theorem 4 — Pentatonic extremality"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<style id="lm-lean-panel-css">
+.lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
+/* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
+.lm-panel{position:fixed;inset:6vh 7vw;z-index:9999;background:#fff;border:1px solid #c9d3de;border-radius:10px;
+  box-shadow:0 14px 48px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+/* 21-oct, Carles: the name centred, a little larger, with a shadow, on a header with its own colour */
+.lm-panel header{background:linear-gradient(180deg,#f3f7fc 0%,#dde7f3 100%);border-bottom:1px solid #b9c8da;
+  box-shadow:0 2px 6px rgba(26,79,139,.12);padding:.55rem .9rem;display:grid;grid-template-columns:1fr minmax(0,auto) 1fr;
+  gap:.9rem;align-items:center;font:14px Arial,sans-serif}
+.lm-panel header b{grid-column:2;text-align:center;font:600 17px/1.2 "Cascadia Code","JetBrains Mono",Consolas,Menlo,monospace;
+  color:#163f6e;letter-spacing:.01em;text-shadow:0 1px 0 #fff,0 2px 4px rgba(22,63,110,.28);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.lm-panel header button{grid-column:3;justify-self:end}
+.lm-panel header a{color:#1a4f8b}.lm-panel header button{border:0;background:#1a4f8b;color:#fff;border-radius:999px;
+  padding:.15rem .7rem;cursor:pointer;font:14px Arial,sans-serif}
+.lm-panel iframe{flex:1;border:0;width:100%;background:#fbfcfe}
+@media (max-width:700px){.lm-panel{inset:0;border-radius:0}}
+</style>
+<script id="lm-lean-panel">
+/* 21-oct, Carles: the Lean opens in a central window over the blueprint, and closing it leaves the reader where he was */
+(function(){
+  /* the browser's Back (or the phone's back gesture) closes the panel instead of leaving the blueprint: the panel
+     pushes one history entry; closing it by hand takes that entry back out (21-oct: «que pueda volver donde estaba») */
+  function quitar(){var p=document.querySelector('.lm-panel'),v=document.querySelector('.lm-veil');
+    if(p)p.remove();if(v)v.remove();document.removeEventListener('keydown',esc);}
+  function cerrar(){if(history.state&&history.state.lmPanel)history.back();else quitar();}
+  window.addEventListener('popstate',function(){quitar();});
+  function esc(e){if(e.key==='Escape')cerrar();}
+  function abrir(href,nombre,gh){quitar();
+    if(!(history.state&&history.state.lmPanel))history.pushState({lmPanel:1},'');
+    var v=document.createElement('div');v.className='lm-veil';v.onclick=cerrar;
+    var p=document.createElement('div');p.className='lm-panel';p.setAttribute('role','dialog');
+    /* 21-oct, Carles: the window header has the name and Close only; the ✒️ stays in the Lean page's own header
+       inside the window, as GitHub does (Carles: «está en dos sitios», «quita el emoji de esa leyenda») */
+    p.innerHTML='<header><b></b>'+
+      '<button type="button" title="Close (Esc)">✕ Close</button></header><iframe title="Lean source"></iframe>';
+    p.querySelector('b').textContent=nombre||'';
+    /* ?panel=1: the Lean page knows it is inside the window (no Atlas link) and the URL skips an old cached copy */
+    var i=href.indexOf('#'),src=(i<0?href:href.slice(0,i))+'?panel=1'+(i<0?'':href.slice(i));
+    p.querySelector('button').onclick=cerrar;p.querySelector('iframe').src=src;
+    document.body.appendChild(v);document.body.appendChild(p);document.addEventListener('keydown',esc);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lean-github]');
+    if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>
