@@ -80,11 +80,11 @@ status:
       f_A(T)² and J_B are on paper
   counts:
     formal: 4
-    part: 3
+    part: 2
     computation: 2
-    hand: 3
-    cited: 0
-    to_check: 8
+    hand: 2
+    cited: 2
+    to_check: 6
 automation:
   methods:
   - method: agent
@@ -95,10 +95,10 @@ automation:
   notes: Isabelle theories compiled without quick_and_dirty and with a negative control (a false lemma added must
     make the build fail).
 fidelity:
-  divergences: 'rem:ramp: the minimal time 2√(A/S) or A/G + G/S, after publication; the replacement G²T → J(T) in
-    the loss floor is on paper; lem:frontier: the two inequalities from the reduced inequalities; Ψ and its limit
-    2 are on paper; prop:windows: the emitter and receiver windows and the norm chain with one common excess rate;
-    the three-rate balance, f_A(T)² and J_B are on paper'
+  divergences: 'Remark 4.2: the minimal time 2√(A/S) or A/G + G/S, after publication; the replacement G²T → J(T)
+    in the loss floor is on paper; Lemma 6.1: the two inequalities from the reduced inequalities; Ψ and its limit
+    2 are on paper; Proposition 7.2: the emitter and receiver windows and the norm chain with one common excess
+    rate; the three-rate balance, f_A(T)² and J_B are on paper'
 review:
   status: self-assessed
   reviewers: []
@@ -107,90 +107,90 @@ alignment:
   statements:
   - source: lab:link
     status: not-formalized
-  - source: thm:floor
+  - source: Theorem 4.1
     status: proved
     isabelle: loss_floor
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Loss_Floor.thy
-  - source: rem:ramp
-    status: 'other: partly formalized'
+  - source: Remark 4.2
+    status: literature-dependency
     isabelle: ramped_transfer_time
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Ramp_Time.thy
     note: the minimal time 2√(A/S) or A/G + G/S, after publication; the replacement G²T → J(T) in the loss floor
       is on paper
-  - source: rem:ramp
-    status: 'other: partly formalized'
+  - source: Remark 4.2
+    status: literature-dependency
     isabelle: ramp_min_time_conv
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Ramp_Time.thy
     note: the minimal time 2√(A/S) or A/G + G/S, after publication; the replacement G²T → J(T) in the loss floor
       is on paper
-  - source: rem:ramp
-    status: 'other: partly formalized'
+  - source: Remark 4.2
+    status: literature-dependency
     isabelle: ramp_env_integral
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Ramp_Time.thy
     note: the minimal time 2√(A/S) or A/G + G/S, after publication; the replacement G²T → J(T) in the loss floor
       is on paper
-  - source: rem:ramp
-    status: 'other: partly formalized'
+  - source: Remark 4.2
+    status: literature-dependency
     isabelle: ramp_envelope
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Extensions.thy
     note: the minimal time 2√(A/S) or A/G + G/S, after publication; the replacement G²T → J(T) in the loss floor
       is on paper
-  - source: lem:window
+  - source: Lemma 5.1
     status: proved
     isabelle: endpoint_window_ac
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Endpoints.thy
-  - source: lem:window
+  - source: Lemma 5.1
     status: proved
     isabelle: endpoint_window
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Endpoints.thy
-  - source: thm:endpoints
+  - source: Theorem 5.2
     status: proved
     isabelle: endpoint_occupation_ac
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Endpoints.thy
-  - source: thm:endpoints
+  - source: Theorem 5.2
     status: proved
     isabelle: endpoint_occupation
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Endpoints.thy
-  - source: lem:frontier
+  - source: Lemma 6.1
     status: 'other: partly formalized'
     isabelle: partial_frontier
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Loss_Floor.thy
     note: the two inequalities from the reduced inequalities; Ψ and its limit 2 are on paper
-  - source: thm:asymptotic
+  - source: Theorem 6.2
     status: not-formalized
-  - source: thm:attain
+  - source: Theorem 6.3
     status: not-formalized
-  - source: lem:coherence
+  - source: Lemma 7.1
     status: proved
     isabelle: nojump_form
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Coherence.thy
-  - source: lem:coherence
+  - source: Lemma 7.1
     status: proved
     isabelle: gamma_T2
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Coherence.thy
-  - source: lem:coherence
+  - source: Lemma 7.1
     status: proved
     isabelle: six_state_average_phase
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Fidelity.thy
-  - source: prop:windows
+  - source: Proposition 7.2
     status: 'other: partly formalized'
     isabelle: emitter_window
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Windows.thy
     note: the emitter and receiver windows and the norm chain with one common excess rate; the three-rate balance,
       f_A(T)² and J_B are on paper
-  - source: prop:windows
+  - source: Proposition 7.2
     status: 'other: partly formalized'
     isabelle: receiver_window
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Windows.thy
     note: the emitter and receiver windows and the norm chain with one common excess rate; the three-rate balance,
       f_A(T)² and J_B are on paper
-  - source: prop:windows
+  - source: Proposition 7.2
     status: 'other: partly formalized'
     isabelle: norm_chain
     module: Isabelle/AFP/Quantum_Speed_Limits/Relay_Windows.thy
     note: the emitter and receiver windows and the norm chain with one common excess rate; the three-rate balance,
       f_A(T)² and J_B are on paper
-  - source: prop:reciprocity
+  - source: Proposition 7.3
     status: not-formalized
-  - source: rem:joint
-    status: not-formalized
+  - source: Remark 9.1
+    status: literature-dependency
