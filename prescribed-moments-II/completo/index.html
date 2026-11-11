@@ -162,10 +162,12 @@ section.pc-pane+section.pc-pane{margin-top:2.2rem}
   body>header svg#toc-toggle{width:2.1rem;height:2.1rem;flex-shrink:0;cursor:pointer;fill:#fff;color:#fff;
     padding:.3rem;margin:0 .3rem 0 0;border:1px solid rgba(255,255,255,.8);border-radius:7px;background:rgba(255,255,255,.14)}
   body>header h1#doc_title{flex:0 0 auto;font-size:1.15rem;margin:0 .2rem !important}
-  /* the options in one row that scrolls sideways, so the header keeps to one line and the paper gets the screen */
-  header nav.pc-opts{flex-wrap:nowrap;overflow-x:auto;margin:0 0 0 .3rem;scrollbar-width:none;flex:1;min-width:0}
-  header nav.pc-opts::-webkit-scrollbar{display:none}
-  header nav.pc-opts>*{flex-shrink:0;white-space:nowrap}
+  /* 11-nov (Carles: «no veo las opciones de In 5, Referee»): in one row that scrolled sideways with a hidden
+     scrollbar the options past the edge were invisible. Now they WRAP: every option on screen, in two or three rows */
+  body>header{flex-wrap:wrap}
+  header nav.pc-opts{flex-wrap:wrap;overflow:visible;margin:.25rem 0 .25rem .3rem;flex:1 1 100%;min-width:0;gap:.3em}
+  header nav.pc-opts>*{white-space:nowrap}
+  header nav.pc-opts a,header nav.pc-opts button{font-size:12px;padding:.18em .55em}
   nav.toc{position:fixed;left:0;top:var(--pc-head,3.5rem);bottom:0;width:min(86vw,34ch);max-width:none;z-index:90;
     box-shadow:4px 0 18px rgba(0,0,0,.35)}
 }
@@ -198,7 +200,7 @@ div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba
 div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
   transition:box-shadow .18s ease,transform .18s ease}
 div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
-  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
 @media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
   p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
   p.lm-ficha:hover{transform:none}}
@@ -1913,8 +1915,8 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </button>
 </header>
 <ul class="uses">
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L74" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L74">P3d.card_degreePairs</a></li>
-<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L80" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L80">P3d.card_degreePairs_eq_one_iff</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L74" data-lean-github="https://github.com/karlesmarin/formalizations/blob/beb82f825a68ed0b817ed1a9d7a5ee8e53249d93/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L74">P3d.card_degreePairs</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L80" data-lean-github="https://github.com/karlesmarin/formalizations/blob/beb82f825a68ed0b817ed1a9d7a5ee8e53249d93/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L80">P3d.card_degreePairs_eq_one_iff</a></li>
 </ul>
 </div>
 </div>
@@ -1926,7 +1928,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
   \[  { \boxed {\displaystyle \deg Q_k=\Bigl\lfloor \frac k6\Bigr\rfloor -\bigl[\, k\equiv 1\  (\mathrm{mod}\  6)\, \bigr]}} .  \]
 </div>
 <p> In particular \(\deg Q_k=0\) exactly for \(k\in \{ 3,4,5,7\} \), and since the degree is nondecreasing along each residue class modulo \(6\), no further \(k\) can return to zero. </p>
-</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (21-oct-2026): the count #{(a, b) : 2a + 3b = k} = ⌊k/6⌋ + 1 − [k ≡ 1 mod 6] for every k</p><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L74" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L74"><code>P3d.card_degreePairs</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L80" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L80"><code>P3d.card_degreePairs_eq_one_iff</code></a></li></ul></details>
+</div><details class="ext-lean ours"><summary><span class="tag">Lean · ours, in part</span><span class="more">show</span></summary><p class="doc">added to the Lean repository after publication (21-oct-2026): the count #{(a, b) : 2a + 3b = k} = ⌊k/6⌋ + 1 − [k ≡ 1 mod 6] for every k</p><ul><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L74" data-lean-github="https://github.com/karlesmarin/formalizations/blob/beb82f825a68ed0b817ed1a9d7a5ee8e53249d93/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L74"><code>P3d.card_degreePairs</code></a></li><li><a href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.html#L80" data-lean-github="https://github.com/karlesmarin/formalizations/blob/beb82f825a68ed0b817ed1a9d7a5ee8e53249d93/Formalizations/NumberTheory/PrescribedMoments/DegreeCount.lean#L80"><code>P3d.card_degreePairs_eq_one_iff</code></a></li></ul></details>
 </div><p class="lean-check">✅ Checked when this page was built: DegreeCount.lean compiles with Lean 4.35.0, no errors, no sorry. Axioms — card_degreePairs, card_degreePairs_eq_one_iff: propext, Classical.choice, Quot.sound.<br/><span class="repro">Reproduce: Lean 4.35.0, Mathlib f0b4c8150aa0; in that Lean project, <code>lake env lean DegreeCount.lean</code> (SHA-256 of the compiled file: <code>55e85b8ae935ef0d…</code>; a source page on this site may show it with comments edited, under its own hash).</span></p><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only — <b>only part of the statement is formal</b> (see the box). <span class="detail">Lean: 2 results, standard axioms only</span></p><p class="lm-ficha"><b>Proof:</b> in this note<span class="sep">·</span><b>Covers:</b> not formalized<span class="sep">·</span><b>Cite:</b> Lemma 1, p. 4, doi:10.5281/zenodo.22886543</p><p class="novedad">🆕 <b>Classical and new:</b> for odd k the number is Helou’s r_k [Helou]; the paper claims neither, only a self-contained proof for all k.</p><p class="usado">↳ Used in: <a href="#thm:columna">Theorem 12</a></p>
 <div class="proof_wrapper" id="a0000000070">
 <div class="proof_heading">
