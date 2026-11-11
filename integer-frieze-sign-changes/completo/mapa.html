@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: Integer frieze patterns and Tabachnikov's four sign changes</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="pc-map-css">
+html,body{height:100%}
+body.pc-frame{margin:0;display:flex;flex-direction:column;overflow:hidden;background:#e8e8e8}
+body.pc-frame header.pc-head{position:static;width:auto;margin:0;flex-shrink:0}
+.pc-wrap{display:flex;flex:1;overflow:hidden}
+nav.pc-toc{width:28ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0;font-family:serif}
+nav.pc-toc ul{list-style:none;margin:0;padding:0}
+nav.pc-toc a{display:block;padding:.5rem .8rem;color:#fff;text-decoration:none;font-size:1.05rem;
+  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
+nav.pc-toc a:hover{background:#497da5}
+nav.pc-toc li.on>a{background:#89aecb}
+.pc-panel{flex:1;overflow:auto;padding:1rem}
+.pc-panel>.cont{margin:0 auto;max-width:none;padding:0 1rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
+.pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
+.pc-paneltitle .campo{justify-content:center}
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+section.pc-pane .mapa{max-width:100%;overflow:auto}
+/* phone: the parts of the map as a row of tabs above the panel */
+@media (max-width:900px){.pc-wrap{flex-direction:column}
+  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
+  nav.pc-toc ul{display:flex;white-space:nowrap}
+  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+</style><style id="lm-maphere-css">
+g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
+g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
+g.lm-here{animation:lmhere 1.2s ease-in-out 3}
+@keyframes lmhere{50%{opacity:.35}}
+#lm-herebar{font:13px Arial,sans-serif;background:#fff3f2;border:1px solid #f3b9b4;border-radius:6px;padding:.35em .7em;
+            margin:.4em 0}
+#lm-herebar a{color:#b3261e}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:1105pt 731pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:1057pt !important;height:363pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Integer frieze patterns and Tabachnikov's four sign changes: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.23656979" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.23656979</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="integer-frieze-sign-changes-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Integer frieze patterns and Tabachnikov's four sign changes</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Combinatorics · frieze patterns and triangulations of polygons</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>10</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>2</b> partly in Lean</span>
+<span class="cifra c-lean" title="statements proved in Isabelle/HOL (ours)">✅ <b>2</b> in Isabelle</span>
+<span class="cifra c-prog">💻 <b>4</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="363pt" style="min-width:760px" viewbox="0.00 0.00 1057.00 363.00" width="1057pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 358.99)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M12,0C12,0 669,0 669,0 675,0 681,-6 681,-12 681,-12 681,-222.91 681,-222.91 681,-228.91 675,-234.91 669,-234.91 669,-234.91 12,-234.91 12,-234.91 6,-234.91 0,-228.91 0,-222.91 0,-222.91 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="340.5" xml:space="preserve" y="-219.5">Results</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M33,-242.91C33,-242.91 149,-242.91 149,-242.91 155,-242.91 161,-248.91 161,-254.91 161,-254.91 161,-342.99 161,-342.99 161,-348.99 155,-354.99 149,-354.99 149,-354.99 33,-354.99 33,-354.99 27,-354.99 21,-348.99 21,-342.99 21,-342.99 21,-254.91 21,-254.91 21,-248.91 27,-242.91 33,-242.91" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="91" xml:space="preserve" y="-339.6">Proof of Theorem A</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M701,-18.91C701,-18.91 1037,-18.91 1037,-18.91 1043,-18.91 1049,-24.91 1049,-30.91 1049,-30.91 1049,-81.16 1049,-81.16 1049,-87.16 1043,-93.16 1037,-93.16 1037,-93.16 701,-93.16 701,-93.16 695,-93.16 689,-87.16 689,-81.16 689,-81.16 689,-30.91 689,-30.91 689,-24.91 695,-18.91 701,-18.91" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="869" xml:space="preserve" y="-77.77">Questions</text>
+</g>
+<!-- thm:A -->
+<g class="node" id="node1">
+<title>thm:A</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:A" xlink:title="Theorem A: even n ≥ 14: middle rows strictly ordered, no sign change. In Lean: the base pair n = 14 only (kernel computation, decide); the family for every n is in Isabelle">
+<path d="M162.18,-204.29C162.18,-204.29 19.82,-204.29 19.82,-204.29 13.82,-204.29 7.83,-198.29 7.83,-192.29 7.83,-192.29 7.83,-134.21 7.83,-134.21 7.83,-128.21 13.83,-122.21 19.83,-122.21 19.83,-122.21 162.18,-122.21 162.18,-122.21 168.18,-122.21 174.18,-128.21 174.18,-134.21 174.18,-134.21 174.18,-192.29 174.18,-192.29 174.18,-198.29 168.18,-204.29 162.18,-204.29" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="91" xml:space="preserve" y="-187.85">Theorem A</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="91" xml:space="preserve" y="-173.6">even n ≥ 14: middle rows</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="91" xml:space="preserve" y="-159.35">strictly ordered, no sign</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="91" xml:space="preserve" y="-145.1">change</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="91" xml:space="preserve" y="-130.85">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- cor:all -->
+<g class="node" id="node3">
+<title>cor:all</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#cor:all" xlink:title="Corollary 1: four sign changes fail for every n ≥ 14 (k ≤ ⌈w/2⌉), for odd n inside k ≤ ⌊w/2⌋">
+<path d="M253.3,-81.83C253.3,-81.83 120.7,-81.83 120.7,-81.83 114.7,-81.83 108.7,-75.83 108.7,-69.83 108.7,-69.83 108.7,-20 108.7,-20 108.7,-14 114.7,-8 120.7,-8 120.7,-8 253.3,-8 253.3,-8 259.3,-8 265.3,-14 265.3,-20 265.3,-20 265.3,-69.83 265.3,-69.83 265.3,-75.83 259.3,-81.83 253.3,-81.83" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-66.82">Corollary 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-54.07">four sign changes fail for</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-41.32">every n ≥ 14 (k ≤ ⌈w/2⌉),</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-28.57">for odd n inside k ≤ ⌊w/2⌋</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="187" xml:space="preserve" y="-15.82">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:A&#45;&gt;cor:all -->
+<g class="edge" id="edge2">
+<title>thm:A-&gt;cor:all</title>
+<path d="M124.85,-121.23C133.52,-110.72 142.87,-99.39 151.62,-88.79" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="153.45,-90.43 156.01,-83.47 149.66,-87.31 153.45,-90.43" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:B -->
+<g class="node" id="node2">
+<title>thm:B</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:B" xlink:title="Theorem B: odd n ≥ 15: row ⌊w/2⌋, no zero, exactly two sign changes. In Lean: the pair n = 15 only (kernel computation, decide); the family for every n is in Isabelle">
+<path d="M355.3,-204.66C355.3,-204.66 210.7,-204.66 210.7,-204.66 204.7,-204.66 198.7,-198.66 198.7,-192.66 198.7,-192.66 198.7,-133.84 198.7,-133.84 198.7,-127.84 204.7,-121.84 210.7,-121.84 210.7,-121.84 355.3,-121.84 355.3,-121.84 361.3,-121.84 367.3,-127.84 367.3,-133.84 367.3,-133.84 367.3,-192.66 367.3,-192.66 367.3,-198.66 361.3,-204.66 355.3,-204.66" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="283" xml:space="preserve" y="-188.22">Theorem B</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="283" xml:space="preserve" y="-173.97">odd n ≥ 15: row ⌊w/2⌋, no</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="283" xml:space="preserve" y="-158.97">zero, exactly two sign</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="283" xml:space="preserve" y="-144.72">changes</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="283" xml:space="preserve" y="-130.47">◐ part in Lean · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:B&#45;&gt;cor:all -->
+<g class="edge" id="edge3">
+<title>thm:B-&gt;cor:all</title>
+<path d="M248.61,-120.58C240.06,-110.21 230.88,-99.08 222.28,-88.67" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="224.32,-87.29 217.97,-83.45 220.54,-90.41 224.32,-87.29" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:1 -->
+<g class="node" id="node7">
+<title>q:1</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#q:1" xlink:title="Question 1">
+<path d="M752.68,-62.92C752.68,-62.92 709.32,-62.92 709.32,-62.92 703.32,-62.92 697.32,-56.92 697.32,-50.92 697.32,-50.92 697.32,-38.92 697.32,-38.92 697.32,-32.92 703.32,-26.92 709.32,-26.92 709.32,-26.92 752.68,-26.92 752.68,-26.92 758.68,-26.92 764.68,-32.92 764.68,-38.92 764.68,-38.92 764.68,-50.92 764.68,-50.92 764.68,-56.92 758.68,-62.92 752.68,-62.92" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="731" xml:space="preserve" y="-41.32">Question 1</text>
+</a>
+</g>
+</g>
+<!-- thm:B&#45;&gt;q:1 -->
+<g class="edge" id="edge4">
+<title>thm:B-&gt;q:1</title>
+<path d="M368.39,-124.77C371.95,-123.7 375.49,-122.71 379,-121.83 512.35,-88.4 563.62,-153.82 687,-93.16 697.74,-87.89 707.18,-78.79 714.53,-69.98" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="716.39,-71.57 718.79,-64.55 712.54,-68.54 716.39,-71.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:min -->
+<g class="node" id="node4">
+<title>prop:min</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#prop:min" xlink:title="Proposition 1: exhaustive search, w ≤ 12: 14 and 15 are the smallest n">
+<path d="M514.05,-200.16C514.05,-200.16 403.95,-200.16 403.95,-200.16 397.95,-200.16 391.95,-194.16 391.95,-188.16 391.95,-188.16 391.95,-138.34 391.95,-138.34 391.95,-132.34 397.95,-126.34 403.95,-126.34 403.95,-126.34 514.05,-126.34 514.05,-126.34 520.05,-126.34 526.05,-132.34 526.05,-138.34 526.05,-138.34 526.05,-188.16 526.05,-188.16 526.05,-194.16 520.05,-200.16 514.05,-200.16" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="459" xml:space="preserve" y="-185.15">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="459" xml:space="preserve" y="-172.4">exhaustive search, w ≤ 12:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="459" xml:space="preserve" y="-159.65">14 and 15 are the smallest</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="459" xml:space="preserve" y="-146.9">n</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="459" xml:space="preserve" y="-134.15">💻 program</text>
+</a>
+</g>
+</g>
+<!-- rem:zeros -->
+<g class="node" id="node5">
+<title>rem:zeros</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#rem:zeros" xlink:title="Remark 1: zeros deleted: examples already in widths 6–8">
+<path d="M660.67,-193.79C660.67,-193.79 563.33,-193.79 563.33,-193.79 557.33,-193.79 551.33,-187.79 551.33,-181.79 551.33,-181.79 551.33,-144.71 551.33,-144.71 551.33,-138.71 557.33,-132.71 563.33,-132.71 563.33,-132.71 660.67,-132.71 660.67,-132.71 666.67,-132.71 672.67,-138.71 672.67,-144.71 672.67,-144.71 672.67,-181.79 672.67,-181.79 672.67,-187.79 666.67,-193.79 660.67,-193.79" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="612" xml:space="preserve" y="-178.78">Remark 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="612" xml:space="preserve" y="-166.03">zeros deleted: examples</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="612" xml:space="preserve" y="-153.28">already in widths 6–8</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="612" xml:space="preserve" y="-140.53">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:ins -->
+<g class="node" id="node6">
+<title>lem:ins</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#lem:ins" xlink:title="Lemma 1: antipodal ear insertion keeps the old diameters, adds one">
+<path d="M140.8,-324.74C140.8,-324.74 41.2,-324.74 41.2,-324.74 35.2,-324.74 29.2,-318.74 29.2,-312.74 29.2,-312.74 29.2,-262.9 29.2,-262.9 29.2,-256.9 35.2,-250.91 41.2,-250.91 41.2,-250.91 140.8,-250.91 140.8,-250.91 146.8,-250.91 152.8,-256.9 152.8,-262.9 152.8,-262.9 152.8,-312.74 152.8,-312.74 152.8,-318.74 146.8,-324.74 140.8,-324.74" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-309.72">Lemma 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-296.97">antipodal ear insertion</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-284.22">keeps the old diameters,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-271.47">adds one</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-258.72">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- lem:ins&#45;&gt;thm:A -->
+<g class="edge" id="edge1">
+<title>lem:ins-&gt;thm:A</title>
+<path d="M91,-250.38C91,-238.91 91,-226.05 91,-213.83" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="93.45,-214 91,-207 88.55,-214 93.45,-214" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:2 -->
+<g class="node" id="node8">
+<title>q:2</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#q:2" xlink:title="Question 2">
+<path d="M844.68,-62.92C844.68,-62.92 801.32,-62.92 801.32,-62.92 795.32,-62.92 789.32,-56.92 789.32,-50.92 789.32,-50.92 789.32,-38.92 789.32,-38.92 789.32,-32.92 795.32,-26.92 801.32,-26.92 801.32,-26.92 844.68,-26.92 844.68,-26.92 850.68,-26.92 856.68,-32.92 856.68,-38.92 856.68,-38.92 856.68,-50.92 856.68,-50.92 856.68,-56.92 850.68,-62.92 844.68,-62.92" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="823" xml:space="preserve" y="-41.32">Question 2</text>
+</a>
+</g>
+</g>
+<!-- q:3 -->
+<g class="node" id="node9">
+<title>q:3</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#q:3" xlink:title="Question 3">
+<path d="M936.68,-62.92C936.68,-62.92 893.32,-62.92 893.32,-62.92 887.32,-62.92 881.32,-56.92 881.32,-50.92 881.32,-50.92 881.32,-38.92 881.32,-38.92 881.32,-32.92 887.32,-26.92 893.32,-26.92 893.32,-26.92 936.68,-26.92 936.68,-26.92 942.68,-26.92 948.68,-32.92 948.68,-38.92 948.68,-38.92 948.68,-50.92 948.68,-50.92 948.68,-56.92 942.68,-62.92 936.68,-62.92" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="915" xml:space="preserve" y="-41.32">Question 3</text>
+</a>
+</g>
+</g>
+<!-- q:4 -->
+<g class="node" id="node10">
+<title>q:4</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#q:4" xlink:title="Question 4">
+<path d="M1028.68,-62.92C1028.68,-62.92 985.32,-62.92 985.32,-62.92 979.32,-62.92 973.32,-56.92 973.32,-50.92 973.32,-50.92 973.32,-38.92 973.32,-38.92 973.32,-32.92 979.32,-26.92 985.32,-26.92 985.32,-26.92 1028.68,-26.92 1028.68,-26.92 1034.68,-26.92 1040.68,-32.92 1040.68,-38.92 1040.68,-38.92 1040.68,-50.92 1040.68,-50.92 1040.68,-56.92 1034.68,-62.92 1028.68,-62.92" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1007" xml:space="preserve" y="-41.32">Question 4</text>
+</a>
+</g>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>A negative answer to Problem 1 of Tabachnikov (<i>A four-vertex theorem for frieze patterns?</i>, 2018) for frieze
+patterns of positive integers, which the question left open:</p>
+<ul>
+<li>for every even $n \geq 14$, two integer frieze patterns whose middle rows are strictly ordered (no sign change);</li>
+<li>for every odd $n \geq 15$, two whose rows $\lfloor w/2 \rfloor$ differ with no zero and exactly two sign changes, inside the range $1 \le k \le [w/2]$ of the question;</li>
+<li>an exhaustive search showing that $14$ and $15$ are the smallest values of $n$ for the two phenomena, when zeros may count as sign changes.</li>
+</ul>
+<p>Both families are proved for every $n$ and checked in Isabelle/HOL; the two smallest pairs are also checked in Lean.</p></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#lem:ins"><b>Lemma 1</b></a>: antipodal ear insertion keeps the old diameters, adds one.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:A"><b>Theorem A</b></a>: even n ≥ 14: middle rows strictly ordered, no sign change</li><li><a href="index.html#thm:B"><b>Theorem B</b></a>: odd n ≥ 15: row ⌊w/2⌋, no zero, exactly two sign changes</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Linear algebra in the plane</b> → frieze patterns as unimodular lattice polygons: every entry a 2×2 determinant, an ear a sum of two vectors — <a href="index.html#lem:ins">Lemma 1</a>, <a href="index.html#thm:A">Theorem A</a>, <a href="index.html#thm:B">Theorem B</a></li><li><b>Exhaustive search</b> → all pairs of integer frieze patterns of width ≤ 12, on a GPU, rechecked by three independent constructions — <a href="index.html#prop:min">Proposition 1</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Four-vertex theorems for discrete curves</b> ← the integer case of Tabachnikov’s question, answered negatively from n = 14 on — <a href="index.html#cor:all">Corollary 1</a></li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  if (!panes.length || !box) return;
+  function mark(p){
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+  }
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
+})();
+</script>
+<script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
+<script id="lm-maphere">
+(function(){
+  var n = new URLSearchParams(location.search).get('n');
+  if (!n) return;
+  function go(){
+    var a = null;
+    document.querySelectorAll('svg a').forEach(function (x) {
+      var h = x.getAttribute('href') || x.getAttribute('xlink:href') || '';
+      if (!a && h.slice(h.indexOf('#') + 1) === n) a = x;
+    });
+    var g = a && (a.closest('g.node') || a.parentNode);
+    if (!g) return;
+    var pane = g.closest('section.pc-pane');
+    g.classList.add('lm-here');
+    var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
+    var bar = document.getElementById('lm-herebar');
+    if (!bar) {
+      bar = document.createElement('div'); bar.id = 'lm-herebar';
+      var host = (pane || document.body);
+      host.insertBefore(bar, host.firstChild);
+    }
+    bar.innerHTML = '📍 <b></b> on the map · <a href="index.html#' + encodeURIComponent(n) + '">← back to the statement</a>';
+    bar.querySelector('b').textContent = name;
+    setTimeout(function () { g.scrollIntoView({block: 'center', inline: 'center'}); }, 300);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+  window.addEventListener('load', go);
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:A": "Theorem A", "thm:B": "Theorem B", "cor:all": "Corollary 1", "prop:min": "Proposition 1", "rem:zeros": "Remark 1", "lem:ins": "Lemma 1 — antipodal insertion", "q:1": "Question 1", "q:2": "Question 2", "q:3": "Question 3", "q:4": "Question 4"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body></html>
