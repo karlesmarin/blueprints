@@ -520,6 +520,20 @@
     '.lm-full .lm-data{grid-column:1;grid-row:3;overflow:auto;font-size:13px;line-height:1.45;padding-right:.4em}' +
     '.lm-full .lm-figs{grid-column:2;grid-row:1/4;overflow:auto;border-left:1px solid #e3e8ee;padding-left:1em}' +
     '.lm-full .lm-figs svg{max-width:100%;height:auto}' +
+    // 11-nov (Carles: «en el móvil el lab desplegado ocupa la pantalla y no deja hacer nada»): la ventana central
+    // tenía dos columnas con un mínimo de 330 px y overflow oculto; en un teléfono no cabían y no había forma de
+    // llegar a los controles ni de desplazarse. En pantallas estrechas: UNA columna, con desplazamiento vertical,
+    // y la ✕ fija arriba a la derecha para poder cerrar siempre.
+    '@media (max-width:760px){' +
+    '.lm-full{inset:0;border-radius:0;display:block;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;' +
+    'padding:3em .7em 1.5em}' +
+    '.lm-full>.lm-form{display:grid;grid-template-columns:1fr 1fr;margin-bottom:.6em}' +
+    '.lm-full>.lm-ex{margin-bottom:.6em}' +
+    '.lm-full .lm-out{display:block}' +
+    '.lm-full .lm-data,.lm-full .lm-figs{overflow:visible;border-left:0;padding:0;margin:.6em 0}' +
+    '.lm-full .lm-busy{position:sticky;top:0}' +
+    '.lm-full>.lm-x{position:fixed;top:8px;right:8px;width:40px;height:40px;z-index:100000}' +
+    '.lm-central-btn{right:10px;top:auto;bottom:14px;font-size:13px;padding:.5em .9em}}' +
     '.lm-figlink{display:block;margin:.4em auto;padding:.25em 1em;cursor:pointer;border:1px solid #ef6c00;background:#fff8f0;border-radius:14px;font:13px Arial,sans-serif;color:#8a4a00}';
   document.head.appendChild(css);
   function all() { (window.LEMMARIO_LABS || []).forEach(function (l) { setup(l, window.LEMMARIO_LABS); }); }

@@ -206,7 +206,10 @@
       // 31-oct (Carles, relay-floors: «el lab con un botón que sea toda la pantalla, parte izquierda datos, parte derecha
       // figuras»): the whole lab on the screen, data on the left, figures on the right; Esc or the button leaves
       ' <button type="button" class="lm-full-btn" title="the lab on the whole screen: data left, figures right">⛶ full screen</button>' +
-      ' <span class="lm-state">⏳ Python loads when you open this lab</span></div>';
+      ' <span class="lm-state">⏳ Python loads when you open this lab</span></div>' +
+      '<p class="lm-netnote">Interactive mode loads Python in your browser (needs internet).' +
+      (lab.precomputed ? ' Until it is ready, the result below is the one for the default inputs, computed when this page was built.' : '') +
+      '</p>';
     if (lab.examples && lab.examples.length) {
       form += '<div class="lm-ex">Examples: ' + lab.examples.map(function (e, i) {
         return '<button type="button" data-ex="' + i + '">' + esc(e.label || Object.values(e).join(', ')) + '</button>';
@@ -243,7 +246,15 @@
     function computeNow() {
       try {
         var f = py.globals.get('__import__')(lab.module)[lab['function']];
-        var res = JSON.parse(f(JSON.stringify(values())));
+        show(JSON.parse(f(JSON.stringify(values()))));
+        shownBuilt = false;
+      } catch (e) { out.innerHTML = '<p class="lm-err">⚠️ ' + esc(e.message) + '</p>'; }
+    }
+    // 9-nov (Carles): the result for the default inputs, computed in Python when the site was built (labs.precompute),
+    // is shown at once; Python in the browser is only needed to change the inputs (and it needs the internet)
+    var shownBuilt = false;
+    function show(res) {
+      try {
         if (res.error) { out.innerHTML = '<p class="lm-err">⚠️ ' + esc(res.error) + '</p>'; return; }
         var h = '', figs = '';
         // the text: paragraphs separated by blank lines become paragraphs (a line break inside one stays a line break)
@@ -368,9 +379,16 @@
     function start() {  // once per lab: Python itself is shared by all the labs of the page (ready() loads it once)
       if (started) return;
       started = true;
-      state.textContent = '⏳ loading Python in the browser (first time ~15 s)…';
+      state.textContent = '⏳ loading Python in the browser (needs internet; first time ~15 s)…';
       ready(labs).then(function () { state.textContent = '✅ Python ready'; run.disabled = false; compute(); })
-        .catch(function (e) { state.textContent = '❌ ' + e.message; });
+        .catch(function (e) {
+          state.textContent = '❌ Interactive mode is not available: Python could not be loaded (' + e.message +
+            '; it needs internet).' + (lab.precomputed ? ' The result shown is the one for the default inputs, computed when the page was built.' : '');
+          state.classList.add('lm-statefail');
+          if (!out.children.length && !out.textContent.trim())  // never an empty space
+            out.innerHTML = '<p class="lm-err">⚠️ This lab could not run here: Python did not load (' + esc(e.message) +
+              '). Open the page with an internet connection to use it.</p>';
+        });
     }
     // a link can open this lab with its inputs set: index.html?lab=<node>&<input>=<value>…#<node> (e.g. from a paper)
     var P = new URLSearchParams(location.search), linked = P.get('lab') === lab.node, scrollOnce = linked, blk = null;
@@ -448,6 +466,14 @@
     box.querySelectorAll('[data-name]').forEach(function (i) { i.addEventListener('change', mirror); });
     box.querySelectorAll('[data-ex]').forEach(function (b) { b.addEventListener('click', mirror); });
     document.querySelectorAll('.lm-figform[data-lab="' + lab.id + '"] [data-ex]').forEach(function (b) { b.addEventListener('click', mirror); });
+    if (lab.precomputed) {  // the build's own run, with the default inputs: something to read at once, also offline
+      show(lab.precomputed);
+      shownBuilt = true;
+      state.textContent = '🧾 result for the default inputs (computed when the page was built)';
+    } else if (lab.precomputed_error) {
+      out.innerHTML = '<p class="lm-err">⚠️ The build could not compute this lab (' + esc(lab.precomputed_error) +
+        '); Interactive mode will try in your browser.</p>';
+    }
     if (linked) open();
   }
 
@@ -456,6 +482,7 @@
     '.lm-run,.lm-ex button,.lm-dice{padding:.2em .8em;cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px}' +
     '.lm-dice,.lm-figdice{background:#fff3e0!important;font-weight:bold}' +
     '.lm-ex{margin:.3em 0}.lm-state{font-size:.9em;color:#555}.lm-err{color:#c62828}' +
+    '.lm-netnote{font-size:.85em;color:#555;margin:.2em 0 .4em}.lm-statefail{color:#8a4a00;font-weight:bold}' +
     '.lm-tab{border-collapse:collapse;font-size:.9em;margin:.4em 0}.lm-tab td,.lm-tab th{border:1px solid #ddd;padding:.15em .5em}' +
     '.lm-out svg{margin:.4em 0;display:block}' +
     '.lm-figform{justify-content:center;font:13px Arial,sans-serif;background:#fff8f0;border:1px solid #f3d3b0;border-radius:10px;padding:.3em .6em}' +
@@ -493,6 +520,20 @@
     '.lm-full .lm-data{grid-column:1;grid-row:3;overflow:auto;font-size:13px;line-height:1.45;padding-right:.4em}' +
     '.lm-full .lm-figs{grid-column:2;grid-row:1/4;overflow:auto;border-left:1px solid #e3e8ee;padding-left:1em}' +
     '.lm-full .lm-figs svg{max-width:100%;height:auto}' +
+    // 11-nov (Carles: «en el móvil el lab desplegado ocupa la pantalla y no deja hacer nada»): la ventana central
+    // tenía dos columnas con un mínimo de 330 px y overflow oculto; en un teléfono no cabían y no había forma de
+    // llegar a los controles ni de desplazarse. En pantallas estrechas: UNA columna, con desplazamiento vertical,
+    // y la ✕ fija arriba a la derecha para poder cerrar siempre.
+    '@media (max-width:760px){' +
+    '.lm-full{inset:0;border-radius:0;display:block;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;' +
+    'padding:3em .7em 1.5em}' +
+    '.lm-full>.lm-form{display:grid;grid-template-columns:1fr 1fr;margin-bottom:.6em}' +
+    '.lm-full>.lm-ex{margin-bottom:.6em}' +
+    '.lm-full .lm-out{display:block}' +
+    '.lm-full .lm-data,.lm-full .lm-figs{overflow:visible;border-left:0;padding:0;margin:.6em 0}' +
+    '.lm-full .lm-busy{position:sticky;top:0}' +
+    '.lm-full>.lm-x{position:fixed;top:8px;right:8px;width:40px;height:40px;z-index:100000}' +
+    '.lm-central-btn{right:10px;top:auto;bottom:14px;font-size:13px;padding:.5em .9em}}' +
     '.lm-figlink{display:block;margin:.4em auto;padding:.25em 1em;cursor:pointer;border:1px solid #ef6c00;background:#fff8f0;border-radius:14px;font:13px Arial,sans-serif;color:#8a4a00}';
   document.head.appendChild(css);
   function all() { (window.LEMMARIO_LABS || []).forEach(function (l) { setup(l, window.LEMMARIO_LABS); }); }
