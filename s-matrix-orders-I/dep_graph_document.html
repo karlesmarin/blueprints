@@ -67,6 +67,30 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
   header.pc-head nav::-webkit-scrollbar{display:none}
   header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
   header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
 </style></head>
 <body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
 <title>cross</title>
@@ -356,7 +380,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"prop:maximales"	[label=maximales,		shape=ellipse];	"prop:twist"	[label=twist,		shape=ellipse];	"thm:exacto"	[color=blue,		fillcolor="#A3D6FF",		label=exacto,		shape=ellipse,		style=filled];	"thm:exacto" -> "prop:maximales"	[style=dashed];	"thm:exacto" -> "prop:twist"	[style=dashed];	"cor:vacio"	[label=vacio,		shape=ellipse];	"thm:exacto" -> "cor:vacio"	[style=dashed];	"prop:nivelrango"	[label=nivelrango,		shape=ellipse];	"thm:exacto" -> "prop:nivelrango"	[style=dashed];	"thm:momentos"	[label=momentos,		shape=ellipse];	"thm:exacto" -> "thm:momentos"	[style=dashed];	"cor:indice"	[label=indice,		shape=ellipse];	"thm:exacto" -> "cor:indice"	[style=dashed];	"cor:gorenstein"	[label=gorenstein,		shape=ellipse];	"thm:exacto" -> "cor:gorenstein"	[style=dashed];	"prop:maximo"	[label=maximo,		shape=ellipse];	"thm:momentos" -> "prop:maximo"	[style=dashed];	"cor:exponente"	[label=exponente,		shape=ellipse];	"thm:momentos" -> "cor:exponente"	[style=dashed];	"lem:centro"	[color=blue,		fillcolor="#A3D6FF",		label=centro,		shape=ellipse,		style=filled];	"prop:tensor"	[label=tensor,		shape=ellipse];	"lem:centro" -> "prop:tensor"	[style=dashed];	"prop:tensor" -> "cor:indice"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"prop:twist"	[label=twist,		shape=ellipse];	"prop:maximales"	[label=maximales,		shape=ellipse];	"thm:exacto"	[color=blue,		fillcolor="#A3D6FF",		label=exacto,		shape=ellipse,		style=filled];	"thm:exacto" -> "prop:twist"	[style=dashed];	"thm:exacto" -> "prop:maximales"	[style=dashed];	"cor:vacio"	[label=vacio,		shape=ellipse];	"thm:exacto" -> "cor:vacio"	[style=dashed];	"prop:nivelrango"	[label=nivelrango,		shape=ellipse];	"thm:exacto" -> "prop:nivelrango"	[style=dashed];	"thm:momentos"	[label=momentos,		shape=ellipse];	"thm:exacto" -> "thm:momentos"	[style=dashed];	"cor:indice"	[label=indice,		shape=ellipse];	"thm:exacto" -> "cor:indice"	[style=dashed];	"cor:gorenstein"	[label=gorenstein,		shape=ellipse];	"thm:exacto" -> "cor:gorenstein"	[style=dashed];	"prop:maximo"	[label=maximo,		shape=ellipse];	"thm:momentos" -> "prop:maximo"	[style=dashed];	"cor:exponente"	[label=exponente,		shape=ellipse];	"thm:momentos" -> "cor:exponente"	[style=dashed];	"lem:centro"	[color=blue,		fillcolor="#A3D6FF",		label=centro,		shape=ellipse,		style=filled];	"prop:tensor"	[label=tensor,		shape=ellipse];	"lem:centro" -> "prop:tensor"	[style=dashed];	"prop:tensor" -> "cor:indice"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -394,143 +418,143 @@ function interactive() {
 </script>
 <div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="260pt" viewbox="0.00 0.00 708.00 260.00" width="708pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 256)">
-<!-- prop:maximales -->
-<g class="node" id="node1">
-<title>prop:maximales</title>
-<ellipse cx="51.86" cy="-90" fill="none" rx="51.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="51.86" xml:space="preserve" y="-84.95">maximales</text>
-</g>
 <!-- prop:twist -->
-<g class="node" id="node2">
+<g class="node" id="node1">
 <title>prop:twist</title>
-<ellipse cx="150.86" cy="-90" fill="none" rx="28.83" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="150.86" xml:space="preserve" y="-84.95">twist</text>
+<ellipse cx="28.83" cy="-90" fill="none" rx="28.83" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="28.83" xml:space="preserve" y="-84.95">twist</text>
+</g>
+<!-- prop:maximales -->
+<g class="node" id="node2">
+<title>prop:maximales</title>
+<ellipse cx="127.83" cy="-90" fill="none" rx="51.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="127.83" xml:space="preserve" y="-84.95">maximales</text>
 </g>
 <!-- thm:exacto -->
 <g class="node" id="node3">
 <title>thm:exacto</title>
-<ellipse cx="327.86" cy="-162" fill="#a3d6ff" rx="34.97" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="327.86" xml:space="preserve" y="-156.95">exacto</text>
-</g>
-<!-- thm:exacto&#45;&gt;prop:maximales -->
-<g class="edge" id="edge1">
-<title>thm:exacto-&gt;prop:maximales</title>
-<path d="M296.09,-153.48C254.07,-143.47 177.75,-125.03 112.86,-108 109.46,-107.11 105.96,-106.17 102.43,-105.22" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="93.02,-102.65 103.86,-100.94 96.67,-103.65 102.67,-105.29 102.67,-105.29 102.67,-105.29 96.67,-103.65 101.48,-109.63 93.02,-102.65" stroke="black"></polygon>
+<ellipse cx="327.83" cy="-162" fill="#a3d6ff" rx="34.97" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="327.83" xml:space="preserve" y="-156.95">exacto</text>
 </g>
 <!-- thm:exacto&#45;&gt;prop:twist -->
-<g class="edge" id="edge2">
+<g class="edge" id="edge1">
 <title>thm:exacto-&gt;prop:twist</title>
-<path d="M299.46,-150.7C271.24,-140.35 226.81,-123.71 188.86,-108 187.36,-107.38 185.83,-106.73 184.28,-106.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="175.2,-102.13 186.16,-101.99 178.66,-103.64 184.37,-106.12 184.37,-106.12 184.37,-106.12 178.66,-103.64 182.57,-110.24 175.2,-102.13" stroke="black"></polygon>
+<path d="M293.85,-156.54C243.46,-149.39 146.3,-133.5 66.83,-108 65.08,-107.44 63.3,-106.82 61.52,-106.16" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="52.55,-102.54 63.51,-102.11 56.06,-103.95 61.82,-106.28 61.82,-106.28 61.82,-106.28 56.06,-103.95 60.14,-110.45 52.55,-102.54" stroke="black"></polygon>
+</g>
+<!-- thm:exacto&#45;&gt;prop:maximales -->
+<g class="edge" id="edge2">
+<title>thm:exacto-&gt;prop:maximales</title>
+<path d="M299.18,-150.97C266.6,-139.57 212.93,-120.79 174.34,-107.28" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="165.03,-104.02 175.96,-103.08 168.6,-105.27 174.47,-107.33 174.47,-107.33 174.47,-107.33 168.6,-105.27 172.98,-111.57 165.03,-104.02" stroke="black"></polygon>
 </g>
 <!-- cor:vacio -->
 <g class="node" id="node4">
 <title>cor:vacio</title>
-<ellipse cx="228.86" cy="-90" fill="none" rx="30.88" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="228.86" xml:space="preserve" y="-84.95">vacio</text>
+<ellipse cx="228.83" cy="-90" fill="none" rx="30.88" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="228.83" xml:space="preserve" y="-84.95">vacio</text>
 </g>
 <!-- thm:exacto&#45;&gt;cor:vacio -->
 <g class="edge" id="edge3">
 <title>thm:exacto-&gt;cor:vacio</title>
-<path d="M307.35,-146.5C292.86,-136.25 273.26,-122.39 257.27,-111.09" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="249.33,-105.47 260.1,-107.58 252.42,-107.66 257.5,-111.25 257.5,-111.25 257.5,-111.25 252.42,-107.66 254.9,-114.92 249.33,-105.47" stroke="black"></polygon>
+<path d="M307.32,-146.5C292.83,-136.25 273.23,-122.39 257.24,-111.09" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="249.3,-105.47 260.07,-107.58 252.39,-107.66 257.47,-111.25 257.47,-111.25 257.47,-111.25 252.39,-107.66 254.87,-114.92 249.3,-105.47" stroke="black"></polygon>
 </g>
 <!-- prop:nivelrango -->
 <g class="node" id="node5">
 <title>prop:nivelrango</title>
-<ellipse cx="327.86" cy="-90" fill="none" rx="50.33" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="327.86" xml:space="preserve" y="-84.95">nivelrango</text>
+<ellipse cx="327.83" cy="-90" fill="none" rx="50.33" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="327.83" xml:space="preserve" y="-84.95">nivelrango</text>
 </g>
 <!-- thm:exacto&#45;&gt;prop:nivelrango -->
 <g class="edge" id="edge4">
 <title>thm:exacto-&gt;prop:nivelrango</title>
-<path d="M327.86,-143.34C327.86,-136.07 327.86,-127.47 327.86,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="327.86,-109.64 332.36,-119.64 327.86,-113.42 327.86,-119.64 327.86,-119.64 327.86,-119.64 327.86,-113.42 323.36,-119.64 327.86,-109.64" stroke="black"></polygon>
+<path d="M327.83,-143.34C327.83,-136.07 327.83,-127.47 327.83,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="327.83,-109.64 332.33,-119.64 327.83,-113.42 327.83,-119.64 327.83,-119.64 327.83,-119.64 327.83,-113.42 323.33,-119.64 327.83,-109.64" stroke="black"></polygon>
 </g>
 <!-- thm:momentos -->
 <g class="node" id="node6">
 <title>thm:momentos</title>
-<ellipse cx="446.86" cy="-90" fill="none" rx="50.33" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="446.86" xml:space="preserve" y="-84.95">momentos</text>
+<ellipse cx="446.83" cy="-90" fill="none" rx="50.33" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="446.83" xml:space="preserve" y="-84.95">momentos</text>
 </g>
 <!-- thm:exacto&#45;&gt;thm:momentos -->
 <g class="edge" id="edge5">
 <title>thm:exacto-&gt;thm:momentos</title>
-<path d="M350.81,-147.5C368.03,-137.38 391.91,-123.32 411.56,-111.77" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="420.05,-106.78 413.71,-115.73 416.79,-108.69 411.43,-111.85 411.43,-111.85 411.43,-111.85 416.79,-108.69 409.15,-107.97 420.05,-106.78" stroke="black"></polygon>
+<path d="M350.78,-147.5C367.99,-137.38 391.88,-123.32 411.52,-111.77" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="420.02,-106.78 413.68,-115.72 416.76,-108.69 411.4,-111.84 411.4,-111.84 411.4,-111.84 416.76,-108.69 409.12,-107.96 420.02,-106.78" stroke="black"></polygon>
 </g>
 <!-- cor:indice -->
 <g class="node" id="node7">
 <title>cor:indice</title>
-<ellipse cx="665.86" cy="-90" fill="none" rx="33.44" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="665.86" xml:space="preserve" y="-84.95">indice</text>
+<ellipse cx="665.83" cy="-90" fill="none" rx="33.44" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="665.83" xml:space="preserve" y="-84.95">indice</text>
 </g>
 <!-- thm:exacto&#45;&gt;cor:indice -->
 <g class="edge" id="edge6">
 <title>thm:exacto-&gt;cor:indice</title>
-<path d="M362.43,-157.05C418.05,-150.2 530.52,-134.27 622.86,-108 625.03,-107.38 627.25,-106.7 629.47,-105.96" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="638.62,-102.68 630.73,-110.29 635.06,-103.96 629.21,-106.05 629.21,-106.05 629.21,-106.05 635.06,-103.96 627.69,-101.82 638.62,-102.68" stroke="black"></polygon>
+<path d="M362.4,-157.05C418.02,-150.2 530.49,-134.27 622.83,-108 625,-107.38 627.22,-106.7 629.44,-105.96" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="638.59,-102.68 630.7,-110.29 635.03,-103.96 629.18,-106.05 629.18,-106.05 629.18,-106.05 635.03,-103.96 627.66,-101.82 638.59,-102.68" stroke="black"></polygon>
 </g>
 <!-- cor:gorenstein -->
 <g class="node" id="node8">
 <title>cor:gorenstein</title>
-<ellipse cx="564.86" cy="-90" fill="none" rx="49.31" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="564.86" xml:space="preserve" y="-84.95">gorenstein</text>
+<ellipse cx="564.83" cy="-90" fill="none" rx="49.31" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="564.83" xml:space="preserve" y="-84.95">gorenstein</text>
 </g>
 <!-- thm:exacto&#45;&gt;cor:gorenstein -->
 <g class="edge" id="edge7">
 <title>thm:exacto-&gt;cor:gorenstein</title>
-<path d="M357.88,-152.13C397.75,-140.36 468.66,-119.42 516.22,-105.37" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="525.71,-102.57 517.4,-109.71 522.09,-103.64 516.12,-105.4 516.12,-105.4 516.12,-105.4 522.09,-103.64 514.85,-101.08 525.71,-102.57" stroke="black"></polygon>
+<path d="M357.85,-152.13C397.71,-140.36 468.63,-119.42 516.19,-105.37" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="525.68,-102.57 517.37,-109.71 522.05,-103.64 516.09,-105.4 516.09,-105.4 516.09,-105.4 522.05,-103.64 514.82,-101.08 525.68,-102.57" stroke="black"></polygon>
 </g>
 <!-- prop:maximo -->
 <g class="node" id="node9">
 <title>prop:maximo</title>
-<ellipse cx="391.86" cy="-18" fill="none" rx="42.14" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="391.86" xml:space="preserve" y="-12.95">maximo</text>
+<ellipse cx="391.83" cy="-18" fill="none" rx="42.14" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="391.83" xml:space="preserve" y="-12.95">maximo</text>
 </g>
 <!-- thm:momentos&#45;&gt;prop:maximo -->
 <g class="edge" id="edge8">
 <title>thm:momentos-&gt;prop:maximo</title>
-<path d="M433.55,-72.06C427.06,-63.8 419.13,-53.7 411.93,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="405.8,-36.75 415.52,-41.83 408.14,-39.72 411.98,-44.61 411.98,-44.61 411.98,-44.61 408.14,-39.72 408.45,-47.39 405.8,-36.75" stroke="black"></polygon>
+<path d="M433.52,-72.06C427.03,-63.8 419.1,-53.7 411.9,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="405.77,-36.75 415.49,-41.83 408.11,-39.72 411.95,-44.61 411.95,-44.61 411.95,-44.61 408.11,-39.72 408.42,-47.39 405.77,-36.75" stroke="black"></polygon>
 </g>
 <!-- cor:exponente -->
 <g class="node" id="node10">
 <title>cor:exponente</title>
-<ellipse cx="500.86" cy="-18" fill="none" rx="48.79" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="500.86" xml:space="preserve" y="-12.95">exponente</text>
+<ellipse cx="500.83" cy="-18" fill="none" rx="48.79" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="500.83" xml:space="preserve" y="-12.95">exponente</text>
 </g>
 <!-- thm:momentos&#45;&gt;cor:exponente -->
 <g class="edge" id="edge9">
 <title>thm:momentos-&gt;cor:exponente</title>
-<path d="M459.94,-72.06C466.3,-63.8 474.09,-53.7 481.16,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="487.17,-36.75 484.62,-47.42 484.86,-39.75 481.06,-44.67 481.06,-44.67 481.06,-44.67 484.86,-39.75 477.49,-41.92 487.17,-36.75" stroke="black"></polygon>
+<path d="M459.9,-72.06C466.27,-63.8 474.06,-53.7 481.13,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="487.14,-36.75 484.59,-47.42 484.83,-39.75 481.03,-44.67 481.03,-44.67 481.03,-44.67 484.83,-39.75 477.46,-41.92 487.14,-36.75" stroke="black"></polygon>
 </g>
 <!-- lem:centro -->
 <g class="node" id="node11">
 <title>lem:centro</title>
-<ellipse cx="665.86" cy="-234" fill="#a3d6ff" rx="33.95" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="665.86" xml:space="preserve" y="-228.95">centro</text>
+<ellipse cx="665.83" cy="-234" fill="#a3d6ff" rx="33.95" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="665.83" xml:space="preserve" y="-228.95">centro</text>
 </g>
 <!-- prop:tensor -->
 <g class="node" id="node12">
 <title>prop:tensor</title>
-<ellipse cx="665.86" cy="-162" fill="none" rx="33.44" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="665.86" xml:space="preserve" y="-156.95">tensor</text>
+<ellipse cx="665.83" cy="-162" fill="none" rx="33.44" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="665.83" xml:space="preserve" y="-156.95">tensor</text>
 </g>
 <!-- lem:centro&#45;&gt;prop:tensor -->
 <g class="edge" id="edge10">
 <title>lem:centro-&gt;prop:tensor</title>
-<path d="M665.86,-215.34C665.86,-208.07 665.86,-199.47 665.86,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="665.86,-181.64 670.36,-191.64 665.86,-185.42 665.86,-191.64 665.86,-191.64 665.86,-191.64 665.86,-185.42 661.36,-191.64 665.86,-181.64" stroke="black"></polygon>
+<path d="M665.83,-215.34C665.83,-208.07 665.83,-199.47 665.83,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="665.83,-181.64 670.33,-191.64 665.83,-185.42 665.83,-191.64 665.83,-191.64 665.83,-191.64 665.83,-185.42 661.33,-191.64 665.83,-181.64" stroke="black"></polygon>
 </g>
 <!-- prop:tensor&#45;&gt;cor:indice -->
 <g class="edge" id="edge11">
 <title>prop:tensor-&gt;cor:indice</title>
-<path d="M665.86,-143.34C665.86,-136.07 665.86,-127.47 665.86,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="665.86,-109.64 670.36,-119.64 665.86,-113.42 665.86,-119.64 665.86,-119.64 665.86,-119.64 665.86,-113.42 661.36,-119.64 665.86,-109.64" stroke="black"></polygon>
+<path d="M665.83,-143.34C665.83,-136.07 665.83,-127.47 665.83,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="665.83,-109.64 670.33,-119.64 665.83,-113.42 665.83,-119.64 665.83,-119.64 665.83,-119.64 665.83,-113.42 661.33,-119.64 665.83,-109.64" stroke="black"></polygon>
 </g>
 </g>
 </svg>
@@ -548,7 +572,7 @@ function interactive() {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"lem:centro": "Lemma 1 — the centre is in the ring", "prop:tensor": "Proposition 2 — the decomposition", "thm:exacto": "Theorem 3 — the exact semigroup", "thm:momentos": "Theorem 4 — the semigroup of moments", "cor:indice": "Corollary 5 — the index of a column", "cor:gorenstein": "Corollary 6 — Gorenstein columns", "cor:exponente": "Corollary 7 — the exponent", "cor:vacio": "Corollary 8 — the vacuum", "prop:nivelrango": "Proposition 9 — level--rank", "prop:twist": "Proposition 10 — the conformal weight", "prop:maximales": "Proposition 11 — the maximal columns", "prop:maximo": "Proposition 12 — the largest defect"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"lem:centro": "Lemma 1 — the centre is in the ring", "prop:tensor": "Proposition 2 — the decomposition", "thm:exacto": "Theorem 3 — the exact semigroup", "thm:momentos": "Theorem 4 — the semigroup of moments", "cor:indice": "Corollary 5 — the index of a column", "cor:gorenstein": "Corollary 6 — Gorenstein columns", "cor:exponente": "Corollary 7 — the exponent", "cor:vacio": "Corollary 8 — the vacuum", "prop:nivelrango": "Proposition 9 — level--rank", "prop:twist": "Proposition 10 — the conformal weight", "prop:maximales": "Proposition 11 — the maximal columns", "prop:maximo": "Proposition 12 — the largest defect"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;

@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+</style></head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22848530" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22848530</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="cor:exponente_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:exponente" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">7</span><span class="corollary_thmtitle">the exponent</span></div>
+<div class="thm_thmcontent"><p>   If \(c(S_T)\le e\), then \(p\, {\mathcal{O}}_\mu \subseteq A_\mu \) and \({\mathcal{O}}_\mu /A_\mu \) is elementary abelian. This holds whenever \(p{\gt}(n-1)(n-2)\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:exponente">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:gorenstein_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:gorenstein" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">6</span><span class="corollary_thmtitle">Gorenstein columns</span></div>
+<div class="thm_thmcontent"><p>   \(A_\mu \) is Gorenstein if and only if \(S_{T_\mu }\) is symmetric. </p>
+</div>
+<a class="latex_link" href="index.html#cor:gorenstein">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:indice_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:indice" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">5</span><span class="corollary_thmtitle">the index of a column</span></div>
+<div class="thm_thmcontent"><p>   \({ \boxed {\displaystyle [{\mathcal{O}}_\mu :A_\mu ]=p^{\, \varphi (m_\mu )\, \# ({\mathbb {N}}_0\setminus S_{T_\mu })}.}}\) </p>
+</div>
+<a class="latex_link" href="index.html#cor:indice">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:vacio_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:vacio" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">8</span><span class="corollary_thmtitle">the vacuum</span></div>
+<div class="thm_thmcontent"><p>   The column \(\mu =0\) is maximal: \(A_0={\mathcal{O}}_0\) for every \({\mathrm{SU}}(n)_k\) with \(n+k\) prime. </p>
+</div>
+<a class="latex_link" href="index.html#cor:vacio">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:centro_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:centro" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">1</span><span class="lemma_thmtitle">the centre is in the ring</span></div>
+<div class="thm_thmcontent"><p>  \(\eta _\mu \in A_\mu \). </p>
+</div>
+<a class="latex_link" href="index.html#lem:centro">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:maximales_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:maximales" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">11</span><span class="proposition_thmtitle">the maximal columns</span></div>
+<div class="thm_thmcontent"><p>   Let \(2\le n\le p-2\), and for \(h\mid p-1\) let \(e=(p-1)/h\), \(G_e\subset {\mathbb {F}}_p^\times \) the subgroup of order \(e\), and \(Z_{p,e}(d)\) the number of \(d\)-subsets of \(G_e\) with sum \(0\). The number of columns of \({\mathrm{SU}}(n)_{p-n}\) with \(S_T={\mathbb {N}}_0\) is </p>
+<div class="displaymath" id="a0000000045">
+  \[  { \boxed {\displaystyle N_0(p,n)=n\sum _{\substack {h\mid p-1,\  h{\gt}1\\ n\bmod h\in \{ 0,1\} }} \Bigl[\binom {(p-1)/h}{\lfloor n/h\rfloor }-Z_{p,(p-1)/h}\bigl(\lfloor n/h\rfloor \bigr)\Bigr].}}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#prop:maximales">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:maximo_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:maximo" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">12</span><span class="proposition_thmtitle">the largest defect</span></div>
+<div class="thm_thmcontent"><p>    For every centred \(T\) of size \(n\ge 3\), \(\delta (T)\le (n-1)(n-2)/2\), with equality exactly when \(\prod _{t\in T}(X-t)=X^n+aX+b\) with \(ab\ne 0\); then \(\Gamma _T=S_T=\langle n-1,n\rangle \). Such \(T\) exist for every sufficiently large prime \(p\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:maximo">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/NumericalSemigroup/GenusBound.html#L421" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/NumericalSemigroup/GenusBound.lean#L421">P3a.genus_le_D</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/NumericalSemigroup/GenusBound.html#L446" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/NumericalSemigroup/GenusBound.lean#L446">P3a.eq_pair_of_genus_eq</a></li>
+<li><a class="lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/NumericalSemigroup/GenusBound.html#L497" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/NumericalSemigroup/GenusBound.lean#L497">P3a.genus_pair_n</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:nivelrango_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:nivelrango" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">9</span><span class="proposition_thmtitle">level–rank</span></div>
+<div class="thm_thmcontent"><p>   Under level–rank duality \({\mathrm{SU}}(n)_k\leftrightarrow {\mathrm{SU}}(k)_n\), the spectrum of the transposed column is \(T'=-({\mathbb {F}}_p\setminus T)\), and \(C_{T'}=\sigma _{-1}(C_T)\): the semigroup, the index \(\delta \), the conductor and the Gorenstein property are preserved. Only the central factor \(\varphi (m)\) may change. </p>
+</div>
+<a class="latex_link" href="index.html#prop:nivelrango">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:tensor_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:tensor" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">2</span><span class="proposition_thmtitle">the decomposition</span></div>
+<div class="thm_thmcontent"><p>   \(A_\mu ={\mathbb {Z}}[\zeta _m]\otimes C_T\), \(K_\mu ={\mathbb {Q}}(\zeta _m)E_T\), and </p>
+<div class="displaymath" id="a0000000015">
+  \[  { \boxed {\displaystyle [{\mathcal{O}}_\mu :A_\mu ]=[{\mathcal{O}}_{E_T}:C_T]^{\varphi (m)},}}  \]
+</div>
+<p> a power of \(p\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:tensor">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:twist_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:twist" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">10</span><span class="proposition_thmtitle">the conformal weight</span></div>
+<div class="thm_thmcontent"><p>    Let \(\Delta _\mu =\bigl(|\mu +\rho |^2-|\rho |^2\bigr)/2p\) be the conformal weight of \(\mu \), with roots of square length \(2\), so that \(|\rho |^2=n(n^2-1)/12\) and \(e^{2\pi i\Delta _\mu }\) is the eigenvalue of the modular matrix \(\mathcal T\) at \(\mu \) up to the central charge <span class="cite">
+	[
+	<a href="index.html#Kac90">11</a>
+	, 
+	Thm.
+	
+	13.8
+	]
+</span>. Then </p>
+<div class="displaymath" id="a0000000041">
+  \[  { \boxed {\displaystyle M_2(T_\mu )\equiv |\mu +\rho |^2\pmod p,}}  \]
+</div>
+<p> so \(M_2(T_\mu )=0\) if and only if \(p\) does not divide the order of the root of unity \(e^{2\pi i\Delta _\mu }e^{\pi i|\rho |^2/p}=e^{\pi i|\mu +\rho |^2/p}\). If moreover \(H_T\) is trivial, then \(\delta (T)=1\) if and only if \(M_2(T)M_3(T)\neq 0\); so the index of the column is \(p^{\varphi (m)}\) exactly when both moments are nonzero, and the conformal weight decides the first of the two. </p>
+</div>
+<a class="latex_link" href="index.html#prop:twist">LaTeX</a>
+<a class="lean_link lean_decl" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/NumberTheory/NumericalSemigroup/GapBound.html#L123" data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Formalizations/NumberTheory/NumericalSemigroup/GapBound.lean#L123">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:exacto_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:exacto" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">3</span><span class="theorem_thmtitle">the exact semigroup</span></div>
+<div class="thm_thmcontent"><p>  Let \(R=C_T\otimes {\mathbb {Z}}_p\) and let \(\theta =g_1^{\, h}\), with \(g_1\) the Gauss sum below, a uniformizer of \(E_T\otimes {\mathbb {Q}}_p\) on which the Galois group acts by a character. Then \(R\) is the monomial ring </p>
+<div class="displaymath" id="a0000000021">
+  \[  R=\sum _{s\in S_T}{\mathbb {Z}}_p\, \theta ^s,\qquad { \boxed {\displaystyle S_T=\bigl\langle \,  e,\  \  j+e\, b_j\  :\  1\le j{\lt}e,\  b_j{\lt}\infty \, \bigr\rangle ,}}  \]
+</div>
+<p> the valuations of its nonzero elements form the numerical semigroup \(S_T\), and \(\delta (T)=\# ({\mathbb {N}}_0\setminus S_T)\), the number of gaps. </p>
+</div>
+<a class="latex_link" href="index.html#thm:exacto">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:momentos_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:momentos" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4</span><span class="theorem_thmtitle">the semigroup of moments</span></div>
+<div class="thm_thmcontent"><p>   If \(p{\gt}(n-1)(n-2)\) (equivalently \(p\ge (n-1)(n-2)\), as \(p\) is odd), then \(S_T=\Gamma _T\) and </p>
+<div class="displaymath" id="a0000000027">
+  \[  { \boxed {\displaystyle \delta (T)=\# \bigl({\mathbb {N}}_0\setminus \langle e,\  j:\  M_{hj}(T)\ne 0\rangle \bigr).}}  \]
+</div>
+<p> The same holds for every \(p\) when \(n\le 12\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:momentos">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:centro"	[color=blue,		fillcolor="#A3D6FF",		label=centro,		shape=ellipse,		style=filled];	"prop:tensor"	[label=tensor,		shape=ellipse];	"lem:centro" -> "prop:tensor"	[style=dashed];	"cor:indice"	[label=indice,		shape=ellipse];	"prop:tensor" -> "cor:indice"	[style=dashed];	"prop:maximales"	[label=maximales,		shape=ellipse];	"cor:exponente"	[label=exponente,		shape=ellipse];	"prop:nivelrango"	[label=nivelrango,		shape=ellipse];	"prop:twist"	[label=twist,		shape=ellipse];	"prop:maximo"	[label=maximo,		shape=ellipse];	"thm:exacto"	[color=blue,		fillcolor="#A3D6FF",		label=exacto,		shape=ellipse,		style=filled];	"thm:exacto" -> "cor:indice"	[style=dashed];	"thm:exacto" -> "prop:maximales"	[style=dashed];	"thm:exacto" -> "prop:nivelrango"	[style=dashed];	"thm:exacto" -> "prop:twist"	[style=dashed];	"thm:momentos"	[label=momentos,		shape=ellipse];	"thm:exacto" -> "thm:momentos"	[style=dashed];	"cor:gorenstein"	[label=gorenstein,		shape=ellipse];	"thm:exacto" -> "cor:gorenstein"	[style=dashed];	"cor:vacio"	[label=vacio,		shape=ellipse];	"thm:exacto" -> "cor:vacio"	[style=dashed];	"thm:momentos" -> "cor:exponente"	[style=dashed];	"thm:momentos" -> "prop:maximo"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="260pt" viewbox="0.00 0.00 706.00 260.00" width="706pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 256)">
+<!-- lem:centro -->
+<g class="node" id="node1">
+<title>lem:centro</title>
+<ellipse cx="33.95" cy="-234" fill="#a3d6ff" rx="33.95" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="33.95" xml:space="preserve" y="-228.95">centro</text>
+</g>
+<!-- prop:tensor -->
+<g class="node" id="node2">
+<title>prop:tensor</title>
+<ellipse cx="33.95" cy="-162" fill="none" rx="33.44" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="33.95" xml:space="preserve" y="-156.95">tensor</text>
+</g>
+<!-- lem:centro&#45;&gt;prop:tensor -->
+<g class="edge" id="edge1">
+<title>lem:centro-&gt;prop:tensor</title>
+<path d="M33.95,-215.34C33.95,-208.07 33.95,-199.47 33.95,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="33.95,-181.64 38.45,-191.64 33.95,-185.42 33.95,-191.64 33.95,-191.64 33.95,-191.64 33.95,-185.42 29.45,-191.64 33.95,-181.64" stroke="black"></polygon>
+</g>
+<!-- cor:indice -->
+<g class="node" id="node3">
+<title>cor:indice</title>
+<ellipse cx="33.95" cy="-90" fill="none" rx="33.44" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="33.95" xml:space="preserve" y="-84.95">indice</text>
+</g>
+<!-- prop:tensor&#45;&gt;cor:indice -->
+<g class="edge" id="edge2">
+<title>prop:tensor-&gt;cor:indice</title>
+<path d="M33.95,-143.34C33.95,-136.07 33.95,-127.47 33.95,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="33.95,-109.64 38.45,-119.64 33.95,-113.42 33.95,-119.64 33.95,-119.64 33.95,-119.64 33.95,-113.42 29.45,-119.64 33.95,-109.64" stroke="black"></polygon>
+</g>
+<!-- prop:maximales -->
+<g class="node" id="node4">
+<title>prop:maximales</title>
+<ellipse cx="136.95" cy="-90" fill="none" rx="51.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="136.95" xml:space="preserve" y="-84.95">maximales</text>
+</g>
+<!-- cor:exponente -->
+<g class="node" id="node5">
+<title>cor:exponente</title>
+<ellipse cx="395.95" cy="-18" fill="none" rx="48.79" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="395.95" xml:space="preserve" y="-12.95">exponente</text>
+</g>
+<!-- prop:nivelrango -->
+<g class="node" id="node6">
+<title>prop:nivelrango</title>
+<ellipse cx="256.95" cy="-90" fill="none" rx="50.33" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="256.95" xml:space="preserve" y="-84.95">nivelrango</text>
+</g>
+<!-- prop:twist -->
+<g class="node" id="node7">
+<title>prop:twist</title>
+<ellipse cx="353.95" cy="-90" fill="none" rx="28.83" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="353.95" xml:space="preserve" y="-84.95">twist</text>
+</g>
+<!-- prop:maximo -->
+<g class="node" id="node8">
+<title>prop:maximo</title>
+<ellipse cx="504.95" cy="-18" fill="none" rx="42.14" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="504.95" xml:space="preserve" y="-12.95">maximo</text>
+</g>
+<!-- thm:exacto -->
+<g class="node" id="node9">
+<title>thm:exacto</title>
+<ellipse cx="353.95" cy="-162" fill="#a3d6ff" rx="34.97" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="353.95" xml:space="preserve" y="-156.95">exacto</text>
+</g>
+<!-- thm:exacto&#45;&gt;cor:indice -->
+<g class="edge" id="edge3">
+<title>thm:exacto-&gt;cor:indice</title>
+<path d="M319.63,-156.67C266.62,-149.49 161.96,-133.34 75.95,-108 73.91,-107.4 71.84,-106.74 69.76,-106.03" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="60.58,-102.66 71.51,-101.88 64.13,-103.96 69.96,-106.11 69.96,-106.11 69.96,-106.11 64.13,-103.96 68.41,-110.33 60.58,-102.66" stroke="black"></polygon>
+</g>
+<!-- thm:exacto&#45;&gt;prop:maximales -->
+<g class="edge" id="edge4">
+<title>thm:exacto-&gt;prop:maximales</title>
+<path d="M324.68,-151.56C288.85,-140 227.66,-120.26 184.91,-106.47" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="175.63,-103.47 186.53,-102.26 179.23,-104.64 185.15,-106.55 185.15,-106.55 185.15,-106.55 179.23,-104.64 183.76,-110.83 175.63,-103.47" stroke="black"></polygon>
+</g>
+<!-- thm:exacto&#45;&gt;prop:nivelrango -->
+<g class="edge" id="edge5">
+<title>thm:exacto-&gt;prop:nivelrango</title>
+<path d="M333.85,-146.5C320.62,-136.95 303.03,-124.25 288.01,-113.41" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="280.04,-107.66 290.78,-109.86 283.11,-109.87 288.15,-113.51 288.15,-113.51 288.15,-113.51 283.11,-109.87 285.52,-117.16 280.04,-107.66" stroke="black"></polygon>
+</g>
+<!-- thm:exacto&#45;&gt;prop:twist -->
+<g class="edge" id="edge6">
+<title>thm:exacto-&gt;prop:twist</title>
+<path d="M353.95,-143.34C353.95,-136.07 353.95,-127.47 353.95,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="353.95,-109.64 358.45,-119.64 353.95,-113.42 353.95,-119.64 353.95,-119.64 353.95,-119.64 353.95,-113.42 349.45,-119.64 353.95,-109.64" stroke="black"></polygon>
+</g>
+<!-- thm:momentos -->
+<g class="node" id="node10">
+<title>thm:momentos</title>
+<ellipse cx="450.95" cy="-90" fill="none" rx="50.33" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="450.95" xml:space="preserve" y="-84.95">momentos</text>
+</g>
+<!-- thm:exacto&#45;&gt;thm:momentos -->
+<g class="edge" id="edge7">
+<title>thm:exacto-&gt;thm:momentos</title>
+<path d="M374.05,-146.5C387.28,-136.95 404.87,-124.25 419.89,-113.41" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="427.86,-107.66 422.38,-117.16 424.79,-109.87 419.75,-113.51 419.75,-113.51 419.75,-113.51 424.79,-109.87 417.12,-109.86 427.86,-107.66" stroke="black"></polygon>
+</g>
+<!-- cor:gorenstein -->
+<g class="node" id="node11">
+<title>cor:gorenstein</title>
+<ellipse cx="568.95" cy="-90" fill="none" rx="49.31" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="568.95" xml:space="preserve" y="-84.95">gorenstein</text>
+</g>
+<!-- thm:exacto&#45;&gt;cor:gorenstein -->
+<g class="edge" id="edge8">
+<title>thm:exacto-&gt;cor:gorenstein</title>
+<path d="M383.39,-151.41C419.15,-139.77 479.91,-119.99 522.12,-106.25" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="531.53,-103.18 523.42,-110.56 527.94,-104.35 522.03,-106.28 522.03,-106.28 522.03,-106.28 527.94,-104.35 520.63,-102 531.53,-103.18" stroke="black"></polygon>
+</g>
+<!-- cor:vacio -->
+<g class="node" id="node12">
+<title>cor:vacio</title>
+<ellipse cx="666.95" cy="-90" fill="none" rx="30.88" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="666.95" xml:space="preserve" y="-84.95">vacio</text>
+</g>
+<!-- thm:exacto&#45;&gt;cor:vacio -->
+<g class="edge" id="edge9">
+<title>thm:exacto-&gt;cor:vacio</title>
+<path d="M388.13,-156.72C440.39,-149.65 542.92,-133.7 626.95,-108 628.87,-107.41 630.82,-106.76 632.78,-106.07" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="642,-102.52 634.29,-110.31 638.47,-103.88 632.67,-106.11 632.67,-106.11 632.67,-106.11 638.47,-103.88 631.05,-101.91 642,-102.52" stroke="black"></polygon>
+</g>
+<!-- thm:momentos&#45;&gt;cor:exponente -->
+<g class="edge" id="edge10">
+<title>thm:momentos-&gt;cor:exponente</title>
+<path d="M437.64,-72.06C431.15,-63.8 423.22,-53.7 416.02,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="409.89,-36.75 419.61,-41.83 412.23,-39.72 416.07,-44.61 416.07,-44.61 416.07,-44.61 412.23,-39.72 412.54,-47.39 409.89,-36.75" stroke="black"></polygon>
+</g>
+<!-- thm:momentos&#45;&gt;prop:maximo -->
+<g class="edge" id="edge11">
+<title>thm:momentos-&gt;prop:maximo</title>
+<path d="M464.02,-72.06C470.39,-63.8 478.18,-53.7 485.25,-44.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="491.26,-36.75 488.71,-47.42 488.95,-39.75 485.15,-44.67 485.15,-44.67 485.15,-44.67 488.95,-39.75 481.58,-41.92 491.26,-36.75" stroke="black"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"lem:centro": "Lemma 1 — the centre is in the ring", "prop:tensor": "Proposition 2 — the decomposition", "thm:exacto": "Theorem 3 — the exact semigroup", "thm:momentos": "Theorem 4 — the semigroup of moments", "cor:indice": "Corollary 5 — the index of a column", "cor:gorenstein": "Corollary 6 — Gorenstein columns", "cor:exponente": "Corollary 7 — the exponent", "cor:vacio": "Corollary 8 — the vacuum", "prop:nivelrango": "Proposition 9 — level--rank", "prop:twist": "Proposition 10 — the conformal weight", "prop:maximales": "Proposition 11 — the maximal columns", "prop:maximo": "Proposition 12 — the largest defect"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<style id="lm-lean-panel-css">
+.lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
+/* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
+.lm-panel{position:fixed;inset:6vh 7vw;z-index:9999;background:#fff;border:1px solid #c9d3de;border-radius:10px;
+  box-shadow:0 14px 48px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+/* 21-oct, Carles: the name centred, a little larger, with a shadow, on a header with its own colour */
+.lm-panel header{background:linear-gradient(180deg,#f3f7fc 0%,#dde7f3 100%);border-bottom:1px solid #b9c8da;
+  box-shadow:0 2px 6px rgba(26,79,139,.12);padding:.55rem .9rem;display:grid;grid-template-columns:1fr minmax(0,auto) 1fr;
+  gap:.9rem;align-items:center;font:14px Arial,sans-serif}
+.lm-panel header b{grid-column:2;text-align:center;font:600 17px/1.2 "Cascadia Code","JetBrains Mono",Consolas,Menlo,monospace;
+  color:#163f6e;letter-spacing:.01em;text-shadow:0 1px 0 #fff,0 2px 4px rgba(22,63,110,.28);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.lm-panel header button{grid-column:3;justify-self:end}
+.lm-panel header a{color:#1a4f8b}.lm-panel header button{border:0;background:#1a4f8b;color:#fff;border-radius:999px;
+  padding:.15rem .7rem;cursor:pointer;font:14px Arial,sans-serif}
+.lm-panel iframe{flex:1;border:0;width:100%;background:#fbfcfe}
+@media (max-width:700px){.lm-panel{inset:0;border-radius:0}}
+</style>
+<script id="lm-lean-panel">
+/* 21-oct, Carles: the Lean opens in a central window over the blueprint, and closing it leaves the reader where he was */
+(function(){
+  /* the browser's Back (or the phone's back gesture) closes the panel instead of leaving the blueprint: the panel
+     pushes one history entry; closing it by hand takes that entry back out (21-oct: «que pueda volver donde estaba») */
+  function quitar(){var p=document.querySelector('.lm-panel'),v=document.querySelector('.lm-veil');
+    if(p)p.remove();if(v)v.remove();document.removeEventListener('keydown',esc);}
+  function cerrar(){if(history.state&&history.state.lmPanel)history.back();else quitar();}
+  window.addEventListener('popstate',function(){quitar();});
+  function esc(e){if(e.key==='Escape')cerrar();}
+  function abrir(href,nombre,gh){quitar();
+    if(!(history.state&&history.state.lmPanel))history.pushState({lmPanel:1},'');
+    var v=document.createElement('div');v.className='lm-veil';v.onclick=cerrar;
+    var p=document.createElement('div');p.className='lm-panel';p.setAttribute('role','dialog');
+    /* 21-oct, Carles: the window header has the name and Close only; the ✒️ stays in the Lean page's own header
+       inside the window, as GitHub does (Carles: «está en dos sitios», «quita el emoji de esa leyenda») */
+    p.innerHTML='<header><b></b>'+
+      '<button type="button" title="Close (Esc)">✕ Close</button></header><iframe title="Lean source"></iframe>';
+    p.querySelector('b').textContent=nombre||'';
+    /* ?panel=1: the Lean page knows it is inside the window (no Atlas link) and the URL skips an old cached copy */
+    var i=href.indexOf('#'),src=(i<0?href:href.slice(0,i))+'?panel=1'+(i<0?'':href.slice(i));
+    p.querySelector('button').onclick=cerrar;p.querySelector('iframe').src=src;
+    document.body.appendChild(v);document.body.appendChild(p);document.addEventListener('keydown',esc);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lean-github]');
+    if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>
