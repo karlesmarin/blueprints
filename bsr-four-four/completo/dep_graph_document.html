@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+</style></head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.24055900" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.24055900</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="auto:remark-7_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-7" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">7</span></div>
+<div class="thm_thmcontent"><p>  One triple of quaternionic structures does not suffice: for \(z_{ij}=\sum _a\eta ^a_{ij}v_a\) with the ’t Hooft symbols \(\eta ^a\), the second variation is \(\sum _av_a^\top (\sum _jH_{jj})v_a\), because \((\eta ^a)^\top \eta ^b\) has symmetric part \(\delta _{ab}I\) and \(H_{jk}=H_{kj}\); it only says that \(\sum _jH_{jj}\succeq 0\). The argument above uses the whole of \(\Lambda ^2B\). </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-7">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:rank5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:rank5" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2</span></div>
+<div class="thm_thmcontent"><p> There is no multiplier on \({\mathbb {C}}^4\otimes {\mathbb {C}}^4\) of rank \(5\), with supports \(a=b_0=4\), whose image contains no simple tensor. </p>
+</div>
+<a class="latex_link" href="index.html#lem:rank5">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:regular_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:regular" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">4</span><span class="lemma_thmtitle">a regular point</span></div>
+<div class="thm_thmcontent"><p>  Identify both factors with \({\mathbb {R}}^4\). Let \(S\subset V\) be the span of the four forms \(x_iy_i\) and the six forms \(x_iy_j+x_jy_i\) for \(i{\lt}j\). If \(H\) is a Hankel multiplier and \(S\subseteq \ker H\), then \(H=0\). Consequently \(d\Phi \) is surjective at the tuple consisting of these ten forms and zero. </p>
+</div>
+<a class="latex_link" href="index.html#lem:regular">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:supports_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:supports" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">3</span></div>
+<div class="thm_thmcontent"><p>  Let \(H\) be a nonzero multiplier on \({\mathbb {C}}^4\otimes {\mathbb {C}}^4\) of rank \(r\le 5\) whose image contains no simple tensor. Up to exchanging the factors, \((a,b_0,r)\) is either \((3,4,5)\) or \((3,3,4)\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:supports">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:334_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:334" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">8</span></div>
+<div class="thm_thmcontent"><p>  No triple \((F,h,H)\) satisfying the conclusions of Proposition <a href="index.html#prop:boundary">5</a> can have \((a,b_0,r)=(3,3,4)\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:334">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:345_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:345" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">6</span></div>
+<div class="thm_thmcontent"><p>  No triple \((F,h,H)\) satisfying the conclusions of Proposition <a href="index.html#prop:boundary">5</a> can have \((a,b_0,r)=(3,4,5)\) or \((4,3,5)\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:345">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:boundary_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:boundary" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">5</span></div>
+<div class="thm_thmcontent"><p>  If \(\Sigma _{11}\neq \Sigma \), there are \(F\in \operatorname {int}\Sigma \cap \partial \Sigma _{11}\), a representation \(F=\sum _{i=1}^{11}h_i^2\) and an indefinite real multiplier \(H\) on \(V\) such that, with \(W=\operatorname {span}(h_i)\): \(W\subseteq \ker H\), \(\dim W=11\) and hence \(\operatorname{rk}H\le 5\); the complex image of \(H\) contains no simple tensor; and \(\sum _ih_iD_i=0\) in \(R_2\) implies \(\sum _iH(D_i,D_i)\ge 0\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:boundary">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:main_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:main" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">1</span></div>
+<div class="thm_thmcontent"><p>  \({\mathrm{BSR}}(4,4)=11\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:main">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:regular"	[color=blue,		fillcolor="#A3D6FF",		label=regular,		shape=ellipse,		style=filled];	"prop:boundary"	[label=boundary,		shape=ellipse];	"lem:regular" -> "prop:boundary"	[style=dashed];	"prop:334"	[label=334,		shape=ellipse];	"prop:boundary" -> "prop:334"	[style=dashed];	"prop:345"	[label=345,		shape=ellipse];	"prop:boundary" -> "prop:345"	[style=dashed];	"thm:main"	[label=main,		shape=ellipse];	"prop:334" -> "thm:main"	[style=dashed];	"prop:345" -> "thm:main"	[style=dashed];	"auto:remark-7"	[label="remark-7",		shape=ellipse];	"prop:345" -> "auto:remark-7"	[style=dashed];	"lem:rank5"	[color=blue,		fillcolor="#A3D6FF",		label=rank5,		shape=ellipse,		style=filled];	"lem:rank5" -> "prop:345"	[style=dashed];	"lem:supports"	[label=supports,		shape=ellipse];	"lem:rank5" -> "lem:supports"	[style=dashed];	"lem:supports" -> "thm:main"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="260pt" viewbox="0.00 0.00 239.00 260.00" width="239pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 256)">
+<!-- lem:regular -->
+<g class="node" id="node1">
+<title>lem:regular</title>
+<ellipse cx="185.14" cy="-234" fill="#a3d6ff" rx="37.02" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="185.14" xml:space="preserve" y="-228.95">regular</text>
+</g>
+<!-- prop:boundary -->
+<g class="node" id="node2">
+<title>prop:boundary</title>
+<ellipse cx="185.14" cy="-162" fill="none" rx="45.72" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="185.14" xml:space="preserve" y="-156.95">boundary</text>
+</g>
+<!-- lem:regular&#45;&gt;prop:boundary -->
+<g class="edge" id="edge1">
+<title>lem:regular-&gt;prop:boundary</title>
+<path d="M185.14,-215.34C185.14,-208.07 185.14,-199.47 185.14,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="185.14,-181.64 189.64,-191.64 185.14,-185.42 185.14,-191.64 185.14,-191.64 185.14,-191.64 185.14,-185.42 180.64,-191.64 185.14,-181.64" stroke="black"></polygon>
+</g>
+<!-- prop:334 -->
+<g class="node" id="node3">
+<title>prop:334</title>
+<ellipse cx="201.14" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="201.14" xml:space="preserve" y="-84.95">334</text>
+</g>
+<!-- prop:boundary&#45;&gt;prop:334 -->
+<g class="edge" id="edge2">
+<title>prop:boundary-&gt;prop:334</title>
+<path d="M189.18,-143.34C190.86,-135.98 192.85,-127.27 194.72,-119.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="196.89,-109.61 199.04,-120.36 196.04,-113.29 194.66,-119.36 194.66,-119.36 194.66,-119.36 196.04,-113.29 190.27,-118.35 196.89,-109.61" stroke="black"></polygon>
+</g>
+<!-- prop:345 -->
+<g class="node" id="node4">
+<title>prop:345</title>
+<ellipse cx="129.14" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="129.14" xml:space="preserve" y="-84.95">345</text>
+</g>
+<!-- prop:boundary&#45;&gt;prop:345 -->
+<g class="edge" id="edge3">
+<title>prop:boundary-&gt;prop:345</title>
+<path d="M171.58,-144.05C164.71,-135.47 156.25,-124.89 148.69,-115.44" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="142.56,-107.78 152.32,-112.78 144.92,-110.73 148.81,-115.59 148.81,-115.59 148.81,-115.59 144.92,-110.73 145.3,-118.4 142.56,-107.78" stroke="black"></polygon>
+</g>
+<!-- thm:main -->
+<g class="node" id="node5">
+<title>thm:main</title>
+<ellipse cx="165.14" cy="-18" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="165.14" xml:space="preserve" y="-12.95">main</text>
+</g>
+<!-- prop:334&#45;&gt;thm:main -->
+<g class="edge" id="edge4">
+<title>prop:334-&gt;thm:main</title>
+<path d="M192.42,-72.06C188.36,-64.14 183.42,-54.54 178.86,-45.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="174.33,-36.87 182.9,-43.71 176.06,-40.24 178.9,-45.77 178.9,-45.77 178.9,-45.77 176.06,-40.24 174.9,-47.82 174.33,-36.87" stroke="black"></polygon>
+</g>
+<!-- prop:345&#45;&gt;thm:main -->
+<g class="edge" id="edge5">
+<title>prop:345-&gt;thm:main</title>
+<path d="M137.85,-72.06C141.92,-64.14 146.86,-54.54 151.41,-45.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="155.94,-36.87 155.37,-47.82 154.21,-40.24 151.37,-45.77 151.37,-45.77 151.37,-45.77 154.21,-40.24 147.37,-43.71 155.94,-36.87" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;7 -->
+<g class="node" id="node6">
+<title>auto:remark-7</title>
+<ellipse cx="72.14" cy="-18" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="72.14" xml:space="preserve" y="-12.95">remark-7</text>
+</g>
+<!-- prop:345&#45;&gt;auto:remark&#45;7 -->
+<g class="edge" id="edge6">
+<title>prop:345-&gt;auto:remark-7</title>
+<path d="M116.49,-73.47C109.56,-64.95 100.79,-54.19 92.89,-44.48" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="86.72,-36.91 96.52,-41.82 89.11,-39.84 93.03,-44.66 93.03,-44.66 93.03,-44.66 89.11,-39.84 89.54,-47.5 86.72,-36.91" stroke="black"></polygon>
+</g>
+<!-- lem:rank5 -->
+<g class="node" id="node7">
+<title>lem:rank5</title>
+<ellipse cx="73.14" cy="-162" fill="#a3d6ff" rx="31.9" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="73.14" xml:space="preserve" y="-156.95">rank5</text>
+</g>
+<!-- lem:rank5&#45;&gt;prop:345 -->
+<g class="edge" id="edge7">
+<title>lem:rank5-&gt;prop:345</title>
+<path d="M86.13,-144.76C93.15,-135.98 101.97,-124.96 109.79,-115.19" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="115.85,-107.62 113.11,-118.24 113.49,-110.57 109.6,-115.43 109.6,-115.43 109.6,-115.43 113.49,-110.57 106.09,-112.62 115.85,-107.62" stroke="black"></polygon>
+</g>
+<!-- lem:supports -->
+<g class="node" id="node8">
+<title>lem:supports</title>
+<ellipse cx="42.14" cy="-90" fill="none" rx="42.14" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="42.14" xml:space="preserve" y="-84.95">supports</text>
+</g>
+<!-- lem:rank5&#45;&gt;lem:supports -->
+<g class="edge" id="edge8">
+<title>lem:rank5-&gt;lem:supports</title>
+<path d="M65.48,-143.7C62.06,-135.98 57.95,-126.71 54.15,-118.11" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="50.21,-109.21 58.37,-116.54 51.74,-112.67 54.26,-118.36 54.26,-118.36 54.26,-118.36 51.74,-112.67 50.14,-120.18 50.21,-109.21" stroke="black"></polygon>
+</g>
+<!-- lem:supports&#45;&gt;thm:main -->
+<g class="edge" id="edge9">
+<title>lem:supports-&gt;thm:main</title>
+<path d="M67.03,-74.83C86.33,-63.85 113.2,-48.56 133.94,-36.75" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="142.51,-31.88 136.05,-40.73 139.22,-33.75 133.82,-36.82 133.82,-36.82 133.82,-36.82 139.22,-33.75 131.59,-32.91 142.51,-31.88" stroke="black"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:main": "Theorem 1", "lem:rank5": "Lemma 2", "lem:supports": "Lemma 3", "lem:regular": "Lemma 4 — a regular point", "prop:boundary": "Proposition 5", "prop:345": "Proposition 6", "auto:remark-7": "Remark 7", "prop:334": "Proposition 8"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+</body>
+</html>

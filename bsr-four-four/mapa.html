@@ -66,6 +66,30 @@ section.pc-pane .mapa{max-width:100%;overflow:auto}
   nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
   nav.pc-toc ul{display:flex;white-space:nowrap}
   nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
 </style><script id="pc-embed">
 (function(){
   if (window.self === window.top) return;
@@ -107,6 +131,30 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
   header.pc-head nav::-webkit-scrollbar{display:none}
   header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
   header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
 </style><style id="lm-maphere-css">
 g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
 g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
@@ -415,7 +463,7 @@ thick border are the main results; click a box to read the statement.</p><div cl
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:main": "Theorem 1", "lem:rank5": "Lemma 2", "lem:supports": "Lemma 3", "lem:regular": "Lemma 4 — a regular point", "prop:boundary": "Proposition 5", "prop:345": "Proposition 6", "auto:remark-7": "Remark 7", "prop:334": "Proposition 8"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:main": "Theorem 1", "lem:rank5": "Lemma 2", "lem:supports": "Lemma 3", "lem:regular": "Lemma 4 — a regular point", "prop:boundary": "Proposition 5", "prop:345": "Proposition 6", "auto:remark-7": "Remark 7", "prop:334": "Proposition 8"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;

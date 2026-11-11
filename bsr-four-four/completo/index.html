@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript">
+</script>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Every 4×4 biquadratic sum of squares is a sum of eleven squares: blueprint</title>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/amsthm.css" rel="stylesheet"/>
+<link href="styles/blueprint.css" rel="stylesheet"/>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<style id="estilo-blueprint">/* lemmario: commentary blocks, views bar, Lean seal. Injected into index.html after plasTeX. */
+/* a link target is not hidden under the sticky bar */
+[id], a[name]{scroll-margin-top:64px}
+details.blk{border-radius:8px;margin:.8em 0;padding:.1em .9em .4em;border-left:6px solid}
+details.blk>summary{cursor:pointer;font-weight:600;padding:.35em 0;list-style:none}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:before{content:"▸ ";color:#888}
+details.blk[open]>summary:before{content:"▾ "}
+.b-plain{background:#fff8e1;border-color:#f5b700}
+.b-guar{background:#f5f7f9;border-color:#8a99a8}
+.b-fig{background:#f3e5f5;border-color:#8e24aa}
+.b-set{background:#eceff1;border-color:#546e7a}
+.b-tabs{background:#e3f2fd;border-color:#1e88e5}
+.b-lab{background:#fff3e0;border-color:#ef6c00}
+#vistas{position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;padding:.4em .2em;
+        font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas button{border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;cursor:pointer}
+#vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
+#vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
+body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
+.lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
+.lean-check .repro{color:#456}.lean-check code{font-size:.95em}
+.lean-ok{border-left:6px solid #1cac78;padding-left:.6em;background:linear-gradient(90deg,#e9f8f1,transparent 40%)}
+.sello{display:inline-block;background:#1cac78;color:#fff;border-radius:10px;padding:0 .55em;font-size:.8em;
+       margin-left:.5em;vertical-align:middle}
+.theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
+.lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}
+</style><style>
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="lm-citebar-css">
+.lm-act{margin-left:.4em;white-space:nowrap;flex-shrink:0}
+.lm-act a{font:12px Arial,sans-serif;color:#555;text-decoration:none;border:1px solid #d5dbe2;border-radius:10px;
+          padding:0 .45em;margin-left:.25em;background:#fbfbfc;cursor:pointer}
+.lm-act a:hover{background:#eef2f6}
+.lm-citebox{font:13px Arial,sans-serif;background:#f7f9fb;border:1px solid #d5dbe2;border-radius:6px;padding:.4em .6em;
+            margin:.3em 0}
+.lm-citebox button{margin-left:.5em;cursor:pointer;border:1px solid #9fb7cf;background:#fff;border-radius:10px}
+.lm-erratum{font:13px Arial,sans-serif;background:#fff4e5;border-left:3px solid #e69f00;padding:.3em .6em;margin:.3em 0}
+.lm-change{font:13px Arial,sans-serif;background:#eef4fb;border-left:3px solid #1f6feb;padding:.3em .6em;margin:.3em 0;color:#1f2328}
+.lm-change b{font-weight:600}.lm-change .aff{color:#57606a}
+.lm-version{font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em}  /* the bars are dark: a light grey-blue */
+</style><meta content="Every 4×4 biquadratic sum of squares is a sum of eleven squares" name="citation_title"/><meta content="Marín Muñoz, Carles" name="citation_author"/><meta content="2026/11/08" name="citation_publication_date"/><meta content="https://karlesmarin.github.io/blueprints/bsr-four-four/paper.pdf" name="citation_pdf_url"/><meta content="https://karlesmarin.github.io/blueprints/bsr-four-four/" name="citation_abstract_html_url"/><style id="annotate-css">
+p.usado{font:12.5px Arial,sans-serif;color:#456;margin:.1em 0 .5em 1.4em}
+p.usado a{color:#1a4f8b}
+p.novedad{font-size:.92em;margin:.2em 0 .6em 1.4em;padding:.25em .6em;border-left:3px solid #f5b700;background:#fffaf0}
+</style><style id="lm-external">
+.ext-lean{margin:.5em 0 .7em;border:1px solid #c9b6e8;border-left:5px solid #6f42c1;background:#f7f3fd;border-radius:6px;
+  padding:.55em .8em;font:14px Helvetica,Arial,sans-serif;color:#2d2140}
+.ext-lean.none{border-color:#cfd5db;border-left-color:#9aa3ad;background:#f5f7f9;color:#38424c}
+.ext-lean .tag{display:inline-block;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .6em;font-size:12px;
+  font-weight:600;margin-right:.4em}
+.ext-lean.none .tag{background:#9aa3ad}
+.ext-lean pre{background:#fff;border:1px solid #e0d6f2;border-radius:6px;padding:.5em .7em;white-space:pre-wrap;
+  font:12.5px ui-monospace,Consolas,monospace;margin:.45em 0}
+.ext-lean .doc{color:#5b4b73;font-size:13px;margin:.2em 0}
+.ext-lean a{color:#5a2ea6}
+.ext-badge{display:inline-block;margin-left:.4em;background:#6f42c1;color:#fff;border-radius:999px;padding:.05em .55em;
+  font:600 11px Helvetica,Arial,sans-serif;vertical-align:middle}
+.ext-badge.none{background:#9aa3ad}
+.ext-lean.other{border-color:#a9d6d0;border-left-color:#1f8a7d;background:#f1faf8;color:#173b37}
+.ext-lean.other .tag,.ext-badge.other{background:#1f8a7d}
+.ext-lean.ours{border-color:#b7dcb9;border-left-color:#2e7d32;background:#f1f8f1;color:#1d3b1f}
+.ext-lean.ours .tag,.ext-badge.ours{background:#2e7d32}
+.ext-lean.ours a{color:#1b5e20}
+.ext-lean.ours ul{margin:.35em 0 .2em 1.1em;padding:0}
+details.ext-lean{padding:.35em .8em}
+details.ext-lean>summary{cursor:pointer;list-style:none}
+details.ext-lean>summary::-webkit-details-marker{display:none}
+details.ext-lean>summary .more{font-size:12px;opacity:.7}
+details.ext-lean>summary .more::before{content:'▸ '}
+details.ext-lean[open]>summary .more::before{content:'▾ '}
+details.ext-lean[open]>summary{margin-bottom:.3em}
+</style><style id="lm-confianza">p.confianza{font-size:.86em;margin:.2em 0 .6em;padding:.25em .6em;border-left:3px solid var(--lm-trust,#2e7d32);background:rgba(46,125,50,.06)}p.confianza.l-named{--lm-trust:#1565c0;background:rgba(21,101,192,.06)}p.confianza.l-code{--lm-trust:#b26a00;background:rgba(178,106,0,.07)}p.confianza.l-external-checker,p.confianza.l-computation{--lm-trust:#757575;background:rgba(0,0,0,.04)}p.confianza.l-unchecked{--lm-trust:#c62828;background:rgba(198,40,40,.07)}</style><style id="lm-ficha">p.lm-ficha{font-size:.84em;margin:.15em 0 .5em;padding:.3em .6em;border-radius:4px;background:rgba(0,0,0,.035);border-left:3px solid #607d8b;line-height:1.45}p.lm-ficha b{font-weight:600}p.lm-ficha .sep{color:#9e9e9e;margin:0 .35em}</style><link href="styles/showmore.css" rel="stylesheet"/><style id="classic-css">
+header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
+  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
+header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
+  text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
+header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
+  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
+header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
+  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
+header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+header h1#doc_title{flex:1}
+/* the paper's emoji and «Blueprint» on one line (26-oct) */
+header h1#doc_title a{white-space:nowrap}
+header h1#doc_title .pc-emoji{font-size:.95em;margin-right:.2em;display:inline-block;vertical-align:-.18em;
+  /* depth (26-oct, Carles): a tight shadow for the edge and a soft one below, as if it stood off the header */
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 3px 4px rgba(0,0,0,.35))}
+ul.chapter-list{font-size:1.05em;line-height:1.7}
+/* the whole paper in the central panel; the sidebar takes the reader to a point (PANES_JS) */
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+/* phone: the sidebar is a drawer under the header, opened and closed with ☰ */
+@media (max-width:1023.98px){
+  body>header{flex-wrap:nowrap !important;align-items:center;height:auto !important;padding:.3rem .4rem}
+  body>header svg#toc-toggle{width:2.1rem;height:2.1rem;flex-shrink:0;cursor:pointer;fill:#fff;color:#fff;
+    padding:.3rem;margin:0 .3rem 0 0;border:1px solid rgba(255,255,255,.8);border-radius:7px;background:rgba(255,255,255,.14)}
+  body>header h1#doc_title{flex:0 0 auto;font-size:1.15rem;margin:0 .2rem !important}
+  /* the options in one row that scrolls sideways, so the header keeps to one line and the paper gets the screen */
+  header nav.pc-opts{flex-wrap:nowrap;overflow-x:auto;margin:0 0 0 .3rem;scrollbar-width:none;flex:1;min-width:0}
+  header nav.pc-opts::-webkit-scrollbar{display:none}
+  header nav.pc-opts>*{flex-shrink:0;white-space:nowrap}
+  nav.toc{position:fixed;left:0;top:var(--pc-head,3.5rem);bottom:0;width:min(86vw,34ch);max-width:none;z-index:90;
+    box-shadow:4px 0 18px rgba(0,0,0,.35)}
+}
+.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
+nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
+/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
+#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
+  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
+body.vista-explore #explore-banner{display:block}
+body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
+  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
+body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
+body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
+  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+
+#top.overview{margin:0 0 2.2em}
+#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
+#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
+#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
+#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
+#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
+#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+#top.overview .c-paper{background:#fff;border:1px solid #888}
+#top.overview .nota{font-size:.85em;color:#555}
+#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
+  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
+#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
+#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+/* phone: there is no sidebar to leave room for; the map takes the width of the text (25-oct: it was 126 px) */
+@media (max-width:1023.98px){#top.overview .mapa{width:auto;max-width:100%;left:auto;transform:none}
+  #top.overview .mapa svg{min-width:0}}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="lm-guide-css">
+.lm-tour-on{position:relative;z-index:10001 !important;outline:3px solid #ef6c00;outline-offset:3px;border-radius:4px;
+            box-shadow:0 0 0 9999px rgba(20,30,40,.45) !important;background:#fff}
+#lm-tour{position:fixed;z-index:10002;max-width:340px;background:#fff;border-radius:10px;padding:.8em 1em;
+         box-shadow:0 6px 24px rgba(0,0,0,.25);font:14px Arial,sans-serif;color:#222}
+#lm-tour h4{margin:0 0 .35em;font-size:15px}
+#lm-tour .lm-tour-nav{display:flex;gap:.4em;justify-content:flex-end;margin-top:.7em;align-items:center}
+#lm-tour button{cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px;padding:.15em .8em}
+#lm-tour button.lm-next{background:#ef6c00;color:#fff}
+#lm-tour .lm-tour-n{margin-right:auto;color:#777;font-size:12px}
+a.lm-tourbtn{cursor:pointer}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}</style>
+</head>
+<body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-arrow-up" viewBox="0 0 32 32">
+<title>arrow-up</title>
+<path class="path1" d="M16 1l-15 15h9v16h12v-16h9z"></path>
+</symbol><symbol id="icon-cogs" viewBox="0 0 32 32">
+<title>cogs</title>
+<path class="path1" d="M11.366 22.564l1.291-1.807-1.414-1.414-1.807 1.291c-0.335-0.187-0.694-0.337-1.071-0.444l-0.365-2.19h-2l-0.365 2.19c-0.377 0.107-0.736 0.256-1.071 0.444l-1.807-1.291-1.414 1.414 1.291 1.807c-0.187 0.335-0.337 0.694-0.443 1.071l-2.19 0.365v2l2.19 0.365c0.107 0.377 0.256 0.736 0.444 1.071l-1.291 1.807 1.414 1.414 1.807-1.291c0.335 0.187 0.694 0.337 1.071 0.444l0.365 2.19h2l0.365-2.19c0.377-0.107 0.736-0.256 1.071-0.444l1.807 1.291 1.414-1.414-1.291-1.807c0.187-0.335 0.337-0.694 0.444-1.071l2.19-0.365v-2l-2.19-0.365c-0.107-0.377-0.256-0.736-0.444-1.071zM7 27c-1.105 0-2-0.895-2-2s0.895-2 2-2 2 0.895 2 2-0.895 2-2 2zM32 12v-2l-2.106-0.383c-0.039-0.251-0.088-0.499-0.148-0.743l1.799-1.159-0.765-1.848-2.092 0.452c-0.132-0.216-0.273-0.426-0.422-0.629l1.219-1.761-1.414-1.414-1.761 1.219c-0.203-0.149-0.413-0.29-0.629-0.422l0.452-2.092-1.848-0.765-1.159 1.799c-0.244-0.059-0.492-0.109-0.743-0.148l-0.383-2.106h-2l-0.383 2.106c-0.251 0.039-0.499 0.088-0.743 0.148l-1.159-1.799-1.848 0.765 0.452 2.092c-0.216 0.132-0.426 0.273-0.629 0.422l-1.761-1.219-1.414 1.414 1.219 1.761c-0.149 0.203-0.29 0.413-0.422 0.629l-2.092-0.452-0.765 1.848 1.799 1.159c-0.059 0.244-0.109 0.492-0.148 0.743l-2.106 0.383v2l2.106 0.383c0.039 0.251 0.088 0.499 0.148 0.743l-1.799 1.159 0.765 1.848 2.092-0.452c0.132 0.216 0.273 0.426 0.422 0.629l-1.219 1.761 1.414 1.414 1.761-1.219c0.203 0.149 0.413 0.29 0.629 0.422l-0.452 2.092 1.848 0.765 1.159-1.799c0.244 0.059 0.492 0.109 0.743 0.148l0.383 2.106h2l0.383-2.106c0.251-0.039 0.499-0.088 0.743-0.148l1.159 1.799 1.848-0.765-0.452-2.092c0.216-0.132 0.426-0.273 0.629-0.422l1.761 1.219 1.414-1.414-1.219-1.761c0.149-0.203 0.29-0.413 0.422-0.629l2.092 0.452 0.765-1.848-1.799-1.159c0.059-0.244 0.109-0.492 0.148-0.743l2.106-0.383zM21 15.35c-2.402 0-4.35-1.948-4.35-4.35s1.948-4.35 4.35-4.35 4.35 1.948 4.35 4.35c0 2.402-1.948 4.35-4.35 4.35z"></path>
+</symbol><symbol id="icon-cross" viewBox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol><symbol id="icon-eye-minus" viewBox="0 0 32 32">
+<title>eye-minus</title>
+<path class="path1" d="M20 4h12v4h-12v-4z"></path>
+<path class="path2" d="M27.198 10h-9.198v-3.887c-0.657-0.074-1.324-0.113-2-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-1.169-2.334-2.813-4.378-4.803-6zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM23.889 20.697c-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228 1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697z"></path>
+</symbol><symbol id="icon-eye-plus" viewBox="0 0 32 32">
+<title>eye-plus</title>
+<path class="path1" d="M32 4h-4v-4h-4v4h-4v4h4v4h4v-4h4z"></path>
+<path class="path2" d="M26.996 13.938c0.576 0.64 1.1 1.329 1.563 2.062-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.022-0.001-0.043-0.001-0.065-3.415-0.879-5.947-3.957-5.998-7.635-0.657-0.074-1.325-0.113-2.001-0.113-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-0.551-1.101-1.209-2.137-1.958-3.095-0.915 0.537-1.946 0.897-3.046 1.034zM13 10c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"></path>
+</symbol><symbol id="icon-list-numbered" viewBox="0 0 32 32">
+<title>list-numbered</title>
+<path class="path1" d="M12 26h20v4h-20zM12 14h20v4h-20zM12 2h20v4h-20zM6 0v8h-2v-6h-2v-2zM4 16.438v1.563h4v2h-6v-4.563l4-1.875v-1.563h-4v-2h6v4.563zM8 22v10h-6v-2h4v-2h-4v-2h4v-2h-4v-2z"></path>
+</symbol><symbol id="icon-mindmap" viewBox="0 0 32 32">
+<title>mindmap</title>
+<path class="path1" d="M21.388 31.87c-0.693-0.157-1.281-0.489-1.808-1.023-0.738-0.748-1.060-1.526-1.060-2.562 0-1.012 0.316-1.798 1.018-2.538l0.441-0.464-0.888-1.777c-0.739-1.48-0.906-1.77-0.994-1.735-0.825 0.327-2.293 0.432-3.255 0.233-1.070-0.222-2.043-0.697-2.824-1.381-0.231-0.202-0.392-0.3-0.443-0.27-0.044 0.026-1.095 0.86-2.337 1.854-1.585 1.269-2.247 1.835-2.224 1.901 0.018 0.052 0.109 0.305 0.204 0.562 0.148 0.403 0.172 0.563 0.173 1.153 0.003 1.079-0.307 1.821-1.081 2.592-0.734 0.731-1.519 1.054-2.563 1.054-1.036 0-1.814-0.322-2.562-1.060-1.179-1.164-1.436-2.85-0.659-4.332 0.277-0.528 1.022-1.257 1.543-1.508 0.665-0.321 1.113-0.411 1.865-0.377 0.772 0.035 1.275 0.196 1.862 0.597 0.209 0.143 0.398 0.26 0.42 0.26 0.058 0 4.637-3.671 4.637-3.718 0-0.021-0.081-0.182-0.179-0.358-1.090-1.939-0.99-4.463 0.249-6.326l0.358-0.539-5.369-5.378-0.475 0.244c-2.353 1.211-5.129-0.351-5.343-3.008-0.113-1.399 0.723-2.86 1.995-3.487 0.974-0.48 1.869-0.54 2.876-0.193 2.105 0.726 3.058 3.133 2.032 5.128l-0.244 0.475 5.378 5.369 0.539-0.358c1.296-0.862 2.934-1.191 4.498-0.904 0.302 0.055 0.559 0.091 0.571 0.078s0.307-0.737 0.656-1.609l0.634-1.587-0.176-0.122c-0.097-0.067-0.351-0.301-0.566-0.52-0.87-0.89-1.206-2.175-0.89-3.41 0.17-0.666 0.46-1.18 0.937-1.662 0.651-0.659 1.426-1.017 2.361-1.092 1.631-0.13 3.245 0.984 3.755 2.592 0.169 0.533 0.183 1.495 0.028 2.023-0.501 1.714-1.988 2.772-3.797 2.704l-0.551-0.021-0.588 1.465c-0.324 0.806-0.604 1.524-0.623 1.596-0.028 0.11 0.052 0.189 0.485 0.478 1.705 1.139 2.728 3.039 2.731 5.069l0.001 0.63 1.293 0.258c0.711 0.142 1.328 0.258 1.37 0.258s0.165-0.175 0.273-0.39c0.27-0.535 1.015-1.272 1.554-1.535 0.585-0.286 1.004-0.38 1.693-0.381 1.404-0.002 2.644 0.763 3.258 2.009 0.714 1.45 0.44 3.080-0.71 4.226-1.115 1.111-2.77 1.372-4.227 0.669-0.54-0.261-1.28-0.982-1.563-1.524-0.228-0.437-0.448-1.223-0.448-1.605v-0.256l-1.347-0.267c-0.741-0.147-1.361-0.253-1.379-0.235s-0.125 0.259-0.239 0.536c-0.386 0.944-1.26 2.048-2.036 2.575-0.162 0.11-0.295 0.221-0.296 0.247s0.393 0.835 0.875 1.799c0.861 1.721 0.879 1.751 1.044 1.715 0.092-0.020 0.395-0.055 0.672-0.077 1.705-0.137 3.368 1.068 3.796 2.748 0.122 0.481 0.121 1.317-0.003 1.796-0.321 1.238-1.312 2.272-2.52 2.628-0.497 0.147-1.321 0.177-1.808 0.067z"></path>
+</symbol></defs></svg>
+<header>
+<svg class="icon icon-list-numbered" id="toc-toggle"><use href="#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html" title="Every 4×4 biquadratic sum of squares is a sum of eleven squares: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a></h1>
+<nav class="pc-opts"><a href="../index.html" title="Back to the blueprint">📘 Blueprint</a><a href="#" class="lm-tourbtn" title="A guided tour of this page">🧭 Tour</a><span class="pc-views" id="vistas"><button data-v="paper" title="Statements, proofs and their evidence" type="button">📄 Paper</button><button data-v="explore" title="Adds explanations, figures, other mathematical languages and labs" type="button">🔍 Explore</button></span><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.24055900" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.24055900</a>) · no errata</span><a href="blueprint.pdf" class="lm-dl" download="bsr-four-four-blueprint.pdf" title="The blueprint as a PDF: every statement, as on screen (Ctrl+P also prints it)">⬇ Blueprint PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav>
+</header>
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=""><a href="#top"><span class="toc_ref"></span> <span class="toc_entry">At a glance</span></a></li>
+<li class=""><a href="#a0000000005"><span class="toc_ref">1</span> <span class="toc_entry">The result</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#thm:main"><span class="toc_ref"></span> <span class="toc_entry">Theorem 1</span></a></li></ul></li>
+<li class=""><a href="#a0000000007"><span class="toc_ref">2</span> <span class="toc_entry">Hankel multipliers of small rank</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#lem:rank5"><span class="toc_ref"></span> <span class="toc_entry">Lemma 2</span></a></li><li class=""><a href="#lem:supports"><span class="toc_ref"></span> <span class="toc_entry">Lemma 3</span></a></li></ul></li>
+<li class=""><a href="#a0000000018"><span class="toc_ref">3</span> <span class="toc_entry">The boundary multiplier</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#lem:regular" title="a regular point"><span class="toc_ref"></span> <span class="toc_entry">Lemma 4</span></a></li><li class=""><a href="#prop:boundary"><span class="toc_ref"></span> <span class="toc_entry">Proposition 5</span></a></li></ul></li>
+<li class=""><a href="#a0000000023"><span class="toc_ref">4</span> <span class="toc_entry">Support \(3\times 4\), rank five</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:345"><span class="toc_ref"></span> <span class="toc_entry">Proposition 6</span></a></li><li class=""><a href="#auto:remark-7"><span class="toc_ref"></span> <span class="toc_entry">Remark 7</span></a></li></ul></li>
+<li class=""><a href="#a0000000028"><span class="toc_ref">5</span> <span class="toc_entry">Support \(3\times 3\), rank four</span></a><span class="expand-toc">▶</span><ul class="sub-toc-1"><li class=""><a href="#prop:334"><span class="toc_ref"></span> <span class="toc_entry">Proposition 8</span></a></li></ul></li>
+<li class=""><a href="#a0000000032"><span class="toc_ref">6</span> <span class="toc_entry">Checks and status</span></a></li>
+<li class=""><a href="#a0000000033"><span class="toc_ref"></span> <span class="toc_entry">The companion site</span></a></li>
+<li class=""><a href="#a0000000034"><span class="toc_ref"></span> <span class="toc_entry">Acknowledgement</span></a></li>
+<li class=""><a href="#a0000000035"><span class="toc_ref"></span> <span class="toc_entry">References</span></a></li>
+<li><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+<div class="content">
+<div class="content-wrapper">
+<div class="main-text">
+<div id="explore-banner">🔍 <b>Explore view</b>: explanations, figures, other mathematical languages and labs are shown, marked <i>commentary</i>; they are not part of the paper. Switch to <b>Paper</b> for the statements, proofs and evidence only.</div><div class="pc-paneltitle"><div class="titlepage">
+<h1>Every 4×4 biquadratic sum of squares is a sum of eleven squares</h1><div class="campo campo-index" title="Fields of the paper">🏷️ <span class="campo-main">Real algebraic geometry · sums of squares on projective varieties</span></div>
+<p class="authors">
+<span class="author">Carles Marín</span>
+</p>
+</div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><div class="aporta"><p>The exact value <strong>BSR(4,4) = 11</strong>: every biquadratic sum of squares in <em>x</em><sub>1..4</sub>, <em>y</em><sub>1..4</sub> is a sum of eleven squares of bilinear forms. Qi and Cui gave a form that needs eleven; the previous upper bound was twelve. The proof classifies the Hankel multipliers of rank at most five whose image contains no product (Lemmas 2 and 3) and rules out the two shapes left with second variations built from the alternating forms (Propositions 6 and 8).</p></div><p>🚀 <b>Start here:</b> <a href="index.html#thm:main"><b>Theorem 1</b></a>: BSR(4,4) = 11.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:main"><b>Theorem 1</b></a>: BSR(4,4) = 11</li></ul><div class="cifras">
+<span class="cifra"><b>8</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>5</b> partly in Lean</span>
+<span class="cifra c-prog">💻 <b>5</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><details class="ov-map" open=""><summary>🗺️ Map of the results (click a box to go to it)</summary><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg viewbox="0.00 0.00 842.00 428.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 424.32)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M363,0C363,0 533,0 533,0 539,0 545,-6 545,-12 545,-12 545,-79.83 545,-79.83 545,-85.83 539,-91.83 533,-91.83 533,-91.83 363,-91.83 363,-91.83 357,-91.83 351,-85.83 351,-79.83 351,-79.83 351,-12 351,-12 351,-6 357,0 363,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="448" xml:space="preserve" y="-76.43">The result</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M12,-99.83C12,-99.83 170,-99.83 170,-99.83 176,-99.83 182,-105.83 182,-111.83 182,-111.83 182,-307.24 182,-307.24 182,-313.24 176,-319.24 170,-319.24 170,-319.24 12,-319.24 12,-319.24 6,-319.24 0,-313.24 0,-307.24 0,-307.24 0,-111.83 0,-111.83 0,-105.83 6,-99.83 12,-99.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="91" xml:space="preserve" y="-303.85">Hankel multipliers of small rank</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M550,-207.16C550,-207.16 708,-207.16 708,-207.16 714,-207.16 720,-213.16 720,-219.16 720,-219.16 720,-408.32 720,-408.32 720,-414.32 714,-420.32 708,-420.32 708,-420.32 550,-420.32 550,-420.32 544,-420.32 538,-414.32 538,-408.32 538,-408.32 538,-219.16 538,-219.16 538,-213.16 544,-207.16 550,-207.16" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="629" xml:space="preserve" y="-404.93">The boundary multiplier</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M254,-99.83C254,-99.83 537,-99.83 537,-99.83 543,-99.83 549,-105.83 549,-111.83 549,-111.83 549,-187.16 549,-187.16 549,-193.16 543,-199.16 537,-199.16 537,-199.16 254,-199.16 254,-199.16 248,-199.16 242,-193.16 242,-187.16 242,-187.16 242,-111.83 242,-111.83 242,-105.83 248,-99.83 254,-99.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="395.5" xml:space="preserve" y="-183.76">Support 3×4, rank five</text>
+</g>
+<g class="cluster" id="clust5">
+<title>cluster_4</title>
+<path d="M621,-99.83C621,-99.83 751,-99.83 751,-99.83 757,-99.83 763,-105.83 763,-111.83 763,-111.83 763,-187.16 763,-187.16 763,-193.16 757,-199.16 751,-199.16 751,-199.16 621,-199.16 621,-199.16 615,-199.16 609,-193.16 609,-187.16 609,-187.16 609,-111.83 609,-111.83 609,-105.83 615,-99.83 621,-99.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="686" xml:space="preserve" y="-183.76">Support 3×3, rank four</text>
+</g>
+<!-- thm:main -->
+<g class="node" id="node1">
+<title>thm:main</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:main" xlink:title="Theorem 1: BSR(4,4) = 11">
+<path d="M525.18,-61.58C525.18,-61.58 370.82,-61.58 370.82,-61.58 364.82,-61.58 358.82,-55.58 358.82,-49.58 358.82,-49.58 358.82,-20 358.82,-20 358.82,-14 364.82,-8 370.82,-8 370.82,-8 525.18,-8 525.18,-8 531.18,-8 537.18,-14 537.18,-20 537.18,-20 537.18,-49.58 537.18,-49.58 537.18,-55.58 531.18,-61.58 525.18,-61.58" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="448" xml:space="preserve" y="-45.14">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="448" xml:space="preserve" y="-30.89">BSR(4,4) = 11</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="448" xml:space="preserve" y="-16.64">◐ part in Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:rank5 -->
+<g class="node" id="node2">
+<title>lem:rank5</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#lem:rank5" xlink:title="Lemma 2: no rank-five multiplier with full 4×4 support and product-free image">
+<path d="M162.18,-289C162.18,-289 19.82,-289 19.82,-289 13.82,-289 7.83,-283 7.83,-277 7.83,-277 7.83,-227.16 7.83,-227.16 7.83,-221.16 13.83,-215.16 19.83,-215.16 19.83,-215.16 162.18,-215.16 162.18,-215.16 168.18,-215.16 174.18,-221.16 174.18,-227.16 174.18,-227.16 174.18,-277 174.18,-277 174.18,-283 168.18,-289 162.18,-289" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-273.98">Lemma 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-261.23">no rank-five multiplier</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-248.48">with full 4×4 support and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-235.73">product-free image</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-222.98">◐ part in Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:rank5&#45;&gt;thm:main -->
+<g class="edge" id="edge1">
+<title>lem:rank5-&gt;thm:main</title>
+<path d="M169,-214.57C175.49,-209.89 181.61,-204.76 187,-199.16 221.15,-163.71 198.44,-131.65 236,-99.83 267.77,-72.91 310.6,-57.31 349.44,-48.26" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="349.89,-50.67 356.19,-46.76 348.83,-45.89 349.89,-50.67" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:supports -->
+<g class="node" id="node3">
+<title>lem:supports</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#lem:supports" xlink:title="Lemma 3: the support shapes left: (3,4,5) or (3,3,4)">
+<path d="M162.18,-168.91C162.18,-168.91 19.82,-168.91 19.82,-168.91 13.82,-168.91 7.83,-162.91 7.83,-156.91 7.83,-156.91 7.83,-119.83 7.83,-119.83 7.83,-113.83 13.83,-107.83 19.83,-107.83 19.83,-107.83 162.18,-107.83 162.18,-107.83 168.18,-107.83 174.18,-113.83 174.18,-119.83 174.18,-119.83 174.18,-156.91 174.18,-156.91 174.18,-162.91 168.18,-168.91 162.18,-168.91" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-153.9">Lemma 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-141.15">the support shapes left:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-128.4">(3,4,5) or (3,3,4)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="91" xml:space="preserve" y="-115.65">◐ part in Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:rank5&#45;&gt;lem:supports -->
+<g class="edge" id="edge7">
+<title>lem:rank5-&gt;lem:supports</title>
+<path d="M91,-214.81C91,-203.02 91,-189.89 91,-177.94" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="93.45,-177.99 91,-170.99 88.55,-177.99 93.45,-177.99" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:345 -->
+<g class="node" id="node6">
+<title>prop:345</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#prop:345" xlink:title="Proposition 6: support 3×4 with rank five does not occur">
+<path d="M373.8,-168.91C373.8,-168.91 262.2,-168.91 262.2,-168.91 256.2,-168.91 250.2,-162.91 250.2,-156.91 250.2,-156.91 250.2,-119.83 250.2,-119.83 250.2,-113.83 256.2,-107.83 262.2,-107.83 262.2,-107.83 373.8,-107.83 373.8,-107.83 379.8,-107.83 385.8,-113.83 385.8,-119.83 385.8,-119.83 385.8,-156.91 385.8,-156.91 385.8,-162.91 379.8,-168.91 373.8,-168.91" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="318" xml:space="preserve" y="-153.9">Proposition 6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="318" xml:space="preserve" y="-141.15">support 3×4 with rank five</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="318" xml:space="preserve" y="-128.4">does not occur</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="318" xml:space="preserve" y="-115.65">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:rank5&#45;&gt;prop:345 -->
+<g class="edge" id="edge9">
+<title>lem:rank5-&gt;prop:345</title>
+<path d="M174.64,-223.91C193.56,-216.71 213.28,-208.35 231,-199.16 244.99,-191.9 259.4,-182.77 272.37,-173.85" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="273.43,-176.09 277.77,-170.08 270.63,-172.08 273.43,-176.09" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:supports&#45;&gt;thm:main -->
+<g class="edge" id="edge3">
+<title>lem:supports-&gt;thm:main</title>
+<path d="M170.35,-107.24C177.97,-104.63 185.61,-102.11 193,-99.83 244.13,-84.05 301.9,-69.3 349.51,-57.93" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="349.94,-60.35 356.19,-56.35 348.81,-55.58 349.94,-60.35" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:regular -->
+<g class="node" id="node4">
+<title>lem:regular</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#lem:regular" xlink:title="Lemma 4: a regular point: ten symmetric summands">
+<path d="M700.17,-390.07C700.17,-390.07 557.83,-390.07 557.83,-390.07 551.83,-390.07 545.83,-384.07 545.83,-378.07 545.83,-378.07 545.83,-340.99 545.83,-340.99 545.83,-334.99 551.83,-328.99 557.83,-328.99 557.83,-328.99 700.17,-328.99 700.17,-328.99 706.17,-328.99 712.17,-334.99 712.17,-340.99 712.17,-340.99 712.17,-378.07 712.17,-378.07 712.17,-384.07 706.17,-390.07 700.17,-390.07" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="629" xml:space="preserve" y="-375.06">Lemma 4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="629" xml:space="preserve" y="-362.31">a regular point: ten</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="629" xml:space="preserve" y="-349.56">symmetric summands</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="629" xml:space="preserve" y="-336.81">◐ part in Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:regular&#45;&gt;thm:main -->
+<g class="edge" id="edge2">
+<title>lem:regular-&gt;thm:main</title>
+<path d="M688,-328.63C691.91,-325.7 695.62,-322.56 699,-319.24 771.97,-247.45 833.91,-178.97 769,-99.83 741.19,-65.92 630.21,-49.62 546.47,-42.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="546.9,-39.6 539.71,-41.42 546.46,-44.48 546.9,-39.6" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:boundary -->
+<g class="node" id="node5">
+<title>prop:boundary</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:boundary" xlink:title="Proposition 5: a boundary point carries an indefinite Hankel multiplier of rank at most five">
+<path d="M674.55,-289C674.55,-289 567.45,-289 567.45,-289 561.45,-289 555.45,-283 555.45,-277 555.45,-277 555.45,-227.16 555.45,-227.16 555.45,-221.16 561.45,-215.16 567.45,-215.16 567.45,-215.16 674.55,-215.16 674.55,-215.16 680.55,-215.16 686.55,-221.16 686.55,-227.16 686.55,-227.16 686.55,-277 686.55,-277 686.55,-283 680.55,-289 674.55,-289" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="621" xml:space="preserve" y="-273.98">Proposition 5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="621" xml:space="preserve" y="-261.23">a boundary point carries</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="621" xml:space="preserve" y="-248.48">an indefinite Hankel</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="621" xml:space="preserve" y="-235.73">multiplier of rank at most</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="621" xml:space="preserve" y="-222.98">five</text>
+</a>
+</g>
+</g>
+<!-- lem:regular&#45;&gt;prop:boundary -->
+<g class="edge" id="edge8">
+<title>lem:regular-&gt;prop:boundary</title>
+<path d="M626.73,-328.59C626,-318.98 625.18,-308.12 624.39,-297.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="626.85,-297.76 623.88,-290.97 621.97,-298.14 626.85,-297.76" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:boundary&#45;&gt;thm:main -->
+<g class="edge" id="edge6">
+<title>prop:boundary-&gt;thm:main</title>
+<path d="M608.09,-214.76C593.79,-175.98 570.71,-117.68 555,-99.83 543.82,-87.12 529.48,-76.2 514.96,-67.16" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="516.39,-65.16 509.13,-63.65 513.86,-69.36 516.39,-65.16" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:boundary&#45;&gt;prop:345 -->
+<g class="edge" id="edge10">
+<title>prop:boundary-&gt;prop:345</title>
+<path d="M555.08,-242.84C509.66,-235.46 448.77,-222.15 399,-199.16 384.94,-192.67 370.91,-183.51 358.58,-174.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="360.16,-172.42 353.11,-170.12 357.18,-176.32 360.16,-172.42" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:334 -->
+<g class="node" id="node8">
+<title>prop:334</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#prop:334" xlink:title="Proposition 8: support 3×3 with rank four does not occur">
+<path d="M742.55,-168.91C742.55,-168.91 629.45,-168.91 629.45,-168.91 623.45,-168.91 617.45,-162.91 617.45,-156.91 617.45,-156.91 617.45,-119.83 617.45,-119.83 617.45,-113.83 623.45,-107.83 629.45,-107.83 629.45,-107.83 742.55,-107.83 742.55,-107.83 748.55,-107.83 754.55,-113.83 754.55,-119.83 754.55,-119.83 754.55,-156.91 754.55,-156.91 754.55,-162.91 748.55,-168.91 742.55,-168.91" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="686" xml:space="preserve" y="-153.9">Proposition 8</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="686" xml:space="preserve" y="-141.15">support 3×3 with rank four</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="686" xml:space="preserve" y="-128.4">does not occur</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="686" xml:space="preserve" y="-115.65">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- prop:boundary&#45;&gt;prop:334 -->
+<g class="edge" id="edge12">
+<title>prop:boundary-&gt;prop:334</title>
+<path d="M642.1,-214.81C649.23,-202.56 657.2,-188.87 664.36,-176.55" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="666.31,-178.07 667.72,-170.79 662.08,-175.6 666.31,-178.07" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:345&#45;&gt;thm:main -->
+<g class="edge" id="edge5">
+<title>prop:345-&gt;thm:main</title>
+<path d="M356.3,-107.44C372.3,-94.94 390.92,-80.39 407.18,-67.69" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="408.31,-69.91 412.32,-63.67 405.3,-66.05 408.31,-69.91" stroke="#9aa8b5"></polygon>
+</g>
+<!-- auto:remark&#45;7 -->
+<g class="node" id="node7">
+<title>auto:remark-7</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#auto:remark-7" xlink:title="Remark 7: one triple of quaternionic structures does not suffice">
+<path d="M528.8,-168.91C528.8,-168.91 423.2,-168.91 423.2,-168.91 417.2,-168.91 411.2,-162.91 411.2,-156.91 411.2,-156.91 411.2,-119.83 411.2,-119.83 411.2,-113.83 417.2,-107.83 423.2,-107.83 423.2,-107.83 528.8,-107.83 528.8,-107.83 534.8,-107.83 540.8,-113.83 540.8,-119.83 540.8,-119.83 540.8,-156.91 540.8,-156.91 540.8,-162.91 534.8,-168.91 528.8,-168.91" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="476" xml:space="preserve" y="-153.9">Remark 7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="476" xml:space="preserve" y="-141.15">one triple of quaternionic</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="476" xml:space="preserve" y="-128.4">structures does not</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="476" xml:space="preserve" y="-115.65">suffice</text>
+</a>
+</g>
+</g>
+<!-- prop:345&#45;&gt;auto:remark&#45;7 -->
+<g class="edge lm-aux" id="edge11">
+<title>prop:345-&gt;auto:remark-7</title>
+<path d="M386.2,-138.37C391.57,-138.37 396.94,-138.37 402.31,-138.37" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="402.24,-140.82 409.24,-138.37 402.24,-135.92 402.24,-140.82" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:334&#45;&gt;thm:main -->
+<g class="edge" id="edge4">
+<title>prop:334-&gt;thm:main</title>
+<path d="M617.16,-107.99C586.41,-94.86 550.18,-79.4 519.16,-66.16" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="520.18,-63.93 512.78,-63.44 518.26,-68.44 520.18,-63.93" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></details></section>
+<details class="blk b-set"><summary>📐 Setting (copied from the paper, §§1–2)</summary>
+<p> Write \(x=(x_1,\dots ,x_4)\), \(y=(y_1,\dots ,y_4)\), \(V=\mathbb R^4\otimes \mathbb R^4\) (the bilinear forms) and \(R_2\) the biquadratic forms, of dimension \(100\). \(\mathrm{BSR}(m,n)\) is the least \(r\) such that every biquadratic sum of squares in \(m+n\) variables is a sum of \(r\) squares of bilinear forms; \(\Phi (h_1,\dots ,h_{11})=h_1^2+\dots +h_{11}^2\), \(\Sigma _{11}=\Phi (V^{11})\) and \(\Sigma \) the cone of sums of squares. A <em>multiplier</em> is a symmetric bilinear form \(H\) on \(A\otimes B\) with the Hankel symmetry \(H(x\otimes b,y\otimes c)=H(x\otimes c,y\otimes b)\); its <em>supports</em> \(a,b_0\) are the dimensions of the two factors modulo the radicals. Writing \(H=T^*JT\) with \(T\) onto \(E\), \(\dim E=\operatorname {rk}H\), and \(T_bx=T(x\otimes b)\), the symmetry reads \(\langle T_bx,T_cy\rangle _J=\langle T_cx,T_by\rangle _J\). </p>
+</details><h4 id="a0000000003">Abstract.</h4>
+<p>Let \({\mathrm{BSR}}(m,n)\) be the largest number of squares of real bilinear forms needed to write an \(m\times n\) biquadratic sum of squares. We prove \({\mathrm{BSR}}(4,4)=11\). The lower bound is Qi and Cui’s \({\mathrm{BSR}}(4,4)\ge z_{2A}(4,4)=11\); the previous upper bound was \(12\). The upper bound follows the boundary strategy of Blekherman, Dunbar and Sinn, as in our note on width three: at a hypothetical boundary point of the set of sums of eleven squares inside the cone, a Hankel multiplier of rank at most five satisfies first and second order conditions. A classification of such multipliers without simple tensors in their image leaves, up to exchanging the factors, only two support and rank triples. For support \(3\times 4\), alternating variations parametrized by \({\mathbb {R}}^3\otimes \Lambda ^2{\mathbb {R}}^4\) have a \(17\)-dimensional image in a quadratic space of positive index at most \(16\). For support \(3\times 3\), we use either the width-three trace argument or a syzygy involving the radicals in both factors. </p>
+<h4 id="a0000000004">Companion site.</h4>
+<p> <a href="index.html">https://karlesmarin.github.io/blueprints/bsr-four-four/</a>: every statement with its dependencies and its checks, and a lab in the browser. This note: <a href="https://doi.org/10.5281/zenodo.24055900" target="_blank" rel="noopener">doi:10.5281/zenodo.24055900</a> (Zenodo), with its supplementary material; it continues <a href="https://doi.org/10.5281/zenodo.24051362" target="_blank" rel="noopener">doi:10.5281/zenodo.24051362</a>.   </p>
+</section><section class="pc-pane"><h1 id="a0000000005">1 The result</h1>
+<p> Write \(x=(x_1,\dots ,x_4)\), \(y=(y_1,\dots ,y_4)\), \(V={\mathbb {R}}^4\otimes {\mathbb {R}}^4\) (identified with the bilinear forms through the monomial basis), and let \(R_2\) be the space of biquadratic forms, of dimension \(100\). \({\mathrm{BSR}}(m,n)\) is the least \(r\) such that every biquadratic sum of squares in \(m+n\) variables is a sum of \(r\) squares of bilinear forms. Qi and Cui proved \({\mathrm{BSR}}(4,4)\ge z_{2A}(4,4)=11\) <span class="cite">
+	[
+	<a href="index.html#QC">4</a>
+	, 
+	Theorem
+	
+	3.1
+	]
+</span>, and \({\mathrm{BSR}}(4,4)\le 12\) follows from \({\mathrm{BSR}}(m,3)=2m\) <span class="cite">
+	[
+	<a href="index.html#Mar">3</a>
+	, 
+	Corollary
+	
+	7
+	]
+</span>.  </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:main">
+<div class="theorem_thmheading">
+<span class="theorem_thmcaption">
+    Theorem
+    </span>
+<span class="theorem_thmlabel">1</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#thm:main">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#lem:rank5">Lemma 2</a></li>
+<li><a href="index.html#lem:regular">Lemma 4</a></li>
+<li><a href="index.html#lem:supports">Lemma 3</a></li>
+<li><a href="index.html#prop:334">Proposition 8</a></li>
+<li><a href="index.html#prop:345">Proposition 6</a></li>
+<li><a href="index.html#prop:boundary">Proposition 5</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=1&amp;n=thm:main" title="Open the paper at page 1">📕 p. 1</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=thm:main" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Every 4×4 biquadratic sum of squares is a sum of eleven squares”, Theorem 1, v1, doi:10.5281/zenodo.24055900, https://karlesmarin.github.io/blueprints/bsr-four-four/index.html#thm:main." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Every%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%20%E2%80%94%20Theorem%201&amp;body=About%20Theorem%201%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CEvery%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%E2%80%9D%2C%20Theorem%201%2C%20v1%2C%20doi%3A10.5281/zenodo.24055900%2C%20https%3A//karlesmarin.github.io/blueprints/bsr-four-four/index.html%23thm%3Amain.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="theorem_thmcontent">
+<p>  \({\mathrm{BSR}}(4,4)=11\). </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Isabelle · ours · part</span><span class="more">show</span></summary><p><b>Only a part is in Isabelle:</b> partly: the regular point, the polar multiplier of Lemma 2 (iii) over the reals, the trace count of Proposition 8, and pieces of Lemma 3 (the support count, the factorisation in the case s = a = r, the case s &lt; a under two hypotheses); outside the formal part: the passage to the surjectivity of dΦ, the extension of the polar multiplier to C, the identification of a simple tensor in im H, the Segre bound of Lemma 3, Lemma 2, Proposition 5 and the second variations</p><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/BSR44_Pieces.thy#L25" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/BSR44_Pieces.html#L25"><code>regular_point_symmetric</code></a> · <code>Isabelle/BSRFourFour/BSR44_Pieces.thy</code>, line 25 — the regular point (Lemma 4)</p><pre>theorem regular_point_symmetric:
+  fixes H :: "nat \&lt;Rightarrow&gt; nat \&lt;Rightarrow&gt; nat \&lt;Rightarrow&gt; nat \&lt;Rightarrow&gt; real" and n :: nat
+  assumes sym: "\&lt;And&gt;a b c d. a &lt; n \&lt;Longrightarrow&gt; b &lt; n \&lt;Longrightarrow&gt; c &lt; n \&lt;Longrightarrow&gt; d &lt; n \&lt;Longrightarrow&gt; H a b c d = H c d a b"
+    and hankel: "\&lt;And&gt;a b c d. a &lt; n \&lt;Longrightarrow&gt; b &lt; n \&lt;Longrightarrow&gt; c &lt; n \&lt;Longrightarrow&gt; d &lt; n \&lt;Longrightarrow&gt; H a b c d = H a d c b"
+    and van: "\&lt;And&gt;a b c d. a &lt; n \&lt;Longrightarrow&gt; b &lt; n \&lt;Longrightarrow&gt; c &lt; n \&lt;Longrightarrow&gt; d &lt; n \&lt;Longrightarrow&gt; H a b c d + H b a c d = 0"
+    and idx: "a &lt; n" "b &lt; n" "c &lt; n" "d &lt; n"
+  shows "H a b c d = 0"</pre><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/BSR44_Pieces.thy#L54" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/BSR44_Pieces.html#L54"><code>support_triples</code></a> · <code>Isabelle/BSRFourFour/BSR44_Pieces.thy</code>, line 54 — the count closing Lemma 3</p><pre>lemma support_triples:
+  fixes a b r :: nat
+  assumes "2 \&lt;le&gt; a" "a \&lt;le&gt; 4" "2 \&lt;le&gt; b" "b \&lt;le&gt; 4" "r \&lt;le&gt; 5" "r \&lt;le&gt; (a - 1) * (b - 1)" "a + 1 \&lt;le&gt; r" "b + 1 \&lt;le&gt; r"
+  shows "(a, b, r) \&lt;in&gt; {(4, 4, 5), (4, 3, 5), (3, 4, 5), (3, 3, 4)}"</pre><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/BSR44_Pieces.thy#L92" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/BSR44_Pieces.html#L92"><code>trace_count</code></a> · <code>Isabelle/BSRFourFour/BSR44_Pieces.thy</code>, line 92 — the trace count of Proposition 8</p><pre>lemma trace_count:
+  fixes lam :: "'i \&lt;Rightarrow&gt; real" and I :: "'i set"
+  assumes fin: "finite I" and le1: "\&lt;And&gt;i. i \&lt;in&gt; I \&lt;Longrightarrow&gt; lam i \&lt;le&gt; 1"
+    and rk: "card {i \&lt;in&gt; I. lam i \&lt;noteq&gt; 0} \&lt;le&gt; 4" and neg: "j \&lt;in&gt; I" "lam j &lt; 0"
+  shows "(\&lt;Sum&gt;i\&lt;in&gt;I. lam i) &lt; 3"</pre></details>
+</div><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only — <b>only part of the statement is formal</b> (see the box). <span class="detail">Isabelle: 3 results, no oracles</span></p><p class="lm-ficha"><b>Proof:</b> in this note<span class="sep">·</span><b>Formalized:</b> Isabelle/HOL, by the author (public formalizations repository)<span class="sep">·</span><b>Covers:</b> part: the regular point, the polar multiplier of Lemma 2 (iii) over the reals, the trace count of Proposition 8, and pieces of Lemma 3 (the support count, the factorisation in the case s = a = r, the case s &lt; a under two hypotheses); outside the formal part: the passage to the surjectivity of dΦ, the extension of the polar multiplier to C, the identification of a simple tensor in im H, the Segre bound of Lemma 3, Lemma 2, Proposition 5 and the second variations<span class="sep">·</span><b>Cite:</b> Theorem 1, p. 1, doi:10.5281/zenodo.24055900</p><p class="novedad">🆕 <b>Classical and new:</b> the paper: the lower bound 11 is [QC, Theorem 3.1]; the previous upper bound 12 follows from BSR(m,3) = 2m [Mar, Corollary 7].</p><p class="usado">↳ Not used by another result of the paper.</p>
+<p>Take a biquadratic form in \(x_1,\dots ,x_4\) and \(y_1,\dots ,y_4\) that is a sum of squares of bilinear forms, however many. The theorem says that eleven squares always suffice, and Qi and Cui gave a form for which ten do not. Before this note the best upper bound was twelve, from width three. The proof does not search for representations: it shows that the set of sums of eleven squares has no boundary inside the cone, because any boundary point would carry a Hankel multiplier of rank at most five that the classification of Lemmas 2–3 and the second variations of Propositions 6 and 8 rule out. </p>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> perturbations P + εb² of the Qi–Cui witness: approximate representations with eleven squares in all 312 cases. working script <span class="ttfamily">perturbar_qc.py</span>, not published </p>
+</li>
+</ul>
+<p>The upper bound is proved in §§2–5. It follows the boundary strategy of Blekherman, Dunbar and Sinn <span class="cite">
+	[
+	<a href="index.html#BDS">1</a>
+	, 
+	§
+	§
+	2–3
+	]
+</span> in the form of <span class="cite">
+	[
+	<a href="index.html#Mar">3</a>
+	, 
+	Proposition
+	
+	3
+	]
+</span>. Our argument excludes full support at rank five (Lemma <a href="index.html#lem:rank5">2</a>), determines the possible support dimensions and ranks (Lemma <a href="index.html#lem:supports">3</a>), and rules out both remaining cases by the second-variation arguments in §§4–5 (Propositions <a href="index.html#prop:345">6</a> and <a href="index.html#prop:334">8</a>); the one in §4 is built from the six alternating forms of \(\Lambda ^2{\mathbb {R}}^4\).  </p>
+</details></section><section class="pc-pane"><h1 id="a0000000007">2 Hankel multipliers of small rank</h1>
+<p> Let \(A,B\) be finite-dimensional complex vector spaces. A <em>multiplier</em> is a symmetric bilinear form \(H\) on \(A\otimes B\) with </p>
+<div class="equation" id="a0000000008">
+<p>
+<div class="equation_content">
+    \begin{equation} \tag {1} H(x\otimes b,\, y\otimes c)=H(x\otimes c,\, y\otimes b); \end{equation}
+  </div>
+<span class="equation_label">1</span>
+</p>
+</div>
+<p> equivalently, a linear functional on biquadratic forms. Exchanging the roles of the factors, \(H(y\otimes b,x\otimes c)=H(x\otimes c,y\otimes b)=H(x\otimes b,y\otimes c)\), so the definition is symmetric in \(A\) and \(B\). The <em>radical</em> of \(H\) in \(A\) is \(\{ x: H(x\otimes B,\, A\otimes B)=0\} \), and the <em>support</em> \(a\) is the dimension of \(A\) modulo it; likewise \(b_0\) for \(B\). A simple tensor of \((A\otimes B)^*\) is a non-zero \(\alpha \otimes \beta \). If \(\operatorname{rk}H=r\), write \(H=T^*JT\) with \(T:A\otimes B\to E\) onto, \(\dim E=r\), \(J\) a non-degenerate symmetric form on \(E\), and \(T_b x=T(x\otimes b)\). Then \(\operatorname{im}H=T^*J(E)\) and (1) reads </p>
+<div class="equation" id="a0000000009">
+<p>
+<div class="equation_content">
+    \begin{equation} \tag {2} \langle T_b x, T_c y\rangle _J=\langle T_c x, T_b y\rangle _J . \end{equation}
+  </div>
+<span class="equation_label">2</span>
+</p>
+</div>
+<p><em>Observation.</em> If \(T_c x=\beta (c)e\) for all \(c\), with \(x\ne 0\), \(\beta \ne 0\), \(e\ne 0\), then \(\operatorname{im}H\) contains a simple tensor: by (2) the covector \(T^*Je\) is \((y\otimes c)\mapsto \beta (c)\langle e,T_d y\rangle _J\) for any \(d\) with \(\beta (d)=1\), and it is non-zero because \(T\) is onto. </p>
+<p>Let \(s=\max _c\operatorname{rk}T_c\) and, for generic \(b\), \(U=\operatorname{im}T_b\) (\(\dim U=s\)). Then </p>
+<div class="equation" id="a0000000010">
+<p>
+<div class="equation_content">
+    \begin{equation} \tag {3} T_c(\ker T_b)\subseteq U\cap U^{\perp _J}\qquad \text{for all }c: \end{equation}
+  </div>
+<span class="equation_label">3</span>
+</p>
+</div>
+<p> the inclusion in \(U\) is the standard fact on maximal rank in a pencil (from the linear terms in \(t\) of the minors of order \(s+1\) of \(T_b+tT_c\) bordering a maximal identity block of \(T_b\)), and the orthogonality follows from (2). If \(H\neq 0\), the quadratic form \(Q(b)=T_b^*JT_b\) is not identically zero (by separate polarization, \(H\) is recovered from \(q(x,b)=x^\top Q(b)x\)), so the generic \(b\) can also be taken with \(Q(b)\ne 0\). If \(\ker T_b\ne 0\), the radical of \(H\) in \(A\) is zero and \(\operatorname{im}H\) has no simple tensor, then (3) and the Observation force \(\dim (U\cap U^{\perp _J})\ge 2\).  </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:rank5">
+<div class="lemma_thmheading">
+<span class="lemma_thmcaption">
+    Lemma
+    </span>
+<span class="lemma_thmlabel">2</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#lem:rank5">#</a>
+<a class="icon proof" href="index.html#a0000000011"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=2&amp;n=lem:rank5" title="Open the paper at page 2">📕 p. 2</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=lem:rank5" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Every 4×4 biquadratic sum of squares is a sum of eleven squares”, Lemma 2, v1, doi:10.5281/zenodo.24055900, https://karlesmarin.github.io/blueprints/bsr-four-four/index.html#lem:rank5." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Every%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%20%E2%80%94%20Lemma%202&amp;body=About%20Lemma%202%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CEvery%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%E2%80%9D%2C%20Lemma%202%2C%20v1%2C%20doi%3A10.5281/zenodo.24055900%2C%20https%3A//karlesmarin.github.io/blueprints/bsr-four-four/index.html%23lem%3Arank5.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="lemma_thmcontent">
+<p> There is no multiplier on \({\mathbb {C}}^4\otimes {\mathbb {C}}^4\) of rank \(5\), with supports \(a=b_0=4\), whose image contains no simple tensor. </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Isabelle · ours · part</span><span class="more">show</span></summary><p><b>Only a part is in Isabelle:</b> only the last step of case (iii), over the reals: X ↦ (tr(X)I + Xᵀ)/2 is injective on real matrices (polar_trace_injective); the paper needs complex matrices, which follows by applying it to the real and imaginary parts — that step is not formalized</p><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/BSR44_Pieces.thy#L67" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/BSR44_Pieces.html#L67"><code>polar_trace_injective</code></a> · <code>Isabelle/BSRFourFour/BSR44_Pieces.thy</code>, line 67 — case (iii): X ↦ (tr(X) I + Xᵀ)/2 is injective, so the polar of (xᵀb)² has rank 16, not 5</p><pre>lemma polar_trace_injective:
+  fixes X :: "nat \&lt;Rightarrow&gt; nat \&lt;Rightarrow&gt; real" and n :: nat
+  assumes zero: "\&lt;And&gt;i j. i &lt; n \&lt;Longrightarrow&gt; j &lt; n \&lt;Longrightarrow&gt; (if i = j then (\&lt;Sum&gt;k&lt;n. X k k) else 0) + X j i = 0"
+    and ij: "i &lt; n" "j &lt; n"
+  shows "X i j = 0"</pre></details>
+</div><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only — <b>only part of the statement is formal</b> (see the box). <span class="detail">Isabelle: 1 result, no oracles</span></p><p class="lm-ficha"><b>Proof:</b> in this note<span class="sep">·</span><b>Formalized:</b> Isabelle/HOL, by the author (public formalizations repository)<span class="sep">·</span><b>Covers:</b> part: only the last step of case (iii), over the reals: X ↦ (tr(X)I + Xᵀ)/2 is injective on real matrices (polar_trace_injective); the paper needs complex matrices, which follows by applying it to the real and imaginary parts — that step is not formalized<span class="sep">·</span><b>Cite:</b> Lemma 2, p. 2, doi:10.5281/zenodo.24055900</p><p class="usado">↳ Used in: <a href="#thm:main">Theorem 1</a>, <a href="#lem:supports">Lemma 3</a>, <a href="#prop:345">Proposition 6</a></p>
+<div class="proof_wrapper" id="a0000000011">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>The three cases below are exhaustive: \(s=4\) with some \(Q(b)\) invertible, \(s=4\) with every \(Q(b)\) singular, and \(s\le 3\). </p>
+<p><em>(i) Some \(Q(b)\) is invertible.</em> Choosing bases by congruence, \(E={\mathbb {C}}^4\oplus {\mathbb {C}}\) with the standard symmetric product and \(T_b x=(x,0)\). In a basis of a complement of \(b\) write \(T_i x=(A_ix,\, u_i^\top x)\), \(i=1,2,3\). By (2), </p>
+<div class="equation" id="a0000000012">
+<p>
+<div class="equation_content">
+    \begin{equation}  A_i^\top =A_i,\qquad [A_i,A_j]=u_ju_i^\top -u_iu_j^\top . \end{equation}
+  </div>
+<span class="equation_label">4</span>
+</p>
+</div>
+<p> With \(v\odot w=vw^\top +wv^\top \) and \(K_{ij}=A_iu_j-A_ju_i\), the Jacobi identity for \(A_1,A_2,A_3\) and (4) give </p>
+<div class="equation" id="a0000000013">
+<p>
+<div class="equation_content">
+    \begin{equation}  K_{12}\odot u_3+K_{23}\odot u_1+K_{31}\odot u_2=0 . \end{equation}
+  </div>
+<span class="equation_label">5</span>
+</p>
+</div>
+<p> If the \(u_i\) span \(0\), \(T\) is not onto. If they span a line, the last coordinate of \(T\) is a simple covector of \(\operatorname{im}H\). If they span a plane, after a change of basis of the complement \(u_3=0\) with \(u_1,u_2\) independent; then \(A_3\) commutes with \(A_1,A_2\), and (5) gives \((A_3u_1)\odot u_2=(A_3u_2)\odot u_1\), whence \(A_3u_1=tu_1\), \(A_3u_2=tu_2\) for one \(t\) (compare coefficients in a basis starting with \(u_1,u_2\)). The space \(P=\operatorname{im}(A_3-tI)\) is non-zero (otherwise \(T_3=tT_b\) and \(B\) would have a radical, against \(b_0=4\)), stable under all \(A_i\), and orthogonal to \(u_1,u_2\) since \(A_3\) is symmetric; by (4) the \(A_i\) commute on \(P\), and a common eigenvector \(x\in P\) has \(T_cx\in {\mathbb {C}}(x,0)\) for all \(c\), so the Observation applies. If the \(u_i\) are independent, (5) forces \(K_{ij}=t_iu_j-t_ju_i\) for three scalars \(t_i\) (complete \(u_1,u_2,u_3\) to a basis: the terms with the fourth vector and the squares \(u_i^{2}\) force \(K_{12}\in \langle u_1,u_2\rangle \), \(K_{23}\in \langle u_2,u_3\rangle \), \(K_{31}\in \langle u_3,u_1\rangle \), and the coefficients of \(u_1u_2\), \(u_2u_3\), \(u_3u_1\) give the signs). Then the symmetric matrices </p>
+<div class="displaymath" id="a0000000014">
+  \[  \widehat A_i=\begin{pmatrix} A_i
+
+&amp; u_i
+
+\\ u_i^\top 
+
+&amp; t_i
+
+\end{pmatrix}  \]
+</div>
+<p> commute (the upper-left block of their commutator vanishes by (4), the upper right one is \(K_{ij}+t_ju_i-t_iu_j=0\), and the rest follows by antisymmetry). A common eigenvector \(z\ne 0\) exists over \({\mathbb {C}}\); if \(\widehat A_iz=\lambda _iz\), then \(\langle z,T_ix\rangle =\lambda _i\langle z,T_bx\rangle \), since \(T_ix=\widehat A_iT_bx\), so \(T^*Jz\) is simple, and non-zero because \(T\) is onto. </p>
+<p><em>(ii) Some \(T_b\) has rank \(4\) and every \(Q(b)\) is singular.</em> Then \(U=\operatorname{im}T_b\) is a degenerate hyperplane with a radical of dimension one. In a Witt basis \(E={\mathbb {C}}^3\oplus \langle e,f\rangle \), \(\langle e,f\rangle =1\), \(\langle e,e\rangle =\langle f,f\rangle =0\), with \(T_b(w,z)=(w,z,0)\), condition (2) gives each \(T_c\) the shape \(\left(\begin{smallmatrix} A
+
+&amp; p
+
+\\ l^\top 
+
+&amp; t
+
+\\ p^\top 
+
+&amp; q_0
+
+\end{smallmatrix}\right)\) with \(A=A^\top \). In \(Q(b+\tau c)\) the upper \(3\times 3\) block is \(I+O(\tau )\), the upper right block is \(2\tau p+O(\tau ^2)\) and the lower right entry is \(2\tau q_0+\tau ^2(p^\top p+2tq_0)\). Since the determinant vanishes identically, so does the Schur complement as a formal series; its terms of order one and two give \(q_0=0\) and \(-3p^\top p=0\). Thus \(p(c)^\top p(c)=0\) for every \(c\), and \(c\mapsto p(c)\) is linear; <em>by polarization</em> \(p(c)^\top p(c')=0\) for all \(c,c'\), so \(\{ p(c)\} \) spans a totally isotropic subspace of \({\mathbb {C}}^3\), of dimension at most one: \(p(c)=\beta (c)p_0\). The covector \(T^*Je\), \((w,z;c)\mapsto p(c)^\top w=\beta (c)\, p_0^\top w\), is simple and non-zero. </p>
+<p><em>(iii) \(s\le 3\).</em> By (3) and \(Q(b)\ne 0\) generically, \(s=3\) and \(\operatorname{rk}Q(b)=1\) generically: \(U\) has a radical of dimension at least two and \(Q(b)\neq 0\). So \(q(x,b)=x^\top Q(b)x\) is, over \({\mathbb {C}}(b)\), a scalar times the square of a linear form in \(x\) (complete the square from a non-zero diagonal entry). By Gauss’ lemma \(q=g(b)L(x,b)^2\) in \({\mathbb {C}}[b][x]\) with \(L\) primitive, and the factors of a bihomogeneous polynomial are bihomogeneous. If \(L\) has degree \(0\) in \(b\), the support in \(A\) is \(1\). Otherwise \(g\) is constant and \(L=x^\top Pb\), with \(P\) invertible by full support, so after changes of basis and scale \(q=(x^\top b)^2\). Its polar multiplier acts on matrices as \(X\mapsto (\operatorname{tr}(X)I+X^\top )/2\), which is invertible (\(X^\top =-\operatorname{tr}(X)I\) gives \(5\operatorname{tr}X=0\) and \(X=0\)): rank \(16\ne 5\). </p>
+</div>
+</div>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> the Jacobi identity (5), the Schur expansion of case (ii) and the rank 16 of the polar of (xᵀb)², in exact arithmetic. <a href="https://zenodo.org/records/24055900/files/supplement.zip?download=1" target="_blank" rel="noopener"><span class="ttfamily">supplement.zip: check_symbolic_steps.py</span></a> </p>
+</li>
+</ul>
+</details><div class="lemma_thmwrapper theorem-style-plain" id="lem:supports">
+<div class="lemma_thmheading">
+<span class="lemma_thmcaption">
+    Lemma
+    </span>
+<span class="lemma_thmlabel">3</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#lem:supports">#</a>
+<a class="icon proof" href="index.html#a0000000016"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#lem:rank5">Lemma 2</a></li>
+<li><a href="index.html#lem:rank5">Lemma 2</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=3&amp;n=lem:supports" title="Open the paper at page 3">📕 p. 3</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=lem:supports" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Every 4×4 biquadratic sum of squares is a sum of eleven squares”, Lemma 3, v1, doi:10.5281/zenodo.24055900, https://karlesmarin.github.io/blueprints/bsr-four-four/index.html#lem:supports." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Every%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%20%E2%80%94%20Lemma%203&amp;body=About%20Lemma%203%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CEvery%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%E2%80%9D%2C%20Lemma%203%2C%20v1%2C%20doi%3A10.5281/zenodo.24055900%2C%20https%3A//karlesmarin.github.io/blueprints/bsr-four-four/index.html%23lem%3Asupports.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="lemma_thmcontent">
+<p>  Let \(H\) be a nonzero multiplier on \({\mathbb {C}}^4\otimes {\mathbb {C}}^4\) of rank \(r\le 5\) whose image contains no simple tensor. Up to exchanging the factors, \((a,b_0,r)\) is either \((3,4,5)\) or \((3,3,4)\). </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Isabelle · ours · part</span><span class="more">show</span></summary><p><b>Only a part is in Isabelle:</b> pieces: the closing count (support_triples); the case s = a = r (case_s_eq_a), the case s &lt; a with two hypotheses (the inclusion in im T_b of (3) and a one-dimensional radical; case_s_lt_a) and the Observation (observation), each concluding a nonzero FACTORISATION of the functional — in all three, the passage to a nonzero simple tensor α ⊗ β in im H uses the bilinearity of the paper and is not formalized. The Segre bound r ≤ (a−1)(b₀−1), the generic b and the assembly are not formalized</p><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/BSR44_Pieces.thy#L54" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/BSR44_Pieces.html#L54"><code>support_triples</code></a> · <code>Isabelle/BSRFourFour/BSR44_Pieces.thy</code>, line 54 — the arithmetic that closes Lemma 3</p><pre>lemma support_triples:
+  fixes a b r :: nat
+  assumes "2 \&lt;le&gt; a" "a \&lt;le&gt; 4" "2 \&lt;le&gt; b" "b \&lt;le&gt; 4" "r \&lt;le&gt; 5" "r \&lt;le&gt; (a - 1) * (b - 1)" "a + 1 \&lt;le&gt; r" "b + 1 \&lt;le&gt; r"
+  shows "(a, b, r) \&lt;in&gt; {(4, 4, 5), (4, 3, 5), (3, 4, 5), (3, 3, 4)}"</pre><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/Supports_Lemma.thy#L286" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/Supports_Lemma.html#L286"><code>case_s_eq_a</code></a> · <code>Isabelle/BSRFourFour/Supports_Lemma.thy</code>, line 286 — the case s = a = r: the operators T_b⁻¹T_c commute, a common eigenvector gives a simple covector in the image</p><pre>theorem case_s_eq_a:
+  fixes J :: "'e::ab_group_add \&lt;Rightarrow&gt; 'e \&lt;Rightarrow&gt; complex" and T :: "'c \&lt;Rightarrow&gt; 'a::ab_group_add \&lt;Rightarrow&gt; 'e"
+    and sm :: "complex \&lt;Rightarrow&gt; 'e \&lt;Rightarrow&gt; 'e" and smA :: "complex \&lt;Rightarrow&gt; 'a \&lt;Rightarrow&gt; 'a"
+  assumes fd: "FinDimVectorSpace smA (UNIV :: 'a set)" and nz: "\&lt;exists&gt;w::'a. w \&lt;noteq&gt; 0"
+    and sym: "\&lt;And&gt;b c x y. J (T b x) (T c y) = J (T c x) (T b y)"
+    and Jadd: "\&lt;And&gt;u v w. J (u + v) w = J u w + J v w"
+    and Jscal: "\&lt;And&gt;t u w. J (sm t u) w = t * J u w"
+    and nondeg: "\&lt;And&gt;z. (\&lt;And&gt;w. J z w = 0) \&lt;Longrightarrow&gt; z = 0"
+    and Tadd: "\&lt;And&gt;c u v. T c (u + v) = T c u + T c v"
+    and Tscal: "\&lt;And&gt;c t u. T c (smA t u) = sm t (T c u)"
+    and Tb_inj: "\&lt;And&gt;u. T b u = 0 \&lt;Longrightarrow&gt; u = 0"
+    and Tb_onto: "\&lt;And&gt;w. \&lt;exists&gt;y. w = T b y"
+  shows "\&lt;exists&gt;e \&lt;beta&gt;. e \&lt;noteq&gt; 0 \&lt;and&gt; \&lt;beta&gt; b \&lt;noteq&gt; 0 \&lt;and&gt; (\&lt;forall&gt;c y. J e (T c y) = (\&lt;beta&gt; c / \&lt;beta&gt; b) * J e (T b y))
+           \&lt;and&gt; (\&lt;exists&gt;y. J e (T b y) \&lt;noteq&gt; 0)"</pre><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/Supports_Lemma.thy#L102" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/Supports_Lemma.html#L102"><code>case_s_lt_a</code></a> · <code>Isabelle/BSRFourFour/Supports_Lemma.thy</code>, line 102 — the case s &lt; a, with the inclusion T_c(ker T_b) ⊆ im T_b and a one-dimensional radical as hypotheses</p><pre>theorem case_s_lt_a:
+  fixes J :: "'e::ab_group_add \&lt;Rightarrow&gt; 'e \&lt;Rightarrow&gt; complex" and T :: "'c \&lt;Rightarrow&gt; 'a \&lt;Rightarrow&gt; 'e"
+    and sm :: "complex \&lt;Rightarrow&gt; 'e \&lt;Rightarrow&gt; 'e"
+  assumes sym: "\&lt;And&gt;b c x y. J (T b x) (T c y) = J (T c x) (T b y)"
+    and Jscal: "\&lt;And&gt;t u w. J (sm t u) w = t * J u w"
+    and Jadd: "\&lt;And&gt;u v w. J (u + v) w = J u w + J v w"
+    and nondeg: "\&lt;And&gt;z. (\&lt;And&gt;c y. J z (T c y) = 0) \&lt;Longrightarrow&gt; z = 0"
+    and x: "T b x = 0" and xrad: "T d0 x \&lt;noteq&gt; 0"
+    and inU: "\&lt;And&gt;c. T c x \&lt;in&gt; range (T b)"
+    and line: "\&lt;And&gt;u. u \&lt;in&gt; range (T b) \&lt;Longrightarrow&gt; (\&lt;forall&gt;y. J u (T b y) = 0) \&lt;Longrightarrow&gt; \&lt;exists&gt;t. u = sm t e"
+  shows "\&lt;exists&gt;e' \&lt;beta&gt; d. e' \&lt;noteq&gt; 0 \&lt;and&gt; \&lt;beta&gt; d \&lt;noteq&gt; 0 \&lt;and&gt; (\&lt;forall&gt;c y. J e' (T c y) = (\&lt;beta&gt; c / \&lt;beta&gt; d) * J e' (T d y))
+           \&lt;and&gt; (\&lt;exists&gt;y. J e' (T d y) \&lt;noteq&gt; 0)"</pre><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/Supports_Lemma.thy#L60" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/Supports_Lemma.html#L60"><code>observation</code></a> · <code>Isabelle/BSRFourFour/Supports_Lemma.thy</code>, line 60 — the Observation of Section 2: T_c x = β(c) e gives a non-zero simple covector</p><pre>theorem observation:
+  fixes J :: "'e::ab_group_add \&lt;Rightarrow&gt; 'e \&lt;Rightarrow&gt; complex" and T :: "'c \&lt;Rightarrow&gt; 'a \&lt;Rightarrow&gt; 'e"
+    and sm :: "complex \&lt;Rightarrow&gt; 'e \&lt;Rightarrow&gt; 'e"
+  assumes sym: "\&lt;And&gt;b c x y. J (T b x) (T c y) = J (T c x) (T b y)"
+    and Jscal: "\&lt;And&gt;t u w. J (sm t u) w = t * J u w"
+    and nondeg: "\&lt;And&gt;z. (\&lt;And&gt;c y. J z (T c y) = 0) \&lt;Longrightarrow&gt; z = 0"
+    and Tx: "\&lt;And&gt;c. T c x = sm (\&lt;beta&gt; c) e" and d: "\&lt;beta&gt; d \&lt;noteq&gt; 0" and e: "e \&lt;noteq&gt; 0"
+  shows "(\&lt;forall&gt;c y. J e (T c y) = (\&lt;beta&gt; c / \&lt;beta&gt; d) * J e (T d y)) \&lt;and&gt; (\&lt;exists&gt;y. J e (T d y) \&lt;noteq&gt; 0)"</pre><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/Supports_Lemma.thy#L154" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/Supports_Lemma.html#L154"><code>common_eigenvector</code></a> · <code>Isabelle/BSRFourFour/Supports_Lemma.thy</code>, line 154 — commuting endomorphisms over an algebraically closed field have a common eigenvector (classical; proved here)</p><pre>theorem (in FinDimVectorSpace) common_eigenvector:
+  assumes alg_closed: "\&lt;And&gt;p::'a poly. degree p &gt; 0 \&lt;Longrightarrow&gt; \&lt;exists&gt;c. poly p c = 0"
+    and add: "\&lt;And&gt;T u v. T \&lt;in&gt; F \&lt;Longrightarrow&gt; u \&lt;in&gt; V \&lt;Longrightarrow&gt; v \&lt;in&gt; V \&lt;Longrightarrow&gt; T (u + v) = T u + T v"
+    and hom: "\&lt;And&gt;T a u. T \&lt;in&gt; F \&lt;Longrightarrow&gt; u \&lt;in&gt; V \&lt;Longrightarrow&gt; T (a \&lt;cdot&gt; u) = a \&lt;cdot&gt; T u"
+    and comm: "\&lt;And&gt;S T u. S \&lt;in&gt; F \&lt;Longrightarrow&gt; T \&lt;in&gt; F \&lt;Longrightarrow&gt; u \&lt;in&gt; V \&lt;Longrightarrow&gt; S (T u) = T (S u)"
+  shows "Subspace W \&lt;Longrightarrow&gt; (\&lt;exists&gt;w\&lt;in&gt;W. w \&lt;noteq&gt; 0) \&lt;Longrightarrow&gt; (\&lt;And&gt;T. T \&lt;in&gt; F \&lt;Longrightarrow&gt; T ` W \&lt;subseteq&gt; W)
+           \&lt;Longrightarrow&gt; \&lt;exists&gt;u\&lt;in&gt;W. u \&lt;noteq&gt; 0 \&lt;and&gt; (\&lt;forall&gt;T\&lt;in&gt;F. \&lt;exists&gt;c. T u = c \&lt;cdot&gt; u)"</pre></details>
+</div><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only — <b>only part of the statement is formal</b> (see the box). <span class="detail">Isabelle: 5 results, no oracles</span></p><p class="lm-ficha"><b>Proof:</b> in this note<span class="sep">·</span><b>Formalized:</b> Isabelle/HOL, by the author (public formalizations repository)<span class="sep">·</span><b>Covers:</b> part: pieces: the closing count (support_triples); the case s = a = r (case_s_eq_a), the case s &lt; a with two hypotheses (the inclusion in im T_b of (3) and a one-dimensional radical; case_s_lt_a) and the Observation (observation), each concluding a nonzero FACTORISATION of the functional — in all three, the passage to a nonzero simple tensor α ⊗ β in im H uses the bilinearity of the paper and is not formalized. The Segre bound r ≤ (a−1)(b₀−1), the generic b and the assembly are not formalized<span class="sep">·</span><b>Cite:</b> Lemma 3, p. 3, doi:10.5281/zenodo.24055900</p><p class="usado">↳ Used in: <a href="#thm:main">Theorem 1</a></p>
+<div class="proof_wrapper" id="a0000000016">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Restrict \(H\) to \(A'\otimes B'\), with \(A',B'\) complements of the two radicals: the rank, the symmetry (1) and the absence of simple tensors are kept (a simple covector of the restricted image extends by zero on the radicals and stays simple and in \(\operatorname{im}H\)), and now both radicals are zero, with \(\dim A'=a\), \(\dim B'=b_0\). Since \(\operatorname{im}H\) annihilates the radicals, \(\mathbb P(\operatorname{im}H)\) is a subspace of dimension \(r-1\) avoiding the Segre variety of the effective factors, so \(r\le (a-1)(b_0-1)\); and \(a,b_0\ge 2\) since \(H\ne 0\). </p>
+<p>We show \(r\ge a+1\), and by the symmetry of (1) in the two factors also \(r\ge b_0+1\). Suppose \(r\le a\) (\(\le 4\)) and take \(b\) generic, with \(s=\operatorname{rk}T_b\) maximal and \(Q(b)\ne 0\). If \(s{\lt}a\), then \(\ker T_b\ne 0\), and the radical of \(U=\operatorname{im}T_b\) has dimension at most \(s-1\) (as \(Q(b)\ne 0\)) and at most \(r-s\) (as it lies in \(U^{\perp _J}\)), so at most \(\min (s-1,r-s)\le 1\) because \(r\le 4\); this contradicts (3) and the Observation. If \(s=a\), then \(s=a=r\), \(T_b:A'\to E\) is an isomorphism, \(Q(b)\) is non-degenerate, and the operators \(T_b^{-1}T_c\) are self-adjoint for \(Q(b)\) and, by (2), commute; a common eigenvector \(x\) has \(T_cx\in {\mathbb {C}}\, T_bx\) for all \(c\), and the Observation gives a simple tensor. So \(r\ge \max (a,b_0)+1\). </p>
+<p>With \(r\le 5\) and \(r\le (a-1)(b_0-1)\) the only possibilities are \((a,b_0,r)=(4,4,5)\), \((4,3,5)\), \((3,4,5)\) and \((3,3,4)\), and Lemma <a href="index.html#lem:rank5">2</a> excludes \((4,4,5)\). </p>
+</div>
+</div>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> Newton search for rank-five Hankel multipliers with support 3×4 and product-free image: 14 numerical candidates. <a href="https://zenodo.org/records/24055900/files/supplement.zip?download=1" target="_blank" rel="noopener"><span class="ttfamily">supplement.zip: search_rank_five_multipliers.py</span></a> </p>
+</li>
+</ul>
+</details></section><section class="pc-pane"><h1 id="a0000000018">3 The boundary multiplier</h1>
+<p> Let \(\Phi (h)=\sum _{i=1}^{11}h_i^2\) on \(V^{11}\) and \(\Sigma _{11}=\Phi (V^{11})\); it is closed, and \(\Sigma \subset R_2\), the cone of sums of squares, is closed, convex, with non-empty interior.  </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:regular">
+<div class="lemma_thmheading">
+<span class="lemma_thmcaption">
+    Lemma
+    </span>
+<span class="lemma_thmlabel">4</span>
+<span class="lemma_thmtitle">a regular point</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#lem:regular">#</a>
+<a class="icon proof" href="index.html#a0000000019"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+</div>
+<a class="pdfp" href="pdf.html#page=4&amp;n=lem:regular" title="Open the paper at page 4">📕 p. 4</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=lem:regular" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Every 4×4 biquadratic sum of squares is a sum of eleven squares”, Lemma 4, v1, doi:10.5281/zenodo.24055900, https://karlesmarin.github.io/blueprints/bsr-four-four/index.html#lem:regular." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Every%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%20%E2%80%94%20Lemma%204&amp;body=About%20Lemma%204%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CEvery%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%E2%80%9D%2C%20Lemma%204%2C%20v1%2C%20doi%3A10.5281/zenodo.24055900%2C%20https%3A//karlesmarin.github.io/blueprints/bsr-four-four/index.html%23lem%3Aregular.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="lemma_thmcontent">
+<p>  Identify both factors with \({\mathbb {R}}^4\). Let \(S\subset V\) be the span of the four forms \(x_iy_i\) and the six forms \(x_iy_j+x_jy_i\) for \(i{\lt}j\). If \(H\) is a Hankel multiplier and \(S\subseteq \ker H\), then \(H=0\). Consequently \(d\Phi \) is surjective at the tuple consisting of these ten forms and zero. </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Isabelle · ours · part</span><span class="more">show</span></summary><p><b>Only a part is in Isabelle:</b> the linear algebra; the duality from there to «dΦ onto» is on paper</p><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/BSR44_Pieces.thy#L25" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/BSR44_Pieces.html#L25"><code>regular_point_symmetric</code></a> · <code>Isabelle/BSRFourFour/BSR44_Pieces.thy</code>, line 25 — a symmetric Hankel multiplier that vanishes on the symmetric tensors in its first argument is zero (in any size n)</p><pre>theorem regular_point_symmetric:
+  fixes H :: "nat \&lt;Rightarrow&gt; nat \&lt;Rightarrow&gt; nat \&lt;Rightarrow&gt; nat \&lt;Rightarrow&gt; real" and n :: nat
+  assumes sym: "\&lt;And&gt;a b c d. a &lt; n \&lt;Longrightarrow&gt; b &lt; n \&lt;Longrightarrow&gt; c &lt; n \&lt;Longrightarrow&gt; d &lt; n \&lt;Longrightarrow&gt; H a b c d = H c d a b"
+    and hankel: "\&lt;And&gt;a b c d. a &lt; n \&lt;Longrightarrow&gt; b &lt; n \&lt;Longrightarrow&gt; c &lt; n \&lt;Longrightarrow&gt; d &lt; n \&lt;Longrightarrow&gt; H a b c d = H a d c b"
+    and van: "\&lt;And&gt;a b c d. a &lt; n \&lt;Longrightarrow&gt; b &lt; n \&lt;Longrightarrow&gt; c &lt; n \&lt;Longrightarrow&gt; d &lt; n \&lt;Longrightarrow&gt; H a b c d + H b a c d = 0"
+    and idx: "a &lt; n" "b &lt; n" "c &lt; n" "d &lt; n"
+  shows "H a b c d = 0"</pre></details>
+</div><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only — <b>only part of the statement is formal</b> (see the box). <span class="detail">Isabelle: 1 result, no oracles</span></p><p class="lm-ficha"><b>Proof:</b> in this note<span class="sep">·</span><b>Formalized:</b> Isabelle/HOL, by the author (public formalizations repository)<span class="sep">·</span><b>Covers:</b> part: the linear algebra; the duality from there to «dΦ onto» is on paper<span class="sep">·</span><b>Cite:</b> Lemma 4, p. 4, doi:10.5281/zenodo.24055900</p><p class="usado">↳ Used in: <a href="#thm:main">Theorem 1</a>, <a href="#prop:boundary">Proposition 5</a></p>
+<div class="proof_wrapper" id="a0000000019">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p>If \(S\subseteq \ker H\), then \(H(s,v)=H(v,s)=0\) for all \(s\in S\) and \(v\in V\), and \(S\) is the space of symmetric tensors, so \(H(x\otimes y,x\otimes y)=-H(x\otimes y,y\otimes x)=-H(x\otimes x,y\otimes y)=0\) for all \(x,y\), and \(H=0\) by polarization. Hence the products of the ten summands with \(V\) span \(R_2\) (we also checked the rank \(100\) exactly), and adding an eleventh summand, even zero, gives a point where \(d\Phi \) is onto. </p>
+</div>
+</div>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> rank 100 of the products of the ten summands with V, in exact arithmetic; control with the four diagonal summands only: 58. <a href="https://zenodo.org/records/24055900/files/supplement.zip?download=1" target="_blank" rel="noopener"><span class="ttfamily">supplement.zip: check_regular_point.py</span></a> </p>
+</li>
+</ul>
+</details><details class="blk b-lab"><summary>🧪 Lab: The regular point of Lemma 4, in your browser</summary>
+<p> Choose \(n\) and a seed. The lab takes the \(n\) forms \(x_iy_i\) and the \(\binom n2\) forms \(x_iy_j+x_jy_i\), adds them one at a time in the order given by the seed (seed \(0\): the diagonal ones first), multiplies each by every monomial \(x_ay_b\) and computes the rank of these products modulo \(1000003\) in the space of biquadratic forms, of dimension \(\binom {n+1}2^2\). Full rank means that \(d\Phi \) is onto at that point. Controls: the diagonal summands alone, and all but the last pair, stay below. </p>
+<div data-lemmario-lab="0"></div>
+</details><div class="proposition_thmwrapper theorem-style-plain" id="prop:boundary">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">5</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:boundary">#</a>
+<a class="icon proof" href="index.html#a0000000022"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#lem:regular">Lemma 4</a></li>
+<li><a href="index.html#lem:regular">Lemma 4</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=4&amp;n=prop:boundary" title="Open the paper at page 4">📕 p. 4</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:boundary" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Every 4×4 biquadratic sum of squares is a sum of eleven squares”, Proposition 5, v1, doi:10.5281/zenodo.24055900, https://karlesmarin.github.io/blueprints/bsr-four-four/index.html#prop:boundary." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Every%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%20%E2%80%94%20Proposition%205&amp;body=About%20Proposition%205%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CEvery%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%E2%80%9D%2C%20Proposition%205%2C%20v1%2C%20doi%3A10.5281/zenodo.24055900%2C%20https%3A//karlesmarin.github.io/blueprints/bsr-four-four/index.html%23prop%3Aboundary.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>  If \(\Sigma _{11}\neq \Sigma \), there are \(F\in \operatorname {int}\Sigma \cap \partial \Sigma _{11}\), a representation \(F=\sum _{i=1}^{11}h_i^2\) and an indefinite real multiplier \(H\) on \(V\) such that, with \(W=\operatorname {span}(h_i)\): \(W\subseteq \ker H\), \(\dim W=11\) and hence \(\operatorname{rk}H\le 5\); the complex image of \(H\) contains no simple tensor; and \(\sum _ih_iD_i=0\) in \(R_2\) implies \(\sum _iH(D_i,D_i)\ge 0\). </p>
+</div>
+</div><p class="novedad">🆕 <b>Classical and new:</b> the paper: the argument of [Mar, Proposition 3 and Corollary 4], after [BDS]; only the jet count 100 − 14 + 12 = 98 &lt; 99 depends on the size.</p><p class="usado">↳ Used in: <a href="#thm:main">Theorem 1</a>, <a href="#prop:345">Proposition 6</a>, <a href="#prop:334">Proposition 8</a></p>
+<div class="proof_wrapper" id="a0000000022">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> We adapt the argument of <span class="cite">
+	[
+	<a href="index.html#Mar">3</a>
+	, 
+	Proposition
+	
+	3 and Corollary
+	
+	4
+	]
+</span> to \((m,n)=(4,4)\), using Lemma <a href="index.html#lem:regular">4</a>. The only count that depends on the size is the one excluding forms with a singular point with no real factor. Take a pair of conjugate points distinct in both factors and change coordinates over \({\mathbb {C}}\) to \((e_1,e_1),(e_2,e_2)\). A first jet has seven coordinates, the value and the six tangent derivatives, and the two first jets use disjoint sets of seven monomial coefficients, so the joint jet map is surjective over \({\mathbb {C}}\). Conjugation exchanges the two jets, and the restriction to real forms has real rank fourteen. The point varies in real dimension twelve. The incidence therefore has dimension at most \(100-14+12=98\), and its projection cannot fill the boundary patch of dimension \(99\). A singular point with a real factor is impossible at an interior form, by definiteness of the quadratic form in the other factor. Independence of the \(h_i\) is as in <span class="cite">
+	[
+	<a href="index.html#Mar">3</a>
+	, 
+	Corollary
+	
+	4
+	]
+</span>. </p>
+</div>
+</div>
+<p>By Lemma <a href="index.html#lem:supports">3</a> applied to the complexification of \(H\), the supports of \(H\) are, up to exchanging the factors, \(3\times 4\) with rank \(5\), or \(3\times 3\) with rank \(4\).  </p>
+</section><section class="pc-pane"><h1 id="a0000000023">4 Support \(3\times 4\), rank five</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:345">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">6</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:345">#</a>
+<a class="icon proof" href="index.html#a0000000024"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#lem:rank5">Lemma 2</a></li>
+<li><a href="index.html#prop:boundary">Proposition 5</a></li>
+<li><a href="index.html#lem:rank5">Lemma 2</a></li>
+<li><a href="index.html#prop:boundary">Proposition 5</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=4&amp;n=prop:345" title="Open the paper at page 4">📕 p. 4</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:345" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Every 4×4 biquadratic sum of squares is a sum of eleven squares”, Proposition 6, v1, doi:10.5281/zenodo.24055900, https://karlesmarin.github.io/blueprints/bsr-four-four/index.html#prop:345." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Every%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%20%E2%80%94%20Proposition%206&amp;body=About%20Proposition%206%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CEvery%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%E2%80%9D%2C%20Proposition%206%2C%20v1%2C%20doi%3A10.5281/zenodo.24055900%2C%20https%3A//karlesmarin.github.io/blueprints/bsr-four-four/index.html%23prop%3A345.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>  No triple \((F,h,H)\) satisfying the conclusions of Proposition <a href="index.html#prop:boundary">5</a> can have \((a,b_0,r)=(3,4,5)\) or \((4,3,5)\). </p>
+</div>
+</div><p class="usado">↳ Used in: <a href="#thm:main">Theorem 1</a>, <a href="#auto:remark-7"> 7</a></p>
+<div class="proof_wrapper" id="a0000000024">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Here \(\dim \ker H=16-5=11\), so \(W=\ker H\). Let \(x_0\) span the radical in the first factor and \(A'\) be a real complement, \(\dim A'=3\). Then \(x_0\otimes B\subseteq W\), and an orthogonal change of the eleven summands (an orthonormal basis of the preimage of \(x_0\otimes B\), completed) gives \(h_i=x_0\otimes y_i\), \(1\le i\le 4\), for a real basis \((y_i)\) of \(B\). For \(z_{ij}=-z_{ji}\in A'\) put </p>
+<div class="displaymath" id="a0000000025">
+  \[  D_i=\sum _{j=1}^4 z_{ij}\otimes y_j\quad (i\le 4),\qquad D_i=0\quad (i{\gt}4).  \]
+</div>
+<p> Then \(\sum _ih_iD_i=\sum _{i,j}x_0z_{ij}\, y_iy_j=0\) by antisymmetry: these are syzygies, a space \(A'\otimes \Lambda ^2B\) of dimension \(18\). With \(H=T^*JT\) as in §2 (now over \({\mathbb {R}}\), \(\dim E=5\)), the second variation is \(\sum _iH(D_i,D_i)=J^{\oplus 4}(\Psi z)\) for </p>
+<div class="displaymath" id="a0000000026">
+  \[  \Psi :A'\otimes \Lambda ^2B\to E^4,\qquad \Psi (z)=\Big(\sum _jT_{y_j}z_{ij}\Big)_{i=1}^4 .  \]
+</div>
+<p> By Proposition <a href="index.html#prop:boundary">5</a>, \(J^{\oplus 4}\) is non-negative on \(\operatorname{im}\Psi \). Since \(H\) is indefinite, the positive index \(p\) of \(J\) is at most \(4\), and a subspace on which \(J^{\oplus 4}\) is non-negative has dimension at most \(4p\le 16\). Hence \(\operatorname{rk}\Psi \le 16\). </p>
+<p>On the other hand \(\operatorname{rk}\Psi =17\). Complexify and compute the annihilator of \(\operatorname{im}\Psi \) under \(J^{\oplus 4}\): a tuple \((c_i)\in E^4\), i.e. a map \(C:B\to E\) with \(Cy_i=c_i\), annihilates \(\operatorname{im}\Psi \) if and only if the matrix \(\big(\langle Cy_i,T(a\otimes y_j)\rangle _J\big)_{ij}\) is symmetric for every \(a\in A'\) (vary each \(z_{ij}\), \(i{\lt}j\), separately). The three maps \(C=T(a\otimes \cdot )\), \(a\) in a basis of \(A'\), are independent and lie in the annihilator by (2). If there were a fourth independent \(C\), it would extend \(T\) to \(\widetilde T:{\mathbb {C}}^4\otimes B\to E\) satisfying (2): the identities involving the new row are exactly the symmetry just written, and the one of the new row with itself is automatic. Then \(\widetilde T^*J\widetilde T\) is a multiplier of rank \(5\) (as \(T\) is onto) with supports \(4\) and \(4\) (by independence of the new row, and since the second support was already full), and its image contains no simple tensor: a simple covector in it restricts to \(A'\otimes B\) as a simple covector of \(\operatorname{im}H\), excluded by Proposition <a href="index.html#prop:boundary">5</a>, or as zero, and then its representing vector \(z\) has \(\langle z,T(A'\otimes B)\rangle _J=0\), so \(z=0\). This contradicts Lemma <a href="index.html#lem:rank5">2</a>. So the annihilator has dimension \(3\) and \(\operatorname{rk}\Psi =20-3=17{\gt}16\), a contradiction. </p>
+</div>
+</div>
+<details class="blk b-guar"><summary>🛡️ Evidence &amp; scope</summary>
+<ul class="itemize">
+<li><p><b class="bfseries">Program:</b> on the rank-five multiplier with support 3×4 of the supplement of [Mar]: rank Ψ = 17 &gt; 16 and a negative value of the second variation; in the 14 numerical candidates rank Ψ = 17, and 15 in a control built from five product terms. <a href="https://zenodo.org/records/24055900/files/supplement.zip?download=1" target="_blank" rel="noopener"><span class="ttfamily">supplement.zip: check_proof_steps.py</span></a> </p>
+</li>
+</ul>
+</details><div class="remark_thmwrapper theorem-style-definition" id="auto:remark-7">
+<div class="remark_thmheading">
+<span class="remark_thmcaption">
+    Remark
+    </span>
+<span class="remark_thmlabel">7</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#auto:remark-7">#</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#prop:345">Proposition 6</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=5&amp;n=auto:remark-7" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=auto:remark-7" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Every 4×4 biquadratic sum of squares is a sum of eleven squares”, Remark 7, v1, doi:10.5281/zenodo.24055900, https://karlesmarin.github.io/blueprints/bsr-four-four/index.html#auto:remark-7." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Every%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%20%E2%80%94%20Remark%207&amp;body=About%20Remark%207%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CEvery%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%E2%80%9D%2C%20Remark%207%2C%20v1%2C%20doi%3A10.5281/zenodo.24055900%2C%20https%3A//karlesmarin.github.io/blueprints/bsr-four-four/index.html%23auto%3Aremark-7.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="remark_thmcontent">
+<p>  One triple of quaternionic structures does not suffice: for \(z_{ij}=\sum _a\eta ^a_{ij}v_a\) with the ’t Hooft symbols \(\eta ^a\), the second variation is \(\sum _av_a^\top (\sum _jH_{jj})v_a\), because \((\eta ^a)^\top \eta ^b\) has symmetric part \(\delta _{ab}I\) and \(H_{jk}=H_{kj}\); it only says that \(\sum _jH_{jj}\succeq 0\). The argument above uses the whole of \(\Lambda ^2B\). </p>
+</div>
+</div><p class="usado">↳ Not used by another result of the paper.</p>
+</section><section class="pc-pane"><h1 id="a0000000028">5 Support \(3\times 3\), rank four</h1>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:334">
+<div class="proposition_thmheading">
+<span class="proposition_thmcaption">
+    Proposition
+    </span>
+<span class="proposition_thmlabel">8</span>
+<div class="thm_header_extras">
+</div>
+<div class="thm_header_hidden_extras">
+<a class="icon proof" href="index.html#prop:334">#</a>
+<a class="icon proof" href="index.html#a0000000029"><svg class="icon icon-cogs"><use href="#icon-cogs"></use></svg>
+</a>
+<button class="modal"><svg class="icon icon-mindmap"><use href="#icon-mindmap"></use></svg>
+</button>
+<div class="modal-container">
+<div class="modal-content">
+<header>
+<h1>Uses</h1>
+<button class="closebtn"><svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+</header>
+<ul class="uses">
+<li><a href="index.html#prop:boundary">Proposition 5</a></li>
+<li><a href="index.html#prop:boundary">Proposition 5</a></li>
+</ul>
+</div>
+</div>
+</div>
+<a class="pdfp" href="pdf.html#page=5&amp;n=prop:334" title="Open the paper at page 5">📕 p. 5</a><span class="lm-act"><a class="lm-map" href="mapa.html?n=prop:334" title="See this statement in the map of the paper">📍 map</a><a class="lm-cite" data-cite="Carles Marín, “Every 4×4 biquadratic sum of squares is a sum of eleven squares”, Proposition 8, v1, doi:10.5281/zenodo.24055900, https://karlesmarin.github.io/blueprints/bsr-four-four/index.html#prop:334." href="#" title="Cite this statement">❝ cite</a><a class="lm-report" href="mailto:karlesmarin@gmail.com?subject=Every%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%20%E2%80%94%20Proposition%208&amp;body=About%20Proposition%208%20%28Carles%20Mar%C3%ADn%2C%20%E2%80%9CEvery%204%C3%974%20biquadratic%20sum%20of%20squares%20is%20a%20sum%20of%20eleven%20squares%E2%80%9D%2C%20Proposition%208%2C%20v1%2C%20doi%3A10.5281/zenodo.24055900%2C%20https%3A//karlesmarin.github.io/blueprints/bsr-four-four/index.html%23prop%3A334.%29%3A%0A%0A" title="Report a problem with this statement">⚠ report</a></span></div>
+<div class="proposition_thmcontent">
+<p>  No triple \((F,h,H)\) satisfying the conclusions of Proposition <a href="index.html#prop:boundary">5</a> can have \((a,b_0,r)=(3,3,4)\). </p>
+</div><details class="ext-lean ours"><summary><span class="tag">Isabelle · ours · part</span><span class="more">show</span></summary><p><b>Only a part is in Isabelle:</b> the final trace count of the case u ∉ W (trace_count); the two second variations are on paper</p><p><a data-lean-github="https://github.com/karlesmarin/formalizations/blob/7b0452217f47a278e73dbe7295a53fd702af8f59/Isabelle/BSRFourFour/BSR44_Pieces.thy#L92" href="https://karlesmarin.github.io/blueprints/lean/Isabelle/BSRFourFour/BSR44_Pieces.html#L92"><code>trace_count</code></a> · <code>Isabelle/BSRFourFour/BSR44_Pieces.thy</code>, line 92 — eigenvalues at most 1, at most four non-zero, one negative: their sum is less than 3</p><pre>lemma trace_count:
+  fixes lam :: "'i \&lt;Rightarrow&gt; real" and I :: "'i set"
+  assumes fin: "finite I" and le1: "\&lt;And&gt;i. i \&lt;in&gt; I \&lt;Longrightarrow&gt; lam i \&lt;le&gt; 1"
+    and rk: "card {i \&lt;in&gt; I. lam i \&lt;noteq&gt; 0} \&lt;le&gt; 4" and neg: "j \&lt;in&gt; I" "lam j &lt; 0"
+  shows "(\&lt;Sum&gt;i\&lt;in&gt;I. lam i) &lt; 3"</pre></details>
+</div><p class="confianza l-kernel"><b>Trust base:</b> 🔒 kernel only — <b>only part of the statement is formal</b> (see the box). <span class="detail">Isabelle: 1 result, no oracles</span></p><p class="lm-ficha"><b>Proof:</b> in this note<span class="sep">·</span><b>Covers:</b> not formalized<span class="sep">·</span><b>Cite:</b> Proposition 5, p. 4, doi:10.5281/zenodo.24055900</p><p class="usado">↳ Used in: <a href="#thm:main">Theorem 1</a></p>
+<div class="proof_wrapper" id="a0000000029">
+<div class="proof_heading">
+<span class="proof_caption">
+    Proof
+    </span>
+<span class="expand-proof">▼</span>
+</div>
+<div class="proof_content">
+<p> Let \(x_0,y_0\) span the real radicals of the two factors, \(A',B'\) complements and \(u=x_0\otimes y_0\). The space \(U=x_0\otimes B+A\otimes y_0\) has dimension \(7\) and lies in \(K=\ker H\), \(\dim K=12\); \(W\) is a hyperplane of \(K\), and \(K=U\oplus K_0\) with \(K_0=K\cap (A'\otimes B')\). </p>
+<p><em>Case \(u\notin W\).</em> Then \(W\cap (x_0\otimes B)=x_0\otimes L\) with \(\dim L=3\) and \(L\) projecting isomorphically onto \(B/\langle y_0\rangle \). Orthogonalizing on the preimage of this intersection, \(h_i=x_0\otimes y_i\), \(i\le 3\), for a basis of \(L\). The restriction of \(H\) to \(A'\otimes L\) keeps the indices, the rank four and the support three in the first factor. For \(v_1,v_2,v_3\in A'\) put \(D_i=\sum _{j,p}\varepsilon _{ijp}\, v_p\otimes y_j\) for \(i\le 3\) and \(D_i=0\) otherwise; they are syzygies by antisymmetry, and with \(H_{jl}\) the blocks of the restriction and \(S=\sum _jH_{jj}\), Proposition <a href="index.html#prop:boundary">5</a> and the contraction of the alternating symbols give, as in <span class="cite">
+	[
+	<a href="index.html#Mar">3</a>
+	, 
+	§
+	5
+	]
+</span>, </p>
+<div class="displaymath" id="a0000000030">
+  \[  I_3\otimes S-H|_{A'\otimes L}\succeq 0 .  \]
+</div>
+<p> The diagonal blocks sum to \(2S\), so \(S\succeq 0\); if \(Sx=0\), the three diagonal values of this positive semidefinite form at \(x\otimes y_j\) sum to zero, so each \(x\otimes y_j\) is in its kernel, \(H(x\otimes y_j,\cdot )=0\), and \(x=0\) by full support in \(A'\). So \(S\succ 0\), and after the congruence by \(S^{-1/2}\) in the three blocks the matrix of \(H\) has trace \(3\), all eigenvalues at most \(1\), rank four and at least one negative eigenvalue: its trace is less than \(3\), a contradiction. </p>
+<p><em>Case \(u\in W\).</em> An orthogonal change makes \(h_1\) a non-zero multiple of \(u\). Let \(\ell \) be a real linear functional on \(K\) with \(W=\ker \ell \). For \(v=\sum v_{ij}a_i\otimes b_j\in A'\otimes B'\) (bases \(a_i\), \(b_j\)) the lift \(P(v)=\sum _{ij}v_{ij}(a_i\otimes y_0)(x_0\otimes b_j)\in \operatorname {Sym}^2U\) has product \(uv\) in \(R_2\). If \(\ell |_U=0\) all these products lie in \(WK\); otherwise \(\operatorname {Sym}^2U/(U\cap W)U\) is one-dimensional and the class is measured by \((\ell |_U)^2\). So \(uv\in WK\) whenever </p>
+<div class="displaymath" id="a0000000031">
+  \[  \phi (v)=\sum _{ij}v_{ij}\, \ell (a_i\otimes y_0)\, \ell (x_0\otimes b_j)=0 .  \]
+</div>
+<p> The functional \(\phi \) on the active block is zero or simple. If it is non-zero it does not vanish on \(K_0\), since otherwise it would lie in the image of the active part of \(H\), which contains no simple tensor. Choose \(v\) in the active block with \(H(v,v){\lt}0\); adding a real element of \(K_0\) keeps this value and achieves \(\phi (v)=0\). Then \(h_1v\in WK\): write \(-h_1v=\sum _ih_ik_i\) with \(k_i\in K\). The \(D_i=\delta _{i1}v+k_i\) form a syzygy with second variation \(H(v,v){\lt}0\), a contradiction. </p>
+</div>
+</div>
+<p>By Propositions <a href="index.html#prop:345">6</a> and <a href="index.html#prop:334">8</a> no case of Lemma <a href="index.html#lem:supports">3</a> remains: \(\Sigma _{11}=\Sigma \), and with <span class="cite">
+	[
+	<a href="index.html#QC">4</a>
+	, 
+	Theorem
+	
+	3.1
+	]
+</span> Theorem <a href="index.html#thm:main">1</a> follows. <span class="qed">□</span> </p>
+</section><section class="pc-pane"><h1 id="a0000000032">6 Checks and status</h1>
+<p> Computed with exact arithmetic (SymPy): <a href="index.html?lab=lem%3Aregular#lem:regular">the rank \(100\) at the regular point</a> (the control with only the four diagonal summands gives \(58\)); on the rank-five multiplier with support \(3\times 4\) of the supplement of <span class="cite">
+	[
+	<a href="index.html#Mar">3</a>
+	]
+</span> (factors exchanged), \(\operatorname{rk}\Psi =17{\gt}16\) and a negative value of the second variation; the identity (5), the Schur expansion of case (ii) and the rank \(16\) of the polar of \((x^\top b)^2\). Numerically, a Newton search targeting rank-five Hankel multipliers with support \(3\times 4\) and product-free image produced \(14\) numerical candidates; the estimated rank of \(\Psi \) was \(17\) in all \(14\) cases and \(15\) in one control built from five product terms. For all \(312\) tested perturbations \(P+\varepsilon b^2\) of the Qi–Cui witness \(P\), \(\varepsilon \in \{ 10^{-4},10^{-2},1\} \), the solver found approximate representations using eleven bilinear squares. The Isabelle/HOL session <span class="ttfamily">BSRFourFour</span> of <a href="https://github.com/karlesmarin/formalizations/tree/main/Isabelle/BSRFourFour" target="_blank" rel="noopener">our public repository of formalizations</a> verifies the algebraic vanishing assertion in Lemma <a href="index.html#lem:regular">4</a>, the integer enumeration of support and rank triples at the end of Lemma <a href="index.html#lem:supports">3</a>, the injectivity of the polar of \((x^\top b)^2\), and the final trace contradiction in Proposition <a href="index.html#prop:334">8</a>. Lemmas <a href="index.html#lem:rank5">2</a> and <a href="index.html#lem:supports">3</a> themselves, Proposition <a href="index.html#prop:boundary">5</a> and the second variations are not formalized. </p>
+<p>For real positive semidefinite Hankel multipliers, partial transposition fixes the associated state, and the full-support exclusion at rank five in this case follows from Chen and Đoković’s results on PPT states of rank \(N+1\) <span class="cite">
+	[
+	<a href="index.html#CD">2</a>
+	, 
+	Theorems
+	
+	43 and
+	
+	45
+	]
+</span>. Lemma <a href="index.html#lem:rank5">2</a> treats complex symmetric bilinear multipliers, and our boundary argument requires an indefinite real one. We have not located the full complex statement of Lemmas <a href="index.html#lem:rank5">2</a> and <a href="index.html#lem:supports">3</a> in the literature. </p>
+</section><section class="pc-pane"><h1 id="a0000000033">The companion site</h1>
+<p> This note has a companion website, its <em>blueprint</em>, at <a href="index.html">https://karlesmarin.github.io/blueprints/bsr-four-four/</a>. There one finds: </p>
+<ul class="itemize">
+<li><p><a href="index.html#thm:main"><em>The statements.</em></a> Theorem <a href="index.html#thm:main">1</a>, Lemmas <a href="index.html#lem:rank5">2</a>, <a href="index.html#lem:supports">3</a> and <a href="index.html#lem:regular">4</a> and Propositions <a href="index.html#prop:boundary">5</a>, <a href="index.html#prop:345">6</a> and <a href="index.html#prop:334">8</a>, copied verbatim with their numbers and proofs. </p>
+</li>
+<li><p><a href="dep_graph_document.html"><em>The dependencies.</em></a> What each statement uses and where it is used, as a list and as a graph. </p>
+</li>
+<li><p><a href="mapa.html"><em>The map.</em></a> The result, the tools it rests on and the question it answers. </p>
+</li>
+<li><p><a href="index.html?lab=lem%3Aregular#lem:regular"><em>A lab in the browser.</em></a> The rank of the products at the regular point of Lemma <a href="index.html#lem:regular">4</a>, for \(2\le n\le 5\), with its controls. </p>
+</li>
+<li><p><a href="index.html#lem:supports"><em>Formal proofs.</em></a> For each statement, which part is checked in Isabelle/HOL and which is not. </p>
+</li>
+<li><p><a href="pdf.html"><em>The note itself.</em></a> Its PDF, opened at the right page from every statement. </p>
+</li>
+</ul>
+</section><section class="pc-pane"><h1 id="a0000000034">Acknowledgement</h1>
+<p> We worked with an AI assistant. </p>
+</section><section class="pc-pane"><h1 id="a0000000035">References</h1>
+<dl class="bibliography">
+<dt><a name="BDS">1</a></dt>
+<dd><p>G. Blekherman, A. Dunbar, R. Sinn, Pythagoras numbers for ternary forms, <a href="https://arxiv.org/abs/2410.17123v2" rel="noopener" target="_blank">arXiv:2410.17123v2</a>. </p>
+</dd>
+<dt><a name="CD">2</a></dt>
+<dd><p>L. Chen, D. Ž. Đoković, Properties and construction of extreme bipartite states having positive partial transpose, Comm. Math. Phys. 323 (2013), 241–284; <a href="https://arxiv.org/abs/1203.1364" rel="noopener" target="_blank">arXiv:1203.1364</a>. </p>
+</dd>
+<dt><a name="Mar">3</a></dt>
+<dd><p>C. Marín, For \(m\ge 2\), every \(m\times 3\) biquadratic sum of squares is a sum of \(2m\) squares, Zenodo, <a href="https://doi.org/10.5281/zenodo.24051362" rel="noopener" target="_blank">doi:10.5281/zenodo.24051362</a>, 2026. </p>
+</dd>
+<dt><a name="QC">4</a></dt>
+<dd><p>L. Qi, C. Cui, The second-order augmented Zarankiewicz number, <a href="https://arxiv.org/abs/2610.04448v1" rel="noopener" target="_blank">arXiv:2610.04448v1</a>. </p>
+</dd>
+</dl>
+</section>
+</div>
+</div>
+</div>
+</div>
+<nav class="prev_up_next">
+<svg class="icon icon-eye-minus showmore" id="showmore-minus"><use href="#icon-eye-minus"></use></svg>
+<svg class="icon icon-eye-plus showmore" id="showmore-plus"><use href="#icon-eye-plus"></use></svg>
+<a href="index.html" title="Every 4×4 biquadratic sum of squares is a sum of eleven squares: blueprint"><svg class="icon icon-arrow-up"><use href="#icon-arrow-up"></use></svg></a>
+</nav>
+<script src="js/jquery.min.js" type="text/javascript"></script><script src="js/plastex.js" type="text/javascript"></script><script src="js/svgxuse.js" type="text/javascript"></script><script>// lemmario: the Paper / Explore views. Paper hides the commentary and keeps the evidence blocks, the paper's figures
+// and their labs (20-oct); Explore shows everything. Switching view never opens or closes a block: every block starts collapsed. The choice is remembered (localStorage, guarded) and announced with a 'vista'
+// event, so that page-specific scripts (labs) can react.
+(function(){
+  function set(v){
+    document.body.classList.toggle('vista-paper', v==='paper');
+    document.querySelectorAll('#vistas button').forEach(function(b){b.classList.toggle('on', b.dataset.v===v)});
+    try{localStorage.setItem('vista', v)}catch(e){}
+    document.dispatchEvent(new CustomEvent('vista', {detail: v}));
+  }
+  document.addEventListener('click', function(e){var b=e.target.closest('#vistas button'); if(b) set(b.dataset.v)});
+  var v='paper'; try{v=localStorage.getItem('vista')||'paper'}catch(e){}
+  // a link to a figure or a lab (?lab=…, ?fig=…, or an anchor inside a block that Paper hides) lands in Explore and
+  // opens that block (20-oct, Carles: «ir a la figura no nos muestra ninguna fig»: Paper hid it)
+  var q = location.search;
+  if (/[?&](lab|fig)=/.test(q)) v = 'explore';
+  set(v);
+  function hiddenBlock(el){
+    var d = el && el.closest ? el.closest('details.blk') : null;
+    return d && !/\b(b-guar|b-set)\b/.test(d.className) ? d : null;
+  }
+  function reveal(el){
+    var d = hiddenBlock(el);
+    if (!d) return;
+    if (document.body.classList.contains('vista-paper')) set('explore');
+    for (var p = d; p; p = p.parentElement && p.parentElement.closest('details')) p.open = true;
+    setTimeout(function(){ el.scrollIntoView({block: 'start'}); }, 50);
+  }
+  function fromHash(){ if (location.hash) reveal(document.getElementById(decodeURIComponent(location.hash.slice(1)))); }
+  window.addEventListener('hashchange', fromHash);
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href*="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').split('#')[1];
+    if (id) reveal(document.getElementById(decodeURIComponent(id)));
+  });
+  fromHash();
+})();
+</script><script id="lm-citebar">
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a.lm-cite');
+  if (!a) return;
+  e.preventDefault();
+  var head = a.closest('[class$="_thmheading"]') || a.parentElement, box = head.nextElementSibling;
+  if (box && box.classList.contains('lm-citebox')) { box.remove(); return; }
+  box = document.createElement('div'); box.className = 'lm-citebox';
+  box.textContent = a.getAttribute('data-cite');
+  var b = document.createElement('button'); b.type = 'button'; b.textContent = 'copy';
+  b.onclick = function () {
+    try { navigator.clipboard.writeText(a.getAttribute('data-cite')); b.textContent = 'copied'; } catch (x) {}
+  };
+  box.appendChild(b);
+  // the same statement in the blueprint's PDF, at its page (printpdf names a destination for every statement)
+  var holder = head.closest('[id]');
+  if (holder && document.querySelector('a.lm-dl[href="blueprint.pdf"]')) {
+    var p = document.createElement('a');
+    p.href = 'blueprint.pdf#nameddest=' + encodeURIComponent(holder.id); p.target = '_blank'; p.className = 'lm-inpdf';
+    p.textContent = '📄 this statement in the blueprint PDF'; p.title = 'Open the blueprint PDF at this statement';
+    box.appendChild(document.createElement('br')); box.appendChild(p);
+  }
+  head.insertAdjacentElement('afterend', box);
+});
+</script><script>window.LEMMARIO_LABS = [{"id": 0, "node": "lem:regular", "precomputed": {"text": "For n = 4 the 10 symmetric summands give rank 100 out of N = 100, so dΦ is onto at that point (with one more zero summand when n = 4, the point of Lemma 4). Controls: the 4 diagonal summands alone give 58; leaving out the last pair gives 98 < N. A multiplier vanishing on the span of all of them vanishes on every symmetric tensor, and the Hankel symmetry then forces it to be zero (the argument of Lemma 4, checked in Isabelle as regular_point_symmetric).", "plots": [{"kind": "svg", "svg": "<svg viewBox=\"0 0 560 356\" style=\"max-width:100%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"60\" x2=\"544\" y1=\"276.0\" y2=\"276.0\" stroke=\"#eee\"/><text x=\"56\" y=\"279.0\" font-size=\"10\" text-anchor=\"end\">16<\/text><text x=\"60.0\" y=\"290\" font-size=\"10\" text-anchor=\"middle\">1<\/text><line x1=\"60\" x2=\"544\" y1=\"226.4\" y2=\"226.4\" stroke=\"#eee\"/><text x=\"56\" y=\"229.4\" font-size=\"10\" text-anchor=\"end\">32.8<\/text><text x=\"156.8\" y=\"290\" font-size=\"10\" text-anchor=\"middle\">2.8<\/text><line x1=\"60\" x2=\"544\" y1=\"176.8\" y2=\"176.8\" stroke=\"#eee\"/><text x=\"56\" y=\"179.8\" font-size=\"10\" text-anchor=\"end\">49.6<\/text><text x=\"253.6\" y=\"290\" font-size=\"10\" text-anchor=\"middle\">4.6<\/text><line x1=\"60\" x2=\"544\" y1=\"127.2\" y2=\"127.2\" stroke=\"#eee\"/><text x=\"56\" y=\"130.2\" font-size=\"10\" text-anchor=\"end\">66.4<\/text><text x=\"350.4\" y=\"290\" font-size=\"10\" text-anchor=\"middle\">6.4<\/text><line x1=\"60\" x2=\"544\" y1=\"77.6\" y2=\"77.6\" stroke=\"#eee\"/><text x=\"56\" y=\"80.6\" font-size=\"10\" text-anchor=\"end\">83.2<\/text><text x=\"447.2\" y=\"290\" font-size=\"10\" text-anchor=\"middle\">8.2<\/text><line x1=\"60\" x2=\"544\" y1=\"28.0\" y2=\"28.0\" stroke=\"#eee\"/><text x=\"56\" y=\"31.0\" font-size=\"10\" text-anchor=\"end\">100<\/text><text x=\"544.0\" y=\"290\" font-size=\"10\" text-anchor=\"middle\">10<\/text><path d=\"M60.0 276.0 L113.8 231.7 L167.6 190.4 L221.3 152.0 L275.1 116.6 L328.9 87.0 L382.7 66.4 L436.4 45.7 L490.2 33.9 L544.0 28.0\" fill=\"none\" stroke=\"#1B6F8C\" stroke-width=\"2\"/><rect x=\"68\" y=\"324\" width=\"10\" height=\"3\" fill=\"#1B6F8C\"/><text x=\"82\" y=\"328\" font-size=\"11\">rank after k summands (this order)<\/text><path d=\"M60.0 28.0 L544.0 28.0\" fill=\"none\" stroke=\"#999999\" stroke-width=\"2\"/><rect x=\"68\" y=\"338\" width=\"10\" height=\"3\" fill=\"#999999\"/><text x=\"82\" y=\"342\" font-size=\"11\">dimension of the biquadratic forms, 100<\/text><text x=\"280\" y=\"312\" text-anchor=\"middle\" font-size=\"12\">summands used<\/text><text x=\"14\" y=\"160\" font-size=\"12\" text-anchor=\"middle\" transform=\"rotate(-90 14 160)\">rank modulo 1000003<\/text><\/svg>", "title": "n = 4: the products of the summands with V fill R₂"}], "table": {"head": ["k", "summand added", "rank", ""], "rows": [["1", "x1y1", "16", ""], ["2", "x2y2", "31", ""], ["3", "x3y3", "45", ""], ["4", "x4y4", "58", ""], ["5", "x1y2+x2y1", "70", ""], ["6", "x1y3+x3y1", "80", ""], ["7", "x1y4+x4y1", "87", ""], ["8", "x2y3+x3y2", "94", ""], ["9", "x2y4+x4y2", "98", ""], ["10", "x3y4+x4y3", "100", "onto"]]}}, "precomputed_error": "", "files": ["bsr44_lab.py", "labkit.py"], "sources": {"bsr44_lab.py": "# encaje: laboratorio del blueprint bsr-four-four (Lema 4, punto regular): rango de los productos de los sumandos simétricos\n\"\"\"Lab of Lemma 4 of «Every 4×4 biquadratic sum of squares is a sum of eleven squares».\n\nThe summands are the n forms x_i y_i and the C(n,2) forms x_i y_j + x_j y_i. Their products with all monomials\nx_a y_b span the biquadratic forms (dimension C(n+1,2)²) exactly when no non-zero multiplier vanishes on their span:\nd Φ is then onto. The rank is computed modulo the prime 1000003, adding the summands one at a time in the order\nchosen by the seed. Pure Python: it runs in the browser (Pyodide).\"\"\"\nimport json\nimport random\n\nimport labkit as K\n\nP = 1000003\n\n\ndef summands(n):\n    \"\"\"[(name, {(i, j): c})]: the diagonal ones first, then the symmetric pairs.\"\"\"\n    out = [('x%dy%d' % (i + 1, i + 1), {(i, i): 1}) for i in range(n)]\n    for i in range(n):\n        for j in range(i + 1, n):\n            out.append(('x%dy%d+x%dy%d' % (i + 1, j + 1, j + 1, i + 1), {(i, j): 1, (j, i): 1}))\n    return out\n\n\ndef _key(i, k, j, l):\n    return (min(i, k), max(i, k), min(j, l), max(j, l))\n\n\ndef products(h, n):\n    \"\"\"The products of the bilinear form h with every monomial x_a y_b, as dicts on biquadratic monomials.\"\"\"\n    rows = []\n    for a in range(n):\n        for b in range(n):\n            r = {}\n            for (i, j), c in h.items():\n                k = _key(i, a, j, b)\n                r[k] = (r.get(k, 0) + c) % P\n            rows.append({k: v for k, v in r.items() if v})\n    return rows\n\n\nclass Echelon:\n    \"\"\"Incremental row echelon form modulo P; add() returns True when the row is independent.\"\"\"\n\n    def __init__(self):\n        self.piv = {}\n\n    def add(self, row):\n        row = dict(row)\n        while row:\n            k = min(row)\n            if k not in self.piv:\n                inv = pow(row[k], P - 2, P)\n                self.piv[k] = {kk: v * inv % P for kk, v in row.items()}\n                return True\n            f = row[k]\n            for kk, v in self.piv[k].items():\n                row[kk] = (row.get(kk, 0) - f * v) % P\n            row = {kk: v for kk, v in row.items() if v}\n        return False\n\n    def rank(self):\n        return len(self.piv)\n\n\ndef ranks(n, seed=0, drop=None):\n    \"\"\"Ranks after each summand (order shuffled by seed; seed 0 keeps the paper's order); drop: index left out.\"\"\"\n    S = summands(n)\n    order = list(range(len(S)))\n    if seed:\n        random.Random(seed).shuffle(order)\n    if drop is not None:\n        order = [i for i in order if i != drop]\n    E = Echelon()\n    out = []\n    for i in order:\n        for r in products(S[i][1], n):\n            E.add(r)\n        out.append((S[i][0], E.rank()))\n    return out\n\n\ndef run_regular(params):\n    p = json.loads(params)\n    try:\n        n = int(p.get('n', 4))\n        seed = int(p.get('seed', 0))\n    except ValueError:\n        return K.error('n and the seed must be integers.')\n    if not 2 <= n <= 5:\n        return K.error('Choose 2 ≤ n ≤ 5 (the computation runs in your browser).')\n    N = (n * (n + 1) // 2) ** 2\n    full = ranks(n, seed)\n    diag = ranks(n, 0)[:n]\n    short = ranks(n, 0, drop=len(summands(n)) - 1)\n    xs = list(range(1, len(full) + 1))\n    fig = K.svg_plot([\n        {'name': 'rank after k summands (this order)', 'x': xs, 'y': [r for _, r in full], 'mode': 'line'},\n        {'name': 'dimension of the biquadratic forms, %d' % N, 'x': [1, len(full)], 'y': [N, N], 'mode': 'line',\n         'color': '#999999'},\n    ], title='n = %d: the products of the summands with V fill R₂' % n, xlabel='summands used',\n        ylabel='rank modulo 1000003', legend_below=True)\n    rows = [[k + 1, name, r, 'onto' if r == N else ''] for k, (name, r) in enumerate(full)]\n    txt = ('For n = %d the %d symmetric summands give rank %d out of N = %d, so dΦ is onto at that point (with one more '\n           'zero summand when n = 4, the point of Lemma 4). Controls: the %d diagonal summands alone give %d; leaving '\n           'out the last pair gives %d < N. A multiplier vanishing on the span of all of them vanishes on every '\n           'symmetric tensor, and the Hankel symmetry then forces it to be zero (the argument of Lemma 4, checked in '\n           'Isabelle as regular_point_symmetric).'\n           % (n, len(full), full[-1][1], N, n, diag[-1][1], short[-1][1]))\n    return K.result(txt, [fig], K.table(['k', 'summand added', 'rank', ''], rows))\n\n\ndef random_regular():\n    return json.dumps({'n': str(random.randint(2, 5)), 'seed': str(random.randint(1, 999))})\n\n\nif __name__ == '__main__':\n    for n in (2, 3, 4, 5):\n        f = ranks(n)\n        print(n, (n * (n + 1) // 2) ** 2, f[-1][1], ranks(n)[:n][-1][1], ranks(n, 0, drop=len(summands(n)) - 1)[-1][1])\n", "labkit.py": "# encaje: kit común de los laboratorios de Lemmario (Python puro; corre en el navegador con Pyodide y en local).\n\"\"\"labkit: small drawing helpers for the labs of every blueprint, so that a lab only computes its figure.\n\nA lab function receives a JSON string of inputs and returns json.dumps({'text', 'table', 'plots', 'error'}). The\nhelpers build the plots:\n\n- ``svg_plot(series, ...)``: a 2D figure (points or lines) as {'kind': 'svg', ...}; replaces Figure N of the paper\n  when given ``figure='paperfig-N'``;\n- ``clock(points_on, n, ...)``: n positions on a circle, some marked, optional polygon (cyclic structures);\n- ``three_d(items, ...)`` and the item helpers ``points3``, ``curve3``, ``surface3``: a turnable 3D figure, with an\n  optional slider (one list of items per value) — think of the 3D that tells THIS figure's idea best (a torus for a\n  cyclic group, a surface for a function of two parameters, a cloud with a slider for a family…), never a default one;\n- ``table(head, rows)`` and ``result(...)`` to assemble the answer;\n- ``error(msg)`` for bad input.\nCopy it next to the lab (``files = ['lab/<slug>_lab.py', 'lab/labkit.py']``).\"\"\"\nimport json\nimport math\n\nPALETTE = ['#1B6F8C', '#B5530F', '#2E7D32', '#6A1B9A', '#C62828', '#455A64']\n\n\ndef esc(s):\n    return str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\n\n\ndef svg_plot(series, title='', xlabel='', ylabel='', width=560, height=320, figure=None, logy=False,\n             ylim=None, legend_below=False):\n    \"\"\"series: [{'name', 'x': [...], 'y': [...], 'mode': 'points'|'line', 'color', 'size': [...] or number,\n    'highlight': [bool, ...]}]. ylim=(lo, hi) fixes the y range; legend_below puts the legend under the plot\n    (so that it never covers a curve).\"\"\"\n    xs = [x for s in series for x in s['x']]\n    ys = [(math.log10(y) if logy and y > 0 else y) for s in series for y in s['y']]\n    if not xs:\n        return {'kind': 'svg', 'svg': '<svg xmlns=\"http://www.w3.org/2000/svg\"/>', 'title': title}\n    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)\n    if ylim:\n        y0, y1 = ylim\n    L, R, T, B = 60, 16, 28, 44\n    extra = 14 * len(series) + 8 if legend_below else 0\n    X = lambda v: L + (v - x0) / ((x1 - x0) or 1) * (width - L - R)\n    Y = lambda v: height - B - ((math.log10(v) if logy and v > 0 else v) - y0) / ((y1 - y0) or 1) * (height - T - B)\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n         % (width, height + extra)]\n    for i in range(6):  # grid and ticks\n        v = y0 + (y1 - y0) * i / 5\n        y = height - B - (height - T - B) * i / 5\n        o.append('<line x1=\"%d\" x2=\"%d\" y1=\"%.1f\" y2=\"%.1f\" stroke=\"#eee\"/>' % (L, width - R, y, y))\n        o.append('<text x=\"%d\" y=\"%.1f\" font-size=\"10\" text-anchor=\"end\">%s<\/text>'\n                 % (L - 4, y + 3, ('1e%.1f' % v) if logy else ('%.3g' % v)))\n        xv = x0 + (x1 - x0) * i / 5\n        o.append('<text x=\"%.1f\" y=\"%d\" font-size=\"10\" text-anchor=\"middle\">%.3g<\/text>'\n                 % (L + (width - L - R) * i / 5, height - B + 14, xv))\n    for k, s in enumerate(series):\n        c = s.get('color', PALETTE[k % len(PALETTE)])\n        pts = list(zip(s['x'], s['y']))\n        if s.get('mode') == 'line' and len(pts) > 1:\n            o.append('<path d=\"M%s\" fill=\"none\" stroke=\"%s\" stroke-width=\"2\"/>'\n                     % (' L'.join('%.1f %.1f' % (X(x), Y(y)) for x, y in pts), c))\n        else:\n            sizes = s.get('size', 3)\n            hi = s.get('highlight')\n            for i, (x, y) in enumerate(pts):\n                r = sizes[i] if isinstance(sizes, list) else sizes\n                col = PALETTE[1] if hi and hi[i] else c\n                o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%.1f\" fill=\"%s\" fill-opacity=\"0.65\"/>' % (X(x), Y(y), r, col))\n        ly = height + 4 + 14 * k if legend_below else T + 4 + 14 * k\n        o.append('<rect x=\"%d\" y=\"%d\" width=\"10\" height=\"3\" fill=\"%s\"/><text x=\"%d\" y=\"%d\" font-size=\"11\">%s<\/text>'\n                 % (L + 8, ly, c, L + 22, ly + 4, esc(s.get('name', ''))))\n    o.append('<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-size=\"12\">%s<\/text>' % (width / 2, height - 8, esc(xlabel)))\n    o.append('<text x=\"14\" y=\"%d\" font-size=\"12\" text-anchor=\"middle\" transform=\"rotate(-90 14 %d)\">%s<\/text>'\n             % (height / 2, height / 2, esc(ylabel)))\n    o.append('<\/svg>')\n    out = {'kind': 'svg', 'svg': ''.join(o), 'title': title}\n    if figure:\n        out['figure'] = figure\n    return out\n\n\ndef clock(marked, n=12, labels=None, polygon=None, colour='#1B6F8C', title='', cx=150, size=300):\n    \"\"\"n positions on a circle, the ``marked`` ones filled; ``polygon``: positions joined in that order.\"\"\"\n    R, cy = size * 0.33, size * 0.52\n    o = ['<svg viewBox=\"0 0 %d %d\" style=\"max-width:100%%;background:#fff\" xmlns=\"http://www.w3.org/2000/svg\">'\n         % (2 * cx, size), '<text x=\"%d\" y=\"18\" text-anchor=\"middle\" font-size=\"13\">%s<\/text>' % (cx, esc(title)),\n         '<circle cx=\"%d\" cy=\"%.1f\" r=\"%.1f\" fill=\"none\" stroke=\"#bbb\"/>' % (cx, cy, R)]\n    pos = {}\n    for p in range(n):\n        a = math.pi / 2 - 2 * math.pi * p / n\n        x, y = cx + R * math.cos(a), cy - R * math.sin(a)\n        pos[p] = (x, y)\n        on = p in marked\n        o.append('<circle cx=\"%.1f\" cy=\"%.1f\" r=\"%s\" fill=\"%s\" stroke=\"#888\"/>' % (x, y, 6 if on else 3.5,\n                                                                                  colour if on else '#fff'))\n        o.append('<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"middle\" font-size=\"11\">%s<\/text>'\n                 % (cx + (R + 15) * math.cos(a), cy - (R + 15) * math.sin(a) + 4, esc(labels[p] if labels else p)))\n    if polygon and len(polygon) > 1:\n        o.append('<path d=\"M%s\" fill=\"none\" stroke=\"%s\" stroke-dasharray=\"4 3\"/>'\n                 % (' L'.join('%.1f %.1f' % pos[p] for p in polygon), colour))\n    o.append('<\/svg>')\n    return {'kind': 'svg', 'svg': ''.join(o), 'title': ''}\n\n\ndef points3(pts, name='', color=None, size=5, star=False, opacity=0.8):\n    return {'type': 'points', 'points': pts, 'name': name, 'color': color or PALETTE[0], 'size': size,\n            'marker': 'star' if star else 'dot', 'opacity': opacity}\n\n\ndef curve3(pts, name='', color=None, width=2, dash=False):\n    return {'type': 'curve', 'points': pts, 'name': name, 'color': color or PALETTE[2], 'width': width, 'dash': dash}\n\n\ndef surface3(f, xs, ys, name='', color=None, opacity=0.5):\n    \"\"\"The surface z = f(x, y) over the grid xs × ys (or a parametrisation: f returns [x, y, z]).\"\"\"\n    grid = []\n    for x in xs:\n        row = []\n        for y in ys:\n            v = f(x, y)\n            row.append(list(v) if isinstance(v, (list, tuple)) else [x, y, v])\n        grid.append(row)\n    return {'type': 'surface', 'grid': grid, 'name': name, 'color': color or '#c9d6e3', 'opacity': opacity}\n\n\ndef three_d(items, title='', axes=('x', 'y', 'z'), slider=None):\n    \"\"\"slider: {'label', 'values': [...], 'items': [[items for value 1], [items for value 2], ...]}.\"\"\"\n    out = {'kind': '3d', 'title': title, 'axes': list(axes), 'items': items}\n    if slider:\n        out['slider'] = slider\n    return out\n\n\ndef table(head, rows):\n    return {'head': [str(h) for h in head], 'rows': [[str(x) for x in r] for r in rows]}\n\n\ndef result(text='', plots=(), table=None):\n    out = {'text': text, 'plots': list(plots)}\n    if table:\n        out['table'] = table\n    return json.dumps(out)\n\n\ndef error(msg):\n    return json.dumps({'error': msg})\n"}, "module": "bsr44_lab", "function": "run_regular", "packages": [], "inputs": [{"name": "n", "label": "size n", "type": "int", "default": "4", "min": 2, "max": 5}, {"name": "seed", "label": "order (seed, 0 = paper)", "type": "int", "default": "0", "min": 0, "max": 999}], "examples": [{"n": "4", "seed": "0", "label": "n = 4: rank 100, control 58"}, {"n": "3", "seed": "7", "label": "n = 3, shuffled: 36"}, {"n": "5", "seed": "0", "label": "n = 5: rank 225"}], "figures": [], "figure_link": "", "random": "random_regular", "figure_live": false, "button": ""}];</script><script defer="" src="js/lab3d.js?v=6029dc17f7"></script><script defer="" src="js/lablevels.js?v=2db15e5f75"></script><script defer="" src="js/lab.js?v=f41a5b2089"></script><script>
+(function(){
+  var SEL = 'details.b-plain, details.b-fig, details.b-tabs';
+  function apply(v){
+    var ex = v === 'explore';
+    document.body.classList.toggle('vista-explore', ex);
+    document.querySelectorAll(SEL).forEach(function(d){ d.open = ex; });
+  }
+  document.addEventListener('vista', function(e){ apply(e.detail); });
+  apply(document.body.classList.contains('vista-paper') ? 'paper' : 'explore');
+})();
+</script>
+<script src="js/js.cookie.min.js" type="text/javascript"></script>
+<script src="js/showmore.js" type="text/javascript"></script>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane'));
+  if (!panes.length) return;
+  var box = document.querySelector('div.content'), nav = document.querySelector('nav.toc');
+  var head = document.querySelector('body>header'), toggle = document.getElementById('toc-toggle');
+  var phone = window.matchMedia('(max-width: 1023.98px)');
+  function find(h){
+    if (!h) return null;
+    try { h = decodeURIComponent(h); } catch (e) {}
+    return document.getElementById(h) || document.querySelector('a[name="' + h.replace(/["\\]/g, '') + '"]');
+  }
+  function paneOf(t){ return (t && t.closest('section.pc-pane')) || null; }
+  var marked = null;
+  function mark(p){
+    if (p === marked) return;
+    marked = p;
+    document.querySelectorAll('nav.toc ul.sub-toc-0 > li').forEach(function(li){
+      var a = li.querySelector('a'), href = a && a.getAttribute('href') || '';
+      var on = href.charAt(0) === '#' && paneOf(find(href.slice(1))) === p;
+      li.classList.toggle('current', on);
+      var ul = li.querySelector('ul.sub-toc-1'), e = li.querySelector('.expand-toc');
+      if (ul) { ul.classList.toggle('active', on); ul.style.display = ''; }
+      if (e && ul) e.textContent = on ? '\u25bc' : '\u25b6';
+      if (on && nav && !phone.matches) {  // keep the marked entry visible in a long sidebar
+        var r = li.getBoundingClientRect(), n = nav.getBoundingClientRect();
+        if (r.top < n.top || r.bottom > n.bottom) li.scrollIntoView({block: 'nearest'});
+      }
+    });
+  }
+  function closeDrawer(){ if (phone.matches && nav) nav.style.display = 'none'; }
+  function go(h){
+    var t = find(h), p = paneOf(t) || panes[0];
+    mark(p);
+    for (var d = t && t.closest && t.closest('details'); d; d = d.parentElement && d.parentElement.closest('details'))
+      d.open = true;  // a link to a folded block (a table, a figure) unfolds it
+    if (!t || t.id === 'top' || (t === p && p === panes[0])) { if (box) box.scrollTop = 0; window.scrollTo(0, 0); }
+    else t.scrollIntoView({block: 'start'});
+    closeDrawer();
+  }
+  // the section in view: the last one whose top has passed the top of the panel
+  var ticking = false;
+  function spy(){
+    ticking = false;
+    var top = (box ? Math.max(box.getBoundingClientRect().top, 0) : 0) + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }
+  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(spy); } }
+  if (box) box.addEventListener('scroll', onScroll, {passive: true});
+  window.addEventListener('scroll', onScroll, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest && ev.target.closest('a[href]');
+    if (a) {
+      var m = a.getAttribute('href').match(/^(?:index\.html)?#(.+)$/);
+      if (m && ('#' + m[1]) === location.hash) { ev.preventDefault(); go(m[1]); return; }  // same hash: no hashchange
+      if (m && nav && nav.contains(a)) closeDrawer();
+      return;
+    }
+    // phone: a tap outside the open drawer closes it
+    if (phone.matches && nav && nav.style.display && nav.style.display !== 'none' && !nav.contains(ev.target) &&
+        !(toggle && toggle.contains(ev.target))) closeDrawer();
+  });
+  if (toggle) toggle.addEventListener('click', function(){  // the drawer opens below the header, whatever its height
+    if (head) document.documentElement.style.setProperty('--pc-head', head.getBoundingClientRect().bottom + 'px');
+  });
+  function place(){ if (location.hash.length > 1) go(location.hash.slice(1)); else spy(); }
+  place();
+  // the browser's own jump to the hash, and MathJax, move the page after the first placing: place it again
+  window.addEventListener('load', place);
+  if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(place);
+})();
+</script>
+<script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
+<script id="lm-guide">
+(function(){
+  var STEPS = [{"key": "start", "sel": null, "title": "The blueprint of the paper", "text": "Every statement of the paper, how they depend on each other, and what was checked besides the proofs. This short tour shows the pieces, one at a time.", "explore": false}, {"key": "views", "sel": "#vistas", "title": "Two ways to read", "text": "📄 Paper shows the statements and proofs as in the paper. 🔍 Explore adds explanations, figures and labs. When the paper has it, 📖 Complete opens the whole paper: every section, its prose and every statement.", "explore": false}, {"key": "sections", "sel": "nav.toc", "title": "The sections", "text": "The sections of the paper. Click one to read it; every statement has its own link.", "explore": false}, {"key": "statement", "sel": "[class$=\"_thmheading\"]", "title": "A statement", "text": "Each statement carries its number in the paper. Its proof is right below, and you can fold it.", "explore": false}, {"key": "pdf", "sel": "a.pdfp", "title": "The paper at this statement", "text": "📕 opens the paper (PDF) at the page of this statement — in English or in Español.", "explore": false}, {"key": "map", "sel": "a.lm-map", "title": "Where it sits", "text": "📍 shows this statement on the map of the whole paper, highlighted; from there you come back.", "explore": false}, {"key": "cite", "sel": "a.lm-cite", "title": "Cite it, or tell the author", "text": "❝ gives the citation of this statement, ready to copy. ⚠ writes to the author about it.", "explore": false}, {"key": "lab", "sel": "details.b-lab", "title": "Try it yourself", "text": "🧪 A lab runs the paper's own computations in your browser, with values you choose. Nothing to install.", "explore": true}, {"key": "figure", "sel": ".lm-figslot", "title": "Figures in motion", "text": "The figures of the paper, drawn live: drag to turn a 3D figure, press ▶ to animate. The paper's static figure is one click away.", "explore": true}, {"key": "mapview", "sel": "a[href=\"mapa.html\"]", "title": "The whole paper on one page", "text": "🗺️ Map: the main results, the tools they use and what they serve, on one page.", "explore": false}, {"key": "fivescreens", "sel": "a[href$=\"tour.html\"]", "title": "The paper in five screens", "text": "📱 In 5 screens: the paper for a phone or a first look, in five cards: 🎯 the result, 💬 in plain words, 🛠️ how it is proved, 🛡️ what is checked, 🧪 where to try it. Nothing there loads Python.", "explore": false}, {"key": "referee", "sel": "a[href$=\"referee.html\"]", "title": "What a referee has to check", "text": "🔎 Referee: every statement with what supports it (🟢 formal, 🟡 formal in part, 🔵 computation, 🔴 by hand, ⚪ cited), and the list a referee still has to read by hand, each statement after what it uses.", "explore": false}, {"key": "end", "sel": null, "title": "That is all", "text": "❓ Tour repeats this tour; «How to use» explains each piece. Enjoy the paper.", "explore": false}], i = 0, on = null, box = null;
+  function visible(e){ return e && e.offsetParent !== null; }
+  function find(sel){
+    var all = [].slice.call(document.querySelectorAll(sel));
+    return all.filter(visible)[0] || all[0] || null;
+  }
+  // the statement a piece belongs to: the piece's own ancestors, or the nearest statement before it (a lab or a
+  // figure block follows its statement, it is not inside it)
+  function holderOf(el){
+    for (var e = el; e && e !== document.body; e = e.parentElement) {
+      if (e.id && e.id.indexOf(':') > 0) return e.id;
+      for (var p = e.previousElementSibling; p; p = p.previousElementSibling) {
+        if (p.id && p.id.indexOf(':') > 0) return p.id;
+        var q = p.querySelectorAll('[id*=":"]');
+        if (q.length) return q[q.length - 1].id;
+      }
+    }
+    return null;
+  }
+  function clear(){ if (on) on.classList.remove('lm-tour-on'); on = null; }
+  function close(){ clear(); if (box) box.remove(); box = null; }
+  function place(el){
+    var w = Math.min(340, innerWidth - 24), x = 12, y = innerHeight / 2 - 80;
+    if (el) {
+      var r = el.getBoundingClientRect();
+      if (r.height > innerHeight * 0.55) {  // a tall piece (a live figure): the note goes to a corner, not over it
+        x = innerWidth - w - 12; y = innerHeight - 190;
+      } else {
+        x = Math.max(12, Math.min(r.left, innerWidth - w - 12));
+        y = r.bottom + 14 + 170 < innerHeight ? r.bottom + 14 : Math.max(12, r.top - 190);
+      }
+    }
+    box.style.left = x + 'px'; box.style.top = y + 'px'; box.style.width = w + 'px';
+  }
+  function show(k){
+    i = Math.max(0, Math.min(STEPS.length - 1, k));
+    var s = STEPS[i];
+    clear();
+    if (s.explore) { var b = document.querySelector('button[data-v="explore"]'); if (b) b.click(); }
+    var el = s.sel ? find(s.sel) : null;
+    if (el && !visible(el)) {  // in a part of the page that is closed: open the statement it belongs to
+      var holder = holderOf(el);
+      if (holder && decodeURIComponent(location.hash.slice(1)) !== holder) {
+        location.hash = holder; setTimeout(function(){ show(i); }, 450); return;
+      }
+      for (var d = el.parentElement; d; d = d.parentElement) if (d.tagName === 'DETAILS') d.open = true;
+    }
+    if (!box) { box = document.createElement('div'); box.id = 'lm-tour'; document.body.appendChild(box); }
+    box.innerHTML = '<h4></h4><div class="lm-tour-t"></div><div class="lm-tour-nav"><span class="lm-tour-n"></span>' +
+      '<button type="button" class="lm-close">Close</button><button type="button" class="lm-back">Back</button>' +
+      '<button type="button" class="lm-next">Next</button></div>';
+    box.querySelector('h4').textContent = s.title;
+    box.querySelector('.lm-tour-t').textContent = s.text;
+    box.querySelector('.lm-tour-n').textContent = (i + 1) + ' / ' + STEPS.length;
+    box.querySelector('.lm-back').disabled = i === 0;
+    box.querySelector('.lm-next').textContent = i === STEPS.length - 1 ? 'Done' : 'Next';
+    box.querySelector('.lm-close').onclick = close;
+    box.querySelector('.lm-back').onclick = function(){ show(i - 1); };
+    box.querySelector('.lm-next').onclick = function(){ if (i === STEPS.length - 1) close(); else show(i + 1); };
+    if (el) {
+      on = el; el.classList.add('lm-tour-on');
+      el.scrollIntoView({block: el.getBoundingClientRect().height > innerHeight * 0.55 ? 'start' : 'center'});
+    }
+    setTimeout(function(){ place(el); }, 60);
+  }
+  document.addEventListener('keydown', function(e){
+    if (!box) return;
+    if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') show(i + 1); else if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.lm-tourbtn');
+    if (a) { e.preventDefault(); show(0); }
+  });
+  var start = new URLSearchParams(location.search).get('tour');
+  if (start !== null) {
+    var go = function(){ setTimeout(function(){ show(parseInt(start, 10) || 0); }, 500); };
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:main": "Theorem 1", "lem:rank5": "Lemma 2", "lem:supports": "Lemma 3", "lem:regular": "Lemma 4 — a regular point", "prop:boundary": "Proposition 5", "prop:345": "Proposition 6", "auto:remark-7": "Remark 7", "prop:334": "Proposition 8"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<style id="lm-lean-panel-css">
+.lm-veil{position:fixed;inset:0;background:rgba(240,244,248,.55);backdrop-filter:blur(2px);z-index:9998}
+/* 21-oct, Carles: «la pantalla se ve negra y puede confundir»: a light veil, the blueprint stays visible behind */
+.lm-panel{position:fixed;inset:6vh 7vw;z-index:9999;background:#fff;border:1px solid #c9d3de;border-radius:10px;
+  box-shadow:0 14px 48px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+/* 21-oct, Carles: the name centred, a little larger, with a shadow, on a header with its own colour */
+.lm-panel header{background:linear-gradient(180deg,#f3f7fc 0%,#dde7f3 100%);border-bottom:1px solid #b9c8da;
+  box-shadow:0 2px 6px rgba(26,79,139,.12);padding:.55rem .9rem;display:grid;grid-template-columns:1fr minmax(0,auto) 1fr;
+  gap:.9rem;align-items:center;font:14px Arial,sans-serif}
+.lm-panel header b{grid-column:2;text-align:center;font:600 17px/1.2 "Cascadia Code","JetBrains Mono",Consolas,Menlo,monospace;
+  color:#163f6e;letter-spacing:.01em;text-shadow:0 1px 0 #fff,0 2px 4px rgba(22,63,110,.28);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.lm-panel header button{grid-column:3;justify-self:end}
+.lm-panel header a{color:#1a4f8b}.lm-panel header button{border:0;background:#1a4f8b;color:#fff;border-radius:999px;
+  padding:.15rem .7rem;cursor:pointer;font:14px Arial,sans-serif}
+.lm-panel iframe{flex:1;border:0;width:100%;background:#fbfcfe}
+@media (max-width:700px){.lm-panel{inset:0;border-radius:0}}
+</style>
+<script id="lm-lean-panel">
+/* 21-oct, Carles: the Lean opens in a central window over the blueprint, and closing it leaves the reader where he was */
+(function(){
+  /* the browser's Back (or the phone's back gesture) closes the panel instead of leaving the blueprint: the panel
+     pushes one history entry; closing it by hand takes that entry back out (21-oct: «que pueda volver donde estaba») */
+  function quitar(){var p=document.querySelector('.lm-panel'),v=document.querySelector('.lm-veil');
+    if(p)p.remove();if(v)v.remove();document.removeEventListener('keydown',esc);}
+  function cerrar(){if(history.state&&history.state.lmPanel)history.back();else quitar();}
+  window.addEventListener('popstate',function(){quitar();});
+  function esc(e){if(e.key==='Escape')cerrar();}
+  function abrir(href,nombre,gh){quitar();
+    if(!(history.state&&history.state.lmPanel))history.pushState({lmPanel:1},'');
+    var v=document.createElement('div');v.className='lm-veil';v.onclick=cerrar;
+    var p=document.createElement('div');p.className='lm-panel';p.setAttribute('role','dialog');
+    /* 21-oct, Carles: the window header has the name and Close only; the ✒️ stays in the Lean page's own header
+       inside the window, as GitHub does (Carles: «está en dos sitios», «quita el emoji de esa leyenda») */
+    p.innerHTML='<header><b></b>'+
+      '<button type="button" title="Close (Esc)">✕ Close</button></header><iframe title="Lean source"></iframe>';
+    p.querySelector('b').textContent=nombre||'';
+    /* ?panel=1: the Lean page knows it is inside the window (no Atlas link) and the URL skips an old cached copy */
+    var i=href.indexOf('#'),src=(i<0?href:href.slice(0,i))+'?panel=1'+(i<0?'':href.slice(i));
+    p.querySelector('button').onclick=cerrar;p.querySelector('iframe').src=src;
+    document.body.appendChild(v);document.body.appendChild(p);document.addEventListener('keydown',esc);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-lean-github]');
+    if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();abrir(a.href,(a.textContent||'').trim(),a.getAttribute('data-lean-github'));},true);
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body>
+</html>
