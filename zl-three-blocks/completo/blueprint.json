@@ -1,0 +1,385 @@
+{
+ "schema": "lemmario-blueprint/1",
+ "statements": [
+  {
+   "id": "thm:A",
+   "number": "",
+   "title": "three columns: z_L(m,3) = ⌊3m/2⌋ + 2 for every m ≥ 3",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "lem:vertical",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:onefull",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:B",
+   "number": "",
+   "title": "the three-block slope λ_n is always reachable, and exact for n ≤ 6",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:blocks",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:cert",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:blocks",
+   "number": "Lemma 4.1",
+   "title": "the block rule: rows in at most two blocks, pairs across blocks, are admissible",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "def",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:vertical",
+   "number": "Lemma 5.1",
+   "title": "the two rows of a vertical pair share only that column",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "def",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:onefull",
+   "number": "Lemma 5.2",
+   "title": "at most one row is completely occupied",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:vertical",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "prop:cert",
+   "number": "Proposition 6.1",
+   "title": "rational dual certificates for every shadow, n ≤ 6",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:C",
+   "number": "",
+   "title": "the slope ρ_n exists for every n and is rational",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:cert",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:blocks",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:B",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:gap",
+   "number": "Corollary 6.2",
+   "title": "a linear gap to the recursive-line, signed and second-order numbers in every width",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:C",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:onefull",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:family",
+   "number": "Proposition 6.3",
+   "title": "inside the three-block family, balanced blocks are optimal",
+   "status": "part",
+   "formal_part": "the two identities and the non-negativity of the deficit, after publication; that M is the value of the family (construction and weights) and the maximizers are on paper",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:blocks",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:canonical",
+   "number": "",
+   "title": "the canonical base has slope ⌊(n−1)²/4⌋/(n−1) for every n",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:vertical",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:C",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:four",
+   "number": "",
+   "title": "four columns for every m ≥ 6: two linear branches crossing at m = 24",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:onefull",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:C",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:period",
+   "number": "",
+   "title": "F_n(m) − ρ_n m is eventually periodic for every n",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:C",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:four",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:3d",
+   "number": "Proposition 8.1",
+   "title": "one dimension up, the bound of one quarter fails in 3×3×5",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "def",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "def",
+   "number": "Definition 2.1",
+   "title": "the limited augmented Zarankiewicz number z_L (Qi, Cui and Xu, Def. 2.1)",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:slope",
+   "number": "Question 1",
+   "title": "is ρ_n = λ_n for every n? (about slopes, not exact optima)",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:C",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:family",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:gap",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:f4",
+   "number": "Question 2",
+   "title": "minimal period, threshold and explicit formula for n = 5, 6",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:period",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:four",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:third",
+   "number": "Question 3",
+   "title": "an exact inequality 3|E₂| + |E₁| ≤ mn for every maximum base?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:onefull",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:C",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:small",
+   "number": "Question 4",
+   "title": "what replaces the three blocks when m < C(n,2)?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:blocks",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:trilinear",
+   "number": "Question 5",
+   "title": "which three-dimensional analogue bounds the rank of trilinear forms?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:3d",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:distribution",
+   "number": "Question 6",
+   "title": "the slope for a prescribed distribution of the singleton ones",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:canonical",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:C",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  }
+ ],
+ "counts": {
+  "formal": 4,
+  "part": 1,
+  "computation": 6,
+  "hand": 2,
+  "cited": 7,
+  "to_check": 9
+ }
+}
