@@ -1,0 +1,174 @@
+{
+ "schema": "lemmario-blueprint/1",
+ "statements": [
+  {
+   "id": "thm:main",
+   "number": "Theorem 1",
+   "title": "BSR(m,3) = 2m for every m ≥ 2",
+   "status": "part",
+   "formal_part": "partly: the lower bound 2m (Lemma 6, for the witness with slopes 0, …, m−1), the algebraic core of Lemma 2, and for the case e = 1 the second-variation identity in adapted coordinates and the trace contradiction under symmetry, L ⪰ 0, full support, rank ≤ a + 1 and a negative direction (L ⪰ 0 is equivalent to the second-order condition for every variation of the family); outside the formal part: the passage from a representation to the summands x₀ ⊗ y_j in adapted coordinates, Proposition 3, Lemma 5, the case e ≥ 2 and the assembly of the upper bound",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:regular",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:boundary",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:boundary",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:support",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:witness",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": {
+    "verdict": "block",
+    "by": "V250",
+    "date": "2026-11-08",
+    "note": "Por `second_variation_identity`, la desigualdad \\(\\sum_i H(D_i,D_i)\\ge0\\) para toda variación de la familia equivale a la propia hipótesis \\(L\\succeq0\\), así que la cobertura fiel es «identidad de segunda variación en coordenadas adaptadas y contradicción de traza bajo simetría, \\(L\\succeq0\\), soporte pleno, rango \\(\\le a+1\\) y una dirección negativa»."
+   },
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:regular",
+   "number": "Lemma 2",
+   "title": "an integer point where the sum-of-2m-squares map is a submersion",
+   "status": "part",
+   "formal_part": "the linear algebra: a Hankel multiplier vanishing on ker[I P Q] is zero (regular_point_hankel); the duality from there to «dΦ onto» is on paper",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": {
+    "verdict": "approve",
+    "by": "V250",
+    "date": "2026-11-08",
+    "note": "Para todo \\(m\\ge2\\), `regular_point_hankel` expresa que \\(\\ker[I\\ P\\ Q]\\subseteq\\ker H\\) obliga a anular cada entrada de \\(H\\) en los índices del artículo, con el paso por dualidad expresamente fuera de la cobertura."
+   },
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:boundary",
+   "number": "Proposition 3",
+   "title": "a boundary point carries an indefinite Hankel multiplier with first and second order conditions",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:regular",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:boundary",
+   "number": "Corollary 4",
+   "title": "at such a point: independent summands, rank at most m, no simple tensor in the image",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:boundary",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:support",
+   "number": "Lemma 5",
+   "title": "a multiplier without simple tensors has rank above its support",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:witness",
+   "number": "Lemma 6",
+   "title": "an explicit form that needs 2m squares",
+   "status": "part",
+   "formal_part": "the witness with slopes 0, …, m−1 (F_wit): its 2m squares and the lower bound 2m; the paper’s F_m uses slopes 1, …, m, and the change y₂ ↦ y₂ − y₁ that carries one to the other (with the conservation of the SOS length) is not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": {
+    "verdict": "approve",
+    "by": "V250",
+    "date": "2026-11-08",
+    "note": "Para las pendientes \\(0,\\ldots,m-1\\), `wit3_sos` exhibe los \\(2m\\) cuadrados y `wit3_length` prueba que toda representación del mismo polinomio usa al menos \\(2m\\), con el cambio \\(y_2\\mapsto y_2-y_1\\) al testigo del artículo expresamente fuera de la cobertura."
+   },
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:wider",
+   "number": "Corollary 7",
+   "title": "width four: BSR(m,4) ≤ 3m, and 11 ≤ BSR(4,4) ≤ 12",
+   "status": "part",
+   "formal_part": "the implication only: Theorem 1 enters as a hypothesis (bsr_width_four, bsr_upper_three), and Theorem 1 is itself only partly formalized; the comparison identity is fully formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "thm:main",
+     "kind": "assumes"
+    }
+   ],
+   "fidelity": {
+    "verdict": "approve",
+    "by": "V250",
+    "date": "2026-11-08",
+    "note": "`bsr_width_four` deduce \\(\\mathrm{BSR}(m,4)\\le3m\\) de la hipótesis explícita \\(\\mathrm{BSR}(m,3)\\le2m\\), y `bssv_identity` prueba en \\(\\mathbb Z\\) la identidad usada en ambas comparaciones."
+   },
+   "to_check_by_hand": true
+  },
+  {
+   "id": "q:1",
+   "number": "Question 1",
+   "title": "does the method give BSR(m,4)?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:main",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:wider",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  }
+ ],
+ "counts": {
+  "formal": 0,
+  "part": 4,
+  "computation": 1,
+  "hand": 2,
+  "cited": 1,
+  "to_check": 7
+ }
+}
