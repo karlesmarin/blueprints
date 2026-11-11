@@ -67,6 +67,30 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
   header.pc-head nav::-webkit-scrollbar{display:none}
   header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
   header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
 </style></head>
 <body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
 <title>cross</title>
@@ -588,7 +612,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:unit"	[label=unit,		shape=ellipse];	"thm:signo"	[label=signo,		shape=ellipse];	"lem:unit" -> "thm:signo"	[style=dashed];	"prop:res"	[label=res,		shape=ellipse];	"prop:res" -> "lem:unit"	[style=dashed];	"prop:resid"	[color=green,		fillcolor="#9CEC8B",		label=resid,		shape=ellipse,		style=filled];	"prop:res" -> "prop:resid"	[style=dashed];	"prop:Ms"	[color=blue,		fillcolor="#A3D6FF",		label=Ms,		shape=ellipse,		style=filled];	"prop:Ms" -> "lem:unit"	[style=dashed];	"conj:val"	[label=val,		shape=ellipse];	"prop:Ms" -> "conj:val"	[style=dashed];	"thm:crit"	[color=blue,		fillcolor="#A3D6FF",		label=crit,		shape=ellipse,		style=filled];	"thm:valgen"	[label=valgen,		shape=ellipse];	"thm:crit" -> "thm:valgen"	[style=dashed];	"conj:cap"	[label=cap,		shape=ellipse];	"thm:crit" -> "conj:cap"	[style=dashed];	"cor:g2"	[label=g2,		shape=ellipse];	"thm:crit" -> "cor:g2"	[style=dashed];	"thm:dims"	[label=dims,		shape=ellipse];	"thm:valgen" -> "thm:dims"	[style=dashed];	"conj:cap" -> "prop:res"	[style=dashed];	"conj:cap" -> "conj:val"	[style=dashed];	"conj:cap" -> "thm:dims"	[style=dashed];	"prop:slack"	[label=slack,		shape=ellipse];	"conj:cap" -> "prop:slack"	[style=dashed];	"thm:cuenta"	[color=green,		fillcolor="#9CEC8B",		label=cuenta,		shape=ellipse,		style=filled];	"conj:cap" -> "thm:cuenta"	[style=dashed];	"thm:cuenta" -> "prop:resid"	[style=dashed];	"obs:types"	[color=blue,		fillcolor="#A3D6FF",		label=types,		shape=ellipse,		style=filled];	"prop:alph"	[color=green,		fillcolor="#1CAC78",		label=alph,		shape=ellipse,		style=filled];	"prop:alph" -> "thm:signo"	[style=dashed];	"thm:clasif"	[color=blue,		label=clasif,		shape=ellipse];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"prop:alph"	[color=green,		fillcolor="#1CAC78",		label=alph,		shape=ellipse,		style=filled];	"thm:signo"	[label=signo,		shape=ellipse];	"prop:alph" -> "thm:signo"	[style=dashed];	"prop:Ms"	[color=blue,		fillcolor="#A3D6FF",		label=Ms,		shape=ellipse,		style=filled];	"lem:unit"	[label=unit,		shape=ellipse];	"prop:Ms" -> "lem:unit"	[style=dashed];	"conj:val"	[label=val,		shape=ellipse];	"prop:Ms" -> "conj:val"	[style=dashed];	"lem:unit" -> "thm:signo"	[style=dashed];	"thm:crit"	[color=blue,		fillcolor="#A3D6FF",		label=crit,		shape=ellipse,		style=filled];	"conj:cap"	[label=cap,		shape=ellipse];	"thm:crit" -> "conj:cap"	[style=dashed];	"thm:valgen"	[label=valgen,		shape=ellipse];	"thm:crit" -> "thm:valgen"	[style=dashed];	"cor:g2"	[label=g2,		shape=ellipse];	"thm:crit" -> "cor:g2"	[style=dashed];	"conj:cap" -> "conj:val"	[style=dashed];	"prop:res"	[label=res,		shape=ellipse];	"conj:cap" -> "prop:res"	[style=dashed];	"prop:slack"	[label=slack,		shape=ellipse];	"conj:cap" -> "prop:slack"	[style=dashed];	"thm:dims"	[label=dims,		shape=ellipse];	"conj:cap" -> "thm:dims"	[style=dashed];	"thm:cuenta"	[color=green,		fillcolor="#9CEC8B",		label=cuenta,		shape=ellipse,		style=filled];	"conj:cap" -> "thm:cuenta"	[style=dashed];	"thm:valgen" -> "thm:dims"	[style=dashed];	"prop:res" -> "lem:unit"	[style=dashed];	"prop:resid"	[color=green,		fillcolor="#9CEC8B",		label=resid,		shape=ellipse,		style=filled];	"prop:res" -> "prop:resid"	[style=dashed];	"thm:cuenta" -> "prop:resid"	[style=dashed];	"obs:types"	[color=blue,		fillcolor="#A3D6FF",		label=types,		shape=ellipse,		style=filled];	"thm:clasif"	[color=blue,		label=clasif,		shape=ellipse];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -624,13 +648,13 @@ function interactive() {
 }
 
 </script>
-<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="332pt" viewbox="0.00 0.00 509.00 332.00" width="509pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="332pt" viewbox="0.00 0.00 560.00 332.00" width="560pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 328)">
-<!-- lem:unit -->
+<!-- prop:alph -->
 <g class="node" id="node1">
-<title>lem:unit</title>
-<ellipse cx="99" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="99" xml:space="preserve" y="-84.95">unit</text>
+<title>prop:alph</title>
+<ellipse cx="27" cy="-90" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="27" xml:space="preserve" y="-84.95">alph</text>
 </g>
 <!-- thm:signo -->
 <g class="node" id="node2">
@@ -638,185 +662,185 @@ function interactive() {
 <ellipse cx="63" cy="-18" fill="none" rx="30.88" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="63" xml:space="preserve" y="-12.95">signo</text>
 </g>
-<!-- lem:unit&#45;&gt;thm:signo -->
+<!-- prop:alph&#45;&gt;thm:signo -->
 <g class="edge" id="edge1">
+<title>prop:alph-&gt;thm:signo</title>
+<path d="M35.72,-72.06C39.78,-64.14 44.72,-54.54 49.27,-45.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="53.81,-36.87 53.24,-47.82 52.08,-40.24 49.24,-45.77 49.24,-45.77 49.24,-45.77 52.08,-40.24 45.23,-43.71 53.81,-36.87" stroke="black"></polygon>
+</g>
+<!-- prop:Ms -->
+<g class="node" id="node3">
+<title>prop:Ms</title>
+<ellipse cx="50" cy="-234" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="50" xml:space="preserve" y="-228.95">Ms</text>
+</g>
+<!-- lem:unit -->
+<g class="node" id="node4">
+<title>lem:unit</title>
+<ellipse cx="99" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="99" xml:space="preserve" y="-84.95">unit</text>
+</g>
+<!-- prop:Ms&#45;&gt;lem:unit -->
+<g class="edge" id="edge2">
+<title>prop:Ms-&gt;lem:unit</title>
+<path d="M43.37,-215.81C37.31,-197.28 30.73,-167.31 41,-144 47.08,-130.21 58.71,-118.45 69.97,-109.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="77.83,-103.74 72.45,-113.3 74.79,-105.99 69.78,-109.68 69.78,-109.68 69.78,-109.68 74.79,-105.99 67.11,-106.06 77.83,-103.74" stroke="black"></polygon>
+</g>
+<!-- conj:val -->
+<g class="node" id="node5">
+<title>conj:val</title>
+<ellipse cx="77" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="77" xml:space="preserve" y="-156.95">val</text>
+</g>
+<!-- prop:Ms&#45;&gt;conj:val -->
+<g class="edge" id="edge3">
+<title>prop:Ms-&gt;conj:val</title>
+<path d="M56.67,-215.7C59.62,-208.07 63.15,-198.92 66.43,-190.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="69.96,-181.24 70.57,-192.19 68.6,-184.77 66.37,-190.57 66.37,-190.57 66.37,-190.57 68.6,-184.77 62.17,-188.95 69.96,-181.24" stroke="black"></polygon>
+</g>
+<!-- lem:unit&#45;&gt;thm:signo -->
+<g class="edge" id="edge4">
 <title>lem:unit-&gt;thm:signo</title>
 <path d="M90.28,-72.06C86.22,-64.14 81.28,-54.54 76.72,-45.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
 <polygon fill="black" points="72.19,-36.87 80.77,-43.71 73.92,-40.24 76.76,-45.77 76.76,-45.77 76.76,-45.77 73.92,-40.24 72.76,-47.82 72.19,-36.87" stroke="black"></polygon>
 </g>
+<!-- thm:crit -->
+<g class="node" id="node6">
+<title>thm:crit</title>
+<ellipse cx="367" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="367" xml:space="preserve" y="-300.95">crit</text>
+</g>
+<!-- conj:cap -->
+<g class="node" id="node7">
+<title>conj:cap</title>
+<ellipse cx="245" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="245" xml:space="preserve" y="-228.95">cap</text>
+</g>
+<!-- thm:crit&#45;&gt;conj:cap -->
+<g class="edge" id="edge5">
+<title>thm:crit-&gt;conj:cap</title>
+<path d="M346.58,-293.28C327.05,-282.08 297.36,-265.05 275.12,-252.28" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="266.55,-247.36 277.46,-248.43 269.83,-249.24 275.22,-252.34 275.22,-252.34 275.22,-252.34 269.83,-249.24 272.98,-256.24 266.55,-247.36" stroke="black"></polygon>
+</g>
+<!-- thm:valgen -->
+<g class="node" id="node8">
+<title>thm:valgen</title>
+<ellipse cx="367" cy="-234" fill="none" rx="35.49" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="367" xml:space="preserve" y="-228.95">valgen</text>
+</g>
+<!-- thm:crit&#45;&gt;thm:valgen -->
+<g class="edge" id="edge6">
+<title>thm:crit-&gt;thm:valgen</title>
+<path d="M367,-287.34C367,-280.07 367,-271.47 367,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="367,-253.64 371.5,-263.64 367,-257.42 367,-263.64 367,-263.64 367,-263.64 367,-257.42 362.5,-263.64 367,-253.64" stroke="black"></polygon>
+</g>
+<!-- cor:g2 -->
+<g class="node" id="node9">
+<title>cor:g2</title>
+<ellipse cx="447" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="447" xml:space="preserve" y="-228.95">g2</text>
+</g>
+<!-- thm:crit&#45;&gt;cor:g2 -->
+<g class="edge" id="edge7">
+<title>thm:crit-&gt;cor:g2</title>
+<path d="M383.19,-290.83C394.47,-280.97 409.71,-267.63 422.48,-256.46" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="429.91,-249.94 425.36,-259.92 427.07,-252.44 422.39,-256.54 422.39,-256.54 422.39,-256.54 427.07,-252.44 419.43,-253.15 429.91,-249.94" stroke="black"></polygon>
+</g>
+<!-- conj:cap&#45;&gt;conj:val -->
+<g class="edge" id="edge8">
+<title>conj:cap-&gt;conj:val</title>
+<path d="M221.46,-224.03C194.92,-213.81 150.57,-196.4 113,-180 111.54,-179.36 110.04,-178.7 108.54,-178.02" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="99.71,-173.97 110.68,-174.05 103.15,-175.55 108.8,-178.14 108.8,-178.14 108.8,-178.14 103.15,-175.55 106.92,-182.23 99.71,-173.97" stroke="black"></polygon>
+</g>
 <!-- prop:res -->
-<g class="node" id="node3">
+<g class="node" id="node10">
 <title>prop:res</title>
-<ellipse cx="159" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="159" xml:space="preserve" y="-156.95">res</text>
+<ellipse cx="149" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="149" xml:space="preserve" y="-156.95">res</text>
+</g>
+<!-- conj:cap&#45;&gt;prop:res -->
+<g class="edge" id="edge9">
+<title>conj:cap-&gt;prop:res</title>
+<path d="M226.94,-219.83C212.6,-209.37 192.31,-194.58 176.02,-182.7" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="167.96,-176.83 178.7,-179.08 171.02,-179.06 176.05,-182.72 176.05,-182.72 176.05,-182.72 171.02,-179.06 173.39,-186.35 167.96,-176.83" stroke="black"></polygon>
+</g>
+<!-- prop:slack -->
+<g class="node" id="node11">
+<title>prop:slack</title>
+<ellipse cx="224" cy="-162" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="224" xml:space="preserve" y="-156.95">slack</text>
+</g>
+<!-- conj:cap&#45;&gt;prop:slack -->
+<g class="edge" id="edge10">
+<title>conj:cap-&gt;prop:slack</title>
+<path d="M239.81,-215.7C237.58,-208.26 234.92,-199.39 232.42,-191.06" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="229.63,-181.76 236.81,-190.04 230.72,-185.38 232.5,-191.34 232.5,-191.34 232.5,-191.34 230.72,-185.38 228.19,-192.63 229.63,-181.76" stroke="black"></polygon>
+</g>
+<!-- thm:dims -->
+<g class="node" id="node12">
+<title>thm:dims</title>
+<ellipse cx="389" cy="-162" fill="none" rx="29.34" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="389" xml:space="preserve" y="-156.95">dims</text>
+</g>
+<!-- conj:cap&#45;&gt;thm:dims -->
+<g class="edge" id="edge11">
+<title>conj:cap-&gt;thm:dims</title>
+<path d="M266.87,-222.37C290.59,-210.84 328.72,-192.3 356.07,-179.01" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="364.87,-174.73 357.85,-183.15 361.47,-176.39 355.88,-179.1 355.88,-179.1 355.88,-179.1 361.47,-176.39 353.91,-175.06 364.87,-174.73" stroke="black"></polygon>
+</g>
+<!-- thm:cuenta -->
+<g class="node" id="node13">
+<title>thm:cuenta</title>
+<ellipse cx="307" cy="-162" fill="#9cec8b" rx="34.97" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="307" xml:space="preserve" y="-156.95">cuenta</text>
+</g>
+<!-- conj:cap&#45;&gt;thm:cuenta -->
+<g class="edge" id="edge12">
+<title>conj:cap-&gt;thm:cuenta</title>
+<path d="M258.45,-217.81C266.36,-208.89 276.53,-197.41 285.51,-187.26" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="291.9,-180.04 288.64,-190.51 289.4,-182.87 285.27,-187.53 285.27,-187.53 285.27,-187.53 289.4,-182.87 281.9,-184.54 291.9,-180.04" stroke="black"></polygon>
+</g>
+<!-- thm:valgen&#45;&gt;thm:dims -->
+<g class="edge" id="edge13">
+<title>thm:valgen-&gt;thm:dims</title>
+<path d="M372.55,-215.34C374.86,-207.98 377.6,-199.27 380.18,-191.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="383.16,-181.58 384.46,-192.47 382.03,-185.19 380.17,-191.12 380.17,-191.12 380.17,-191.12 382.03,-185.19 375.87,-189.77 383.16,-181.58" stroke="black"></polygon>
 </g>
 <!-- prop:res&#45;&gt;lem:unit -->
-<g class="edge" id="edge2">
+<g class="edge" id="edge14">
 <title>prop:res-&gt;lem:unit</title>
-<path d="M145.68,-145.46C137.99,-136.49 128.16,-125.02 119.5,-114.92" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="113.07,-107.42 123,-112.08 115.53,-110.29 119.58,-115.01 119.58,-115.01 119.58,-115.01 115.53,-110.29 116.16,-117.94 113.07,-107.42" stroke="black"></polygon>
+<path d="M137.65,-145.12C131.45,-136.43 123.64,-125.49 116.66,-115.72" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="111.01,-107.81 120.48,-113.33 113.21,-110.89 116.82,-115.95 116.82,-115.95 116.82,-115.95 113.21,-110.89 113.16,-118.56 111.01,-107.81" stroke="black"></polygon>
 </g>
 <!-- prop:resid -->
-<g class="node" id="node4">
+<g class="node" id="node14">
 <title>prop:resid</title>
 <ellipse cx="199" cy="-90" fill="#9cec8b" rx="28.83" ry="18" stroke="green" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="199" xml:space="preserve" y="-84.95">resid</text>
 </g>
 <!-- prop:res&#45;&gt;prop:resid -->
-<g class="edge" id="edge3">
+<g class="edge" id="edge15">
 <title>prop:res-&gt;prop:resid</title>
-<path d="M168.48,-144.41C173.16,-136.22 178.92,-126.14 184.17,-116.95" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="188.99,-108.53 187.93,-119.44 187.11,-111.81 184.02,-117.21 184.02,-117.21 184.02,-117.21 187.11,-111.81 180.12,-114.98 188.99,-108.53" stroke="black"></polygon>
-</g>
-<!-- prop:Ms -->
-<g class="node" id="node5">
-<title>prop:Ms</title>
-<ellipse cx="60" cy="-234" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="60" xml:space="preserve" y="-228.95">Ms</text>
-</g>
-<!-- prop:Ms&#45;&gt;lem:unit -->
-<g class="edge" id="edge4">
-<title>prop:Ms-&gt;lem:unit</title>
-<path d="M53.69,-215.65C48.03,-197.24 41.89,-167.62 51,-144 55.72,-131.76 64.72,-120.6 73.66,-111.71" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="80.84,-105.04 76.58,-115.14 78.07,-107.61 73.52,-111.85 73.52,-111.85 73.52,-111.85 78.07,-107.61 70.45,-108.55 80.84,-105.04" stroke="black"></polygon>
-</g>
-<!-- conj:val -->
-<g class="node" id="node6">
-<title>conj:val</title>
-<ellipse cx="87" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="87" xml:space="preserve" y="-156.95">val</text>
-</g>
-<!-- prop:Ms&#45;&gt;conj:val -->
-<g class="edge" id="edge5">
-<title>prop:Ms-&gt;conj:val</title>
-<path d="M66.67,-215.7C69.62,-208.07 73.15,-198.92 76.43,-190.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="79.96,-181.24 80.57,-192.19 78.6,-184.77 76.37,-190.57 76.37,-190.57 76.37,-190.57 78.6,-184.77 72.17,-188.95 79.96,-181.24" stroke="black"></polygon>
-</g>
-<!-- thm:crit -->
-<g class="node" id="node7">
-<title>thm:crit</title>
-<ellipse cx="316" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="316" xml:space="preserve" y="-300.95">crit</text>
-</g>
-<!-- thm:valgen -->
-<g class="node" id="node8">
-<title>thm:valgen</title>
-<ellipse cx="398" cy="-234" fill="none" rx="35.49" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="398" xml:space="preserve" y="-228.95">valgen</text>
-</g>
-<!-- thm:crit&#45;&gt;thm:valgen -->
-<g class="edge" id="edge6">
-<title>thm:crit-&gt;thm:valgen</title>
-<path d="M332.59,-290.83C343.77,-281.29 358.76,-268.5 371.56,-257.57" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="379.08,-251.15 374.4,-261.06 376.21,-253.61 371.48,-257.64 371.48,-257.64 371.48,-257.64 376.21,-253.61 368.56,-254.22 379.08,-251.15" stroke="black"></polygon>
-</g>
-<!-- conj:cap -->
-<g class="node" id="node9">
-<title>conj:cap</title>
-<ellipse cx="240" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="240" xml:space="preserve" y="-228.95">cap</text>
-</g>
-<!-- thm:crit&#45;&gt;conj:cap -->
-<g class="edge" id="edge7">
-<title>thm:crit-&gt;conj:cap</title>
-<path d="M300.25,-290.5C289.76,-280.83 275.76,-267.94 263.9,-257.02" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="256.63,-250.32 267.03,-253.78 259.41,-252.88 263.98,-257.09 263.98,-257.09 263.98,-257.09 259.41,-252.88 260.93,-260.4 256.63,-250.32" stroke="black"></polygon>
-</g>
-<!-- cor:g2 -->
-<g class="node" id="node10">
-<title>cor:g2</title>
-<ellipse cx="316" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="316" xml:space="preserve" y="-228.95">g2</text>
-</g>
-<!-- thm:crit&#45;&gt;cor:g2 -->
-<g class="edge" id="edge8">
-<title>thm:crit-&gt;cor:g2</title>
-<path d="M316,-287.34C316,-280.07 316,-271.47 316,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="316,-253.64 320.5,-263.64 316,-257.42 316,-263.64 316,-263.64 316,-263.64 316,-257.42 311.5,-263.64 316,-253.64" stroke="black"></polygon>
-</g>
-<!-- thm:dims -->
-<g class="node" id="node11">
-<title>thm:dims</title>
-<ellipse cx="399" cy="-162" fill="none" rx="29.34" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="399" xml:space="preserve" y="-156.95">dims</text>
-</g>
-<!-- thm:valgen&#45;&gt;thm:dims -->
-<g class="edge" id="edge9">
-<title>thm:valgen-&gt;thm:dims</title>
-<path d="M398.25,-215.34C398.36,-208.07 398.48,-199.47 398.59,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="398.73,-181.64 403.09,-191.7 398.68,-185.42 398.59,-191.64 398.59,-191.64 398.59,-191.64 398.68,-185.42 394.09,-191.57 398.73,-181.64" stroke="black"></polygon>
-</g>
-<!-- conj:cap&#45;&gt;prop:res -->
-<g class="edge" id="edge10">
-<title>conj:cap-&gt;prop:res</title>
-<path d="M223.61,-218.83C212.19,-208.97 196.75,-195.63 183.83,-184.46" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="176.29,-177.94 186.8,-181.08 179.15,-180.41 183.85,-184.48 183.85,-184.48 183.85,-184.48 179.15,-180.41 180.91,-187.88 176.29,-177.94" stroke="black"></polygon>
-</g>
-<!-- conj:cap&#45;&gt;conj:val -->
-<g class="edge" id="edge11">
-<title>conj:cap-&gt;conj:val</title>
-<path d="M217.52,-222.94C193.93,-212.36 155.79,-195.17 123,-180 121.73,-179.41 120.44,-178.81 119.13,-178.2" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="110.16,-174 121.13,-174.17 113.59,-175.6 119.22,-178.24 119.22,-178.24 119.22,-178.24 113.59,-175.6 117.31,-182.32 110.16,-174" stroke="black"></polygon>
-</g>
-<!-- conj:cap&#45;&gt;thm:dims -->
-<g class="edge" id="edge12">
-<title>conj:cap-&gt;thm:dims</title>
-<path d="M262.77,-223.09C287.11,-212.48 326.82,-195.13 361,-180 362.45,-179.36 363.92,-178.71 365.41,-178.04" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="374.19,-174.14 366.88,-182.31 370.73,-175.67 365.05,-178.2 365.05,-178.2 365.05,-178.2 370.73,-175.67 363.22,-174.09 374.19,-174.14" stroke="black"></polygon>
-</g>
-<!-- prop:slack -->
-<g class="node" id="node12">
-<title>prop:slack</title>
-<ellipse cx="322" cy="-162" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="322" xml:space="preserve" y="-156.95">slack</text>
-</g>
-<!-- conj:cap&#45;&gt;prop:slack -->
-<g class="edge" id="edge13">
-<title>conj:cap-&gt;prop:slack</title>
-<path d="M256.59,-218.83C268,-209.1 283.37,-195.98 296.35,-184.9" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="303.94,-178.42 299.26,-188.34 301.07,-180.88 296.34,-184.91 296.34,-184.91 296.34,-184.91 301.07,-180.88 293.42,-181.49 303.94,-178.42" stroke="black"></polygon>
-</g>
-<!-- thm:cuenta -->
-<g class="node" id="node13">
-<title>thm:cuenta</title>
-<ellipse cx="239" cy="-162" fill="#9cec8b" rx="34.97" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="239" xml:space="preserve" y="-156.95">cuenta</text>
-</g>
-<!-- conj:cap&#45;&gt;thm:cuenta -->
-<g class="edge" id="edge14">
-<title>conj:cap-&gt;thm:cuenta</title>
-<path d="M239.75,-215.34C239.64,-208.07 239.52,-199.47 239.41,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="239.27,-181.64 243.91,-191.57 239.32,-185.42 239.41,-191.64 239.41,-191.64 239.41,-191.64 239.32,-185.42 234.91,-191.7 239.27,-181.64" stroke="black"></polygon>
+<path d="M160.35,-145.12C166.4,-136.64 173.99,-126.02 180.84,-116.43" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="186.64,-108.3 184.49,-119.06 184.45,-111.38 180.83,-116.44 180.83,-116.44 180.83,-116.44 184.45,-111.38 177.17,-113.83 186.64,-108.3" stroke="black"></polygon>
 </g>
 <!-- thm:cuenta&#45;&gt;prop:resid -->
-<g class="edge" id="edge15">
+<g class="edge" id="edge16">
 <title>thm:cuenta-&gt;prop:resid</title>
-<path d="M229.32,-144.05C224.75,-136.06 219.19,-126.33 214.09,-117.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="209.2,-108.85 218.07,-115.29 211.07,-112.13 214.16,-117.53 214.16,-117.53 214.16,-117.53 211.07,-112.13 210.26,-119.76 209.2,-108.85" stroke="black"></polygon>
+<path d="M285.4,-147C268.84,-136.27 245.82,-121.35 227.71,-109.61" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="219.76,-104.45 230.6,-106.12 222.93,-106.51 228.15,-109.9 228.15,-109.9 228.15,-109.9 222.93,-106.51 225.7,-113.67 219.76,-104.45" stroke="black"></polygon>
 </g>
 <!-- obs:types -->
-<g class="node" id="node14">
-<title>obs:types</title>
-<ellipse cx="391" cy="-306" fill="#a3d6ff" rx="30.37" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="391" xml:space="preserve" y="-300.95">types</text>
-</g>
-<!-- prop:alph -->
 <g class="node" id="node15">
-<title>prop:alph</title>
-<ellipse cx="27" cy="-90" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="27" xml:space="preserve" y="-84.95">alph</text>
-</g>
-<!-- prop:alph&#45;&gt;thm:signo -->
-<g class="edge" id="edge16">
-<title>prop:alph-&gt;thm:signo</title>
-<path d="M35.72,-72.06C39.78,-64.14 44.72,-54.54 49.27,-45.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="53.81,-36.87 53.24,-47.82 52.08,-40.24 49.24,-45.77 49.24,-45.77 49.24,-45.77 52.08,-40.24 45.23,-43.71 53.81,-36.87" stroke="black"></polygon>
+<title>obs:types</title>
+<ellipse cx="442" cy="-306" fill="#a3d6ff" rx="30.37" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="442" xml:space="preserve" y="-300.95">types</text>
 </g>
 <!-- thm:clasif -->
 <g class="node" id="node16">
 <title>thm:clasif</title>
-<ellipse cx="470" cy="-306" fill="none" rx="30.88" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="470" xml:space="preserve" y="-300.95">clasif</text>
+<ellipse cx="521" cy="-306" fill="none" rx="30.88" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="521" xml:space="preserve" y="-300.95">clasif</text>
 </g>
 </g>
 </svg>
@@ -834,7 +858,7 @@ function interactive() {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:crit": "Theorem 3.1 — the criterion", "prop:alph": "Proposition 4.1", "thm:clasif": "Theorem 5.1 — which denominators give integer values", "conj:cap": "Corollary 6.1 — capacity, type $C$", "prop:slack": "Proposition 6.2", "thm:signo": "Theorem 7.1 — the value, every power, type $C$", "conj:val": "Theorem 8.1 — value, $k=2$, absolute value", "prop:Ms": "Proposition 8.2", "thm:valgen": "Theorem 8.3 — the absolute value, any $k$ --- modulo Lemma~\\ref{lem:unit}", "lem:unit": "Lemma 8.4 — the unit", "prop:res": "Proposition 9.1 — the residue lemma", "prop:resid": "Proposition 9.2 — the difference is another group's", "thm:dims": "Theorem 10.1 — the modulus, factored", "thm:cuenta": "Theorem 11.1 — the count, every $q$, type $C$", "cor:g2": "Corollary 12.1", "obs:types": "Observation 13.1"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:crit": "Theorem 3.1 — the criterion", "prop:alph": "Proposition 4.1", "thm:clasif": "Theorem 5.1 — which denominators give integer values", "conj:cap": "Corollary 6.1 — capacity, type $C$", "prop:slack": "Proposition 6.2", "thm:signo": "Theorem 7.1 — the value, every power, type $C$", "conj:val": "Theorem 8.1 — value, $k=2$, absolute value", "prop:Ms": "Proposition 8.2", "thm:valgen": "Theorem 8.3 — the absolute value, any $k$ --- modulo Lemma~\\ref{lem:unit}", "lem:unit": "Lemma 8.4 — the unit", "prop:res": "Proposition 9.1 — the residue lemma", "prop:resid": "Proposition 9.2 — the difference is another group's", "thm:dims": "Theorem 10.1 — the modulus, factored", "thm:cuenta": "Theorem 11.1 — the count, every $q$, type $C$", "cor:g2": "Corollary 12.1", "obs:types": "Observation 13.1"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
