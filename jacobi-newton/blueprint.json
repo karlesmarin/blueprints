@@ -1,0 +1,132 @@
+{
+ "schema": "lemmario-blueprint/1",
+ "statements": [
+  {
+   "id": "thm:jacobi",
+   "number": "Theorem 1",
+   "title": "Jacobi's formula: (det M)′ = tr(adj M · M′) for a matrix of polynomials",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "def:resolvent",
+   "number": "Definition 1",
+   "title": "the resolvent series Σₖ MᵏXᵏ, a matrix of formal power series",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:resolvent",
+   "number": "Lemma 1",
+   "title": "the resolvent inverts I − XM, and its trace is the trace generating function",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "def:resolvent",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:newton",
+   "number": "Theorem 2",
+   "title": "Newton's identity for matrix traces: (charpolyRev M)′ = −charpolyRev M · Σ tr(Mᵏ⁺¹)Xᵏ",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "thm:jacobi",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:resolvent",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:walks",
+   "number": "Lemma 2",
+   "title": "entries of Mᵏ sum the weights of length-k walks; for a 0–1 relation matrix they count directed walks",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:ihara",
+   "number": "Theorem 3",
+   "title": "the Ihara Nₖ identity: Σ tr(Bᵏ⁺¹)Xᵏ from the adjacency data (A, D)",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "thm:jacobi",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:newton",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:Nk",
+   "number": "Theorem 4",
+   "title": "tr(Bᵏ) counts closed non-backtracking walks rooted at a dart",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Lean 4"
+   ],
+   "relations": [
+    {
+     "to": "lem:walks",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  }
+ ],
+ "counts": {
+  "formal": 6,
+  "part": 0,
+  "computation": 0,
+  "hand": 0,
+  "cited": 1,
+  "to_check": 0
+ }
+}
