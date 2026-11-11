@@ -67,6 +67,30 @@ header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-wei
   header.pc-head nav::-webkit-scrollbar{display:none}
   header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
   header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
 </style></head>
 <body><svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" id="lm-icons"><defs><symbol id="icon-cross" viewBox="0 0 32 32">
 <title>cross</title>
@@ -368,7 +392,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:central"	[label=central,		shape=ellipse];	"lem:delta3"	[color=blue,		fillcolor="#A3D6FF",		label=delta3,		shape=ellipse,		style=filled];	"thm:deltamedia"	[label=deltamedia,		shape=ellipse];	"lem:delta3" -> "thm:deltamedia"	[style=dashed];	"thm:deltamedia" -> "thm:central"	[style=dashed];	"prop:familia"	[color=blue,		fillcolor="#A3D6FF",		label=familia,		shape=ellipse,		style=filled];	"prop:n4"	[color=blue,		fillcolor="#A3D6FF",		label=n4,		shape=ellipse,		style=filled];	"lem:CJ"	[color=blue,		fillcolor="#A3D6FF",		label=CJ,		shape=ellipse,		style=filled];	"thm:ley"	[label=ley,		shape=ellipse];	"lem:CJ" -> "thm:ley"	[style=dashed];	"thm:ley" -> "thm:deltamedia"	[style=dashed];	"auto:remark-7"	[label="remark-7",		shape=ellipse];	"thm:ley" -> "auto:remark-7"	[style=dashed];	"prop:semisistema"	[color=green,		fillcolor="#1CAC78",		label=semisistema,		shape=ellipse,		style=filled];	"prop:semisistema" -> "prop:familia"	[style=dashed];	"cor:delta2"	[color=blue,		fillcolor="#A3D6FF",		label=delta2,		shape=ellipse,		style=filled];	"cor:delta2" -> "thm:ley"	[style=dashed];	"prop:tricotomia"	[color=blue,		label=tricotomia,		shape=ellipse];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:central"	[label=central,		shape=ellipse];	"auto:remark-7"	[label="remark-7",		shape=ellipse];	"lem:delta3"	[color=blue,		fillcolor="#A3D6FF",		label=delta3,		shape=ellipse,		style=filled];	"thm:deltamedia"	[label=deltamedia,		shape=ellipse];	"lem:delta3" -> "thm:deltamedia"	[style=dashed];	"thm:deltamedia" -> "thm:central"	[style=dashed];	"prop:semisistema"	[color=green,		fillcolor="#1CAC78",		label=semisistema,		shape=ellipse,		style=filled];	"prop:familia"	[color=blue,		fillcolor="#A3D6FF",		label=familia,		shape=ellipse,		style=filled];	"prop:semisistema" -> "prop:familia"	[style=dashed];	"lem:CJ"	[color=blue,		fillcolor="#A3D6FF",		label=CJ,		shape=ellipse,		style=filled];	"thm:ley"	[label=ley,		shape=ellipse];	"lem:CJ" -> "thm:ley"	[style=dashed];	"thm:ley" -> "auto:remark-7"	[style=dashed];	"thm:ley" -> "thm:deltamedia"	[style=dashed];	"prop:n4"	[color=blue,		fillcolor="#A3D6FF",		label=n4,		shape=ellipse,		style=filled];	"cor:delta2"	[color=blue,		fillcolor="#A3D6FF",		label=delta2,		shape=ellipse,		style=filled];	"cor:delta2" -> "thm:ley"	[style=dashed];	"prop:tricotomia"	[color=blue,		label=tricotomia,		shape=ellipse];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -412,14 +436,20 @@ function interactive() {
 <ellipse cx="51.86" cy="-18" fill="none" rx="36" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="51.86" xml:space="preserve" y="-12.95">central</text>
 </g>
-<!-- lem:delta3 -->
+<!-- auto:remark&#45;7 -->
 <g class="node" id="node2">
+<title>auto:remark-7</title>
+<ellipse cx="166.86" cy="-90" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="166.86" xml:space="preserve" y="-84.95">remark-7</text>
+</g>
+<!-- lem:delta3 -->
+<g class="node" id="node3">
 <title>lem:delta3</title>
 <ellipse cx="51.86" cy="-162" fill="#a3d6ff" rx="33.44" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="51.86" xml:space="preserve" y="-156.95">delta3</text>
 </g>
 <!-- thm:deltamedia -->
-<g class="node" id="node3">
+<g class="node" id="node4">
 <title>thm:deltamedia</title>
 <ellipse cx="51.86" cy="-90" fill="none" rx="51.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="51.86" xml:space="preserve" y="-84.95">deltamedia</text>
@@ -436,47 +466,41 @@ function interactive() {
 <path d="M51.86,-71.34C51.86,-64.07 51.86,-55.47 51.86,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
 <polygon fill="black" points="51.86,-37.63 56.36,-47.63 51.86,-41.42 51.86,-47.63 51.86,-47.63 51.86,-47.63 51.86,-41.42 47.36,-47.63 51.86,-37.63" stroke="black"></polygon>
 </g>
+<!-- prop:semisistema -->
+<g class="node" id="node5">
+<title>prop:semisistema</title>
+<ellipse cx="294.86" cy="-234" fill="#1cac78" rx="56.98" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="294.86" xml:space="preserve" y="-228.95">semisistema</text>
+</g>
 <!-- prop:familia -->
-<g class="node" id="node4">
+<g class="node" id="node6">
 <title>prop:familia</title>
 <ellipse cx="294.86" cy="-162" fill="#a3d6ff" rx="37.53" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="294.86" xml:space="preserve" y="-156.95">familia</text>
 </g>
-<!-- prop:n4 -->
-<g class="node" id="node5">
-<title>prop:n4</title>
-<ellipse cx="396.86" cy="-234" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="396.86" xml:space="preserve" y="-228.95">n4</text>
+<!-- prop:semisistema&#45;&gt;prop:familia -->
+<g class="edge" id="edge3">
+<title>prop:semisistema-&gt;prop:familia</title>
+<path d="M294.86,-215.34C294.86,-208.07 294.86,-199.47 294.86,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="294.86,-181.64 299.36,-191.64 294.86,-185.42 294.86,-191.64 294.86,-191.64 294.86,-191.64 294.86,-185.42 290.36,-191.64 294.86,-181.64" stroke="black"></polygon>
 </g>
 <!-- lem:CJ -->
-<g class="node" id="node6">
+<g class="node" id="node7">
 <title>lem:CJ</title>
 <ellipse cx="108.86" cy="-234" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="108.86" xml:space="preserve" y="-228.95">CJ</text>
 </g>
 <!-- thm:ley -->
-<g class="node" id="node7">
+<g class="node" id="node8">
 <title>thm:ley</title>
 <ellipse cx="147.86" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="147.86" xml:space="preserve" y="-156.95">ley</text>
 </g>
 <!-- lem:CJ&#45;&gt;thm:ley -->
-<g class="edge" id="edge3">
+<g class="edge" id="edge4">
 <title>lem:CJ-&gt;thm:ley</title>
 <path d="M118.11,-216.41C122.62,-208.3 128.17,-198.35 133.24,-189.25" fill="none" stroke="black" stroke-dasharray="5,2"></path>
 <polygon fill="black" points="138.1,-180.53 137.16,-191.46 136.26,-183.84 133.23,-189.27 133.23,-189.27 133.23,-189.27 136.26,-183.84 129.3,-187.08 138.1,-180.53" stroke="black"></polygon>
-</g>
-<!-- thm:ley&#45;&gt;thm:deltamedia -->
-<g class="edge" id="edge4">
-<title>thm:ley-&gt;thm:deltamedia</title>
-<path d="M129.81,-147.83C116.55,-138.17 98.22,-124.8 82.66,-113.46" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="74.87,-107.78 85.6,-110.03 77.92,-110.01 82.95,-113.67 82.95,-113.67 82.95,-113.67 77.92,-110.01 80.3,-117.31 74.87,-107.78" stroke="black"></polygon>
-</g>
-<!-- auto:remark&#45;7 -->
-<g class="node" id="node8">
-<title>auto:remark-7</title>
-<ellipse cx="166.86" cy="-90" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="166.86" xml:space="preserve" y="-84.95">remark-7</text>
 </g>
 <!-- thm:ley&#45;&gt;auto:remark&#45;7 -->
 <g class="edge" id="edge5">
@@ -484,17 +508,17 @@ function interactive() {
 <path d="M152.56,-143.7C154.55,-136.35 156.93,-127.59 159.17,-119.34" fill="none" stroke="black" stroke-dasharray="5,2"></path>
 <polygon fill="black" points="161.77,-109.77 163.49,-120.6 160.78,-113.42 159.15,-119.42 159.15,-119.42 159.15,-119.42 160.78,-113.42 154.81,-118.24 161.77,-109.77" stroke="black"></polygon>
 </g>
-<!-- prop:semisistema -->
-<g class="node" id="node9">
-<title>prop:semisistema</title>
-<ellipse cx="294.86" cy="-234" fill="#1cac78" rx="56.98" ry="18" stroke="green" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="294.86" xml:space="preserve" y="-228.95">semisistema</text>
-</g>
-<!-- prop:semisistema&#45;&gt;prop:familia -->
+<!-- thm:ley&#45;&gt;thm:deltamedia -->
 <g class="edge" id="edge6">
-<title>prop:semisistema-&gt;prop:familia</title>
-<path d="M294.86,-215.34C294.86,-208.07 294.86,-199.47 294.86,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="294.86,-181.64 299.36,-191.64 294.86,-185.42 294.86,-191.64 294.86,-191.64 294.86,-191.64 294.86,-185.42 290.36,-191.64 294.86,-181.64" stroke="black"></polygon>
+<title>thm:ley-&gt;thm:deltamedia</title>
+<path d="M129.81,-147.83C116.55,-138.17 98.22,-124.8 82.66,-113.46" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="74.87,-107.78 85.6,-110.03 77.92,-110.01 82.95,-113.67 82.95,-113.67 82.95,-113.67 77.92,-110.01 80.3,-117.31 74.87,-107.78" stroke="black"></polygon>
+</g>
+<!-- prop:n4 -->
+<g class="node" id="node9">
+<title>prop:n4</title>
+<ellipse cx="396.86" cy="-234" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="396.86" xml:space="preserve" y="-228.95">n4</text>
 </g>
 <!-- cor:delta2 -->
 <g class="node" id="node10">
@@ -530,7 +554,7 @@ function interactive() {
 </script>
 <script id="lm-tooltips">
 (function(){
-  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:n4": "Proposition 1", "prop:tricotomia": "Observation 2", "cor:delta2": "Corollary 3", "lem:delta3": "Lemma 4", "thm:ley": "Theorem 5", "lem:CJ": "Lemma 6", "auto:remark-7": "Remark 7", "thm:deltamedia": "Theorem 8", "thm:central": "Theorem 9", "prop:semisistema": "Proposition 10", "prop:familia": "Proposition 11"};
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"prop:n4": "Proposition 1", "prop:tricotomia": "Observation 2", "cor:delta2": "Corollary 3", "lem:delta3": "Lemma 4", "thm:ley": "Theorem 5", "lem:CJ": "Lemma 6", "auto:remark-7": "Remark 7", "thm:deltamedia": "Theorem 8", "thm:central": "Theorem 9", "prop:semisistema": "Proposition 10", "prop:familia": "Proposition 11"};
   function label(a){
     var h = a.getAttribute('href') || '';
     var k = h.indexOf('#'); if (k < 0) return null;
