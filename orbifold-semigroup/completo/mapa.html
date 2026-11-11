@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><style id="pdf-css">
+#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
+       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
+/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
+   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
+[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
+[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
+a.pdfp:hover{background:#f0e1f6}
+</style><style id="pc-map-css">
+html,body{height:100%}
+body.pc-frame{margin:0;display:flex;flex-direction:column;overflow:hidden;background:#e8e8e8}
+body.pc-frame header.pc-head{position:static;width:auto;margin:0;flex-shrink:0}
+.pc-wrap{display:flex;flex:1;overflow:hidden}
+nav.pc-toc{width:28ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0;font-family:serif}
+nav.pc-toc ul{list-style:none;margin:0;padding:0}
+nav.pc-toc a{display:block;padding:.5rem .8rem;color:#fff;text-decoration:none;font-size:1.05rem;
+  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
+nav.pc-toc a:hover{background:#497da5}
+nav.pc-toc li.on>a{background:#89aecb}
+.pc-panel{flex:1;overflow:auto;padding:1rem}
+.pc-panel>.cont{margin:0 auto;max-width:none;padding:0 1rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
+.pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
+.pc-paneltitle .campo{justify-content:center}
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+section.pc-pane .mapa{max-width:100%;overflow:auto}
+/* phone: the parts of the map as a row of tabs above the panel */
+@media (max-width:900px){.pc-wrap{flex-direction:column}
+  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
+  nav.pc-toc ul{display:flex;white-space:nowrap}
+  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+</style><script id="pc-embed">
+(function(){
+  if (window.self === window.top) return;
+  document.documentElement.classList.add('pc-embed');
+  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
+  window.addEventListener('hashchange', tell);
+  window.addEventListener('load', tell);
+  window.addEventListener('message', function(e){
+    var d = e.data || {};
+    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
+  });
+})();
+</script>
+<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
+html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
+html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
+<style id="pc-head-css">
+header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
+  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
+body{margin-top:0 !important}
+/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
+   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
+body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
+body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
+body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
+header.pc-head a{color:#fff;text-decoration:none}
+header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
+header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
+header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
+header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+/* phone: one line, the links in a row that scrolls sideways */
+@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
+  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
+  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+</style><style id="lm-maphere-css">
+g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
+g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
+g.lm-here{animation:lmhere 1.2s ease-in-out 3}
+@keyframes lmhere{50%{opacity:.35}}
+#lm-herebar{font:13px Arial,sans-serif;background:#fff3f2;border:1px solid #f3b9b4;border-radius:6px;padding:.35em .7em;
+            margin:.4em 0}
+#lm-herebar a{color:#b3261e}
+</style>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:974pt 759pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:926pt !important;height:391pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B): blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.22254864" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.22254864</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="orbifold-semigroup-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>An Affine Semigroup from Orbifold Boundary Conditions: cut, phylogenetic and hierarchical models in the unit-weight sector, and weighted configurations beyond them (Part IX-B)</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Combinatorial commutative algebra · affine semigroups and toric ideals</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>7</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
+<span class="cifra c-prog">💻 <b>5</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="391pt" style="min-width:760px" viewbox="0.00 0.00 926.00 391.00" width="926pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 387.49)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M12,-259.78C12,-259.78 126,-259.78 126,-259.78 132,-259.78 138,-265.78 138,-271.78 138,-271.78 138,-347.11 138,-347.11 138,-353.11 132,-359.11 126,-359.11 126,-359.11 12,-359.11 12,-359.11 6,-359.11 0,-353.11 0,-347.11 0,-347.11 0,-271.78 0,-271.78 0,-265.78 6,-259.78 12,-259.78" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="69" xml:space="preserve" y="-343.72">The semigroup</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M297,0C297,0 427,0 427,0 433,0 439,-6 439,-12 439,-12 439,-107.58 439,-107.58 439,-113.58 433,-119.58 427,-119.58 427,-119.58 297,-119.58 297,-119.58 291,-119.58 285,-113.58 285,-107.58 285,-107.58 285,-12 285,-12 285,-6 291,0 297,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-104.17">The tripod, decided</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M158,-127.58C158,-127.58 402,-127.58 402,-127.58 408,-127.58 414,-133.58 414,-139.58 414,-139.58 414,-359.86 414,-359.86 414,-365.86 408,-371.86 402,-371.86 402,-371.86 158,-371.86 158,-371.86 152,-371.86 146,-365.86 146,-359.86 146,-359.86 146,-139.58 146,-139.58 146,-133.58 152,-127.58 158,-127.58" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-356.47">Every k≥3, in one line</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M434,-235.41C434,-235.41 906,-235.41 906,-235.41 912,-235.41 918,-241.41 918,-247.41 918,-247.41 918,-371.49 918,-371.49 918,-377.49 912,-383.49 906,-383.49 906,-383.49 434,-383.49 434,-383.49 428,-383.49 422,-377.49 422,-371.49 422,-371.49 422,-247.41 422,-247.41 422,-241.41 428,-235.41 434,-235.41" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="670" xml:space="preserve" y="-368.09">The exception, exhaustively</text>
+</g>
+<!-- def:S -->
+<g class="node" id="node1">
+<title>def:S</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#def:S" xlink:title="Definition 1: the affine semigroup generated by the labels, graded by weight">
+<path d="M117.68,-328.86C117.68,-328.86 20.33,-328.86 20.33,-328.86 14.33,-328.86 8.33,-322.86 8.33,-316.86 8.33,-316.86 8.33,-279.78 8.33,-279.78 8.33,-273.78 14.33,-267.78 20.33,-267.78 20.33,-267.78 117.68,-267.78 117.68,-267.78 123.68,-267.78 129.68,-273.78 129.68,-279.78 129.68,-279.78 129.68,-316.86 129.68,-316.86 129.68,-322.86 123.68,-328.86 117.68,-328.86" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-313.84">Definition 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-301.09">the affine semigroup</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-288.34">generated by the labels,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="69" xml:space="preserve" y="-275.59">graded by weight</text>
+</a>
+</g>
+</g>
+<!-- prop:tripod -->
+<g class="node" id="node2">
+<title>prop:tripod</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#prop:tripod" xlink:title="Proposition 1: the group-based tripod is a complete intersection exactly when |G| ≤ 3">
+<path d="M419.3,-89.33C419.3,-89.33 304.7,-89.33 304.7,-89.33 298.7,-89.33 292.7,-83.33 292.7,-77.33 292.7,-77.33 292.7,-20 292.7,-20 292.7,-14 298.7,-8 304.7,-8 304.7,-8 419.3,-8 419.3,-8 425.3,-8 431.3,-14 431.3,-20 431.3,-20 431.3,-77.33 431.3,-77.33 431.3,-83.33 425.3,-89.33 419.3,-89.33" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-72.89">Proposition 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-58.64">the group-based tripod is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-44.39">a complete intersection</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-30.14">exactly when |G| ≤ 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="362" xml:space="preserve" y="-15.89">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:cor34 -->
+<g class="node" id="node3">
+<title>thm:cor34</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#thm:cor34" xlink:title="Theorem 1: a complete-intersection affine semigroup of dimension d ≥ 2 has a cone with at most 2d − 2 extreme rays">
+<path d="M364.55,-341.61C364.55,-341.61 251.45,-341.61 251.45,-341.61 245.45,-341.61 239.45,-335.61 239.45,-329.61 239.45,-329.61 239.45,-267.03 239.45,-267.03 239.45,-261.03 245.45,-255.03 251.45,-255.03 251.45,-255.03 364.55,-255.03 364.55,-255.03 370.55,-255.03 376.55,-261.03 376.55,-267.03 376.55,-267.03 376.55,-329.61 376.55,-329.61 376.55,-335.61 370.55,-341.61 364.55,-341.61" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-326.59">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-313.84">a complete-intersection</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-301.09">affine semigroup of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-288.34">dimension d ≥ 2 has a cone</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-275.59">with at most 2d − 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="308" xml:space="preserve" y="-262.84">extreme rays</text>
+</a>
+</g>
+</g>
+<!-- thm:cor34&#45;&gt;prop:tripod -->
+<g class="edge" id="edge2">
+<title>thm:cor34-&gt;prop:tripod</title>
+<path d="M376.88,-254.87C393.8,-240.76 409.71,-223.45 419,-203.41 433.18,-172.84 429.47,-159.62 419,-127.58 415.6,-117.17 410.22,-107 404.1,-97.62" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="406.13,-96.25 400.15,-91.86 402.09,-99.02 406.13,-96.25" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:allk -->
+<g class="node" id="node4">
+<title>prop:allk</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#prop:allk" xlink:title="Proposition 2: (S¹/Z₂)ᵏ is not a complete intersection for any k ≥ 3. In Lean: added to the Lean repository after publication (20-oct-2026): the counts (4ᵏ distinct generators, ∑ C(k,j)2ʲ = 3ᵏ), the arithmetic 4ᵏ &gt; 2·3ᵏ − 2 for k ≥ 3 and equation (5); the proposition itself with Theorem 1 (Fischer–Morris–Shapiro, not in Mathlib) as a hypothesis; that every generator spans an extreme ray; and that the generators span a space of dimension 3ᵏ for every k (the generator matrix is the k-th Kronecker power of a 4 × 4 matrix of rank 3, through a general rank(A ⊗ B) = rank A · rank B that we proved, since no library had it, in LinearAlgebra/Matrix/Rank/Kronecker.lean). Not in Lean: Theorem 1 itself (Fischer–Morris–Shapiro), which enters only as a hypothesis">
+<path d="M394.3,-203.41C394.3,-203.41 165.7,-203.41 165.7,-203.41 159.7,-203.41 153.7,-197.41 153.7,-191.41 153.7,-191.41 153.7,-147.58 153.7,-147.58 153.7,-141.58 159.7,-135.58 165.7,-135.58 165.7,-135.58 394.3,-135.58 394.3,-135.58 400.3,-135.58 406.3,-141.58 406.3,-147.58 406.3,-147.58 406.3,-191.41 406.3,-191.41 406.3,-197.41 400.3,-203.41 394.3,-203.41" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-186.97">Proposition 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-172.72">(S¹/Z₂)ᵏ is not a complete</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-158.47">intersection for any k ≥ 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="280" xml:space="preserve" y="-144.22">◐ part in Lean · after publication · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:cor34&#45;&gt;prop:allk -->
+<g class="edge" id="edge3">
+<title>thm:cor34-&gt;prop:allk</title>
+<path d="M298.6,-254.74C295.6,-241.15 292.28,-226.13 289.29,-212.58" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="291.7,-212.15 287.81,-205.84 286.92,-213.2 291.7,-212.15" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:allk&#45;&gt;prop:tripod -->
+<g class="edge" id="edge1">
+<title>prop:allk-&gt;prop:tripod</title>
+<path d="M303.5,-134.44C311.48,-122.87 320.56,-109.72 329.14,-97.28" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="331.03,-98.86 332.99,-91.71 327,-96.07 331.03,-98.86" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:notci -->
+<g class="node" id="node5">
+<title>prop:notci</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:notci" xlink:title="Proposition 3: the semigroup of S¹/Z₂ × S¹/Z₂ is not a complete intersection">
+<path d="M545.68,-335.24C545.68,-335.24 442.33,-335.24 442.33,-335.24 436.33,-335.24 430.33,-329.24 430.33,-323.24 430.33,-323.24 430.33,-273.4 430.33,-273.4 430.33,-267.4 436.33,-261.4 442.33,-261.4 442.33,-261.4 545.68,-261.4 545.68,-261.4 551.68,-261.4 557.68,-267.4 557.68,-273.4 557.68,-273.4 557.68,-323.24 557.68,-323.24 557.68,-329.24 551.68,-335.24 545.68,-335.24" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-320.22">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-307.47">the semigroup of S¹/Z₂ ×</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-294.72">S¹/Z₂ is not a complete</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-281.97">intersection</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="494" xml:space="preserve" y="-269.22">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:eight -->
+<g class="node" id="node6">
+<title>prop:eight</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#prop:eight" xlink:title="Proposition 4: unique minimal Markov basis: 8 quadrics + 8 quartics, all indispensable, two orbits under a group of order 128">
+<path d="M719.55,-353.24C719.55,-353.24 594.45,-353.24 594.45,-353.24 588.45,-353.24 582.45,-347.24 582.45,-341.24 582.45,-341.24 582.45,-255.41 582.45,-255.41 582.45,-249.41 588.45,-243.41 594.45,-243.41 594.45,-243.41 719.55,-243.41 719.55,-243.41 725.55,-243.41 731.55,-249.41 731.55,-255.41 731.55,-255.41 731.55,-341.24 731.55,-341.24 731.55,-347.24 725.55,-353.24 719.55,-353.24" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-336.8">Proposition 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-322.55">unique minimal Markov</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-308.3">basis: 8 quadrics + 8</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-294.05">quartics, all</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-279.8">indispensable, two orbits</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-265.55">under a group of order 128</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="657" xml:space="preserve" y="-251.29">💻 program</text>
+</a>
+</g>
+</g>
+<!-- prop:type -->
+<g class="node" id="node7">
+<title>prop:type</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#prop:type" xlink:title="Proposition 5: Cohen–Macaulay type 9: canonical module generated in degrees 4 (one) and 6 (eight)">
+<path d="M897.8,-346.11C897.8,-346.11 768.2,-346.11 768.2,-346.11 762.2,-346.11 756.2,-340.11 756.2,-334.11 756.2,-334.11 756.2,-262.53 756.2,-262.53 756.2,-256.53 762.2,-250.53 768.2,-250.53 768.2,-250.53 897.8,-250.53 897.8,-250.53 903.8,-250.53 909.8,-256.53 909.8,-262.53 909.8,-262.53 909.8,-334.11 909.8,-334.11 909.8,-340.11 903.8,-346.11 897.8,-346.11" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-329.67">Proposition 5</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-315.42">Cohen–Macaulay type 9:</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-301.17">canonical module generated</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-286.92">in degrees 4 (one) and 6</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-272.67">(eight)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="833" xml:space="preserve" y="-258.42">💻 program</text>
+</a>
+</g>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>The equivalence classes of orbifold boundary conditions are the elements of an <b>affine semigroup</b>: one
+generator per label of the alphabet of Part IX-A, graded by weight, embedded by its local data at the fixed points.
+The note identifies that semigroup and decides which of its cases are complete intersections.</p>
+<ul>
+<li><b>The dictionary</b> (unit-weight sector), as an equality of point configurations: the cut configurations of
+P<sub>3</sub>, C<sub>4</sub> and the wheel W<sub>4</sub> (Sturmfels–Sullivant); group-based models on claw trees;
+a mixed-order variant not located in the literature; binary hierarchical models of cross-polytope boundaries.</li>
+<li><b>Thirteen complete intersections</b> with explicit gluing trees (unitary, orthogonal and symplectic
+alphabets); seven are weighted, outside every framework of the dictionary.</li>
+<li><b>The tripod, decided</b> (Proposition 1): the group-based model on the tripod is a complete intersection
+exactly when |G| ≤ 3, for every finite abelian group.</li>
+<li><b>Every k ≥ 3</b> (Proposition 2): (S<sup>1</sup>/ℤ<sub>2</sub>)<sup>k</sup> is not a complete intersection,
+by the extreme-ray bound of Fischer–Morris–Shapiro (Theorem 1, cited), and not a cut ideal, by a count of edges.</li>
+<li><b>The exceptional case</b> S<sup>1</sup>/ℤ<sub>2</sub> × S<sup>1</sup>/ℤ<sub>2</sub>: not a complete
+intersection by an exhaustive sweep (Proposition 3); a unique minimal Markov basis of 8 + 8 indispensable binomials
+in two orbits under an automorphism group of order 128 (Proposition 4); Cohen–Macaulay type 9 (Proposition 5).</li>
+<li><b>Inherited</b>, and said so in the Ledger: the gluing criterion and the extreme-ray bound, the cut-ring
+invariants of W<sub>4</sub> (normality, degree 64, codimension 7), the group-based codimensions.</li>
+</ul></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#prop:tripod"><b>Proposition 1</b></a>: the group-based tripod is a complete intersection exactly when |G| ≤ 3.</p><p><b>Main results:</b></p><ul><li><a href="index.html#prop:tripod"><b>Proposition 1</b></a>: the group-based tripod is a complete intersection exactly when |G| ≤ 3</li><li><a href="index.html#prop:allk"><b>Proposition 2</b></a>: (S¹/Z₂)ᵏ is not a complete intersection for any k ≥ 3</li><li><a href="index.html#prop:eight"><b>Proposition 4</b></a>: unique minimal Markov basis: 8 quadrics + 8 quartics, all indispensable, two orbits under a group of order 128</li><li><a href="index.html#prop:type"><b>Proposition 5</b></a>: Cohen–Macaulay type 9: canonical module generated in degrees 4 (one) and 6 (eight)</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Affine semigroups (complete intersections)</b> → the gluing criterion and the extreme-ray bound of Fischer–Morris–Shapiro (Cor. 3.4), Delorme in rank one, the Hilbert series of a gluing (Assi–García-Sánchez–Ojeda) — <a href="index.html#prop:tripod">Proposition 1</a>, <a href="index.html#prop:allk">Proposition 2</a>, <a href="index.html#prop:notci">Proposition 3</a></li><li><b>Cut ideals and algebraic statistics</b> → cut ideals of graphs (Sturmfels–Sullivant 2008, Table 1 for the wheel W₄), Engström’s K₄-minor theorem, group-based phylogenetic models (Sturmfels–Sullivant 2005) and their local description (Casanellas–Fernández-Sánchez–Michałek) — <a href="index.html#prop:tripod">Proposition 1</a>, <a href="index.html#prop:notci">Proposition 3</a>, <a href="index.html#prop:eight">Proposition 4</a></li><li><b>Markov bases and lattice polytopes</b> → fibre connectivity and indispensable binomials; Ehrhart theory and Stanley’s non-negativity of h*; Danilov–Stanley canonical module of a normal semigroup ring — <a href="index.html#prop:eight">Proposition 4</a>, <a href="index.html#prop:type">Proposition 5</a></li><li><b>Exact computation</b> → exhaustive sweeps over partitions (Hermite normal form, graded reachability), integer Farkas certificates for extreme rays, fibre enumeration, automorphism group of the configuration; every script with a decoy — <a href="index.html#prop:tripod">Proposition 1</a>, <a href="index.html#prop:notci">Proposition 3</a>, <a href="index.html#prop:eight">Proposition 4</a>, <a href="index.html#prop:type">Proposition 5</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Orbifold boundary conditions in gauge–Higgs unification</b> ← the relations among the classes whose generators Part IX-A determines: equivalence relations of the physics sources read as gluing elements — <a href="index.html#prop:notci">Proposition 3</a>, <a href="index.html#prop:eight">Proposition 4</a></li><li><b>Weighted (non-abelian) flow configurations</b> ← gluing trees of the weighted alphabets as first data on the question the note ends on: which weighted flow configurations arise from a group</li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  if (!panes.length || !box) return;
+  function mark(p){
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+  }
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
+})();
+</script>
+<script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
+<script id="lm-maphere">
+(function(){
+  var n = new URLSearchParams(location.search).get('n');
+  if (!n) return;
+  function go(){
+    var a = null;
+    document.querySelectorAll('svg a').forEach(function (x) {
+      var h = x.getAttribute('href') || x.getAttribute('xlink:href') || '';
+      if (!a && h.slice(h.indexOf('#') + 1) === n) a = x;
+    });
+    var g = a && (a.closest('g.node') || a.parentNode);
+    if (!g) return;
+    var pane = g.closest('section.pc-pane');
+    g.classList.add('lm-here');
+    var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
+    var bar = document.getElementById('lm-herebar');
+    if (!bar) {
+      bar = document.createElement('div'); bar.id = 'lm-herebar';
+      var host = (pane || document.body);
+      host.insertBefore(bar, host.firstChild);
+    }
+    bar.innerHTML = '📍 <b></b> on the map · <a href="index.html#' + encodeURIComponent(n) + '">← back to the statement</a>';
+    bar.querySelector('b').textContent = name;
+    setTimeout(function () { g.scrollIntoView({block: 'center', inline: 'center'}); }, 300);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+  window.addEventListener('load', go);
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"def:S": "Definition 1", "prop:tripod": "Proposition 1", "thm:cor34": "Theorem 1 — {\\cite[Cor.~3.4]{FMS}}", "prop:allk": "Proposition 2", "prop:notci": "Proposition 3", "prop:eight": "Proposition 4", "prop:type": "Proposition 5"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-notranslate">
+(function(){
+  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
+  function mark(root) {
+    (root || document).querySelectorAll(SEL).forEach(function (e) {
+      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
+    });
+  }
+  function start() {
+    mark();
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
+    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
+    new MutationObserver(function () {
+      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script id="lm-print-js">
+(function(){
+  var opened = [], shown = [];
+  addEventListener('beforeprint', function(){
+    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
+    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
+      i.style.display = ''; shown.push(i); });
+  });
+  addEventListener('afterprint', function(){
+    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
+    opened = []; shown = [];
+  });
+})();
+</script>
+</body></html>
