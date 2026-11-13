@@ -125,10 +125,9 @@ header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);backg
 header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
 header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
 /* phone: one line, the links in a row that scrolls sideways */
-@media (max-width:900px){header.pc-head{flex-wrap:nowrap;padding:.3rem .5rem;gap:.4rem}
+@media (max-width:900px){header.pc-head{flex-wrap:wrap;padding:.3rem .5rem;gap:.4rem}
   header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
-  header.pc-head nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
-  header.pc-head nav::-webkit-scrollbar{display:none}
+  header.pc-head nav{flex-wrap:wrap;overflow:visible;flex:1 1 100%;min-width:0}
   header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
   header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
 
@@ -189,53 +188,53 @@ a{text-decoration:none}
 header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
 #pane-deps{break-after:page}
 section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
-section.pc-pane .mapa svg{width:486pt !important;height:416pt !important;max-width:none !important;
+section.pc-pane .mapa svg{width:385pt !important;height:416pt !important;max-width:none !important;
   max-height:none !important;min-width:0 !important}
 </style>
 </head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper 1.1 (<a href="https://doi.org/10.5281/zenodo.23123219" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.23123219</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="huddling-scales-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
 <div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Huddling, diatonic and pentatonic scales in Z12: Fourier maxima and convex-energy minima formalized in Lean 4</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Mathematical music theory · discrete Fourier analysis on ℤ₁₂</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
 <span class="cifra"><b>4</b> results</span>
-<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>2</b> entirely in Lean</span>
-<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>2</b> partly in Lean</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>3</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>1</b> partly in Lean</span>
 <span class="cifra c-prog">💻 <b>2</b> checked by a program</span>
 <span class="cifra c-paper">written proof only</span>
 <span class="nota">(a result can carry several tags)</span>
 </div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
 on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
 how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
-thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="416pt" viewbox="0.00 0.00 486.00 416.00" width="486pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="416pt" viewbox="0.00 0.00 385.00 416.00" width="385pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 412.49)">
 <g class="cluster" id="clust1">
 <title>cluster_0</title>
-<path d="M12,-283.66C12,-283.66 238,-283.66 238,-283.66 244,-283.66 250,-289.66 250,-295.66 250,-295.66 250,-396.49 250,-396.49 250,-402.49 244,-408.49 238,-408.49 238,-408.49 12,-408.49 12,-408.49 6,-408.49 0,-402.49 0,-396.49 0,-396.49 0,-295.66 0,-295.66 0,-289.66 6,-283.66 12,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="125" xml:space="preserve" y="-393.09">What Huddling contributes</text>
+<path d="M12,-283.66C12,-283.66 138,-283.66 138,-283.66 144,-283.66 150,-289.66 150,-295.66 150,-295.66 150,-396.49 150,-396.49 150,-402.49 144,-408.49 138,-408.49 138,-408.49 12,-408.49 12,-408.49 6,-408.49 0,-402.49 0,-396.49 0,-396.49 0,-295.66 0,-295.66 0,-289.66 6,-283.66 12,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="75" xml:space="preserve" y="-393.09">What Huddling contributes</text>
 </g>
 <g class="cluster" id="clust2">
 <title>cluster_1</title>
-<path d="M271,-283.66C271,-283.66 466,-283.66 466,-283.66 472,-283.66 478,-289.66 478,-295.66 478,-295.66 478,-396.49 478,-396.49 478,-402.49 472,-408.49 466,-408.49 466,-408.49 271,-408.49 271,-408.49 265,-408.49 259,-402.49 259,-396.49 259,-396.49 259,-295.66 259,-295.66 259,-289.66 265,-283.66 271,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="368.5" xml:space="preserve" y="-393.09">Why the energy selects the same collection</text>
+<path d="M170,-283.66C170,-283.66 365,-283.66 365,-283.66 371,-283.66 377,-289.66 377,-295.66 377,-295.66 377,-396.49 377,-396.49 377,-402.49 371,-408.49 365,-408.49 365,-408.49 170,-408.49 170,-408.49 164,-408.49 158,-402.49 158,-396.49 158,-396.49 158,-295.66 158,-295.66 158,-289.66 164,-283.66 170,-283.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="267.5" xml:space="preserve" y="-393.09">Why the energy selects the same collection</text>
 </g>
 <g class="cluster" id="clust3">
 <title>cluster_2</title>
-<path d="M136,-141.83C136,-141.83 327,-141.83 327,-141.83 333,-141.83 339,-147.83 339,-153.83 339,-153.83 339,-263.66 339,-263.66 339,-269.66 333,-275.66 327,-275.66 327,-275.66 136,-275.66 136,-275.66 130,-275.66 124,-269.66 124,-263.66 124,-263.66 124,-153.83 124,-153.83 124,-147.83 130,-141.83 136,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231.5" xml:space="preserve" y="-260.25">The two questions have one equality class</text>
+<path d="M82,-141.83C82,-141.83 273,-141.83 273,-141.83 279,-141.83 285,-147.83 285,-153.83 285,-153.83 285,-263.66 285,-263.66 285,-269.66 279,-275.66 273,-275.66 273,-275.66 82,-275.66 82,-275.66 76,-275.66 70,-269.66 70,-263.66 70,-263.66 70,-153.83 70,-153.83 70,-147.83 76,-141.83 82,-141.83" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177.5" xml:space="preserve" y="-260.25">The two questions have one equality class</text>
 </g>
 <g class="cluster" id="clust4">
 <title>cluster_3</title>
-<path d="M147,0C147,0 332,0 332,0 338,0 344,-6 344,-12 344,-12 344,-121.83 344,-121.83 344,-127.83 338,-133.83 332,-133.83 332,-133.83 147,-133.83 147,-133.83 141,-133.83 135,-127.83 135,-121.83 135,-121.83 135,-12 135,-12 135,-6 141,0 147,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
-<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239.5" xml:space="preserve" y="-118.42">What happens to the five notes left over?</text>
+<path d="M85,0C85,0 270,0 270,0 276,0 282,-6 282,-12 282,-12 282,-121.83 282,-121.83 282,-127.83 276,-133.83 270,-133.83 270,-133.83 85,-133.83 85,-133.83 79,-133.83 73,-127.83 73,-121.83 73,-121.83 73,-12 73,-12 73,-6 79,0 85,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177.5" xml:space="preserve" y="-118.42">What happens to the five notes left over?</text>
 </g>
 <!-- thm:huddling -->
 <g class="node" id="node1">
 <title>thm:huddling</title>
-<g id="a_node1"><a target="_top" xlink:href="index.html#thm:huddling" xlink:title="Theorem 1: consecutive arcs maximize the first Fourier magnitude, exactly on their transposition orbit. In Lean: added to the Lean repository after publication (23-oct-2026): the general statement for every cyclic group Z_N (Amiot’s Lemma 2, of which the paper certifies the twelve-tone instance): for every unit frequency the arc maximizes the Fourier magnitude, exactly on its translates, and the maximum is sin(πm/N)/sin(π/N); added to the Lean repository after publication (23-oct-2026): the general statement for every cyclic group Z_N (Amiot’s Lemma 2, of which the paper certifies the twelve-tone instance): for every unit frequency the arc maximizes the Fourier magnitude, exactly on its translates, and the maximum is sin(πm/N)/sin(π/N)">
-<path d="M230.3,-378.24C230.3,-378.24 19.7,-378.24 19.7,-378.24 13.7,-378.24 7.7,-372.24 7.7,-366.24 7.7,-366.24 7.7,-303.66 7.7,-303.66 7.7,-297.66 13.7,-291.66 19.7,-291.66 19.7,-291.66 230.3,-291.66 230.3,-291.66 236.3,-291.66 242.3,-297.66 242.3,-303.66 242.3,-303.66 242.3,-366.24 242.3,-366.24 242.3,-372.24 236.3,-378.24 230.3,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-363.23">Theorem 1</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-350.48">consecutive arcs maximize</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-337.73">the first Fourier</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-324.98">magnitude, exactly on</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-312.23">their transposition orbit</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="125" xml:space="preserve" y="-299.48">◐ part in Lean · after publication · 💻 program</text>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:huddling" xlink:title="Theorem 1: consecutive arcs maximize the first Fourier magnitude, exactly on their transposition orbit">
+<path d="M130.05,-378.24C130.05,-378.24 19.95,-378.24 19.95,-378.24 13.95,-378.24 7.95,-372.24 7.95,-366.24 7.95,-366.24 7.95,-303.66 7.95,-303.66 7.95,-297.66 13.95,-291.66 19.95,-291.66 19.95,-291.66 130.05,-291.66 130.05,-291.66 136.05,-291.66 142.05,-297.66 142.05,-303.66 142.05,-303.66 142.05,-366.24 142.05,-366.24 142.05,-372.24 136.05,-378.24 130.05,-378.24" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-363.23">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-350.48">consecutive arcs maximize</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-337.73">the first Fourier</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-324.98">magnitude, exactly on</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-312.23">their transposition orbit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="75" xml:space="preserve" y="-299.48">✅ Lean · 💻 program</text>
 </a>
 </g>
 </g>
@@ -243,61 +242,61 @@ thick border are the main results; click a box to read the statement.</p><div cl
 <g class="node" id="node3">
 <title>thm:connection</title>
 <g id="a_node3"><a target="_top" xlink:href="index.html#thm:connection" xlink:title="Theorem 3: Fourier maximum and energy minimum have the same equality class: the twelve diatonic transpositions">
-<path d="M299.93,-245.41C299.93,-245.41 162.07,-245.41 162.07,-245.41 156.07,-245.41 150.07,-239.41 150.07,-233.41 150.07,-233.41 150.07,-161.83 150.07,-161.83 150.07,-155.83 156.07,-149.83 162.07,-149.83 162.07,-149.83 299.93,-149.83 299.93,-149.83 305.93,-149.83 311.93,-155.83 311.93,-161.83 311.93,-161.83 311.93,-233.41 311.93,-233.41 311.93,-239.41 305.93,-245.41 299.93,-245.41" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-228.97">Theorem 3</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-214.72">Fourier maximum and energy</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-200.47">minimum have the same</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-186.22">equality class: the twelve</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-171.97">diatonic transpositions</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-157.72">✅ Lean · 💻 program</text>
+<path d="M245.93,-245.41C245.93,-245.41 108.07,-245.41 108.07,-245.41 102.07,-245.41 96.08,-239.41 96.08,-233.41 96.08,-233.41 96.08,-161.83 96.08,-161.83 96.08,-155.83 102.08,-149.83 108.08,-149.83 108.08,-149.83 245.93,-149.83 245.93,-149.83 251.93,-149.83 257.93,-155.83 257.93,-161.83 257.93,-161.83 257.93,-233.41 257.93,-233.41 257.93,-239.41 251.93,-245.41 245.93,-245.41" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-228.97">Theorem 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-214.72">Fourier maximum and energy</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-200.47">minimum have the same</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-186.22">equality class: the twelve</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-171.97">diatonic transpositions</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-157.72">✅ Lean · 💻 program</text>
 </a>
 </g>
 </g>
 <!-- thm:huddling&#45;&gt;thm:connection -->
 <g class="edge" id="edge2">
 <title>thm:huddling-&gt;thm:connection</title>
-<path d="M158.54,-291.13C168.04,-279 178.52,-265.63 188.48,-252.91" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="190.31,-254.54 192.7,-247.52 186.45,-251.52 190.31,-254.54" stroke="#9aa8b5"></polygon>
+<path d="M107.27,-291.13C116.42,-279 126.5,-265.63 136.08,-252.91" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="137.87,-254.6 140.13,-247.54 133.96,-251.65 137.87,-254.6" stroke="#9aa8b5"></polygon>
 </g>
 <!-- thm:energy -->
 <g class="node" id="node2">
 <title>thm:energy</title>
 <g id="a_node2"><a target="_top" xlink:href="index.html#thm:energy" xlink:title="Theorem 2: the diatonic orbit minimizes every admissible convex pair energy, uniquely under strictness. In Lean: the Abel identity symbolically; the seven-note certificate Hⱼ ≥ 0 by nativedecide">
-<path d="M394.3,-378.24C394.3,-378.24 279.7,-378.24 279.7,-378.24 273.7,-378.24 267.7,-372.24 267.7,-366.24 267.7,-366.24 267.7,-303.66 267.7,-303.66 267.7,-297.66 273.7,-291.66 279.7,-291.66 279.7,-291.66 394.3,-291.66 394.3,-291.66 400.3,-291.66 406.3,-297.66 406.3,-303.66 406.3,-303.66 406.3,-366.24 406.3,-366.24 406.3,-372.24 400.3,-378.24 394.3,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-363.23">Theorem 2</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-350.48">the diatonic orbit</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-337.73">minimizes every admissible</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-324.98">convex pair energy,</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-312.23">uniquely under strictness</text>
-<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="337" xml:space="preserve" y="-299.48">◐ part in Lean</text>
+<path d="M293.3,-378.24C293.3,-378.24 178.7,-378.24 178.7,-378.24 172.7,-378.24 166.7,-372.24 166.7,-366.24 166.7,-366.24 166.7,-303.66 166.7,-303.66 166.7,-297.66 172.7,-291.66 178.7,-291.66 178.7,-291.66 293.3,-291.66 293.3,-291.66 299.3,-291.66 305.3,-297.66 305.3,-303.66 305.3,-303.66 305.3,-366.24 305.3,-366.24 305.3,-372.24 299.3,-378.24 293.3,-378.24" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-363.23">Theorem 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-350.48">the diatonic orbit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-337.73">minimizes every admissible</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-324.98">convex pair energy,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-312.23">uniquely under strictness</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="236" xml:space="preserve" y="-299.48">◐ part in Lean</text>
 </a>
 </g>
 </g>
 <!-- thm:energy&#45;&gt;thm:connection -->
 <g class="edge" id="edge1">
 <title>thm:energy-&gt;thm:connection</title>
-<path d="M303.46,-291.13C293.96,-279 283.48,-265.63 273.52,-252.91" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="275.55,-251.52 269.3,-247.52 271.69,-254.54 275.55,-251.52" stroke="#9aa8b5"></polygon>
+<path d="M217.33,-291.13C212.19,-279.33 206.53,-266.36 201.13,-253.96" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="203.45,-253.15 198.41,-247.72 198.96,-255.11 203.45,-253.15" stroke="#9aa8b5"></polygon>
 </g>
 <!-- thm:pentatonic -->
 <g class="node" id="node4">
 <title>thm:pentatonic</title>
 <g id="a_node4"><a target="_top" xlink:href="index.html#thm:pentatonic" xlink:title="Theorem 4: the pentatonic sets inherit both extremal properties through complementation">
-<path d="M278.55,-103.58C278.55,-103.58 183.45,-103.58 183.45,-103.58 177.45,-103.58 171.45,-97.58 171.45,-91.58 171.45,-91.58 171.45,-20 171.45,-20 171.45,-14 177.45,-8 183.45,-8 183.45,-8 278.55,-8 278.55,-8 284.55,-8 290.55,-14 290.55,-20 290.55,-20 290.55,-91.58 290.55,-91.58 290.55,-97.58 284.55,-103.58 278.55,-103.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-87.14">Theorem 4</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-72.89">the pentatonic sets</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-58.64">inherit both extremal</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-44.39">properties through</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-30.14">complementation</text>
-<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="231" xml:space="preserve" y="-15.89">✅ Lean</text>
+<path d="M224.55,-103.58C224.55,-103.58 129.45,-103.58 129.45,-103.58 123.45,-103.58 117.45,-97.58 117.45,-91.58 117.45,-91.58 117.45,-20 117.45,-20 117.45,-14 123.45,-8 129.45,-8 129.45,-8 224.55,-8 224.55,-8 230.55,-8 236.55,-14 236.55,-20 236.55,-20 236.55,-91.58 236.55,-91.58 236.55,-97.58 230.55,-103.58 224.55,-103.58" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-87.14">Theorem 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-72.89">the pentatonic sets</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-58.64">inherit both extremal</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-44.39">properties through</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-30.14">complementation</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="177" xml:space="preserve" y="-15.89">✅ Lean</text>
 </a>
 </g>
 </g>
 <!-- thm:connection&#45;&gt;thm:pentatonic -->
 <g class="edge" id="edge3">
 <title>thm:connection-&gt;thm:pentatonic</title>
-<path d="M231,-148.89C231,-137.43 231,-125.08 231,-113.27" fill="none" stroke="#9aa8b5"></path>
-<polygon fill="#9aa8b5" points="233.45,-113.29 231,-106.29 228.55,-113.29 233.45,-113.29" stroke="#9aa8b5"></polygon>
+<path d="M177,-148.89C177,-137.43 177,-125.08 177,-113.27" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="179.45,-113.29 177,-106.29 174.55,-113.29 179.45,-113.29" stroke="#9aa8b5"></polygon>
 </g>
 </g>
 </svg>
