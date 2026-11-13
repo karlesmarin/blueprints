@@ -30,8 +30,10 @@ div.content,div.main-text{background:transparent}
 /* 13-nov (Carles: «ponlos centrados y un poco más anchos, las tablas se salen del margen»): el tema fija 75ch (unos
    600 px), que en pantallas anchas deja una columna estrecha; ahora 98ch, centrada; una tabla más ancha que la
    columna se desplaza dentro de ella en vez de salirse */
-div.content-wrapper{max-width:min(1100px,94%);margin-left:auto;margin-right:auto}  /* 13-nov tarde: «un poco más ancho, queda mucho espacio a los lados» (antes 98ch) */
-div.main-text table{display:block;max-width:100%;overflow-x:auto}
+div.content-wrapper{max-width:min(1100px,calc(100% - 4cm));margin-left:auto;margin-right:auto}  /* 13-nov noche: «deja un poco más de margen, solo 2 cm» a cada lado (antes 94 %; antes 98ch) */
+/* las tablas del paper, centradas (13-nov noche); la que no cabe se desplaza dentro de la columna */
+div.main-text table{display:block;width:fit-content;max-width:100%;overflow-x:auto;margin-left:auto;margin-right:auto}
+@media (max-width:700px){div.content-wrapper{max-width:94%}}  /* en móvil 2 cm por lado es demasiado */
 div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
 div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
