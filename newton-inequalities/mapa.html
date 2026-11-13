@@ -33,136 +33,9 @@ a{color:#1a4f8b}
              background:#fff}
 .campo a.msc-p{border-color:#2b6cb0;font-weight:600}
 
-</style><style id="pdf-css">
-#vistas a.pdfbtn{border:1px solid #8e24aa;background:#f6eefa;border-radius:4px;padding:.2em .8em;color:#5e1675;
-        text-decoration:none;font-weight:600;white-space:nowrap}
-a.pdfp{font:12px Arial,sans-serif;color:#5e1675;text-decoration:none;border:1px solid #d7b8e3;border-radius:10px;
-       padding:0 .5em;margin-left:.5em;vertical-align:middle;background:#fbf7fd;white-space:nowrap;flex-shrink:0}
-/* 21-oct (Carles: «los enlaces empujan fuera»): a title with long Lean names squeezed the chips («p.» over «7»):
-   the title may break, the chips never shrink, and they wrap to the next line when the row is full */
-[class$="_thmheading"]{flex-wrap:wrap;row-gap:.25em}
-[class$="_thmtitle"]{min-width:0;overflow-wrap:anywhere}
-a.pdfp:hover{background:#f0e1f6}
-</style><style id="pc-map-css">
-html,body{height:100%}
-body.pc-frame{margin:0;display:flex;flex-direction:column;overflow:hidden;background:#e8e8e8}
-body.pc-frame header.pc-head{position:static;width:auto;margin:0;flex-shrink:0}
-.pc-wrap{display:flex;flex:1;overflow:hidden}
-nav.pc-toc{width:28ch;flex-shrink:0;overflow-y:auto;background:#6696bb;padding:.3rem 0;font-family:serif}
-nav.pc-toc ul{list-style:none;margin:0;padding:0}
-nav.pc-toc a{display:block;padding:.5rem .8rem;color:#fff;text-decoration:none;font-size:1.05rem;
-  text-shadow:2px 2px 2px rgba(0,0,0,.8)}
-nav.pc-toc a:hover{background:#497da5}
-nav.pc-toc li.on>a{background:#89aecb}
-.pc-panel{flex:1;overflow:auto;padding:1rem}
-.pc-panel>.cont{margin:0 auto;max-width:none;padding:0 1rem}
-.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem;text-align:center}
-.pc-paneltitle h1{font-size:1.6rem;margin:.3rem 0 .4rem}
-.pc-paneltitle .campo{justify-content:center}
-section.pc-pane+section.pc-pane{margin-top:2.2rem}
-section.pc-pane .mapa{max-width:100%;overflow:auto}
-/* phone: the parts of the map as a row of tabs above the panel */
-@media (max-width:900px){.pc-wrap{flex-direction:column}
-  nav.pc-toc{width:auto;overflow-x:auto;overflow-y:hidden;flex-shrink:0;padding:0}
-  nav.pc-toc ul{display:flex;white-space:nowrap}
-  nav.pc-toc a{padding:.45rem .8rem;font-size:.95rem}}
-
-/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
-   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
-   lighter cards under it, «At a glance» and each part of the map a card */
-div.content,div.main-text{background:transparent}
-div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
-div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
-  box-shadow:0 1px 5px rgba(0,0,0,.10)}
-div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
-/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
-   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
-div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
-  transition:box-shadow .18s ease,transform .18s ease}
-div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
-@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
-  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
-  p.lm-ficha:hover{transform:none}}
-/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
-section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
-  box-shadow:none;padding:0;border-radius:0}
-</style><script id="pc-embed">
-(function(){
-  if (window.self === window.top) return;
-  document.documentElement.classList.add('pc-embed');
-  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
-  window.addEventListener('hashchange', tell);
-  window.addEventListener('load', tell);
-  window.addEventListener('message', function(e){
-    var d = e.data || {};
-    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
-  });
-})();
-</script>
-<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
-html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
-html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
-<style id="pc-head-css">
-header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
-  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
-  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
-body{margin-top:0 !important}
-/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
-   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
-body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
-body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
-body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
-header.pc-head a{color:#fff;text-decoration:none}
-header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
-header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
-header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
-  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
-header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
-header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
-/* phone: one line, the links in a row that scrolls sideways */
-@media (max-width:900px){header.pc-head{flex-wrap:wrap;padding:.3rem .5rem;gap:.4rem}
-  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
-  header.pc-head nav{flex-wrap:wrap;overflow:visible;flex:1 1 100%;min-width:0}
-  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
-  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
-
-/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
-   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
-   lighter cards under it, «At a glance» and each part of the map a card */
-div.content,div.main-text{background:transparent}
-div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
-div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
-  box-shadow:0 1px 5px rgba(0,0,0,.10)}
-div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
-/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
-   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
-div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
-  transition:box-shadow .18s ease,transform .18s ease}
-div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
-@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
-  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
-  p.lm-ficha:hover{transform:none}}
-/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
-section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
-  box-shadow:none;padding:0;border-radius:0}
-</style><style id="lm-maphere-css">
-g.lm-here > polygon, g.lm-here > ellipse, g.lm-here > path, g.lm-here a > polygon, g.lm-here a > ellipse,
-g.lm-here a > path{stroke:#e53935 !important;stroke-width:4px !important}
-g.lm-here{animation:lmhere 1.2s ease-in-out 3}
-@keyframes lmhere{50%{opacity:.35}}
-#lm-herebar{font:13px Arial,sans-serif;background:#fff3f2;border:1px solid #f3b9b4;border-radius:6px;padding:.35em .7em;
-            margin:.4em 0}
-#lm-herebar a{color:#b3261e}
-</style>
+</style><link data-lm="pdf-css" href="../lemmario-assets/pdf-css.css" rel="stylesheet"/><link data-lm="pc-map-css" href="../lemmario-assets/pc-map-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../lemmario-assets/pc-head-css.css" rel="stylesheet"/><link data-lm="lm-maphere-css" href="../lemmario-assets/lm-maphere-css.css" rel="stylesheet"/>
 <style id="lm-print-css" media="print">
 html,body{height:auto !important;overflow:visible !important;background:#fff !important}
 body{display:block !important}
@@ -191,7 +64,7 @@ section.pc-pane .mapa{max-width:none !important;overflow:visible !important;heig
 section.pc-pane .mapa svg{width:766pt !important;height:396pt !important;max-width:none !important;
   max-height:none !important;min-width:0 !important}
 </style>
-</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20693064" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20693064</a>) · no errata</span><a href="mapa.pdf" class="lm-dl" download="newton-inequalities-map.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20693064" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20693064</a>) · no errata</span><a class="lm-dl" download="newton-inequalities-map.pdf" href="mapa.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
 <div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Inequalities for polynomials · real-rooted polynomials and log-concavity</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
 <span class="cifra"><b>9</b> results</span>
 <span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>4</b> entirely in Lean</span>
@@ -433,36 +306,8 @@ first in any proof assistant, June 2026). The equality cases and Maclaurin's cha
   else mark(panes[0]);
 })();
 </script>
-<script defer="" src="js/mapzoom.js?v=6dec6255cb"></script>
-<script id="lm-maphere">
-(function(){
-  var n = new URLSearchParams(location.search).get('n');
-  if (!n) return;
-  function go(){
-    var a = null;
-    document.querySelectorAll('svg a').forEach(function (x) {
-      var h = x.getAttribute('href') || x.getAttribute('xlink:href') || '';
-      if (!a && h.slice(h.indexOf('#') + 1) === n) a = x;
-    });
-    var g = a && (a.closest('g.node') || a.parentNode);
-    if (!g) return;
-    var pane = g.closest('section.pc-pane');
-    g.classList.add('lm-here');
-    var name = (a.getAttribute('xlink:title') || a.getAttribute('title') || n).split(':')[0];
-    var bar = document.getElementById('lm-herebar');
-    if (!bar) {
-      bar = document.createElement('div'); bar.id = 'lm-herebar';
-      var host = (pane || document.body);
-      host.insertBefore(bar, host.firstChild);
-    }
-    bar.innerHTML = '📍 <b></b> on the map · <a href="index.html#' + encodeURIComponent(n) + '">← back to the statement</a>';
-    bar.querySelector('b').textContent = name;
-    setTimeout(function () { g.scrollIntoView({block: 'center', inline: 'center'}); }, 300);
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
-  window.addEventListener('load', go);
-})();
-</script>
+<script defer="" src="../lemmario-assets/mapzoom.js"></script>
+<script data-lm="lm-maphere" src="../lemmario-assets/lm-maphere.js"></script>
 <script id="lm-tooltips">
 (function(){
   var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:newton": "Theorem 1 — Newton's inequalities, in Lean~4; \\paperlean{Newton.newton\\_inequality}", "auto:lemma-1": "Lemma 1 — \\paperlean{RealRooted.derivative}, \\paperlean{RealRooted.iterate\\_derivative}", "auto:lemma-2": "Lemma 2 — \\paperlean{RealRooted.reverse}", "auto:lemma-3": "Lemma 3 — \\paperlean{realRooted\\_discrim\\_coeff}", "q:1": "Question 1", "q:2": "Question 2", "q:3": "Question 3", "q:4": "Question 4", "q:5": "Question 5"};
@@ -504,37 +349,6 @@ first in any proof assistant, June 2026). The equality cases and Maclaurin's cha
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
-<script id="lm-print-js">
-(function(){
-  var opened = [], shown = [];
-  addEventListener('beforeprint', function(){
-    document.querySelectorAll('details:not([open]):not(.b-lab)').forEach(function(d){ d.open = true; opened.push(d); });
-    document.querySelectorAll('img[style*="display: none"], img[style*="display:none"]').forEach(function(i){
-      i.style.display = ''; shown.push(i); });
-  });
-  addEventListener('afterprint', function(){
-    opened.forEach(function(d){ d.open = false; }); shown.forEach(function(i){ i.style.display = 'none'; });
-    opened = []; shown = [];
-  });
-})();
-</script>
+<script data-lm="lm-notranslate" src="../lemmario-assets/lm-notranslate.js"></script>
+<script data-lm="lm-print-js" src="../lemmario-assets/lm-print-js.js"></script>
 </body></html>

@@ -1,104 +1,8 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: in five screens</title><style>
-:root{--ground:#e8e8e8;--bar:#6696bb;--bar2:#497da5;--card:#fff;--fg:#222;--mut:#5b6670;--line:#d3dbe4;
---acc:#1f4e79;--soft:#f5f8fc;--shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--fg);font:16.5px/1.55 Georgia,serif}
-a{color:var(--acc)}
-header.lm-bar{position:sticky;top:0;z-index:5;background:var(--bar);color:#fff;padding:.55em 16px;display:flex;gap:.8em;
-align-items:center;flex-wrap:wrap;font:14px Arial,sans-serif;box-shadow:0 2px 6px rgba(0,0,0,.25)}
-header.lm-bar a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.55);border-radius:14px;padding:.15em .8em;
-text-shadow:1px 1px 2px rgba(0,0,0,.6)}
-header.lm-bar a:hover{background:var(--bar2)}
-header.lm-bar b{text-shadow:1px 1px 2px rgba(0,0,0,.6)}header.lm-bar .dots{margin-left:auto;opacity:.9}
-main.lm-page{max-width:860px;margin:0 auto;padding:1.2em 16px 3em}
-.lm-card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:1em 1.25em;margin:0 0 1.2em;
-overflow-wrap:break-word}
-.lm-card{transition:box-shadow .18s ease,transform .18s ease}
-.lm-card:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
-@media (prefers-reduced-motion:reduce){.lm-card{transition:none}.lm-card:hover{transform:none}}
-.lm-card h2{font:600 1.12em Arial,sans-serif;color:var(--acc);margin:.1em 0 .7em;display:flex;gap:.45em;align-items:center}
-.lm-card h2 .n{font-size:.8em;color:var(--mut);font-weight:400}
-.lm-intro{font-size:.95em;color:var(--mut)}
-.stmt{background:var(--soft);border-left:4px solid var(--bar);border-radius:6px;padding:.8em 1em;overflow-x:auto}
-.next{display:inline-block;margin-top:.9em;font:14px Arial,sans-serif}
-ul,ol{padding-left:1.3em}li{margin:.35em 0}.mut,.rel{color:var(--mut);font-size:.9em}
-table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid var(--line);padding:.5em .5em;vertical-align:top;
-text-align:left}th{font:600 .82em Arial,sans-serif;color:var(--mut)}.st{white-space:nowrap}
-.chips{display:flex;flex-wrap:wrap;gap:.5em}.chip{background:var(--soft);border:1px solid var(--line);border-radius:16px;
-padding:.2em .8em;font:14px Arial,sans-serif}
-mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
-.equation{display:flex;align-items:center;margin:1rem 0}.equation_label{margin-right:1rem;color:var(--mut)}
-.equation_label::before{content:"("}.equation_label::after{content:")"}.equation_content{margin:auto}
-.lm-title{font:600 1.05em Arial,sans-serif;color:var(--acc);margin:0 0 .4em}.lm-title .dots{color:var(--mut);
-font-weight:400;font-size:.85em;margin-left:.5em}
-@media (max-width:600px){td,th{padding:.35em .25em;font-size:.92em}.lm-card{padding:.85em .9em}}
-</style><script>MathJax={tex:{inlineMath:[["$","$"],["\\(","\\)"]]}}</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script id="pc-embed">
-(function(){
-  if (window.self === window.top) return;
-  document.documentElement.classList.add('pc-embed');
-  function tell(){ try { window.parent.postMessage({pcLoc: location.href}, '*'); } catch (e) {} }
-  window.addEventListener('hashchange', tell);
-  window.addEventListener('load', tell);
-  window.addEventListener('message', function(e){
-    var d = e.data || {};
-    if (d.pcVista) { var b = document.querySelector('#vistas button[data-v="' + d.pcVista + '"]'); if (b) b.click(); }
-  });
-})();
-</script>
-<style id="pc-embed-css">html.pc-embed body>header,html.pc-embed nav.toc,html.pc-embed nav.prev_up_next,
-html.pc-embed header.pc-head,html.pc-embed nav.pc-toc{display:none !important}
-html.pc-embed section.pc-pane[hidden]{display:block !important}</style>
-<style id="pc-head-css">
-header.pc-head{background:linear-gradient(180deg,#6696bb 0,#396282);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,.8);
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .8rem;
-  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:sticky;top:0;z-index:60;
-  width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-bottom:.6rem}
-body{margin-top:0 !important}
-/* the graph's page keeps leanblueprint's header (Home · Dependencies · our links): its title in its place, the links
-   wrapping to a second line when they do not fit (19-oct: «Dependencies» was drawn over the buttons) */
-body>header:has(nav.pc-links){display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;height:auto !important}
-body>header>#doc_title{position:static !important;flex:0 0 auto;margin:0 .6em !important;transform:none !important}
-body>header>nav.pc-links{margin-left:auto;flex-wrap:wrap}
-header.pc-head a{color:#fff;text-decoration:none}
-header.pc-head .pc-title{font-size:1.15em;flex:1;text-align:left;min-width:6em}
-header.pc-head nav,nav.pc-links{display:flex;flex-wrap:wrap;gap:.4em;font:13px Helvetica,Arial,sans-serif}
-header.pc-head nav a,nav.pc-links a{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.14);color:#fff;
-  border-radius:999px;padding:.25em .85em;text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
-header.pc-head nav a:hover,nav.pc-links a:hover{background:rgba(255,255,255,.3)}
-header.pc-head nav a.on,nav.pc-links a.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
-/* phone: one line, the links in a row that scrolls sideways */
-@media (max-width:900px){header.pc-head{flex-wrap:wrap;padding:.3rem .5rem;gap:.4rem}
-  header.pc-head .pc-title{flex:0 0 auto;min-width:0;font-size:1.05em}
-  header.pc-head nav{flex-wrap:wrap;overflow:visible;flex:1 1 100%;min-width:0}
-  header.pc-head nav>*{flex-shrink:0;white-space:nowrap}
-  header.pc-head>*:not(.pc-title):not(nav){flex-shrink:0;white-space:nowrap;font-size:.8em}}
-
-/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
-   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
-   lighter cards under it, «At a glance» and each part of the map a card */
-div.content,div.main-text{background:transparent}
-div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
-div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
-  box-shadow:0 1px 5px rgba(0,0,0,.10)}
-div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
-/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
-   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
-div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
-  transition:box-shadow .18s ease,transform .18s ease}
-div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
-@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
-  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
-  p.lm-ficha:hover{transform:none}}
-/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
-section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
-  box-shadow:none;padding:0;border-radius:0}
-</style></head><body><header class="pc-head"><a class="pc-title" href="index.html" title="The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20693064" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20693064</a>) · no errata</span><a href="guide.html" class="lm-help" title="How to use this site">❓ How to use</a></nav></header><main class="lm-page screens"><div class="lm-title">The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4<span class="dots">📱 5 short screens</span></div><p class="lm-intro">📱 The paper in five short screens, for a phone or a first look: the result, what it says in words, how it is proved, what has been checked, and where to try it. Nothing here loads Python.</p><section class="lm-card screen" id="s1"><h2>🎯 The result <span class="n">1 / 5</span></h2><div class="stmt"><b>Theorem 1.</b> <div class="theorem_thmcontent">
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: in five screens</title><link data-lm="lm-pagestyle-css" href="../../lemmario-assets/lm-pagestyle-css.css" rel="stylesheet"/><script>MathJax={tex:{inlineMath:[["$","$"],["\\(","\\)"]]}}</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script data-lm="pc-embed" src="../../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../../lemmario-assets/pc-head-css.css" rel="stylesheet"/></head><body><header class="pc-head"><a class="pc-title" href="index.html" title="The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a class="on" href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20693064" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20693064</a>) · no errata</span><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header><main class="lm-page screens"><div class="lm-title">The Inward Bow of a Real-Rooted Polynomial: Newton's Inequalities, Machine-Checked in Lean 4<span class="dots">📱 5 short screens</span></div><p class="lm-intro">📱 The paper in five short screens, for a phone or a first look: the result, what it says in words, how it is proved, what has been checked, and where to try it. Nothing here loads Python.</p><section class="lm-card screen" id="s1"><h2>🎯 The result <span class="n">1 / 5</span></h2><div class="stmt"><b>Theorem 1.</b> <div class="theorem_thmcontent">
 <p>    For a <em>monic</em> real-rooted real polynomial \(p\) of degree \(n\) and every \(1\le k\le n-1\), </p>
 <div class="centered">\(\displaystyle e_k^2\, \binom {n}{k-1}\binom {n}{k+1}\; \ge \; e_{k-1}\, e_{k+1}\, \binom {n}{k}^{2}.\)</div>
 <p> Equivalently (<span class="ttfamily">newton_logConcave</span>) the normalized means \(p_k=e_k/\binom {n}{k}\) are log-concave, \(p_{k-1}\, p_{k+1}\le p_k^2\). Both are <span class="ttfamily">sorry</span>-free; <span class="ttfamily">#print axioms</span> on each reports only <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span>. </p>
@@ -159,23 +63,5 @@ first in any proof assistant, June 2026). The equality cases and Maclaurin's cha
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
-<script id="lm-notranslate">
-(function(){
-  var SEL = 'mjx-container,code,pre,.lean_decl,.MathJax,svg,canvas';
-  function mark(root) {
-    (root || document).querySelectorAll(SEL).forEach(function (e) {
-      if (e.getAttribute('translate') !== 'no') { e.setAttribute('translate', 'no'); e.classList.add('notranslate'); }
-    });
-  }
-  function start() {
-    mark();
-    if (window.MathJax && MathJax.startup && MathJax.startup.promise) MathJax.startup.promise.then(function () { mark(); });
-    var due = null;  // a lab or MathJax adds nodes: mark them, at most once per animation frame
-    new MutationObserver(function () {
-      if (due === null) due = requestAnimationFrame(function () { due = null; mark(); });
-    }).observe(document.body, {childList: true, subtree: true});
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
-})();
-</script>
+<script data-lm="lm-notranslate" src="../../lemmario-assets/lm-notranslate.js"></script>
 </body></html>
