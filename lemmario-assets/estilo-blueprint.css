@@ -1,0 +1,43 @@
+/* lemmario: commentary blocks, views bar, Lean seal. Injected into index.html after plasTeX. */
+/* a link target is not hidden under the sticky bar */
+[id], a[name]{scroll-margin-top:64px}
+details.blk{border-radius:8px;margin:.8em 0;padding:.1em .9em .4em;border-left:6px solid}
+details.blk>summary{cursor:pointer;font-weight:600;padding:.35em 0;list-style:none}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:before{content:"▸ ";color:#888}
+details.blk[open]>summary:before{content:"▾ "}
+.b-plain{background:#fff8e1;border-color:#f5b700}
+.b-guar{background:#f5f7f9;border-color:#8a99a8}
+.b-fig{background:#f3e5f5;border-color:#8e24aa}
+.b-set{background:#eceff1;border-color:#546e7a}
+.b-tabs{background:#e3f2fd;border-color:#1e88e5}
+.b-lab{background:#fff3e0;border-color:#ef6c00}
+#vistas{position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;padding:.4em .2em;
+        font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas button{border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;cursor:pointer}
+#vistas button.on{background:#2b6cb0;color:#fff;border-color:#2b6cb0}
+#vistas a.mapabtn{border:1px solid #1cac78;background:#e9f8f1;border-radius:4px;padding:.2em .8em;color:#145c40;
+        text-decoration:none;font-weight:600;white-space:nowrap}
+/* the floating bar at the bottom right (show less / show more / up): white icons on the blue, like the arrow */
+nav.prev_up_next svg.icon{color:#fff;fill:#fff;width:1.4rem;height:1.4rem;cursor:pointer;margin:auto .5rem;
+  filter:drop-shadow(1px 2px 0 rgba(0,0,0,.6))}
+/* tables: alternate rows (Carles, 20-oct: «un color una fila, otro la siguiente, así se ven mejor»); a cell coloured
+   by its data (tablecolor.py) keeps its colour and only darkens a little on the striped rows */
+table.tabular{border-collapse:collapse}
+table.tabular tr:nth-child(even)>td:not([data-colour]){background:#eef2f7}
+table.tabular tr:nth-child(odd)>td:not([data-colour]){background:#fff}
+table.tabular tr:first-child>td{background:#e3eaf2 !important;font-weight:600}
+table.tabular tr:nth-child(even)>td[data-colour]{filter:brightness(.95)}
+table.lm-tab tr:nth-child(even)>td{background:#f1f5f9}
+table.lm-tab tr:nth-child(odd)>td{background:#fff}
+/* Paper shows the paper's figures and the labs that redraw them (20-oct, Carles: «no veo ninguna fig y menos el lab»);
+   Explore adds the explanations and the other languages */
+body.vista-paper details.blk:not(.b-guar):not(.b-set):not(.b-fig):not(.b-lab){display:none}
+body.vista-paper details.b-guar{background:#f7f7f7;border-color:#bbb}
+.lean-check{font-size:.85em;color:#145c40;margin:.2em 0 .6em 1.4em}
+.lean-check .repro{color:#456}.lean-check code{font-size:.95em}
+.lean-ok{border-left:6px solid #1cac78;padding-left:.6em;background:linear-gradient(90deg,#e9f8f1,transparent 40%)}
+.sello{display:inline-block;background:#1cac78;color:#fff;border-radius:10px;padding:0 .55em;font-size:.8em;
+       margin-left:.5em;vertical-align:middle}
+.theorem_thmcaption{color:#1a4f8b}.proposition_thmcaption{color:#6a1b9a}
+.lemma_thmcaption{color:#00695c}.corollary_thmcaption{color:#ad4e00}

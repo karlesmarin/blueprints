@@ -1,0 +1,96 @@
+
+header nav.pc-opts{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;margin:.35rem 0 .35rem .8rem;
+  font:13px Helvetica,Arial,sans-serif;text-shadow:none}
+header nav.pc-opts a,header nav.pc-opts button{font:13px Helvetica,Arial,sans-serif;border:1px solid rgba(255,255,255,.75);
+  background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:.25em .85em;cursor:pointer;
+  text-decoration:none;white-space:nowrap;text-shadow:1px 2px 0 rgba(0,0,0,.8)}
+header nav.pc-opts a:hover,header nav.pc-opts button:hover{background:rgba(255,255,255,.3)}
+header nav.pc-opts span#vistas.pc-views{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid #fff;
+  margin:0 .3em 0 0;padding:0;background:transparent;position:static}
+header nav.pc-opts span#vistas.pc-views button{border:0;border-radius:0;background:rgba(255,255,255,.14);color:#fff;
+  font:13px Helvetica,Arial,sans-serif;padding:.25em .85em}
+header nav.pc-opts span#vistas.pc-views button.on{background:#fff;color:#1f4e79;font-weight:600;text-shadow:none}
+header h1#doc_title{flex:1}
+/* the paper's emoji and «Blueprint» on one line (26-oct) */
+header h1#doc_title a{white-space:nowrap}
+header h1#doc_title .pc-emoji{font-size:.95em;margin-right:.2em;display:inline-block;vertical-align:-.18em;
+  /* depth (26-oct, Carles): a tight shadow for the edge and a soft one below, as if it stood off the header */
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.35)) drop-shadow(0 3px 4px rgba(0,0,0,.35))}
+ul.chapter-list{font-size:1.05em;line-height:1.7}
+/* the whole paper in the central panel; the sidebar takes the reader to a point (PANES_JS) */
+section.pc-pane+section.pc-pane{margin-top:2.2rem}
+/* phone: the sidebar is a drawer under the header, opened and closed with ☰ */
+@media (max-width:1023.98px){
+  body>header{flex-wrap:nowrap !important;align-items:center;height:auto !important;padding:.3rem .4rem}
+  body>header svg#toc-toggle{width:2.1rem;height:2.1rem;flex-shrink:0;cursor:pointer;fill:#fff;color:#fff;
+    padding:.3rem;margin:0 .3rem 0 0;border:1px solid rgba(255,255,255,.8);border-radius:7px;background:rgba(255,255,255,.14)}
+  body>header h1#doc_title{flex:0 0 auto;font-size:1.15rem;margin:0 .2rem !important}
+  /* 11-nov (Carles: «no veo las opciones de In 5, Referee»): in one row that scrolled sideways with a hidden
+     scrollbar the options past the edge were invisible. Now they WRAP: every option on screen, in two or three rows */
+  body>header{flex-wrap:wrap}
+  header nav.pc-opts{flex-wrap:wrap;overflow:visible;margin:.25rem 0 .25rem .3rem;flex:1 1 100%;min-width:0;gap:.3em}
+  header nav.pc-opts>*{white-space:nowrap}
+  header nav.pc-opts a,header nav.pc-opts button{font-size:12px;padding:.18em .55em}
+  nav.toc{position:fixed;left:0;top:var(--pc-head,3.5rem);bottom:0;width:min(86vw,34ch);max-width:none;z-index:90;
+    box-shadow:4px 0 18px rgba(0,0,0,.35)}
+}
+.pc-paneltitle .titlepage h1{font-size:1.6rem;line-height:1.9rem;margin:.4rem 0 .5rem}
+.pc-paneltitle{border-bottom:1px solid #c9d3de;margin-bottom:1rem;padding-bottom:.4rem}
+nav.toc ul.sub-toc-0>li.current{background-color:#89aecb}
+/* Explore must look different from Paper: a banner, and the commentary open and marked in its own colour */
+#explore-banner{display:none;background:#f3ecfa;border:1px solid #c9b3e6;border-left:5px solid #7b4bb7;color:#3d2466;
+  border-radius:6px;padding:.55em .9em;margin:0 0 1.2em;font:14px Helvetica,Arial,sans-serif}
+body.vista-explore #explore-banner{display:block}
+body.vista-explore details.b-plain,body.vista-explore details.b-fig,body.vista-explore details.b-tabs{
+  border-left:4px solid #7b4bb7 !important;background:#faf6fe !important}
+body.vista-explore details.b-plain>summary::after,body.vista-explore details.b-fig>summary::after,
+body.vista-explore details.b-tabs>summary::after{content:"  commentary";font:600 11px Helvetica,Arial,sans-serif;
+  color:#7b4bb7;letter-spacing:.04em;text-transform:uppercase;margin-left:.6em}
+
+/* 10-nov (Carles: «incorpora el fondo para que todos se vean igual como has hecho con referee»): the same ground and
+   cards as referee.html / tour.html (pagestyle.py): each statement a white card with a shadow, its proof and blocks
+   lighter cards under it, «At a glance» and each part of the map a card */
+div.content,div.main-text{background:transparent}
+/* 13-nov (Carles: «ponlos centrados y un poco más anchos, las tablas se salen del margen»): el tema fija 75ch (unos
+   600 px), que en pantallas anchas deja una columna estrecha; ahora 98ch, centrada; una tabla más ancha que la
+   columna se desplaza dentro de ella en vez de salirse */
+div.content-wrapper{max-width:min(1100px,94%);margin-left:auto;margin-right:auto}  /* 13-nov tarde: «un poco más ancho, queda mucho espacio a los lados» (antes 98ch) */
+div.main-text table{display:block;max-width:100%;overflow-x:auto}
+div[class*="_thmwrapper"]{background:#fff;border-radius:12px;padding:.75em 1.1em;margin:1.4em 0 .5em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+div.proof_wrapper{background:#fff;border-radius:9px;padding:.5em 1em;margin:.4em 0 .4em 1.2em;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)}
+div.main-text details.blk,p.lm-ficha{border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#top.overview,section.pc-pane{background:#fff;border-radius:12px;padding:.8em 1.3em 1em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 2px rgba(15,23,42,.08),0 4px 10px rgba(15,23,42,.08),0 12px 24px -12px rgba(15,23,42,.18)}
+/* 10-nov (Carles: «cuando pase por encima la destaque»): the card under the pointer rises a little, with a deeper
+   shadow; only the content cards (statements, proofs, blocks), not the whole panes */
+div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,p.lm-ficha{
+  transition:box-shadow .18s ease,transform .18s ease}
+div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,p.lm-ficha:hover{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(15,23,42,.10),0 10px 20px rgba(15,23,42,.12),0 22px 40px -14px rgba(31,111,235,.35)}
+@media (prefers-reduced-motion:reduce){div[class*="_thmwrapper"],div.proof_wrapper,div.main-text details.blk,
+  p.lm-ficha{transition:none}div[class*="_thmwrapper"]:hover,div.proof_wrapper:hover,div.main-text details.blk:hover,
+  p.lm-ficha:hover{transform:none}}
+/* a card inside a card: only the outer one (index: «At a glance» is a pane inside the overview) */
+section.pc-pane #top.overview,#top.overview section.pc-pane,section.pc-pane section.pc-pane{background:transparent;
+  box-shadow:none;padding:0;border-radius:0}
+
+#top.overview{margin:0 0 2.2em}
+#top.overview h2.ov-title{font-size:1.5em;margin:.2em 0 .5em}
+#top.overview .aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+#top.overview .aporta h2{font-size:1.1em;margin:.6em 0 .2em}
+#top.overview .cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.8em 0;align-items:center}
+#top.overview .cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+#top.overview .c-lean{background:#c8f0dc;border:1px solid #1cac78}
+#top.overview .c-part{background:#e9f8f0;border:1px dashed #1cac78}
+#top.overview .c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+#top.overview .c-paper{background:#fff;border:1px solid #888}
+#top.overview .nota{font-size:.85em;color:#555}
+#top.overview .mapa{overflow-x:auto;border:1px solid #d3dbe4;border-radius:8px;padding:.5em;margin-top:.6em;background:#fff;
+  box-sizing:border-box;width:calc(100vw - 25ch - 4rem);max-width:1500px;position:relative;left:50%;transform:translateX(-50%)}
+#top.overview .mapa svg{display:block;width:100%;min-width:900px;height:auto}  /* the whole width of the page */
+#top.overview details.ov-map>summary{cursor:pointer;font-weight:600;margin-top:.6em}
+/* phone: there is no sidebar to leave room for; the map takes the width of the text (25-oct: it was 126 px) */
+@media (max-width:1023.98px){#top.overview .mapa{width:auto;max-width:100%;left:auto;transform:none}
+  #top.overview .mapa svg{min-width:0}}
