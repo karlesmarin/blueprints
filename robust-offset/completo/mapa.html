@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: Robust qubit–memory transfer against quasi-static frequency noise costs time and exposure: exact bounds from Dubins curves</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><link data-lm="pdf-css" href="../../lemmario-assets/pdf-css.css" rel="stylesheet"/><link data-lm="pc-map-css" href="../../lemmario-assets/pc-map-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../../lemmario-assets/pc-head-css.css" rel="stylesheet"/><link data-lm="lm-maphere-css" href="../../lemmario-assets/lm-maphere-css.css" rel="stylesheet"/>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:982pt 845pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:934pt !important;height:477pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Robust qubit–memory transfer against quasi-static frequency noise costs time and exposure: exact bounds from Dubins curves: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a class="lm-dl" download="robust-offset-map.pdf" href="mapa.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#results">Main results</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Robust qubit–memory transfer against quasi-static frequency noise costs time and exposure: exact bounds from Dubins curves</i></h1></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>11</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>7</b> partly in Lean</span>
+<span class="cifra c-lean" title="statements proved in Isabelle/HOL (ours)">✅ <b>3</b> in Isabelle</span>
+<span class="cifra c-prog">💻 <b>0</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="477pt" style="min-width:760px" viewbox="0.00 0.00 934.00 477.00" width="934pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 473.08)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M12,0C12,0 914,0 914,0 920,0 926,-6 926,-12 926,-12 926,-410.99 926,-410.99 926,-416.99 920,-422.99 914,-422.99 914,-422.99 12,-422.99 12,-422.99 6,-422.99 0,-416.99 0,-410.99 0,-410.99 0,-12 0,-12 0,-6 6,0 12,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="463" xml:space="preserve" y="-407.59">Robustness costs time and exposure</text>
+</g>
+<!-- thm:robust -->
+<g class="node" id="node1">
+<title>thm:robust</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#thm:robust" xlink:title="Theorem 1: Robustness costs exposure and time: the disk inequality and the minimal duration T₀ + arccos(|ζ|/z₀)/G">
+<path d="M143.8,-391.62C143.8,-391.62 20.2,-391.62 20.2,-391.62 14.2,-391.62 8.2,-385.62 8.2,-379.62 8.2,-379.62 8.2,-293.78 8.2,-293.78 8.2,-287.78 14.2,-281.78 20.2,-281.78 20.2,-281.78 143.8,-281.78 143.8,-281.78 149.8,-281.78 155.8,-287.78 155.8,-293.78 155.8,-293.78 155.8,-379.62 155.8,-379.62 155.8,-385.62 149.8,-391.62 143.8,-391.62" fill="#c8f0dc" stroke="#1cac78" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="82" xml:space="preserve" y="-375.18">Theorem 1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="82" xml:space="preserve" y="-360.93">Robustness costs exposure</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="82" xml:space="preserve" y="-346.68">and time: the disk</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="82" xml:space="preserve" y="-332.43">inequality and the minimal</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="82" xml:space="preserve" y="-318.18">duration T₀ +</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="82" xml:space="preserve" y="-303.93">arccos(|ζ|/z₀)/G</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="82" xml:space="preserve" y="-289.68">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- cor:robustcost -->
+<g class="node" id="node2">
+<title>cor:robustcost</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#cor:robustcost" xlink:title="Corollary 2: A robust transfer costs at least max(√(γq γₘ), (π/2) min γ)/G in extra exposure">
+<path d="M131.8,-229.41C131.8,-229.41 20.2,-229.41 20.2,-229.41 14.2,-229.41 8.2,-223.41 8.2,-217.41 8.2,-217.41 8.2,-167.58 8.2,-167.58 8.2,-161.58 14.2,-155.58 20.2,-155.58 20.2,-155.58 131.8,-155.58 131.8,-155.58 137.8,-155.58 143.8,-161.58 143.8,-167.58 143.8,-167.58 143.8,-217.41 143.8,-217.41 143.8,-223.41 137.8,-229.41 131.8,-229.41" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-214.39">Corollary 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-201.64">A robust transfer costs at</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-188.89">least max(√(γq γₘ), (π/2)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-176.14">min γ)/G in extra exposure</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="76" xml:space="preserve" y="-163.39">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:robust&#45;&gt;cor:robustcost -->
+<g class="edge" id="edge1">
+<title>thm:robust-&gt;cor:robustcost</title>
+<path d="M79.68,-280.72C79.08,-266.61 78.45,-251.61 77.88,-238.09" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="80.34,-238.29 77.6,-231.4 75.45,-238.5 80.34,-238.29" stroke="#9aa8b5"></polygon>
+</g>
+<!-- auto:remark&#45;4 -->
+<g class="node" id="node4">
+<title>auto:remark-4</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#auto:remark-4" xlink:title="Remark 4: Two representative pulses cancel the leakage in the least time π/G">
+<path d="M462.18,-367.24C462.18,-367.24 355.83,-367.24 355.83,-367.24 349.83,-367.24 343.83,-361.24 343.83,-355.24 343.83,-355.24 343.83,-318.16 343.83,-318.16 343.83,-312.16 349.83,-306.16 355.83,-306.16 355.83,-306.16 462.18,-306.16 462.18,-306.16 468.18,-306.16 474.18,-312.16 474.18,-318.16 474.18,-318.16 474.18,-355.24 474.18,-355.24 474.18,-361.24 468.18,-367.24 462.18,-367.24" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-352.22">Remark 4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-339.47">Two representative pulses</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-326.72">cancel the leakage in the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="409" xml:space="preserve" y="-313.97">least time π/G</text>
+</a>
+</g>
+</g>
+<!-- thm:robust&#45;&gt;auto:remark&#45;4 -->
+<g class="edge lm-aux" id="edge2">
+<title>thm:robust-&gt;auto:remark-4</title>
+<path d="M119.37,-392.71C135.84,-412.46 157.03,-432.38 181.5,-442.99 237.36,-467.22 263.22,-468.52 318.5,-442.99 348.84,-428.98 372.75,-399.22 388.36,-374.75" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="390.34,-376.21 391.93,-368.97 386.17,-373.63 390.34,-376.21" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:slow2 -->
+<g class="node" id="node5">
+<title>prop:slow2</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#prop:slow2" xlink:title="Proposition 5: Second-order error under quasi-static noise, for every pulse; when the square pulse is optimal">
+<path d="M297.42,-240.66C297.42,-240.66 180.57,-240.66 180.57,-240.66 174.57,-240.66 168.57,-234.66 168.57,-228.66 168.57,-228.66 168.57,-156.33 168.57,-156.33 168.57,-150.33 174.57,-144.33 180.57,-144.33 180.57,-144.33 297.42,-144.33 297.42,-144.33 303.42,-144.33 309.42,-150.33 309.42,-156.33 309.42,-156.33 309.42,-228.66 309.42,-228.66 309.42,-234.66 303.42,-240.66 297.42,-240.66" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239" xml:space="preserve" y="-224.22">Proposition 5</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239" xml:space="preserve" y="-209.97">Second-order error under</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239" xml:space="preserve" y="-195.72">quasi-static noise, for</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239" xml:space="preserve" y="-181.47">every pulse; when the</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239" xml:space="preserve" y="-167.22">square pulse is optimal</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="239" xml:space="preserve" y="-152.97">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:robust&#45;&gt;prop:slow2 -->
+<g class="edge" id="edge3">
+<title>thm:robust-&gt;prop:slow2</title>
+<path d="M142.7,-280.72C154.75,-269.8 167.39,-258.35 179.41,-247.47" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="180.96,-249.37 184.5,-242.86 177.67,-245.74 180.96,-249.37" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:planar -->
+<g class="node" id="node6">
+<title>lem:planar</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#lem:planar" xlink:title="Lemma 6: Planar exposure bound for pulses of fixed phase">
+<path d="M456.05,-223.03C456.05,-223.03 345.95,-223.03 345.95,-223.03 339.95,-223.03 333.95,-217.03 333.95,-211.03 333.95,-211.03 333.95,-173.95 333.95,-173.95 333.95,-167.95 339.95,-161.95 345.95,-161.95 345.95,-161.95 456.05,-161.95 456.05,-161.95 462.05,-161.95 468.05,-167.95 468.05,-173.95 468.05,-173.95 468.05,-211.03 468.05,-211.03 468.05,-217.03 462.05,-223.03 456.05,-223.03" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="401" xml:space="preserve" y="-208.02">Lemma 6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="401" xml:space="preserve" y="-195.27">Planar exposure bound for</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="401" xml:space="preserve" y="-182.52">pulses of fixed phase</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="401" xml:space="preserve" y="-169.77">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:robust&#45;&gt;lem:planar -->
+<g class="edge" id="edge4">
+<title>thm:robust-&gt;lem:planar</title>
+<path d="M156.66,-286.48C160.77,-284.4 164.9,-282.44 169,-280.66 233.46,-252.65 257.18,-267.83 322,-240.66 330.86,-236.94 339.92,-232.37 348.6,-227.55" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="349.6,-229.8 354.47,-224.2 347.17,-225.54 349.6,-229.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:planar -->
+<g class="node" id="node7">
+<title>rem:planar</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#rem:planar" xlink:title="Remark 7: The exact planar section: a Dubins car that turns back">
+<path d="M608.67,-229.41C608.67,-229.41 505.32,-229.41 505.32,-229.41 499.32,-229.41 493.32,-223.41 493.32,-217.41 493.32,-217.41 493.32,-167.58 493.32,-167.58 493.32,-161.58 499.32,-155.58 505.32,-155.58 505.32,-155.58 608.67,-155.58 608.67,-155.58 614.67,-155.58 620.67,-161.58 620.67,-167.58 620.67,-167.58 620.67,-217.41 620.67,-217.41 620.67,-223.41 614.67,-229.41 608.67,-229.41" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="557" xml:space="preserve" y="-214.39">Remark 7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="557" xml:space="preserve" y="-201.64">The exact planar section:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="557" xml:space="preserve" y="-188.89">a Dubins car that turns</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="557" xml:space="preserve" y="-176.14">back</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="557" xml:space="preserve" y="-163.39">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:robust&#45;&gt;rem:planar -->
+<g class="edge lm-aux" id="edge5">
+<title>thm:robust-&gt;rem:planar</title>
+<path d="M156.91,-285.6C160.92,-283.78 164.96,-282.11 169,-280.66 300.53,-233.28 349.27,-287.48 481,-240.66 486.43,-238.73 491.89,-236.37 497.24,-233.74" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="498.04,-236.08 503.14,-230.69 495.79,-231.73 498.04,-236.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:noiseloss -->
+<g class="node" id="node8">
+<title>prop:noiseloss</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#prop:noiseloss" xlink:title="Proposition 8: Slow noise together with memory loss: square-pulse optimality and the large-noise asymptotics">
+<path d="M540.43,-104.33C540.43,-104.33 417.57,-104.33 417.57,-104.33 411.57,-104.33 405.57,-98.33 405.57,-92.33 405.57,-92.33 405.57,-20 405.57,-20 405.57,-14 411.57,-8 417.57,-8 417.57,-8 540.43,-8 540.43,-8 546.43,-8 552.43,-14 552.43,-20 552.43,-20 552.43,-92.33 552.43,-92.33 552.43,-98.33 546.43,-104.33 540.43,-104.33" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="479" xml:space="preserve" y="-87.89">Proposition 8</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="479" xml:space="preserve" y="-73.64">Slow noise together with</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="479" xml:space="preserve" y="-59.39">memory loss: square-pulse</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="479" xml:space="preserve" y="-45.14">optimality and the large-</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="479" xml:space="preserve" y="-30.89">noise asymptotics</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="479" xml:space="preserve" y="-16.64">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:robust&#45;&gt;prop:noiseloss -->
+<g class="edge" id="edge9">
+<title>thm:robust-&gt;prop:noiseloss</title>
+<path d="M157.09,-285.29C161.04,-283.56 165.02,-282 169,-280.66 267.07,-247.61 563.03,-316.92 633,-240.66 647.47,-224.89 643.78,-162.82 633,-144.33 617.02,-116.92 588.87,-97.44 560.97,-83.95" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="562.26,-81.85 554.88,-81.12 560.19,-86.3 562.26,-81.85" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:corr -->
+<g class="node" id="node10">
+<title>rem:corr</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#rem:corr" xlink:title="Remark 10: Correlated offsets: the same formula, and when correlation makes the square pulse optimal">
+<path d="M756.92,-379.99C756.92,-379.99 655.08,-379.99 655.08,-379.99 649.08,-379.99 643.08,-373.99 643.08,-367.99 643.08,-367.99 643.08,-305.41 643.08,-305.41 643.08,-299.41 649.08,-293.41 655.08,-293.41 655.08,-293.41 756.92,-293.41 756.92,-293.41 762.92,-293.41 768.92,-299.41 768.92,-305.41 768.92,-305.41 768.92,-367.99 768.92,-367.99 768.92,-373.99 762.92,-379.99 756.92,-379.99" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="706" xml:space="preserve" y="-364.97">Remark 10</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="706" xml:space="preserve" y="-352.22">Correlated offsets: the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="706" xml:space="preserve" y="-339.47">same formula, and when</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="706" xml:space="preserve" y="-326.72">correlation makes the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="706" xml:space="preserve" y="-313.97">square pulse optimal</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="706" xml:space="preserve" y="-301.22">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:robust&#45;&gt;rem:corr -->
+<g class="edge lm-aux" id="edge16">
+<title>thm:robust-&gt;rem:corr</title>
+<path d="M119.37,-392.71C135.84,-412.46 157.03,-432.38 181.5,-442.99 226.05,-462.31 574.59,-463.72 618.5,-442.99 643.37,-431.25 663.56,-408.6 678.25,-387.21" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="680.16,-388.77 681.98,-381.58 676.07,-386.06 680.16,-388.77" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:unified -->
+<g class="node" id="node11">
+<title>rem:unified</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#rem:unified" xlink:title="Remark 11: One sufficient condition for square-pulse optimality, covering relaxation of both elements and correlated offsets">
+<path d="M905.8,-392.74C905.8,-392.74 806.2,-392.74 806.2,-392.74 800.2,-392.74 794.2,-386.74 794.2,-380.74 794.2,-380.74 794.2,-292.66 794.2,-292.66 794.2,-286.66 800.2,-280.66 806.2,-280.66 806.2,-280.66 905.8,-280.66 905.8,-280.66 911.8,-280.66 917.8,-286.66 917.8,-292.66 917.8,-292.66 917.8,-380.74 917.8,-380.74 917.8,-386.74 911.8,-392.74 905.8,-392.74" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="856" xml:space="preserve" y="-377.72">Remark 11</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="856" xml:space="preserve" y="-364.97">One sufficient condition</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="856" xml:space="preserve" y="-352.22">for square-pulse</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="856" xml:space="preserve" y="-339.47">optimality, covering</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="856" xml:space="preserve" y="-326.72">relaxation of both</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="856" xml:space="preserve" y="-313.97">elements and correlated</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="856" xml:space="preserve" y="-301.22">offsets</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="856" xml:space="preserve" y="-288.47">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- thm:robust&#45;&gt;rem:unified -->
+<g class="edge lm-aux" id="edge20">
+<title>thm:robust-&gt;rem:unified</title>
+<path d="M119.37,-392.71C135.84,-412.46 157.03,-432.38 181.5,-442.99 211.42,-455.96 739.01,-456.91 768.5,-442.99 788.62,-433.49 805.67,-416.85 819.23,-399.52" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="820.9,-401.38 823.16,-394.32 816.98,-398.43 820.9,-401.38" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:cost -->
+<g class="node" id="node3">
+<title>prop:cost</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#prop:cost" xlink:title="Proposition 3: Fixed phase: the exact minimal exposure cost, from the shortest Dubins U-turn">
+<path d="M306.93,-384.87C306.93,-384.87 193.07,-384.87 193.07,-384.87 187.07,-384.87 181.07,-378.87 181.07,-372.87 181.07,-372.87 181.07,-300.53 181.07,-300.53 181.07,-294.53 187.07,-288.53 193.07,-288.53 193.07,-288.53 306.93,-288.53 306.93,-288.53 312.93,-288.53 318.93,-294.53 318.93,-300.53 318.93,-300.53 318.93,-372.87 318.93,-372.87 318.93,-378.87 312.93,-384.87 306.93,-384.87" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-368.43">Proposition 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-354.18">Fixed phase: the exact</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-339.93">minimal exposure cost,</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-325.68">from the shortest Dubins</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-311.43">U-turn</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="250" xml:space="preserve" y="-297.18">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- prop:cost&#45;&gt;rem:corr -->
+<g class="edge lm-aux" id="edge14">
+<title>prop:cost-&gt;rem:corr</title>
+<path d="M279.38,-385.92C295.33,-407.72 317.19,-431.09 343.5,-442.99 399.18,-468.17 563.24,-469.08 618.5,-442.99 643.37,-431.25 663.56,-408.6 678.25,-387.21" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="680.16,-388.77 681.98,-381.58 676.07,-386.06 680.16,-388.77" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:slow2&#45;&gt;prop:noiseloss -->
+<g class="edge" id="edge7">
+<title>prop:slow2-&gt;prop:noiseloss</title>
+<path d="M310.51,-150.26C314.06,-148.25 317.57,-146.26 321,-144.33 345.72,-130.4 372.72,-115.42 397.3,-101.88" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="398.23,-104.17 403.17,-98.64 395.86,-99.88 398.23,-104.17" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:slow2&#45;&gt;rem:corr -->
+<g class="edge lm-aux" id="edge15">
+<title>prop:slow2-&gt;rem:corr</title>
+<path d="M310.71,-236.78C314.14,-238.2 317.58,-239.51 321,-240.66 452.64,-285.04 502.03,-229.04 631,-280.66 636.57,-282.89 642.1,-285.63 647.48,-288.68" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="646.17,-290.75 653.43,-292.25 648.69,-286.55 646.17,-290.75" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:slow2&#45;&gt;rem:unified -->
+<g class="edge lm-aux" id="edge17">
+<title>prop:slow2-&gt;rem:unified</title>
+<path d="M310.65,-236.96C314.09,-238.33 317.55,-239.58 321,-240.66 516.78,-302.16 588.93,-208.38 781,-280.66 782.92,-281.38 784.83,-282.17 786.73,-283.01" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="785.28,-285.03 792.65,-285.85 787.4,-280.61 785.28,-285.03" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:planar&#45;&gt;prop:noiseloss -->
+<g class="edge" id="edge6">
+<title>lem:planar-&gt;prop:noiseloss</title>
+<path d="M418.31,-161.68C426.68,-147.28 436.99,-129.51 446.73,-112.74" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="448.71,-114.21 450.1,-106.93 444.47,-111.75 448.71,-114.21" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:relax -->
+<g class="node" id="node9">
+<title>rem:relax</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#rem:relax" xlink:title="Remark 9: Relaxation of the qubit too: the bound and the sufficient condition for the square pulse">
+<path d="M606.55,-379.99C606.55,-379.99 511.45,-379.99 511.45,-379.99 505.45,-379.99 499.45,-373.99 499.45,-367.99 499.45,-367.99 499.45,-305.41 499.45,-305.41 499.45,-299.41 505.45,-293.41 511.45,-293.41 511.45,-293.41 606.55,-293.41 606.55,-293.41 612.55,-293.41 618.55,-299.41 618.55,-305.41 618.55,-305.41 618.55,-367.99 618.55,-367.99 618.55,-373.99 612.55,-379.99 606.55,-379.99" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="559" xml:space="preserve" y="-364.97">Remark 9</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="559" xml:space="preserve" y="-352.22">Relaxation of the qubit</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="559" xml:space="preserve" y="-339.47">too: the bound and the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="559" xml:space="preserve" y="-326.72">sufficient condition for</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="559" xml:space="preserve" y="-313.97">the square pulse</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="559" xml:space="preserve" y="-301.22">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- lem:planar&#45;&gt;rem:relax -->
+<g class="edge lm-aux" id="edge10">
+<title>lem:planar-&gt;rem:relax</title>
+<path d="M434.33,-223.49C454.93,-242.03 481.83,-266.24 505.37,-287.43" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="503.62,-289.15 510.47,-292.02 506.9,-285.51 503.62,-289.15" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:planar&#45;&gt;rem:corr -->
+<g class="edge lm-aux" id="edge13">
+<title>lem:planar-&gt;rem:corr</title>
+<path d="M446.85,-223.39C457.75,-229.69 469.55,-235.86 481,-240.66 544.64,-267.32 568.78,-250.84 631,-280.66 635.89,-283 640.79,-285.68 645.61,-288.56" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="644.09,-290.5 651.33,-292.12 646.68,-286.34 644.09,-290.5" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:planar&#45;&gt;prop:noiseloss -->
+<g class="edge" id="edge8">
+<title>rem:planar-&gt;prop:noiseloss</title>
+<path d="M535.89,-155.14C528.22,-141.92 519.36,-126.67 510.95,-112.19" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="513.26,-111.29 507.63,-106.47 509.02,-113.75 513.26,-111.29" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:planar&#45;&gt;rem:relax -->
+<g class="edge lm-aux" id="edge12">
+<title>rem:planar-&gt;rem:relax</title>
+<path d="M557.51,-229.88C557.75,-246.59 558.03,-266.68 558.28,-284.84" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="555.83,-284.55 558.38,-291.52 560.72,-284.48 555.83,-284.55" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:noiseloss&#45;&gt;rem:relax -->
+<g class="edge lm-aux" id="edge11">
+<title>prop:noiseloss-&gt;rem:relax</title>
+<path d="M553.38,-74.4C590.43,-87.15 631.93,-108.69 654,-144.33 676.54,-180.73 670.38,-201.1 654,-240.66 646.81,-258.01 634.75,-273.85 621.6,-287.41" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="620.21,-285.34 616.97,-292.01 623.66,-288.81 620.21,-285.34" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:relax&#45;&gt;rem:unified -->
+<g class="edge lm-aux" id="edge19">
+<title>rem:relax-&gt;rem:unified</title>
+<path d="M581.2,-380.56C595.53,-403.72 616.54,-429.98 643.5,-442.99 693.54,-467.13 718.26,-466.7 768.5,-442.99 788.62,-433.49 805.67,-416.85 819.23,-399.52" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="820.9,-401.38 823.16,-394.32 816.98,-398.43 820.9,-401.38" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:corr&#45;&gt;rem:unified -->
+<g class="edge lm-aux" id="edge18">
+<title>rem:corr-&gt;rem:unified</title>
+<path d="M769.28,-336.7C774.62,-336.7 779.95,-336.7 785.29,-336.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="785.16,-339.15 792.16,-336.7 785.16,-334.25 785.16,-339.15" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#thm:robust"><b>Theorem 1</b></a>: Robustness costs exposure and time: the disk inequality and the minimal duration T₀ + arccos(|ζ|/z₀)/G.</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:robust"><b>Theorem 1</b></a>: Robustness costs exposure and time: the disk inequality and the minimal duration T₀ + arccos(|ζ|/z₀)/G</li><li><a href="index.html#prop:cost"><b>Proposition 3</b></a>: Fixed phase: the exact minimal exposure cost, from the shortest Dubins U-turn</li><li><a href="index.html#prop:slow2"><b>Proposition 5</b></a>: Second-order error under quasi-static noise, for every pulse; when the square pulse is optimal</li><li><a href="index.html#prop:noiseloss"><b>Proposition 8</b></a>: Slow noise together with memory loss: square-pulse optimality and the large-noise asymptotics</li></ul></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  if (!panes.length || !box) return;
+  function mark(p){
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+  }
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
+})();
+</script>
+<script defer="" src="../../lemmario-assets/mapzoom.js"></script>
+<script data-lm="lm-maphere" src="../../lemmario-assets/lm-maphere.js"></script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:robust": "Theorem 1 — \\tagF\\ for the space curve", "cor:robustcost": "Corollary 2 — \\tagW", "prop:cost": "Proposition 3 — \\tagW", "auto:remark-4": "Remark 4", "prop:slow2": "Proposition 5 — \\tagW", "lem:planar": "Lemma 6 — planar exposure bound \\tagW", "rem:planar": "Remark 7 — the exact planar section", "prop:noiseloss": "Proposition 8 — \\tagW", "rem:relax": "Remark 9 — relaxation of the qubit; the bound and the sufficient condition \\tagF", "rem:corr": "Remark 10 — correlated offsets \\tagW", "rem:unified": "Remark 11 — one sufficient condition for both \\tagF"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script data-lm="lm-notranslate" src="../../lemmario-assets/lm-notranslate.js"></script>
+<script data-lm="lm-print-js" src="../../lemmario-assets/lm-print-js.js"></script>
+</body></html>
