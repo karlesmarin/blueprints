@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<link data-lm="pdf-css" href="../../lemmario-assets/pdf-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../../lemmario-assets/pc-head-css.css" rel="stylesheet"/></head>
+<body><svg aria-hidden="true" id="lm-icons" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="icon-cross" viewbox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="auto:remark-2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-2" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">2</span></div>
+<div class="thm_thmcontent"><p>  The symmetry also follows without the formula: if \(M\) is the matrix of the resonant pulse and \(M'\) the one with the rates exchanged, then \(M'=(\Pi M\Pi )^{\mathsf T}\) for the transposition \(\Pi \), so \((e^{M't})_{21}=(e^{Mt})_{21}\). No relation between \(G\) and the rates is needed: the critical and over-damped cases follow from the same comparison, because the maximum of \(F\) comes before the zero of \(\omega \). (For \(G=1\), \({\gamma _q}=5\), \({\gamma _m}=0\): \(t_*=\tfrac 43\ln 2\) and \(P_*=2^{-10/3}\approx 0.0992\).) Figure 1 shows \(1-P_*\) for both rates from \(10^{-3}G\) to \(G/2\). The Isabelle/HOL formalisation of the bound over all pulses covers the three regimes, on the reduced population equations. The over-damped case uses the eigen-coordinates of the resonant matrix and a logarithmic Lyapunov function, and the critical case its Jordan coordinates (no polar angle); the delicate case \(\delta \le -4G\) appears as the positivity of one coordinate. </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="auto:remark-3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-3" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">3</span><span class="remark_thmtitle">stopping rule</span></div>
+<div class="thm_thmcontent"><p>   Since the optimum is at \(\tan \theta _*=2G/{\gamma _m}\), the resonant pulse should be stopped when \(|a(t)|/|b(t)|={\gamma _m}/(2G)\), in all three regimes. With \({\gamma _m}=0\) the rule is complete transfer, \(a=0\). The rule needs only the ratio of the amplitudes, not \(t_*\). </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="auto:remark-5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-5" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">5</span></div>
+<div class="thm_thmcontent"><p>  Figure 2 tests the theorem against 1500 random pulses in a strongly dephased case. When the two relaxation rates are equal there is a proof in the style of Theorem <a href="index.html#thm:amp">1</a>, with no optimal control theory; it is in Appendix A and also gives the optimality of the resonant pulse at each fixed short duration. When there is no relaxation and \(\Phi {\lt}4G\) the supremum is explicit: \(P_\phi =\tfrac 12\bigl(1+e^{-\pi \Phi /(2\omega _p)}\bigr)\) with \(\omega _p=\sqrt{4G^2-\Phi ^2/4}\); for \(\Phi \ge 4G\) it is \(1/2\) and is not attained. For the same reason the infimum in Corollary <a href="index.html#cor:channel">9</a> need not be attained (with \(G=1\), no relaxation and \(\phi _q=\phi _m=10\) the resonant pulse gives \(r(t){\gt}5/12\) for every \(t\) and \(r(t)\to 5/12\); Proposition <a href="index.html#prop:strong">11</a> shows that no pulse does better). With positive relaxation rates the error tends to \(1/2\) as the duration grows, so the resonant family attains its own infimum at a finite duration; existence of an optimal control over all pulses (with unbounded detuning) is not claimed. </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-5">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:channel_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:channel" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">9</span><span class="corollary_thmtitle"> identities</span></div>
+<div class="thm_thmcontent"><p>    MarBprop:slow2used-byMarBprop:noiselossused-by Memory_Access_Floors.write_channel_infidelity, Memory_Access_Floors.worst_case_case_one, Memory_Access_Floors.worst_case_case_two Let \(c_*=\sqrt{P_*(2\eta _q,2\eta _m;G)}\) (assuming \(G{\gt}|\eta _q-\eta _m|/2\)) and let \(r_{\mathrm{opt}}\) be the infimum of \(r\) over all pulses and durations. Then </p>
+<div class="displaymath" id="a0000000042">
+  \[  r_{\mathrm{sep}}:=\frac{1-P_\phi }{6}+\frac{1-c_*}{3}\; \le \; r_{\mathrm{opt}}\; \le \; r_{\mathrm{res}}:=\inf _{t\ge 0}\Bigl[\frac{1-p_{\mathrm{res}}(t)}{6}+\frac{1-c_{\mathrm{res}}(t)}{3}\Bigr],  \]
+</div>
+<p> where \(c_{\mathrm{res}}(t)=G\, e^{-(\eta _q+\eta _m)t/2}\, |\sin \omega _ct|/\omega _c\), \(\omega _c^2=G^2-(\eta _q-\eta _m)^2/4\). The same pulses are optimal for \(F\) and for \(F_e\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:channel">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:fixed_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:fixed" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">8</span></div>
+<div class="thm_thmcontent"><p>    Robust_Cost_Branches.fixed_duration_envelope, Robust_Cost_Branches.envelope_ge_resonant Let \(\mu =\min ({\gamma _q},{\gamma _m})\) and \(\nu =\min (\eta _q,\eta _m)\). For every prescribed duration \(T\) the largest transferred population and the largest transferred coherence over all pulses are </p>
+<div class="displaymath" id="a0000000036">
+  \[  B_p(T)=e^{-\mu T}\max _{0\le s\le T}e^{\mu s}p_{\mathrm{res}}(s),\qquad B_c(T)=e^{-\nu T}\max _{0\le s\le T}e^{\nu s}c_{\mathrm{res}}(s).  \]
+</div>
+<p> Each is attained by a resonant pulse of the maximising duration \(s\) and a wait of \(T-s\) in the element with the smaller rate \(\gamma \) (for \(B_c\): the smaller rate \(\eta \)), before the pulse if that element is the qubit and after it if it is the mode. </p>
+</div>
+<a class="latex_link" href="index.html#cor:fixed">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:time_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:time" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">10</span><span class="corollary_thmtitle"> numbers</span></div>
+<div class="thm_thmcontent"><p>    Memory_Time_Bound.time_bound, Memory_Time_Bound.time_equality, Memory_Time_Bound.time_limit With \(B_p,B_c\) of Corollary <a href="index.html#cor:fixed">8</a>, </p>
+<div class="displaymath" id="a0000000047">
+  \[  r_{\mathrm{sep}}\; \le \; r_{\mathrm{time}}:=\frac12-\frac16\, \sup _{T\ge 0}\bigl[B_p(T)+2B_c(T)\bigr]\; \le \; r_{\mathrm{opt}}\; \le \; r_{\mathrm{res}} .  \]
+</div>
+<p> If the supremum is attained at a duration \(T_0\) at which \(B_p(T_0)=p_{\mathrm{res}}(T_0)\) and \(B_c(T_0)=c_{\mathrm{res}}(T_0)\), then \(r_{\mathrm{opt}}=r_{\mathrm{res}}\): the resonant pulse is exactly optimal for the average fidelity. The same holds if the supremum is approached along durations \(T_n\) with \([B_p(T_n)-p_{\mathrm{res}}(T_n)]+2[B_c(T_n)-c_{\mathrm{res}}(T_n)]\to 0\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:time">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:unequal_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:unequal" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">13</span><span class="corollary_thmtitle"> a sufficient region below \(2\sqrt5\, G\)</span></div>
+<div class="thm_thmcontent"><p>   Unequal_Sufficient_Region.psuf_kappa, Unequal_Sufficient_Region.psuf_a, Unequal_Sufficient_Region.psuf_initial, Unequal_Sufficient_Region.exp_step, Unequal_Sufficient_Region.sinh_ratio_mono, Unequal_Sufficient_Region.resonant_ratio, Unequal_Sufficient_Region.coth_step, Unequal_Sufficient_Region.initial_interval Take the class of Proposition <a href="index.html#prop:unequal">12</a> and units \(G=1\), but with \(1{\lt}\delta {\lt}\sqrt5\). Put \(s=\operatorname {artanh}(\Omega /\delta )/\Omega \) and \(L=\log (2/\Omega )/s\). If </p>
+<div class="displaymath" id="a0000000059">
+  \[  \phi _q\phi _m\  \ge \  P_{\rm suf}(\delta ):=\max \Bigl\{ 16-8\delta ,\  3+2\Omega L+L^2,\  \bigl(\tfrac {\delta ^2}{\Omega }+L\bigr)^2-\delta ^2\Bigr\} ,  \]
+</div>
+<p> then every pulse has \(p+2c{\lt}\tfrac 12\) at every duration, and \(r_{\mathrm{opt}}=5/12\), not attained. For instance \(P_{\rm suf}(2)=3.6911216538\ldots \): at \(|\phi _q-\phi _m|=4G\) the threshold lies in \([3G^2,3.6912\, G^2]\), where the envelope bound of Corollary <a href="index.html#cor:fixed">8</a> certifies only from \(4G^2\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:unequal">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:cycle_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:cycle" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">17</span><span class="proposition_thmtitle"> the memory cycle with a reset</span></div>
+<div class="thm_thmcontent"><p>   Memory_Floors_Pieces.chan_comp, Memory_Floors_Pieces.valid_chan_comp, Memory_Floors_Pieces.cycle_channel, Memory_Floors_Pieces.cycle_floor  Markovian rates; write, wait a time \(t\) in the memory with no coupling, read back into the qubit, and assume that the transmon is reset to its ground state between the write and the read (what it still holds is lost, as in the channel \(\mathcal E_{p,c}\)). Then the write–wait–read channel is \(\mathcal E_{p,c}\) with \(p=p_wp_re^{-{\gamma _m}t}\) and \(c=c_wc_re^{-\eta _mt}\), the read obeys the same bounds as the write, and </p>
+<div class="displaymath" id="a0000000074">
+  \[  r_{\rm cycle}\  \ge \  \frac{1-P_\phi ^2e^{-{\gamma _m}t}}{6}+\frac{1-c_*^2e^{-\eta _mt}}{3} .  \]
+</div>
+<p> Here \(P_\phi =\sup _{s\ge 0}p_{\mathrm{res}}(s)\) and \(c_*=\sup _{s\ge 0}c_{\mathrm{res}}(s)=\sqrt{P_*(2\eta _q,2\eta _m;G)}\), with the continuous and hyperbolic forms of Theorem <a href="index.html#thm:amp">1</a> used at critical damping and overdamping. The known accumulated phase is corrected at the output. </p>
+</div>
+<a class="latex_link" href="index.html#prop:cycle">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:equal_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:equal" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">19</span></div>
+<div class="thm_thmcontent"><p>   Memory_Access_Dephasing.P1, Memory_Access_Dephasing.P3, Memory_Access_Extras.memory_dephasing_equal_rates_free Let \({\gamma _q}={\gamma _m}=\gamma \) and \(\Phi {\lt}4G\). Put \(\omega (\beta )=2G-\tfrac \Phi 2\sin 2\beta \), \(R(\beta )=-\int _0^\beta \Phi \sin ^2\! /\omega \) and \(\tau (\beta )=\int _0^\beta 1/\omega \). For every control and every \(T\), </p>
+<div class="displaymath" id="a0000000096">
+  \[  p_b(T)\le \max _{0\le \beta \le \pi }\tfrac 12\, e^{-\gamma \tau (\beta )}\bigl(1-e^{R(\beta )}\cos \beta \bigr)=P_\phi ,  \]
+</div>
+<p> and \(p_b(T)\le p_{\mathrm{res}}(T)\) for every \(T\le \tau (\pi /2)\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:equal">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:gap_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:gap" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">15</span><span class="proposition_thmtitle"> the price of one stopping time</span></div>
+<div class="thm_thmcontent"><p>    Equal_Rate_Threshold.gap_lower_bound, Equal_Rate_Threshold.gap_at_midpoint, Equal_Rate_Threshold.gap_min_value, Equal_Rate_Threshold.wph1_deriv, Equal_Rate_Threshold.wph1_stationary, Equal_Rate_Threshold.wph1_negative Let \(\varepsilon =\max ({\gamma _q},{\gamma _m},\phi _q,\phi _m)/G\). </p>
+<ol class="enumerate">
+<li><p>Without dephasing (\(\Phi =0\)), \(c_{\mathrm{res}}=\sqrt{p_{\mathrm{res}}}\), so \(r_{\mathrm{sep}}=r_{\mathrm{opt}}=r_{\mathrm{res}}\): the resonant pulse stopped at its first maximum is exactly optimal for \(r\) and for \(F_e\). </p>
+</li>
+<li><p>In general the population maximum does not move with the dephasing to first order, the coherence maximum comes earlier by \(\Phi /(2G^2)\), and </p>
+<div class="displaymath" id="a0000000070">
+  \[  r_{\mathrm{res}}-r_{\mathrm{sep}}=\frac{\Phi ^2}{48\, G^2}+O(\varepsilon ^3) .  \]
+</div>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#prop:gap">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:noreset_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:noreset" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">18</span><span class="proposition_thmtitle"> the cycle without reset, to first order</span></div>
+<div class="thm_thmcontent"><p>    Memory_Cycle_No_Reset.change_of_variables_ineq, Memory_Cycle_No_Reset.F_derivative_pi_half, Memory_Cycle_No_Reset.every_minimiser_below_pi_half, Cycle_Utility_Threshold.rho_concave, Cycle_Utility_Threshold.rho_zero_lt, Cycle_Utility_Threshold.rho_ge_rho_one, Cycle_Utility_Threshold.F_t_difference, Cycle_Utility_Threshold.F_t_ge, Cycle_Utility_Threshold.rho_slope_gt Fix a direction of non-negative Markovian rates and scale it by \(\varepsilon \). Fix, independently of \(\varepsilon \), a write–wait–read control with no reset (\(|g|\le G\), any phase and detuning; a wait of time \(t\) with no coupling) whose zero-rate propagator returns the excitation to the qubit up to a known phase, corrected at the output. Put </p>
+<div class="displaymath" id="a0000000077">
+  \[  \begin{gathered} \rho (P)=\tfrac 13\bigl[{\gamma _q}P+\phi _qP(2-P)+{\gamma _m}(1-P)+\phi _m(1-P^2)\bigr],\\ F_t(\theta )=\frac2G\int _0^\theta \rho (\cos ^2u)\, du+t\, \rho (\cos ^2\theta ). \end{gathered}  \]
+</div>
+<p> Then \(r_{\rm cycle}=r_1+O(\varepsilon ^2)\) for each control, with </p>
+<div class="displaymath" id="a0000000078">
+  \[  r_1\  \ge \  r_1^*(t):=\min _{0\le \theta \le \pi /2}F_t(\theta ) ,  \]
+</div>
+<p> attained by a resonant write stopped at a minimiser \(\theta _*\), the wait, and the inverse resonant read (the same pulse with the coupling phase inverted, the phase of the wait compensated). If \({\gamma _m}+\phi _m{\gt}0\), then \(\theta _*{\lt}\pi /2\) for every \(t{\gt}0\): the optimal cycle never completes the swap, and \(r_1^*(t)\) lies strictly below \(F_t(\pi /2)\), the first-order part of the floor of Proposition <a href="index.html#prop:cycle">17</a>. Accessing the memory pays at this order exactly for \(t{\gt}t_c\), where, with \(A(\theta )=\frac2G\int _0^\theta \rho (\cos ^2u)\, du\) and \(d(\theta )=\rho (1)-\rho (\cos ^2\theta )\), </p>
+<div class="displaymath" id="a0000000079">
+  \[  t_c=\begin{cases} +\infty , &amp;  {\gamma _m}+\phi _m\ge {\gamma _q}+\phi _q,\\[2pt] \min \Bigl\{ \dfrac {A(\theta )}{d(\theta )}:\  0{\lt}\theta \le \dfrac \pi 2,\  d(\theta ){\gt}0\Bigr\} , &amp;  {\gamma _m}+\phi _m{\lt}{\gamma _q}+\phi _q: \end{cases}  \]
+</div>
+<p> in the first case \(d\le 0\) and not accessing (\(\theta =0\)) is optimal for every \(t\); in the second \(t_c\) is finite, not accessing and a nonzero parking angle tie at \(t_c\), and since \(F_t'(0)=\frac2G\rho (1){\gt}0\) the onset is a jump to a finite angle. If \(0{\lt}{\gamma _m}+\phi _m{\lt}{\gamma _q}+\phi _q\), then every minimiser tends to \(\pi /2\) as \(t\to \infty \), and </p>
+<div class="displaymath" id="a0000000080">
+  \[  \frac\pi 2-\theta _*\sim \delta _*=\frac{{\gamma _m}+\phi _m}{Gt\, ({\gamma _q}+2\phi _q-{\gamma _m})},\qquad F_t(\tfrac \pi 2)-r_1^*(t)=\frac{({\gamma _m}+\phi _m)^2}{3G^2({\gamma _q}+2\phi _q-{\gamma _m})\, t}+O(t^{-2}).  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#prop:noreset">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:qs_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:qs" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">14</span><span class="proposition_thmtitle">(a) , (b) </span></div>
+<div class="thm_thmcontent"><p>   MarBrem:corrused-byMarBrem:relaxanswered-byMarBrem:unifiedanswered-by  MarBprop:slow2answered-byMarBprop:noiselossanswered-by Quasistatic_Average.qs_average, Quasistatic_Average.qs_average_uncorrelated, Memory_Access_Quasistatic.qsA_ge, Memory_Access_Quasistatic.qsA_pop_coh, Memory_Access_Quasistatic.qs_pointwise (a) With quasi-static offsets as the only noise (no relaxation and no Markovian pure dephasing), the resonant pulse of duration \(\pi /(2G)\) has </p>
+<div class="displaymath" id="a0000000065">
+  \[  r\; \le \; \frac{\mathbb E\, \Delta ^2}{12\, G^2}+\frac{\pi ^2\, \mathbb E\, \bar\xi ^{\, 2}}{24\, G^2}, \qquad \text{that is}\qquad r\le \frac{8+\pi ^2}{96}\, \frac{\sigma _q^2+\sigma _m^2}{G^2}  \]
+</div>
+<p> for offsets with \(\mathbb E[\xi _q\xi _m]=0\) (in particular centred uncorrelated offsets), whatever their distribution with finite second moments. (b) With relaxation rates \({\gamma _q},{\gamma _m}\) and independent centred Gaussian offsets, every pulse of every duration has </p>
+<div class="displaymath" id="a0000000066">
+  \[  r\; \ge \; \frac12-\frac16\, \sup _{T\ge 0}\Bigl[B_p^{(0)}(T)+2\, e^{-v_\perp T^2/2}\, B_c^{(0)}(T)\Bigr], \qquad v_\perp =\frac{\sigma _q^2\sigma _m^2}{\sigma _q^2+\sigma _m^2},  \]
+</div>
+<p> where \(B_p^{(0)},B_c^{(0)}\) are the envelopes of Corollary <a href="index.html#cor:fixed">8</a> with the relaxation rates alone (\(\phi _q=\phi _m=0\)); set \(v_\perp =0\) when \(\sigma _q=\sigma _m=0\), and the bound then reduces to the relaxation-only envelope bound. </p>
+</div>
+<a class="latex_link" href="index.html#prop:qs">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:ropt_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:ropt" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">16</span><span class="proposition_thmtitle"> when the resonant pulse is exactly optimal</span></div>
+<div class="thm_thmcontent"><p>   Memory_Floors_Pieces.f_res_min, Memory_Floors_Pieces.f_env_large, Memory_Floors_Pieces.f_env_small  Let \(\nu =\min (\eta _q,\eta _m)\) and \(\Phi =\phi _q+\phi _m\). Fix \(G{\gt}0\) and a nonnegative rate direction \((\hat\gamma _q,\hat\gamma _m,\hat\varphi _q,\hat\varphi _m)\), normalised to have maximum component one, and set \(({\gamma _q},{\gamma _m},\phi _q,\phi _m)=\varepsilon G(\hat\gamma _q,\hat\gamma _m,\hat\varphi _q,\hat\varphi _m)\). All statements below concern \(\varepsilon \downarrow 0\) along this fixed direction; the required upper bound on \(\varepsilon \) may depend on the direction. </p>
+<ol class="enumerate">
+<li><p>If \(4\nu {\gt}\Phi \), then for all small enough \(\varepsilon \), \(r_{\mathrm{opt}}=r_{\mathrm{res}}\): the resonant pulse, stopped at its best duration, is exactly optimal for the average fidelity. </p>
+</li>
+<li><p>In general \(r_{\mathrm{res}}-r_{\rm time}=\max (0,\Phi -4\nu )^2/(48G^2)+O(\varepsilon ^3)\): the undecided width between the bound of Corollary <a href="index.html#cor:time">10</a> and the resonant pulse is of second order. Its quadratic term vanishes when \(4\nu \ge \Phi \); exact equality is asserted in part (a) under the strict condition \(4\nu {\gt}\Phi \). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#prop:ropt">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:strong_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:strong" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">11</span></div>
+<div class="thm_thmcontent"><p>   Oscillator_Comparison.strong_comparison, Oscillator_Comparison.zz_lower, Oscillator_Comparison.coherence_integral_bound, Oscillator_Comparison.strong_conclusion, Oscillator_Comparison.strong_unequal_chain  Memory_Access_Quasistatic.strong_z_ge, Memory_Access_Quasistatic.strong_z_antimono, Memory_Access_Quasistatic.strong_gap, Memory_Access_Quasistatic.strong_limit Without relaxation and with dephasing rates \(\phi _q,\phi _m\ge 4G\), \(r_{\mathrm{opt}}=r_{\mathrm{res}}=5/12\), and no pulse of finite duration attains it. For equal rates \(\phi _q=\phi _m=\varphi \) there is a unique \(\varphi _*\), certified in \(2.0941221534\, G{\lt}\varphi _*{\lt}2.0941221542\, G\) (equivalently \(\phi _q+\phi _m\approx 4.18824\, G\)): for \(\varphi {\gt}\varphi _*\) the same holds; at \(\varphi =\varphi _*\), \(r_{\mathrm{opt}}=5/12\) and the resonant pulse attains it at one finite duration; for \(\varphi {\lt}\varphi _*\) the resonant pulse itself reaches \(r{\lt}5/12\) at a finite duration. </p>
+</div>
+<a class="latex_link" href="index.html#prop:strong">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:unequal_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:unequal" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">12</span><span class="proposition_thmtitle"> the threshold for very unequal rates</span></div>
+<div class="thm_thmcontent"><p>  Memory_Floors_Pieces.omega_le_kappa_iff, Memory_Floors_Pieces.vertex_ineq, Memory_Floors_Pieces.delta_sq_over_omega_lt_a, Memory_Floors_Pieces.final_bound, Storage_Function.reduce_yz, Storage_Function.reduce_uh, Storage_Function.cone_yz, Storage_Function.cone_uh, Storage_Function.log_step, Metzler_Cone.ratio_nonincreasing, Storage_Function.unequal_storage_bound, Unequal_Dephasing_Threshold.threshold_3G2, Unequal_Dephasing_Threshold.eventually_four_u_gt_w, Unequal_Dephasing_Threshold.p_plus_2c_iff, Unequal_Dephasing_Threshold.resonant_below_five_twelfths No relaxation; pulses of fixed phase and no detuning, \(0\le g(t)\le G\); \(\delta =|\phi _q-\phi _m|/2\ge \sqrt5\, G\) and \(\Omega =\sqrt{\delta ^2-G^2}\). Then \(r_{\mathrm{opt}}=5/12\), not attained, if and only if \(\phi _q\phi _m\ge 3G^2\). More precisely: </p>
+<ol class="enumerate">
+<li><p>if \(\phi _q\phi _m\ge 3G^2\), every pulse has \(c(T)\le \frac{G}{2\Omega }\bigl(1-2p(T)\bigr)\) and \(p(T){\lt}\tfrac 12\) at every duration, hence \(p+2c{\lt}\tfrac 12\); </p>
+</li>
+<li><p>if \(\phi _q\phi _m{\lt}3G^2\), the resonant pulse has \(p+2c{\gt}\tfrac 12\) at all long enough durations. </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#prop:unequal">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:any_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:any" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">6</span></div>
+<div class="thm_thmcontent"><p>  The bound of Theorem <a href="index.html#thm:amp">1</a> holds for the population under <em>any</em> dephasing, Markovian or not: for a state of the one-excitation block the populations obey the first line of (2) and positivity gives \(|\rho _{ab}|\le \sqrt{p_ap_b}\), which is all the proof used. So \(p_b\le P_*({\gamma _q},{\gamma _m};G)\) always, and \(P_\phi \le P_*\) is the sharper value when the dephasing is Markovian with known rates. </p>
+</div>
+<a class="latex_link" href="index.html#rem:any">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:amp_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:amp" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">1</span></div>
+<div class="thm_thmcontent"><p>  relaxation only (no dephasing); two states; |g| &lt;= G; no relation between G and the rates Memory_Access_All_Pulses.memory_access_all_pulses, Memory_Access_Over.memory_access_over, Memory_Access_Over.memory_access_critical, Memory_Access_All_Pulses.bound_sharp, Memory_Access_Floors.resonant_pulse_max_bound, Memory_Access_Floors.resonant_pulse_max_attained, Memory_Access_Floors.max_population_symmetric, Memory_Access_Extras.folk_number_bound, Memory_Access_Regimes.over_pulse_global_max, Memory_Access_Regimes.over_pulse_max_attained, Memory_Access_Regimes.critical_pulse_max, Memory_Access_Regimes.log_derivative_identity, Memory_Access_Regimes.folk_bound_over Let \({\bar\gamma }=({\gamma _q}+{\gamma _m})/2\) and </p>
+<div class="displaymath" id="a0000000013">
+  \[  t_*=\begin{cases}  \Omega ^{-1}\arctan (2\Omega /{\bar\gamma }), &amp;  G{\gt}|\delta |/4,\  \  \Omega =\sqrt{G^2-\delta ^2/16},\\ 2/{\bar\gamma }, &amp;  G=|\delta |/4,\\ \kappa ^{-1}\operatorname {artanh}(2\kappa /{\bar\gamma }), &amp;  G{\lt}|\delta |/4,\  \  \kappa =\sqrt{\delta ^2/16-G^2}. \end{cases}  \]
+</div>
+<p> For every control in (1) and every \(t\ge 0\), </p>
+<div class="equation" id="a0000000014">
+<p>
+<div class="equation_content">
+    \begin{equation}  |b(t)|^2\; \le \; P_*({\gamma _q},{\gamma _m};G)\; =\; \frac{4G^2}{4G^2+{\gamma _q}{\gamma _m}}\, e^{-{\bar\gamma }t_*}, \end{equation}
+  </div>
+<span class="equation_label">6</span>
+</p>
+</div>
+<p> with equality for the resonant pulse \(g\equiv G\), \(D\equiv 0\) stopped at \(t_*\) (this optimal stopping time and value of the resonant pulse, in all three regimes, are Eqs. (16)–(17) of <span class="cite">
+	[
+	<a href="index.html#HZZ26">16</a>
+	]
+</span>). In the under-damped case \(P_*=\frac{4G^2}{4G^2+{\gamma _q}{\gamma _m}}\exp \bigl(-\frac{{\bar\gamma }}{\Omega }\arctan \frac{2\Omega }{{\bar\gamma }}\bigr)\); in the over-damped case \(P_*=\frac{4G^2}{4G^2+{\gamma _q}{\gamma _m}}\bigl(\frac{{\bar\gamma }-2\kappa }{{\bar\gamma }+2\kappa }\bigr)^{{\bar\gamma }/(2\kappa )}\), real because \({\bar\gamma }^2-4\kappa ^2=4G^2+{\gamma _q}{\gamma _m}{\gt}0\). In particular \(P_*\) is symmetric in the two rates, and </p>
+<div class="equation" id="a0000000015">
+<p>
+<div class="equation_content">
+    \begin{equation}  P_*\; \ge \; \exp \bigl(-\pi ({\gamma _q}+{\gamma _m})/(4G)\bigr), \end{equation}
+  </div>
+<span class="equation_label">7</span>
+</p>
+</div>
+<p> with \(\ln P_*=-\pi ({\gamma _q}+{\gamma _m})/(4G)+({\gamma _q}^2+{\gamma _m}^2)/(8G^2)+O(\gamma ^3/G^3)\): the familiar estimate of the loss of the standard pulse is a rigorous upper bound for the smallest loss. (If \({\gamma _q}={\gamma _m}=0\), read \(t_*=\pi /(2G)\) and \(P_*=1\).) </p>
+</div>
+<a class="latex_link" href="index.html#thm:amp">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:fixed_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:fixed" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">7</span></div>
+<div class="thm_thmcontent"><p>   Fixed_Duration_Core.H_max, Fixed_Duration_Core.h0_negative, Fixed_Duration_Core.H_aligned_cases, Fixed_Duration_Core.case_i, Fixed_Duration_Core.case_ii, Fixed_Duration_Core.case_iii, Fixed_Duration_Core.case_iv, Fixed_Duration_Core.epsilon_limit, Fixed_Duration_Core.lyapunov_conclusion, Pop_Lyapunov_Step.dini_danskin, Pop_Lyapunov_Step.dini_monotone, Pop_Lyapunov_Step.v_antitone, Pop_Lyapunov_Step.pb_bound relaxation rates and pure dephasing rates non-negative and constant; Markovian dephasing; two states; |g| &lt;= G Let \({\gamma _q},{\gamma _m},\phi _q,\phi _m\ge 0\). Along every solution of (2) with \(|g|\le G\), from any positive initial block, the function \(t\mapsto V_{T-t}(R(t))\) is non-increasing on \([0,T]\). Hence, for \(p_a(0)=1\) and every \(T\), </p>
+<div class="displaymath" id="a0000000032">
+  \[  p_b(T)\le \max _{0\le s\le T}p_{\mathrm{res}}(s),  \]
+</div>
+<p> and in particular \(p_b(T)\le p_{\mathrm{res}}(T)\) for every \(T\) up to the first maximum of \(p_{\mathrm{res}}\). Since the right-hand side is at most \(P_\phi \) for every finite \(T\), this proves Theorem <a href="index.html#thm:pop">4</a> without the existence of an optimal control. </p>
+</div>
+<a class="latex_link" href="index.html#thm:fixed">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:pop_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:pop" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4</span></div>
+<div class="thm_thmcontent"><p>  MarBprop:costcomparesMarBthm:robustsame-setting Memory_Access_Floors.alignment_lemma Let \({\gamma _q},{\gamma _m},\phi _q,\phi _m\ge 0\) and \(G{\gt}0\). For every measurable control with \(|g|\le G\), every detuning and every duration, the solution of (2) with \(p_a(0)=1\) satisfies </p>
+<div class="displaymath" id="a0000000024">
+  \[  p_b(T)\; \le \; P_\phi :=\sup _{t\ge 0}p_{\mathrm{res}}(t),  \]
+</div>
+<p> where \(p_{\mathrm{res}}\) is the population transferred by the resonant pulse \(g\equiv G\), \(D\equiv 0\): </p>
+<div class="equation" id="a0000000025">
+<p>
+<div class="equation_content">
+    \begin{equation}  p_{\mathrm{res}}(t)=\bigl(e^{Mt}\bigr)_{21},\qquad M=\begin{pmatrix} -{\gamma _q}
+
+&amp; 0
+
+&amp; -2G
+
+\\ 0
+
+&amp; -{\gamma _m}
+
+&amp; 2G
+
+\\ G
+
+&amp; -G
+
+&amp; -\Gamma 
+
+\end{pmatrix}\  \text{in the variables }(p_a,p_b,\operatorname{Im}\rho _{ab}). \end{equation}
+  </div>
+<span class="equation_label">8</span>
+</p>
+</div>
+<p> No relation between \(G\) and the rates is assumed. </p>
+</div>
+<a class="latex_link" href="index.html#thm:pop">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"prop:qs"	[label=qs,		shape=ellipse];	"rem:any"	[label=any,		shape=ellipse];	"prop:unequal"	[color=blue,		fillcolor="#A3D6FF",		label=unequal,		shape=ellipse,		style=filled];	"cor:unequal"	[label=unequal,		shape=ellipse];	"prop:unequal" -> "cor:unequal"	[style=dashed];	"prop:gap"	[label=gap,		shape=ellipse];	"prop:ropt"	[label=ropt,		shape=ellipse];	"prop:gap" -> "prop:ropt"	[style=dashed];	"prop:noreset"	[label=noreset,		shape=ellipse];	"prop:equal"	[label=equal,		shape=ellipse];	"thm:amp"	[color=blue,		fillcolor="#A3D6FF",		label=amp,		shape=ellipse,		style=filled];	"thm:amp" -> "rem:any"	[style=dashed];	"thm:amp" -> "prop:equal"	[style=dashed];	"cor:channel"	[label=channel,		shape=ellipse];	"thm:amp" -> "cor:channel"	[style=dashed];	"auto:remark-5"	[label="remark-5",		shape=ellipse];	"thm:amp" -> "auto:remark-5"	[style=dashed];	"auto:remark-2"	[label="remark-2",		shape=ellipse];	"thm:amp" -> "auto:remark-2"	[style=dashed];	"cor:channel" -> "prop:gap"	[style=dashed];	"prop:cycle"	[label=cycle,		shape=ellipse];	"cor:channel" -> "prop:cycle"	[style=dashed];	"cor:time"	[label=time,		shape=ellipse];	"cor:channel" -> "cor:time"	[style=dashed];	"prop:cycle" -> "prop:noreset"	[style=dashed];	"cor:time" -> "prop:ropt"	[style=dashed];	"prop:strong"	[label=strong,		shape=ellipse];	"cor:time" -> "prop:strong"	[style=dashed];	"cor:fixed"	[label=fixed,		shape=ellipse];	"cor:fixed" -> "prop:qs"	[style=dashed];	"cor:fixed" -> "cor:unequal"	[style=dashed];	"cor:fixed" -> "cor:time"	[style=dashed];	"thm:fixed"	[label=fixed,		shape=ellipse];	"thm:fixed" -> "cor:fixed"	[style=dashed];	"auto:remark-3"	[label="remark-3",		shape=ellipse];	"thm:pop"	[color=blue,		fillcolor="#A3D6FF",		label=pop,		shape=ellipse,		style=filled];	"thm:pop" -> "cor:channel"	[style=dashed];	"thm:pop" -> "thm:fixed"	[style=dashed];	"thm:pop" -> "auto:remark-3"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="332pt" viewbox="0.00 0.00 730.00 332.00" width="730pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 328)">
+<!-- prop:qs -->
+<g class="node" id="node1">
+<title>prop:qs</title>
+<ellipse cx="264.53" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="264.53" xml:space="preserve" y="-84.95">qs</text>
+</g>
+<!-- rem:any -->
+<g class="node" id="node2">
+<title>rem:any</title>
+<ellipse cx="516.53" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="516.53" xml:space="preserve" y="-156.95">any</text>
+</g>
+<!-- prop:unequal -->
+<g class="node" id="node3">
+<title>prop:unequal</title>
+<ellipse cx="681.53" cy="-162" fill="#a3d6ff" rx="40.09" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="681.53" xml:space="preserve" y="-156.95">unequal</text>
+</g>
+<!-- cor:unequal -->
+<g class="node" id="node4">
+<title>cor:unequal</title>
+<ellipse cx="505.53" cy="-90" fill="none" rx="40.09" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="505.53" xml:space="preserve" y="-84.95">unequal</text>
+</g>
+<!-- prop:unequal&#45;&gt;cor:unequal -->
+<g class="edge" id="edge1">
+<title>prop:unequal-&gt;cor:unequal</title>
+<path d="M651.68,-149.13C622.38,-137.48 577.53,-119.64 545.25,-106.8" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="536.37,-103.27 547.33,-102.78 539.89,-104.67 545.67,-106.96 545.67,-106.96 545.67,-106.96 539.89,-104.67 544,-111.15 536.37,-103.27" stroke="black"></polygon>
+</g>
+<!-- prop:gap -->
+<g class="node" id="node5">
+<title>prop:gap</title>
+<ellipse cx="118.53" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="118.53" xml:space="preserve" y="-84.95">gap</text>
+</g>
+<!-- prop:ropt -->
+<g class="node" id="node6">
+<title>prop:ropt</title>
+<ellipse cx="120.53" cy="-18" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="120.53" xml:space="preserve" y="-12.95">ropt</text>
+</g>
+<!-- prop:gap&#45;&gt;prop:ropt -->
+<g class="edge" id="edge2">
+<title>prop:gap-&gt;prop:ropt</title>
+<path d="M119.04,-71.34C119.24,-64.07 119.49,-55.47 119.72,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="120,-37.63 124.21,-47.76 119.89,-41.41 119.71,-47.63 119.71,-47.63 119.71,-47.63 119.89,-41.41 115.21,-47.5 120,-37.63" stroke="black"></polygon>
+</g>
+<!-- prop:noreset -->
+<g class="node" id="node7">
+<title>prop:noreset</title>
+<ellipse cx="37.53" cy="-18" fill="none" rx="37.53" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="37.53" xml:space="preserve" y="-12.95">noreset</text>
+</g>
+<!-- prop:equal -->
+<g class="node" id="node8">
+<title>prop:equal</title>
+<ellipse cx="592.53" cy="-162" fill="none" rx="30.88" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="592.53" xml:space="preserve" y="-156.95">equal</text>
+</g>
+<!-- thm:amp -->
+<g class="node" id="node9">
+<title>thm:amp</title>
+<ellipse cx="426.53" cy="-234" fill="#a3d6ff" rx="27.3" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="426.53" xml:space="preserve" y="-228.95">amp</text>
+</g>
+<!-- thm:amp&#45;&gt;rem:any -->
+<g class="edge" id="edge3">
+<title>thm:amp-&gt;rem:any</title>
+<path d="M443.89,-219.5C457.08,-209.24 475.46,-194.94 490.43,-183.3" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="498.27,-177.21 493.13,-186.9 495.28,-179.53 490.37,-183.34 490.37,-183.34 490.37,-183.34 495.28,-179.53 487.61,-179.79 498.27,-177.21" stroke="black"></polygon>
+</g>
+<!-- thm:amp&#45;&gt;prop:equal -->
+<g class="edge" id="edge4">
+<title>thm:amp-&gt;prop:equal</title>
+<path d="M449.31,-223.45C474.55,-212.86 516.47,-195.25 552.53,-180 554.2,-179.29 555.92,-178.57 557.64,-177.84" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="566.45,-174.1 559.01,-182.15 562.97,-175.58 557.25,-178.01 557.25,-178.01 557.25,-178.01 562.97,-175.58 555.49,-173.87 566.45,-174.1" stroke="black"></polygon>
+</g>
+<!-- cor:channel -->
+<g class="node" id="node10">
+<title>cor:channel</title>
+<ellipse cx="118.53" cy="-162" fill="none" rx="39.58" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="118.53" xml:space="preserve" y="-156.95">channel</text>
+</g>
+<!-- thm:amp&#45;&gt;cor:channel -->
+<g class="edge" id="edge5">
+<title>thm:amp-&gt;cor:channel</title>
+<path d="M400.2,-227.43C355.97,-218.03 264,-198.23 186.53,-180 179.21,-178.28 171.46,-176.39 163.92,-174.53" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="154.26,-172.12 165.05,-170.17 157.93,-173.04 163.97,-174.54 163.97,-174.54 163.97,-174.54 157.93,-173.04 162.88,-178.91 154.26,-172.12" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;5 -->
+<g class="node" id="node11">
+<title>auto:remark-5</title>
+<ellipse cx="318.53" cy="-162" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="318.53" xml:space="preserve" y="-156.95">remark-5</text>
+</g>
+<!-- thm:amp&#45;&gt;auto:remark&#45;5 -->
+<g class="edge" id="edge6">
+<title>thm:amp-&gt;auto:remark-5</title>
+<path d="M407.22,-220.49C391.62,-210.37 369.32,-195.92 350.98,-184.03" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="342.83,-178.75 353.67,-180.41 346.01,-180.81 351.23,-184.19 351.23,-184.19 351.23,-184.19 346.01,-180.81 348.78,-187.97 342.83,-178.75" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;2 -->
+<g class="node" id="node12">
+<title>auto:remark-2</title>
+<ellipse cx="426.53" cy="-162" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="426.53" xml:space="preserve" y="-156.95">remark-2</text>
+</g>
+<!-- thm:amp&#45;&gt;auto:remark&#45;2 -->
+<g class="edge" id="edge7">
+<title>thm:amp-&gt;auto:remark-2</title>
+<path d="M426.53,-215.34C426.53,-208.07 426.53,-199.47 426.53,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="426.53,-181.64 431.03,-191.64 426.53,-185.42 426.53,-191.64 426.53,-191.64 426.53,-191.64 426.53,-185.42 422.03,-191.64 426.53,-181.64" stroke="black"></polygon>
+</g>
+<!-- cor:channel&#45;&gt;prop:gap -->
+<g class="edge" id="edge8">
+<title>cor:channel-&gt;prop:gap</title>
+<path d="M118.53,-143.34C118.53,-136.07 118.53,-127.47 118.53,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="118.53,-109.64 123.03,-119.64 118.53,-113.42 118.53,-119.64 118.53,-119.64 118.53,-119.64 118.53,-113.42 114.03,-119.64 118.53,-109.64" stroke="black"></polygon>
+</g>
+<!-- prop:cycle -->
+<g class="node" id="node13">
+<title>prop:cycle</title>
+<ellipse cx="41.53" cy="-90" fill="none" rx="30.37" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="41.53" xml:space="preserve" y="-84.95">cycle</text>
+</g>
+<!-- cor:channel&#45;&gt;prop:cycle -->
+<g class="edge" id="edge9">
+<title>cor:channel-&gt;prop:cycle</title>
+<path d="M101.06,-145.12C90.74,-135.73 77.5,-123.7 66.13,-113.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="58.79,-106.68 69.21,-110.08 61.58,-109.22 66.18,-113.41 66.18,-113.41 66.18,-113.41 61.58,-109.22 63.16,-116.74 58.79,-106.68" stroke="black"></polygon>
+</g>
+<!-- cor:time -->
+<g class="node" id="node14">
+<title>cor:time</title>
+<ellipse cx="191.53" cy="-90" fill="none" rx="27.81" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="191.53" xml:space="preserve" y="-84.95">time</text>
+</g>
+<!-- cor:channel&#45;&gt;cor:time -->
+<g class="edge" id="edge10">
+<title>cor:channel-&gt;cor:time</title>
+<path d="M135.1,-145.12C144.89,-135.73 157.43,-123.7 168.21,-113.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="175.15,-106.7 171.05,-116.87 172.42,-109.32 167.93,-113.63 167.93,-113.63 167.93,-113.63 172.42,-109.32 164.82,-110.38 175.15,-106.7" stroke="black"></polygon>
+</g>
+<!-- prop:cycle&#45;&gt;prop:noreset -->
+<g class="edge" id="edge11">
+<title>prop:cycle-&gt;prop:noreset</title>
+<path d="M40.52,-71.34C40.11,-64.07 39.62,-55.47 39.15,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="38.6,-37.63 43.66,-47.36 38.81,-41.41 39.17,-47.62 39.17,-47.62 39.17,-47.62 38.81,-41.41 34.68,-47.87 38.6,-37.63" stroke="black"></polygon>
+</g>
+<!-- cor:time&#45;&gt;prop:ropt -->
+<g class="edge" id="edge12">
+<title>cor:time-&gt;prop:ropt</title>
+<path d="M176.48,-74.16C166.87,-64.69 154.25,-52.24 143.42,-41.56" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="136.44,-34.68 146.72,-38.5 139.13,-37.33 143.56,-41.7 143.56,-41.7 143.56,-41.7 139.13,-37.33 140.4,-44.9 136.44,-34.68" stroke="black"></polygon>
+</g>
+<!-- prop:strong -->
+<g class="node" id="node15">
+<title>prop:strong</title>
+<ellipse cx="199.53" cy="-18" fill="none" rx="33.95" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="199.53" xml:space="preserve" y="-12.95">strong</text>
+</g>
+<!-- cor:time&#45;&gt;prop:strong -->
+<g class="edge" id="edge13">
+<title>cor:time-&gt;prop:strong</title>
+<path d="M193.55,-71.34C194.38,-64.07 195.36,-55.47 196.29,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="197.4,-37.63 200.74,-48.07 196.97,-41.38 196.27,-47.56 196.27,-47.56 196.27,-47.56 196.97,-41.38 191.8,-47.05 197.4,-37.63" stroke="black"></polygon>
+</g>
+<!-- cor:fixed -->
+<g class="node" id="node16">
+<title>cor:fixed</title>
+<ellipse cx="225.53" cy="-162" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="225.53" xml:space="preserve" y="-156.95">fixed</text>
+</g>
+<!-- cor:fixed&#45;&gt;prop:qs -->
+<g class="edge" id="edge14">
+<title>cor:fixed-&gt;prop:qs</title>
+<path d="M234.97,-144.05C239.43,-136.06 244.85,-126.33 249.82,-117.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="254.59,-108.85 253.65,-119.78 252.75,-112.16 249.72,-117.59 249.72,-117.59 249.72,-117.59 252.75,-112.16 245.79,-115.4 254.59,-108.85" stroke="black"></polygon>
+</g>
+<!-- cor:fixed&#45;&gt;cor:unequal -->
+<g class="edge" id="edge15">
+<title>cor:fixed-&gt;cor:unequal</title>
+<path d="M248.76,-150C253.88,-147.82 259.33,-145.69 264.53,-144 329.74,-122.84 407.6,-107.42 456.82,-98.84" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="466.57,-97.16 457.48,-103.29 462.84,-97.8 456.71,-98.86 456.71,-98.86 456.71,-98.86 462.84,-97.8 455.95,-94.42 466.57,-97.16" stroke="black"></polygon>
+</g>
+<!-- cor:fixed&#45;&gt;cor:time -->
+<g class="edge" id="edge16">
+<title>cor:fixed-&gt;cor:time</title>
+<path d="M217.3,-144.05C213.46,-136.14 208.79,-126.54 204.5,-117.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="200.22,-108.89 208.64,-115.91 201.88,-112.29 204.59,-117.88 204.59,-117.88 204.59,-117.88 201.88,-112.29 200.55,-119.85 200.22,-108.89" stroke="black"></polygon>
+</g>
+<!-- thm:fixed -->
+<g class="node" id="node17">
+<title>thm:fixed</title>
+<ellipse cx="245.53" cy="-234" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="245.53" xml:space="preserve" y="-228.95">fixed</text>
+</g>
+<!-- thm:fixed&#45;&gt;cor:fixed -->
+<g class="edge" id="edge17">
+<title>thm:fixed-&gt;cor:fixed</title>
+<path d="M240.59,-215.7C238.49,-208.35 235.99,-199.59 233.63,-191.34" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="230.9,-181.76 237.97,-190.14 231.93,-185.4 233.64,-191.38 233.64,-191.38 233.64,-191.38 231.93,-185.4 229.31,-192.61 230.9,-181.76" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;3 -->
+<g class="node" id="node18">
+<title>auto:remark-3</title>
+<ellipse cx="152.53" cy="-234" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="152.53" xml:space="preserve" y="-228.95">remark-3</text>
+</g>
+<!-- thm:pop -->
+<g class="node" id="node19">
+<title>thm:pop</title>
+<ellipse cx="152.53" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="152.53" xml:space="preserve" y="-300.95">pop</text>
+</g>
+<!-- thm:pop&#45;&gt;cor:channel -->
+<g class="edge" id="edge18">
+<title>thm:pop-&gt;cor:channel</title>
+<path d="M133.43,-292.46C120.91,-283.01 105.6,-268.84 98.53,-252 90.22,-232.2 96.33,-208.4 103.91,-190.39" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="108.07,-181.39 107.96,-192.35 106.48,-184.82 103.88,-190.46 103.88,-190.46 103.88,-190.46 106.48,-184.82 99.79,-188.58 108.07,-181.39" stroke="black"></polygon>
+</g>
+<!-- thm:pop&#45;&gt;thm:fixed -->
+<g class="edge" id="edge19">
+<title>thm:pop-&gt;thm:fixed</title>
+<path d="M170.03,-291.83C183.66,-281.57 202.84,-267.14 218.45,-255.38" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="226.19,-249.56 220.9,-259.17 223.16,-251.84 218.19,-255.57 218.19,-255.57 218.19,-255.57 223.16,-251.84 215.49,-251.98 226.19,-249.56" stroke="black"></polygon>
+</g>
+<!-- thm:pop&#45;&gt;auto:remark&#45;3 -->
+<g class="edge" id="edge20">
+<title>thm:pop-&gt;auto:remark-3</title>
+<path d="M152.53,-287.34C152.53,-280.07 152.53,-271.47 152.53,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="152.53,-253.64 157.03,-263.64 152.53,-257.42 152.53,-263.64 152.53,-263.64 152.53,-263.64 152.53,-257.42 148.03,-263.64 152.53,-253.64" stroke="black"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:amp": "Theorem 1 — \\tagF", "auto:remark-2": "Remark 2", "auto:remark-3": "Remark 3 — stopping rule", "thm:pop": "Theorem 4 — \\tagW", "auto:remark-5": "Remark 5", "rem:any": "Remark 6", "thm:fixed": "Theorem 7 — \\tagW", "cor:fixed": "Corollary 8 — \\tagW", "cor:channel": "Corollary 9 — \\tagF\\ identities", "cor:time": "Corollary 10 — \\tagC\\ numbers", "prop:strong": "Proposition 11 — \\tagW", "prop:unequal": "Proposition 12 — \\tagW\\ the threshold for very unequal rates", "cor:unequal": "Corollary 13 — \\tagW\\ a sufficient region below $2\\sqrt5\\,G$", "prop:qs": "Proposition 14 — (a) \\tagF, (b) \\tagW", "prop:gap": "Proposition 15 — \\tagW\\ the price of one stopping time", "prop:ropt": "Proposition 16 — \\tagW\\ when the resonant pulse is exactly optimal", "prop:cycle": "Proposition 17 — \\tagW\\ the memory cycle with a reset", "prop:noreset": "Proposition 18 — \\tagW\\ the cycle without reset, to first order", "prop:equal": "Proposition 19 — \\tagF"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script data-lm="lm-notranslate" src="../../lemmario-assets/lm-notranslate.js"></script>
+</body>
+</html>
