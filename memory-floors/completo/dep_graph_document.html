@@ -519,7 +519,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"prop:qs"	[label=qs,		shape=ellipse];	"rem:any"	[label=any,		shape=ellipse];	"prop:unequal"	[color=blue,		fillcolor="#A3D6FF",		label=unequal,		shape=ellipse,		style=filled];	"cor:unequal"	[label=unequal,		shape=ellipse];	"prop:unequal" -> "cor:unequal"	[style=dashed];	"prop:gap"	[label=gap,		shape=ellipse];	"prop:ropt"	[label=ropt,		shape=ellipse];	"prop:gap" -> "prop:ropt"	[style=dashed];	"prop:noreset"	[label=noreset,		shape=ellipse];	"thm:amp"	[color=blue,		fillcolor="#A3D6FF",		label=amp,		shape=ellipse,		style=filled];	"thm:amp" -> "rem:any"	[style=dashed];	"prop:equal"	[label=equal,		shape=ellipse];	"thm:amp" -> "prop:equal"	[style=dashed];	"auto:remark-2"	[label="remark-2",		shape=ellipse];	"thm:amp" -> "auto:remark-2"	[style=dashed];	"cor:channel"	[label=channel,		shape=ellipse];	"thm:amp" -> "cor:channel"	[style=dashed];	"auto:remark-5"	[label="remark-5",		shape=ellipse];	"thm:amp" -> "auto:remark-5"	[style=dashed];	"cor:channel" -> "prop:gap"	[style=dashed];	"prop:cycle"	[label=cycle,		shape=ellipse];	"cor:channel" -> "prop:cycle"	[style=dashed];	"cor:time"	[label=time,		shape=ellipse];	"cor:channel" -> "cor:time"	[style=dashed];	"prop:cycle" -> "prop:noreset"	[style=dashed];	"cor:time" -> "prop:ropt"	[style=dashed];	"prop:strong"	[label=strong,		shape=ellipse];	"cor:time" -> "prop:strong"	[style=dashed];	"thm:fixed"	[label=fixed,		shape=ellipse];	"cor:fixed"	[label=fixed,		shape=ellipse];	"thm:fixed" -> "cor:fixed"	[style=dashed];	"cor:fixed" -> "prop:qs"	[style=dashed];	"cor:fixed" -> "cor:unequal"	[style=dashed];	"cor:fixed" -> "cor:time"	[style=dashed];	"auto:remark-3"	[label="remark-3",		shape=ellipse];	"thm:pop"	[color=blue,		fillcolor="#A3D6FF",		label=pop,		shape=ellipse,		style=filled];	"thm:pop" -> "cor:channel"	[style=dashed];	"thm:pop" -> "thm:fixed"	[style=dashed];	"thm:pop" -> "auto:remark-3"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"prop:strong"	[label=strong,		shape=ellipse];	"prop:qs"	[label=qs,		shape=ellipse];	"prop:equal"	[label=equal,		shape=ellipse];	"rem:any"	[label=any,		shape=ellipse];	"prop:unequal"	[color=blue,		fillcolor="#A3D6FF",		label=unequal,		shape=ellipse,		style=filled];	"cor:unequal"	[label=unequal,		shape=ellipse];	"prop:unequal" -> "cor:unequal"	[style=dashed];	"prop:gap"	[label=gap,		shape=ellipse];	"prop:ropt"	[label=ropt,		shape=ellipse];	"prop:gap" -> "prop:ropt"	[style=dashed];	"prop:noreset"	[label=noreset,		shape=ellipse];	"auto:remark-2"	[label="remark-2",		shape=ellipse];	"thm:amp"	[color=blue,		fillcolor="#A3D6FF",		label=amp,		shape=ellipse,		style=filled];	"thm:amp" -> "prop:equal"	[style=dashed];	"thm:amp" -> "rem:any"	[style=dashed];	"thm:amp" -> "auto:remark-2"	[style=dashed];	"cor:channel"	[label=channel,		shape=ellipse];	"thm:amp" -> "cor:channel"	[style=dashed];	"auto:remark-5"	[label="remark-5",		shape=ellipse];	"thm:amp" -> "auto:remark-5"	[style=dashed];	"cor:channel" -> "prop:gap"	[style=dashed];	"prop:cycle"	[label=cycle,		shape=ellipse];	"cor:channel" -> "prop:cycle"	[style=dashed];	"cor:time"	[label=time,		shape=ellipse];	"cor:channel" -> "cor:time"	[style=dashed];	"prop:cycle" -> "prop:noreset"	[style=dashed];	"cor:time" -> "prop:strong"	[style=dashed];	"cor:time" -> "prop:ropt"	[style=dashed];	"thm:fixed"	[label=fixed,		shape=ellipse];	"cor:fixed"	[label=fixed,		shape=ellipse];	"thm:fixed" -> "cor:fixed"	[style=dashed];	"cor:fixed" -> "prop:qs"	[style=dashed];	"cor:fixed" -> "cor:unequal"	[style=dashed];	"cor:fixed" -> "cor:time"	[style=dashed];	"auto:remark-3"	[label="remark-3",		shape=ellipse];	"thm:pop"	[color=blue,		fillcolor="#A3D6FF",		label=pop,		shape=ellipse,		style=filled];	"thm:pop" -> "cor:channel"	[style=dashed];	"thm:pop" -> "thm:fixed"	[style=dashed];	"thm:pop" -> "auto:remark-3"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {
@@ -555,46 +555,58 @@ function interactive() {
 }
 
 </script>
-<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="332pt" viewbox="0.00 0.00 730.00 332.00" width="730pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="332pt" viewbox="0.00 0.00 675.00 332.00" width="675pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 328)">
-<!-- prop:qs -->
+<!-- prop:strong -->
 <g class="node" id="node1">
+<title>prop:strong</title>
+<ellipse cx="199.53" cy="-18" fill="none" rx="33.95" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="199.53" xml:space="preserve" y="-12.95">strong</text>
+</g>
+<!-- prop:qs -->
+<g class="node" id="node2">
 <title>prop:qs</title>
-<ellipse cx="264.53" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="264.53" xml:space="preserve" y="-84.95">qs</text>
+<ellipse cx="538.53" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="538.53" xml:space="preserve" y="-84.95">qs</text>
+</g>
+<!-- prop:equal -->
+<g class="node" id="node3">
+<title>prop:equal</title>
+<ellipse cx="459.53" cy="-162" fill="none" rx="30.88" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="459.53" xml:space="preserve" y="-156.95">equal</text>
 </g>
 <!-- rem:any -->
-<g class="node" id="node2">
+<g class="node" id="node4">
 <title>rem:any</title>
-<ellipse cx="516.53" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="516.53" xml:space="preserve" y="-156.95">any</text>
+<ellipse cx="167.53" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="167.53" xml:space="preserve" y="-156.95">any</text>
 </g>
 <!-- prop:unequal -->
-<g class="node" id="node3">
+<g class="node" id="node5">
 <title>prop:unequal</title>
-<ellipse cx="681.53" cy="-162" fill="#a3d6ff" rx="40.09" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="681.53" xml:space="preserve" y="-156.95">unequal</text>
+<ellipse cx="626.53" cy="-162" fill="#a3d6ff" rx="40.09" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="626.53" xml:space="preserve" y="-156.95">unequal</text>
 </g>
 <!-- cor:unequal -->
-<g class="node" id="node4">
+<g class="node" id="node6">
 <title>cor:unequal</title>
-<ellipse cx="505.53" cy="-90" fill="none" rx="40.09" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="505.53" xml:space="preserve" y="-84.95">unequal</text>
+<ellipse cx="624.53" cy="-90" fill="none" rx="40.09" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="624.53" xml:space="preserve" y="-84.95">unequal</text>
 </g>
 <!-- prop:unequal&#45;&gt;cor:unequal -->
 <g class="edge" id="edge1">
 <title>prop:unequal-&gt;cor:unequal</title>
-<path d="M651.68,-149.13C622.38,-137.48 577.53,-119.64 545.25,-106.8" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="536.37,-103.27 547.33,-102.78 539.89,-104.67 545.67,-106.96 545.67,-106.96 545.67,-106.96 539.89,-104.67 544,-111.15 536.37,-103.27" stroke="black"></polygon>
+<path d="M626.03,-143.34C625.82,-136.07 625.57,-127.47 625.34,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="625.07,-109.64 629.85,-119.51 625.17,-113.42 625.35,-119.63 625.35,-119.63 625.35,-119.63 625.17,-113.42 620.85,-119.76 625.07,-109.64" stroke="black"></polygon>
 </g>
 <!-- prop:gap -->
-<g class="node" id="node5">
+<g class="node" id="node7">
 <title>prop:gap</title>
 <ellipse cx="118.53" cy="-90" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="118.53" xml:space="preserve" y="-84.95">gap</text>
 </g>
 <!-- prop:ropt -->
-<g class="node" id="node6">
+<g class="node" id="node8">
 <title>prop:ropt</title>
 <ellipse cx="120.53" cy="-18" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="120.53" xml:space="preserve" y="-12.95">ropt</text>
@@ -606,79 +618,73 @@ function interactive() {
 <polygon fill="black" points="120,-37.63 124.21,-47.76 119.89,-41.41 119.71,-47.63 119.71,-47.63 119.71,-47.63 119.89,-41.41 115.21,-47.5 120,-37.63" stroke="black"></polygon>
 </g>
 <!-- prop:noreset -->
-<g class="node" id="node7">
+<g class="node" id="node9">
 <title>prop:noreset</title>
 <ellipse cx="37.53" cy="-18" fill="none" rx="37.53" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="37.53" xml:space="preserve" y="-12.95">noreset</text>
 </g>
-<!-- thm:amp -->
-<g class="node" id="node8">
-<title>thm:amp</title>
-<ellipse cx="426.53" cy="-234" fill="#a3d6ff" rx="27.3" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="426.53" xml:space="preserve" y="-228.95">amp</text>
-</g>
-<!-- thm:amp&#45;&gt;rem:any -->
-<g class="edge" id="edge3">
-<title>thm:amp-&gt;rem:any</title>
-<path d="M443.89,-219.5C457.08,-209.24 475.46,-194.94 490.43,-183.3" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="498.27,-177.21 493.13,-186.9 495.28,-179.53 490.37,-183.34 490.37,-183.34 490.37,-183.34 495.28,-179.53 487.61,-179.79 498.27,-177.21" stroke="black"></polygon>
-</g>
-<!-- prop:equal -->
-<g class="node" id="node9">
-<title>prop:equal</title>
-<ellipse cx="592.53" cy="-162" fill="none" rx="30.88" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="592.53" xml:space="preserve" y="-156.95">equal</text>
-</g>
-<!-- thm:amp&#45;&gt;prop:equal -->
-<g class="edge" id="edge4">
-<title>thm:amp-&gt;prop:equal</title>
-<path d="M449.31,-223.45C474.55,-212.86 516.47,-195.25 552.53,-180 554.2,-179.29 555.92,-178.57 557.64,-177.84" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="566.45,-174.1 559.01,-182.15 562.97,-175.58 557.25,-178.01 557.25,-178.01 557.25,-178.01 562.97,-175.58 555.49,-173.87 566.45,-174.1" stroke="black"></polygon>
-</g>
 <!-- auto:remark&#45;2 -->
 <g class="node" id="node10">
 <title>auto:remark-2</title>
-<ellipse cx="318.53" cy="-162" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="318.53" xml:space="preserve" y="-156.95">remark-2</text>
+<ellipse cx="257.53" cy="-162" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="257.53" xml:space="preserve" y="-156.95">remark-2</text>
+</g>
+<!-- thm:amp -->
+<g class="node" id="node11">
+<title>thm:amp</title>
+<ellipse cx="257.53" cy="-234" fill="#a3d6ff" rx="27.3" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="257.53" xml:space="preserve" y="-228.95">amp</text>
+</g>
+<!-- thm:amp&#45;&gt;prop:equal -->
+<g class="edge" id="edge3">
+<title>thm:amp-&gt;prop:equal</title>
+<path d="M282.46,-225.57C314.47,-215.87 371.6,-197.99 419.53,-180 421.28,-179.34 423.07,-178.66 424.86,-177.95" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="434,-174.22 426.44,-182.16 430.5,-175.65 424.74,-178 424.74,-178 424.74,-178 430.5,-175.65 423.04,-173.83 434,-174.22" stroke="black"></polygon>
+</g>
+<!-- thm:amp&#45;&gt;rem:any -->
+<g class="edge" id="edge4">
+<title>thm:amp-&gt;rem:any</title>
+<path d="M240.18,-219.5C226.98,-209.24 208.6,-194.94 193.64,-183.3" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="185.79,-177.21 196.45,-179.79 188.78,-179.53 193.69,-183.34 193.69,-183.34 193.69,-183.34 188.78,-179.53 190.93,-186.89 185.79,-177.21" stroke="black"></polygon>
 </g>
 <!-- thm:amp&#45;&gt;auto:remark&#45;2 -->
 <g class="edge" id="edge5">
 <title>thm:amp-&gt;auto:remark-2</title>
-<path d="M407.22,-220.49C391.62,-210.37 369.32,-195.92 350.98,-184.03" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="342.83,-178.75 353.67,-180.41 346.01,-180.81 351.23,-184.19 351.23,-184.19 351.23,-184.19 346.01,-180.81 348.78,-187.97 342.83,-178.75" stroke="black"></polygon>
+<path d="M257.53,-215.34C257.53,-208.07 257.53,-199.47 257.53,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="257.53,-181.64 262.03,-191.64 257.53,-185.42 257.53,-191.64 257.53,-191.64 257.53,-191.64 257.53,-185.42 253.03,-191.64 257.53,-181.64" stroke="black"></polygon>
 </g>
 <!-- cor:channel -->
-<g class="node" id="node11">
+<g class="node" id="node12">
 <title>cor:channel</title>
-<ellipse cx="118.53" cy="-162" fill="none" rx="39.58" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="118.53" xml:space="preserve" y="-156.95">channel</text>
+<ellipse cx="82.53" cy="-162" fill="none" rx="39.58" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="82.53" xml:space="preserve" y="-156.95">channel</text>
 </g>
 <!-- thm:amp&#45;&gt;cor:channel -->
 <g class="edge" id="edge6">
 <title>thm:amp-&gt;cor:channel</title>
-<path d="M400.2,-227.43C355.97,-218.03 264,-198.23 186.53,-180 179.21,-178.28 171.46,-176.39 163.92,-174.53" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="154.26,-172.12 165.05,-170.17 157.93,-173.04 163.97,-174.54 163.97,-174.54 163.97,-174.54 157.93,-173.04 162.88,-178.91 154.26,-172.12" stroke="black"></polygon>
+<path d="M234.29,-223.7C205.73,-212.28 156.8,-192.71 122.24,-178.88" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="113.14,-175.24 124.1,-174.78 116.65,-176.65 122.43,-178.95 122.43,-178.95 122.43,-178.95 116.65,-176.65 120.76,-183.13 113.14,-175.24" stroke="black"></polygon>
 </g>
 <!-- auto:remark&#45;5 -->
-<g class="node" id="node12">
+<g class="node" id="node13">
 <title>auto:remark-5</title>
-<ellipse cx="426.53" cy="-162" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="426.53" xml:space="preserve" y="-156.95">remark-5</text>
+<ellipse cx="365.53" cy="-162" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="365.53" xml:space="preserve" y="-156.95">remark-5</text>
 </g>
 <!-- thm:amp&#45;&gt;auto:remark&#45;5 -->
 <g class="edge" id="edge7">
 <title>thm:amp-&gt;auto:remark-5</title>
-<path d="M426.53,-215.34C426.53,-208.07 426.53,-199.47 426.53,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="426.53,-181.64 431.03,-191.64 426.53,-185.42 426.53,-191.64 426.53,-191.64 426.53,-191.64 426.53,-185.42 422.03,-191.64 426.53,-181.64" stroke="black"></polygon>
+<path d="M276.84,-220.49C292.44,-210.37 314.75,-195.92 333.09,-184.03" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="341.24,-178.75 335.29,-187.97 338.06,-180.81 332.84,-184.19 332.84,-184.19 332.84,-184.19 338.06,-180.81 330.4,-180.41 341.24,-178.75" stroke="black"></polygon>
 </g>
 <!-- cor:channel&#45;&gt;prop:gap -->
 <g class="edge" id="edge8">
 <title>cor:channel-&gt;prop:gap</title>
-<path d="M118.53,-143.34C118.53,-136.07 118.53,-127.47 118.53,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="118.53,-109.64 123.03,-119.64 118.53,-113.42 118.53,-119.64 118.53,-119.64 118.53,-119.64 118.53,-113.42 114.03,-119.64 118.53,-109.64" stroke="black"></polygon>
+<path d="M91.43,-143.7C95.5,-135.78 100.42,-126.23 104.93,-117.44" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="109.42,-108.7 108.85,-119.65 107.69,-112.07 104.85,-117.6 104.85,-117.6 104.85,-117.6 107.69,-112.07 100.85,-115.54 109.42,-108.7" stroke="black"></polygon>
 </g>
 <!-- prop:cycle -->
-<g class="node" id="node13">
+<g class="node" id="node14">
 <title>prop:cycle</title>
 <ellipse cx="41.53" cy="-90" fill="none" rx="30.37" ry="18" stroke="black" stroke-width="1.8"></ellipse>
 <text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="41.53" xml:space="preserve" y="-84.95">cycle</text>
@@ -686,20 +692,20 @@ function interactive() {
 <!-- cor:channel&#45;&gt;prop:cycle -->
 <g class="edge" id="edge9">
 <title>cor:channel-&gt;prop:cycle</title>
-<path d="M101.06,-145.12C90.74,-135.73 77.5,-123.7 66.13,-113.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="58.79,-106.68 69.21,-110.08 61.58,-109.22 66.18,-113.41 66.18,-113.41 66.18,-113.41 61.58,-109.22 63.16,-116.74 58.79,-106.68" stroke="black"></polygon>
+<path d="M72.61,-144.05C67.92,-136.06 62.23,-126.33 57,-117.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="51.98,-108.84 60.92,-115.2 53.89,-112.1 57.04,-117.47 57.04,-117.47 57.04,-117.47 53.89,-112.1 53.15,-119.74 51.98,-108.84" stroke="black"></polygon>
 </g>
 <!-- cor:time -->
-<g class="node" id="node14">
+<g class="node" id="node15">
 <title>cor:time</title>
-<ellipse cx="191.53" cy="-90" fill="none" rx="27.81" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="191.53" xml:space="preserve" y="-84.95">time</text>
+<ellipse cx="195.53" cy="-90" fill="none" rx="27.81" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="195.53" xml:space="preserve" y="-84.95">time</text>
 </g>
 <!-- cor:channel&#45;&gt;cor:time -->
 <g class="edge" id="edge10">
 <title>cor:channel-&gt;cor:time</title>
-<path d="M135.1,-145.12C144.89,-135.73 157.43,-123.7 168.21,-113.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="175.15,-106.7 171.05,-116.87 172.42,-109.32 167.93,-113.63 167.93,-113.63 167.93,-113.63 172.42,-109.32 164.82,-110.38 175.15,-106.7" stroke="black"></polygon>
+<path d="M105.67,-146.67C123.16,-135.83 147.28,-120.89 166.14,-109.21" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="174.41,-104.08 168.29,-113.17 171.2,-106.07 165.92,-109.35 165.92,-109.35 165.92,-109.35 171.2,-106.07 163.54,-105.52 174.41,-104.08" stroke="black"></polygon>
 </g>
 <!-- prop:cycle&#45;&gt;prop:noreset -->
 <g class="edge" id="edge11">
@@ -707,89 +713,83 @@ function interactive() {
 <path d="M40.52,-71.34C40.11,-64.07 39.62,-55.47 39.15,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
 <polygon fill="black" points="38.6,-37.63 43.66,-47.36 38.81,-41.41 39.17,-47.62 39.17,-47.62 39.17,-47.62 38.81,-41.41 34.68,-47.87 38.6,-37.63" stroke="black"></polygon>
 </g>
-<!-- cor:time&#45;&gt;prop:ropt -->
-<g class="edge" id="edge12">
-<title>cor:time-&gt;prop:ropt</title>
-<path d="M176.48,-74.16C166.87,-64.69 154.25,-52.24 143.42,-41.56" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="136.44,-34.68 146.72,-38.5 139.13,-37.33 143.56,-41.7 143.56,-41.7 143.56,-41.7 139.13,-37.33 140.4,-44.9 136.44,-34.68" stroke="black"></polygon>
-</g>
-<!-- prop:strong -->
-<g class="node" id="node15">
-<title>prop:strong</title>
-<ellipse cx="199.53" cy="-18" fill="none" rx="33.95" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="199.53" xml:space="preserve" y="-12.95">strong</text>
-</g>
 <!-- cor:time&#45;&gt;prop:strong -->
-<g class="edge" id="edge13">
+<g class="edge" id="edge12">
 <title>cor:time-&gt;prop:strong</title>
-<path d="M193.55,-71.34C194.38,-64.07 195.36,-55.47 196.29,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="197.4,-37.63 200.74,-48.07 196.97,-41.38 196.27,-47.56 196.27,-47.56 196.27,-47.56 196.97,-41.38 191.8,-47.05 197.4,-37.63" stroke="black"></polygon>
+<path d="M196.54,-71.34C196.96,-64.07 197.45,-55.47 197.91,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="198.47,-37.63 202.39,-47.87 198.25,-41.41 197.9,-47.62 197.9,-47.62 197.9,-47.62 198.25,-41.41 193.4,-47.36 198.47,-37.63" stroke="black"></polygon>
+</g>
+<!-- cor:time&#45;&gt;prop:ropt -->
+<g class="edge" id="edge13">
+<title>cor:time-&gt;prop:ropt</title>
+<path d="M179.99,-74.5C169.63,-64.83 155.83,-51.94 144.12,-41.02" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="136.94,-34.32 147.32,-37.85 139.71,-36.9 144.25,-41.14 144.25,-41.14 144.25,-41.14 139.71,-36.9 141.18,-44.43 136.94,-34.32" stroke="black"></polygon>
 </g>
 <!-- thm:fixed -->
 <g class="node" id="node16">
 <title>thm:fixed</title>
-<ellipse cx="245.53" cy="-234" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="245.53" xml:space="preserve" y="-228.95">fixed</text>
+<ellipse cx="435.53" cy="-234" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="435.53" xml:space="preserve" y="-228.95">fixed</text>
 </g>
 <!-- cor:fixed -->
 <g class="node" id="node17">
 <title>cor:fixed</title>
-<ellipse cx="225.53" cy="-162" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="225.53" xml:space="preserve" y="-156.95">fixed</text>
+<ellipse cx="538.53" cy="-162" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="538.53" xml:space="preserve" y="-156.95">fixed</text>
 </g>
 <!-- thm:fixed&#45;&gt;cor:fixed -->
 <g class="edge" id="edge14">
 <title>thm:fixed-&gt;cor:fixed</title>
-<path d="M240.59,-215.7C238.49,-208.35 235.99,-199.59 233.63,-191.34" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="230.9,-181.76 237.97,-190.14 231.93,-185.4 233.64,-191.38 233.64,-191.38 233.64,-191.38 231.93,-185.4 229.31,-192.61 230.9,-181.76" stroke="black"></polygon>
+<path d="M454.91,-219.83C470.35,-209.34 492.2,-194.49 509.69,-182.6" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="517.89,-177.03 512.14,-186.37 514.76,-179.16 509.62,-182.65 509.62,-182.65 509.62,-182.65 514.76,-179.16 507.09,-178.93 517.89,-177.03" stroke="black"></polygon>
 </g>
 <!-- cor:fixed&#45;&gt;prop:qs -->
 <g class="edge" id="edge15">
 <title>cor:fixed-&gt;prop:qs</title>
-<path d="M234.97,-144.05C239.43,-136.06 244.85,-126.33 249.82,-117.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="254.59,-108.85 253.65,-119.78 252.75,-112.16 249.72,-117.59 249.72,-117.59 249.72,-117.59 252.75,-112.16 245.79,-115.4 254.59,-108.85" stroke="black"></polygon>
+<path d="M538.53,-143.34C538.53,-136.07 538.53,-127.47 538.53,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="538.53,-109.64 543.03,-119.64 538.53,-113.42 538.53,-119.64 538.53,-119.64 538.53,-119.64 538.53,-113.42 534.03,-119.64 538.53,-109.64" stroke="black"></polygon>
 </g>
 <!-- cor:fixed&#45;&gt;cor:unequal -->
 <g class="edge" id="edge16">
 <title>cor:fixed-&gt;cor:unequal</title>
-<path d="M248.76,-150C253.88,-147.82 259.33,-145.69 264.53,-144 329.74,-122.84 407.6,-107.42 456.82,-98.84" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="466.57,-97.16 457.48,-103.29 462.84,-97.8 456.71,-98.86 456.71,-98.86 456.71,-98.86 462.84,-97.8 455.95,-94.42 466.57,-97.16" stroke="black"></polygon>
+<path d="M555.94,-146.83C567.69,-137.27 583.46,-124.43 596.92,-113.48" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="604.42,-107.38 599.5,-117.18 601.48,-109.77 596.66,-113.69 596.66,-113.69 596.66,-113.69 601.48,-109.77 593.82,-110.2 604.42,-107.38" stroke="black"></polygon>
 </g>
 <!-- cor:fixed&#45;&gt;cor:time -->
 <g class="edge" id="edge17">
 <title>cor:fixed-&gt;cor:time</title>
-<path d="M217.3,-144.05C213.46,-136.14 208.79,-126.54 204.5,-117.69" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="200.22,-108.89 208.64,-115.91 201.88,-112.29 204.59,-117.88 204.59,-117.88 204.59,-117.88 201.88,-112.29 200.55,-119.85 200.22,-108.89" stroke="black"></polygon>
+<path d="M515.36,-149.82C510.23,-147.66 504.77,-145.57 499.53,-144 406.46,-116.04 292.64,-101.09 234.22,-94.75" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="224.5,-93.73 234.92,-90.3 228.26,-94.13 234.45,-94.78 234.45,-94.78 234.45,-94.78 228.26,-94.13 233.97,-99.25 224.5,-93.73" stroke="black"></polygon>
 </g>
 <!-- auto:remark&#45;3 -->
 <g class="node" id="node18">
 <title>auto:remark-3</title>
-<ellipse cx="152.53" cy="-234" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="152.53" xml:space="preserve" y="-228.95">remark-3</text>
+<ellipse cx="528.53" cy="-234" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="528.53" xml:space="preserve" y="-228.95">remark-3</text>
 </g>
 <!-- thm:pop -->
 <g class="node" id="node19">
 <title>thm:pop</title>
-<ellipse cx="152.53" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
-<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="152.53" xml:space="preserve" y="-300.95">pop</text>
+<ellipse cx="435.53" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="435.53" xml:space="preserve" y="-300.95">pop</text>
 </g>
 <!-- thm:pop&#45;&gt;cor:channel -->
 <g class="edge" id="edge18">
 <title>thm:pop-&gt;cor:channel</title>
-<path d="M133.43,-292.46C120.91,-283.01 105.6,-268.84 98.53,-252 90.22,-232.2 96.33,-208.4 103.91,-190.39" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="108.07,-181.39 107.96,-192.35 106.48,-184.82 103.88,-190.46 103.88,-190.46 103.88,-190.46 106.48,-184.82 99.79,-188.58 108.07,-181.39" stroke="black"></polygon>
+<path d="M408.61,-301.23C367.14,-294.78 285.7,-279.6 221.53,-252 180.56,-234.38 138.03,-205.29 110.98,-185.18" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="103.05,-179.21 113.75,-181.63 106.08,-181.49 111.04,-185.23 111.04,-185.23 111.04,-185.23 106.08,-181.49 108.34,-188.82 103.05,-179.21" stroke="black"></polygon>
 </g>
 <!-- thm:pop&#45;&gt;thm:fixed -->
 <g class="edge" id="edge19">
 <title>thm:pop-&gt;thm:fixed</title>
-<path d="M170.03,-291.83C183.66,-281.57 202.84,-267.14 218.45,-255.38" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="226.19,-249.56 220.9,-259.17 223.16,-251.84 218.19,-255.57 218.19,-255.57 218.19,-255.57 223.16,-251.84 215.49,-251.98 226.19,-249.56" stroke="black"></polygon>
+<path d="M435.53,-287.34C435.53,-280.07 435.53,-271.47 435.53,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="435.53,-253.64 440.03,-263.64 435.53,-257.42 435.53,-263.64 435.53,-263.64 435.53,-263.64 435.53,-257.42 431.03,-263.64 435.53,-253.64" stroke="black"></polygon>
 </g>
 <!-- thm:pop&#45;&gt;auto:remark&#45;3 -->
 <g class="edge" id="edge20">
 <title>thm:pop-&gt;auto:remark-3</title>
-<path d="M152.53,-287.34C152.53,-280.07 152.53,-271.47 152.53,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
-<polygon fill="black" points="152.53,-253.64 157.03,-263.64 152.53,-257.42 152.53,-263.64 152.53,-263.64 152.53,-263.64 152.53,-257.42 148.03,-263.64 152.53,-253.64" stroke="black"></polygon>
+<path d="M453.03,-291.83C465.84,-282.19 483.54,-268.87 498.58,-257.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="506.57,-251.53 501.28,-261.14 503.54,-253.81 498.58,-257.54 498.58,-257.54 498.58,-257.54 503.54,-253.81 495.87,-253.95 506.57,-251.53" stroke="black"></polygon>
 </g>
 </g>
 </svg>
