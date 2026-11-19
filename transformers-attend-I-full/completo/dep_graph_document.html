@@ -1,0 +1,927 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-white.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<link data-lm="pdf-css" href="../../lemmario-assets/pdf-css.css" rel="stylesheet"/></head>
+<body><svg aria-hidden="true" id="lm-icons" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="icon-cross" viewbox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg><div id="vistas" style="position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+padding:.4em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center;font-family:Helvetica,Arial,sans-serif"><a class="libbtn" href="https://karlesmarin.github.io/blueprints/" target="_top" title="Back to the Atlas: all the papers and their blueprints">🏛️ Atlas</a>
+<span>View:</span>
+<a href="index.html" onclick="try{localStorage.setItem('vista','paper')}catch(e){}" style="border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;color:#222;text-decoration:none">📄 Paper</a>
+<a href="index.html" onclick="try{localStorage.setItem('vista','explore')}catch(e){}" style="border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;color:#222;text-decoration:none">🔍 Explore</a>
+<a href="mapa.html" style="border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;color:#222;text-decoration:none">🗺️ Map of the paper</a><a class="pdfbtn" href="pdf.html" title="The paper itself, as a PDF">📕 PDF</a></div>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+</header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="conj:hallu_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="conj:hallu" style="display: none">
+<div class="thm_thmheading">
+<span class="conjecture_thmcaption">
+      Conjecture
+      </span>
+<span class="conjecture_thmlabel">20.1</span><span class="conjecture_thmtitle">Empirical hypothesis, not an established probability model</span></div>
+<div class="thm_thmcontent"><p>  On a prespecified model and task panel, an inverse-coordinate score might be associated with factual-error frequency after controlling for context length, model and protocol. This association and its calibration remain untested here. </p>
+</div>
+<a class="latex_link" href="index.html#conj:hallu">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def:bands_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:bands" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">13.1</span><span class="definition_thmtitle">Rotary-plane grouping</span></div>
+<div class="thm_thmcontent"><p>  Let \(d_{\rm rot}=2m\) be the rotary dimension of a head. In the inspected NeoX basis, plane \(k\) contains coordinates \((k,k+m)\), \(0\leq k{\lt}m\); coordinates \(d_{\rm rot},\ldots ,d_{\rm head}-1\) bypass rotation. A complete-cycle classification at \(T\) uses the actual frequencies and the condition \(T\omega _k\geq 2\pi \). It is a geometric count, not a measure of information, usefulness or semantic function. The words <span class="ttfamily">zero_dead</span> and <span class="ttfamily">zero_alive</span> below identify archived conditions only. </p>
+</div>
+<a class="latex_link" href="index.html#def:bands">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def:dead_active_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:dead_active" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">4.1</span><span class="definition_thmtitle">Cycled and uncycled planes</span></div>
+<div class="thm_thmcontent"><p>  For real distance \(d{\gt}0\), call plane \(i\) cycled when \(d\omega _i\ge 2\pi \). The legacy symbols \(n_\mathrm {dead}\) and \(n_\mathrm {active}\) denote cycled and uncycled counts, respectively; they do not classify functional usefulness. </p>
+<div class="equation" id="a0000000040">
+<p>
+<div class="equation_content">
+    \begin{equation}  n_\mathrm {dead}(d)=\min \left\{ m,\max \left\{ 0,1+\left\lfloor m\frac{\log (d/2\pi )}{\log \theta }\right\rfloor \right\} \right\} . 
+
+\end{equation}
+  </div>
+<span class="equation_label">5</span>
+</p>
+</div>
+<div class="equation" id="a0000000041">
+<p>
+<div class="equation_content">
+    \begin{equation} n_\mathrm {active}(d)=m-n_\mathrm {dead}(d).\end{equation}
+  </div>
+<span class="equation_label">6</span>
+</p>
+</div>
+</div>
+<a class="latex_link" href="index.html#def:dead_active">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def:deltag_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:deltag" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">16.1</span><span class="definition_thmtitle">Matched corpus contrast</span></div>
+<div class="thm_thmcontent"><p>  For a specified checkpoint, precision, attention implementation, distance grid and length/query rule, define </p>
+<div class="equation" id="a0000000291">
+<p>
+<div class="equation_content">
+    \begin{equation}  \Delta \gamma =\widehat\gamma _{\rm random}-\widehat\gamma _{\rm text}. 
+
+\end{equation}
+  </div>
+<span class="equation_label">69</span>
+</p>
+</div>
+</div>
+<a class="latex_link" href="index.html#def:deltag">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def:lcrit_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:lcrit" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">10.1</span><span class="definition_thmtitle">Historical layer-coordinate proposal</span></div>
+<div class="thm_thmcontent"><p>  For \(\theta {\gt}1\), \(T{\gt}0\), \(N_L\) layers and head dimension \(d_{\rm head}{\gt}0\), define </p>
+<div class="equation" id="a0000000204">
+<p>
+<div class="equation_content">
+    \begin{equation}  L_{\rm pred}=N_L\log _\theta (T/(2\pi )) (d_{\rm head}/64)^{1/\sqrt{12}}. 
+
+\end{equation}
+  </div>
+<span class="equation_label">51</span>
+</p>
+</div>
+<p> This is the historical configuration proposal previously denoted \(L_{\rm crit}\). Its full-head factor also ignores partial RoPE: Pythia-1B has \(d_{\rm head}=256\) but \(d_{\rm rot}=64\). Replacing one by the other would define a new candidate, not validate the old formula. Its value need not be an integer or lie in \([0,N_L]\); rounding and any clipping must be stated before comparing it to a measured layer index. </p>
+</div>
+<a class="latex_link" href="index.html#def:lcrit">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def:phases_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:phases" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">7.3</span><span class="definition_thmtitle">Summability regimes</span></div>
+<div class="thm_thmcontent"><p>  At \(\lambda =0,\gamma =1\), \(Z_N=H_N\sim \log N\). The other cases are </p>
+<div class="displaymath" id="a0000000151">
+  \begin{align}  \lambda =0,\  \gamma {\lt}1:&amp; \quad Z_N\sim N^{1-\gamma }/(1-\gamma )\to \infty ,\\ \lambda =0,\  \gamma {\gt}1:&amp; \quad Z_N\to \zeta (\gamma ){\lt}\infty ,\\ \lambda {\gt}0:&amp; \quad Z_\infty {\lt}\infty \quad (\gamma \in \mathbb R). \end{align}
+</div>
+</div>
+<a class="latex_link" href="index.html#def:phases">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def:scales_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:scales" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">4.2</span><span class="definition_thmtitle">Reference distances</span></div>
+<div class="thm_thmcontent">
+<div class="displaymath" id="a0000000048">
+  \begin{align}  T_\mathrm {cross}&amp; =2\pi \sqrt\theta &amp; &amp; \text{(continuous half-count)}\\ d_\mathrm {alias}&amp; =\theta /\sqrt2 &amp; &amp; \text{(comparison scale)}\\ T_{\rm max}&amp; =2\pi \theta &amp; &amp; \text{(continuous zero-count)} \end{align}
+</div>
+</div>
+<a class="latex_link" href="index.html#def:scales">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:causal_reference_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:causal_reference" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">19.1</span><span class="proposition_thmtitle">Prefix causality of the corrected reference</span></div>
+<div class="thm_thmcontent"><p>  Assume each upstream head output at query \(t\) depends only on input positions at or before \(t\). The displayed gate followed by a per-query output projection preserves that prefix causality. Because it uses no sequence aggregate or mutable state, partitioning the same head-output tensor into query chunks does not change the result. </p>
+</div>
+<a class="latex_link" href="index.html#prop:causal_reference">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:lerch_pade_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:lerch_pade" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">5.1</span><span class="proposition_thmtitle">Obstruction to the proposed cosine-sum inference</span></div>
+<div class="thm_thmcontent"><p>  A finite cosine sum of the form </p>
+<div class="equation" id="a0000000071">
+<p>
+<div class="equation_content">
+    \begin{equation} S_K(d)=\frac1m\sum _{i=0}^{K-1}\cos (d\omega _i),\qquad 1\le K\le m,\end{equation}
+  </div>
+<span class="equation_label">15</span>
+</p>
+</div>
+<p>is not automatically a nonnegative normalized attention distribution. In particular, the proposed ratio of logarithms cannot supply the Padé exponent: </p>
+<div class="equation" id="a0000000072">
+<p>
+<div class="equation_content">
+    \begin{equation} \frac{\log r}{\log (1/r)}=-1\ne \frac{2-z}{2+z},\quad r{\gt}0,\  r\ne 1,\  z{\gt}0.\end{equation}
+  </div>
+<span class="equation_label">16</span>
+</p>
+</div>
+</div>
+<a class="latex_link" href="index.html#prop:lerch_pade">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="th:formal_affine_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="th:formal_affine" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">K.2</span><span class="theorem_thmtitle">Affine-exposure bias</span></div>
+<div class="thm_thmcontent"><p>   For \(A_0(d)=c/(ad+b)\) with \(a,b,c{\gt}0\), on the nondegenerate grid of Group 1, </p>
+<div class="equation" id="a0000000473">
+<p>
+<div class="equation_content">
+    \begin{equation}  \frac{ad_{\min }}{ad_{\min }+b}{\lt}G_w(A_0){\lt} \frac{ad_{\max }}{ad_{\max }+b}. 
+
+\end{equation}
+  </div>
+<span class="equation_label">99</span>
+</p>
+</div>
+<p> With the grid and weights fixed, this slope strictly decreases with \(b\). Replacing all distances by \(\lambda d_k\), \(\lambda {\gt}0\), makes the slope strictly increase with \(\lambda \); its limits as \(\lambda \downarrow 0\) and \(\lambda \to \infty \) are respectively zero and one. The amplitude \(c\) has no effect. </p>
+</div>
+<a class="latex_link" href="index.html#th:formal_affine">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="th:formal_family_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="th:formal_family" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">K.5</span><span class="theorem_thmtitle">Smoothness, entropy and divergence bounds</span></div>
+<div class="thm_thmcontent"><p>  For integer \(N\ge 1\) and real \(g,h\), let \(\psi (g)=\log Z_N(g)\), \(U(g)={\mathbb {E}}_{p_g}\log d\), \(I(g)=\operatorname {Var}_{p_g}(\log d)\) and \(S(g)=-\sum _dp_g(d)\log p_g(d)\). All these functions are smooth to every order for finite \(g\), and </p>
+<div class="displaymath" id="a0000000488">
+  \[  \psi '=-U,\quad \psi ''=I,\quad U'=-I,\quad S=\psi +gU,\quad S'=-gI,\quad C_V=g^2I.  \]
+</div>
+<p> Writing \(L=\log N\), </p>
+<div class="displaymath" id="a0000000489">
+  \[  0\le I(g)\le L^2/4,\qquad 0\le C_V(g)\le g^2L^2/4.  \]
+</div>
+<p> Moreover, </p>
+<div class="displaymath" id="a0000000490">
+  \begin{align}  \operatorname {KL}(p_g\Vert p_h) &amp; =(h-g)U(g)+\psi (h)-\psi (g)\notag \\ &amp; =(h-g)^2\int _0^1(1-t)I(g+t(h-g))\, dt\notag \\ &amp; \le (h-g)^2L^2/8,\\ \operatorname {TV}(p_g,p_h) &amp; \le \tanh \! \left(\frac{|h-g|L}{4}\right) \le \min \{ 1,|h-g|L/4\} . \end{align}
+</div>
+<p> For \(N\ge 2\), \(I(g){\gt}0\), and \(S\) has its unique maximum at \(g=0\). </p>
+</div>
+<a class="latex_link" href="index.html#th:formal_family">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="th:formal_mixture_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="th:formal_mixture" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">K.3</span><span class="theorem_thmtitle">Positive mixtures of powers</span></div>
+<div class="thm_thmcontent"><p>   Let \(J\ge 1\), \(a_j{\gt}0\), \(g_j\in \mathbb R\), and \(A(d)=\sum _{j=1}^{J}a_jd^{-g_j}\) for \(d{\gt}0\), with coefficients and exponents independent of distance. For \(x=\log d\), put \(\pi _j(x)=a_je^{-g_jx}/\sum _\ell a_\ell e^{-g_\ell x}\). Then </p>
+<div class="displaymath" id="a0000000478">
+  \begin{align}  g_{\rm loc}(x)&amp; =-\frac{d}{dx}\log A(e^x)=\sum _j\pi _j(x)g_j, &amp; g_{\rm loc}’(x)&amp; =-\operatorname {Var}_{\pi (x)}(g)\le 0. \end{align}
+</div>
+<p> The finite-grid exponent satisfies </p>
+<div class="displaymath" id="a0000000479">
+  \[  \min _j g_j\le g_{\rm loc}(x_{\max })\le G_w(A) \le g_{\rm loc}(x_{\min })\le \max _jg_j.  \]
+</div>
+<p> If two component exponents differ, the local slope strictly decreases, and the mixture cannot be an exact power on any open interval. </p>
+</div>
+<a class="latex_link" href="index.html#th:formal_mixture">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="th:formal_null_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="th:formal_null" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">K.1</span><span class="theorem_thmtitle">General uniform null and exact calibration</span></div>
+<div class="thm_thmcontent"><p>  At distance \(d_k\), a probe averages allowed attention entries using weights \(\alpha _{kr}\ge 0\), \(\sum _r\alpha _{kr}=1\). If row \(r\) has \(n_{kr}\ge 1\) allowed keys, its uniform-attention null is </p>
+<div class="displaymath" id="a0000000463">
+  \[  A_{0,k}=\sum _r\frac{\alpha _{kr}}{n_{kr}},\qquad G_w(A_0)=-\frac{\operatorname {Cov}_w(x,\log A_0)}{V_x}.  \]
+</div>
+<p> For every positive profile on the same grid and regression weights, </p>
+<div class="equation" id="a0000000464">
+<p>
+<div class="equation_content">
+    \begin{equation}  G_w(A/A_0)=G_w(A)-G_w(A_0). 
+
+\end{equation}
+  </div>
+<span class="equation_label">98</span>
+</p>
+</div>
+<p> A constant null has zero slope. Keeping the same queries, support sizes and averaging weights at each distance is sufficient for a constant null. </p>
+</div>
+<a class="latex_link" href="index.html#th:formal_null">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="th:formal_quantiles_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="th:formal_quantiles" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">K.4</span><span class="theorem_thmtitle">Exponent and support order</span></div>
+<div class="thm_thmcontent"><p>  Let \(N\ge 2\) be an integer and \(p_g(d)=d^{-g}/Z_N(g)\) on \(\{ 1,\ldots ,N\} \), with \(g\in \mathbb R\). For \(1\le k{\lt}N\), the prefix mass \(F_g(k)=\sum _{d\le k}p_g(d)\) is strictly increasing in \(g\). For \(0{\lt}f{\lt}1\), the well-defined integer quantile </p>
+<div class="displaymath" id="a0000000483">
+  \[  D_f(g,N)=\min \{ k\in \{ 1,\ldots ,N\} :F_g(k)\ge f\}   \]
+</div>
+<p> is nonincreasing in \(g\) and, for fixed \(g,f\), nondecreasing in \(N\). These conclusions include negative exponents, zero and one. </p>
+</div>
+<a class="latex_link" href="index.html#th:formal_quantiles">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="th:formal_rope_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="th:formal_rope" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">K.8</span><span class="theorem_thmtitle">Cosine-grid approximation and logarithmic remainder</span></div>
+<div class="thm_thmcontent"><p>   For integer \(m\ge 1\), \(\theta {\gt}1\), \(L=\log \theta \) and real \(d{\gt}0\), define </p>
+<div class="displaymath" id="a0000000508">
+  \[  S_m(d)=\sum _{i=0}^{m-1}\cos (d\theta ^{-i/m}),\qquad J_m(d)=\frac{m}{L}\big[\operatorname {Ci}(d)-\operatorname {Ci}(d/\theta )\big],  \]
+</div>
+<p> where \(\operatorname {Ci}(x)=-\int _x^\infty \cos t/t\, dt\) for \(x{\gt}0\). Then </p>
+<div class="displaymath" id="a0000000509">
+  \begin{align}  |S_m(d)-J_m(d)|&amp; \le \int _{d/\theta }^{d}|\sin u|\, du \le d(1-1/\theta ),\\ \left|S_m(d)-\frac{m}{L}(L-\gamma _E-\log d)\right| &amp; \le B_m(d),\\ B_m(d)&amp; =d(1-1/\theta )+\frac{m}{L} \left(\frac2d+\frac{d^2}{4\theta ^2}\right),\notag \end{align}
+</div>
+<p> with Euler’s constant \(\gamma _E\). At fixed \(d,\theta \), the normalized Riemann approximation has error at most \(d(1-1/\theta )/m\), tending to zero as \(m\to \infty \). </p>
+</div>
+<a class="latex_link" href="index.html#th:formal_rope">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="th:formal_softmax_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="th:formal_softmax" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">K.7</span><span class="theorem_thmtitle">Sharp oscillation stability</span></div>
+<div class="thm_thmcontent"><p>  On a finite nonempty support, let \(q=\operatorname {softmax}(s)\) and \(p=\operatorname {softmax}(s+r)\) for finite real scores. With \(\omega =\max _jr_j-\min _jr_j\), </p>
+<div class="equation" id="a0000000500">
+<p>
+<div class="equation_content">
+    \begin{equation}  \operatorname {TV}(p,q)\le \tanh (\omega /4). 
+
+\end{equation}
+  </div>
+<span class="equation_label">104</span>
+</p>
+</div>
+<p> The bound is optimal over positive distributions and errors with this oscillation. If \(|r_j|\le \eta \), then TV is at most \(\tanh (\eta /2)\). For fixed values, </p>
+<div class="displaymath" id="a0000000501">
+  \[  \left\| \sum _j(p_j-q_j)v_j\right\|  \le \operatorname {diam}\{ v_j\} \tanh (\omega /4).  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#th:formal_softmax">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="th:formal_truncation_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="th:formal_truncation" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">K.6</span><span class="theorem_thmtitle">Exact divergences and sharp frozen-output bounds</span></div>
+<div class="thm_thmcontent"><p>  Let \(p\) be a probability on a finite nonempty key set and retain a subset \(K\) with \(p(K)=1-\epsilon {\gt}0\). Set \(q_j=p_j/(1-\epsilon )\) in \(K\) and \(q_j=0\) outside. Then </p>
+<div class="displaymath" id="a0000000495">
+  \[  \operatorname {TV}(p,q)=\epsilon ,\qquad \operatorname {KL}(q\Vert p)=-\log (1-\epsilon ).  \]
+</div>
+<p> If \(\epsilon {\gt}0\), then \(\operatorname {KL}(p\Vert q)=+\infty \). For fixed values \(v_j\), \(o=\sum _jp_jv_j\) and \(o_K=\sum _jq_jv_j\) satisfy </p>
+<div class="equation" id="a0000000496">
+<p>
+<div class="equation_content">
+    \begin{equation}  \| o-o_K\| \le \epsilon \operatorname {diam}\{ v_j\}  \le 2\epsilon \max _j\| v_j\| . 
+
+\end{equation}
+  </div>
+<span class="equation_label">103</span>
+</p>
+</div>
+<p> For \(\epsilon {\gt}0\), if \(o_R\) is the conditional mean over removed keys, \(o-o_K=\epsilon (o_R-o_K)\). The constants one and two are optimal in general. </p>
+</div>
+<a class="latex_link" href="index.html#th:formal_truncation">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:area_law_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:area_law" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">7.2</span><span class="theorem_thmtitle">Entropy on finite distance support</span></div>
+<div class="thm_thmcontent"><p>   For integer \(N{\gt}1\) and the discrete family \(p_\gamma \), define \(S_\gamma (N)=-\sum p_\gamma \log p_\gamma \). </p>
+<ol class="enumerate">
+<li><p>For every real \(\gamma \), \(0\le S_\gamma (N)\le \log N\), with equality in the upper bound exactly at \(\gamma =0\). For \(N=1\) the entropy is zero for every exponent. </p>
+</li>
+<li><p>For fixed \(0{\lt}\gamma {\lt}1\), as \(N\to \infty \), </p>
+<div class="equation" id="a0000000140">
+<p>
+<div class="equation_content">
+    \begin{equation}  S_\gamma (N)=\log N-\log (1-\gamma )-\frac{\gamma }{1-\gamma } +O(N^{\gamma -1}\log N). 
+
+\end{equation}
+  </div>
+<span class="equation_label">40</span>
+</p>
+</div>
+</li>
+<li><p>At \(\gamma =1\), \(S_1(N)=\tfrac 12\log N+\log \log N-\gamma _E/2+o(1)\). This is a separate asymptotic regime, not substitution into the preceding fixed-exponent formula. </p>
+</li>
+<li><p>For fixed \(\gamma {\gt}1\), \(S_\gamma (N)\to \log \zeta (\gamma )-\gamma \zeta '(\gamma )/\zeta (\gamma ){\lt}\infty \). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#thm:area_law">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/1b7580183a9e72338fd0901348e473bef8d527a1/Formalizations/Analysis/TransformerAttention/EntropyBound.lean#L64" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/TransformerAttention/EntropyBound.html#L64">TransformerAttention.EntropyBound.entropy_le_log_card</a></li>
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/1b7580183a9e72338fd0901348e473bef8d527a1/Formalizations/Analysis/TransformerAttention/EntropyBound.lean#L74" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/TransformerAttention/EntropyBound.html#L74">TransformerAttention.EntropyBound.entropy_eq_log_card_iff</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:cv_hagedorn_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:cv_hagedorn" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">7.1</span><span class="theorem_thmtitle">Continuous log-distance variance</span></div>
+<div class="thm_thmcontent"><p>   Let \(N{\gt}1\) and let \(p_c(x)=1/(x\log N)\) be a probability density on \([1,N]\) with respect to Lebesgue measure. Then </p>
+<div class="equation" id="a0000000127">
+<p>
+<div class="equation_content">
+    \begin{equation}  C_{V,c}(1,N)=\operatorname {Var}_{p_c}(\log x)=\frac{(\log N)^2}{12}. 
+
+\end{equation}
+  </div>
+<span class="equation_label">37</span>
+</p>
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:cv_hagedorn">LaTeX</a>
+<a class="lean_link lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/1b7580183a9e72338fd0901348e473bef8d527a1/Formalizations/Analysis/TransformerAttention/HeatCapacity.lean#L49" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/TransformerAttention/HeatCapacity.html#L49">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:kv_window_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:kv_window" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">11.1</span><span class="theorem_thmtitle">Finite continuous mass window</span></div>
+<div class="thm_thmcontent"><p>  For density proportional to \(d^{-g}\) on \([1,N]\), \(N{\gt}1\), and \(0{\lt}f{\lt}1\), the unique \(f\)-mass quantile is </p>
+<div class="equation" id="a0000000214">
+<p>
+<div class="equation_content">
+    \begin{equation}  D_{f,c}=
+
+\begin{cases}  [(1-f)+fN^{1-g}]^{1/(1-g)},&amp; g\ne 1,\\ N^f,&amp; g=1. \end{cases}
+
+\end{equation}
+  </div>
+<span class="equation_label">53</span>
+</p>
+</div>
+<p> For token distances \(\{ 1,\ldots ,N\} \) with counting measure, the corresponding exact quantile is instead \(D_{f,N}=\min \{ k:\sum _{d=1}^k d^{-g}\ge f\sum _{d=1}^N d^{-g}\} \). For the discrete case \(N\) is an integer. Both quantiles are defined for every finite real \(g\); they do not include a self key at \(d=0\) or a separately modelled attention sink. </p>
+</div>
+<a class="latex_link" href="index.html#thm:kv_window">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:maxent_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:maxent" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">6.2</span><span class="theorem_thmtitle">Finite-support maximum entropy jaynes1957information,cover2006elements</span></div>
+<div class="thm_thmcontent"><p>    For integer \(N{\gt}1\) and \(0{\lt}\lambda {\lt}\log N\), consider </p>
+<div class="displaymath" id="a0000000107">
+  \begin{align} &amp; \max _{p\ge 0}\  H(p)=-\sum _{d=1}^N p(d)\log p(d),\\ &amp; \sum _{d=1}^N p(d)=1,\qquad \sum _{d=1}^N p(d)\log d=\lambda . \end{align}
+</div>
+<p> There is a unique real exponent and a unique maximizing distribution: </p>
+<div class="equation" id="a0000000108">
+<p>
+<div class="equation_content">
+    \begin{equation}  p^*(d)=\frac{d^{-\gamma }}{Z_N(\gamma )},\qquad -\partial _\gamma \log Z_N(\gamma )=\lambda . 
+
+\end{equation}
+  </div>
+<span class="equation_label">26</span>
+</p>
+</div>
+<p> The exponent is positive, zero or negative according as \(\lambda \) is below, equal to or above \(\log (N!)/N\). At the endpoints \(\lambda =0\) and \(\lambda =\log N\), the feasible distribution is the point mass at \(1\) or \(N\), respectively, obtained as an exponent limit. For \(N=1\) the distribution is unique but the exponent is unidentifiable. </p>
+</div>
+<a class="latex_link" href="index.html#thm:maxent">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/1b7580183a9e72338fd0901348e473bef8d527a1/Formalizations/Analysis/TransformerAttention/MaxEnt.lean#L249" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/TransformerAttention/MaxEnt.html#L249">MaxEntPowerLaw.maxent_power_law</a></li>
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/1b7580183a9e72338fd0901348e473bef8d527a1/Formalizations/Analysis/TransformerAttention/MaxEnt.lean#L225" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/TransformerAttention/MaxEnt.html#L225">MaxEntPowerLaw.gamma_unique</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:maxent_power_law_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:maxent_power_law" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">6.1</span><span class="theorem_thmtitle">MaxEnt selection at a prescribed family moment</span></div>
+<div class="thm_thmcontent"><p>   Let \(N\ge 1\) be an integer and \(\gamma \in \mathbb R\). Define </p>
+<div class="displaymath" id="a0000000101">
+  \[  p_\gamma (d)=\frac{d^{-\gamma }}{Z_N(\gamma )},\qquad Z_N(\gamma )=\sum _{j=1}^N j^{-\gamma },\qquad d\in \{ 1,\ldots ,N\} .  \]
+</div>
+<p> Among all probability vectors \(p\) on this support satisfying \(\mathbb E_p[\log d]=\mathbb E_{p_\gamma }[\log d]\), the unique entropy maximizer is \(p_\gamma \). We use counting measure, natural logarithms and \(0\log 0=0\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:maxent_power_law">LaTeX</a>
+<a class="lean_link lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/1b7580183a9e72338fd0901348e473bef8d527a1/Formalizations/Analysis/TransformerAttention/MaxEnt.lean#L116" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Analysis/TransformerAttention/MaxEnt.html#L116">Lean</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"thm:cv_hagedorn"	[color=blue,		fillcolor="#A3D6FF",		label=cv_hagedorn,		shape=ellipse,		style=filled];	"def:scales"	[color=blue,		fillcolor="#A3D6FF",		label=scales,		shape=box,		style=filled];	"th:formal_null"	[color=blue,		fillcolor="#A3D6FF",		label=formal_null,		shape=ellipse,		style=filled];	"th:formal_affine"	[label=formal_affine,		shape=ellipse];	"th:formal_null" -> "th:formal_affine"	[style=dashed];	"th:formal_mixture"	[label=formal_mixture,		shape=ellipse];	"th:formal_null" -> "th:formal_mixture"	[style=dashed];	"prop:lerch_pade"	[color=blue,		fillcolor="#A3D6FF",		label=lerch_pade,		shape=ellipse,		style=filled];	"th:formal_family"	[color=blue,		fillcolor="#A3D6FF",		label=formal_family,		shape=ellipse,		style=filled];	"th:formal_softmax"	[color=blue,		fillcolor="#A3D6FF",		label=formal_softmax,		shape=ellipse,		style=filled];	"th:formal_rope"	[label=formal_rope,		shape=ellipse];	"th:formal_softmax" -> "th:formal_rope"	[style=dashed];	"def:bands"	[color=blue,		fillcolor="#A3D6FF",		label=bands,		shape=box,		style=filled];	"def:deltag"	[color=blue,		fillcolor="#A3D6FF",		label=deltag,		shape=box,		style=filled];	"prop:causal_reference"	[color=blue,		fillcolor="#A3D6FF",		label=causal_reference,		shape=ellipse,		style=filled];	"thm:maxent_power_law"	[color=blue,		fillcolor="#A3D6FF",		label=maxent_power_law,		shape=ellipse,		style=filled];	"thm:maxent"	[label=maxent,		shape=ellipse];	"thm:maxent_power_law" -> "thm:maxent"	[style=dashed];	"thm:area_law"	[color=blue,		fillcolor="#A3D6FF",		label=area_law,		shape=ellipse,		style=filled];	"thm:kv_window"	[color=blue,		fillcolor="#A3D6FF",		label=kv_window,		shape=ellipse,		style=filled];	"th:formal_quantiles"	[color=blue,		fillcolor="#A3D6FF",		label=formal_quantiles,		shape=ellipse,		style=filled];	"def:dead_active"	[color=blue,		fillcolor="#A3D6FF",		label=dead_active,		shape=box,		style=filled];	"def:lcrit"	[color=blue,		fillcolor="#A3D6FF",		label=lcrit,		shape=box,		style=filled];	"th:formal_truncation"	[color=blue,		fillcolor="#A3D6FF",		label=formal_truncation,		shape=ellipse,		style=filled];	"def:phases"	[color=blue,		fillcolor="#A3D6FF",		label=phases,		shape=box,		style=filled];	"conj:hallu"	[color=blue,		label=hallu,		shape=ellipse];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="116pt" viewbox="0.00 0.00 2140.00 116.00" width="2140pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 112)">
+<!-- thm:cv_hagedorn -->
+<g class="node" id="node1">
+<title>thm:cv_hagedorn</title>
+<ellipse cx="58.52" cy="-90" fill="#a3d6ff" rx="58.52" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="58.52" xml:space="preserve" y="-84.95">cv_hagedorn</text>
+</g>
+<!-- def:scales -->
+<g class="node" id="node2">
+<title>def:scales</title>
+<polygon fill="#a3d6ff" points="189.52,-108 135.52,-108 135.52,-72 189.52,-72 189.52,-108" stroke="blue" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="162.52" xml:space="preserve" y="-84.95">scales</text>
+</g>
+<!-- th:formal_null -->
+<g class="node" id="node3">
+<title>th:formal_null</title>
+<ellipse cx="262.52" cy="-90" fill="#a3d6ff" rx="54.93" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="262.52" xml:space="preserve" y="-84.95">formal_null</text>
+</g>
+<!-- th:formal_affine -->
+<g class="node" id="node4">
+<title>th:formal_affine</title>
+<ellipse cx="187.52" cy="-18" fill="none" rx="62.1" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="187.52" xml:space="preserve" y="-12.95">formal_affine</text>
+</g>
+<!-- th:formal_null&#45;&gt;th:formal_affine -->
+<g class="edge" id="edge1">
+<title>th:formal_null-&gt;th:formal_affine</title>
+<path d="M244.74,-72.41C235.45,-63.73 223.89,-52.95 213.6,-43.34" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="206.57,-36.79 216.95,-40.32 209.34,-39.37 213.89,-43.61 213.89,-43.61 213.89,-43.61 209.34,-39.37 210.82,-46.9 206.57,-36.79" stroke="black"></polygon>
+</g>
+<!-- th:formal_mixture -->
+<g class="node" id="node5">
+<title>th:formal_mixture</title>
+<ellipse cx="337.52" cy="-18" fill="none" rx="69.78" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="337.52" xml:space="preserve" y="-12.95">formal_mixture</text>
+</g>
+<!-- th:formal_null&#45;&gt;th:formal_mixture -->
+<g class="edge" id="edge2">
+<title>th:formal_null-&gt;th:formal_mixture</title>
+<path d="M280.29,-72.41C289.43,-63.88 300.75,-53.32 310.9,-43.84" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="318.2,-37.03 313.96,-47.14 315.43,-39.61 310.89,-43.85 310.89,-43.85 310.89,-43.85 315.43,-39.61 307.82,-40.56 318.2,-37.03" stroke="black"></polygon>
+</g>
+<!-- prop:lerch_pade -->
+<g class="node" id="node6">
+<title>prop:lerch_pade</title>
+<ellipse cx="386.52" cy="-90" fill="#a3d6ff" rx="51.35" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="386.52" xml:space="preserve" y="-84.95">lerch_pade</text>
+</g>
+<!-- th:formal_family -->
+<g class="node" id="node7">
+<title>th:formal_family</title>
+<ellipse cx="521.52" cy="-90" fill="#a3d6ff" rx="65.17" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="521.52" xml:space="preserve" y="-84.95">formal_family</text>
+</g>
+<!-- th:formal_softmax -->
+<g class="node" id="node8">
+<title>th:formal_softmax</title>
+<ellipse cx="675.52" cy="-90" fill="#a3d6ff" rx="70.8" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="675.52" xml:space="preserve" y="-84.95">formal_softmax</text>
+</g>
+<!-- th:formal_rope -->
+<g class="node" id="node9">
+<title>th:formal_rope</title>
+<ellipse cx="675.52" cy="-18" fill="none" rx="56.98" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="675.52" xml:space="preserve" y="-12.95">formal_rope</text>
+</g>
+<!-- th:formal_softmax&#45;&gt;th:formal_rope -->
+<g class="edge" id="edge3">
+<title>th:formal_softmax-&gt;th:formal_rope</title>
+<path d="M675.52,-71.34C675.52,-64.07 675.52,-55.47 675.52,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="675.52,-37.63 680.02,-47.63 675.52,-41.42 675.52,-47.63 675.52,-47.63 675.52,-47.63 675.52,-41.42 671.02,-47.63 675.52,-37.63" stroke="black"></polygon>
+</g>
+<!-- def:bands -->
+<g class="node" id="node10">
+<title>def:bands</title>
+<polygon fill="#a3d6ff" points="818.52,-108 764.52,-108 764.52,-72 818.52,-72 818.52,-108" stroke="blue" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="791.52" xml:space="preserve" y="-84.95">bands</text>
+</g>
+<!-- def:deltag -->
+<g class="node" id="node11">
+<title>def:deltag</title>
+<polygon fill="#a3d6ff" points="890.52,-108 836.52,-108 836.52,-72 890.52,-72 890.52,-108" stroke="blue" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="863.52" xml:space="preserve" y="-84.95">deltag</text>
+</g>
+<!-- prop:causal_reference -->
+<g class="node" id="node12">
+<title>prop:causal_reference</title>
+<ellipse cx="981.52" cy="-90" fill="#a3d6ff" rx="72.85" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="981.52" xml:space="preserve" y="-84.95">causal_reference</text>
+</g>
+<!-- thm:maxent_power_law -->
+<g class="node" id="node13">
+<title>thm:maxent_power_law</title>
+<ellipse cx="1156.5" cy="-90" fill="#a3d6ff" rx="84.11" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1156.5" xml:space="preserve" y="-84.95">maxent_power_law</text>
+</g>
+<!-- thm:maxent -->
+<g class="node" id="node14">
+<title>thm:maxent</title>
+<ellipse cx="1156.5" cy="-18" fill="none" rx="38.56" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1156.5" xml:space="preserve" y="-12.95">maxent</text>
+</g>
+<!-- thm:maxent_power_law&#45;&gt;thm:maxent -->
+<g class="edge" id="edge4">
+<title>thm:maxent_power_law-&gt;thm:maxent</title>
+<path d="M1156.5,-71.34C1156.5,-64.07 1156.5,-55.47 1156.5,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1156.5,-37.63 1161,-47.63 1156.5,-41.42 1156.5,-47.63 1156.5,-47.63 1156.5,-47.63 1156.5,-41.42 1152,-47.63 1156.5,-37.63" stroke="black"></polygon>
+</g>
+<!-- thm:area_law -->
+<g class="node" id="node15">
+<title>thm:area_law</title>
+<ellipse cx="1302.5" cy="-90" fill="#a3d6ff" rx="44.19" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1302.5" xml:space="preserve" y="-84.95">area_law</text>
+</g>
+<!-- thm:kv_window -->
+<g class="node" id="node16">
+<title>thm:kv_window</title>
+<ellipse cx="1419.5" cy="-90" fill="#a3d6ff" rx="54.42" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1419.5" xml:space="preserve" y="-84.95">kv_window</text>
+</g>
+<!-- th:formal_quantiles -->
+<g class="node" id="node17">
+<title>th:formal_quantiles</title>
+<ellipse cx="1565.5" cy="-90" fill="#a3d6ff" rx="73.87" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1565.5" xml:space="preserve" y="-84.95">formal_quantiles</text>
+</g>
+<!-- def:dead_active -->
+<g class="node" id="node18">
+<title>def:dead_active</title>
+<polygon fill="#a3d6ff" points="1737.75,-108 1657.25,-108 1657.25,-72 1737.75,-72 1737.75,-108" stroke="blue" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1697.5" xml:space="preserve" y="-84.95">dead_active</text>
+</g>
+<!-- def:lcrit -->
+<g class="node" id="node19">
+<title>def:lcrit</title>
+<polygon fill="#a3d6ff" points="1809.5,-108 1755.5,-108 1755.5,-72 1809.5,-72 1809.5,-108" stroke="blue" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1782.5" xml:space="preserve" y="-84.95">lcrit</text>
+</g>
+<!-- th:formal_truncation -->
+<g class="node" id="node20">
+<title>th:formal_truncation</title>
+<ellipse cx="1905.5" cy="-90" fill="#a3d6ff" rx="77.97" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1905.5" xml:space="preserve" y="-84.95">formal_truncation</text>
+</g>
+<!-- def:phases -->
+<g class="node" id="node21">
+<title>def:phases</title>
+<polygon fill="#a3d6ff" points="2055.5,-108 2001.5,-108 2001.5,-72 2055.5,-72 2055.5,-108" stroke="blue" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="2028.5" xml:space="preserve" y="-84.95">phases</text>
+</g>
+<!-- conj:hallu -->
+<g class="node" id="node22">
+<title>conj:hallu</title>
+<ellipse cx="2102.5" cy="-90" fill="none" rx="29.34" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="2102.5" xml:space="preserve" y="-84.95">hallu</text>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"def:dead_active": "Definition 4.1 — Cycled and uncycled planes", "def:scales": "Definition 4.2 — Reference distances", "prop:lerch_pade": "Proposition 5.1 — Obstruction to the proposed cosine-sum inference", "thm:maxent_power_law": "Theorem 6.1 — MaxEnt selection at a prescribed family moment", "thm:maxent": "Theorem 6.2 — Finite-support maximum entropy~\\citep{jaynes1957information,cover2006elements}", "thm:cv_hagedorn": "Theorem 7.1 — Continuous log-distance variance", "thm:area_law": "Theorem 7.2 — Entropy on finite distance support", "def:phases": "Definition 7.3 — Summability regimes", "def:lcrit": "Definition 10.1 — Historical layer-coordinate proposal", "thm:kv_window": "Theorem 11.1 — Finite continuous mass window", "def:bands": "Definition 13.1 — Rotary-plane grouping", "def:deltag": "Definition 16.1 — Matched corpus contrast", "prop:causal_reference": "Proposition 19.1 — Prefix causality of the corrected reference", "conj:hallu": "Conjecture 20.1 — Empirical hypothesis, not an established probability model", "th:formal_null": "Theorem K.1 — General uniform null and exact calibration", "th:formal_affine": "Theorem K.2 — Affine-exposure bias", "th:formal_mixture": "Theorem K.3 — Positive mixtures of powers", "th:formal_quantiles": "Theorem K.4 — Exponent and support order", "th:formal_family": "Theorem K.5 — Smoothness, entropy and divergence bounds", "th:formal_truncation": "Theorem K.6 — Exact divergences and sharp frozen-output bounds", "th:formal_softmax": "Theorem K.7 — Sharp oscillation stability", "th:formal_rope": "Theorem K.8 — Cosine-grid approximation and logarithmic remainder"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<link data-lm="lm-lean-panel-css" href="../../lemmario-assets/lm-lean-panel-css.css" rel="stylesheet"/>
+<script data-lm="lm-lean-panel" src="../../lemmario-assets/lm-lean-panel.js"></script>
+<script data-lm="lm-notranslate" src="../../lemmario-assets/lm-notranslate.js"></script>
+</body>
+</html>
