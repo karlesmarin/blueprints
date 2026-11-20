@@ -505,3 +505,82 @@ def vista_grafo(n, edges, lv, esc):
     tit = ('the level %.4f %s: its eigenvector over the graph' %
            (lam, 'is alone and costs the extra square' if impar else 'is paired (no extra square)'))
     return K.three_d(items, title=tit, axes=('x', 'y', 'eigenvector'))
+
+
+# ---------------------------------------------------------------- 21-nov noche: Figure 5 in 3D (Carles: «la fig5 … en 3d»)
+# P₂ ⊔ K₁: H = ½(e₁e₂ᵀ + e₂e₁ᵀ); T = H + S with S skew of entries (p, q, r) above the diagonal. The body is the set of
+# (p, q, r) with ‖T‖ ≤ 1, i.e. I − TᵀT ⪰ 0; every point is a representation, rational points rational ones. The defect
+# has rank one only at the four tips (0, ±√3/2, 0), (0, 0, ±√3/2): irrational, which is why √3 is forced (Theorem 9.3).
+def _T_body(p, q, r):
+    return [[0, Fr(1, 2) + p if isinstance(p, Fr) else 0.5 + p, q], [(Fr(1, 2) if isinstance(p, Fr) else 0.5) - p, 0, r],
+            [-q, -r, 0]]
+
+
+def _defect(p, q, r):
+    T = _T_body(p, q, r)
+    return [[(1 if i == j else 0) - sum(T[k][i] * T[k][j] for k in range(3)) for j in range(3)] for i in range(3)]
+
+
+def _psd3(M):
+    """PSD of a symmetric 3×3 matrix by its principal minors (exact for Fractions); also its rank."""
+    m1 = [M[i][i] for i in range(3)]
+    m2 = [M[i][i] * M[j][j] - M[i][j] * M[j][i] for i, j in ((0, 1), (0, 2), (1, 2))]
+    m3 = (M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1]) - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0])
+          + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]))
+    psd = all(x >= 0 for x in m1 + m2) and m3 >= 0
+    rank = 3 if m3 != 0 else (2 if any(x != 0 for x in m2) else (1 if any(x != 0 for x in m1) else 0))
+    return psd, rank
+
+
+def _radius(d):
+    lo, hi = 0.0, 2.0
+    for _ in range(26):
+        mid = (lo + hi) / 2
+        if _psd3(_defect(mid * d[0], mid * d[1], mid * d[2]))[0]:
+            lo = mid
+        else:
+            hi = mid
+    return lo
+
+
+def run_body(params):
+    p = json.loads(params)
+    try:
+        pt = [Fr(str(p.get(k, '0')).strip() or '0') for k in ('p', 'q', 'r')]
+    except (ValueError, ZeroDivisionError):
+        return K.error('Write p, q, r as rationals, for example 1/2 or 0.3.')
+    if any(abs(x) > 2 for x in pt):
+        return K.error('Keep |p|, |q|, |r| ≤ 2 (the body lies in the unit cube).')
+    psd, rank = _psd3(_defect(*pt))
+    th = [math.pi * (i + 0.5) / 28 for i in range(28)]
+    ph = [2 * math.pi * j / 40 for j in range(41)]
+
+    def punto(a, b):
+        d = (math.sin(a) * math.cos(b), math.sin(a) * math.sin(b), math.cos(a))
+        rho = _radius(d)
+        return [rho * d[0], rho * d[1], rho * d[2]]
+    s = math.sqrt(3) / 2
+    items = [K.surface3(punto, th, ph, name='the body ‖H + S‖ ≤ 1', opacity=0.45),
+             K.points3([[0, s, 0], [0, -s, 0], [0, 0, s], [0, 0, -s]], name='rank-one tips (0, ±√3/2, 0), (0, 0, ±√3/2)',
+                       color='#eb6834', size=6, opacity=1.0),
+             K.points3([[float(x) for x in pt]], name='your point (%s, %s, %s)' % tuple(str(x) for x in pt), star=True,
+                       size=8, opacity=1.0)]
+    vista = K.three_d(items, title='Figure 5 of the paper: the contractions T = H + S of P₂ ⊔ K₁', axes=('p', 'q', 'r'))
+    if psd:
+        verdict = ('inside the body: I − TᵀT ⪰ 0, so T is a contraction and gives a representation by 3 + %d = %d squares '
+                   '(rational, since your point is rational). The defect has rank %d.' % (rank, 3 + rank, rank))
+        if rank == 1:
+            verdict += ' Rank one: this is a tip.'
+    else:
+        verdict = 'outside the body: I − TᵀT is not positive semidefinite, so T is not a contraction.'
+    texto = ('Point (p, q, r) = (%s, %s, %s): %s The tips are the only points of defect rank one; they have the irrational '
+             'coordinate √3/2, so no rational point reaches 4 squares: that is the gap (√3 is forced).'
+             % (tuple(str(x) for x in pt) + (verdict,)))
+    rows = [['p, q, r', '%s, %s, %s' % tuple(str(x) for x in pt)], ['contraction', 'yes' if psd else 'no'],
+            ['rank of the defect', str(rank) if psd else '—'], ['squares', str(3 + rank) if psd else '—']]
+    return K.result(texto, [vista], K.table(['', ''], rows))
+
+
+def random_body():
+    v = [random.choice([0, 0, 1, -1, 2, -2]) * Fr(1, random.choice([3, 4, 5])) for _ in range(3)]
+    return json.dumps({'p': str(v[0]), 'q': str(v[1]), 'r': str(v[2])})
