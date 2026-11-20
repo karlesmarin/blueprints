@@ -112,7 +112,11 @@ def run_real(params):
     r, lv, esc = real_length(n, e)
     note = '' if esc == 2 else ' The spectral radius exceeds 2, so here H = A/%.4f, not A/2.' % esc
     rows = [['%.6f' % v, m, 'free (±1)' if abs(abs(v) - 1) < 1e-8 else ('paired' if m % 2 == 0 else 'alone: costs the extra square')] for v, m in lv]
-    return K.result('n = %d. Real length ℓ_R = %d (Theorem 3.1).%s' % (n, r, note), [D.graph(n, e, 'your graph'), D.ladder(lv, 'levels of H')],
+    figs = [D.graph(n, e, 'your graph'), D.ladder(lv, 'levels of H')]
+    v3 = vista_grafo(n, e, lv, esc)
+    if v3:
+        figs.append(v3)
+    return K.result('n = %d. Real length ℓ_R = %d (Theorem 3.1).%s' % (n, r, note), figs,
                     K.table(['level', 'multiplicity', 'role'], rows))
 
 
@@ -355,7 +359,8 @@ def run_weight(params):
     r = n if par else n + 1
     c = math.sqrt(max(0.0, 1 - a * a))
     return K.result('a = %.4f, n = %d: real length %d. Added form has coefficient %.6f (Proposition 3.3).' % (a, n, r, c),
-                    [D.bond(n, a, 'the ring, last bond of weight a'), D.semicircle(a, 'coefficient of the added form')],
+                    [D.bond(n, a, 'the ring, last bond of weight a'), D.semicircle(a, 'coefficient of the added form'),
+                     vista_peso(n, a)],
                     K.table(['level of H_a', 'multiplicity'], [['%.6f' % v, m] for v, m in lv]))
 
 
@@ -422,3 +427,81 @@ def random_scalar():
     a = random.randint(1, 15)
     b = random.randint(a + 1, 16)
     return json.dumps({'lam': '%d/%d' % (a, b), 'mmax': str(random.choice([8, 12, 16]))})
+
+
+# ---------------------------------------------------------------- 21-nov: vistas 3D (prop:weight, thm:real)
+def resolver(M, b):
+    """Gauss con pivoteo parcial (M cuadrada, no singular)."""
+    n = len(M)
+    A = [r[:] + [b[i]] for i, r in enumerate(M)]
+    for c in range(n):
+        p = max(range(c, n), key=lambda i: abs(A[i][c]))
+        A[c], A[p] = A[p], A[c]
+        if abs(A[c][c]) < 1e-300:
+            A[c][c] = 1e-300
+        for i in range(c + 1, n):
+            f = A[i][c] / A[c][c]
+            for j in range(c, n + 1):
+                A[i][j] -= f * A[c][j]
+    x = [0.0] * n
+    for i in range(n - 1, -1, -1):
+        x[i] = (A[i][n] - sum(A[i][j] * x[j] for j in range(i + 1, n))) / A[i][i]
+    return x
+
+
+def vector_propio(A, lam):
+    """Vector propio unitario de A para el valor propio (simple) lam, por iteración inversa con desplazamiento."""
+    n = len(A)
+    M = [[A[i][j] - (lam + 1e-9 if i == j else 0.0) for j in range(n)] for i in range(n)]
+    x = [1.0 + 0.1 * i for i in range(n)]
+    for _ in range(6):
+        x = resolver(M, x)
+        s = math.sqrt(sum(v * v for v in x)) or 1.0
+        x = [v / s for v in x]
+    k = max(range(n), key=lambda i: abs(x[i]))
+    return [v if x[k] > 0 else -v for v in x]
+
+
+def anillo(n, a):
+    A = [[0.0] * n for _ in range(n)]
+    for i in range(n - 1):
+        A[i][i + 1] = A[i + 1][i] = 1.0
+    A[0][n - 1] = A[n - 1][0] = a
+    return A
+
+
+def vista_peso(n, a):
+    """Niveles de H_a = A_a/2 frente a a ∈ [−1, 1]: una curva por nivel; el a elegido, resaltado."""
+    xs = [-1 + 2 * k / 40 for k in range(41)]
+    curvas = [[] for _ in range(n)]
+    for x in xs:
+        w = sorted((v / 2 for v in jacobi(anillo(n, x))), reverse=True)
+        for k in range(n):
+            curvas[k].append([x, k + 1, w[k]])
+    items = [K.curve3(c, name='level %d' % (k + 1) if k < 2 else '') for k, c in enumerate(curvas)]
+    w = sorted((v / 2 for v in jacobi(anillo(n, a))), reverse=True)
+    items.append(K.points3([[a, k + 1, w[k]] for k in range(n)], name='your a', star=True, size=7, opacity=1.0))
+    return K.three_d(items, title='levels of H_a as the last bond goes from −1 to 1', axes=('a', 'level', 'value'))
+
+
+def vista_grafo(n, edges, lv, esc):
+    """El grafo en el plano z = 0 y, en altura, el vector propio del nivel interior de multiplicidad impar (el que
+    cuesta el cuadrado extra); si todos van emparejados, el del primer nivel interior."""
+    A = adjacency(n, edges)
+    interiores = [(v, m) for v, m in lv if abs(abs(v) - 1) > 1e-8]
+    if not interiores:
+        return None
+    impar = [vm for vm in interiores if vm[1] % 2]
+    lam, mult = (impar or interiores)[0]
+    if mult > 1:
+        return None
+    x = vector_propio(A, lam * esc)
+    P = [[math.cos(2 * math.pi * i / n), math.sin(2 * math.pi * i / n)] for i in range(n)]
+    items = [K.curve3([[P[a][0], P[a][1], 0.0], [P[b][0], P[b][1], 0.0]], name='', width=2) for a, b in edges]
+    items.append(K.points3([[P[i][0], P[i][1], 0.0] for i in range(n)], name='vertices', size=6))
+    items.append(K.points3([[P[i][0], P[i][1], x[i]] for i in range(n)], name='eigenvector of level %.4f' % lam,
+                           star=True, size=7, opacity=1.0))
+    items += [K.curve3([[P[i][0], P[i][1], 0.0], [P[i][0], P[i][1], x[i]]], name='', width=1, dash=True) for i in range(n)]
+    tit = ('the level %.4f %s: its eigenvector over the graph' %
+           (lam, 'is alone and costs the extra square' if impar else 'is paired (no extra square)'))
+    return K.three_d(items, title=tit, axes=('x', 'y', 'eigenvector'))
