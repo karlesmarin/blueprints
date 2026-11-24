@@ -10,6 +10,7 @@
   var NS = 'http://www.w3.org/2000/svg';
   var ROLE = {target: '#CC79A7', allowed: '#E69F00', contrast: '#666666'};
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var HEADLESS = /HeadlessChrome/.test(navigator.userAgent);  // 24-nov: ver lab3d.js
 
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;'}[c]; }); }
   function el(name, attrs, parent) {
@@ -121,9 +122,11 @@
         last = now;
         if (j < spec.max) { j += 1; range.value = j; show(); } else { playing = false; play.textContent = '▶'; }
       }
+      var antes = level;
       level += ((j - 0.5) - level) * 0.12;  // the water moves to its level, it does not jump
-      if (!REDUCED) phase += 0.06;
-      paint();
+      var ola = !REDUCED && !HEADLESS;
+      if (ola) phase += 0.06;
+      if (ola || Math.abs(level - antes) > 1e-4) paint();  // 24-nov: quieta, no repinta
       requestAnimationFrame(tick);
     }
     var lg = host.querySelector('.lv-legend');

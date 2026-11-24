@@ -10,6 +10,9 @@
    Drag to turn the figure. Registered as window.LemmarioFigures['3d'] (lab.js mounts it). */
 (function () {
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 24-nov: en Chrome sin ventana (la revisión de lemmario) nada gira solo: la página tiene que quedar ociosa
+  // para que la revisión termine (dilogarithm-clock no terminaba nunca con su figura girando)
+  var HEADLESS = /HeadlessChrome/.test(navigator.userAgent);
 
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;'}[c]; }); }
 
@@ -145,7 +148,7 @@
     var cv = host.querySelector('canvas'), ctx = cv.getContext('2d'), b = bounds(spec);
     var range = host.querySelector('input[type=range]'), val = host.querySelector('.l3-val'), lg = host.querySelector('.l3-legend');
     var V0 = {yaw: -0.55, pitch: 0.32, zoom: 1}, view = Object.assign({}, V0);
-    var auto = !REDUCED, playing = false, dirty = true, last = 0, width = 0;
+    var auto = !REDUCED && !HEADLESS, playing = false, dirty = true, last = 0, width = 0;
 
     // a cumulative slider adds up its steps (a cloud that grows), except the items marked {current: true}, which
     // belong to their own step only (e.g. a bound that changes with it)

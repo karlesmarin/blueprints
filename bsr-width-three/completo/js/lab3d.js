@@ -2,12 +2,17 @@
    {kind: '3d', title, axes: ['a', 'p', 'q'], items: [...], slider: {label, values: [...], items: [[...], ...]},
    figure, live}. An item is {type: 'surface', grid: [[[x, y, z], ...], ...], color, opacity}, {type: 'curve',
    points: [[x, y, z], ...], color, dash, width} or {type: 'points', points: [[x, y, z], ...], color, marker:
-   'star' | 'dot', size, opacity}; each may carry a name for the legend. The slider shows one list of items per value
+   'star' | 'dot', size, opacity}; each may carry a name for the legend. Colour can carry information (15-nov): a
+   surface may give colors (a grid of hex like its grid; each cell takes the mean of its corners), points may give
+   colors (one hex per point), and the spec a colorbar {label, stops: [[text, hex], ...]} that says what they mean. The slider shows one list of items per value
    (▶ runs it); with cumulative: true it shows the lists up to the value, a cloud that grows ({current: true}: only at
    its own value).
    Drag to turn the figure. Registered as window.LemmarioFigures['3d'] (lab.js mounts it). */
 (function () {
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 24-nov: en Chrome sin ventana (la revisión de lemmario) nada gira solo: la página tiene que quedar ociosa
+  // para que la revisión termine (dilogarithm-clock no terminaba nunca con su figura girando)
+  var HEADLESS = /HeadlessChrome/.test(navigator.userAgent);
 
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;'}[c]; }); }
 
@@ -62,13 +67,20 @@
         for (var i = 0; i + 1 < g.length; i++) {
           for (var j = 0; j + 1 < g[i].length; j++) {
             var q = [g[i][j], g[i][j + 1], g[i + 1][j + 1], g[i + 1][j]];
+            // 15-nov (Carles: «los colores no cuentan para dar más info?»): it.colors, a grid of hex like it.grid,
+            // colours each cell by the mean of its four corners (a value or a verdict, e.g. sign of a difference)
+            var qc = col;
+            if (it.colors) {
+              var cs = [it.colors[i][j], it.colors[i][j + 1], it.colors[i + 1][j + 1], it.colors[i + 1][j]].map(rgb);
+              qc = [0, 1, 2].map(function (m) { return (cs[0][m] + cs[1][m] + cs[2][m] + cs[3][m]) / 4; });
+            }
             var w = [it.grid[i][j], it.grid[i][j + 1], it.grid[i + 1][j]];
             // light from the normal's vertical part: a cue for the shape, not a model of light
             var u = [0, 1, 2].map(function (m) { return w[1][m] - w[0][m]; });
             var v = [0, 1, 2].map(function (m) { return w[2][m] - w[0][m]; });
             var n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
             var len = Math.hypot(n[0], n[1], n[2]) || 1;
-            out.push({kind: 'quad', pts: q, depth: (q[0][2] + q[1][2] + q[2][2] + q[3][2]) / 4, col: col, op: op,
+            out.push({kind: 'quad', pts: q, depth: (q[0][2] + q[1][2] + q[2][2] + q[3][2]) / 4, col: qc, op: op,
                       light: 0.15 + 0.45 * Math.abs(n[2] / len)});
           }
         }
@@ -79,8 +91,10 @@
                     width: it.width || 2.6, dash: it.dash});
         }
       } else {
-        it.points.map(P).forEach(function (p) {
-          out.push({kind: 'mark', at: p, depth: p[2] - 0.05, col: col, marker: it.marker || 'dot', size: it.size,
+        it.points.map(P).forEach(function (p, i) {
+          // it.colors: one hex per point (a verdict or a value), otherwise it.color for all
+          out.push({kind: 'mark', at: p, depth: p[2] - 0.05, col: it.colors ? rgb(it.colors[i]) : col,
+                    marker: it.marker || 'dot', size: it.size,
                     op: it.opacity === undefined ? 1 : it.opacity});
         });
       }
@@ -97,10 +111,23 @@
     ctx.closePath();
   }
 
+  // spec.colorbar = {label, stops: [[text, hex], ...]}: what the colours of a coloured surface or cloud mean
+  function colorbar(cb) {
+    if (!cb || !cb.stops) return '';
+    var grad = cb.stops.map(function (s) { return s[1]; }).join(',');
+    return '<span class="l3-it l3-cb">' + esc(cb.label || '') + ' <span class="l3-cbbar" style="background:linear-gradient(90deg,' +
+      grad + ')"></span> ' + cb.stops.map(function (s) {
+        return '<span class="l3-it"><span class="l3-sw" style="background:' + s[1] + '"></span>' + esc(s[0]) + '</span>';
+      }).join(' ') + '</span>';
+  }
+
   function legend(items) {
     return items.filter(function (it) { return it.name; }).map(function (it) {
       var c = it.color || '#555', sw;
-      if (it.type === 'surface') sw = '<span class="l3-sw" style="background:' + rgba(rgb(c), 0.35) + ';border:1px solid ' + c + '"></span>';
+      if (it.type === 'surface' && it.colors) {
+        var cs = [].concat.apply([], it.colors), mid = cs[Math.floor(cs.length / 2)];
+        sw = '<span class="l3-sw" style="background:linear-gradient(90deg,' + cs[0] + ',' + mid + ',' + cs[cs.length - 1] + ')"></span>';
+      } else if (it.type === 'surface') sw = '<span class="l3-sw" style="background:' + rgba(rgb(c), 0.35) + ';border:1px solid ' + c + '"></span>';
       else if (it.type === 'curve') sw = '<span class="l3-sw" style="height:0;border-top:3px ' + (it.dash ? 'dashed' : 'solid') + ' ' + c + '"></span>';
       else sw = '<span style="color:' + c + '">' + (it.marker === 'star' ? '★' : '●') + '</span>';
       return '<span class="l3-it">' + sw + ' ' + esc(it.name) + '</span>';
@@ -121,7 +148,7 @@
     var cv = host.querySelector('canvas'), ctx = cv.getContext('2d'), b = bounds(spec);
     var range = host.querySelector('input[type=range]'), val = host.querySelector('.l3-val'), lg = host.querySelector('.l3-legend');
     var V0 = {yaw: -0.55, pitch: 0.32, zoom: 1}, view = Object.assign({}, V0);
-    var auto = !REDUCED, playing = false, dirty = true, last = 0, width = 0;
+    var auto = !REDUCED && !HEADLESS, playing = false, dirty = true, last = 0, width = 0;
 
     // a cumulative slider adds up its steps (a cloud that grows), except the items marked {current: true}, which
     // belong to their own step only (e.g. a bound that changes with it)
@@ -136,7 +163,7 @@
     }
     function showFrame() {
       if (sl) val.textContent = sl.label + ' = ' + sl.values[frame];
-      lg.innerHTML = legend(items());
+      lg.innerHTML = legend(items()) + colorbar(spec.colorbar);
       dirty = true;
     }
 
@@ -231,7 +258,8 @@
     '.l3-bar button{padding:.1em .6em;cursor:pointer;border:1px solid #ef6c00;background:#fff;border-radius:14px}' +
     '.l3-bar input[type=range]{flex:1;min-width:120px;max-width:280px}.l3-val{min-width:5.5em;font-variant-numeric:tabular-nums}' +
     '.l3-hint{color:#777;font-size:12px}.l3-legend{display:flex;flex-wrap:wrap;gap:.3em 1em;font-size:12px}' +
-    '.l3-it{display:inline-flex;align-items:center;gap:.35em}.l3-sw{display:inline-block;width:18px;height:10px;border-radius:2px}';
+    '.l3-it{display:inline-flex;align-items:center;gap:.35em}.l3-sw{display:inline-block;width:18px;height:10px;border-radius:2px}' +
+    '.l3-cbbar{display:inline-block;width:90px;height:10px;border-radius:2px;border:1px solid #ccd}';
   document.head.appendChild(css);
   window.LemmarioFigures = window.LemmarioFigures || {};
   window.LemmarioFigures['3d'] = {mount: mount};
