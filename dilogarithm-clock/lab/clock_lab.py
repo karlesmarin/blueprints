@@ -107,3 +107,53 @@ def run_clock(params):
                    'slider': {'label': 's (p_n ∝ n^-s)', 'values': svals, 'items': wrap_items,
                               'start': svals.index(s)},
                    'figure': 'paperfig-3', 'panel': 'b', 'max_width': 1000}]})
+
+
+# 24-nov (Carles: «pon el botón random en lab»): el dado 🎲 de cada lab elige entradas VÁLIDAS al azar
+def random_clausen():
+    """M al azar en 1..40 (la superficie es positiva en (0, π) para todo M: Teorema 2)."""
+    import random
+    return json.dumps({'M': str(random.randint(1, 40))})
+
+
+def random_clock():
+    """s al azar en (1, 6]; uno de cada tres cerca de 1 (s ≤ 1.3), donde la cola pesa más y el suelo 1 − 2^(1−s)
+    se acerca a 0 sin tocarlo (Corolario 1)."""
+    import random
+    s = random.uniform(1.02, 1.3) if random.random() < 1 / 3 else random.uniform(1.3, 6.0)
+    return json.dumps({'s': f'{s:.2f}'})
+
+
+# 24-nov (Carles: «portada con el reloj 3D»): la figura de cabecera del blueprint, calculada al construir.
+def cover_clock():
+    """El reloj: la esfera es el círculo unidad (θ recorre el dial) y la altura es |S(θ)|. El estado zeta (s = 2,
+    azul) nunca baja a la esfera: su mínimo es la estrella, |S(π)| = 1/2 en la antípoda. El estado de dos niveles
+    (naranja, discontinuo) toca la esfera en θ = π: ese reloj sí hace tic. Un deslizador recorre s (▶) y el suelo
+    1 − 2^(1−s) sube con s."""
+    ts = [2 * math.pi * i / 240 for i in range(241)]
+    dial = [[math.cos(x), math.sin(x), 0] for x in ts]
+    marcas = []
+    for h in range(12):                                   # las doce marcas de la esfera
+        a = 2 * math.pi * h / 12
+        marcas.append({'type': 'curve', 'points': [[0.9 * math.cos(a), 0.9 * math.sin(a), 0],
+                                                   [math.cos(a), math.sin(a), 0]], 'color': '#888'})
+    dos = [[math.cos(x), math.sin(x), abs(math.cos(x / 2))] for x in ts]
+    svals = [2.0, 2.5, 3.0, 4.0, 6.0]   # s = 1.5 queda fuera: con la serie truncada su curva no llega al suelo exacto
+    frames = []
+    for sv in svals:
+        mods = [[math.cos(x), math.sin(x), math.hypot(*autocorrelation(sv, x, 2000))] for x in ts]
+        suelo = 1 - 2 ** (1 - sv)
+        manecilla = [[0, 0, 0], [-1, 0, 0], [-1, 0, suelo]]       # la aguja apunta a la antípoda θ = π
+        frames.append([{'type': 'curve', 'points': dial, 'color': '#333', 'width': 2, 'name': 'the dial: S = 0'}]
+                      + marcas +
+                      [{'type': 'curve', 'points': mods, 'color': '#1B6F8C', 'width': 3,
+                        'name': '|S(θ)|, populations p_n ∝ n^-s: never touches the dial'},
+                       {'type': 'curve', 'points': dos, 'color': '#B5530F', 'dash': True,
+                        'name': 'two-level state: touches 0 at θ = π (that clock ticks)'},
+                       {'type': 'curve', 'points': manecilla, 'color': '#7a1f1f', 'width': 2},
+                       {'type': 'points', 'points': [[-1, 0, suelo]], 'color': '#B5530F', 'marker': 'star',
+                        'size': 12, 'name': 'the floor 1 − 2^(1−s) = %.3f at the antipode' % suelo}])
+    return json.dumps({'kind': '3d', 'title': 'The clock that never ticks: |S(θ)| over the dial',
+                       'axes': ['cos θ', 'sin θ', '|S|'], 'items': [],
+                       'slider': {'label': 's', 'values': svals, 'items': frames, 'start': svals.index(2.0)},
+                       'max_width': 760})

@@ -1271,8 +1271,16 @@ thick border are the main results; click a box to read the statement.</p><div cl
   function start(){
     apply();
     var due = null;
-    new MutationObserver(function () {
-      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    // 24-nov: los cambios DENTRO de una figura viva (3D, niveles, svg, canvas) no cuentan: una figura que se repinta en
+    // cada fotograma relanzaba apply() sobre toda la página cada 300 ms (dilogarithm-clock: Chrome sin ventana no
+    // terminaba nunca y el navegador gastaba CPU sin parar)
+    var FIG = '.l3, .lv, .lm-3d, svg, canvas';
+    new MutationObserver(function (records) {
+      var fuera = records.some(function (r) {
+        var t = r.target.nodeType === 1 ? r.target : r.target.parentElement;
+        return !(t && t.closest && t.closest(FIG));
+      });
+      if (fuera && due === null) due = setTimeout(function () { due = null; apply(); }, 300);
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();

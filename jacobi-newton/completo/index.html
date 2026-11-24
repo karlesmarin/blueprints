@@ -1123,7 +1123,12 @@ each).</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>white<b>
 <dd><p>A. Terras, <em>Zeta Functions of Graphs: A Stroll through the Garden</em>, Cambridge Studies in Advanced Mathematics <b class="bfseries">128</b>, Cambridge Univ. Press, 2011.  <a class="bib-search" href="https://scholar.google.com/scholar?q=Zeta+Functions+of+Graphs%3A+A+Stroll+through+the+Garden" rel="noopener" target="_blank">🔎 find it</a></p>
 </dd>
 </dl>
-</section>
+<!--lm-notas--><details class="lm-notas" id="lm-notas" style="max-width:520px;margin:1.5em 0;padding:0 .6em;font-size:.78em;color:#444;border-top:1px solid #ddd"><summary style="cursor:pointer;font-weight:bold;margin:.5em 0">Notes (1)</summary><ol><li id="lm-nota-1" value="1"><em>Reproducibility.</em> All Lean sources are
+public at <a href="https://github.com/karlesmarin/godsil-gutman-lean" rel="noopener" target="_blank">https://github.com/karlesmarin/godsil-gutman-lean</a> (commit \texttt{67d7d0a}), built
+against Lean \texttt{v4.30.0-rc2} and the pinned Mathlib commit \texttt{701fb6e9c3}. Reproduce with
+\texttt{lake exe cache get \&amp;\&amp; lake build}; check the axiom footprint of any result with
+\lean{\#print axioms}. The numerical cross-checks of Table \ref{tab:checks} are in
+\texttt{verify\_jacobi\_newton.py}. <a href="#lm-llamada-1" title="volver">↩</a></li></ol></details><script>document.addEventListener("click",function(e){var a=e.target.closest('a[href^="#lm-nota-"]');if(!a)return;var d=document.getElementById("lm-notas");if(d&&!d.open)d.open=true;});</script><!--lm-notas-->fin</section>
 </div>
 </div>
 </div>
@@ -1376,8 +1381,16 @@ each).</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>white<b>
   function start(){
     apply();
     var due = null;
-    new MutationObserver(function () {
-      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    // 24-nov: los cambios DENTRO de una figura viva (3D, niveles, svg, canvas) no cuentan: una figura que se repinta en
+    // cada fotograma relanzaba apply() sobre toda la página cada 300 ms (dilogarithm-clock: Chrome sin ventana no
+    // terminaba nunca y el navegador gastaba CPU sin parar)
+    var FIG = '.l3, .lv, .lm-3d, svg, canvas';
+    new MutationObserver(function (records) {
+      var fuera = records.some(function (r) {
+        var t = r.target.nodeType === 1 ? r.target : r.target.parentElement;
+        return !(t && t.closest && t.closest(FIG));
+      });
+      if (fuera && due === null) due = setTimeout(function () { due = null; apply(); }, 300);
     }).observe(document.body, {childList: true, subtree: true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
@@ -1386,11 +1399,6 @@ each).</summary><div class="lm-tscroll"><table class="lm-tdata"><tr><td>white<b>
 <link data-lm="lm-lean-panel-css" href="../../lemmario-assets/lm-lean-panel-css.css" rel="stylesheet"/>
 <script data-lm="lm-lean-panel" src="../../lemmario-assets/lm-lean-panel.js"></script>
 <script data-lm="lm-notranslate" src="../../lemmario-assets/lm-notranslate.js"></script>
-<!--lm-notas--><section class="lm-notas" style="max-width:900px;margin:2em auto;padding:0 1em;font-size:.92em;border-top:1px solid #ccc"><h3>Notes</h3><ol><li id="lm-nota-1" value="1"><em>Reproducibility.</em> All Lean sources are
-public at <a href="https://github.com/karlesmarin/godsil-gutman-lean" rel="noopener" target="_blank">https://github.com/karlesmarin/godsil-gutman-lean</a> (commit \texttt{67d7d0a}), built
-against Lean \texttt{v4.30.0-rc2} and the pinned Mathlib commit \texttt{701fb6e9c3}. Reproduce with
-\texttt{lake exe cache get \&amp;\&amp; lake build}; check the axiom footprint of any result with
-\lean{\#print axioms}. The numerical cross-checks of Table \ref{tab:checks} are in
-\texttt{verify\_jacobi\_newton.py}. <a href="#lm-llamada-1" title="volver">↩</a></li></ol></section><!--lm-notas-->fin<script data-lm="lm-print-js" src="../../lemmario-assets/lm-print-js.js"></script>
+<script data-lm="lm-print-js" src="../../lemmario-assets/lm-print-js.js"></script>
 </body>
 </html>
