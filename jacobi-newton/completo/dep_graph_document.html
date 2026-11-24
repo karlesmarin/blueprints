@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<link data-lm="pdf-css" href="../../lemmario-assets/pdf-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../../lemmario-assets/pc-head-css.css" rel="stylesheet"/></head>
+<body><svg aria-hidden="true" id="lm-icons" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="icon-cross" viewbox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper v1 (<a href="https://doi.org/10.5281/zenodo.20578470" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.20578470</a>) · no errata</span><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="def:resolvent_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:resolvent" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">1</span><span class="definition_thmtitle">Resolvent series</span></div>
+<div class="thm_thmcontent"><p>   For an \(n\times n\) matrix \(M\) over a commutative ring, the <em>resolvent series</em> is the matrix of formal power series \(\bigl(\, \sum _k M^k X^k\, \bigr)\), written <span class="ttfamily">resolventSeries M</span>. </p>
+</div>
+<a class="latex_link" href="index.html#def:resolvent">LaTeX</a>
+<a class="lean_link lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L60" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L60">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:resolvent_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:resolvent" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">1</span><span class="lemma_thmtitle">The resolvent inverts \(I-XM\), and its trace is the trace generating function</span></div>
+<div class="thm_thmcontent">
+<div class="centered">\(\displaystyle (I-XM)\cdot \textstyle \sum _k M^kX^k\; =\; I,\qquad {\operatorname {tr}}\! \bigl(\textstyle \sum _k M^kX^k\bigr)\; =\; \sum _k {\operatorname {tr}}(M^k)\, X^k.\)</div>
+<p> Both are <span class="ttfamily">sorry</span>-free (<span class="ttfamily">one_sub_smul_mul_resolventSeries</span>, <span class="ttfamily">trace_resolventSeries</span>). The inverse identity is proved from the fixed-point equation \(R=I+XM\! \cdot \! R\) by a single rearrangement—no eigenvalues, no algebraic closure, over any commutative ring. </p>
+</div>
+<a class="latex_link" href="index.html#lem:resolvent">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L100" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L100">Matrix.one_sub_X_smul_mul_resolventSeries</a></li>
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L117" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L117">Matrix.trace_resolventSeries</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:walks_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:walks" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2</span><span class="lemma_thmtitle">Powers count walks</span></div>
+<div class="thm_thmcontent"><p>   For a matrix \(M\) over a commutative semiring, the \((i,j)\) entry of \(M^k\) is the sum, over length-\(k\) vertex walks from \(i\) to \(j\), of the product of the edge weights (<span class="ttfamily">pow_apply_eq_sum</span>). For the \(0\)–\(1\) adjacency matrix of a decidable relation—a finite directed graph—this is a genuine count: \(\bigl((\text{adjacency})^k\bigr)_{ij}\) is the number of length-\(k\) directed walks from \(i\) to \(j\) (<span class="ttfamily">relMatrix_pow_apply</span>). Both are <span class="ttfamily">sorry</span>-free. </p>
+</div>
+<a class="latex_link" href="index.html#lem:walks">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L63" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L63">Matrix.pow_apply_eq_sum</a></li>
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L205" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L205">Matrix.relMatrix_pow_apply</a></li>
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L148" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L148">Matrix.trace_pow_eq_sum_cyclicProd</a></li>
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L130" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L130">Matrix.cyclicProd_comp_finRotate</a></li>
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/WalkCount.lean#L138" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/WalkCount.html#L138">Matrix.cyclicProd_comp_finRotate_iterate</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:ihara_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:ihara" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">3</span><span class="theorem_thmtitle">The Ihara \(N_k\) identity, in Lean 4</span></div>
+<div class="thm_thmcontent"><p>    With \(Q=\det (I-XA+X^2(D-I))\), in the power-series ring, </p>
+<div class="centered">\(\displaystyle \sum _k{\operatorname {tr}}(B^{k+1})X^k\; =\; \frac{\det (I-XB)\, \bigl((1-X^2)^{|V|}\bigr)'-(1-X^2)^{|E|}Q'-Q\, \bigl((1-X^2)^{|E|}\bigr)'}{(1-X^2)^{|V|}\det (I-XB)}.\)</div>
+<p> The two \((1-X^2)\)-powers and both determinants are units, so the division is the formal \(\mathtt{invOfUnit}\); the identity is <span class="ttfamily">sorry</span>-free (<span class="ttfamily">ihara_Nk_explicit</span>). It expresses the non-backtracking counts \(N_k={\operatorname {tr}}(B^k)\) purely through the adjacency data \((A,D)\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:ihara">LaTeX</a>
+<a class="lean_link lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/Combinatorics/SimpleGraph/Ihara/TraceFormula.lean#L178" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/SimpleGraph/Ihara/TraceFormula.html#L178">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:jacobi_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:jacobi" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">1</span><span class="theorem_thmtitle">Jacobi’s formula, in Lean 4</span></div>
+<div class="thm_thmcontent"><p>   For an \(n\times n\) matrix \(M\) of polynomials over a commutative ring, </p>
+<div class="centered">\(\displaystyle (\det M)'\; =\; {\operatorname {tr}}\! \bigl({\operatorname {adj}}M\cdot M'\bigr).\)</div>
+<p> The statement is <span class="ttfamily">sorry</span>-free (<span class="ttfamily">Matrix.derivative_det</span>); <span class="ttfamily">#print axioms</span> reports only <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span>. </p>
+</div>
+<a class="latex_link" href="index.html#thm:jacobi">LaTeX</a>
+<a class="lean_link lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L164" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L164">Lean</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:newton_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:newton" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">2</span><span class="theorem_thmtitle">Newton’s identity for matrix traces, in Lean 4</span></div>
+<div class="thm_thmcontent"><p>    For an \(n\times n\) matrix \(M\) over a commutative ring, in the ring of formal power series, </p>
+<div class="centered">\(\displaystyle (\operatorname{charpolyRev}M)'\; =\; -\, \operatorname{charpolyRev}M\cdot \sum _{k\ge 0}{\operatorname {tr}}(M^{k+1})\, X^k.\)</div>
+<p> Equivalently \(\sum _{k\ge 1}{\operatorname {tr}}(M^k)X^k=-X\, (\operatorname{charpolyRev}M)'/\operatorname{charpolyRev}M\), the logarithmic derivative. The statement is <span class="ttfamily">sorry</span>-free (<span class="ttfamily">Matrix.charpolyRev_logDeriv</span>), over any commutative ring, eigenvalue-free. At the linear coefficient it specializes to the lemma Mathlib already had, \({\operatorname {tr}}M=-\, [\, X^1\, ]\, \operatorname{charpolyRev}M\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:newton">LaTeX</a>
+<div class="tooltip">
+<span class="lean_link">Lean</span>
+<ul class="tooltip_list">
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L186" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L186">Matrix.coe_derivative_charpolyRev_eq_neg_mul_mk_trace_pow</a></li>
+<li><a class="lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.lean#L216" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/LinearAlgebra/Matrix/Charpoly/Jacobi.html#L216">Matrix.derivative_coe_charpolyRev</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:Nk_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:Nk" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">4</span><span class="theorem_thmtitle">\({\operatorname {tr}}(B^k)\) counts non-backtracking walks, in Lean 4</span></div>
+<div class="thm_thmcontent">
+<div class="centered">\(\displaystyle {\operatorname {tr}}(B^k)\; =\; \# \{ \text{closed non-backtracking walks of length }k,\  \text{rooted at a dart}\} .\)</div>
+<p> <span class="ttfamily">sorry</span>-free (<span class="ttfamily">trace_hashimoto_pow</span>). </p>
+</div>
+<a class="latex_link" href="index.html#thm:Nk">LaTeX</a>
+<a class="lean_link lean_decl" data-lean-github="https://github.com/karlesmarin/formalizations/blob/72bf7da4c80b526682c2aa2259acc6c3086f282c/Formalizations/Combinatorics/SimpleGraph/Ihara/NbWalkCount.lean#L57" href="https://karlesmarin.github.io/blueprints/lean/Formalizations/Combinatorics/SimpleGraph/Ihara/NbWalkCount.html#L57">Lean</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"def:resolvent"	[color=green,		fillcolor="#B0ECA3",		label=resolvent,		shape=box,		style=filled];	"lem:resolvent"	[color=green,		fillcolor="#1CAC78",		label=resolvent,		shape=ellipse,		style=filled];	"def:resolvent" -> "lem:resolvent"	[style=dashed];	"thm:newton"	[color=green,		fillcolor="#1CAC78",		label=newton,		shape=ellipse,		style=filled];	"lem:resolvent" -> "thm:newton"	[style=dashed];	"thm:ihara"	[color=green,		fillcolor="#1CAC78",		label=ihara,		shape=ellipse,		style=filled];	"thm:newton" -> "thm:ihara"	[style=dashed];	"lem:walks"	[color=green,		fillcolor="#1CAC78",		label=walks,		shape=ellipse,		style=filled];	"thm:Nk"	[color=green,		fillcolor="#1CAC78",		label=Nk,		shape=ellipse,		style=filled];	"lem:walks" -> "thm:Nk"	[style=dashed];	"thm:jacobi"	[color=green,		fillcolor="#1CAC78",		label=jacobi,		shape=ellipse,		style=filled];	"thm:jacobi" -> "thm:newton"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="260pt" viewbox="0.00 0.00 259.00 260.00" width="259pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 256)">
+<!-- def:resolvent -->
+<g class="node" id="node1">
+<title>def:resolvent</title>
+<polygon fill="#b0eca3" points="77.45,-252 11.95,-252 11.95,-216 77.45,-216 77.45,-252" stroke="green" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="44.7" xml:space="preserve" y="-228.95">resolvent</text>
+</g>
+<!-- lem:resolvent -->
+<g class="node" id="node2">
+<title>lem:resolvent</title>
+<ellipse cx="44.7" cy="-162" fill="#1cac78" rx="44.7" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="44.7" xml:space="preserve" y="-156.95">resolvent</text>
+</g>
+<!-- def:resolvent&#45;&gt;lem:resolvent -->
+<g class="edge" id="edge1">
+<title>def:resolvent-&gt;lem:resolvent</title>
+<path d="M44.7,-215.34C44.7,-208.07 44.7,-199.47 44.7,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="44.7,-181.64 49.2,-191.64 44.7,-185.42 44.7,-191.64 44.7,-191.64 44.7,-191.64 44.7,-185.42 40.2,-191.64 44.7,-181.64" stroke="black"></polygon>
+</g>
+<!-- thm:newton -->
+<g class="node" id="node3">
+<title>thm:newton</title>
+<ellipse cx="92.7" cy="-90" fill="#1cac78" rx="38.04" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="92.7" xml:space="preserve" y="-84.95">newton</text>
+</g>
+<!-- lem:resolvent&#45;&gt;thm:newton -->
+<g class="edge" id="edge2">
+<title>lem:resolvent-&gt;thm:newton</title>
+<path d="M56.32,-144.05C61.92,-135.89 68.76,-125.91 74.99,-116.82" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="80.5,-108.79 78.55,-119.59 78.36,-111.91 74.84,-117.04 74.84,-117.04 74.84,-117.04 78.36,-111.91 71.13,-114.5 80.5,-108.79" stroke="black"></polygon>
+</g>
+<!-- thm:ihara -->
+<g class="node" id="node4">
+<title>thm:ihara</title>
+<ellipse cx="92.7" cy="-18" fill="#1cac78" rx="29.34" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="92.7" xml:space="preserve" y="-12.95">ihara</text>
+</g>
+<!-- thm:newton&#45;&gt;thm:ihara -->
+<g class="edge" id="edge3">
+<title>thm:newton-&gt;thm:ihara</title>
+<path d="M92.7,-71.34C92.7,-64.07 92.7,-55.47 92.7,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="92.7,-37.63 97.2,-47.63 92.7,-41.42 92.7,-47.63 92.7,-47.63 92.7,-47.63 92.7,-41.42 88.2,-47.63 92.7,-37.63" stroke="black"></polygon>
+</g>
+<!-- lem:walks -->
+<g class="node" id="node5">
+<title>lem:walks</title>
+<ellipse cx="218.7" cy="-234" fill="#1cac78" rx="32.41" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="218.7" xml:space="preserve" y="-228.95">walks</text>
+</g>
+<!-- thm:Nk -->
+<g class="node" id="node6">
+<title>thm:Nk</title>
+<ellipse cx="218.7" cy="-162" fill="#1cac78" rx="27" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="218.7" xml:space="preserve" y="-156.95">Nk</text>
+</g>
+<!-- lem:walks&#45;&gt;thm:Nk -->
+<g class="edge" id="edge4">
+<title>lem:walks-&gt;thm:Nk</title>
+<path d="M218.7,-215.34C218.7,-208.07 218.7,-199.47 218.7,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="218.7,-181.64 223.2,-191.64 218.7,-185.42 218.7,-191.64 218.7,-191.64 218.7,-191.64 218.7,-185.42 214.2,-191.64 218.7,-181.64" stroke="black"></polygon>
+</g>
+<!-- thm:jacobi -->
+<g class="node" id="node7">
+<title>thm:jacobi</title>
+<ellipse cx="140.7" cy="-162" fill="#1cac78" rx="33.44" ry="18" stroke="green" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="140.7" xml:space="preserve" y="-156.95">jacobi</text>
+</g>
+<!-- thm:jacobi&#45;&gt;thm:newton -->
+<g class="edge" id="edge5">
+<title>thm:jacobi-&gt;thm:newton</title>
+<path d="M129.32,-144.41C123.73,-136.25 116.85,-126.22 110.57,-117.07" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="105.02,-108.97 114.38,-114.67 107.16,-112.09 110.67,-117.22 110.67,-117.22 110.67,-117.22 107.16,-112.09 106.96,-119.76 105.02,-108.97" stroke="black"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:jacobi": "Theorem 1 — Jacobi's formula, in Lean~4", "def:resolvent": "Definition 1 — Resolvent series", "lem:resolvent": "Lemma 1 — The resolvent inverts $I-XM$, and its trace is the trace generating function", "thm:newton": "Theorem 2 — Newton's identity for matrix traces, in Lean~4", "lem:walks": "Lemma 2 — Powers count walks", "thm:ihara": "Theorem 3 — The Ihara $N_k$ identity, in Lean~4", "thm:Nk": "Theorem 4 — $\\tr(B^k)$ counts non-backtracking walks, in Lean~4"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    new MutationObserver(function () {
+      if (due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<link data-lm="lm-lean-panel-css" href="../../lemmario-assets/lm-lean-panel-css.css" rel="stylesheet"/>
+<script data-lm="lm-lean-panel" src="../../lemmario-assets/lm-lean-panel.js"></script>
+<script data-lm="lm-notranslate" src="../../lemmario-assets/lm-notranslate.js"></script>
+</body>
+</html>
