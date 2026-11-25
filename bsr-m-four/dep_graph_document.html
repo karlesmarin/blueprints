@@ -1,0 +1,1072 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<link data-lm="pdf-css" href="../lemmario-assets/pdf-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../lemmario-assets/pc-head-css.css" rel="stylesheet"/></head>
+<body><svg aria-hidden="true" id="lm-icons" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="icon-cross" viewbox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="boundary_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="boundary" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">10</span><span class="proposition_thmtitle">Boundary package</span></div>
+<div class="thm_thmcontent"><p>   Boundary_Inertia_Arith.incidence If \(\Sigma _{14}\ne \Sigma \), there exist \(F\in \operatorname {int}\Sigma \cap \partial \Sigma _{14}\) and a nonzero indefinite real Hankel multiplier \(H\) with the following properties. The real SOS length of \(F\) is fourteen. For every representation \(F=\sum _{i=1}^{14}h_i^2\), the forms \(h_i\) are independent, their span \(W\) lies in \(\ker H\), and the complex annihilator of \(W\) contains no nonzero simple tensor. In particular \(r={\operatorname {rank}}H\le 6\) and its image is product-free. For every syzygy \(\sum _i h_iD_i=0\), </p>
+<div class="displaymath" id="a0000000040">
+  \[  \sum _iH(D_i,D_i)\ge 0. \tag {11}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#boundary">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="compression_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="compression" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">13</span><span class="lemma_thmtitle">Compression</span></div>
+<div class="thm_thmcontent"><p>  Boundary_Inertia_Arith.compression_count For the boundary form \(F\), if \(H\) has first support \(a\) and rank \(r\), then </p>
+<div class="displaymath" id="a0000000052">
+  \[  {\operatorname {SOS}}_{\mathbb R}(F)\le (4a-r)+{\operatorname {BSR}}(5-a,4). \tag {15}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#compression">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:five_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:five" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">2</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Cor5.clr_bound, BSR_m4_Cor5.clr_bound_choose, BSR_m4_Cor5.add_column_arith, BSR_m4_Cor5.small_cases, BSR_m4_Cor5.cor_five \({\operatorname {BSR}}(m,5)\le 4m-1\) for every \(m\ge 2\). For \(5\le m\le 10\) this is one below the bound \(4m\) of Choi, Lam and Reznick <span class="cite">
+	[
+	<a href="index.html#CLR">22</a>
+	]
+</span>, also in the strict form of Blekherman, Sinn, Smith and Velasco <span class="cite">
+	[
+	<a href="index.html#BSSV">9</a>
+	, 
+	Theorem
+	
+	2.1
+	]
+</span>. </p>
+</div>
+<a class="latex_link" href="index.html#cor:five">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="extension_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="extension" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">12</span><span class="lemma_thmtitle">Annihilator and extension</span></div>
+<div class="thm_thmcontent"><p>  Boundary_Inertia_Arith.psi_counts The annihilator of \({\operatorname {im}}\Psi \), with respect to \(J^{\oplus n}\), consists exactly of the maps \(C:L\to E\) satisfying </p>
+<div class="displaymath" id="a0000000050">
+  \[  \langle Cy_i,T(a\otimes y_j)\rangle =\langle Cy_j,T(a\otimes y_i)\rangle \quad \text{for every }a,i,j. \tag {14}  \]
+</div>
+<p> It contains the \(a\)-dimensional space \(C_a=T(a\otimes \cdot )\). Assume that \(L=B\), or that \(B=L\oplus L'\) with \(L'\) contained in the second radical of \(H\) (one of the two holds in every application below). Any additional independent map extends \(T\) by one first-factor row, preserving rank, flatness, product-freeness, and full second support, and increasing first support by one. </p>
+</div>
+<a class="latex_link" href="index.html#extension">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="isotropic_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="isotropic" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">5</span><span class="lemma_thmtitle">Isotropic row lemma</span></div>
+<div class="thm_thmcontent"><p>   BSR_m4_Pieces.cross_product_identity_real, BSR_m4_Pieces.isotropic_C4, BSR_m4_Pieces.isotropic_C4_independent Assume \(T\) is onto, the first radical is zero, and its dual image is product-free. There is no nonzero \(D\subset A\) for which \(S=T(D\otimes B)\) is totally isotropic and \(\dim (A/D)\le 2\). </p>
+</div>
+<a class="latex_link" href="index.html#isotropic">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:boundary-inertia_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:boundary-inertia" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">14</span><span class="lemma_thmtitle">Boundary inertia inequality</span></div>
+<div class="thm_thmcontent"><p>  Boundary_Inertia_Arith.inertia_pataki_form, Boundary_Inertia_Arith.inertia_q1_is_pataki, Boundary_Inertia_Arith.inertia_m4, Boundary_Inertia_Arith.inertia_m4_floor Let \(V\) be a finite-dimensional real vector space of forms, and let \(R_2\) be the span of their products. Put </p>
+<div class="displaymath" id="a0000000056">
+  \[  v=\dim V,\qquad M=\dim R_2,\qquad \Phi _N(h)=\sum _{i=1}^N h_i^2,\qquad \Sigma _N=\operatorname {im}\Phi _N.  \]
+</div>
+<p> Let \(\Sigma \) be the full sum-of-squares cone. </p>
+<p>Suppose \(F\in \Sigma _N\cap \operatorname {int}\Sigma \) admits a \(C^2\) local defining function \(g\) with </p>
+<div class="displaymath" id="a0000000057">
+  \[  g(F)=0,\qquad dg_F\ne 0,\qquad g\ge 0\quad \hbox{on }\Sigma _N\hbox{ near }F.  \]
+</div>
+<p> Define </p>
+<div class="displaymath" id="a0000000058">
+  \[  H(u,w)=dg_F(uw), \qquad H=T^*JT,\qquad T:V\to E\  \hbox{onto},\qquad \operatorname {signature}(J)=(p,q).  \]
+</div>
+<p> Then </p>
+<div class="displaymath" id="a0000000059">
+  \[  Nq\le M-1-\binom {N+1}{2}. \tag {I}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#lem:boundary-inertia">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:boundary-selection_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:boundary-selection" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">9</span><span class="lemma_thmtitle">Boundary selection</span></div>
+<div class="thm_thmcontent"><p>  Let \(\Omega \subset \mathbb R^d\) be a connected open semialgebraic set, let \(K\subset \mathbb R^d\) be a closed semialgebraic set with \(\Omega \cap \operatorname {int}K\ne \varnothing \) and \(\Omega \not\subset K\), and let \(Z\subset \mathbb R^d\) be semialgebraic with \(\dim Z\le d-2\). Then there are a point \(F\in \Omega \cap \partial K\) with \(F\notin Z\), an open ball \(U\ni F\) and a \(C^\infty \) function \(g\) on \(U\) with \(g(F)=0\), \(dg_F\ne 0\) and \(K\cap U=\{ g\ge 0\} \). </p>
+</div>
+<a class="latex_link" href="index.html#lem:boundary-selection">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:common-line_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:common-line" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">15</span><span class="lemma_thmtitle">Common-line commutators</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Linear2.common_line_step_kernel, BSR_m4_Linear2.common_line_step_image, BSR_m4_Linear3.symmetric_4linear_polarization, BSR_m4_Linear3.symmetric_5linear_polarization Let \(\mathcal C\) be a family of endomorphisms of a finite-dimensional complex vector space \(S\). Suppose that a fixed subspace \(K\subset S\), of dimension at most one, satisfies </p>
+<div class="displaymath" id="a0000000072">
+  \[  [C,D](S)\subset K\qquad (C,D\in \mathcal C).  \]
+</div>
+<p> Then \(\mathcal C\) is simultaneously triangularizable. </p>
+</div>
+<a class="latex_link" href="index.html#lem:common-line">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:invariant-plane_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:invariant-plane" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">19</span><span class="lemma_thmtitle">Invariant extension of an isotropic plane</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Linear.symmetric_trilinear_polarization, BSR_m4_Polar.pol_form.polar, BSR_m4_Invariant.iso_setup.T_zero, BSR_m4_Invariant.iso_setup.R_zero, BSR_m4_Invariant.iso_setup.U_zero, BSR_m4_Invariant.iso_setup.invariant_dim3, BSR_m4_Invariant.iso_setup.invariant_dim2 Let \(W\) be a real symmetric space of negative index at most three. Let \(p_c\) and self-adjoint \(B_c\) depend linearly on \(c\). Suppose \(P=\operatorname {span}\{ p_c\} \) is an isotropic two-plane, </p>
+<div class="displaymath" id="a0000000095">
+  \[  B_cp_d=B_dp_c,\qquad [B_c,B_d]P\subset P,\qquad [B_c,B_d]P^\perp \subset P,  \]
+</div>
+<p> and \(\langle p_c,B_c^jp_c\rangle =0\) for \(j=1,2,3,4\). Then \(P\) is contained in a common invariant totally isotropic space \(P'\) of dimension two or three. </p>
+</div>
+<a class="latex_link" href="index.html#lem:invariant-plane">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:low-index-four_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:low-index-four" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">20</span><span class="lemma_thmtitle">Low negative index</span></div>
+<div class="thm_thmcontent"><p>   BSR_m4_LowIndex.low_setup.low_invariant, BSR_m4_LowIndex.rank2_setup.rank2_invariant, BSR_m4_LowIndex.generic_to_all, BSR_m4_LowIndex.count_r_ge_a1, BSR_m4_LowIndex.count_kh Let \(H\) be a nonzero real Hankel multiplier with effective supports \((a,b)\), where \(b\le 4\). Suppose its complex image contains no nonzero simple tensor and its negative index satisfies \(q\le 4\). Put \(r=\operatorname {rank}H\). Then </p>
+<div class="displaymath" id="a0000000100">
+  \[  r\ge a+1.  \]
+</div>
+<p> If \(b=4\) and \(a\ge 3\), then </p>
+<div class="displaymath" id="a0000000101">
+  \[  r\ge a+2.  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#lem:low-index-four">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:moments_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:moments" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">18</span><span class="lemma_thmtitle">All moments</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Moments.unperturbed_coeff_nonzero, BSR_m4_Moments.moments_vanish, BSR_m4_Moments.shift_moments Let \(W\) be a real nondegenerate symmetric space. In Witt coordinates \((e,W,f)\) suppose </p>
+<div class="displaymath" id="a0000000088">
+  \[  T_0(z,w)=(z,w,0),\qquad T_c(z,w)= (\alpha z+\langle \ell ,w\rangle ,\  pz+Aw,\  \langle p,w\rangle ),  \]
+</div>
+<p> where \(A\) is self-adjoint. If \((T_0+tT_c)^*J(T_0+tT_c)\) is singular identically in \(t\), then </p>
+<div class="displaymath" id="a0000000089">
+  \[  \langle p,A^jp\rangle =0\qquad (j\ge 0).  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#lem:moments">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:regular-all-m_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:regular-all-m" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">21</span><span class="lemma_thmtitle">Uniform regular tuples</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Pieces.regular_step, BSR_m4_Pieces.regular_point_m4 For every \(m\ge 5\), \(\Phi _{3m-1}\) on \(m\times 4\) bilinear forms has a real point with surjective differential. </p>
+</div>
+<a class="latex_link" href="index.html#lem:regular-all-m">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:small-rows_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:small-rows" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">17</span><span class="lemma_thmtitle">Small row images</span></div>
+<div class="thm_thmcontent"><p>   BSR_m4_Small_Rows.row_rank_one_simple, BSR_m4_Small_Rows.evaluation_step, BSR_m4_Small_Rows.row_in_line, BSR_m4_Small_Rows.small_rows_contradiction Let \(T:A\otimes B\to E\) be a surjective complex linear map to a nondegenerate symmetric space. Assume flatness, zero first radical, and that \(T^*J(E)\) contains no nonzero simple tensor. </p>
+<p>There is no \(d\)-dimensional subspace \(D\subset A\) with </p>
+<div class="displaymath" id="a0000000080">
+  \[  \dim T(D\otimes B)\le d  \]
+</div>
+<p> when \(d=2\) or \(3\). There is also no such subspace for \(d=4\) if \(\dim B\le 4\). </p>
+<p>In particular, the three-row and four-row isotropic lemmas hold. </p>
+</div>
+<a class="latex_link" href="index.html#lem:small-rows">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:small-tableaux_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:small-tableaux" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">16</span><span class="lemma_thmtitle">Small tableaux</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Linear.singular_2x2_space, BSR_m4_Linear.singular_2x2_space_complex Let </p>
+<div class="displaymath" id="a0000000076">
+  \[  \varphi :S\hookrightarrow W\otimes B^*  \]
+</div>
+<p> be injective, with no nonzero rank-one tensor in its image. Write \(G_b(s)=\varphi (s)(b)\) and \(s=\dim S\). If \(2\le s\le 3\), some \(G_b\) has rank at least \(s-1\), without a restriction on \(\dim B\). The same conclusion holds for \(s=4\) when \(\dim B\le 4\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:small-tableaux">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="line_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="line" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">3</span></div>
+<div class="thm_thmcontent"><p> BSR_m4_Linear2.line_decomposable, BSR_m4_Linear2.line_decomposable_nonzero If \(x\ne 0\) and \(T_cx=\beta (c)e\) for all \(c\), with \(\beta \ne 0\), \(e\ne 0\), then \({\operatorname {im}}(T^*J)\) contains a nonzero decomposable covector. </p>
+</div>
+<a class="latex_link" href="index.html#line">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="nonsingular_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="nonsingular" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">6</span><span class="lemma_thmtitle">Nonsingular slice</span></div>
+<div class="thm_thmcontent"><p>   BSR_m4_Nonsingular.jacobi_gives_5, BSR_m4_Nonsingular.five_gives_K, BSR_m4_Nonsingular.bordered_commute, BSR_m4_Nonsingular.nonsingular_slice_core Let \(\dim A=d\ge 3\), \(\dim B=4\). A rank-\((d+1)\) multiplier with supports \((d,4)\) and an invertible \(Q(b)\) cannot have product-free image. </p>
+</div>
+<a class="latex_link" href="index.html#nonsingular">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="pencil_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="pencil" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">4</span></div>
+<div class="thm_thmcontent"><p> BSR_m4_Linear2.binform_dehomog, BSR_m4_Linear2.pencil_core Let \(G_1,G_2:B\to S^*\) have the property that every nonzero linear combination \(G_\lambda \) is onto. If \(F:B\to S\) and \(F^*G_1,F^*G_2\) are symmetric, then \(F=0\). </p>
+</div>
+<a class="latex_link" href="index.html#pencil">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="positive_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="positive" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">11</span><span class="lemma_thmtitle">Positive annihilator; \(n\ge 3\)</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Linear3.positive_averaging_nonneg, BSR_m4_Linear3.diagonal_terms_vanish, Boundary_Inertia_Arith.psi_counts, BSR_m4_C8.wedge_pair_nonneg, BSR_m4_C8.S_nonneg, BSR_m4_C8.S_zero_radical, BSR_m4_C8.inertia_subtraction Suppose a radical slice \(x_0\otimes L\), with \(x_0\) in the first radical, \(L\subseteq B\) and \(\dim L=n\ge 3\), lies in a boundary span \(W\). Let \(A'\) be a complement of the first radical, of dimension \(a\), and restrict \(H\) to \(A'\otimes L\). Assume that \(T:A'\otimes L\to E\) is onto, that the restriction has zero first radical in \(A'\), and that it has full second support on \(L\). Choose orthogonal summand coordinates so that \(h_i=x_0\otimes y_i\), \(1\le i\le n\), where \(y_i\) is a basis of \(L\). Put \(T_i a=T(a\otimes y_i)\), \(H_{ij}=T_i^*JT_j\), and \(S=\sum _iH_{ii}\). For the alternating map </p>
+<div class="displaymath" id="a0000000045">
+  \[  \Psi :A'\otimes \Lambda ^2L\longrightarrow E^n,\qquad \Psi (z)_i=\sum _jT_jz_{ij},\quad z_{ij}=-z_{ji},  \]
+</div>
+<p> if \(p\) is the positive index of \(J\), then </p>
+<div class="displaymath" id="a0000000046">
+  \[  S\succ 0,\qquad {\operatorname {rank}}\Psi \le np-a. \tag {13}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#positive">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:negsyz_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:negsyz" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">23</span><span class="proposition_thmtitle">Negative-syzygy obstruction</span></div>
+<div class="thm_thmcontent"><p>   BSR_m4_Trace.trace_pos, BSR_m4_Trace.syzygy_negative Let \(F\) be a smooth boundary point of \(\Sigma _s\) with multiplier \(H\) as in Proposition <a href="index.html#boundary">10</a>, and let \(W\subseteq K=\ker H\) be the \(s\)-dimensional span of the summands of a representation of \(F\). Let \(N\) be a \(q\)-dimensional subspace on which \(H\) is negative definite, \(D=K\oplus N\) and \(k=\dim K\). Then </p>
+<div class="displaymath" id="a0000000148">
+  \[  i(D)-i(K)\  \le \  \operatorname {rk}\bigl(I_2\cap {\operatorname {Sym}}^2D\to {\operatorname {Sym}}^2(D/W)\bigr)\  \le \  \binom {k-s+q+1}2 .  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#prop:negsyz">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rank5_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rank5" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">27</span><span class="lemma_thmtitle">Rank five in \(4\times 4\)</span></div>
+<div class="thm_thmcontent"><p>   BSR_m4_Linear.rank5_polar_kernel, BSR_m4_Pieces.triples_5 A rank-five multiplier with supports \((4,4)\) cannot have product-free image. </p>
+</div>
+<a class="latex_link" href="index.html#rank5">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rank6_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rank6" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">25</span><span class="theorem_thmtitle">Full-support rank-six exclusion</span></div>
+<div class="thm_thmcontent"><p>   BSR_m4_Linear.symmetric_trilinear_polarization, BSR_m4_C3.c3_tensor_vanishes, BSR_m4_C3.c3_inclusion There is no complex Hankel multiplier on \({\mathbb C}^5\otimes {\mathbb C}^4\) of rank six, supports \((5,4)\), and product-free image. </p>
+</div>
+<a class="latex_link" href="index.html#rank6">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rankone_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rankone" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7</span><span class="lemma_thmtitle">Rank-one factorization</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Linear3.rank_le_one_space_full, BSR_m4_Linear3.two_rank_one_contra, BSR_m4_Linear2.rank_one_pair_not_in_rank_le_one_space If the symmetric polynomial matrix \(Q(b)\) has homogeneous quadratic entries and generic rank one, then </p>
+<div class="displaymath" id="a0000000033">
+  \[  x^tQ(b)x=g(b)L(x,b)^2.  \]
+</div>
+<p> Here either \(L\) is independent of \(b\), and the first support is one, or \(g\) is constant and \(L\) is bilinear. </p>
+</div>
+<a class="latex_link" href="index.html#rankone">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="regular_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="regular" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8</span><span class="lemma_thmtitle">Regular fourteen-tuple</span></div>
+<div class="thm_thmcontent"><p>  BSR_m4_Pieces.regular_point_m4 The differential \(d\Phi _{14}\) is onto at </p>
+<div class="displaymath" id="a0000000036">
+  \[  S=\{ x_iy_i:1\le i\le 4\}  \cup \{ x_iy_j+x_jy_i:1\le i{\lt}j\le 4\}  \cup \{ x_5y_j:1\le j\le 4\} .  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#regular">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="schur_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="schur" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">24</span><span class="lemma_thmtitle">Degenerate hyperplane calculation</span></div>
+<div class="thm_thmcontent"><p>  Suppose \(\dim A=d\), \(\dim E=d+1\), a generic \(T_b\) is injective, and every \(Q(b)\) is singular. Choose a Witt decomposition </p>
+<div class="displaymath" id="a0000000150">
+  \[  E=W\perp \langle e,f\rangle ,\quad \dim W=d-1,\quad e^2=f^2=0,\quad \langle e,f\rangle =1,  \]
+</div>
+<p> and coordinates with \(T_b(w,z)=(w,z,0)\). Then, for every \(c\), </p>
+<div class="displaymath" id="a0000000151">
+  \[  T_c(w,z)=(A_cw+p_cz,\  \ell _c^tw+t_cz,\  p_c^tw+\eta _cz), \quad A_c^t=A_c,  \]
+</div>
+<p> and </p>
+<div class="displaymath" id="a0000000152">
+  \[  \eta _c=0,\qquad p_c^tp_c=0,\qquad p_c^tA_cp_c=0. \tag {6}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#schur">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="supports_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="supports" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">26</span><span class="lemma_thmtitle">Support bounds</span></div>
+<div class="thm_thmcontent"><p>   BSR_m4_Pieces.support_triples_m4, BSR_m4_Pieces.triples_5, BSR_m4_Pieces.triples_6, BSR_m4_Linear3.support_count_inequality A nonzero product-free multiplier with supports \(a\le 5,\  b_0\le 4\) satisfies </p>
+<div class="displaymath" id="a0000000164">
+  \[  a,b_0\ge 2,\qquad \max (a,b_0)+1\le r\le (a-1)(b_0-1). \tag {8}  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#supports">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:main_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:main" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">1</span></div>
+<div class="thm_thmcontent"><p>  Boundary_Inertia_Arith.inertia_m4, Boundary_Inertia_Arith.q_values, Boundary_Inertia_Arith.incidence, Boundary_Inertia_Arith.compression_count, BSR_m4_Pieces.support_triples_m4, BSR_m4_Pieces.regular_point_m4 For \(5\le m\le 16\), every real \(m\times 4\) biquadratic sum of squares is a sum of at most \(3m-1\) squares of real bilinear forms: \({\operatorname {BSR}}(m,4)\le 3m-1\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:main">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:through-sixteen_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:through-sixteen" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">22</span></div>
+<div class="thm_thmcontent"><p>  Boundary_Inertia_Arith.inertia_m4_floor, Boundary_Inertia_Arith.q_values, Boundary_Inertia_Arith.incidence, Boundary_Inertia_Arith.psi_counts, BSR_m4_Pieces.triples_card For \(5\le m\le 16\), </p>
+<div class="displaymath" id="a0000000126">
+  \[  \operatorname {BSR}(m,4)\le 3m-1.  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:through-sixteen">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	isotropic	[label=isotropic,		shape=ellipse];	rank6	[label=rank6,		shape=ellipse];	isotropic -> rank6	[style=dashed];	positive	[color=blue,		fillcolor="#A3D6FF",		label=positive,		shape=ellipse,		style=filled];	"thm:through-sixteen"	[label="through-sixteen",		shape=ellipse];	positive -> "thm:through-sixteen"	[style=dashed];	"thm:main"	[label=main,		shape=ellipse];	"thm:through-sixteen" -> "thm:main"	[style=dashed];	"cor:five"	[label=five,		shape=ellipse];	"thm:main" -> "cor:five"	[style=dashed];	extension	[color=blue,		fillcolor="#A3D6FF",		label=extension,		shape=ellipse,		style=filled];	extension -> "thm:through-sixteen"	[style=dashed];	supports	[label=supports,		shape=ellipse];	boundary	[label=boundary,		shape=ellipse];	boundary -> "thm:through-sixteen"	[style=dashed];	"prop:negsyz"	[label=negsyz,		shape=ellipse];	boundary -> "prop:negsyz"	[style=dashed];	regular	[color=blue,		fillcolor="#A3D6FF",		label=regular,		shape=ellipse,		style=filled];	regular -> boundary	[style=dashed];	compression	[color=blue,		fillcolor="#A3D6FF",		label=compression,		shape=ellipse,		style=filled];	compression -> "thm:through-sixteen"	[style=dashed];	"lem:small-rows"	[label="small-rows",		shape=ellipse];	"lem:low-index-four"	[label="low-index-four",		shape=ellipse];	"lem:small-rows" -> "lem:low-index-four"	[style=dashed];	"lem:low-index-four" -> "thm:through-sixteen"	[style=dashed];	"lem:moments"	[color=blue,		fillcolor="#A3D6FF",		label=moments,		shape=ellipse,		style=filled];	"lem:moments" -> "lem:low-index-four"	[style=dashed];	rankone	[color=blue,		fillcolor="#A3D6FF",		label=rankone,		shape=ellipse,		style=filled];	rankone -> rank6	[style=dashed];	rankone -> supports	[style=dashed];	rank5	[label=rank5,		shape=ellipse];	rankone -> rank5	[style=dashed];	pencil	[color=blue,		fillcolor="#A3D6FF",		label=pencil,		shape=ellipse,		style=filled];	pencil -> isotropic	[style=dashed];	"lem:boundary-selection"	[color=blue,		fillcolor="#A3D6FF",		label="boundary-selection",		shape=ellipse,		style=filled];	"lem:boundary-selection" -> boundary	[style=dashed];	"lem:common-line"	[color=blue,		fillcolor="#A3D6FF",		label="common-line",		shape=ellipse,		style=filled];	"lem:common-line" -> "lem:small-rows"	[style=dashed];	"lem:regular-all-m"	[color=blue,		fillcolor="#A3D6FF",		label="regular-all-m",		shape=ellipse,		style=filled];	"lem:regular-all-m" -> "thm:through-sixteen"	[style=dashed];	line	[color=blue,		fillcolor="#A3D6FF",		label=line,		shape=ellipse,		style=filled];	line -> supports	[style=dashed];	nonsingular	[label=nonsingular,		shape=ellipse];	line -> nonsingular	[style=dashed];	nonsingular -> rank6	[style=dashed];	nonsingular -> "lem:low-index-four"	[style=dashed];	nonsingular -> rank5	[style=dashed];	"lem:boundary-inertia"	[color=blue,		fillcolor="#A3D6FF",		label="boundary-inertia",		shape=ellipse,		style=filled];	"lem:boundary-inertia" -> "thm:through-sixteen"	[style=dashed];	"lem:small-tableaux"	[color=blue,		fillcolor="#A3D6FF",		label="small-tableaux",		shape=ellipse,		style=filled];	"lem:small-tableaux" -> "lem:small-rows"	[style=dashed];	"lem:invariant-plane"	[color=blue,		fillcolor="#A3D6FF",		label="invariant-plane",		shape=ellipse,		style=filled];	"lem:invariant-plane" -> "lem:low-index-four"	[style=dashed];	schur	[color=blue,		fillcolor="#A3D6FF",		label=schur,		shape=ellipse,		style=filled];	schur -> rank6	[style=dashed];	schur -> rank5	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="404pt" viewbox="0.00 0.00 1489.00 404.00" width="1489pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 400)">
+<!-- isotropic -->
+<g class="node" id="node1">
+<title>isotropic</title>
+<ellipse cx="386.14" cy="-306" fill="none" rx="43.16" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="386.14" xml:space="preserve" y="-300.95">isotropic</text>
+</g>
+<!-- rank6 -->
+<g class="node" id="node2">
+<title>rank6</title>
+<ellipse cx="260.14" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="260.14" xml:space="preserve" y="-228.95">rank6</text>
+</g>
+<!-- isotropic&#45;&gt;rank6 -->
+<g class="edge" id="edge1">
+<title>isotropic-&gt;rank6</title>
+<path d="M360.64,-290.83C340.9,-279.87 313.44,-264.61 292.2,-252.81" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="283.71,-248.09 294.63,-249.01 287.01,-249.93 292.45,-252.95 292.45,-252.95 292.45,-252.95 287.01,-249.93 290.26,-256.88 283.71,-248.09" stroke="black"></polygon>
+</g>
+<!-- positive -->
+<g class="node" id="node3">
+<title>positive</title>
+<ellipse cx="683.14" cy="-234" fill="#a3d6ff" rx="40.09" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="683.14" xml:space="preserve" y="-228.95">positive</text>
+</g>
+<!-- thm:through&#45;sixteen -->
+<g class="node" id="node4">
+<title>thm:through-sixteen</title>
+<ellipse cx="909.14" cy="-162" fill="none" rx="68.75" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="909.14" xml:space="preserve" y="-156.95">through-sixteen</text>
+</g>
+<!-- positive&#45;&gt;thm:through&#45;sixteen -->
+<g class="edge" id="edge2">
+<title>positive-&gt;thm:through-sixteen</title>
+<path d="M714.44,-221.92C720.31,-219.9 726.4,-217.85 732.14,-216 772.25,-203.04 817.82,-189.42 852.67,-179.24" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="861.96,-176.53 853.62,-183.65 858.33,-177.59 852.36,-179.33 852.36,-179.33 852.36,-179.33 858.33,-177.59 851.1,-175.01 861.96,-176.53" stroke="black"></polygon>
+</g>
+<!-- thm:main -->
+<g class="node" id="node5">
+<title>thm:main</title>
+<ellipse cx="909.14" cy="-90" fill="none" rx="29.86" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="909.14" xml:space="preserve" y="-84.95">main</text>
+</g>
+<!-- thm:through&#45;sixteen&#45;&gt;thm:main -->
+<g class="edge" id="edge3">
+<title>thm:through-sixteen-&gt;thm:main</title>
+<path d="M909.14,-143.34C909.14,-136.07 909.14,-127.47 909.14,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="909.14,-109.64 913.64,-119.64 909.14,-113.42 909.14,-119.64 909.14,-119.64 909.14,-119.64 909.14,-113.42 904.64,-119.64 909.14,-109.64" stroke="black"></polygon>
+</g>
+<!-- cor:five -->
+<g class="node" id="node6">
+<title>cor:five</title>
+<ellipse cx="909.14" cy="-18" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="909.14" xml:space="preserve" y="-12.95">five</text>
+</g>
+<!-- thm:main&#45;&gt;cor:five -->
+<g class="edge" id="edge4">
+<title>thm:main-&gt;cor:five</title>
+<path d="M909.14,-71.34C909.14,-64.07 909.14,-55.47 909.14,-47.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="909.14,-37.63 913.64,-47.63 909.14,-41.42 909.14,-47.63 909.14,-47.63 909.14,-47.63 909.14,-41.42 904.64,-47.63 909.14,-37.63" stroke="black"></polygon>
+</g>
+<!-- extension -->
+<g class="node" id="node7">
+<title>extension</title>
+<ellipse cx="787.14" cy="-234" fill="#a3d6ff" rx="46.23" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="787.14" xml:space="preserve" y="-228.95">extension</text>
+</g>
+<!-- extension&#45;&gt;thm:through&#45;sixteen -->
+<g class="edge" id="edge5">
+<title>extension-&gt;thm:through-sixteen</title>
+<path d="M812.71,-218.33C829.73,-208.56 852.38,-195.57 871.45,-184.63" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="879.98,-179.73 873.55,-188.61 876.7,-181.61 871.31,-184.71 871.31,-184.71 871.31,-184.71 876.7,-181.61 869.07,-180.81 879.98,-179.73" stroke="black"></polygon>
+</g>
+<!-- supports -->
+<g class="node" id="node8">
+<title>supports</title>
+<ellipse cx="42.14" cy="-234" fill="none" rx="42.14" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="42.14" xml:space="preserve" y="-228.95">supports</text>
+</g>
+<!-- boundary -->
+<g class="node" id="node9">
+<title>boundary</title>
+<ellipse cx="1331.1" cy="-234" fill="none" rx="45.72" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1331.1" xml:space="preserve" y="-228.95">boundary</text>
+</g>
+<!-- boundary&#45;&gt;thm:through&#45;sixteen -->
+<g class="edge" id="edge6">
+<title>boundary-&gt;thm:through-sixteen</title>
+<path d="M1296.4,-221.38C1289.8,-219.39 1282.8,-217.49 1276.1,-216 1176.4,-193.52 1059.1,-178.54 984.49,-170.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="974.55,-169.33 984.98,-165.93 978.31,-169.74 984.49,-170.4 984.49,-170.4 984.49,-170.4 978.31,-169.74 984.01,-174.87 974.55,-169.33" stroke="black"></polygon>
+</g>
+<!-- prop:negsyz -->
+<g class="node" id="node10">
+<title>prop:negsyz</title>
+<ellipse cx="1331.1" cy="-162" fill="none" rx="36.51" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1331.1" xml:space="preserve" y="-156.95">negsyz</text>
+</g>
+<!-- boundary&#45;&gt;prop:negsyz -->
+<g class="edge" id="edge7">
+<title>boundary-&gt;prop:negsyz</title>
+<path d="M1331.1,-215.34C1331.1,-208.07 1331.1,-199.47 1331.1,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1331.1,-181.64 1335.6,-191.64 1331.1,-185.42 1331.1,-191.64 1331.1,-191.64 1331.1,-191.64 1331.1,-185.42 1326.6,-191.64 1331.1,-181.64" stroke="black"></polygon>
+</g>
+<!-- regular -->
+<g class="node" id="node11">
+<title>regular</title>
+<ellipse cx="1262.1" cy="-306" fill="#a3d6ff" rx="37.02" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1262.1" xml:space="preserve" y="-300.95">regular</text>
+</g>
+<!-- regular&#45;&gt;boundary -->
+<g class="edge" id="edge8">
+<title>regular-&gt;boundary</title>
+<path d="M1277.8,-289.12C1286.5,-280.29 1297.5,-269.13 1307.2,-259.24" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1314.24,-252.17 1310.37,-262.43 1311.57,-254.85 1307.18,-259.26 1307.18,-259.26 1307.18,-259.26 1311.57,-254.85 1303.99,-256.08 1314.24,-252.17" stroke="black"></polygon>
+</g>
+<!-- compression -->
+<g class="node" id="node12">
+<title>compression</title>
+<ellipse cx="909.14" cy="-234" fill="#a3d6ff" rx="58" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="909.14" xml:space="preserve" y="-228.95">compression</text>
+</g>
+<!-- compression&#45;&gt;thm:through&#45;sixteen -->
+<g class="edge" id="edge9">
+<title>compression-&gt;thm:through-sixteen</title>
+<path d="M909.14,-215.34C909.14,-208.07 909.14,-199.47 909.14,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="909.14,-181.64 913.64,-191.64 909.14,-185.42 909.14,-191.64 909.14,-191.64 909.14,-191.64 909.14,-185.42 904.64,-191.64 909.14,-181.64" stroke="black"></polygon>
+</g>
+<!-- lem:small&#45;rows -->
+<g class="node" id="node13">
+<title>lem:small-rows</title>
+<ellipse cx="760.14" cy="-306" fill="none" rx="52.38" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="760.14" xml:space="preserve" y="-300.95">small-rows</text>
+</g>
+<!-- lem:low&#45;index&#45;four -->
+<g class="node" id="node14">
+<title>lem:low-index-four</title>
+<ellipse cx="558.14" cy="-234" fill="none" rx="66.71" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="558.14" xml:space="preserve" y="-228.95">low-index-four</text>
+</g>
+<!-- lem:small&#45;rows&#45;&gt;lem:low&#45;index&#45;four -->
+<g class="edge" id="edge10">
+<title>lem:small-rows-&gt;lem:low-index-four</title>
+<path d="M723.56,-292.32C691.48,-281.21 644.52,-264.93 608.83,-252.56" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="599.76,-249.42 610.68,-248.44 603.33,-250.66 609.21,-252.69 609.21,-252.69 609.21,-252.69 603.33,-250.66 607.74,-256.94 599.76,-249.42" stroke="black"></polygon>
+</g>
+<!-- lem:low&#45;index&#45;four&#45;&gt;thm:through&#45;sixteen -->
+<g class="edge" id="edge11">
+<title>lem:low-index-four-&gt;thm:through-sixteen</title>
+<path d="M608.38,-221.54C616.96,-219.65 625.8,-217.74 634.14,-216 705.21,-201.21 786.91,-185.64 842.68,-175.24" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="852.27,-173.45 843.27,-179.71 848.55,-174.15 842.44,-175.28 842.44,-175.28 842.44,-175.28 848.55,-174.15 841.62,-170.86 852.27,-173.45" stroke="black"></polygon>
+</g>
+<!-- lem:moments -->
+<g class="node" id="node15">
+<title>lem:moments</title>
+<ellipse cx="493.14" cy="-306" fill="#a3d6ff" rx="45.72" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="493.14" xml:space="preserve" y="-300.95">moments</text>
+</g>
+<!-- lem:moments&#45;&gt;lem:low&#45;index&#45;four -->
+<g class="edge" id="edge12">
+<title>lem:moments-&gt;lem:low-index-four</title>
+<path d="M508.54,-288.41C516.44,-279.91 526.22,-269.37 535,-259.91" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="541.56,-252.85 538.05,-263.24 538.99,-255.62 534.75,-260.18 534.75,-260.18 534.75,-260.18 538.99,-255.62 531.46,-257.11 541.56,-252.85" stroke="black"></polygon>
+</g>
+<!-- rankone -->
+<g class="node" id="node16">
+<title>rankone</title>
+<ellipse cx="78.14" cy="-306" fill="#a3d6ff" rx="40.6" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="78.14" xml:space="preserve" y="-300.95">rankone</text>
+</g>
+<!-- rankone&#45;&gt;rank6 -->
+<g class="edge" id="edge13">
+<title>rankone-&gt;rank6</title>
+<path d="M108.6,-293.28C140.2,-281.13 189.61,-262.13 223.36,-249.15" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="232.58,-245.6 224.87,-253.39 229.05,-246.96 223.25,-249.19 223.25,-249.19 223.25,-249.19 229.05,-246.96 221.63,-244.99 232.58,-245.6" stroke="black"></polygon>
+</g>
+<!-- rankone&#45;&gt;supports -->
+<g class="edge" id="edge14">
+<title>rankone-&gt;supports</title>
+<path d="M69.24,-287.7C65.23,-279.9 60.4,-270.51 55.94,-261.83" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="51.49,-253.18 60.07,-260.02 53.22,-256.55 56.06,-262.08 56.06,-262.08 56.06,-262.08 53.22,-256.55 52.06,-264.13 51.49,-253.18" stroke="black"></polygon>
+</g>
+<!-- rank5 -->
+<g class="node" id="node17">
+<title>rank5</title>
+<ellipse cx="167.14" cy="-234" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="167.14" xml:space="preserve" y="-228.95">rank5</text>
+</g>
+<!-- rankone&#45;&gt;rank5 -->
+<g class="edge" id="edge15">
+<title>rankone-&gt;rank5</title>
+<path d="M97.89,-289.46C110.33,-279.68 126.54,-266.93 140.15,-256.22" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="147.7,-250.29 142.61,-260.01 144.73,-252.63 139.84,-256.47 139.84,-256.47 139.84,-256.47 144.73,-252.63 137.06,-252.93 147.7,-250.29" stroke="black"></polygon>
+</g>
+<!-- pencil -->
+<g class="node" id="node18">
+<title>pencil</title>
+<ellipse cx="386.14" cy="-378" fill="#a3d6ff" rx="33.44" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="386.14" xml:space="preserve" y="-372.95">pencil</text>
+</g>
+<!-- pencil&#45;&gt;isotropic -->
+<g class="edge" id="edge16">
+<title>pencil-&gt;isotropic</title>
+<path d="M386.14,-359.34C386.14,-352.07 386.14,-343.47 386.14,-335.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="386.14,-325.64 390.64,-335.64 386.14,-329.42 386.14,-335.64 386.14,-335.64 386.14,-335.64 386.14,-329.42 381.64,-335.64 386.14,-325.64" stroke="black"></polygon>
+</g>
+<!-- lem:boundary&#45;selection -->
+<g class="node" id="node19">
+<title>lem:boundary-selection</title>
+<ellipse cx="1399.1" cy="-306" fill="#a3d6ff" rx="81.55" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1399.1" xml:space="preserve" y="-300.95">boundary-selection</text>
+</g>
+<!-- lem:boundary&#45;selection&#45;&gt;boundary -->
+<g class="edge" id="edge17">
+<title>lem:boundary-selection-&gt;boundary</title>
+<path d="M1382.3,-287.7C1374.1,-279.18 1363.9,-268.76 1354.9,-259.45" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1348.15,-252.49 1358.34,-256.54 1350.78,-255.21 1355.11,-259.67 1355.11,-259.67 1355.11,-259.67 1350.78,-255.21 1351.88,-262.8 1348.15,-252.49" stroke="black"></polygon>
+</g>
+<!-- lem:common&#45;line -->
+<g class="node" id="node20">
+<title>lem:common-line</title>
+<ellipse cx="832.14" cy="-378" fill="#a3d6ff" rx="61.08" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="832.14" xml:space="preserve" y="-372.95">common-line</text>
+</g>
+<!-- lem:common&#45;line&#45;&gt;lem:small&#45;rows -->
+<g class="edge" id="edge18">
+<title>lem:common-line-&gt;lem:small-rows</title>
+<path d="M814.71,-360.05C805.87,-351.46 794.96,-340.86 785.23,-331.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="778.28,-324.64 788.59,-328.39 780.99,-327.28 785.45,-331.61 785.45,-331.61 785.45,-331.61 780.99,-327.28 782.31,-334.84 778.28,-324.64" stroke="black"></polygon>
+</g>
+<!-- lem:regular&#45;all&#45;m -->
+<g class="node" id="node21">
+<title>lem:regular-all-m</title>
+<ellipse cx="1045.1" cy="-234" fill="#a3d6ff" rx="60.05" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1045.1" xml:space="preserve" y="-228.95">regular-all-m</text>
+</g>
+<!-- lem:regular&#45;all&#45;m&#45;&gt;thm:through&#45;sixteen -->
+<g class="edge" id="edge19">
+<title>lem:regular-all-m-&gt;thm:through-sixteen</title>
+<path d="M1015.3,-217.64C996.08,-207.75 970.85,-194.76 949.81,-183.93" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="940.94,-179.37 951.89,-179.94 944.31,-181.1 949.84,-183.94 949.84,-183.94 949.84,-183.94 944.31,-181.1 947.78,-187.94 940.94,-179.37" stroke="black"></polygon>
+</g>
+<!-- line -->
+<g class="node" id="node22">
+<title>line</title>
+<ellipse cx="140.14" cy="-378" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="140.14" xml:space="preserve" y="-372.95">line</text>
+</g>
+<!-- line&#45;&gt;supports -->
+<g class="edge" id="edge20">
+<title>line-&gt;supports</title>
+<path d="M113.47,-372.72C86.68,-366.85 46.78,-353.44 28.14,-324 16.53,-305.66 21.62,-281.05 28.71,-262.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="32.54,-253.25 32.82,-264.22 31.08,-256.74 28.67,-262.47 28.67,-262.47 28.67,-262.47 31.08,-256.74 24.52,-260.73 32.54,-253.25" stroke="black"></polygon>
+</g>
+<!-- nonsingular -->
+<g class="node" id="node23">
+<title>nonsingular</title>
+<ellipse cx="270.14" cy="-306" fill="none" rx="54.42" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="270.14" xml:space="preserve" y="-300.95">nonsingular</text>
+</g>
+<!-- line&#45;&gt;nonsingular -->
+<g class="edge" id="edge21">
+<title>line-&gt;nonsingular</title>
+<path d="M161.03,-365.75C180.24,-355.41 209.2,-339.81 232.46,-327.29" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="240.96,-322.72 234.28,-331.42 237.63,-324.51 232.15,-327.46 232.15,-327.46 232.15,-327.46 237.63,-324.51 230.02,-323.49 240.96,-322.72" stroke="black"></polygon>
+</g>
+<!-- nonsingular&#45;&gt;rank6 -->
+<g class="edge" id="edge22">
+<title>nonsingular-&gt;rank6</title>
+<path d="M267.62,-287.34C266.58,-280.07 265.35,-271.47 264.19,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="262.8,-253.63 268.67,-262.89 263.34,-257.37 264.21,-263.53 264.21,-263.53 264.21,-263.53 263.34,-257.37 259.76,-264.16 262.8,-253.63" stroke="black"></polygon>
+</g>
+<!-- nonsingular&#45;&gt;lem:low&#45;index&#45;four -->
+<g class="edge" id="edge23">
+<title>nonsingular-&gt;lem:low-index-four</title>
+<path d="M311.75,-293.77C319.2,-291.81 326.89,-289.82 334.14,-288 389.1,-274.2 451.91,-259.43 497,-248.99" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="506.59,-246.77 497.86,-253.41 502.91,-247.63 496.85,-249.02 496.85,-249.02 496.85,-249.02 502.91,-247.63 495.84,-244.64 506.59,-246.77" stroke="black"></polygon>
+</g>
+<!-- nonsingular&#45;&gt;rank5 -->
+<g class="edge" id="edge24">
+<title>nonsingular-&gt;rank5</title>
+<path d="M246.51,-288.94C231.51,-278.75 212.01,-265.5 196.09,-254.68" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="188.2,-249.31 199,-251.22 191.32,-251.44 196.47,-254.94 196.47,-254.94 196.47,-254.94 191.32,-251.44 193.94,-258.66 188.2,-249.31" stroke="black"></polygon>
+</g>
+<!-- lem:boundary&#45;inertia -->
+<g class="node" id="node24">
+<title>lem:boundary-inertia</title>
+<ellipse cx="1195.1" cy="-234" fill="#a3d6ff" rx="72.34" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1195.1" xml:space="preserve" y="-228.95">boundary-inertia</text>
+</g>
+<!-- lem:boundary&#45;inertia&#45;&gt;thm:through&#45;sixteen -->
+<g class="edge" id="edge25">
+<title>lem:boundary-inertia-&gt;thm:through-sixteen</title>
+<path d="M1144,-220.49C1095.1,-208.52 1021.4,-190.46 969.57,-177.79" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="960.05,-175.46 970.84,-173.47 963.73,-176.36 969.77,-177.84 969.77,-177.84 969.77,-177.84 963.73,-176.36 968.7,-182.21 960.05,-175.46" stroke="black"></polygon>
+</g>
+<!-- lem:small&#45;tableaux -->
+<g class="node" id="node25">
+<title>lem:small-tableaux</title>
+<ellipse cx="687.14" cy="-378" fill="#a3d6ff" rx="65.68" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="687.14" xml:space="preserve" y="-372.95">small-tableaux</text>
+</g>
+<!-- lem:small&#45;tableaux&#45;&gt;lem:small&#45;rows -->
+<g class="edge" id="edge26">
+<title>lem:small-tableaux-&gt;lem:small-rows</title>
+<path d="M704.81,-360.05C713.78,-351.46 724.83,-340.86 734.7,-331.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="741.75,-324.63 737.65,-334.8 739.02,-327.25 734.54,-331.56 734.54,-331.56 734.54,-331.56 739.02,-327.25 731.42,-328.31 741.75,-324.63" stroke="black"></polygon>
+</g>
+<!-- lem:invariant&#45;plane -->
+<g class="node" id="node26">
+<title>lem:invariant-plane</title>
+<ellipse cx="623.14" cy="-306" fill="#a3d6ff" rx="66.71" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="623.14" xml:space="preserve" y="-300.95">invariant-plane</text>
+</g>
+<!-- lem:invariant&#45;plane&#45;&gt;lem:low&#45;index&#45;four -->
+<g class="edge" id="edge27">
+<title>lem:invariant-plane-&gt;lem:low-index-four</title>
+<path d="M607.07,-287.7C599.36,-279.39 589.97,-269.28 581.48,-260.14" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="574.85,-252.99 584.95,-257.26 577.42,-255.77 581.65,-260.32 581.65,-260.32 581.65,-260.32 577.42,-255.77 578.35,-263.38 574.85,-252.99" stroke="black"></polygon>
+</g>
+<!-- schur -->
+<g class="node" id="node27">
+<title>schur</title>
+<ellipse cx="167.14" cy="-306" fill="#a3d6ff" rx="30.88" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="167.14" xml:space="preserve" y="-300.95">schur</text>
+</g>
+<!-- schur&#45;&gt;rank6 -->
+<g class="edge" id="edge28">
+<title>schur-&gt;rank6</title>
+<path d="M185.96,-290.83C199.32,-280.78 217.48,-267.11 232.48,-255.82" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="240.38,-249.87 235.1,-259.48 237.36,-252.15 232.39,-255.89 232.39,-255.89 232.39,-255.89 237.36,-252.15 229.68,-252.29 240.38,-249.87" stroke="black"></polygon>
+</g>
+<!-- schur&#45;&gt;rank5 -->
+<g class="edge" id="edge29">
+<title>schur-&gt;rank5</title>
+<path d="M167.14,-287.34C167.14,-280.07 167.14,-271.47 167.14,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="167.14,-253.64 171.64,-263.64 167.14,-257.42 167.14,-263.64 167.14,-263.64 167.14,-263.64 167.14,-257.42 162.64,-263.64 167.14,-253.64" stroke="black"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"thm:main": "Theorem 1", "cor:five": "Corollary 2", "line": "Lemma 3", "pencil": "Lemma 4", "isotropic": "Lemma 5 — Isotropic row lemma", "nonsingular": "Lemma 6 — Nonsingular slice", "rankone": "Lemma 7 — Rank-one factorization", "regular": "Lemma 8 — Regular fourteen-tuple", "lem:boundary-selection": "Lemma 9 — Boundary selection", "boundary": "Proposition 10 — Boundary package", "positive": "Lemma 11 — Positive annihilator; \\(n\\ge3\\)", "extension": "Lemma 12 — Annihilator and extension", "compression": "Lemma 13 — Compression", "lem:boundary-inertia": "Lemma 14 — Boundary inertia inequality", "lem:common-line": "Lemma 15 — Common-line commutators", "lem:small-tableaux": "Lemma 16 — Small tableaux", "lem:small-rows": "Lemma 17 — Small row images", "lem:moments": "Lemma 18 — All moments", "lem:invariant-plane": "Lemma 19 — Invariant extension of an isotropic plane", "lem:low-index-four": "Lemma 20 — Low negative index", "lem:regular-all-m": "Lemma 21 — Uniform regular tuples", "thm:through-sixteen": "Theorem 22", "prop:negsyz": "Proposition 23 — Negative-syzygy obstruction", "schur": "Lemma 24 — Degenerate hyperplane calculation", "rank6": "Theorem 25 — Full-support rank-six exclusion", "supports": "Lemma 26 — Support bounds", "rank5": "Lemma 27 — Rank five in \\(4\\times4\\)"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    // 24-nov: los cambios DENTRO de una figura viva (3D, niveles, svg, canvas) no cuentan: una figura que se repinta en
+    // cada fotograma relanzaba apply() sobre toda la página cada 300 ms (dilogarithm-clock: Chrome sin ventana no
+    // terminaba nunca y el navegador gastaba CPU sin parar)
+    var FIG = '.l3, .lv, .lm-3d, svg, canvas';
+    new MutationObserver(function (records) {
+      var fuera = records.some(function (r) {
+        var t = r.target.nodeType === 1 ? r.target : r.target.parentElement;
+        return !(t && t.closest && t.closest(FIG));
+      });
+      if (fuera && due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script data-lm="lm-notranslate" src="../lemmario-assets/lm-notranslate.js"></script>
+</body>
+</html>
