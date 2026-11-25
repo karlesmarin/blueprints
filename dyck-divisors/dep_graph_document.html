@@ -1,0 +1,2111 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<link data-lm="pdf-css" href="../lemmario-assets/pdf-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../lemmario-assets/pc-head-css.css" rel="stylesheet"/></head>
+<body><svg aria-hidden="true" id="lm-icons" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="icon-cross" viewbox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="auto:definition-1.1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:definition-1.1" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">1.1</span></div>
+<div class="thm_thmcontent"><p> For \(k\ge 1\) let \(L_k\) be the set of words of \(L\) of semilength \(k\) (length \(2k\)). </p>
+</div>
+<a class="latex_link" href="index.html#auto:definition-1.1">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="auto:remark-6.2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-6.2" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">6.2</span></div>
+<div class="thm_thmcontent"><p> The proof gives no useful bound on \(N_a\) or \(P_a\), and does not use Theorems A and B. What makes it work is that the multiset \(Z(c)\), whose size grows with \(b\), is described by a number of events bounded in terms of \(a\) alone. This is the same compression that makes the certificate of Section 9.2 independent of \(b\). Whether the leading coefficient of \(W(a,b)\) is the same on every residue class is open (Question <a href="index.html#q:leading">11.2</a>). </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-6.2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="auto:remark-7.4_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-7.4" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">7.4</span><span class="remark_thmtitle">what the exchange adds</span></div>
+<div class="thm_thmcontent"><p>   Lemma <a href="index.html#lem:exchange">7.2</a> finds no coincidence that Lemmas <a href="index.html#lem:O">8.6</a> and <a href="index.html#lem:Q">8.7</a> did not already list, and by Lemma <a href="index.html#lem:7">8.8</a> there is none to find. What it adds is a single affine map, \((\nu ,\beta ,\gamma )\mapsto (b-d,\, \beta -\Delta ,\, b)\) on two sheets \(\iota \in \{ 0,1\} \), that produces all the pairs of the family \(Q\) and the \(b\) pairs of the classes \(O(s)\) with \(b\le s\le 2b-1\), together with a proof that does not go through the profiles. Its domain has two free parameters, \(\beta \) and \(d\), for each \(b\); heuristically, this is why the excess for \(a=1\) is quadratic. The pairs of \(O(s)\) with \(1\le s\le b-1\), whose partner \(J_0(s)\) has \(\beta \le -2\), and the class \(O(0)\) are not of this form. </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-7.4">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="auto:remark-7.6_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-7.6" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">7.6</span></div>
+<div class="thm_thmcontent"><p>  The lemma does not say that the fibres of \(u^{(p,k)}\) have exactly two elements; for \(a\le 5\), \(b\le 8\) they do, except in the square patterns \(a=b\in \{ 4,5\} \), where the pair \((p,k)=(1,2)\) lies in a fibre of size \(4\) together with its image under the exchange \(r\leftrightarrow s\). Together with Lemma <a href="index.html#lem:O0">7.1</a> it gives, for \(a\ge 2\), the lower bound </p>
+<div class="displaymath" id="a0000000070">
+  \[  R(a,b)-W(a,b)\  \ge \  \sum _{h=1}^{a}\# \{ 1\le j\le b:\gcd (j,h)=1\} +\sum _{j=2}^{a}\Bigl\lfloor \frac bj\Bigr\rfloor ,  \]
+</div>
+<p> which is linear in \(b\). For \(a=2\) it gives \(2b\), against the exact excess \(E(b)\sim 43b/6\) of Theorem <a href="index.html#thm:B">9.4</a> (\(b\ge 3\); its upper half rests on the computer-assisted Lemma <a href="index.html#lem:7prime">9.3</a>). </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-7.6">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="auto:remark-7.8_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-7.8" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">7.8</span></div>
+<div class="thm_thmcontent"><p>  The height separates different \(p\), but we have not proved that different \((m,q)\) with the same \(p\) give different words, nor that the words for \(q\ge 2\) differ from those of Lemma <a href="index.html#lem:reflection">7.5</a>. So the lemma is not added to the lower bound for \(R(a,b)-W(a,b)\) given above. In the exact data for \(a\le 5\), \(b\le 8\), the pairs with \(q\ge 2\) give words that are not words of pairs with \(q=1\) (one or two per \((a,b)\) for \(a\in \{ 4,5\} \), except \(a=b\); none for \(a\le 3\), where \((p+1)q\le a\) forces \(q=1\)), and different triples \((m,q,p)\) give different words, with one exception: for the square patterns \(a=b\in \{ 4,5\} \), \((m,q,p)=(2,1,1)\) and \((1,2,1)\) give the same word, in a fibre of size \(4\) (the exchange \(r\leftrightarrow s\), \((\Lambda ,\theta )\mapsto (\Lambda /\theta ,1/\theta )\), pairs the four vectors \(c^\pm (2,1,1)\), \(c^\pm (1,2,1)\) two by two). Every other fibre met has size \(2\). </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-7.8">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:Ca_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:Ca" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">5.2</span></div>
+<div class="thm_thmcontent">
+<ol class="enumerate">
+<li><p>For each \(a\ge 1\), \(b\mapsto R(a,b)\) is a quasipolynomial of degree \(2\) on all of \(b\ge 1\) (no threshold), with a period dividing \(\operatorname {lcm}(1,2,\dots ,2a)\), and </p>
+<div class="displaymath" id="a0000000039">
+  \[  R(a,b)=C_ab^2+O_a(b),\qquad C_a=\sum _{q=1}^{2a}(2a+1-q)\frac{\varphi (q)}{q}.  \]
+</div>
+<p> So \(C_1,\dots ,C_4=5/2,\  22/3,\  73/5,\  1709/70\). The leading coefficient is \(C_a\) in every residue class. </p>
+</li>
+<li><p>\(C_a=\dfrac {12}{\pi ^2}\, a^2+O(a\log a)\) as \(a\to \infty \). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#cor:Ca">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:decidable_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:decidable" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">4.2</span><span class="corollary_thmtitle">decidability</span></div>
+<div class="thm_thmcontent"><p>   Membership in \(L\) is decidable. The empty word is not in \(L\), and \(L_1=\{ \mathtt{()}\} \). Given a balanced word \(w\) of semilength \(k\ge 2\), let \(k=q_1\cdots q_r\). Then \(w\in L\) if and only if \(w\) is the word of some cell of the arrangement of the pattern \((q_1-1,\dots ,q_r-1)\), and these finitely many cells can be listed exactly. </p>
+</div>
+<a class="latex_link" href="index.html#cor:decidable">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:degree2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:degree2" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">6.4</span></div>
+<div class="thm_thmcontent"><p>  In Theorem <a href="index.html#thm:quasi">6.1</a> every constituent \(Q_{a,i}\) has degree exactly \(2\), and its leading coefficient lies in \([\frac23,C_a]\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:degree2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:exchange_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:exchange" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">7.3</span></div>
+<div class="thm_thmcontent"><p>  Let \(b\ge 2\). The map \(T\) of Lemma <a href="index.html#lem:exchange">7.2</a> is injective, and: </p>
+<ol class="enumerate">
+<li><p>for \(d\ge 1\), \(\xi \) is the triple \(I_1\) (\(\iota =0\)) or \(I_2\) (\(\iota =1\)) of Lemma <a href="index.html#lem:Q">8.7</a> with parameters \((\beta ,d)\), and \(T(\xi )=J(\tau ,d)\) with the same \(\tau =2\beta +d+2+\iota \). The pairs \(\{ \xi ,T(\xi )\} \) with \(d\ge 1\) are exactly the pairs \(\{ I,J(\tau ,d)\} \) with \(I\ne J\) of Lemma <a href="index.html#lem:Q">8.7</a>; there are \(\sum _{d=1}^{\lfloor (b-1)/2\rfloor }(b-2d)=\lfloor (b-1)^2/4\rfloor \) of them; </p>
+</li>
+<li><p>for \(d=0\), \(\xi =(\beta ,\beta ,\beta +1)\) or \((\beta +1,\beta ,\beta +1)\) (Lemma <a href="index.html#lem:O">8.6</a>(b),(c)) and \(T(\xi )=J_0(s)\) with \(s=2\beta +1+\iota \); these are the \(b\) pairs of \(O(s)\) with \(b\le s\le 2b-1\). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#cor:exchange">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:KRbijection_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:KRbijection" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">A.3</span></div>
+<div class="thm_thmcontent"><p>  \(L_k\) is in bijection with the set of compressed coefficient profiles of the polynomials \(P_n(q)\) with \(\tau (\text{odd part of }n)=k\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:KRbijection">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:profiles_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:profiles" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">8.5</span><span class="corollary_thmtitle">profiles</span></div>
+<div class="thm_thmcontent">
+<ul class="itemize">
+<li><p>In \(P'\): \(\tau =\nu +\beta +2\), \(\ell =2g+A\), \(X=(10)^g1^A\) and \(Y=0^{A+c}(10)^{g-c}1^c\). </p>
+</li>
+<li><p>In \(N'\): \(\tau =\nu +1\), \(\ell =2g+\nu +1\) and \(Y=0^{\nu +c+1}(10)^{g-c}1^c\). Moreover \(X=1^\rho (01)^{g-\rho }0\, 1^{\nu +1}0^{\rho -1}\) in \(N'_1\), and \(X=1^{\ell -\rho +1}0^{\rho -1}\) plus \(\rho -g-1\) at position \(x=g\) in \(N'_2\). </p>
+</li>
+</ul>
+</div>
+<a class="latex_link" href="index.html#cor:profiles">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:refinement_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:refinement" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">3.3</span></div>
+<div class="thm_thmcontent">
+<ol class="enumerate">
+<li><p>\(L_1=\{ {\mathtt{(}}{\mathtt{)}}\} \). For \(q\) prime, \(L_q=\{ O_q(N): 0\le N\le q-1\} \) with \(O_q(N)\) the word whose \(j\)-th letter \({\mathtt{)}}\) is preceded by \(\min (q,N+j)\) letters \({\mathtt{(}}\) (\(j=1,\dots ,q\)). Hence \(|L_q|=q\). </p>
+</li>
+<li><p>For primes \(p\le q\), \(L_{pq}\) is the set of words of pattern \((p-1,q-1)\). So \(|L_{pq}|=W(p-1,q-1)\), where \(W(a,b)\) denotes the number of words of pattern \((a,b)\). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#cor:refinement">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="def:wf_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="def:wf" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">2.2</span></div>
+<div class="thm_thmcontent"><p>  Let \(\mathcal A_f\) be the finite set of hyperplanes \(\{ x:\alpha \cdot x=1\} \) with \(\alpha \in \prod _i\{ -f_i,\dots ,f_i\} \), \(\alpha \neq 0\). For \(x\in {\mathbb {R}}^r_{{\gt}0}\setminus \bigcup \mathcal A_f\) let \(w_f(x)\) be the word whose letters \({\mathtt{)}}\) are preceded by </p>
+<div class="displaymath" id="a0000000011">
+  \[  c_b(x)=\# \{ a\in I_f: u_a(x){\lt}1+u_b(x)\} \qquad (b\in I_f)  \]
+</div>
+<p> letters \({\mathtt{(}}\), sorted increasingly. Explicitly, if \(c_{(1)}\le \dots \le c_{(K)}\) is the sorted list, then \(w_f(x)={\mathtt{(}}^{c_{(1)}}{\mathtt{)}}\, {\mathtt{(}}^{c_{(2)}-c_{(1)}}{\mathtt{)}}\cdots {\mathtt{(}}^{c_{(K)}-c_{(K-1)}}{\mathtt{)}}\). </p>
+</div>
+<a class="latex_link" href="index.html#def:wf">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="ex:n3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="ex:n3" style="display: none">
+<div class="thm_thmheading">
+<span class="example_thmcaption">
+      Example
+      </span>
+<span class="example_thmlabel">A.2</span></div>
+<div class="thm_thmcontent"><p>  For \(n=3\): \(D_3\triangle 2D_3=\{ 1,2,3,6\} \) and \(\langle \! \langle 3\rangle \! \rangle _2={\mathtt{(}}{\mathtt{)}}{\mathtt{(}}{\mathtt{)}}\), with heights \(h_1,h_2,h_3=1,0,1\). Here \(C_3(q)/(q-1)^2=P_3(q)=1+q+q^3+q^4\), whose coefficient sequence \(1,1,0,1,1\) consists of runs of \(1\), \(0\), \(1\). The zero coefficient is part of the profile and must not be dropped. </p>
+</div>
+<a class="latex_link" href="index.html#ex:n3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:7_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:7" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.8</span></div>
+<div class="thm_thmcontent"><p>  Let \(b\ge 2\). Two realisable triples have the same word if and only if they have the same label. </p>
+</div>
+<a class="latex_link" href="index.html#lem:7">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:7prime_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:7prime" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">9.3</span></div>
+<div class="thm_thmcontent"><p>  Let \(b\ge 3\). The classes of size \(\ge 2\) of the relation “same word” on realisable vectors are exactly the classes listed above, and they are pairwise disjoint. </p>
+</div>
+<a class="latex_link" href="index.html#lem:7prime">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:count-triples_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:count-triples" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.3</span></div>
+<div class="thm_thmcontent"><p>  There are \(R(1,b)=(5b+4)(b+1)/2\) realisable clipped triples. </p>
+</div>
+<a class="latex_link" href="index.html#lem:count-triples">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:exchange_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:exchange" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.2</span></div>
+<div class="thm_thmcontent"><p>  Let \(b\ge 1\), and let \(\beta \ge 0\), \(d\ge 0\), \(\iota \in \{ 0,1\} \) be integers with </p>
+<div class="displaymath" id="a0000000058">
+  \[  \beta +2d+\iota \le b-1\qquad \text{and}\qquad 2\beta +2d+\iota \ge b-1 .  \]
+</div>
+<p> Put \(\Delta =b-\beta -2d-\iota \  (\ge 1)\) and </p>
+<div class="displaymath" id="a0000000059">
+  \[  \xi =(\beta +d+\iota ,\  \beta ,\  \beta +2d+1),\qquad T(\xi )=(\nu +\Delta ,\  \beta -\Delta ,\  b)=(b-d,\  2\beta +2d+\iota -b,\  b).  \]
+</div>
+<p> Then \(\xi \) and \(T(\xi )\) are distinct realisable triples and \(Z(\xi )=Z(T(\xi ))\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:exchange">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:n0pos_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:n0pos" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.11</span></div>
+<div class="thm_thmcontent"><p>  Let \(b\ge 2\). If \(K(\xi )=K(\eta )\) and \(n_0\ge 1\), then either \(\xi =\eta \), or \(\{ \xi ,\eta \} =\{ I,J(\tau ,d)\} \) with \(I\) an \(I_1\)/\(I_2\)-triple and \(d=n_0\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:n0pos">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:n0zero_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:n0zero" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.10</span></div>
+<div class="thm_thmcontent"><p>  \(n_0=0\) if and only if the triple is in the list of Lemma <a href="index.html#lem:O">8.6</a>. In that case the label is \(O(\tau -1)\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:n0zero">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:O_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:O" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.6</span></div>
+<div class="thm_thmcontent"><p>  Each of the following triples has word \(O(s)\): </p>
+<ol class="enumerate">
+<li><p>\(s=0\): \((0,-\rho ,\rho -1)\) for \(\rho =1,\dots ,b+1\); </p>
+</li>
+<li><p>\(s=2k+1\): \((k,k,k+1)\) for \(0\le k\le b-1\); </p>
+</li>
+<li><p>\(s=2k+2\): \((k+1,k,k+1)\) for \(0\le k\le b-1\); </p>
+</li>
+<li><p>\(s=2b+1\): \((b,b,b)\); </p>
+</li>
+<li><p>\(J_0(s):=(\min (b,s),s-1-b,b)\) for \(0\le s\le 2b\). This triple is realisable: take \(u=\nu -\beta \) and \(\varepsilon =1\) in Lemma <a href="index.html#lem:realisable">8.2</a>; then \(\nu +u+1=2\nu -\beta +1\ge b\), so \(\gamma =b\). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:O">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:O0_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:O0" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.1</span></div>
+<div class="thm_thmcontent"><p>  Let \(a,b\ge 1\). Then \(\Phi (O(0))=\{ \varphi (\theta ):\theta \in (0,\infty )\setminus F_{a,b}\} \), and </p>
+<div class="displaymath" id="a0000000053">
+  \[  |\Phi (O(0))|=1+\sum _{h=1}^{a}\# \{ 1\le j\le b:\  \gcd (j,h)=1\} .  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#lem:O0">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:Q_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:Q" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.7</span></div>
+<div class="thm_thmcontent"><p>  Let \(d\ge 1\). The following triples have word \(Q(\tau ,d)\): </p>
+<ul class="itemize">
+<li><p>\(I_1=(\beta +d,\beta ,\beta +2d+1)\), with \(\tau =2\beta +d+2\); </p>
+</li>
+<li><p>\(I_2=(\beta +d+1,\beta ,\beta +2d+1)\), with \(\tau =2\beta +d+3\); </p>
+</li>
+<li><p>\(J(\tau ,d)=(b-d,\tau -b+d-2,b)\) for \(1\le d\le b\) and \(\tau \in [b-d+1,2b-3d+2]\). </p>
+</li>
+</ul>
+<p> For \(I_1\) and \(I_2\) the conditions are \(\beta \ge 0\) and \(\beta +2d+1\le b\). They give exactly one \(I\)-triple for each \(\tau \in [d+2,2b-3d+1]\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:Q">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:R_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:R" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">9.2</span><span class="lemma_thmtitle">cells</span></div>
+<div class="thm_thmcontent"><p>   The number of realisable vectors is \(R(2,b)=\bigl(22b^2+31b+9+[b\equiv 1\  (3)]\bigr)/3\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:R">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:radix_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:radix" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">3.2</span><span class="lemma_thmtitle">mixed radix; classical</span></div>
+<div class="thm_thmcontent"><p>  Let \(u,v\ge 1\) and \(F=(u+1)(v+1)-1\). Every integer \(N\in \{ 0,\dots ,F\} \) can be written in exactly one way as \(N=i+(u+1)j\) with \(0\le i\le u\), \(0\le j\le v\). Hence, for every real \(x_1\), \(\{ Nx_1:0\le N\le F\} =\{ ix_1+j(u+1)x_1: 0\le i\le u,\  0\le j\le v\} \), and the map \((i,j)\mapsto i+(u+1)j\) is a bijection between the index sets. </p>
+</div>
+<a class="latex_link" href="index.html#lem:radix">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:realisable_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:realisable" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.2</span><span class="lemma_thmtitle">realisable triples</span></div>
+<div class="thm_thmcontent"><p>   The triples that occur are exactly the clippings of \((\nu _0,\nu _0-u,\nu _0+u+\varepsilon )\) with integers \(\nu _0\ge 0\), \(u\ge 0\), \(\varepsilon \in \{ -1,0,1\} \) and \(u+\varepsilon \ge 0\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:realisable">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:realise_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:realise" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2.3</span><span class="lemma_thmtitle">realisation by primes</span></div>
+<div class="thm_thmcontent"><p>   Let \(x^0\in {\mathbb {R}}^r_{{\gt}0}\setminus \bigcup \mathcal A_f\). There are \(e\ge 1\) and distinct odd primes \(p_1,\dots ,p_r\) such that \(n=2^{e-1}p_1^{f_1}\cdots p_r^{f_r}\) satisfies \(\langle \! \langle n\rangle \! \rangle _2=w_f(x^0)\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:realise">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:reduction_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:reduction" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">2.1</span></div>
+<div class="thm_thmcontent"><p> Write \(n=2^{e-1}m\) with \(m\) odd, \(e\ge 1\), and put \(t=2^e\). Then \(D_n\setminus 2D_n=D_m\) and \(2D_n\setminus D_n=tD_m\). Hence \(\langle \! \langle n\rangle \! \rangle _2\) is obtained by merging \(D_m\) (letters \({\mathtt{(}}\)) with \(tD_m\) (letters \({\mathtt{)}}\)), and its semilength is \(\tau (m)\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:reduction">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:reflection_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:reflection" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.5</span></div>
+<div class="thm_thmcontent"><p>  Let \(a\ge 2\), and let \(p,k\) be integers with \(1\le p\le a-1\), \(k\ge 1\) and \((p+1)k\le b\). Define \(u=u^{(p,k)}\) and \(v=v^{(p,k)}\) in \({\mathbb {Z}}^{2a+1}\) by </p>
+<div class="displaymath" id="a0000000068">
+  \[  u_h={\operatorname {clip}}\bigl(hk-[h{\lt}-p]\bigr),\qquad v_h={\operatorname {clip}}\bigl(hk-[h{\gt}p]\bigr)\qquad (-a\le h\le a).  \]
+</div>
+<p> Then: </p>
+<ol class="enumerate">
+<li><p>\(u\) and \(v\) are realisable and \(u\ne v\); </p>
+</li>
+<li><p>\(Z(u)=Z(v)\); </p>
+</li>
+<li><p>the common word begins with \(\mathtt{()}^k\mathtt{((}\) and its height is \(p+1\). Hence different pairs \((p,k)\) give different words, and none of them is \(O(0)\). </p>
+</li>
+</ol>
+<p> So the lemma gives \(\sum _{p=1}^{a-1}\lfloor b/(p+1)\rfloor =\sum _{j=2}^{a}\lfloor b/j\rfloor \) coincident pairs, in pairwise distinct fibres different from \(\Phi (O(0))\). For \(a=2\) (\(p=1\)) they are the pairs \(A_k\), \(1\le k\le \lfloor b/2\rfloor \), of Section 9. </p>
+</div>
+<a class="latex_link" href="index.html#lem:reflection">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:reflection-q_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:reflection-q" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7.7</span></div>
+<div class="thm_thmcontent"><p>  Let \(m,q\ge 1\) be coprime and \(p\ge 1\), with \((p+1)q\le a\) and \((p+1)m\le b\). Let \(\eta {\gt}0\) satisfy \((a+(p+1)q)\eta {\lt}1/q\) (which implies \(\eta {\lt}m/q\)), let \(pq\eta {\lt}\Lambda {\lt}(p+1)q\eta \), and put \(\theta _\pm =m/q\pm \eta \). Then the vectors \(c^\pm =c(\Lambda ,\theta _\pm )\) are realisable and distinct, \(Z(c^+)=Z(c^-)\), and the common word has height \(p+1\). Explicitly, </p>
+<div class="displaymath" id="a0000000072">
+  \[  c^+_h={\operatorname {clip}}\bigl(\lfloor hm/q\rfloor -[\, q\mid h,\  h{\lt}-pq\, ]\bigr),\qquad c^-_h={\operatorname {clip}}\bigl(\lfloor hm/q\rfloor -[\, q\mid h,\  h{\gt}pq\, ]\bigr),  \]
+</div>
+<p> so the vectors do not depend on the choice of \(\eta \) and \(\Lambda \). For \(q=1\), \(m=k\), this is Lemma <a href="index.html#lem:reflection">7.5</a>. </p>
+</div>
+<a class="latex_link" href="index.html#lem:reflection-q">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:S_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:S" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.4</span></div>
+<div class="thm_thmcontent">
+<ol class="enumerate">
+<li><p>If \(0\le p\le p'\le b\), then \(S(p,p')=\{ p+p'+2,p+p'+4,\dots ,2b+p-p'\} {\uplus }[2b+2+p-p',2b+1]{\uplus }\{ T\} ^{p+1}\). </p>
+</li>
+<li><p>If \(p=-\rho {\lt}0\le p'\le b\) and \(\rho \le b-p'\), then \(S=[p'+1,p'+\rho ]{\uplus }\{ p'+\rho +2,p'+\rho +4,\dots ,2b-p'-\rho \} {\uplus }[2b+2-\rho -p',2b+2-\rho ]\). </p>
+</li>
+<li><p>If \(p=-\rho \) and \(\rho {\gt}b-p'\), then \(S=[p'+1,2b+2-\rho ]{\uplus }\{ b+1\} ^{\rho -1-b+p'}\). </p>
+</li>
+</ol>
+</div>
+<a class="latex_link" href="index.html#lem:S">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:triple_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:triple" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.1</span><span class="lemma_thmtitle">triples</span></div>
+<div class="thm_thmcontent"><p>   Put \(\nu ={\operatorname {clip}}\lfloor \Lambda \rfloor \), \(\beta ={\operatorname {clip}}\lfloor \Lambda -\theta \rfloor \), \(\gamma ={\operatorname {clip}}\lfloor \Lambda +\theta \rfloor \). The multiset \(C(n)\) of (1) is \(Z(\nu ,\beta ,\gamma ):=S(\nu ,\beta ){\uplus }S(\nu ,\gamma )\). In particular the word depends only on the triple \((\nu ,\beta ,\gamma )\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:triple">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:vec_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:vec" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">9.1</span><span class="lemma_thmtitle">vector</span></div>
+<div class="thm_thmcontent"><p>   \(C(n)=Z(c)\). The vectors \(c\) that occur are exactly the points of the open quadrant \(\Lambda ,\theta {\gt}0\) that avoid the lines \(\Lambda +h\theta =\rho \) (\(h\in \{ -2,\dots ,2\} \), \(\rho \in [-b,b]\)), taken up to the cell they lie in. Every such cell is realised by primes. </p>
+</div>
+<a class="latex_link" href="index.html#lem:vec">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:zeros_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:zeros" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8.9</span><span class="lemma_thmtitle">zeros</span></div>
+<div class="thm_thmcontent"><p>   Let \(\mathcal Z_0\) be the set of zeros of the profile. Then: </p>
+<div class="centered"> <table class="tabular">
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> tabhead type </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> \(n_0\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> \(\mathcal Z_0\)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p>\(P^+\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> \(A\) </p>
+</td>
+<td colspan="" rowspan="" style="border-top-style:solid; border-top-color:black; border-top-width:1px; text-align:left">
+<p> \(\{ 1,3,\dots ,2n_0-1\} \)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(P^-\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(A-1\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> same</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(P^0,P^c\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(g\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> same</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(N^-\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(\nu \) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(\{ \rho +2i:0\le i{\lt}n_0\} \)</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(N^0,N^c\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(g-\rho +1\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> same</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left">
+<p>\(N^+\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> \(\nu +1\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left">
+<p> same</p>
+</td>
+</tr>
+<tr>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p>\(N'_2\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \(\rho -g-1\) </p>
+</td>
+<td colspan="" rowspan="" style="text-align:left; border-bottom-style:solid; border-bottom-color:black; border-bottom-width:1px">
+<p> \([2g+\nu +2-\rho ,\  \nu +g+1)\)</p>
+</td>
+</tr>
+</table> </div>
+<p> In particular, when \(n_0{\gt}0\): \(f_0=1\) on \(P'\), \(f_0=\rho \  (\ge 2)\) on \(N'_1\), and \(f_0=2g+\nu +2-\rho \ge g+1\) on \(N'_2\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:zeros">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:box_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:box" style="display: none">
+<div class="thm_thmheading">
+<span class="proposition_thmcaption">
+      Proposition
+      </span>
+<span class="proposition_thmlabel">4.1</span></div>
+<div class="thm_thmcontent"><p> Let \(\mathcal A\) be an arrangement of hyperplanes \(\alpha \cdot x=1\) in the positive orthant of \(\mathbb R^r\), with \(\alpha \in {\mathbb {Z}}^r\) and \(|\alpha _i|\le M\) (\(M\ge 1\)). Every open cell of \(\mathcal A\) contains a point with \(0{\lt}x_i{\lt}r!\, M^{r-1}+1\) for all \(i\). </p>
+</div>
+<a class="latex_link" href="index.html#prop:box">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="prop:KR_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="prop:KR" style="display: none">
+<div class="thm_thmheading">
+<span class="observation_thmcaption">
+      Observation
+      </span>
+<span class="observation_thmlabel">A.1</span></div>
+<div class="thm_thmcontent"><p>  Let \(n\ge 1\) and let \(h_1,\dots ,h_{2K-1}\) be the heights of the Dyck path \(\langle \! \langle n\rangle \! \rangle _2\) after its first \(1,\dots ,2K-1\) letters, where \(K=\tau (\text{odd part of }n)\). Then the coefficient sequence of \(P_n(q)\), from \(q^0\) to \(q^{2n-2}\), consists of a nonempty run of \(h_1\), then a nonempty run of \(h_2\), and so on up to a nonempty run of \(h_{2K-1}\). More precisely, \(a_{n,i}=h_{J(i)}\), where \(J(i)=\# \{ k\in D_n\triangle 2D_n: k{\lt}\sqrt{2n},\  2n/k-k\ge 2i+1\} \). </p>
+</div>
+<a class="latex_link" href="index.html#prop:KR">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:a3_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:a3" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">11.3</span><span class="question_thmtitle">conjecture</span></div>
+<div class="thm_thmcontent"><p>   Find \(W(a,b)\) for \(a\ge 3\). For \(a=3\) the exact values for \(b\le 110\) fit, for \(b\ge 5\), the quasi-polynomial </p>
+<div class="displaymath" id="a0000000113">
+  \[  W(3,b)=\tfrac {73}{5}b^2+\tfrac {253}{30}b+c_{b\bmod 12}+u_{b\bmod 5}  \]
+</div>
+<p> with \((c_0,\dots ,c_{11})=(5,\tfrac {31}6,\tfrac {16}3,-\tfrac {25}2,\tfrac {20}3,\tfrac {17}6,6,-\tfrac {65}6,\tfrac {13}3,\tfrac 72,\tfrac {23}3,-\tfrac {79}6)\) and \((u_0,\dots ,u_4)=(0,-\tfrac 15,\tfrac 25,-\tfrac 15,0)\). The fit used \(b\in [6,66)\) and was validated on \(b=66,\dots ,110\) (45 points, no failure). The period is \(60\), with structure “\(12\) plus \(5\)”, whereas for \(a=2\) the minimal period is \(6\). This is a <b class="bfseries">conjecture</b>: less than two full periods are observed. The leading coefficients are \(9/4\), \(22/3\) and \(73/5\) for \(a=1,2,3\). The last two equal the leading coefficients \(C_2\) and \(C_3\) of the number of cells (Corollary <a href="index.html#cor:Ca">5.2</a>), as rigidity predicts; \(9/4{\lt}C_1=5/2\) because of the family \(Q\). </p>
+</div>
+<a class="latex_link" href="index.html#q:a3">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:fibres_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:fibres" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">11.5</span></div>
+<div class="thm_thmcontent"><p>  Is there an absolute constant bounding \(|\mathcal F(w)|\) for all \(w\ne O(0)\), for every \(a\) and \(b\)? Is it \(4\)? Classify the coincidence mechanisms. Three are proved in Section 7: the empty graph (\(O(0)\), Lemma <a href="index.html#lem:O0">7.1</a>), exchange of arithmetic progressions between rows (family \(Q\), Lemma <a href="index.html#lem:exchange">7.2</a>), and reflection inside integer levels (family \(A\), Lemma <a href="index.html#lem:reflection">7.5</a>, with the variant of Lemma <a href="index.html#lem:reflection-q">7.7</a>). Are there others? </p>
+</div>
+<a class="latex_link" href="index.html#q:fibres">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:frequencies_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:frequencies" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">11.8</span></div>
+<div class="thm_thmcontent"><p>  For a fixed pattern \(f\) and a word \(w\in L\), what is the asymptotic proportion of \(n\le N\) with odd part of pattern \(f\) and \(\langle \! \langle n\rangle \! \rangle _2=w\)? Is it governed by a natural measure of the cells of \(\mathcal A_f\) in the coordinates \(\log p_i/\log t\), and which word is the most frequent? </p>
+</div>
+<a class="latex_link" href="index.html#q:frequencies">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:leading_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:leading" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">11.2</span></div>
+<div class="thm_thmcontent"><p>  Does \(\lim _b W(a,b)/b^2\) exist for every \(a\), that is, is the leading coefficient of \(W(a,b)\) the same on all residue classes? Is it \(C_a\) for every \(a\ge 2\)? </p>
+</div>
+<a class="latex_link" href="index.html#q:leading">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:membership_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:membership" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">11.7</span></div>
+<div class="thm_thmcontent"><p>  Is membership in \(L\) decidable in time polynomial in \(k\)? Can the algorithm above be carried out inside first-order Peano arithmetic, which would answer Rodríguez Caballero’s question <span class="cite">
+	[
+	<a href="index.html#RC-FOM">14</a>
+	]
+</span>? Is there an intrinsic description of \(L_{pq}\), for instance a finite list of forbidden factors, or a characterisation of the unit interval graphs on a product of two chains that admit an additive representation with arithmetic progressions in each factor? </p>
+</div>
+<a class="latex_link" href="index.html#q:membership">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:period_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:period" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">11.4</span></div>
+<div class="thm_thmcontent"><p>  Is the minimal period of the quasipolynomial \(W(a,b)\) a divisor of \(\operatorname {lcm}(1,\dots ,2a)\)? Is it equal to it for \(a\ge 3\)? Is the threshold \(N_a\) linear in \(a\)? </p>
+</div>
+<a class="latex_link" href="index.html#q:period">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:rigidity_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:rigidity" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">11.1</span></div>
+<div class="thm_thmcontent"><p>  Is \(E(a,b)=\Theta _a(b)\) for every fixed \(a\ge 2\)? Does almost every cell of the arrangement give its own word once the pattern has three rows, that is, \(W(a,b)/R(a,b)\to 1\)? Equivalently for the first question, by Corollary <a href="index.html#cor:Ca">5.2</a> and the linear lower bound for \(a\ge 2\) after Lemma <a href="index.html#lem:reflection">7.5</a>: is \(W(a,b)=C_ab^2+O_a(b)\)? Where in the arrangement do the cells that share their word lie? </p>
+</div>
+<a class="latex_link" href="index.html#q:rigidity">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="q:several_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="q:several" style="display: none">
+<div class="thm_thmheading">
+<span class="question_thmcaption">
+      Question
+      </span>
+<span class="question_thmlabel">11.6</span></div>
+<div class="thm_thmcontent"><p>  For fixed \(a_1,\dots ,a_{r-1}\), is \(W(a_1,\dots ,a_{r-1},b)\) eventually a quasipolynomial in \(b\) of degree exactly \(r\)? Compute \(|L_{4q}|\) in closed form. Is there a formula for the square-free pattern \((1,1,\dots ,1)\), that is, for \(|L_{2^r}|\)? </p>
+</div>
+<a class="latex_link" href="index.html#q:several">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:complexity_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:complexity" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">4.3</span><span class="remark_thmtitle">complexity</span></div>
+<div class="thm_thmcontent"><p>   Let \(k=q_1\cdots q_r\), so \(r\le \log _2k\). The maximal pattern has \(f_i=q_i-1\), and its arrangement has at most \(H=\prod _i(2q_i-1)-1\le k^{\log _23}\) hyperplanes, since \(2q-1\le q^{\log _23}\) for \(q\ge 2\). An arrangement of \(H\) hyperplanes in \(\mathbb R^r\) has at most \(\sum _{j\le r}\binom Hj\le (H+1)^r\) cells, and they can be listed incrementally with one rational linear program per candidate. So membership is decided in time \(\exp \bigl(O((\log k)^2)\bigr)\), and in time polynomial in \(k\) when the number \(r\) of prime factors of \(k\) (with multiplicity) is bounded. Whether a uniformly polynomial algorithm exists is Question <a href="index.html#q:membership">11.7</a>. </p>
+</div>
+<a class="latex_link" href="index.html#rem:complexity">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:earliercounts_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:earliercounts" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">10.1</span></div>
+<div class="thm_thmcontent"><p>  Earlier counts posted in a public online discussion, \(27\) for \(k=9\) and \(42\) for \(k=10\), came from a search over \(m\le 10^5\) and are only lower bounds. The exact values are \(28\) and \(47\). </p>
+</div>
+<a class="latex_link" href="index.html#rem:earliercounts">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:ratio_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:ratio" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">9.5</span><span class="remark_thmtitle">how many cells are redundant</span></div>
+<div class="thm_thmcontent"><p>   By Lemma <a href="index.html#lem:count-triples">8.3</a> and Theorem <a href="index.html#thm:A">8.12</a>, \(W(1,b)/R(1,b)\to (9/4)/(5/2)=9/10\): asymptotically one cell in ten repeats a word. By Lemma <a href="index.html#lem:R">9.2</a> and Theorem <a href="index.html#thm:B">9.4</a>, \(W(2,b)/R(2,b)\to (44/6)/(22/3)=1\): the coincidences for \(a=2\) are only linearly many in \(b\) (about \(43b/6\)), whereas for \(a=1\) they are quadratically many (about \(b^2/4\)). Figure 7 shows the two ratios. </p>
+</div>
+<a class="latex_link" href="index.html#rem:ratio">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:square_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:square" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">6.5</span></div>
+<div class="thm_thmcontent"><p>  The argument uses only the constraints \(0\le u,v\le b-1\), \(2u+v\ge b\) and \(u+2v\ge b\). Restricted to the square \([\lceil 2b/3\rceil ,\lfloor 3b/4\rfloor ]^2\), which lies in this set, it already gives \(W(a,b)\ge n_b^2\) for every \(b\ge 1\), with \(n_b=\lfloor 3b/4\rfloor -\lceil 2b/3\rceil +1\ge (b-5)/12\); among \(b\le 5\) one has \(n_b=0\) exactly for \(b\in \{ 1,2,5\} \). The larger set gives the constant \(2/3\). For \(a=1,2\) the true leading coefficients are \(9/4\) and \(22/3\), so the constant \(\frac23\) is far from sharp. </p>
+</div>
+<a class="latex_link" href="index.html#rem:square">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:statusA_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:statusA" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">8.13</span><span class="remark_thmtitle">status of Theorem A</span></div>
+<div class="thm_thmcontent"><p>   The proof above is by hand. Each lemma was also checked by computer for \(b\le 20\), with negative controls; the direction (\(\Rightarrow \)) was checked by Z3 on a separate encoding (9 cases unsatisfiable, controls satisfiable) and on the event encoding of §9.2 (55/55 unsatisfiable); and \(|L_6|=16\) was confirmed from actual integers. </p>
+</div>
+<a class="latex_link" href="index.html#rem:statusA">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:A_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:A" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">8.12</span><span class="theorem_thmtitle">Theorem A</span></div>
+<div class="thm_thmcontent"><p>   For \(b\ge 2\), </p>
+<div class="displaymath" id="a0000000094">
+  \[  W(1,b)=\Bigl\lfloor \frac{9b^2+8b+12}{4}\Bigr\rfloor .  \]
+</div>
+<p> Consequently, for every odd prime \(q\), </p>
+<div class="displaymath" id="a0000000095">
+  \[  |L_{2q}|=\frac{9q^2-10q+13}{4}\qquad (q=3,5,7:\  16,47,96).  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:A">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:B_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:B" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">9.4</span><span class="theorem_thmtitle">Theorem B; computer-assisted in Lemma <a href="index.html#lem:7prime">9.3</a></span></div>
+<div class="thm_thmcontent"><p>   For \(b\ge 3\), </p>
+<div class="displaymath" id="a0000000106">
+  \[  W(2,b)=\frac{44b^2+19b+e_{b\bmod 6}}{6},\qquad (e_0,\dots ,e_5)=(30,33,8,27,36,5).  \]
+</div>
+<p> Consequently, for primes \(q\ge 5\), with \(\bigl(\tfrac {q}{3}\bigr)=\pm 1\) according as \(q\equiv \pm 1\pmod3\) (the Legendre symbol of \(q\) modulo \(3\), which equals \(\bigl(\tfrac {-3}{q}\bigr)\) by quadratic reciprocity), </p>
+<div class="displaymath" id="a0000000107">
+  \[  |L_{3q}|=\frac{44q^2-69q+58-3\bigl(\tfrac {q}{3}\bigr)}{6}\qquad (q=5,7:\  136,\  288).  \]
+</div>
+</div>
+<a class="latex_link" href="index.html#thm:B">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:quadratic_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:quadratic" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">6.3</span></div>
+<div class="thm_thmcontent"><p>  For all \(a,b\ge 1\), </p>
+<div class="displaymath" id="a0000000048">
+  \[  W(a,b)\  \ge \  N(b):=\# \bigl\{ (u,v)\in [0,b-1]^2:\  2u+v\ge b,\  u+2v\ge b\bigr\} \  \ge \  \lfloor 2b/3\rfloor ^2 ,  \]
+</div>
+<p> and \(N(b)=\sum _{u=0}^{b-1}\min \bigl(2u,\lfloor (b+u)/2\rfloor \bigr)=\frac23b^2+O(b)\). Hence \(W(a,b)=\Theta _a(b^2)\); more precisely \(\bigl(\frac23-o(1)\bigr)b^2\le W(a,b)\le \bigl(C_a+o(1)\bigr)b^2\), where the lower constant does not depend on \(a\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:quadratic">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:quasi_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:quasi" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">6.1</span></div>
+<div class="thm_thmcontent"><p>  For every fixed \(a\ge 1\) there are \(N_a\), \(P_a\ge 1\) and polynomials \(Q_{a,0},\dots ,Q_{a,P_a-1}\) of degree at most two such that </p>
+<div class="displaymath" id="a0000000044">
+  \[  W(a,b)=Q_{a,\, b\bmod P_a}(b)\qquad \text{for all } b\ge N_a.  \]
+</div>
+<p> In particular \(\sum _{b\ge 1}W(a,b)\, t^b=A_a(t)/(1-t^{P_a})^3\) for some polynomial \(A_a(t)\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:quasi">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:refinement_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:refinement" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">3.1</span></div>
+<div class="thm_thmcontent"><p>  Let \(k\ge 2\) with prime factorisation \(k=q_1q_2\cdots q_r\), repetitions allowed. Then \(L_k\) is the set of words \(\langle \! \langle n\rangle \! \rangle _2\) whose odd part has pattern \((q_1-1,\dots ,q_r-1)\): </p>
+<div class="displaymath" id="a0000000018">
+  \[  L_k=\bigl\{ \langle \! \langle n\rangle \! \rangle _2:\  \text{the odd part of $n$ has pattern } (q_1-1,\dots ,q_r-1)\bigr\} .  \]
+</div>
+<p> Equivalently, every word of every pattern \(f\) with \(\prod (f_i+1)=k\) is also a word of the finest pattern \((q_1-1,\dots ,q_r-1)\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:refinement">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:Rformula_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:Rformula" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">5.1</span></div>
+<div class="thm_thmcontent"><p> For \(a,b\ge 1\), </p>
+<div class="displaymath" id="a0000000030">
+  \[  R(a,b)=1+(3a+1)b+a+\frac12\sum _{q=1}^{2a}\Bigl[(2a+1-q)\, S_q(b)-B_q(a,b)\Bigr],  \]
+</div>
+<p> where </p>
+<div class="displaymath" id="a0000000031">
+  \[  S_q(b)=\sum _{\begin{subarray} {c}1\le p\le 2b\\ \gcd (p,q)=1\end{subarray}}(2b-p+1),  \]
+</div>
+<div class="displaymath" id="a0000000032">
+  \[  B_q(a,b)=\sum _{\begin{subarray} {c}-a\le h\le a-q\\ q\mid h\end{subarray}}\Phi _q\Bigl(\Bigl\lfloor \frac{b}{\max (|h/q|,\, |h/q+1|)}\Bigr\rfloor \Bigr) =2\sum _{k=1}^{\lfloor a/q\rfloor }\Phi _q\bigl(\lfloor b/k\rfloor \bigr).  \]
+</div>
+<p> The maximum in \(B_q\) is never \(0\), since \(h/q\) and \(h/q+1\) are integers that do not both vanish; \(B_q=0\) for \(q{\gt}a\). </p>
+</div>
+<a class="latex_link" href="index.html#thm:Rformula">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:count-triples"	[label="count-triples",		shape=ellipse];	"thm:A"	[label=A,		shape=ellipse];	"lem:count-triples" -> "thm:A"	[style=dashed];	"rem:ratio"	[label=ratio,		shape=ellipse];	"thm:A" -> "rem:ratio"	[style=dashed];	"q:rigidity"	[label=rigidity,		shape=ellipse];	"thm:A" -> "q:rigidity"	[style=dashed];	"rem:statusA"	[label=statusA,		shape=ellipse];	"thm:A" -> "rem:statusA"	[style=dashed];	"q:leading"	[label=leading,		shape=ellipse];	"q:rigidity" -> "q:leading"	[style=dashed];	"thm:quasi"	[label=quasi,		shape=ellipse];	"lem:reflection"	[label=reflection,		shape=ellipse];	"thm:quasi" -> "lem:reflection"	[style=dashed];	"q:period"	[label=period,		shape=ellipse];	"thm:quasi" -> "q:period"	[style=dashed];	"q:several"	[label=several,		shape=ellipse];	"thm:quasi" -> "q:several"	[style=dashed];	"lem:O0"	[label=O0,		shape=ellipse];	"thm:quasi" -> "lem:O0"	[style=dashed];	"thm:quadratic"	[label=quadratic,		shape=ellipse];	"thm:quasi" -> "thm:quadratic"	[style=dashed];	"lem:reflection" -> "q:rigidity"	[style=dashed];	"auto:remark-7.8"	[label="remark-7.8",		shape=ellipse];	"lem:reflection" -> "auto:remark-7.8"	[style=dashed];	"lem:reflection-q"	[label="reflection-q",		shape=ellipse];	"lem:reflection" -> "lem:reflection-q"	[style=dashed];	"q:fibres"	[label=fibres,		shape=ellipse];	"lem:O0" -> "q:fibres"	[style=dashed];	"auto:remark-7.6"	[label="remark-7.6",		shape=ellipse];	"lem:O0" -> "auto:remark-7.6"	[style=dashed];	"cor:degree2"	[label=degree2,		shape=ellipse];	"thm:quadratic" -> "cor:degree2"	[style=dashed];	"thm:quadratic" -> "q:leading"	[style=dashed];	"rem:square"	[label=square,		shape=ellipse];	"thm:quadratic" -> "rem:square"	[style=dashed];	"lem:reflection-q" -> "q:fibres"	[style=dashed];	"cor:profiles"	[label=profiles,		shape=ellipse];	"lem:zeros"	[label=zeros,		shape=ellipse];	"cor:profiles" -> "lem:zeros"	[style=dashed];	"lem:Q"	[label=Q,		shape=ellipse];	"cor:profiles" -> "lem:Q"	[style=dashed];	"lem:O"	[label=O,		shape=ellipse];	"cor:profiles" -> "lem:O"	[style=dashed];	"lem:n0zero"	[label=n0zero,		shape=ellipse];	"lem:zeros" -> "lem:n0zero"	[style=dashed];	"lem:n0pos"	[label=n0pos,		shape=ellipse];	"lem:zeros" -> "lem:n0pos"	[style=dashed];	"lem:Q" -> "lem:n0pos"	[style=dashed];	"cor:exchange"	[label=exchange,		shape=ellipse];	"lem:Q" -> "cor:exchange"	[style=dashed];	"lem:O" -> "lem:n0zero"	[style=dashed];	"lem:O" -> "cor:exchange"	[style=dashed];	"lem:7"	[label=7,		shape=ellipse];	"lem:n0zero" -> "lem:7"	[style=dashed];	"lem:n0pos" -> "lem:7"	[style=dashed];	"lem:7" -> "thm:A"	[style=dashed];	"lem:realise"	[label=realise,		shape=ellipse];	"thm:refinement"	[label=refinement,		shape=ellipse];	"lem:realise" -> "thm:refinement"	[style=dashed];	"q:frequencies"	[label=frequencies,		shape=ellipse];	"lem:realise" -> "q:frequencies"	[style=dashed];	"lem:realisable"	[label=realisable,		shape=ellipse];	"lem:realise" -> "lem:realisable"	[style=dashed];	"thm:refinement" -> "q:several"	[style=dashed];	"cor:decidable"	[label=decidable,		shape=ellipse];	"thm:refinement" -> "cor:decidable"	[style=dashed];	"cor:refinement"	[label=refinement,		shape=ellipse];	"thm:refinement" -> "cor:refinement"	[style=dashed];	"lem:realisable" -> "lem:count-triples"	[style=dashed];	"lem:realisable" -> "lem:O"	[style=dashed];	"lem:vec"	[label=vec,		shape=ellipse];	"lem:realisable" -> "lem:vec"	[style=dashed];	"lem:exchange"	[label=exchange,		shape=ellipse];	"lem:realisable" -> "lem:exchange"	[style=dashed];	"lem:vec" -> "thm:quasi"	[style=dashed];	"lem:R"	[label=R,		shape=ellipse];	"lem:vec" -> "lem:R"	[style=dashed];	"lem:7prime"	[label="7prime",		shape=ellipse];	"lem:vec" -> "lem:7prime"	[style=dashed];	"thm:B"	[label=B,		shape=ellipse];	"lem:R" -> "thm:B"	[style=dashed];	"lem:7prime" -> "thm:B"	[style=dashed];	"q:membership"	[label=membership,		shape=ellipse];	"cor:decidable" -> "q:membership"	[style=dashed];	"rem:complexity"	[label=complexity,		shape=ellipse];	"cor:decidable" -> "rem:complexity"	[style=dashed];	"cor:refinement" -> "thm:A"	[style=dashed];	"cor:refinement" -> "thm:B"	[style=dashed];	"thm:B" -> "rem:ratio"	[style=dashed];	"thm:B" -> "q:rigidity"	[style=dashed];	"lem:exchange" -> "q:fibres"	[style=dashed];	"lem:exchange" -> "cor:exchange"	[style=dashed];	"auto:remark-7.4"	[label="remark-7.4",		shape=ellipse];	"lem:exchange" -> "auto:remark-7.4"	[style=dashed];	"auto:remark-6.2"	[color=blue,		label="remark-6.2",		shape=ellipse];	"rem:earliercounts"	[label=earliercounts,		shape=ellipse];	"lem:reduction"	[color=blue,		fillcolor="#A3D6FF",		label=reduction,		shape=ellipse,		style=filled];	"lem:reduction" -> "lem:realise"	[style=dashed];	"def:wf"	[label=wf,		shape=box];	"lem:reduction" -> "def:wf"	[style=dashed];	"lem:triple"	[label=triple,		shape=ellipse];	"lem:reduction" -> "lem:triple"	[style=dashed];	"prop:KR"	[label=KR,		shape=ellipse];	"lem:reduction" -> "prop:KR"	[style=dashed];	"def:wf" -> "q:frequencies"	[style=dashed];	"lem:triple" -> "lem:realisable"	[style=dashed];	"ex:n3"	[label=n3,		shape=ellipse];	"prop:KR" -> "ex:n3"	[style=dashed];	"cor:KRbijection"	[label=KRbijection,		shape=ellipse];	"prop:KR" -> "cor:KRbijection"	[style=dashed];	"prop:box"	[color=blue,		fillcolor="#A3D6FF",		label=box,		shape=ellipse,		style=filled];	"prop:box" -> "cor:decidable"	[style=dashed];	"prop:box" -> "rem:earliercounts"	[style=dashed];	"lem:S"	[color=blue,		fillcolor="#A3D6FF",		label=S,		shape=ellipse,		style=filled];	"lem:S" -> "cor:profiles"	[style=dashed];	"lem:S" -> "lem:exchange"	[style=dashed];	"thm:Rformula"	[color=blue,		fillcolor="#A3D6FF",		label=Rformula,		shape=ellipse,		style=filled];	"thm:Rformula" -> "lem:R"	[style=dashed];	"cor:Ca"	[label=Ca,		shape=ellipse];	"thm:Rformula" -> "cor:Ca"	[style=dashed];	"cor:Ca" -> "q:rigidity"	[style=dashed];	"cor:Ca" -> "q:period"	[style=dashed];	"cor:Ca" -> "thm:quadratic"	[style=dashed];	"q:a3"	[label=a3,		shape=ellipse];	"cor:Ca" -> "q:a3"	[style=dashed];	"auto:definition-1.1"	[color=blue,		fillcolor="#A3D6FF",		label="definition-1.1",		shape=box,		style=filled];	"lem:radix"	[color=blue,		fillcolor="#A3D6FF",		label=radix,		shape=ellipse,		style=filled];	"lem:radix" -> "thm:refinement"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="620pt" viewbox="0.00 0.00 1428.00 620.00" width="1428pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 616)">
+<!-- lem:count&#45;triples -->
+<g class="node" id="node1">
+<title>lem:count-triples</title>
+<ellipse cx="947.97" cy="-378" fill="none" rx="57.49" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="947.97" xml:space="preserve" y="-372.95">count-triples</text>
+</g>
+<!-- thm:A -->
+<g class="node" id="node2">
+<title>thm:A</title>
+<ellipse cx="948.97" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="948.97" xml:space="preserve" y="-156.95">A</text>
+</g>
+<!-- lem:count&#45;triples&#45;&gt;thm:A -->
+<g class="edge" id="edge1">
+<title>lem:count-triples-&gt;thm:A</title>
+<path d="M948.06,-359.12C948.23,-322.05 948.63,-236.54 948.84,-191.67" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="948.88,-181.9 953.34,-191.92 948.87,-185.68 948.84,-191.9 948.84,-191.9 948.84,-191.9 948.87,-185.68 944.34,-191.88 948.88,-181.9" stroke="black"></polygon>
+</g>
+<!-- rem:ratio -->
+<g class="node" id="node3">
+<title>rem:ratio</title>
+<ellipse cx="820.97" cy="-90" fill="none" rx="27.81" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="820.97" xml:space="preserve" y="-84.95">ratio</text>
+</g>
+<!-- thm:A&#45;&gt;rem:ratio -->
+<g class="edge" id="edge2">
+<title>thm:A-&gt;rem:ratio</title>
+<path d="M928.12,-149.6C907.42,-138.28 875.44,-120.79 851.8,-107.86" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="843.31,-103.21 854.24,-104.07 846.63,-105.03 852.08,-108.01 852.08,-108.01 852.08,-108.01 846.63,-105.03 849.92,-111.96 843.31,-103.21" stroke="black"></polygon>
+</g>
+<!-- q:rigidity -->
+<g class="node" id="node4">
+<title>q:rigidity</title>
+<ellipse cx="509.97" cy="-90" fill="none" rx="38.04" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="509.97" xml:space="preserve" y="-84.95">rigidity</text>
+</g>
+<!-- thm:A&#45;&gt;q:rigidity -->
+<g class="edge" id="edge3">
+<title>thm:A-&gt;q:rigidity</title>
+<path d="M928.11,-149.69C923.26,-147.48 918.03,-145.41 912.97,-144 759.75,-101.43 712.03,-143.31 556.97,-108 554.44,-107.42 551.85,-106.75 549.27,-106.01" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="539.88,-103.03 550.77,-101.77 543.49,-104.17 549.41,-106.06 549.41,-106.06 549.41,-106.06 543.49,-104.17 548.05,-110.34 539.88,-103.03" stroke="black"></polygon>
+</g>
+<!-- rem:statusA -->
+<g class="node" id="node5">
+<title>rem:statusA</title>
+<ellipse cx="936.97" cy="-90" fill="none" rx="38.56" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="936.97" xml:space="preserve" y="-84.95">statusA</text>
+</g>
+<!-- thm:A&#45;&gt;rem:statusA -->
+<g class="edge" id="edge4">
+<title>thm:A-&gt;rem:statusA</title>
+<path d="M945.95,-143.34C944.7,-136.07 943.23,-127.47 941.84,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="940.17,-109.62 946.29,-118.71 940.81,-113.35 941.86,-119.48 941.86,-119.48 941.86,-119.48 940.81,-113.35 937.42,-120.24 940.17,-109.62" stroke="black"></polygon>
+</g>
+<!-- q:leading -->
+<g class="node" id="node6">
+<title>q:leading</title>
+<ellipse cx="303.97" cy="-18" fill="none" rx="38.04" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="303.97" xml:space="preserve" y="-12.95">leading</text>
+</g>
+<!-- q:rigidity&#45;&gt;q:leading -->
+<g class="edge" id="edge5">
+<title>q:rigidity-&gt;q:leading</title>
+<path d="M479.93,-78C474.3,-75.98 468.47,-73.91 462.97,-72 423.22,-58.19 377.62,-43.06 345.48,-32.52" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="336.29,-29.51 347.19,-28.34 339.88,-30.68 345.79,-32.62 345.79,-32.62 345.79,-32.62 339.88,-30.68 344.39,-36.9 336.29,-29.51" stroke="black"></polygon>
+</g>
+<!-- thm:quasi -->
+<g class="node" id="node7">
+<title>thm:quasi</title>
+<ellipse cx="336.97" cy="-234" fill="none" rx="30.37" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="336.97" xml:space="preserve" y="-228.95">quasi</text>
+</g>
+<!-- lem:reflection -->
+<g class="node" id="node8">
+<title>lem:reflection</title>
+<ellipse cx="365.97" cy="-162" fill="none" rx="46.23" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="365.97" xml:space="preserve" y="-156.95">reflection</text>
+</g>
+<!-- thm:quasi&#45;&gt;lem:reflection -->
+<g class="edge" id="edge6">
+<title>thm:quasi-&gt;lem:reflection</title>
+<path d="M344.14,-215.7C347.26,-208.18 350.98,-199.19 354.47,-190.78" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="358.22,-181.72 358.55,-192.68 356.78,-185.21 354.4,-190.95 354.4,-190.95 354.4,-190.95 356.78,-185.21 350.24,-189.23 358.22,-181.72" stroke="black"></polygon>
+</g>
+<!-- q:period -->
+<g class="node" id="node9">
+<title>q:period</title>
+<ellipse cx="266.97" cy="-162" fill="none" rx="34.46" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="266.97" xml:space="preserve" y="-156.95">period</text>
+</g>
+<!-- thm:quasi&#45;&gt;q:period -->
+<g class="edge" id="edge7">
+<title>thm:quasi-&gt;q:period</title>
+<path d="M321.78,-217.81C312.65,-208.67 300.82,-196.85 290.5,-186.52" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="283.48,-179.5 293.73,-183.39 286.16,-182.18 290.55,-186.57 290.55,-186.57 290.55,-186.57 286.16,-182.18 287.37,-189.75 283.48,-179.5" stroke="black"></polygon>
+</g>
+<!-- q:several -->
+<g class="node" id="node10">
+<title>q:several</title>
+<ellipse cx="538.97" cy="-162" fill="none" rx="37.02" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="538.97" xml:space="preserve" y="-156.95">several</text>
+</g>
+<!-- thm:quasi&#45;&gt;q:several -->
+<g class="edge" id="edge8">
+<title>thm:quasi-&gt;q:several</title>
+<path d="M360.73,-222.14C365.72,-220 370.99,-217.85 375.97,-216 426.99,-197.1 441.44,-197.44 492.97,-180 495.12,-179.28 497.31,-178.52 499.52,-177.74" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="508.71,-174.45 500.81,-182.06 505.15,-175.72 499.3,-177.82 499.3,-177.82 499.3,-177.82 505.15,-175.72 497.78,-173.58 508.71,-174.45" stroke="black"></polygon>
+</g>
+<!-- lem:O0 -->
+<g class="node" id="node11">
+<title>lem:O0</title>
+<ellipse cx="456.97" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="456.97" xml:space="preserve" y="-156.95">O0</text>
+</g>
+<!-- thm:quasi&#45;&gt;lem:O0 -->
+<g class="edge" id="edge9">
+<title>thm:quasi-&gt;lem:O0</title>
+<path d="M358.43,-220.49C377.63,-209.28 405.97,-192.75 427.34,-180.29" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="435.85,-175.32 429.48,-184.25 432.58,-177.23 427.21,-180.37 427.21,-180.37 427.21,-180.37 432.58,-177.23 424.94,-176.48 435.85,-175.32" stroke="black"></polygon>
+</g>
+<!-- thm:quadratic -->
+<g class="node" id="node12">
+<title>thm:quadratic</title>
+<ellipse cx="131.97" cy="-162" fill="none" rx="45.21" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="131.97" xml:space="preserve" y="-156.95">quadratic</text>
+</g>
+<!-- thm:quasi&#45;&gt;thm:quadratic -->
+<g class="edge" id="edge10">
+<title>thm:quasi-&gt;thm:quadratic</title>
+<path d="M310.59,-223.99C276.74,-212.43 217.52,-192.21 176.6,-178.24" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="167.25,-175.04 178.17,-174.02 170.83,-176.27 176.71,-178.28 176.71,-178.28 176.71,-178.28 170.83,-176.27 175.26,-182.54 167.25,-175.04" stroke="black"></polygon>
+</g>
+<!-- lem:reflection&#45;&gt;q:rigidity -->
+<g class="edge" id="edge11">
+<title>lem:reflection-&gt;q:rigidity</title>
+<path d="M394.42,-147.17C417.09,-136.15 448.97,-120.65 473.51,-108.73" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="482.43,-104.39 475.41,-112.81 479.03,-106.05 473.44,-108.76 473.44,-108.76 473.44,-108.76 479.03,-106.05 471.47,-104.72 482.43,-104.39" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;7.8 -->
+<g class="node" id="node13">
+<title>auto:remark-7.8</title>
+<ellipse cx="275.97" cy="-90" fill="none" rx="52.38" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="275.97" xml:space="preserve" y="-84.95">remark-7.8</text>
+</g>
+<!-- lem:reflection&#45;&gt;auto:remark&#45;7.8 -->
+<g class="edge" id="edge12">
+<title>lem:reflection-&gt;auto:remark-7.8</title>
+<path d="M345.55,-145.12C333.75,-135.94 318.7,-124.23 305.62,-114.06" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="297.9,-108.06 308.56,-110.64 300.89,-110.38 305.8,-114.2 305.8,-114.2 305.8,-114.2 300.89,-110.38 303.03,-117.75 297.9,-108.06" stroke="black"></polygon>
+</g>
+<!-- lem:reflection&#45;q -->
+<g class="node" id="node14">
+<title>lem:reflection-q</title>
+<ellipse cx="399.97" cy="-90" fill="none" rx="53.91" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="399.97" xml:space="preserve" y="-84.95">reflection-q</text>
+</g>
+<!-- lem:reflection&#45;&gt;lem:reflection&#45;q -->
+<g class="edge" id="edge13">
+<title>lem:reflection-&gt;lem:reflection-q</title>
+<path d="M374.38,-143.7C378.07,-136.1 382.49,-126.99 386.62,-118.5" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="390.9,-109.69 390.58,-120.65 389.25,-113.09 386.53,-118.68 386.53,-118.68 386.53,-118.68 389.25,-113.09 382.48,-116.72 390.9,-109.69" stroke="black"></polygon>
+</g>
+<!-- q:fibres -->
+<g class="node" id="node15">
+<title>q:fibres</title>
+<ellipse cx="697.97" cy="-18" fill="none" rx="31.9" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="697.97" xml:space="preserve" y="-12.95">fibres</text>
+</g>
+<!-- lem:O0&#45;&gt;q:fibres -->
+<g class="edge" id="edge14">
+<title>lem:O0-&gt;q:fibres</title>
+<path d="M478.32,-149.85C483.05,-147.68 488.11,-145.59 492.97,-144 573,-117.82 618.87,-166.97 678.97,-108 694.74,-92.53 698.95,-67.42 699.53,-47.81" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="699.5,-37.95 704.03,-47.94 699.51,-41.73 699.53,-47.95 699.53,-47.95 699.53,-47.95 699.51,-41.73 695.03,-47.96 699.5,-37.95" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;7.6 -->
+<g class="node" id="node16">
+<title>auto:remark-7.6</title>
+<ellipse cx="617.97" cy="-90" fill="none" rx="52.38" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="617.97" xml:space="preserve" y="-84.95">remark-7.6</text>
+</g>
+<!-- lem:O0&#45;&gt;auto:remark&#45;7.6 -->
+<g class="edge" id="edge15">
+<title>lem:O0-&gt;auto:remark-7.6</title>
+<path d="M478.99,-150.43C483.6,-148.27 488.43,-146.03 492.97,-144 519.86,-131.96 550.3,-119.04 574.4,-108.97" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="583.53,-105.17 576.03,-113.17 580.04,-106.62 574.3,-109.01 574.3,-109.01 574.3,-109.01 580.04,-106.62 572.57,-104.86 583.53,-105.17" stroke="black"></polygon>
+</g>
+<!-- thm:quadratic&#45;&gt;q:leading -->
+<g class="edge" id="edge17">
+<title>thm:quadratic-&gt;q:leading</title>
+<path d="M122.07,-143.78C112.38,-124.39 101.19,-92.87 116.97,-72 133.81,-49.73 207.02,-34.1 256.69,-25.84" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="266.32,-24.28 257.16,-30.32 262.58,-24.89 256.44,-25.88 256.44,-25.88 256.44,-25.88 262.58,-24.89 255.73,-21.44 266.32,-24.28" stroke="black"></polygon>
+</g>
+<!-- cor:degree2 -->
+<g class="node" id="node17">
+<title>cor:degree2</title>
+<ellipse cx="165.97" cy="-90" fill="none" rx="40.09" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="165.97" xml:space="preserve" y="-84.95">degree2</text>
+</g>
+<!-- thm:quadratic&#45;&gt;cor:degree2 -->
+<g class="edge" id="edge16">
+<title>thm:quadratic-&gt;cor:degree2</title>
+<path d="M140.38,-143.7C144.12,-135.98 148.63,-126.71 152.8,-118.11" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="157.14,-109.2 156.81,-120.16 155.48,-112.6 152.76,-118.19 152.76,-118.19 152.76,-118.19 155.48,-112.6 148.72,-116.22 157.14,-109.2" stroke="black"></polygon>
+</g>
+<!-- rem:square -->
+<g class="node" id="node18">
+<title>rem:square</title>
+<ellipse cx="34.97" cy="-90" fill="none" rx="34.97" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="34.97" xml:space="preserve" y="-84.95">square</text>
+</g>
+<!-- thm:quadratic&#45;&gt;rem:square -->
+<g class="edge" id="edge18">
+<title>thm:quadratic-&gt;rem:square</title>
+<path d="M110.45,-145.46C96.76,-135.59 78.88,-122.69 63.96,-111.92" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="56.1,-106.25 66.85,-108.45 59.17,-108.46 64.21,-112.1 64.21,-112.1 64.21,-112.1 59.17,-108.46 61.58,-115.75 56.1,-106.25" stroke="black"></polygon>
+</g>
+<!-- lem:reflection&#45;q&#45;&gt;q:fibres -->
+<g class="edge" id="edge19">
+<title>lem:reflection-q-&gt;q:fibres</title>
+<path d="M441.25,-77.6C448.48,-75.68 455.94,-73.74 462.97,-72 530.67,-55.24 609.88,-37.83 656.89,-27.72" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="666.64,-25.63 657.8,-32.13 662.94,-26.43 656.86,-27.73 656.86,-27.73 656.86,-27.73 662.94,-26.43 655.92,-23.33 666.64,-25.63" stroke="black"></polygon>
+</g>
+<!-- cor:profiles -->
+<g class="node" id="node19">
+<title>cor:profiles</title>
+<ellipse cx="1272" cy="-450" fill="none" rx="39.07" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1272" xml:space="preserve" y="-444.95">profiles</text>
+</g>
+<!-- lem:zeros -->
+<g class="node" id="node20">
+<title>lem:zeros</title>
+<ellipse cx="1347" cy="-378" fill="none" rx="30.37" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1347" xml:space="preserve" y="-372.95">zeros</text>
+</g>
+<!-- cor:profiles&#45;&gt;lem:zeros -->
+<g class="edge" id="edge20">
+<title>cor:profiles-&gt;lem:zeros</title>
+<path d="M1289,-433.12C1299,-423.79 1311.8,-411.86 1322.8,-401.58" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1329.91,-394.93 1325.68,-405.05 1327.15,-397.51 1322.61,-401.76 1322.61,-401.76 1322.61,-401.76 1327.15,-397.51 1319.53,-398.47 1329.91,-394.93" stroke="black"></polygon>
+</g>
+<!-- lem:Q -->
+<g class="node" id="node21">
+<title>lem:Q</title>
+<ellipse cx="1272" cy="-378" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1272" xml:space="preserve" y="-372.95">Q</text>
+</g>
+<!-- cor:profiles&#45;&gt;lem:Q -->
+<g class="edge" id="edge21">
+<title>cor:profiles-&gt;lem:Q</title>
+<path d="M1272,-431.34C1272,-424.07 1272,-415.47 1272,-407.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1272,-397.64 1276.5,-407.64 1272,-401.42 1272,-407.64 1272,-407.64 1272,-407.64 1272,-401.42 1267.5,-407.64 1272,-397.64" stroke="black"></polygon>
+</g>
+<!-- lem:O -->
+<g class="node" id="node22">
+<title>lem:O</title>
+<ellipse cx="1200" cy="-378" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1200" xml:space="preserve" y="-372.95">O</text>
+</g>
+<!-- cor:profiles&#45;&gt;lem:O -->
+<g class="edge" id="edge22">
+<title>cor:profiles-&gt;lem:O</title>
+<path d="M1255.6,-433.12C1245.8,-423.6 1233.3,-411.37 1222.5,-400.94" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1215.67,-394.24 1225.96,-398.03 1218.37,-396.89 1222.81,-401.24 1222.81,-401.24 1222.81,-401.24 1218.37,-396.89 1219.66,-404.46 1215.67,-394.24" stroke="black"></polygon>
+</g>
+<!-- lem:n0zero -->
+<g class="node" id="node23">
+<title>lem:n0zero</title>
+<ellipse cx="1300" cy="-306" fill="none" rx="36" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1300" xml:space="preserve" y="-300.95">n0zero</text>
+</g>
+<!-- lem:zeros&#45;&gt;lem:n0zero -->
+<g class="edge" id="edge23">
+<title>lem:zeros-&gt;lem:n0zero</title>
+<path d="M1335.8,-360.41C1330.4,-352.25 1323.6,-342.22 1317.5,-333.07" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1312.08,-324.97 1321.38,-330.78 1314.18,-328.11 1317.64,-333.28 1317.64,-333.28 1317.64,-333.28 1314.18,-328.11 1313.9,-335.79 1312.08,-324.97" stroke="black"></polygon>
+</g>
+<!-- lem:n0pos -->
+<g class="node" id="node24">
+<title>lem:n0pos</title>
+<ellipse cx="1387" cy="-306" fill="none" rx="32.93" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1387" xml:space="preserve" y="-300.95">n0pos</text>
+</g>
+<!-- lem:zeros&#45;&gt;lem:n0pos -->
+<g class="edge" id="edge24">
+<title>lem:zeros-&gt;lem:n0pos</title>
+<path d="M1356.7,-360.05C1361.2,-352.06 1366.8,-342.33 1371.9,-333.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1376.79,-324.85 1375.73,-335.76 1374.92,-328.13 1371.83,-333.53 1371.83,-333.53 1371.83,-333.53 1374.92,-328.13 1367.92,-331.29 1376.79,-324.85" stroke="black"></polygon>
+</g>
+<!-- lem:Q&#45;&gt;lem:n0pos -->
+<g class="edge" id="edge25">
+<title>lem:Q-&gt;lem:n0pos</title>
+<path d="M1291.7,-364.97C1309.3,-354.28 1335.2,-338.49 1355.6,-326.09" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1364.06,-320.94 1357.85,-329.99 1360.83,-322.91 1355.52,-326.14 1355.52,-326.14 1355.52,-326.14 1360.83,-322.91 1353.18,-322.3 1364.06,-320.94" stroke="black"></polygon>
+</g>
+<!-- cor:exchange -->
+<g class="node" id="node25">
+<title>cor:exchange</title>
+<ellipse cx="1200" cy="-306" fill="none" rx="45.72" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1200" xml:space="preserve" y="-300.95">exchange</text>
+</g>
+<!-- lem:Q&#45;&gt;cor:exchange -->
+<g class="edge" id="edge26">
+<title>lem:Q-&gt;cor:exchange</title>
+<path d="M1257.1,-362.5C1247.7,-353.43 1235.5,-341.54 1224.7,-331.09" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1217.77,-324.3 1228.06,-328.09 1220.47,-326.95 1224.91,-331.3 1224.91,-331.3 1224.91,-331.3 1220.47,-326.95 1221.77,-334.51 1217.77,-324.3" stroke="black"></polygon>
+</g>
+<!-- lem:O&#45;&gt;lem:n0zero -->
+<g class="edge" id="edge27">
+<title>lem:O-&gt;lem:n0zero</title>
+<path d="M1218.3,-364.16C1232.9,-353.97 1253.5,-339.52 1270.4,-327.7" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1278.3,-322.15 1272.7,-331.58 1275.21,-324.32 1270.12,-327.9 1270.12,-327.9 1270.12,-327.9 1275.21,-324.32 1267.53,-324.21 1278.3,-322.15" stroke="black"></polygon>
+</g>
+<!-- lem:O&#45;&gt;cor:exchange -->
+<g class="edge" id="edge28">
+<title>lem:O-&gt;cor:exchange</title>
+<path d="M1200,-359.34C1200,-352.07 1200,-343.47 1200,-335.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1200,-325.64 1204.5,-335.64 1200,-329.42 1200,-335.64 1200,-335.64 1200,-335.64 1200,-329.42 1195.5,-335.64 1200,-325.64" stroke="black"></polygon>
+</g>
+<!-- lem:7 -->
+<g class="node" id="node26">
+<title>lem:7</title>
+<ellipse cx="1300" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1300" xml:space="preserve" y="-228.95">7</text>
+</g>
+<!-- lem:n0zero&#45;&gt;lem:7 -->
+<g class="edge" id="edge29">
+<title>lem:n0zero-&gt;lem:7</title>
+<path d="M1300,-287.34C1300,-280.07 1300,-271.47 1300,-263.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1300,-253.64 1304.5,-263.64 1300,-257.42 1300,-263.64 1300,-263.64 1300,-263.64 1300,-257.42 1295.5,-263.64 1300,-253.64" stroke="black"></polygon>
+</g>
+<!-- lem:n0pos&#45;&gt;lem:7 -->
+<g class="edge" id="edge30">
+<title>lem:n0pos-&gt;lem:7</title>
+<path d="M1368.9,-290.5C1356.5,-280.44 1339.6,-266.91 1325.7,-255.72" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1318.05,-249.54 1328.65,-252.32 1320.99,-251.91 1325.83,-255.82 1325.83,-255.82 1325.83,-255.82 1320.99,-251.91 1323,-259.32 1318.05,-249.54" stroke="black"></polygon>
+</g>
+<!-- lem:7&#45;&gt;thm:A -->
+<g class="edge" id="edge31">
+<title>lem:7-&gt;thm:A</title>
+<path d="M1273.9,-227.8C1212.2,-215.49 1057.2,-184.59 985.94,-170.37" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="976.43,-168.48 987.12,-166.02 980.14,-169.22 986.24,-170.43 986.24,-170.43 986.24,-170.43 980.14,-169.22 985.36,-174.84 976.43,-168.48" stroke="black"></polygon>
+</g>
+<!-- lem:realise -->
+<g class="node" id="node27">
+<title>lem:realise</title>
+<ellipse cx="763.97" cy="-522" fill="none" rx="34.97" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="763.97" xml:space="preserve" y="-516.95">realise</text>
+</g>
+<!-- thm:refinement -->
+<g class="node" id="node28">
+<title>thm:refinement</title>
+<ellipse cx="685.97" cy="-306" fill="none" rx="51.35" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="685.97" xml:space="preserve" y="-300.95">refinement</text>
+</g>
+<!-- lem:realise&#45;&gt;thm:refinement -->
+<g class="edge" id="edge32">
+<title>lem:realise-&gt;thm:refinement</title>
+<path d="M757.59,-503.49C744.07,-466.4 712.46,-379.68 696.14,-334.88" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="692.76,-325.59 700.41,-333.45 694.05,-329.15 696.18,-334.99 696.18,-334.99 696.18,-334.99 694.05,-329.15 691.95,-336.53 692.76,-325.59" stroke="black"></polygon>
+</g>
+<!-- q:frequencies -->
+<g class="node" id="node29">
+<title>q:frequencies</title>
+<ellipse cx="993.97" cy="-450" fill="none" rx="53.4" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="993.97" xml:space="preserve" y="-444.95">frequencies</text>
+</g>
+<!-- lem:realise&#45;&gt;q:frequencies -->
+<g class="edge" id="edge33">
+<title>lem:realise-&gt;q:frequencies</title>
+<path d="M791.29,-510C796.78,-507.92 802.54,-505.82 807.97,-504 832.81,-495.68 896.44,-477.82 942.37,-465.14" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="951.87,-462.51 943.43,-469.52 948.22,-463.52 942.23,-465.18 942.23,-465.18 942.23,-465.18 948.22,-463.52 941.03,-460.84 951.87,-462.51" stroke="black"></polygon>
+</g>
+<!-- lem:realisable -->
+<g class="node" id="node30">
+<title>lem:realisable</title>
+<ellipse cx="804.97" cy="-450" fill="none" rx="46.23" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="804.97" xml:space="preserve" y="-444.95">realisable</text>
+</g>
+<!-- lem:realise&#45;&gt;lem:realisable -->
+<g class="edge" id="edge34">
+<title>lem:realise-&gt;lem:realisable</title>
+<path d="M773.9,-504.05C778.51,-496.18 784.11,-486.62 789.28,-477.79" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="794.24,-469.33 793.06,-480.23 792.33,-472.59 789.18,-477.96 789.18,-477.96 789.18,-477.96 792.33,-472.59 785.3,-475.68 794.24,-469.33" stroke="black"></polygon>
+</g>
+<!-- thm:refinement&#45;&gt;q:several -->
+<g class="edge" id="edge35">
+<title>thm:refinement-&gt;q:several</title>
+<path d="M647.99,-293.18C625.83,-284.68 598.65,-271.29 579.97,-252 563.55,-235.04 552.88,-210.32 546.56,-191.23" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="543.69,-181.9 550.93,-190.14 544.8,-185.52 546.63,-191.46 546.63,-191.46 546.63,-191.46 544.8,-185.52 542.33,-192.79 543.69,-181.9" stroke="black"></polygon>
+</g>
+<!-- cor:decidable -->
+<g class="node" id="node31">
+<title>cor:decidable</title>
+<ellipse cx="755.97" cy="-234" fill="none" rx="46.23" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="755.97" xml:space="preserve" y="-228.95">decidable</text>
+</g>
+<!-- thm:refinement&#45;&gt;cor:decidable -->
+<g class="edge" id="edge36">
+<title>thm:refinement-&gt;cor:decidable</title>
+<path d="M702.56,-288.41C711.28,-279.69 722.13,-268.85 731.77,-259.21" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="738.64,-252.33 734.76,-262.59 735.97,-255.01 731.57,-259.41 731.57,-259.41 731.57,-259.41 735.97,-255.01 728.39,-256.23 738.64,-252.33" stroke="black"></polygon>
+</g>
+<!-- cor:refinement -->
+<g class="node" id="node32">
+<title>cor:refinement</title>
+<ellipse cx="639.97" cy="-234" fill="none" rx="51.35" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="639.97" xml:space="preserve" y="-228.95">refinement</text>
+</g>
+<!-- thm:refinement&#45;&gt;cor:refinement -->
+<g class="edge" id="edge37">
+<title>thm:refinement-&gt;cor:refinement</title>
+<path d="M674.6,-287.7C669.37,-279.73 663.04,-270.1 657.23,-261.26" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="651.88,-253.12 661.13,-259 653.96,-256.28 657.37,-261.48 657.37,-261.48 657.37,-261.48 653.96,-256.28 653.61,-263.95 651.88,-253.12" stroke="black"></polygon>
+</g>
+<!-- lem:realisable&#45;&gt;lem:count&#45;triples -->
+<g class="edge" id="edge38">
+<title>lem:realisable-&gt;lem:count-triples</title>
+<path d="M833.57,-435C854.73,-424.65 883.84,-410.4 907.4,-398.86" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="916.36,-394.48 909.35,-402.91 912.96,-396.14 907.37,-398.87 907.37,-398.87 907.37,-398.87 912.96,-396.14 905.4,-394.83 916.36,-394.48" stroke="black"></polygon>
+</g>
+<!-- lem:realisable&#45;&gt;lem:O -->
+<g class="edge" id="edge39">
+<title>lem:realisable-&gt;lem:O</title>
+<path d="M839.65,-437.3C846.34,-435.32 853.33,-433.44 859.97,-432 982.15,-405.44 1016.4,-420.85 1139,-396 1147.4,-394.28 1156.5,-392.02 1164.9,-389.71" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1174.33,-387.01 1165.95,-394.09 1170.69,-388.05 1164.71,-389.76 1164.71,-389.76 1164.71,-389.76 1170.69,-388.05 1163.48,-385.44 1174.33,-387.01" stroke="black"></polygon>
+</g>
+<!-- lem:vec -->
+<g class="node" id="node33">
+<title>lem:vec</title>
+<ellipse cx="453.97" cy="-306" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="453.97" xml:space="preserve" y="-300.95">vec</text>
+</g>
+<!-- lem:realisable&#45;&gt;lem:vec -->
+<g class="edge" id="edge40">
+<title>lem:realisable-&gt;lem:vec</title>
+<path d="M773.21,-436.15C706.89,-409.32 554.31,-347.59 486.96,-320.34" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="478.03,-316.74 488.99,-316.31 481.54,-318.15 487.3,-320.48 487.3,-320.48 487.3,-320.48 481.54,-318.15 485.62,-324.65 478.03,-316.74" stroke="black"></polygon>
+</g>
+<!-- lem:exchange -->
+<g class="node" id="node34">
+<title>lem:exchange</title>
+<ellipse cx="1084" cy="-378" fill="none" rx="45.72" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1084" xml:space="preserve" y="-372.95">exchange</text>
+</g>
+<!-- lem:realisable&#45;&gt;lem:exchange -->
+<g class="edge" id="edge41">
+<title>lem:realisable-&gt;lem:exchange</title>
+<path d="M840.37,-437.66C846.87,-435.69 853.61,-433.73 859.97,-432 927.81,-413.61 945.6,-412.29 1014,-396 1020.7,-394.4 1027.7,-392.7 1034.7,-391.02" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1044.32,-388.7 1035.65,-395.42 1040.64,-389.58 1034.6,-391.05 1034.6,-391.05 1034.6,-391.05 1040.64,-389.58 1033.54,-386.67 1044.32,-388.7" stroke="black"></polygon>
+</g>
+<!-- q:membership -->
+<g class="node" id="node38">
+<title>q:membership</title>
+<ellipse cx="722.97" cy="-162" fill="none" rx="57.49" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="722.97" xml:space="preserve" y="-156.95">membership</text>
+</g>
+<!-- cor:decidable&#45;&gt;q:membership -->
+<g class="edge" id="edge47">
+<title>cor:decidable-&gt;q:membership</title>
+<path d="M747.82,-215.7C744.23,-208.1 739.94,-198.99 735.94,-190.5" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="731.79,-181.69 740.12,-188.82 733.4,-185.11 736.05,-190.74 736.05,-190.74 736.05,-190.74 733.4,-185.11 731.98,-192.66 731.79,-181.69" stroke="black"></polygon>
+</g>
+<!-- rem:complexity -->
+<g class="node" id="node39">
+<title>rem:complexity</title>
+<ellipse cx="850.97" cy="-162" fill="none" rx="52.89" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="850.97" xml:space="preserve" y="-156.95">complexity</text>
+</g>
+<!-- cor:decidable&#45;&gt;rem:complexity -->
+<g class="edge" id="edge48">
+<title>cor:decidable-&gt;rem:complexity</title>
+<path d="M777.06,-217.46C789.7,-208.15 806.01,-196.13 820.09,-185.76" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="827.98,-179.94 822.6,-189.5 824.94,-182.19 819.93,-185.88 819.93,-185.88 819.93,-185.88 824.94,-182.19 817.26,-182.26 827.98,-179.94" stroke="black"></polygon>
+</g>
+<!-- cor:refinement&#45;&gt;thm:A -->
+<g class="edge" id="edge49">
+<title>cor:refinement-&gt;thm:A</title>
+<path d="M678.87,-221.51C686.18,-219.54 693.79,-217.61 700.97,-216 794.24,-195.14 821.8,-208.67 912.97,-180 914.54,-179.51 916.12,-178.96 917.71,-178.37" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="926.92,-174.53 919.42,-182.53 923.43,-175.99 917.69,-178.38 917.69,-178.38 917.69,-178.38 923.43,-175.99 915.95,-174.23 926.92,-174.53" stroke="black"></polygon>
+</g>
+<!-- thm:B -->
+<g class="node" id="node37">
+<title>thm:B</title>
+<ellipse cx="620.97" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="620.97" xml:space="preserve" y="-156.95">B</text>
+</g>
+<!-- cor:refinement&#45;&gt;thm:B -->
+<g class="edge" id="edge50">
+<title>cor:refinement-&gt;thm:B</title>
+<path d="M635.18,-215.34C633.18,-207.98 630.82,-199.27 628.6,-191.08" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="626.02,-181.6 632.99,-190.06 627.01,-185.24 628.64,-191.25 628.64,-191.25 628.64,-191.25 627.01,-185.24 624.3,-192.43 626.02,-181.6" stroke="black"></polygon>
+</g>
+<!-- lem:vec&#45;&gt;thm:quasi -->
+<g class="edge" id="edge42">
+<title>lem:vec-&gt;thm:quasi</title>
+<path d="M433.86,-292.97C415.59,-282.03 388.36,-265.75 367.42,-253.22" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="359.05,-248.21 369.95,-249.49 362.3,-250.15 367.63,-253.35 367.63,-253.35 367.63,-253.35 362.3,-250.15 365.32,-257.21 359.05,-248.21" stroke="black"></polygon>
+</g>
+<!-- lem:R -->
+<g class="node" id="node35">
+<title>lem:R</title>
+<ellipse cx="411.97" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="411.97" xml:space="preserve" y="-228.95">R</text>
+</g>
+<!-- lem:vec&#45;&gt;lem:R -->
+<g class="edge" id="edge43">
+<title>lem:vec-&gt;lem:R</title>
+<path d="M444.02,-288.41C439.1,-280.22 433.06,-270.14 427.55,-260.95" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="422.49,-252.51 431.49,-258.77 424.43,-255.76 427.63,-261.09 427.63,-261.09 427.63,-261.09 424.43,-255.76 423.77,-263.4 422.49,-252.51" stroke="black"></polygon>
+</g>
+<!-- lem:7prime -->
+<g class="node" id="node36">
+<title>lem:7prime</title>
+<ellipse cx="494.97" cy="-234" fill="none" rx="37.53" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="494.97" xml:space="preserve" y="-228.95">7prime</text>
+</g>
+<!-- lem:vec&#45;&gt;lem:7prime -->
+<g class="edge" id="edge44">
+<title>lem:vec-&gt;lem:7prime</title>
+<path d="M463.69,-288.41C468.42,-280.34 474.22,-270.43 479.54,-261.35" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="484.42,-253.01 483.25,-263.91 482.51,-256.27 479.37,-261.64 479.37,-261.64 479.37,-261.64 482.51,-256.27 475.49,-259.37 484.42,-253.01" stroke="black"></polygon>
+</g>
+<!-- lem:exchange&#45;&gt;q:fibres -->
+<g class="edge" id="edge53">
+<title>lem:exchange-&gt;q:fibres</title>
+<path d="M1060,-361.88C1047.1,-352.51 1032,-339.35 1023,-324 1002.4,-289.16 1004,-275.45 1004,-235 1004,-235 1004,-235 1004,-161 1004,-120.55 1014,-100.2 984.97,-72 950.93,-38.88 812.84,-25.85 741.34,-21.24" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="731.69,-20.65 741.94,-16.77 735.46,-20.88 741.67,-21.26 741.67,-21.26 741.67,-21.26 735.46,-20.88 741.39,-25.75 731.69,-20.65" stroke="black"></polygon>
+</g>
+<!-- lem:exchange&#45;&gt;cor:exchange -->
+<g class="edge" id="edge54">
+<title>lem:exchange-&gt;cor:exchange</title>
+<path d="M1108.6,-362.15C1125.3,-352.09 1147.5,-338.64 1165.9,-327.54" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1174.36,-322.45 1168.11,-331.46 1171.12,-324.4 1165.79,-327.61 1165.79,-327.61 1165.79,-327.61 1171.12,-324.4 1163.47,-323.75 1174.36,-322.45" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;7.4 -->
+<g class="node" id="node40">
+<title>auto:remark-7.4</title>
+<ellipse cx="1084" cy="-306" fill="none" rx="52.38" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1084" xml:space="preserve" y="-300.95">remark-7.4</text>
+</g>
+<!-- lem:exchange&#45;&gt;auto:remark&#45;7.4 -->
+<g class="edge" id="edge55">
+<title>lem:exchange-&gt;auto:remark-7.4</title>
+<path d="M1084,-359.34C1084,-352.07 1084,-343.47 1084,-335.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1084,-325.64 1088.5,-335.64 1084,-329.42 1084,-335.64 1084,-335.64 1084,-335.64 1084,-329.42 1079.5,-335.64 1084,-325.64" stroke="black"></polygon>
+</g>
+<!-- lem:R&#45;&gt;thm:B -->
+<g class="edge" id="edge45">
+<title>lem:R-&gt;thm:B</title>
+<path d="M433.4,-222.09C438.13,-219.91 443.17,-217.75 447.97,-216 507.13,-194.47 525.81,-201.53 584.97,-180 586.48,-179.45 588,-178.87 589.53,-178.25" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="598.43,-174.39 591.04,-182.5 594.96,-175.9 589.26,-178.37 589.26,-178.37 589.26,-178.37 594.96,-175.9 587.47,-174.24 598.43,-174.39" stroke="black"></polygon>
+</g>
+<!-- lem:7prime&#45;&gt;thm:B -->
+<g class="edge" id="edge46">
+<title>lem:7prime-&gt;thm:B</title>
+<path d="M519.27,-219.5C539.64,-208.19 568.83,-191.97 590.72,-179.81" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="599.43,-174.96 592.88,-183.76 596.13,-176.8 590.7,-179.82 590.7,-179.82 590.7,-179.82 596.13,-176.8 588.51,-175.89 599.43,-174.96" stroke="black"></polygon>
+</g>
+<!-- thm:B&#45;&gt;rem:ratio -->
+<g class="edge" id="edge51">
+<title>thm:B-&gt;rem:ratio</title>
+<path d="M642.48,-150.29C647.2,-148.1 652.22,-145.88 656.97,-144 700.09,-126.93 751.11,-111.11 784.66,-101.27" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="794.16,-98.51 785.81,-105.62 790.53,-99.57 784.56,-101.3 784.56,-101.3 784.56,-101.3 790.53,-99.57 783.3,-96.98 794.16,-98.51" stroke="black"></polygon>
+</g>
+<!-- thm:B&#45;&gt;q:rigidity -->
+<g class="edge" id="edge52">
+<title>thm:B-&gt;q:rigidity</title>
+<path d="M601.38,-148.65C584.88,-138.24 560.95,-123.15 541.71,-111.02" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="533.45,-105.81 544.31,-107.34 536.65,-107.83 541.91,-111.15 541.91,-111.15 541.91,-111.15 536.65,-107.83 539.51,-114.95 533.45,-105.81" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;6.2 -->
+<g class="node" id="node41">
+<title>auto:remark-6.2</title>
+<ellipse cx="999.97" cy="-594" fill="none" rx="52.38" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="999.97" xml:space="preserve" y="-588.95">remark-6.2</text>
+</g>
+<!-- rem:earliercounts -->
+<g class="node" id="node42">
+<title>rem:earliercounts</title>
+<ellipse cx="878.97" cy="-234" fill="none" rx="58.52" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="878.97" xml:space="preserve" y="-228.95">earliercounts</text>
+</g>
+<!-- lem:reduction -->
+<g class="node" id="node43">
+<title>lem:reduction</title>
+<ellipse cx="883.97" cy="-594" fill="#a3d6ff" rx="45.72" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="883.97" xml:space="preserve" y="-588.95">reduction</text>
+</g>
+<!-- lem:reduction&#45;&gt;lem:realise -->
+<g class="edge" id="edge56">
+<title>lem:reduction-&gt;lem:realise</title>
+<path d="M858.82,-578.33C840.59,-567.69 815.8,-553.23 796.14,-541.76" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="787.71,-536.85 798.62,-538 790.98,-538.76 796.35,-541.89 796.35,-541.89 796.35,-541.89 790.98,-538.76 794.09,-545.77 787.71,-536.85" stroke="black"></polygon>
+</g>
+<!-- def:wf -->
+<g class="node" id="node44">
+<title>def:wf</title>
+<polygon fill="none" points="1020.97,-540 966.97,-540 966.97,-504 1020.97,-504 1020.97,-540" stroke="black" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="993.97" xml:space="preserve" y="-516.95">wf</text>
+</g>
+<!-- lem:reduction&#45;&gt;def:wf -->
+<g class="edge" id="edge57">
+<title>lem:reduction-&gt;def:wf</title>
+<path d="M907.84,-577.81C922.21,-568.67 940.8,-556.84 957.03,-546.51" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="965.24,-541.28 959.22,-550.45 962.05,-543.31 956.81,-546.65 956.81,-546.65 956.81,-546.65 962.05,-543.31 954.39,-542.86 965.24,-541.28" stroke="black"></polygon>
+</g>
+<!-- lem:triple -->
+<g class="node" id="node45">
+<title>lem:triple</title>
+<ellipse cx="846.97" cy="-522" fill="none" rx="30.37" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="846.97" xml:space="preserve" y="-516.95">triple</text>
+</g>
+<!-- lem:reduction&#45;&gt;lem:triple -->
+<g class="edge" id="edge58">
+<title>lem:reduction-&gt;lem:triple</title>
+<path d="M874.83,-575.7C870.64,-567.78 865.59,-558.23 860.95,-549.44" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="856.33,-540.7 864.98,-547.44 858.1,-544.04 861,-549.54 861,-549.54 861,-549.54 858.1,-544.04 857.02,-551.64 856.33,-540.7" stroke="black"></polygon>
+</g>
+<!-- prop:KR -->
+<g class="node" id="node46">
+<title>prop:KR</title>
+<ellipse cx="921.97" cy="-522" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="921.97" xml:space="preserve" y="-516.95">KR</text>
+</g>
+<!-- lem:reduction&#45;&gt;prop:KR -->
+<g class="edge" id="edge59">
+<title>lem:reduction-&gt;prop:KR</title>
+<path d="M893.37,-575.7C897.66,-567.78 902.85,-558.23 907.62,-549.44" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="912.37,-540.69 911.55,-551.63 910.56,-544.01 907.6,-549.48 907.6,-549.48 907.6,-549.48 910.56,-544.01 903.64,-547.33 912.37,-540.69" stroke="black"></polygon>
+</g>
+<!-- def:wf&#45;&gt;q:frequencies -->
+<g class="edge" id="edge60">
+<title>def:wf-&gt;q:frequencies</title>
+<path d="M993.97,-503.34C993.97,-496.07 993.97,-487.47 993.97,-479.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="993.97,-469.64 998.47,-479.64 993.97,-473.42 993.97,-479.64 993.97,-479.64 993.97,-479.64 993.97,-473.42 989.47,-479.64 993.97,-469.64" stroke="black"></polygon>
+</g>
+<!-- lem:triple&#45;&gt;lem:realisable -->
+<g class="edge" id="edge61">
+<title>lem:triple-&gt;lem:realisable</title>
+<path d="M837.02,-504.41C832.17,-496.34 826.23,-486.43 820.79,-477.35" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="815.78,-469 824.78,-475.26 817.72,-472.25 820.93,-477.58 820.93,-477.58 820.93,-477.58 817.72,-472.25 817.07,-479.89 815.78,-469" stroke="black"></polygon>
+</g>
+<!-- ex:n3 -->
+<g class="node" id="node47">
+<title>ex:n3</title>
+<ellipse cx="895.97" cy="-450" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="895.97" xml:space="preserve" y="-444.95">n3</text>
+</g>
+<!-- prop:KR&#45;&gt;ex:n3 -->
+<g class="edge" id="edge62">
+<title>prop:KR-&gt;ex:n3</title>
+<path d="M915.55,-503.7C912.71,-496.07 909.31,-486.92 906.15,-478.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="902.75,-469.24 910.45,-477.05 904.07,-472.79 906.23,-478.62 906.23,-478.62 906.23,-478.62 904.07,-472.79 902.01,-480.18 902.75,-469.24" stroke="black"></polygon>
+</g>
+<!-- cor:KRbijection -->
+<g class="node" id="node48">
+<title>cor:KRbijection</title>
+<ellipse cx="1121" cy="-450" fill="none" rx="55.96" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1121" xml:space="preserve" y="-444.95">KRbijection</text>
+</g>
+<!-- prop:KR&#45;&gt;cor:KRbijection -->
+<g class="edge" id="edge63">
+<title>prop:KR-&gt;cor:KRbijection</title>
+<path d="M943.48,-510.3C948.21,-508.1 953.22,-505.89 957.97,-504 994.5,-489.5 1036.7,-475.86 1069,-466.04" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1078.43,-463.22 1070.14,-470.4 1074.81,-464.3 1068.85,-466.08 1068.85,-466.08 1068.85,-466.08 1074.81,-464.3 1067.56,-461.77 1078.43,-463.22" stroke="black"></polygon>
+</g>
+<!-- prop:box -->
+<g class="node" id="node49">
+<title>prop:box</title>
+<ellipse cx="852.97" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="852.97" xml:space="preserve" y="-300.95">box</text>
+</g>
+<!-- prop:box&#45;&gt;cor:decidable -->
+<g class="edge" id="edge64">
+<title>prop:box-&gt;cor:decidable</title>
+<path d="M834.73,-291.83C821.15,-282.03 802.3,-268.43 786.45,-256.99" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="778.51,-251.26 789.25,-253.46 781.58,-253.47 786.62,-257.11 786.62,-257.11 786.62,-257.11 781.58,-253.47 783.99,-260.76 778.51,-251.26" stroke="black"></polygon>
+</g>
+<!-- prop:box&#45;&gt;rem:earliercounts -->
+<g class="edge" id="edge65">
+<title>prop:box-&gt;rem:earliercounts</title>
+<path d="M859.4,-287.7C862.16,-280.26 865.46,-271.39 868.55,-263.06" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="872.02,-253.73 872.75,-264.67 870.7,-257.28 868.53,-263.11 868.53,-263.11 868.53,-263.11 870.7,-257.28 864.31,-261.54 872.02,-253.73" stroke="black"></polygon>
+</g>
+<!-- lem:S -->
+<g class="node" id="node50">
+<title>lem:S</title>
+<ellipse cx="1238" cy="-522" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1238" xml:space="preserve" y="-516.95">S</text>
+</g>
+<!-- lem:S&#45;&gt;cor:profiles -->
+<g class="edge" id="edge66">
+<title>lem:S-&gt;cor:profiles</title>
+<path d="M1246.2,-504.05C1249.9,-496.35 1254.5,-487.03 1258.7,-478.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1263.07,-469.38 1262.74,-480.34 1261.41,-472.78 1258.69,-478.37 1258.69,-478.37 1258.69,-478.37 1261.41,-472.78 1254.65,-476.4 1263.07,-469.38" stroke="black"></polygon>
+</g>
+<!-- lem:S&#45;&gt;lem:exchange -->
+<g class="edge" id="edge67">
+<title>lem:S-&gt;lem:exchange</title>
+<path d="M1231.3,-503.68C1223.2,-484.2 1207.6,-452.6 1186,-432 1169.4,-416.26 1147.3,-404 1127.9,-395.25" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="1118.82,-391.36 1129.78,-391.16 1122.3,-392.85 1128.01,-395.3 1128.01,-395.3 1128.01,-395.3 1122.3,-392.85 1126.24,-399.43 1118.82,-391.36" stroke="black"></polygon>
+</g>
+<!-- thm:Rformula -->
+<g class="node" id="node51">
+<title>thm:Rformula</title>
+<ellipse cx="262.97" cy="-306" fill="#a3d6ff" rx="46.75" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="262.97" xml:space="preserve" y="-300.95">Rformula</text>
+</g>
+<!-- thm:Rformula&#45;&gt;lem:R -->
+<g class="edge" id="edge68">
+<title>thm:Rformula-&gt;lem:R</title>
+<path d="M292.25,-291.29C315.07,-280.61 347.54,-265.38 375.97,-252 377.24,-251.4 378.53,-250.8 379.84,-250.18" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="388.79,-245.96 381.66,-254.3 385.37,-247.57 379.74,-250.23 379.74,-250.23 379.74,-250.23 385.37,-247.57 377.82,-246.16 388.79,-245.96" stroke="black"></polygon>
+</g>
+<!-- cor:Ca -->
+<g class="node" id="node52">
+<title>cor:Ca</title>
+<ellipse cx="204.97" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="204.97" xml:space="preserve" y="-228.95">Ca</text>
+</g>
+<!-- thm:Rformula&#45;&gt;cor:Ca -->
+<g class="edge" id="edge69">
+<title>thm:Rformula-&gt;cor:Ca</title>
+<path d="M248.93,-288.05C241.64,-279.26 232.62,-268.36 224.64,-258.74" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="218.48,-251.3 228.32,-256.13 220.89,-254.21 224.86,-259 224.86,-259 224.86,-259 220.89,-254.21 221.39,-261.87 218.48,-251.3" stroke="black"></polygon>
+</g>
+<!-- cor:Ca&#45;&gt;q:rigidity -->
+<g class="edge" id="edge70">
+<title>cor:Ca-&gt;q:rigidity</title>
+<path d="M203.33,-215.49C202.48,-195.22 204.53,-162.3 223.97,-144 263.09,-107.19 410.91,-121.2 462.97,-108 465.37,-107.39 467.81,-106.71 470.25,-105.98" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="479.76,-102.9 471.64,-110.26 476.16,-104.06 470.25,-105.98 470.25,-105.98 470.25,-105.98 476.16,-104.06 468.86,-101.7 479.76,-102.9" stroke="black"></polygon>
+</g>
+<!-- cor:Ca&#45;&gt;q:period -->
+<g class="edge" id="edge71">
+<title>cor:Ca-&gt;q:period</title>
+<path d="M218.43,-217.81C226.33,-208.89 236.5,-197.41 245.49,-187.26" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="251.87,-180.04 248.62,-190.51 249.37,-182.88 245.25,-187.53 245.25,-187.53 245.25,-187.53 249.37,-182.88 241.88,-184.55 251.87,-180.04" stroke="black"></polygon>
+</g>
+<!-- cor:Ca&#45;&gt;thm:quadratic -->
+<g class="edge" id="edge72">
+<title>cor:Ca-&gt;thm:quadratic</title>
+<path d="M189.85,-218.5C180.4,-209.43 167.99,-197.54 157.09,-187.09" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="150.01,-180.29 160.34,-183.97 152.74,-182.91 157.22,-187.22 157.22,-187.22 157.22,-187.22 152.74,-182.91 154.11,-190.46 150.01,-180.29" stroke="black"></polygon>
+</g>
+<!-- q:a3 -->
+<g class="node" id="node53">
+<title>q:a3</title>
+<ellipse cx="41.97" cy="-162" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="41.97" xml:space="preserve" y="-156.95">a3</text>
+</g>
+<!-- cor:Ca&#45;&gt;q:a3 -->
+<g class="edge" id="edge73">
+<title>cor:Ca-&gt;q:a3</title>
+<path d="M181.9,-223.74C156.34,-213.4 114,-196.01 77.97,-180 76.69,-179.43 75.39,-178.85 74.08,-178.25" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="65.09,-174.1 76.06,-174.21 68.52,-175.69 74.17,-178.29 74.17,-178.29 74.17,-178.29 68.52,-175.69 72.28,-182.38 65.09,-174.1" stroke="black"></polygon>
+</g>
+<!-- auto:definition&#45;1.1 -->
+<g class="node" id="node54">
+<title>auto:definition-1.1</title>
+<polygon fill="#a3d6ff" points="1161.13,-612 1070.87,-612 1070.87,-576 1161.13,-576 1161.13,-612" stroke="blue" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="1116" xml:space="preserve" y="-588.95">definition-1.1</text>
+</g>
+<!-- lem:radix -->
+<g class="node" id="node55">
+<title>lem:radix</title>
+<ellipse cx="781.97" cy="-378" fill="#a3d6ff" rx="29.86" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="781.97" xml:space="preserve" y="-372.95">radix</text>
+</g>
+<!-- lem:radix&#45;&gt;thm:refinement -->
+<g class="edge" id="edge74">
+<title>lem:radix-&gt;thm:refinement</title>
+<path d="M763.01,-363.17C749.88,-353.6 732.12,-340.65 716.96,-329.6" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="708.9,-323.73 719.64,-325.98 711.96,-325.96 716.99,-329.62 716.99,-329.62 716.99,-329.62 711.96,-325.96 714.33,-333.25 708.9,-323.73" stroke="black"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"auto:definition-1.1": "Definition 1.1", "lem:reduction": "Lemma 2.1", "def:wf": "Definition 2.2", "lem:realise": "Lemma 2.3 — realisation by primes", "thm:refinement": "Theorem 3.1", "lem:radix": "Lemma 3.2 — mixed radix; classical", "cor:refinement": "Corollary 3.3", "prop:box": "Proposition 4.1", "cor:decidable": "Corollary 4.2 — decidability", "rem:complexity": "Remark 4.3 — complexity", "thm:Rformula": "Theorem 5.1", "cor:Ca": "Corollary 5.2", "thm:quasi": "Theorem 6.1", "auto:remark-6.2": "Remark 6.2", "thm:quadratic": "Theorem 6.3", "cor:degree2": "Corollary 6.4", "rem:square": "Remark 6.5", "lem:O0": "Lemma 7.1", "lem:exchange": "Lemma 7.2", "cor:exchange": "Corollary 7.3", "auto:remark-7.4": "Remark 7.4 — what the exchange adds", "lem:reflection": "Lemma 7.5", "auto:remark-7.6": "Remark 7.6", "lem:reflection-q": "Lemma 7.7", "auto:remark-7.8": "Remark 7.8", "lem:triple": "Lemma 8.1 — triples", "lem:realisable": "Lemma 8.2 — realisable triples", "lem:count-triples": "Lemma 8.3", "lem:S": "Lemma 8.4", "cor:profiles": "Corollary 8.5 — profiles", "lem:O": "Lemma 8.6", "lem:Q": "Lemma 8.7", "lem:7": "Lemma 8.8", "lem:zeros": "Lemma 8.9 — zeros", "lem:n0zero": "Lemma 8.10", "lem:n0pos": "Lemma 8.11", "thm:A": "Theorem 8.12 — Theorem A", "rem:statusA": "Remark 8.13 — status of Theorem A", "lem:vec": "Lemma 9.1 — vector", "lem:R": "Lemma 9.2 — cells", "lem:7prime": "Lemma 9.3", "thm:B": "Theorem 9.4 — Theorem B; computer-assisted in Lemma~\\ref{lem:7prime}", "rem:ratio": "Remark 9.5 — how many cells are redundant", "rem:earliercounts": "Remark 10.1", "q:rigidity": "Question 11.1", "q:leading": "Question 11.2", "q:a3": "Question 11.3 — conjecture", "q:period": "Question 11.4", "q:fibres": "Question 11.5", "q:several": "Question 11.6", "q:membership": "Question 11.7", "q:frequencies": "Question 11.8", "prop:KR": "Observation A.1", "ex:n3": "Example A.2", "cor:KRbijection": "Corollary A.3"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    // 24-nov: los cambios DENTRO de una figura viva (3D, niveles, svg, canvas) no cuentan: una figura que se repinta en
+    // cada fotograma relanzaba apply() sobre toda la página cada 300 ms (dilogarithm-clock: Chrome sin ventana no
+    // terminaba nunca y el navegador gastaba CPU sin parar)
+    var FIG = '.l3, .lv, .lm-3d, svg, canvas';
+    new MutationObserver(function (records) {
+      var fuera = records.some(function (r) {
+        var t = r.target.nodeType === 1 ? r.target : r.target.parentElement;
+        return !(t && t.closest && t.closest(FIG));
+      });
+      if (fuera && due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script data-lm="lm-notranslate" src="../lemmario-assets/lm-notranslate.js"></script>
+</body>
+</html>

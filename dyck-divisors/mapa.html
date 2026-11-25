@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: How Many Dyck Words Do the Divisors of an Integer Make? Exact Counts and Quasipolynomial Growth</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><link data-lm="pdf-css" href="../lemmario-assets/pdf-css.css" rel="stylesheet"/><link data-lm="pc-map-css" href="../lemmario-assets/pc-map-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../lemmario-assets/pc-head-css.css" rel="stylesheet"/><link data-lm="lm-maphere-css" href="../lemmario-assets/lm-maphere-css.css" rel="stylesheet"/>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:2370pt 3417pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:2322pt !important;height:3049pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="How Many Dyck Words Do the Divisors of an Integer Make? Exact Counts and Quasipolynomial Growth: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><a class="lm-dl" download="dyck-divisors-map.pdf" href="mapa.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>How Many Dyck Words Do the Divisors of an Integer Make? Exact Counts and Quasipolynomial Growth</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Combinatorics on words · divisors of integers · enumeration of hyperplane arrangements</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>55</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>5</b> partly in Lean</span>
+<span class="cifra c-lean" title="statements proved in Isabelle/HOL (ours)">✅ <b>2</b> in Isabelle</span>
+<span class="cifra c-prog">💻 <b>24</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="3049pt" style="min-width:760px" viewbox="0.00 0.00 2322.00 3049.00" width="2322pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 3045)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M1415.46,-2966.7C1415.46,-2966.7 1489.46,-2966.7 1489.46,-2966.7 1495.46,-2966.7 1501.46,-2972.7 1501.46,-2978.7 1501.46,-2978.7 1501.46,-3029 1501.46,-3029 1501.46,-3035 1495.46,-3041 1489.46,-3041 1489.46,-3041 1415.46,-3041 1415.46,-3041 1409.46,-3041 1403.46,-3035 1403.46,-3029 1403.46,-3029 1403.46,-2978.7 1403.46,-2978.7 1403.46,-2972.7 1409.46,-2966.7 1415.46,-2966.7" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1452.46" xml:space="preserve" y="-3025.62">Introduction</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M1372.46,-2720.1C1372.46,-2720.1 1709.46,-2720.1 1709.46,-2720.1 1715.46,-2720.1 1721.46,-2726.1 1721.46,-2732.1 1721.46,-2732.1 1721.46,-2946.7 1721.46,-2946.7 1721.46,-2952.7 1715.46,-2958.7 1709.46,-2958.7 1709.46,-2958.7 1372.46,-2958.7 1372.46,-2958.7 1366.46,-2958.7 1360.46,-2952.7 1360.46,-2946.7 1360.46,-2946.7 1360.46,-2732.1 1360.46,-2732.1 1360.46,-2726.1 1366.46,-2720.1 1372.46,-2720.1" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1540.96" xml:space="preserve" y="-2943.32">Reduction to an arrangement of hyperplanes</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M1741.46,-2482.7C1741.46,-2482.7 1911.46,-2482.7 1911.46,-2482.7 1917.46,-2482.7 1923.46,-2488.7 1923.46,-2494.7 1923.46,-2494.7 1923.46,-2826.5 1923.46,-2826.5 1923.46,-2832.5 1917.46,-2838.5 1911.46,-2838.5 1911.46,-2838.5 1741.46,-2838.5 1741.46,-2838.5 1735.46,-2838.5 1729.46,-2832.5 1729.46,-2826.5 1729.46,-2826.5 1729.46,-2494.7 1729.46,-2494.7 1729.46,-2488.7 1735.46,-2482.7 1741.46,-2482.7" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1826.46" xml:space="preserve" y="-2823.12">Maximal refinement</text>
+</g>
+<g class="cluster" id="clust4">
+<title>cluster_3</title>
+<path d="M1620.46,-2238.6C1620.46,-2238.6 1908.46,-2238.6 1908.46,-2238.6 1914.46,-2238.6 1920.46,-2244.6 1920.46,-2250.6 1920.46,-2250.6 1920.46,-2462.7 1920.46,-2462.7 1920.46,-2468.7 1914.46,-2474.7 1908.46,-2474.7 1908.46,-2474.7 1620.46,-2474.7 1620.46,-2474.7 1614.46,-2474.7 1608.46,-2468.7 1608.46,-2462.7 1608.46,-2462.7 1608.46,-2250.6 1608.46,-2250.6 1608.46,-2244.6 1614.46,-2238.6 1620.46,-2238.6" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1764.46" xml:space="preserve" y="-2459.32">Decidability and complexity</text>
+</g>
+<g class="cluster" id="clust5">
+<title>cluster_4</title>
+<path d="M1311.46,-2101.9C1311.46,-2101.9 1443.46,-2101.9 1443.46,-2101.9 1449.46,-2101.9 1455.46,-2107.9 1455.46,-2113.9 1455.46,-2113.9 1455.46,-2336.1 1455.46,-2336.1 1455.46,-2342.1 1449.46,-2348.1 1443.46,-2348.1 1443.46,-2348.1 1311.46,-2348.1 1311.46,-2348.1 1305.46,-2348.1 1299.46,-2342.1 1299.46,-2336.1 1299.46,-2336.1 1299.46,-2113.9 1299.46,-2113.9 1299.46,-2107.9 1305.46,-2101.9 1311.46,-2101.9" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1377.46" xml:space="preserve" y="-2332.72">The number of cells</text>
+</g>
+<g class="cluster" id="clust6">
+<title>cluster_5</title>
+<path d="M927.46,-1738.1C927.46,-1738.1 1284.46,-1738.1 1284.46,-1738.1 1290.46,-1738.1 1296.46,-1744.1 1296.46,-1750.1 1296.46,-1750.1 1296.46,-2081.9 1296.46,-2081.9 1296.46,-2087.9 1290.46,-2093.9 1284.46,-2093.9 1284.46,-2093.9 927.46,-2093.9 927.46,-2093.9 921.46,-2093.9 915.46,-2087.9 915.46,-2081.9 915.46,-2081.9 915.46,-1750.1 915.46,-1750.1 915.46,-1744.1 921.46,-1738.1 927.46,-1738.1" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1105.96" xml:space="preserve" y="-2078.53">Quasipolynomial growth for every fixed exponent</text>
+</g>
+<g class="cluster" id="clust7">
+<title>cluster_6</title>
+<path d="M402.46,-1478.5C402.46,-1478.5 852.46,-1478.5 852.46,-1478.5 858.46,-1478.5 864.46,-1484.5 864.46,-1490.5 864.46,-1490.5 864.46,-1831.8 864.46,-1831.8 864.46,-1837.8 858.46,-1843.8 852.46,-1843.8 852.46,-1843.8 402.46,-1843.8 402.46,-1843.8 396.46,-1843.8 390.46,-1837.8 390.46,-1831.8 390.46,-1831.8 390.46,-1490.5 390.46,-1490.5 390.46,-1484.5 396.46,-1478.5 402.46,-1478.5" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="627.46" xml:space="preserve" y="-1828.42">Three mechanisms of coincidence</text>
+</g>
+<g class="cluster" id="clust8">
+<title>cluster_7</title>
+<path d="M978.46,-824.81C978.46,-824.81 1423.46,-824.81 1423.46,-824.81 1429.46,-824.81 1435.46,-830.81 1435.46,-836.81 1435.46,-836.81 1435.46,-1711.6 1435.46,-1711.6 1435.46,-1717.6 1429.46,-1723.6 1423.46,-1723.6 1423.46,-1723.6 978.46,-1723.6 978.46,-1723.6 972.46,-1723.6 966.46,-1717.6 966.46,-1711.6 966.46,-1711.6 966.46,-836.81 966.46,-836.81 966.46,-830.81 972.46,-824.81 978.46,-824.81" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1200.96" xml:space="preserve" y="-1708.12">Theorem A: semilength 2q</text>
+</g>
+<g class="cluster" id="clust9">
+<title>cluster_8</title>
+<path d="M1600.46,-562.65C1600.46,-562.65 1975.46,-562.65 1975.46,-562.65 1981.46,-562.65 1987.46,-568.65 1987.46,-574.65 1987.46,-574.65 1987.46,-929.39 1987.46,-929.39 1987.46,-935.39 1981.46,-941.39 1975.46,-941.39 1975.46,-941.39 1600.46,-941.39 1600.46,-941.39 1594.46,-941.39 1588.46,-935.39 1588.46,-929.39 1588.46,-929.39 1588.46,-574.65 1588.46,-574.65 1588.46,-568.65 1594.46,-562.65 1600.46,-562.65" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1787.96" xml:space="preserve" y="-925.99">Theorem B: semilength 3q</text>
+</g>
+<g class="cluster" id="clust10">
+<title>cluster_9</title>
+<path d="M1337.46,-704.61C1337.46,-704.61 1466.46,-704.61 1466.46,-704.61 1472.46,-704.61 1478.46,-710.61 1478.46,-716.61 1478.46,-716.61 1478.46,-804.68 1478.46,-804.68 1478.46,-810.68 1472.46,-816.68 1466.46,-816.68 1466.46,-816.68 1337.46,-816.68 1337.46,-816.68 1331.46,-816.68 1325.46,-810.68 1325.46,-804.68 1325.46,-804.68 1325.46,-716.61 1325.46,-716.61 1325.46,-710.61 1331.46,-704.61 1337.46,-704.61" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1401.96" xml:space="preserve" y="-801.28">The values of |Lₖ| for small k</text>
+</g>
+<g class="cluster" id="clust11">
+<title>cluster_10</title>
+<path d="M1031.46,-246.66C1031.46,-246.66 1466.46,-246.66 1466.46,-246.66 1472.46,-246.66 1478.46,-252.66 1478.46,-258.66 1478.46,-258.66 1478.46,-667.23 1478.46,-667.23 1478.46,-673.23 1472.46,-679.23 1466.46,-679.23 1466.46,-679.23 1031.46,-679.23 1031.46,-679.23 1025.46,-679.23 1019.46,-673.23 1019.46,-667.23 1019.46,-667.23 1019.46,-258.66 1019.46,-258.66 1019.46,-252.66 1025.46,-246.66 1031.46,-246.66" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1248.96" xml:space="preserve" y="-663.83">Open questions</text>
+</g>
+<g class="cluster" id="clust12">
+<title>cluster_11</title>
+<path d="M1107.46,0C1107.46,0 1386.46,0 1386.46,0 1392.46,0 1398.46,-6 1398.46,-12 1398.46,-12 1398.46,-226.66 1398.46,-226.66 1398.46,-232.66 1392.46,-238.66 1386.46,-238.66 1386.46,-238.66 1107.46,-238.66 1107.46,-238.66 1101.46,-238.66 1095.46,-232.66 1095.46,-226.66 1095.46,-226.66 1095.46,-12 1095.46,-12 1095.46,-6 1101.46,0 1107.46,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1246.96" xml:space="preserve" y="-223.25">A reformulation through the Kassel–Reutenauer polynomials</text>
+</g>
+<!-- auto:definition&#45;1.1 -->
+<g class="node" id="node1">
+<title>auto:definition-1.1</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#auto:definition-1.1" xlink:title="Definition 1.1">
+<path d="M1481.26,-3010.7C1481.26,-3010.7 1423.66,-3010.7 1423.66,-3010.7 1417.66,-3010.7 1411.66,-3004.7 1411.66,-2998.7 1411.66,-2998.7 1411.66,-2986.7 1411.66,-2986.7 1411.66,-2980.7 1417.66,-2974.7 1423.66,-2974.7 1423.66,-2974.7 1481.26,-2974.7 1481.26,-2974.7 1487.26,-2974.7 1493.26,-2980.7 1493.26,-2986.7 1493.26,-2986.7 1493.26,-2998.7 1493.26,-2998.7 1493.26,-3004.7 1487.26,-3010.7 1481.26,-3010.7" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1452.46" xml:space="preserve" y="-2989.1">Definition 1.1</text>
+</a>
+</g>
+</g>
+<!-- lem:reduction -->
+<g class="node" id="node2">
+<title>lem:reduction</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#lem:reduction" xlink:title="Lemma 2.1: reduction to the odd part: Dₙ∖2Dₙ = Dₘ, 2Dₙ∖Dₙ = tDₘ, semilength τ(m)">
+<path d="M1524.01,-2928.51C1524.01,-2928.51 1380.91,-2928.51 1380.91,-2928.51 1374.91,-2928.51 1368.91,-2922.51 1368.91,-2916.51 1368.91,-2916.51 1368.91,-2866.68 1368.91,-2866.68 1368.91,-2860.68 1374.91,-2854.68 1380.91,-2854.68 1380.91,-2854.68 1524.01,-2854.68 1524.01,-2854.68 1530.01,-2854.68 1536.01,-2860.68 1536.01,-2866.68 1536.01,-2866.68 1536.01,-2916.51 1536.01,-2916.51 1536.01,-2922.51 1530.01,-2928.51 1524.01,-2928.51" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1452.46" xml:space="preserve" y="-2913.5">Lemma 2.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1452.46" xml:space="preserve" y="-2900.75">reduction to the odd part:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1452.46" xml:space="preserve" y="-2888">Dₙ∖2Dₙ = Dₘ, 2Dₙ∖Dₙ = tDₘ,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1452.46" xml:space="preserve" y="-2875.25">semilength τ(m)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1452.46" xml:space="preserve" y="-2862.5">✅ Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- auto:definition&#45;1.1&#45;&gt;lem:reduction -->
+<!-- def:wf -->
+<g class="node" id="node3">
+<title>def:wf</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#def:wf" xlink:title="Definition 2.2: the arrangement 𝒜f and the word wf(x) of a point">
+<path d="M1701.51,-2915.76C1701.51,-2915.76 1573.41,-2915.76 1573.41,-2915.76 1567.41,-2915.76 1561.41,-2909.76 1561.41,-2903.76 1561.41,-2903.76 1561.41,-2879.43 1561.41,-2879.43 1561.41,-2873.43 1567.41,-2867.43 1573.41,-2867.43 1573.41,-2867.43 1701.51,-2867.43 1701.51,-2867.43 1707.51,-2867.43 1713.51,-2873.43 1713.51,-2879.43 1713.51,-2879.43 1713.51,-2903.76 1713.51,-2903.76 1713.51,-2909.76 1707.51,-2915.76 1701.51,-2915.76" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1637.46" xml:space="preserve" y="-2900.75">Definition 2.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1637.46" xml:space="preserve" y="-2888">the arrangement 𝒜f and the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1637.46" xml:space="preserve" y="-2875.25">word wf(x) of a point</text>
+</a>
+</g>
+</g>
+<!-- lem:reduction&#45;&gt;def:wf -->
+<g class="edge lm-aux" id="edge1">
+<title>lem:reduction-&gt;def:wf</title>
+<path d="M1536.26,-2891.6C1541.86,-2891.6 1547.46,-2891.6 1553.06,-2891.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1552.64,-2894.05 1559.64,-2891.6 1552.64,-2889.15 1552.64,-2894.05" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:realise -->
+<g class="node" id="node4">
+<title>lem:realise</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#lem:realise" xlink:title="Lemma 2.3: every open cell of the arrangement 𝒜f is realised by distinct odd primes (Bertrand)">
+<path d="M1701.26,-2814.69C1701.26,-2814.69 1577.66,-2814.69 1577.66,-2814.69 1571.66,-2814.69 1565.66,-2808.69 1565.66,-2802.69 1565.66,-2802.69 1565.66,-2740.11 1565.66,-2740.11 1565.66,-2734.11 1571.66,-2728.11 1577.66,-2728.11 1577.66,-2728.11 1701.26,-2728.11 1701.26,-2728.11 1707.26,-2728.11 1713.26,-2734.11 1713.26,-2740.11 1713.26,-2740.11 1713.26,-2802.69 1713.26,-2802.69 1713.26,-2808.69 1707.26,-2814.69 1701.26,-2814.69" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1639.46" xml:space="preserve" y="-2799.68">Lemma 2.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1639.46" xml:space="preserve" y="-2786.93">every open cell of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1639.46" xml:space="preserve" y="-2774.18">arrangement 𝒜f is realised</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1639.46" xml:space="preserve" y="-2761.43">by distinct odd primes</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1639.46" xml:space="preserve" y="-2748.68">(Bertrand)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1639.46" xml:space="preserve" y="-2735.93">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:reduction&#45;&gt;lem:realise -->
+<g class="edge" id="edge2">
+<title>lem:reduction-&gt;lem:realise</title>
+<path d="M1510.06,-2854.2C1527.36,-2843.3 1546.46,-2831.1 1564.66,-2819.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1566,-2821.75 1570.58,-2815.91 1563.36,-2817.62 1566,-2821.75" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:refinement -->
+<g class="node" id="node5">
+<title>thm:refinement</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#thm:refinement" xlink:title="Theorem 3.1: maximal refinement: Lₖ is the set of words of the finest pattern (q₁−1, …, qᵣ−1)">
+<path d="M1903.63,-2688.06C1903.63,-2688.06 1749.28,-2688.06 1749.28,-2688.06 1743.28,-2688.06 1737.28,-2682.06 1737.28,-2676.06 1737.28,-2676.06 1737.28,-2603.73 1737.28,-2603.73 1737.28,-2597.73 1743.28,-2591.73 1749.28,-2591.73 1749.28,-2591.73 1903.63,-2591.73 1903.63,-2591.73 1909.63,-2591.73 1915.63,-2597.73 1915.63,-2603.73 1915.63,-2603.73 1915.63,-2676.06 1915.63,-2676.06 1915.63,-2682.06 1909.63,-2688.06 1903.63,-2688.06" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1826.46" xml:space="preserve" y="-2671.62">Theorem 3.1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1826.46" xml:space="preserve" y="-2657.37">maximal refinement: Lₖ is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1826.46" xml:space="preserve" y="-2643.12">the set of words of the</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1826.46" xml:space="preserve" y="-2628.87">finest pattern (q₁−1, …,</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1826.46" xml:space="preserve" y="-2614.62">qᵣ−1)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1826.46" xml:space="preserve" y="-2600.37">◐ part in Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:reduction&#45;&gt;thm:refinement -->
+<g class="edge" id="edge5">
+<title>lem:reduction-&gt;thm:refinement</title>
+<path d="M1536.56,-2857.5C1540.56,-2856.4 1544.56,-2855.5 1548.46,-2854.7 1582.56,-2847.6 1837.46,-2863.8 1861.46,-2838.5 1896.96,-2801.2 1879.76,-2741 1858.86,-2696.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1861.15,-2696.01 1855.91,-2690.76 1856.73,-2698.14 1861.15,-2696.01" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:triple -->
+<g class="node" id="node26">
+<title>lem:triple</title>
+<g id="a_node26"><a target="_top" xlink:href="index.html#lem:triple" xlink:title="Lemma 8.1: for a = 1 the word depends only on the triple (ν, β, γ): C(n) = S(ν,β) ⊎ S(ν,γ)">
+<path d="M1162.88,-1693.32C1162.88,-1693.32 1046.03,-1693.32 1046.03,-1693.32 1040.03,-1693.32 1034.03,-1687.32 1034.03,-1681.32 1034.03,-1681.32 1034.03,-1631.49 1034.03,-1631.49 1034.03,-1625.49 1040.03,-1619.49 1046.03,-1619.49 1046.03,-1619.49 1162.88,-1619.49 1162.88,-1619.49 1168.88,-1619.49 1174.88,-1625.49 1174.88,-1631.49 1174.88,-1631.49 1174.88,-1681.32 1174.88,-1681.32 1174.88,-1687.32 1168.88,-1693.32 1162.88,-1693.32" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1104.46" xml:space="preserve" y="-1678.3">Lemma 8.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1104.46" xml:space="preserve" y="-1665.55">for a = 1 the word depends</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1104.46" xml:space="preserve" y="-1652.8">only on the triple (ν, β,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1104.46" xml:space="preserve" y="-1640.05">γ): C(n) = S(ν,β) ⊎ S(ν,γ)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1104.46" xml:space="preserve" y="-1627.3">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:reduction&#45;&gt;lem:triple -->
+<g class="edge" id="edge36">
+<title>lem:reduction-&gt;lem:triple</title>
+<path d="M1368.46,-2875.3C1254.66,-2849.1 1065.46,-2784 1065.46,-2640.9 1065.46,-2640.9 1065.46,-2640.9 1065.46,-2400.1 1065.46,-2233.3 1179.96,-2224.2 1293.46,-2101.9 1297.06,-2098 1299.86,-2098.6 1302.46,-2093.9 1338.56,-2028.2 1323.46,-2002.1 1329.46,-1927.4 1336.26,-1842.7 1357.66,-1802.7 1302.46,-1738.1 1272.36,-1702.9 1224.66,-1682.8 1183.56,-1671.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1184.31,-1669.17 1176.92,-1669.78 1183.08,-1673.91 1184.31,-1669.17" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:KR -->
+<g class="node" id="node53">
+<title>prop:KR</title>
+<g id="a_node53"><a target="_top" xlink:href="index.html#prop:KR" xlink:title="Observation A.1: the coefficients of Pₙ(q) are runs of the heights h₁, …, h_(2K−1) of the Dyck path of n">
+<path d="M1317.63,-208.41C1317.63,-208.41 1175.28,-208.41 1175.28,-208.41 1169.28,-208.41 1163.28,-202.41 1163.28,-196.41 1163.28,-196.41 1163.28,-133.83 1163.28,-133.83 1163.28,-127.83 1169.28,-121.83 1175.28,-121.83 1175.28,-121.83 1317.63,-121.83 1317.63,-121.83 1323.63,-121.83 1329.63,-127.83 1329.63,-133.83 1329.63,-133.83 1329.63,-196.41 1329.63,-196.41 1329.63,-202.41 1323.63,-208.41 1317.63,-208.41" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-193.4">Observation A.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-180.65">the coefficients of Pₙ(q)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-167.9">are runs of the heights</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-155.15">h₁, …, h_(2K−1) of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-142.4">Dyck path of n</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-129.65">◐ part in Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:reduction&#45;&gt;prop:KR -->
+<g class="edge" id="edge94">
+<title>lem:reduction-&gt;prop:KR</title>
+<path d="M1368.56,-2885.1C1059.66,-2863.7 3.46,-2780.4 3.46,-2640.9 3.46,-2640.9 3.46,-2640.9 3.46,-378.9 3.46,-262.1 867.16,-192.17 1154.66,-172.13" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1154.63,-174.59 1161.45,-171.66 1154.3,-169.7 1154.63,-174.59" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:frequencies -->
+<g class="node" id="node52">
+<title>q:frequencies</title>
+<g id="a_node52"><a target="_top" xlink:href="index.html#q:frequencies" xlink:title="Question 11.8: how often does each word occur among n ≤ N?">
+<path d="M1300.76,-302.99C1300.76,-302.99 1192.16,-302.99 1192.16,-302.99 1186.16,-302.99 1180.16,-296.99 1180.16,-290.99 1180.16,-290.99 1180.16,-266.65 1180.16,-266.65 1180.16,-260.65 1186.16,-254.66 1192.16,-254.66 1192.16,-254.66 1300.76,-254.66 1300.76,-254.66 1306.76,-254.66 1312.76,-260.65 1312.76,-266.65 1312.76,-266.65 1312.76,-290.99 1312.76,-290.99 1312.76,-296.99 1306.76,-302.99 1300.76,-302.99" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-287.97">Question 11.8</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-275.22">how often does each word</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-262.47">occur among n ≤ N?</text>
+</a>
+</g>
+</g>
+<!-- def:wf&#45;&gt;q:frequencies -->
+<g class="edge" id="edge92">
+<title>def:wf-&gt;q:frequencies</title>
+<path d="M1714.06,-2883.3C1773.86,-2876 1858.46,-2862.5 1929.46,-2838.5 2111.66,-2777.1 2314.46,-2833.3 2314.46,-2640.9 2314.46,-2640.9 2314.46,-2640.9 2314.46,-492.73 2314.46,-447.1 2299.36,-404.76 2145.46,-342.99 1996.66,-283.26 1509.76,-278.68 1321.66,-279.23" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1321.66,-276.78 1314.67,-279.25 1321.68,-281.68 1321.66,-276.78" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:realise&#45;&gt;thm:refinement -->
+<!-- cor:refinement -->
+<g class="node" id="node7">
+<title>cor:refinement</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#cor:refinement" xlink:title="Corollary 3.3: |Lq| = q (words Oq(N)) and |Lₚq| = W(p−1, q−1)">
+<path d="M1903.51,-2551.74C1903.51,-2551.74 1787.41,-2551.74 1787.41,-2551.74 1781.41,-2551.74 1775.41,-2545.74 1775.41,-2539.74 1775.41,-2539.74 1775.41,-2502.66 1775.41,-2502.66 1775.41,-2496.66 1781.41,-2490.66 1787.41,-2490.66 1787.41,-2490.66 1903.51,-2490.66 1903.51,-2490.66 1909.51,-2490.66 1915.51,-2496.66 1915.51,-2502.66 1915.51,-2502.66 1915.51,-2539.74 1915.51,-2539.74 1915.51,-2545.74 1909.51,-2551.74 1903.51,-2551.74" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2536.72">Corollary 3.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2523.97">|Lq| = q (words Oq(N)) and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2511.22">|Lₚq| = W(p−1, q−1)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2498.47">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:realise&#45;&gt;cor:refinement -->
+<g class="edge" id="edge6">
+<title>lem:realise-&gt;cor:refinement</title>
+<path d="M1651.66,-2727.5C1664.66,-2688.4 1688.16,-2631 1724.46,-2591.8 1737.26,-2577.9 1753.46,-2566.1 1769.86,-2556.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1770.75,-2558.62 1775.55,-2552.96 1768.27,-2554.39 1770.75,-2558.62" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:decidable -->
+<g class="node" id="node9">
+<title>cor:decidable</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#cor:decidable" xlink:title="Corollary 4.2: membership in L is decidable, in time exp(O((log k)²))">
+<path d="M1892.13,-2307.74C1892.13,-2307.74 1812.78,-2307.74 1812.78,-2307.74 1806.78,-2307.74 1800.78,-2301.74 1800.78,-2295.74 1800.78,-2295.74 1800.78,-2258.66 1800.78,-2258.66 1800.78,-2252.66 1806.78,-2246.66 1812.78,-2246.66 1812.78,-2246.66 1892.13,-2246.66 1892.13,-2246.66 1898.13,-2246.66 1904.13,-2252.66 1904.13,-2258.66 1904.13,-2258.66 1904.13,-2295.74 1904.13,-2295.74 1904.13,-2301.74 1898.13,-2307.74 1892.13,-2307.74" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1852.46" xml:space="preserve" y="-2292.72">Corollary 4.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1852.46" xml:space="preserve" y="-2279.97">membership in L is</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1852.46" xml:space="preserve" y="-2267.22">decidable, in time</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1852.46" xml:space="preserve" y="-2254.47">exp(O((log k)²))</text>
+</a>
+</g>
+</g>
+<!-- lem:realise&#45;&gt;cor:decidable -->
+<g class="edge" id="edge8">
+<title>lem:realise-&gt;cor:decidable</title>
+<path d="M1619.16,-2727.8C1583.96,-2647 1522.86,-2469.8 1604.46,-2357.8 1647.06,-2299.4 1733.16,-2282.9 1791.86,-2278.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1791.9,-2281.15 1798.75,-2278.29 1791.61,-2276.26 1791.9,-2281.15" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quasi -->
+<g class="node" id="node13">
+<title>thm:quasi</title>
+<g id="a_node13"><a target="_top" xlink:href="index.html#thm:quasi" xlink:title="Theorem 6.1: for fixed a, W(a,b) is eventually a quasipolynomial in b of degree ≤ 2 (via Woods)">
+<path d="M1072.13,-2063.66C1072.13,-2063.66 962.78,-2063.66 962.78,-2063.66 956.78,-2063.66 950.78,-2057.66 950.78,-2051.66 950.78,-2051.66 950.78,-1979.34 950.78,-1979.34 950.78,-1973.34 956.78,-1967.34 962.78,-1967.34 962.78,-1967.34 1072.13,-1967.34 1072.13,-1967.34 1078.13,-1967.34 1084.13,-1973.34 1084.13,-1979.34 1084.13,-1979.34 1084.13,-2051.66 1084.13,-2051.66 1084.13,-2057.66 1078.13,-2063.66 1072.13,-2063.66" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1017.46" xml:space="preserve" y="-2047.22">Theorem 6.1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1017.46" xml:space="preserve" y="-2032.97">for fixed a, W(a,b) is</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1017.46" xml:space="preserve" y="-2018.72">eventually a</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1017.46" xml:space="preserve" y="-2004.47">quasipolynomial in b of</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1017.46" xml:space="preserve" y="-1990.22">degree ≤ 2 (via Woods)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1017.46" xml:space="preserve" y="-1975.97">◐ part in Isabelle</text>
+</a>
+</g>
+</g>
+<!-- lem:realise&#45;&gt;thm:quasi -->
+<g class="edge" id="edge14">
+<title>lem:realise-&gt;thm:quasi</title>
+<path d="M1565.06,-2765.7C1435.76,-2756.6 1175.76,-2733 1097.46,-2688.1 1015.26,-2640.9 963.46,-2617 963.46,-2522.2 963.46,-2522.2 963.46,-2522.2 963.46,-2276.2 963.46,-2204.9 983.19,-2125 998.79,-2072.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1001.12,-2073.56 1000.82,-2066.15 996.43,-2072.13 1001.12,-2073.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quadratic -->
+<g class="node" id="node15">
+<title>thm:quadratic</title>
+<g id="a_node15"><a target="_top" xlink:href="index.html#thm:quadratic" xlink:title="Theorem 6.3: W(a,b) ≥ #(u,v): 2u+v ≥ b, u+2v ≥ b ≥ ⌊2b/3⌋², so W(a,b) = Θₐ(b²)">
+<path d="M1276.88,-1927.32C1276.88,-1927.32 1160.03,-1927.32 1160.03,-1927.32 1154.03,-1927.32 1148.03,-1921.32 1148.03,-1915.32 1148.03,-1915.32 1148.03,-1865.49 1148.03,-1865.49 1148.03,-1859.49 1154.03,-1853.49 1160.03,-1853.49 1160.03,-1853.49 1276.88,-1853.49 1276.88,-1853.49 1282.88,-1853.49 1288.88,-1859.49 1288.88,-1865.49 1288.88,-1865.49 1288.88,-1915.32 1288.88,-1915.32 1288.88,-1921.32 1282.88,-1927.32 1276.88,-1927.32" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1218.46" xml:space="preserve" y="-1912.3">Theorem 6.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1218.46" xml:space="preserve" y="-1899.55">W(a,b) ≥ #(u,v): 2u+v ≥ b,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1218.46" xml:space="preserve" y="-1886.8">u+2v ≥ b ≥ ⌊2b/3⌋², so</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1218.46" xml:space="preserve" y="-1874.05">W(a,b) = Θₐ(b²)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1218.46" xml:space="preserve" y="-1861.3">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:realise&#45;&gt;thm:quadratic -->
+<g class="edge" id="edge18">
+<title>lem:realise-&gt;thm:quadratic</title>
+<path d="M1565.16,-2764.3C1464.76,-2754.6 1293.56,-2731.9 1250.46,-2688.1 1197.86,-2634.5 1218.46,-2597.3 1218.46,-2522.2 1218.46,-2522.2 1218.46,-2522.2 1218.46,-2152.2 1218.46,-2076.3 1218.46,-1988 1218.46,-1936.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1220.91,-1936.21 1218.46,-1929.21 1216.01,-1936.21 1220.91,-1936.21" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:O0 -->
+<g class="node" id="node18">
+<title>lem:O0</title>
+<g id="a_node18"><a target="_top" xlink:href="index.html#lem:O0" xlink:title="Lemma 7.1: the empty-graph fibre: |Φ(O(0))| = 1 + Σ_(h≤a) #j ≤ b : gcd(j,h) = 1">
+<path d="M587.63,-1813.52C587.63,-1813.52 475.28,-1813.52 475.28,-1813.52 469.28,-1813.52 463.28,-1807.52 463.28,-1801.52 463.28,-1801.52 463.28,-1751.69 463.28,-1751.69 463.28,-1745.69 469.28,-1739.69 475.28,-1739.69 475.28,-1739.69 587.63,-1739.69 587.63,-1739.69 593.63,-1739.69 599.63,-1745.69 599.63,-1751.69 599.63,-1751.69 599.63,-1801.52 599.63,-1801.52 599.63,-1807.52 593.63,-1813.52 587.63,-1813.52" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531.46" xml:space="preserve" y="-1798.5">Lemma 7.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531.46" xml:space="preserve" y="-1785.75">the empty-graph fibre:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531.46" xml:space="preserve" y="-1773">|Φ(O(0))| = 1 + Σ_(h≤a) #j</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531.46" xml:space="preserve" y="-1760.25">≤ b : gcd(j,h) = 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="531.46" xml:space="preserve" y="-1747.5">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:realise&#45;&gt;lem:O0 -->
+<g class="edge" id="edge24">
+<title>lem:realise-&gt;lem:O0</title>
+<path d="M1565.46,-2763.8C1457.66,-2753 1264.46,-2728.6 1208.46,-2688.1 1140.16,-2638.7 1116.46,-2606.5 1116.46,-2522.2 1116.46,-2522.2 1116.46,-2522.2 1116.46,-2400.1 1116.46,-2192.8 905.02,-2246.4 764.46,-2093.9 681.21,-2003.6 599.8,-1883.9 558.83,-1820.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="560.93,-1819.54 555.08,-1814.97 556.81,-1822.19 560.93,-1819.54" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:realisable -->
+<g class="node" id="node27">
+<title>lem:realisable</title>
+<g id="a_node27"><a target="_top" xlink:href="index.html#lem:realisable" xlink:title="Lemma 8.2: the realisable triples are the clippings of (ν₀, ν₀ − u, ν₀ + u + ε)">
+<path d="M1275.63,-1560.34C1275.63,-1560.34 1175.28,-1560.34 1175.28,-1560.34 1169.28,-1560.34 1163.28,-1554.34 1163.28,-1548.34 1163.28,-1548.34 1163.28,-1511.26 1163.28,-1511.26 1163.28,-1505.26 1169.28,-1499.26 1175.28,-1499.26 1175.28,-1499.26 1275.63,-1499.26 1275.63,-1499.26 1281.63,-1499.26 1287.63,-1505.26 1287.63,-1511.26 1287.63,-1511.26 1287.63,-1548.34 1287.63,-1548.34 1287.63,-1554.34 1281.63,-1560.34 1275.63,-1560.34" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1225.46" xml:space="preserve" y="-1545.33">Lemma 8.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1225.46" xml:space="preserve" y="-1532.58">the realisable triples are</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1225.46" xml:space="preserve" y="-1519.83">the clippings of (ν₀, ν₀ −</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1225.46" xml:space="preserve" y="-1507.08">u, ν₀ + u + ε)</text>
+</a>
+</g>
+</g>
+<!-- lem:realise&#45;&gt;lem:realisable -->
+<g class="edge" id="edge37">
+<title>lem:realise-&gt;lem:realisable</title>
+<path d="M1565.46,-2755.7C1457.46,-2729.4 1269.46,-2663.4 1269.46,-2522.2 1269.46,-2522.2 1269.46,-2522.2 1269.46,-2276.2 1269.46,-2198 1256.66,-2170.9 1293.46,-2101.9 1295.96,-2097.2 1299.86,-2098.6 1302.46,-2093.9 1338.56,-2028.2 1323.46,-2002.1 1329.46,-1927.4 1332.06,-1894.7 1333.26,-1886.1 1329.46,-1853.5 1323.46,-1801.2 1317.66,-1788.5 1302.46,-1738.1 1284.26,-1677.8 1257.76,-1609.7 1241.06,-1568.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1243.32,-1567.57 1238.43,-1562 1238.78,-1569.41 1243.32,-1567.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:vec -->
+<g class="node" id="node39">
+<title>lem:vec</title>
+<g id="a_node39"><a target="_top" xlink:href="index.html#lem:vec" xlink:title="Lemma 9.1: a = 2: C(n) = Z(c), and the vectors that occur are the cells of the lines Λ + hθ = ρ">
+<path d="M1841.51,-911.14C1841.51,-911.14 1737.41,-911.14 1737.41,-911.14 1731.41,-911.14 1725.41,-905.14 1725.41,-899.14 1725.41,-899.14 1725.41,-849.32 1725.41,-849.32 1725.41,-843.32 1731.41,-837.32 1737.41,-837.32 1737.41,-837.32 1841.51,-837.32 1841.51,-837.32 1847.51,-837.32 1853.51,-843.32 1853.51,-849.32 1853.51,-849.32 1853.51,-899.14 1853.51,-899.14 1853.51,-905.14 1847.51,-911.14 1841.51,-911.14" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1789.46" xml:space="preserve" y="-896.13">Lemma 9.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1789.46" xml:space="preserve" y="-883.38">a = 2: C(n) = Z(c), and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1789.46" xml:space="preserve" y="-870.63">the vectors that occur are</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1789.46" xml:space="preserve" y="-857.88">the cells of the lines Λ +</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1789.46" xml:space="preserve" y="-845.13">hθ = ρ</text>
+</a>
+</g>
+</g>
+<!-- lem:realise&#45;&gt;lem:vec -->
+<g class="edge" id="edge60">
+<title>lem:realise-&gt;lem:vec</title>
+<path d="M1595.66,-2727.8C1585.56,-2715.9 1575.96,-2702.3 1569.46,-2688.1 1485.56,-2504.3 1430.76,-2419 1517.46,-2236.5 1560.56,-2145.9 1625.66,-2168.8 1692.46,-2093.9 1763.66,-2014.2 1822.46,-1998.4 1822.46,-1891.4 1822.46,-1891.4 1822.46,-1891.4 1822.46,-1111.8 1822.46,-1044.3 1809.16,-967.02 1799.36,-919.67" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1801.78,-919.31 1797.96,-912.95 1796.99,-920.3 1801.78,-919.31" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:realise&#45;&gt;q:frequencies -->
+<g class="edge" id="edge93">
+<title>lem:realise-&gt;q:frequencies</title>
+<path d="M1705.76,-2727.6C1711.56,-2724.8 1717.56,-2722.2 1723.46,-2720.1 1810.56,-2688.6 1841.16,-2716.1 1929.46,-2688.1 2087.46,-2637.9 2263.46,-2688 2263.46,-2522.2 2263.46,-2522.2 2263.46,-2522.2 2263.46,-492.73 2263.46,-300.29 1557.06,-280.74 1321.66,-279.56" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1321.68,-277.11 1314.67,-279.54 1321.66,-282.01 1321.68,-277.11" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:refinement&#45;&gt;cor:refinement -->
+<g class="edge" id="edge7">
+<title>thm:refinement-&gt;cor:refinement</title>
+<path d="M1834.26,-2590.8C1835.96,-2580.7 1837.66,-2570.2 1839.26,-2560.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1841.66,-2560.99 1840.32,-2553.7 1836.82,-2560.23 1841.66,-2560.99" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:refinement&#45;&gt;cor:decidable -->
+<g class="edge" id="edge10">
+<title>thm:refinement-&gt;cor:decidable</title>
+<path d="M1916.76,-2604.3C1938.86,-2591.3 1959.76,-2574.1 1972.46,-2551.8 2018.66,-2470.3 1940.06,-2367.7 1889.66,-2314.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1891.6,-2312.78 1885,-2309.4 1888.04,-2316.16 1891.6,-2312.78" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:complexity -->
+<g class="node" id="node10">
+<title>rem:complexity</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#rem:complexity" xlink:title="Remark 4.3: complexity: membership decided in time exp(O((log k)²)), polynomial for a bounded number of prime factors">
+<path d="M1742.01,-2444.39C1742.01,-2444.39 1628.91,-2444.39 1628.91,-2444.39 1622.91,-2444.39 1616.91,-2438.39 1616.91,-2432.39 1616.91,-2432.39 1616.91,-2369.81 1616.91,-2369.81 1616.91,-2363.81 1622.91,-2357.81 1628.91,-2357.81 1628.91,-2357.81 1742.01,-2357.81 1742.01,-2357.81 1748.01,-2357.81 1754.01,-2363.81 1754.01,-2369.81 1754.01,-2369.81 1754.01,-2432.39 1754.01,-2432.39 1754.01,-2438.39 1748.01,-2444.39 1742.01,-2444.39" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1685.46" xml:space="preserve" y="-2429.37">Remark 4.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1685.46" xml:space="preserve" y="-2416.62">complexity: membership</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1685.46" xml:space="preserve" y="-2403.87">decided in time exp(O((log</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1685.46" xml:space="preserve" y="-2391.12">k)²)), polynomial for a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1685.46" xml:space="preserve" y="-2378.37">bounded number of prime</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1685.46" xml:space="preserve" y="-2365.62">factors</text>
+</a>
+</g>
+</g>
+<!-- thm:refinement&#45;&gt;rem:complexity -->
+<g class="edge lm-aux" id="edge12">
+<title>thm:refinement-&gt;rem:complexity</title>
+<path d="M1788.86,-2590.5C1779.86,-2578.2 1770.46,-2564.7 1762.46,-2551.8 1742.56,-2519.6 1723.06,-2481.7 1708.66,-2452.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1711.01,-2451.35 1705.8,-2446.07 1706.58,-2453.44 1711.01,-2451.35" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:several -->
+<g class="node" id="node50">
+<title>q:several</title>
+<g id="a_node50"><a target="_top" xlink:href="index.html#q:several" xlink:title="Question 11.6: several primes: is W(a₁, …, a_(r−1), b) eventually a quasipolynomial of degree r?">
+<path d="M1147.38,-530.64C1147.38,-530.64 1039.53,-530.64 1039.53,-530.64 1033.53,-530.64 1027.53,-524.64 1027.53,-518.64 1027.53,-518.64 1027.53,-468.81 1027.53,-468.81 1027.53,-462.81 1033.53,-456.81 1039.53,-456.81 1039.53,-456.81 1147.38,-456.81 1147.38,-456.81 1153.38,-456.81 1159.38,-462.81 1159.38,-468.81 1159.38,-468.81 1159.38,-518.64 1159.38,-518.64 1159.38,-524.64 1153.38,-530.64 1147.38,-530.64" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1093.46" xml:space="preserve" y="-515.63">Question 11.6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1093.46" xml:space="preserve" y="-502.88">several primes: is W(a₁,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1093.46" xml:space="preserve" y="-490.13">…, a_(r−1), b) eventually</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1093.46" xml:space="preserve" y="-477.38">a quasipolynomial of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1093.46" xml:space="preserve" y="-464.63">degree r?</text>
+</a>
+</g>
+</g>
+<!-- thm:refinement&#45;&gt;q:several -->
+<g class="edge" id="edge90">
+<title>thm:refinement-&gt;q:several</title>
+<path d="M1899.76,-2590.5C1911.36,-2579.2 1921.76,-2566.3 1928.46,-2551.8 1941.26,-2523.9 1949.86,-2504.7 1928.46,-2482.7 1915.76,-2469.7 1615.16,-2487.6 1602.46,-2474.7 1598.86,-2471 1604.26,-2236.8 1604.46,-2236.5 1647.96,-2187.5 1834.46,-2217.6 1896.46,-2196.5 2031.26,-2150.8 2161.46,-2158.9 2161.46,-2016.5 2161.46,-2016.5 2161.46,-2016.5 2161.46,-748.52 2161.46,-637.17 2094.36,-609.82 1993.46,-562.65 1910.66,-523.93 1260.36,-551.95 1171.46,-530.65 1170.26,-530.36 1168.96,-530.04 1167.76,-529.71" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1168.52,-527.38 1161.11,-527.71 1167.11,-532.07 1168.52,-527.38" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:radix -->
+<g class="node" id="node6">
+<title>lem:radix</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#lem:radix" xlink:title="Lemma 3.2: mixed radix: N = i + (u+1)j is a bijection 0..u×0..v → 0..F">
+<path d="M1836.51,-2808.32C1836.51,-2808.32 1750.41,-2808.32 1750.41,-2808.32 1744.41,-2808.32 1738.41,-2802.32 1738.41,-2796.32 1738.41,-2796.32 1738.41,-2746.49 1738.41,-2746.49 1738.41,-2740.49 1744.41,-2734.49 1750.41,-2734.49 1750.41,-2734.49 1836.51,-2734.49 1836.51,-2734.49 1842.51,-2734.49 1848.51,-2740.49 1848.51,-2746.49 1848.51,-2746.49 1848.51,-2796.32 1848.51,-2796.32 1848.51,-2802.32 1842.51,-2808.32 1836.51,-2808.32" fill="#c8f0dc" stroke="#1cac78" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1793.46" xml:space="preserve" y="-2793.3">Lemma 3.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1793.46" xml:space="preserve" y="-2780.55">mixed radix: N = i +</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1793.46" xml:space="preserve" y="-2767.8">(u+1)j is a bijection</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1793.46" xml:space="preserve" y="-2755.05">0..u×0..v → 0..F</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1793.46" xml:space="preserve" y="-2742.3">✅ Isabelle</text>
+</a>
+</g>
+</g>
+<!-- lem:radix&#45;&gt;thm:refinement -->
+<g class="edge" id="edge3">
+<title>lem:radix-&gt;thm:refinement</title>
+<path d="M1802.76,-2734C1805.66,-2722.6 1808.96,-2709.7 1812.06,-2697.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1814.39,-2697.96 1813.78,-2690.57 1809.65,-2696.73 1814.39,-2697.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:box -->
+<g class="node" id="node8">
+<title>prop:box</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#prop:box" xlink:title="Proposition 4.1: every open cell meets the box 0 &lt; xᵢ &lt; r!·M^(r−1) + 1 (this makes Table 1 exact)">
+<path d="M1900.13,-2444.39C1900.13,-2444.39 1790.78,-2444.39 1790.78,-2444.39 1784.78,-2444.39 1778.78,-2438.39 1778.78,-2432.39 1778.78,-2432.39 1778.78,-2369.81 1778.78,-2369.81 1778.78,-2363.81 1784.78,-2357.81 1790.78,-2357.81 1790.78,-2357.81 1900.13,-2357.81 1900.13,-2357.81 1906.13,-2357.81 1912.13,-2363.81 1912.13,-2369.81 1912.13,-2369.81 1912.13,-2432.39 1912.13,-2432.39 1912.13,-2438.39 1906.13,-2444.39 1900.13,-2444.39" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2429.37">Proposition 4.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2416.62">every open cell meets the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2403.87">box 0 &lt; xᵢ &lt; r!·M^(r−1) +</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2391.12">1 (this makes Table 1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2378.37">exact)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1845.46" xml:space="preserve" y="-2365.62">💻 program</text>
+</a>
+</g>
+</g>
+<!-- cor:refinement&#45;&gt;prop:box -->
+<!-- thm:A -->
+<g class="node" id="node37">
+<title>thm:A</title>
+<g id="a_node37"><a target="_top" xlink:href="index.html#thm:A" xlink:title="Theorem 8.12: Theorem A: W(1,b) = ⌊(9b²+8b+12)/4⌋, so |L₂q| = (9q²−10q+13)/4">
+<path d="M1292.63,-915.64C1292.63,-915.64 1138.28,-915.64 1138.28,-915.64 1132.28,-915.64 1126.28,-909.64 1126.28,-903.64 1126.28,-903.64 1126.28,-844.82 1126.28,-844.82 1126.28,-838.82 1132.28,-832.82 1138.28,-832.82 1138.28,-832.82 1292.63,-832.82 1292.63,-832.82 1298.63,-832.82 1304.63,-838.82 1304.63,-844.82 1304.63,-844.82 1304.63,-903.64 1304.63,-903.64 1304.63,-909.64 1298.63,-915.64 1292.63,-915.64" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1215.46" xml:space="preserve" y="-899.21">Theorem 8.12</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1215.46" xml:space="preserve" y="-884.96">Theorem A: W(1,b) =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1215.46" xml:space="preserve" y="-870.71">⌊(9b²+8b+12)/4⌋, so |L₂q|</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1215.46" xml:space="preserve" y="-855.71">= (9q²−10q+13)/4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1215.46" xml:space="preserve" y="-841.46">◐ part in Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- cor:refinement&#45;&gt;thm:A -->
+<g class="edge" id="edge53">
+<title>cor:refinement-&gt;thm:A</title>
+<path d="M1774.86,-2515.6C1705.96,-2509.9 1598.76,-2498.1 1508.46,-2474.7 1346.56,-2432.8 222.44,-2047.8 106.46,-1927.4 57.59,-1876.6 54.46,-1848.1 54.46,-1777.6 54.46,-1777.6 54.46,-1777.6 54.46,-1655.4 54.46,-1139.2 492.09,-1119.9 981.46,-955.64 1037.36,-936.86 1057.86,-961.15 1113.46,-941.39 1127.46,-936.41 1141.46,-929.16 1154.46,-921.27" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1155.64,-923.42 1160.27,-917.62 1153.04,-919.27 1155.64,-923.42" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:B -->
+<g class="node" id="node42">
+<title>thm:B</title>
+<g id="a_node42"><a target="_top" xlink:href="index.html#thm:B" xlink:title="Theorem 9.4: Theorem B: W(2,b) = (44b²+19b+e_(b mod 6))/6, so |L₃q| = (44q²−69q+58−3(q/3))/6">
+<path d="M1736.51,-666.23C1736.51,-666.23 1608.41,-666.23 1608.41,-666.23 1602.41,-666.23 1596.41,-660.23 1596.41,-654.23 1596.41,-654.23 1596.41,-582.65 1596.41,-582.65 1596.41,-576.65 1602.41,-570.65 1608.41,-570.65 1608.41,-570.65 1736.51,-570.65 1736.51,-570.65 1742.51,-570.65 1748.51,-576.65 1748.51,-582.65 1748.51,-582.65 1748.51,-654.23 1748.51,-654.23 1748.51,-660.23 1742.51,-666.23 1736.51,-666.23" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1672.46" xml:space="preserve" y="-649.79">Theorem 9.4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1672.46" xml:space="preserve" y="-635.54">Theorem B: W(2,b) =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1672.46" xml:space="preserve" y="-621.29">(44b²+19b+e_(b mod 6))/6,</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1672.46" xml:space="preserve" y="-607.04">so |L₃q| =</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1672.46" xml:space="preserve" y="-592.79">(44q²−69q+58−3(q/3))/6</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1672.46" xml:space="preserve" y="-578.54">💻 program</text>
+</a>
+</g>
+</g>
+<!-- cor:refinement&#45;&gt;thm:B -->
+<g class="edge" id="edge65">
+<title>cor:refinement-&gt;thm:B</title>
+<path d="M1774.96,-2519.1C1699.46,-2516.2 1586.66,-2506.5 1559.46,-2474.7 1525.06,-2434.4 1533.46,-2276.2 1568.46,-2236.5 1627.86,-2169.2 1680.76,-2223.3 1766.46,-2196.5 1876.36,-2162.1 1904.46,-2151.1 2004.46,-2093.9 2055.16,-2065 2110.46,-2074.9 2110.46,-2016.5 2110.46,-2016.5 2110.46,-2016.5 2110.46,-873.23 2110.46,-711.98 1885.46,-651.51 1757.96,-630.18" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1758.56,-627.8 1751.25,-629.08 1757.76,-632.63 1758.56,-627.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- prop:box&#45;&gt;cor:decidable -->
+<g class="edge" id="edge9">
+<title>prop:box-&gt;cor:decidable</title>
+<path d="M1847.86,-2357.5C1848.66,-2344.1 1849.56,-2329.4 1850.26,-2316.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1852.69,-2316.65 1850.67,-2309.51 1847.8,-2316.35 1852.69,-2316.65" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:earliercounts -->
+<g class="node" id="node44">
+<title>rem:earliercounts</title>
+<g id="a_node44"><a target="_top" xlink:href="index.html#rem:earliercounts" xlink:title="Remark 10.1: the earlier public counts 27 (k = 9) and 42 (k = 10) were lower bounds; the exact values are 28 and 47">
+<path d="M1457.88,-786.43C1457.88,-786.43 1347.03,-786.43 1347.03,-786.43 1341.03,-786.43 1335.03,-780.43 1335.03,-774.43 1335.03,-774.43 1335.03,-724.61 1335.03,-724.61 1335.03,-718.61 1341.03,-712.61 1347.03,-712.61 1347.03,-712.61 1457.88,-712.61 1457.88,-712.61 1463.88,-712.61 1469.88,-718.61 1469.88,-724.61 1469.88,-724.61 1469.88,-774.43 1469.88,-774.43 1469.88,-780.43 1463.88,-786.43 1457.88,-786.43" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-771.42">Remark 10.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-758.67">the earlier public counts</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-745.92">27 (k = 9) and 42 (k = 10)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-733.17">were lower bounds; the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-720.42">exact values are 28 and 47</text>
+</a>
+</g>
+</g>
+<!-- prop:box&#45;&gt;rem:earliercounts -->
+<g class="edge lm-aux" id="edge73">
+<title>prop:box-&gt;rem:earliercounts</title>
+<path d="M1778.26,-2361.6C1774.26,-2360.1 1770.36,-2358.9 1766.46,-2357.8 1741.06,-2351.2 1311.86,-2366.9 1293.46,-2348.1 1216.86,-2269.9 1248.66,-2201.7 1293.46,-2101.9 1295.66,-2097.1 1299.06,-2098 1302.46,-2093.9 1416.16,-1958.6 1720.46,-1593.8 1720.46,-1417 1720.46,-1417 1720.46,-1417 1720.46,-1111.8 1720.46,-969.49 1922.66,-1065.9 1991.46,-941.39 2016.56,-896.04 2027.76,-861.81 1991.46,-824.81 1983.46,-816.7 1593.66,-818.79 1582.46,-816.68 1547.06,-810.01 1509.36,-797.14 1477.66,-784.51" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1478.97,-782.4 1471.56,-782.05 1477.13,-786.94 1478.97,-782.4" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:decidable&#45;&gt;rem:complexity -->
+<g class="edge lm-aux" id="edge11">
+<title>cor:decidable-&gt;rem:complexity</title>
+<path d="M1811.46,-2308.2C1793.16,-2321.5 1771.16,-2337.5 1750.76,-2352.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1749.31,-2350.52 1745.08,-2356.61 1752.19,-2354.49 1749.31,-2350.52" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:membership -->
+<g class="node" id="node51">
+<title>q:membership</title>
+<g id="a_node51"><a target="_top" xlink:href="index.html#q:membership" xlink:title="Question 11.7: membership in polynomial time, inside Peano arithmetic, or by forbidden factors?">
+<path d="M1458.26,-416.81C1458.26,-416.81 1346.66,-416.81 1346.66,-416.81 1340.66,-416.81 1334.66,-410.81 1334.66,-404.81 1334.66,-404.81 1334.66,-354.98 1334.66,-354.98 1334.66,-348.98 1340.66,-342.98 1346.66,-342.98 1346.66,-342.98 1458.26,-342.98 1458.26,-342.98 1464.26,-342.98 1470.26,-348.98 1470.26,-354.98 1470.26,-354.98 1470.26,-404.81 1470.26,-404.81 1470.26,-410.81 1464.26,-416.81 1458.26,-416.81" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-401.8">Question 11.7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-389.05">membership in polynomial</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-376.3">time, inside Peano</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-363.55">arithmetic, or by</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-350.8">forbidden factors?</text>
+</a>
+</g>
+</g>
+<!-- cor:decidable&#45;&gt;q:membership -->
+<g class="edge" id="edge91">
+<title>cor:decidable-&gt;q:membership</title>
+<path d="M1904.56,-2270.4C1987.36,-2260.2 2143.16,-2236.2 2180.46,-2196.5 2236.06,-2137.3 2212.46,-2097.8 2212.46,-2016.5 2212.46,-2016.5 2212.46,-2016.5 2212.46,-617.44 2212.46,-465.54 1680.96,-404.52 1479.06,-386.82" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1479.55,-384.4 1472.36,-386.24 1479.13,-389.29 1479.55,-384.4" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:Rformula -->
+<g class="node" id="node11">
+<title>thm:Rformula</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#thm:Rformula" xlink:title="Theorem 5.1: exact formula for the number R(a,b) of cells of the pattern pᵃ p′ᵇ">
+<path d="M1435.51,-2317.87C1435.51,-2317.87 1319.41,-2317.87 1319.41,-2317.87 1313.41,-2317.87 1307.41,-2311.87 1307.41,-2305.87 1307.41,-2305.87 1307.41,-2248.53 1307.41,-2248.53 1307.41,-2242.53 1313.41,-2236.53 1319.41,-2236.53 1319.41,-2236.53 1435.51,-2236.53 1435.51,-2236.53 1441.51,-2236.53 1447.51,-2242.53 1447.51,-2248.53 1447.51,-2248.53 1447.51,-2305.87 1447.51,-2305.87 1447.51,-2311.87 1441.51,-2317.87 1435.51,-2317.87" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1377.46" xml:space="preserve" y="-2301.42">Theorem 5.1</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1377.46" xml:space="preserve" y="-2287.17">exact formula for the</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1377.46" xml:space="preserve" y="-2272.92">number R(a,b) of cells of</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1377.46" xml:space="preserve" y="-2258.67">the pattern pᵃ p′ᵇ</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1377.46" xml:space="preserve" y="-2244.42">💻 program</text>
+</a>
+</g>
+</g>
+<!-- rem:complexity&#45;&gt;thm:Rformula -->
+<!-- cor:Ca -->
+<g class="node" id="node12">
+<title>cor:Ca</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#cor:Ca" xlink:title="Corollary 5.2: R(a,b) is a quasipolynomial of degree 2 with leading coefficient Cₐ   12a²/π²">
+<path d="M1429.51,-2196.49C1429.51,-2196.49 1319.41,-2196.49 1319.41,-2196.49 1313.41,-2196.49 1307.41,-2190.49 1307.41,-2184.49 1307.41,-2184.49 1307.41,-2121.91 1307.41,-2121.91 1307.41,-2115.91 1313.41,-2109.91 1319.41,-2109.91 1319.41,-2109.91 1429.51,-2109.91 1429.51,-2109.91 1435.51,-2109.91 1441.51,-2115.91 1441.51,-2121.91 1441.51,-2121.91 1441.51,-2184.49 1441.51,-2184.49 1441.51,-2190.49 1435.51,-2196.49 1429.51,-2196.49" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1374.46" xml:space="preserve" y="-2181.47">Corollary 5.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1374.46" xml:space="preserve" y="-2168.72">R(a,b) is a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1374.46" xml:space="preserve" y="-2155.97">quasipolynomial of degree</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1374.46" xml:space="preserve" y="-2143.22">2 with leading coefficient</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1374.46" xml:space="preserve" y="-2130.47">Cₐ   12a²/π²</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1374.46" xml:space="preserve" y="-2117.72">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:Rformula&#45;&gt;cor:Ca -->
+<g class="edge" id="edge13">
+<title>thm:Rformula-&gt;cor:Ca</title>
+<path d="M1376.46,-2235.2C1376.26,-2225.6 1375.96,-2215.2 1375.76,-2205.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1378.21,-2205.35 1375.59,-2198.41 1373.31,-2205.47 1378.21,-2205.35" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:R -->
+<g class="node" id="node40">
+<title>lem:R</title>
+<g id="a_node40"><a target="_top" xlink:href="index.html#lem:R" xlink:title="Lemma 9.2: R(2,b) = (22b² + 31b + 9 + [b ≡ 1 (3)])/3">
+<path d="M1940.38,-780.06C1940.38,-780.06 1826.53,-780.06 1826.53,-780.06 1820.53,-780.06 1814.53,-774.06 1814.53,-768.06 1814.53,-768.06 1814.53,-730.98 1814.53,-730.98 1814.53,-724.98 1820.53,-718.98 1826.53,-718.98 1826.53,-718.98 1940.38,-718.98 1940.38,-718.98 1946.38,-718.98 1952.38,-724.98 1952.38,-730.98 1952.38,-730.98 1952.38,-768.06 1952.38,-768.06 1952.38,-774.06 1946.38,-780.06 1940.38,-780.06" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1883.46" xml:space="preserve" y="-765.04">Lemma 9.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1883.46" xml:space="preserve" y="-752.29">R(2,b) = (22b² + 31b + 9 +</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1883.46" xml:space="preserve" y="-739.54">[b ≡ 1 (3)])/3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1883.46" xml:space="preserve" y="-726.79">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:Rformula&#45;&gt;lem:R -->
+<g class="edge" id="edge63">
+<title>thm:Rformula-&gt;lem:R</title>
+<path d="M1448.56,-2253C1623.16,-2195.6 2059.46,-2049 2059.46,-2016.5 2059.46,-2016.5 2059.46,-2016.5 2059.46,-997.9 2059.46,-919.68 2074.06,-887.63 2027.46,-824.81 2010.86,-802.4 1985.46,-786.2 1960.56,-774.76" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1961.73,-772.6 1954.34,-771.98 1959.73,-777.07 1961.73,-772.6" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:Ca&#45;&gt;thm:quasi -->
+<!-- cor:Ca&#45;&gt;thm:quadratic -->
+<g class="edge" id="edge17">
+<title>cor:Ca-&gt;thm:quadratic</title>
+<path d="M1348.86,-2109.5C1320.06,-2061.4 1273.56,-1983.6 1244.56,-1935.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1246.73,-1933.95 1241.03,-1929.2 1242.52,-1936.47 1246.73,-1933.95" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:degree2 -->
+<g class="node" id="node16">
+<title>cor:degree2</title>
+<g id="a_node16"><a target="_top" xlink:href="index.html#cor:degree2" xlink:title="Corollary 6.4: every constituent has degree exactly 2, leading coefficient in [2/3, Cₐ]">
+<path d="M1048.13,-1807.14C1048.13,-1807.14 944.78,-1807.14 944.78,-1807.14 938.78,-1807.14 932.78,-1801.14 932.78,-1795.14 932.78,-1795.14 932.78,-1758.06 932.78,-1758.06 932.78,-1752.06 938.78,-1746.06 944.78,-1746.06 944.78,-1746.06 1048.13,-1746.06 1048.13,-1746.06 1054.13,-1746.06 1060.13,-1752.06 1060.13,-1758.06 1060.13,-1758.06 1060.13,-1795.14 1060.13,-1795.14 1060.13,-1801.14 1054.13,-1807.14 1048.13,-1807.14" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="996.46" xml:space="preserve" y="-1792.13">Corollary 6.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="996.46" xml:space="preserve" y="-1779.38">every constituent has</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="996.46" xml:space="preserve" y="-1766.63">degree exactly 2, leading</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="996.46" xml:space="preserve" y="-1753.88">coefficient in [2/3, Cₐ]</text>
+</a>
+</g>
+</g>
+<!-- cor:Ca&#45;&gt;cor:degree2 -->
+<g class="edge" id="edge20">
+<title>cor:Ca-&gt;cor:degree2</title>
+<path d="M1376.86,-2109.6C1378.06,-2045 1370.16,-1922.6 1301.46,-1853.5 1269.16,-1821.1 1148.26,-1798.6 1068.66,-1786.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1069.44,-1784.54 1062.15,-1785.92 1068.71,-1789.39 1069.44,-1784.54" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:rigidity -->
+<g class="node" id="node45">
+<title>q:rigidity</title>
+<g id="a_node45"><a target="_top" xlink:href="index.html#q:rigidity" xlink:title="Question 11.1: rigidity: is the loss E(a,b) = R − W linear in b for every a ≥ 2?">
+<path d="M1457.88,-648.98C1457.88,-648.98 1347.03,-648.98 1347.03,-648.98 1341.03,-648.98 1335.03,-642.98 1335.03,-636.98 1335.03,-636.98 1335.03,-599.9 1335.03,-599.9 1335.03,-593.9 1341.03,-587.9 1347.03,-587.9 1347.03,-587.9 1457.88,-587.9 1457.88,-587.9 1463.88,-587.9 1469.88,-593.9 1469.88,-599.9 1469.88,-599.9 1469.88,-636.98 1469.88,-636.98 1469.88,-642.98 1463.88,-648.98 1457.88,-648.98" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-633.97">Question 11.1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-621.22">rigidity: is the loss</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-608.47">E(a,b) = R − W linear in b</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-595.72">for every a ≥ 2?</text>
+</a>
+</g>
+</g>
+<!-- cor:Ca&#45;&gt;q:rigidity -->
+<g class="edge" id="edge74">
+<title>cor:Ca-&gt;q:rigidity</title>
+<path d="M1385.26,-2109.4C1386.36,-2104.2 1387.46,-2098.9 1388.46,-2093.9 1419.66,-1930.6 1429.66,-1889.4 1441.46,-1723.6 1448.56,-1624 1508.16,-897.25 1439.46,-824.81 1421.06,-805.42 1337.66,-836.21 1319.46,-816.68 1285.46,-780.29 1300.66,-750.75 1319.46,-704.61 1327.16,-685.7 1341.26,-668.69 1355.76,-654.93" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1357.34,-656.8 1360.84,-650.26 1354.03,-653.19 1357.34,-656.8" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:leading -->
+<g class="node" id="node46">
+<title>q:leading</title>
+<g id="a_node46"><a target="_top" xlink:href="index.html#q:leading" xlink:title="Question 11.2: is the leading coefficient of W(a,b) the same on every residue class, and equal to Cₐ for a ≥ 2?">
+<path d="M1297.01,-530.64C1297.01,-530.64 1195.91,-530.64 1195.91,-530.64 1189.91,-530.64 1183.91,-524.64 1183.91,-518.64 1183.91,-518.64 1183.91,-468.81 1183.91,-468.81 1183.91,-462.81 1189.91,-456.81 1195.91,-456.81 1195.91,-456.81 1297.01,-456.81 1297.01,-456.81 1303.01,-456.81 1309.01,-462.81 1309.01,-468.81 1309.01,-468.81 1309.01,-518.64 1309.01,-518.64 1309.01,-524.64 1303.01,-530.64 1297.01,-530.64" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-515.63">Question 11.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-502.88">is the leading coefficient</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-490.13">of W(a,b) the same on</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-477.38">every residue class, and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-464.63">equal to Cₐ for a ≥ 2?</text>
+</a>
+</g>
+</g>
+<!-- cor:Ca&#45;&gt;q:leading -->
+<g class="edge" id="edge79">
+<title>cor:Ca-&gt;q:leading</title>
+<path d="M1441.76,-2140C1555.06,-2115.2 1771.46,-2047.3 1771.46,-1891.4 1771.46,-1891.4 1771.46,-1891.4 1771.46,-1111.8 1771.46,-1009.2 1680.36,-1021.2 1601.46,-955.64 1593.36,-948.9 1588.36,-950.15 1582.46,-941.39 1485.16,-796.99 1609.36,-681.88 1482.46,-562.65 1429.26,-512.69 1390.66,-553.7 1321.46,-530.65 1320.06,-530.2 1318.76,-529.72 1317.36,-529.23" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1318.29,-526.96 1310.87,-526.78 1316.56,-531.55 1318.29,-526.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:a3 -->
+<g class="node" id="node47">
+<title>q:a3</title>
+<g id="a_node47"><a target="_top" xlink:href="index.html#q:a3" xlink:title="Question 11.3: conjecture">
+<path d="M1121.51,-636.44C1121.51,-636.44 1065.41,-636.44 1065.41,-636.44 1059.41,-636.44 1053.41,-630.44 1053.41,-624.44 1053.41,-624.44 1053.41,-612.44 1053.41,-612.44 1053.41,-606.44 1059.41,-600.44 1065.41,-600.44 1065.41,-600.44 1121.51,-600.44 1121.51,-600.44 1127.51,-600.44 1133.51,-606.44 1133.51,-612.44 1133.51,-612.44 1133.51,-624.44 1133.51,-624.44 1133.51,-630.44 1127.51,-636.44 1121.51,-636.44" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1093.46" xml:space="preserve" y="-621.22">Question 11.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1093.46" xml:space="preserve" y="-608.47">conjecture</text>
+</a>
+</g>
+</g>
+<!-- cor:Ca&#45;&gt;q:a3 -->
+<g class="edge" id="edge82">
+<title>cor:Ca-&gt;q:a3</title>
+<path d="M1306.96,-2134.8C1259.36,-2123.3 1193.96,-2109.1 1135.46,-2101.9 1122.96,-2100.4 918.47,-2102.7 909.46,-2093.9 860.34,-2046.2 886.29,-1545.2 870.46,-1478.5 817.05,-1253.6 666.46,-1231.2 666.46,-999.9 666.46,-999.9 666.46,-999.9 666.46,-873.23 666.46,-794.67 661.72,-757.87 719.46,-704.61 766.58,-661.14 954.38,-634.88 1044.56,-624.53" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1044.87,-626.96 1051.55,-623.75 1044.32,-622.09 1044.87,-626.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:period -->
+<g class="node" id="node48">
+<title>q:period</title>
+<g id="a_node48"><a target="_top" xlink:href="index.html#q:period" xlink:title="Question 11.4: does the minimal period of W(a,b) divide lcm(1, …, 2a)?">
+<path d="M1458.63,-524.27C1458.63,-524.27 1346.28,-524.27 1346.28,-524.27 1340.28,-524.27 1334.28,-518.27 1334.28,-512.27 1334.28,-512.27 1334.28,-475.19 1334.28,-475.19 1334.28,-469.19 1340.28,-463.19 1346.28,-463.19 1346.28,-463.19 1458.63,-463.19 1458.63,-463.19 1464.63,-463.19 1470.63,-469.19 1470.63,-475.19 1470.63,-475.19 1470.63,-512.27 1470.63,-512.27 1470.63,-518.27 1464.63,-524.27 1458.63,-524.27" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-509.25">Question 11.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-496.5">does the minimal period of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-483.75">W(a,b) divide lcm(1, …,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1402.46" xml:space="preserve" y="-471">2a)?</text>
+</a>
+</g>
+</g>
+<!-- cor:Ca&#45;&gt;q:period -->
+<g class="edge" id="edge83">
+<title>cor:Ca-&gt;q:period</title>
+<path d="M1403.06,-2109.5C1465.66,-2011.6 1609.46,-1761.8 1609.46,-1530.8 1609.46,-1530.8 1609.46,-1530.8 1609.46,-1415 1609.46,-1223.5 1575.56,-730.02 1482.46,-562.65 1475.66,-550.4 1465.76,-539.39 1455.16,-529.96" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1456.93,-528.25 1450.01,-525.58 1453.75,-531.98 1456.93,-528.25" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quasi&#45;&gt;thm:quadratic -->
+<g class="edge" id="edge19">
+<title>thm:quasi-&gt;thm:quadratic</title>
+<path d="M1085.26,-1973C1106.76,-1959.9 1130.46,-1945.3 1151.86,-1932.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1153.07,-1934.33 1157.77,-1928.59 1150.51,-1930.15 1153.07,-1934.33" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quasi&#45;&gt;cor:degree2 -->
+<!-- thm:quasi&#45;&gt;lem:O0 -->
+<g class="edge" id="edge25">
+<title>thm:quasi-&gt;lem:O0</title>
+<path d="M964.2,-1966.2C950.74,-1953.7 936.44,-1940.2 923.46,-1927.4 891.31,-1895.6 894.63,-1872.2 853.46,-1853.5 804.66,-1831.4 662.57,-1862.8 612.46,-1843.8 597.99,-1838.3 584.18,-1829.1 572.19,-1819.3" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="573.83,-1817.48 566.89,-1814.87 570.69,-1821.24 573.83,-1817.48" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:reflection -->
+<g class="node" id="node22">
+<title>lem:reflection</title>
+<g id="a_node22"><a target="_top" xlink:href="index.html#lem:reflection" xlink:title="Lemma 7.5: reflection inside integer levels (a ≥ 2): pairs u^(p,k), v^(p,k) with the same word, height p+1">
+<path d="M514.51,-1699.69C514.51,-1699.69 410.41,-1699.69 410.41,-1699.69 404.41,-1699.69 398.41,-1693.69 398.41,-1687.69 398.41,-1687.69 398.41,-1625.11 398.41,-1625.11 398.41,-1619.11 404.41,-1613.11 410.41,-1613.11 410.41,-1613.11 514.51,-1613.11 514.51,-1613.11 520.51,-1613.11 526.51,-1619.11 526.51,-1625.11 526.51,-1625.11 526.51,-1687.69 526.51,-1687.69 526.51,-1693.69 520.51,-1699.69 514.51,-1699.69" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="462.46" xml:space="preserve" y="-1684.68">Lemma 7.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="462.46" xml:space="preserve" y="-1671.93">reflection inside integer</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="462.46" xml:space="preserve" y="-1659.18">levels (a ≥ 2): pairs</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="462.46" xml:space="preserve" y="-1646.43">u^(p,k), v^(p,k) with the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="462.46" xml:space="preserve" y="-1633.68">same word, height p+1</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="462.46" xml:space="preserve" y="-1620.93">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:quasi&#45;&gt;lem:reflection -->
+<g class="edge" id="edge32">
+<title>thm:quasi-&gt;lem:reflection</title>
+<path d="M949.79,-1978.6C867.05,-1935.5 731.28,-1867.1 676.46,-1853.5 652.06,-1847.5 467.85,-1861.9 450.46,-1843.8 416.64,-1808.5 426.83,-1750.1 440.91,-1708.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="443.17,-1709.05 443.17,-1701.63 438.55,-1707.43 443.17,-1709.05" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quasi&#45;&gt;q:rigidity -->
+<g class="edge" id="edge78">
+<title>thm:quasi-&gt;q:rigidity</title>
+<path d="M949.7,-2009.6C781.27,-1995.9 351.03,-1951 265.46,-1843.8 0,-1511.3 717.46,-1425.4 717.46,-999.9 717.46,-999.9 717.46,-999.9 717.46,-873.23 717.46,-779.4 762.33,-749.96 844.46,-704.61 903.42,-672.05 1079.96,-689.74 1146.46,-679.23 1207.66,-669.57 1275.96,-653.34 1326.56,-640.23" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1326.93,-642.66 1333.09,-638.53 1325.7,-637.92 1326.93,-642.66" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quasi&#45;&gt;q:period -->
+<g class="edge" id="edge84">
+<title>thm:quasi-&gt;q:period</title>
+<path d="M949.59,-2009.4C753.96,-1994.5 200.82,-1950.4 169.46,-1927.4 111.18,-1884.4 105.46,-1850 105.46,-1777.6 105.46,-1777.6 105.46,-1777.6 105.46,-1655.4 105.46,-1286.3 615.46,-1369 615.46,-999.9 615.46,-999.9 615.46,-999.9 615.46,-748.52 615.46,-420.14 1004.56,-616.77 1321.46,-530.65 1324.76,-529.74 1328.16,-528.72 1331.56,-527.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1332.22,-529.96 1338.03,-525.35 1330.61,-525.34 1332.22,-529.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quasi&#45;&gt;q:several -->
+<g class="edge" id="edge89">
+<title>thm:quasi-&gt;q:several</title>
+<path d="M949.69,-2013.3C788.07,-2009.3 384.91,-1993 269.46,-1927.4 196.97,-1886.2 156.46,-1861 156.46,-1777.6 156.46,-1777.6 156.46,-1777.6 156.46,-1655.4 156.46,-1440.5 190.59,-1386.2 261.46,-1183.3 311.67,-1039.5 411.46,-1027.5 411.46,-875.23 411.46,-875.23 411.46,-875.23 411.46,-748.52 411.46,-651.84 443.15,-614.96 524.46,-562.65 604.62,-511.08 883.56,-498.66 1018.76,-495.68" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1018.6,-498.13 1025.54,-495.53 1018.49,-493.24 1018.6,-498.13" stroke="#9aa8b5"></polygon>
+</g>
+<!-- auto:remark&#45;6.2 -->
+<g class="node" id="node14">
+<title>auto:remark-6.2</title>
+<g id="a_node14"><a target="_top" xlink:href="index.html#auto:remark-6.2" xlink:title="Remark 6.2">
+<path d="M1168.01,-2033.5C1168.01,-2033.5 1120.91,-2033.5 1120.91,-2033.5 1114.91,-2033.5 1108.91,-2027.5 1108.91,-2021.5 1108.91,-2021.5 1108.91,-2009.5 1108.91,-2009.5 1108.91,-2003.5 1114.91,-1997.5 1120.91,-1997.5 1120.91,-1997.5 1168.01,-1997.5 1168.01,-1997.5 1174.01,-1997.5 1180.01,-2003.5 1180.01,-2009.5 1180.01,-2009.5 1180.01,-2021.5 1180.01,-2021.5 1180.01,-2027.5 1174.01,-2033.5 1168.01,-2033.5" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1144.46" xml:space="preserve" y="-2011.9">Remark 6.2</text>
+</a>
+</g>
+</g>
+<!-- rem:square -->
+<g class="node" id="node17">
+<title>rem:square</title>
+<g id="a_node17"><a target="_top" xlink:href="index.html#rem:square" xlink:title="Remark 6.5: the smaller square [⌈2b/3⌉, ⌊3b/4⌋]² already gives a quadratic lower bound">
+<path d="M1110.63,-1927.32C1110.63,-1927.32 962.28,-1927.32 962.28,-1927.32 956.28,-1927.32 950.28,-1921.32 950.28,-1915.32 950.28,-1915.32 950.28,-1865.49 950.28,-1865.49 950.28,-1859.49 956.28,-1853.49 962.28,-1853.49 962.28,-1853.49 1110.63,-1853.49 1110.63,-1853.49 1116.63,-1853.49 1122.63,-1859.49 1122.63,-1865.49 1122.63,-1865.49 1122.63,-1915.32 1122.63,-1915.32 1122.63,-1921.32 1116.63,-1927.32 1110.63,-1927.32" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1036.46" xml:space="preserve" y="-1912.3">Remark 6.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1036.46" xml:space="preserve" y="-1899.55">the smaller square</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1036.46" xml:space="preserve" y="-1886.8">[⌈2b/3⌉, ⌊3b/4⌋]² already</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1036.46" xml:space="preserve" y="-1874.05">gives a quadratic lower</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1036.46" xml:space="preserve" y="-1861.3">bound</text>
+</a>
+</g>
+</g>
+<!-- auto:remark&#45;6.2&#45;&gt;rem:square -->
+<!-- thm:quadratic&#45;&gt;cor:degree2 -->
+<g class="edge" id="edge21">
+<title>thm:quadratic-&gt;cor:degree2</title>
+<path d="M1147.56,-1853.8C1120.66,-1840.2 1090.16,-1824.8 1063.56,-1811.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1064.96,-1809.36 1057.61,-1808.38 1062.74,-1813.73 1064.96,-1809.36" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quadratic&#45;&gt;rem:square -->
+<g class="edge lm-aux" id="edge23">
+<title>thm:quadratic-&gt;rem:square</title>
+<path d="M1147.76,-1890.4C1142.36,-1890.4 1136.96,-1890.4 1131.66,-1890.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1131.67,-1887.95 1124.67,-1890.4 1131.67,-1892.85 1131.67,-1887.95" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:quadratic&#45;&gt;q:leading -->
+<g class="edge" id="edge81">
+<title>thm:quadratic-&gt;q:leading</title>
+<path d="M1147.56,-1856.6C1143.46,-1855.4 1139.46,-1854.4 1135.46,-1853.5 1094.66,-1844.8 421.85,-1862.3 384.46,-1843.8 294.87,-1799.4 258.46,-1757.4 258.46,-1657.4 258.46,-1657.4 258.46,-1657.4 258.46,-1320.3 258.46,-1175 368.09,-1173.5 430.46,-1042.2 478.86,-940.36 506.45,-630.59 596.46,-562.65 647.53,-524.1 1109.46,-546.55 1171.46,-530.65 1172.86,-530.29 1174.26,-529.91 1175.66,-529.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1176.31,-531.86 1182.22,-527.38 1174.8,-527.2 1176.31,-531.86" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:square&#45;&gt;lem:O0 -->
+<!-- auto:remark&#45;7.4 -->
+<g class="node" id="node21">
+<title>auto:remark-7.4</title>
+<g id="a_node21"><a target="_top" xlink:href="index.html#auto:remark-7.4" xlink:title="Remark 7.4: what the exchange adds">
+<path d="M688.13,-1674.4C688.13,-1674.4 590.78,-1674.4 590.78,-1674.4 584.78,-1674.4 578.78,-1668.4 578.78,-1662.4 578.78,-1662.4 578.78,-1650.4 578.78,-1650.4 578.78,-1644.4 584.78,-1638.4 590.78,-1638.4 590.78,-1638.4 688.13,-1638.4 688.13,-1638.4 694.13,-1638.4 700.13,-1644.4 700.13,-1650.4 700.13,-1650.4 700.13,-1662.4 700.13,-1662.4 700.13,-1668.4 694.13,-1674.4 688.13,-1674.4" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="639.46" xml:space="preserve" y="-1659.18">Remark 7.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="639.46" xml:space="preserve" y="-1646.43">what the exchange adds</text>
+</a>
+</g>
+</g>
+<!-- lem:O0&#45;&gt;auto:remark&#45;7.4 -->
+<!-- auto:remark&#45;7.6 -->
+<g class="node" id="node23">
+<title>auto:remark-7.6</title>
+<g id="a_node23"><a target="_top" xlink:href="index.html#auto:remark-7.6" xlink:title="Remark 7.6">
+<path d="M742.01,-1547.8C742.01,-1547.8 694.91,-1547.8 694.91,-1547.8 688.91,-1547.8 682.91,-1541.8 682.91,-1535.8 682.91,-1535.8 682.91,-1523.8 682.91,-1523.8 682.91,-1517.8 688.91,-1511.8 694.91,-1511.8 694.91,-1511.8 742.01,-1511.8 742.01,-1511.8 748.01,-1511.8 754.01,-1517.8 754.01,-1523.8 754.01,-1523.8 754.01,-1535.8 754.01,-1535.8 754.01,-1541.8 748.01,-1547.8 742.01,-1547.8" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="718.46" xml:space="preserve" y="-1526.2">Remark 7.6</text>
+</a>
+</g>
+</g>
+<!-- lem:O0&#45;&gt;auto:remark&#45;7.6 -->
+<g class="edge lm-aux" id="edge33">
+<title>lem:O0-&gt;auto:remark-7.6</title>
+<path d="M537.42,-1739.2C545.06,-1694.3 558.3,-1622.7 566.46,-1613.1 598.66,-1575.5 628.1,-1598.8 670.46,-1573.1 679.37,-1567.7 688.19,-1560.6 695.79,-1553.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="697.33,-1555.71 700.75,-1549.14 693.97,-1552.14 697.33,-1555.71" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:fibres -->
+<g class="node" id="node49">
+<title>q:fibres</title>
+<g id="a_node49"><a target="_top" xlink:href="index.html#q:fibres" xlink:title="Question 11.5">
+<path d="M1274.51,-397.9C1274.51,-397.9 1218.41,-397.9 1218.41,-397.9 1212.41,-397.9 1206.41,-391.9 1206.41,-385.9 1206.41,-385.9 1206.41,-373.9 1206.41,-373.9 1206.41,-367.9 1212.41,-361.9 1218.41,-361.9 1218.41,-361.9 1274.51,-361.9 1274.51,-361.9 1280.51,-361.9 1286.51,-367.9 1286.51,-373.9 1286.51,-373.9 1286.51,-385.9 1286.51,-385.9 1286.51,-391.9 1280.51,-397.9 1274.51,-397.9" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1246.46" xml:space="preserve" y="-376.3">Question 11.5</text>
+</a>
+</g>
+</g>
+<!-- lem:O0&#45;&gt;q:fibres -->
+<g class="edge" id="edge85">
+<title>lem:O0-&gt;q:fibres</title>
+<path d="M463.03,-1774.1C422.57,-1769.5 373.53,-1756.7 343.46,-1723.6 284.96,-1659.2 309.46,-1617.8 309.46,-1530.8 309.46,-1530.8 309.46,-1530.8 309.46,-617.44 309.46,-594.62 366.48,-480.73 404.46,-456.82 471.72,-414.47 1027.96,-389.44 1197.56,-382.74" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1197.65,-385.19 1204.54,-382.46 1197.45,-380.29 1197.65,-385.19" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:exchange -->
+<g class="node" id="node19">
+<title>lem:exchange</title>
+<g id="a_node19"><a target="_top" xlink:href="index.html#lem:exchange" xlink:title="Lemma 7.2: exchange of arithmetic progressions between rows (a = 1): Z(ξ) = Z(T(ξ))">
+<path d="M747.88,-1813.52C747.88,-1813.52 637.03,-1813.52 637.03,-1813.52 631.03,-1813.52 625.03,-1807.52 625.03,-1801.52 625.03,-1801.52 625.03,-1751.69 625.03,-1751.69 625.03,-1745.69 631.03,-1739.69 637.03,-1739.69 637.03,-1739.69 747.88,-1739.69 747.88,-1739.69 753.88,-1739.69 759.88,-1745.69 759.88,-1751.69 759.88,-1751.69 759.88,-1801.52 759.88,-1801.52 759.88,-1807.52 753.88,-1813.52 747.88,-1813.52" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="692.46" xml:space="preserve" y="-1798.5">Lemma 7.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="692.46" xml:space="preserve" y="-1785.75">exchange of arithmetic</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="692.46" xml:space="preserve" y="-1773">progressions between rows</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="692.46" xml:space="preserve" y="-1760.25">(a = 1): Z(ξ) = Z(T(ξ))</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="692.46" xml:space="preserve" y="-1747.5">💻 program</text>
+</a>
+</g>
+</g>
+<!-- cor:exchange -->
+<g class="node" id="node20">
+<title>cor:exchange</title>
+<g id="a_node20"><a target="_top" xlink:href="index.html#cor:exchange" xlink:title="Corollary 7.3: T is injective and produces exactly the pairs of the family Q and b pairs of O(s)">
+<path d="M844.01,-1699.69C844.01,-1699.69 736.91,-1699.69 736.91,-1699.69 730.91,-1699.69 724.91,-1693.69 724.91,-1687.69 724.91,-1687.69 724.91,-1625.11 724.91,-1625.11 724.91,-1619.11 730.91,-1613.11 736.91,-1613.11 736.91,-1613.11 844.01,-1613.11 844.01,-1613.11 850.01,-1613.11 856.01,-1619.11 856.01,-1625.11 856.01,-1625.11 856.01,-1687.69 856.01,-1687.69 856.01,-1693.69 850.01,-1699.69 844.01,-1699.69" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="790.46" xml:space="preserve" y="-1684.68">Corollary 7.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="790.46" xml:space="preserve" y="-1671.93">T is injective and</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="790.46" xml:space="preserve" y="-1659.18">produces exactly the pairs</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="790.46" xml:space="preserve" y="-1646.43">of the family Q and b</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="790.46" xml:space="preserve" y="-1633.68">pairs of O(s)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="790.46" xml:space="preserve" y="-1620.93">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:exchange&#45;&gt;cor:exchange -->
+<g class="edge" id="edge30">
+<title>lem:exchange-&gt;cor:exchange</title>
+<path d="M722.66,-1739.2C731.22,-1728.9 740.68,-1717.5 749.74,-1706.5" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="751.49,-1708.22 754.06,-1701.27 747.71,-1705.1 751.49,-1708.22" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:exchange&#45;&gt;auto:remark&#45;7.4 -->
+<g class="edge lm-aux" id="edge31">
+<title>lem:exchange-&gt;auto:remark-7.4</title>
+<path d="M676.13,-1739.2C667.87,-1720.8 658.05,-1698.9 650.66,-1682.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="652.96,-1681.56 647.86,-1676.18 648.5,-1683.57 652.96,-1681.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:exchange&#45;&gt;lem:reflection -->
+<!-- lem:exchange&#45;&gt;q:fibres -->
+<g class="edge" id="edge86">
+<title>lem:exchange-&gt;q:fibres</title>
+<path d="M624.57,-1741.7C620.53,-1740.3 616.47,-1739.1 612.46,-1738.1 587.98,-1731.8 403.9,-1740.9 385.46,-1723.6 322.42,-1664.5 360.46,-1617.2 360.46,-1530.8 360.46,-1530.8 360.46,-1530.8 360.46,-617.44 360.46,-565.49 468.51,-467.32 489.46,-456.82 614.51,-394.17 1050.76,-383.22 1197.66,-381.31" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1197.67,-383.76 1204.64,-381.23 1197.61,-378.86 1197.67,-383.76" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:exchange&#45;&gt;auto:remark&#45;7.6 -->
+<!-- lem:reflection&#45;q -->
+<g class="node" id="node24">
+<title>lem:reflection-q</title>
+<g id="a_node24"><a target="_top" xlink:href="index.html#lem:reflection-q" xlink:title="Lemma 7.7: reflection around a rational slope m/q: realisable distinct c^± with the same word">
+<path d="M646.38,-1573.09C646.38,-1573.09 556.53,-1573.09 556.53,-1573.09 550.53,-1573.09 544.53,-1567.09 544.53,-1561.09 544.53,-1561.09 544.53,-1498.51 544.53,-1498.51 544.53,-1492.51 550.53,-1486.51 556.53,-1486.51 556.53,-1486.51 646.38,-1486.51 646.38,-1486.51 652.38,-1486.51 658.38,-1492.51 658.38,-1498.51 658.38,-1498.51 658.38,-1561.09 658.38,-1561.09 658.38,-1567.09 652.38,-1573.09 646.38,-1573.09" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="601.46" xml:space="preserve" y="-1558.08">Lemma 7.7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="601.46" xml:space="preserve" y="-1545.33">reflection around a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="601.46" xml:space="preserve" y="-1532.58">rational slope m/q:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="601.46" xml:space="preserve" y="-1519.83">realisable distinct c^±</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="601.46" xml:space="preserve" y="-1507.08">with the same word</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="601.46" xml:space="preserve" y="-1494.33">💻 program</text>
+</a>
+</g>
+</g>
+<!-- auto:remark&#45;7.4&#45;&gt;lem:reflection&#45;q -->
+<!-- lem:reflection&#45;&gt;lem:reflection&#45;q -->
+<g class="edge" id="edge34">
+<title>lem:reflection-&gt;lem:reflection-q</title>
+<path d="M510.3,-1612.5C522.44,-1601.6 535.57,-1589.9 547.98,-1578.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="549.3,-1580.9 552.88,-1574.41 546.03,-1577.25 549.3,-1580.9" stroke="#9aa8b5"></polygon>
+</g>
+<!-- auto:remark&#45;7.8 -->
+<g class="node" id="node25">
+<title>auto:remark-7.8</title>
+<g id="a_node25"><a target="_top" xlink:href="index.html#auto:remark-7.8" xlink:title="Remark 7.8">
+<path d="M844.01,-1794.6C844.01,-1794.6 796.91,-1794.6 796.91,-1794.6 790.91,-1794.6 784.91,-1788.6 784.91,-1782.6 784.91,-1782.6 784.91,-1770.6 784.91,-1770.6 784.91,-1764.6 790.91,-1758.6 796.91,-1758.6 796.91,-1758.6 844.01,-1758.6 844.01,-1758.6 850.01,-1758.6 856.01,-1764.6 856.01,-1770.6 856.01,-1770.6 856.01,-1782.6 856.01,-1782.6 856.01,-1788.6 850.01,-1794.6 844.01,-1794.6" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="820.46" xml:space="preserve" y="-1773">Remark 7.8</text>
+</a>
+</g>
+</g>
+<!-- lem:reflection&#45;&gt;auto:remark&#45;7.8 -->
+<!-- lem:reflection&#45;&gt;q:rigidity -->
+<g class="edge" id="edge75">
+<title>lem:reflection-&gt;q:rigidity</title>
+<path d="M526.97,-1627C539.89,-1621.9 553.49,-1617 566.46,-1613.1 653.28,-1587 705.82,-1640.5 766.46,-1573.1 852.03,-1478 819.46,-1127.8 819.46,-999.9 819.46,-999.9 819.46,-999.9 819.46,-873.23 819.46,-763.96 1168.06,-671.93 1326.16,-635.81" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1326.69,-638.2 1332.98,-634.26 1325.61,-633.42 1326.69,-638.2" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:reflection&#45;&gt;q:fibres -->
+<g class="edge" id="edge87">
+<title>lem:reflection-&gt;q:fibres</title>
+<path d="M462.46,-1612.8C462.46,-1565.1 462.46,-1485.5 462.46,-1417 462.46,-1417 462.46,-1417 462.46,-617.44 462.46,-513.49 538.42,-501.1 632.46,-456.82 732.8,-409.58 1070.76,-389.16 1197.76,-383.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1197.77,-385.47 1204.64,-382.69 1197.54,-380.58 1197.77,-385.47" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:reflection&#45;q&#45;&gt;q:fibres -->
+<g class="edge" id="edge88">
+<title>lem:reflection-q-&gt;q:fibres</title>
+<path d="M589.24,-1486.1C578.46,-1444.6 564.46,-1379.7 564.46,-1322.3 564.46,-1322.3 564.46,-1322.3 564.46,-873.23 564.46,-734.46 507.02,-668.75 596.46,-562.65 675.61,-468.76 1060.96,-406.78 1197.96,-387.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1198.17,-389.84 1204.76,-386.44 1197.48,-384.99 1198.17,-389.84" stroke="#9aa8b5"></polygon>
+</g>
+<!-- auto:remark&#45;7.8&#45;&gt;lem:triple -->
+<!-- lem:triple&#45;&gt;thm:quasi -->
+<g class="edge" id="edge15">
+<title>lem:triple-&gt;thm:quasi</title>
+<path d="M1164.46,-1693.8C1244.16,-1746.6 1367.66,-1847 1301.46,-1927.4 1242.46,-1999 1183.16,-1934.2 1096.46,-1967.4 1095.26,-1967.8 1094.16,-1968.3 1092.96,-1968.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1092.06,-1966.42 1086.64,-1971.49 1094.03,-1970.9 1092.06,-1966.42" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:triple&#45;&gt;lem:realisable -->
+<g class="edge" id="edge38">
+<title>lem:triple-&gt;lem:realisable</title>
+<path d="M1139.76,-1619C1155.86,-1602.5 1174.76,-1583.1 1190.66,-1566.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1192.24,-1568.49 1195.4,-1561.78 1188.74,-1565.05 1192.24,-1568.49" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:S -->
+<g class="node" id="node29">
+<title>lem:S</title>
+<g id="a_node29"><a target="_top" xlink:href="index.html#lem:S" xlink:title="Lemma 8.4: the multisets S(p,p′) in closed form (three cases)">
+<path d="M1126.13,-1553.97C1126.13,-1553.97 1022.78,-1553.97 1022.78,-1553.97 1016.78,-1553.97 1010.78,-1547.97 1010.78,-1541.97 1010.78,-1541.97 1010.78,-1517.64 1010.78,-1517.64 1010.78,-1511.64 1016.78,-1505.64 1022.78,-1505.64 1022.78,-1505.64 1126.13,-1505.64 1126.13,-1505.64 1132.13,-1505.64 1138.13,-1511.64 1138.13,-1517.64 1138.13,-1517.64 1138.13,-1541.97 1138.13,-1541.97 1138.13,-1547.97 1132.13,-1553.97 1126.13,-1553.97" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1074.46" xml:space="preserve" y="-1538.95">Lemma 8.4</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1074.46" xml:space="preserve" y="-1526.2">the multisets S(p,p′) in</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1074.46" xml:space="preserve" y="-1513.45">closed form (three cases)</text>
+</a>
+</g>
+</g>
+<!-- lem:triple&#45;&gt;lem:S -->
+<!-- lem:triple&#45;&gt;thm:A -->
+<g class="edge" id="edge57">
+<title>lem:triple-&gt;thm:A</title>
+<path d="M1040.36,-1619.1C1024.06,-1606.6 1008.36,-1591.2 998.46,-1573.1 965.06,-1512 984.46,-1486.7 984.46,-1417 984.46,-1417 984.46,-1417 984.46,-1219.2 984.46,-1099.3 956.86,-1039.7 1042.46,-955.64 1065.46,-933.09 1083.66,-953.53 1113.46,-941.39 1126.66,-936.03 1139.86,-928.92 1152.36,-921.34" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1153.64,-923.43 1158.27,-917.64 1151.04,-919.27 1153.64,-923.43" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:triple&#45;&gt;lem:vec -->
+<g class="edge" id="edge61">
+<title>lem:triple-&gt;lem:vec</title>
+<path d="M1175.26,-1632.6C1255.96,-1602.9 1385.76,-1543 1456.46,-1446.5 1525.86,-1351.9 1561.56,-1032.1 1650.46,-955.64 1671.86,-937.21 1687.26,-954.14 1712.46,-941.39 1725.06,-935.01 1737.36,-926.13 1748.26,-916.94" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1749.71,-918.92 1753.41,-912.5 1746.51,-915.21 1749.71,-918.92" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:realisable&#45;&gt;lem:exchange -->
+<g class="edge" id="edge27">
+<title>lem:realisable-&gt;lem:exchange</title>
+<path d="M1175.76,-1560.8C1167.46,-1565.2 1158.86,-1569.5 1150.46,-1573.1 1095.36,-1596.9 1070.16,-1578 1021.46,-1613.1 972.52,-1648.4 994.91,-1693.7 942.46,-1723.6 909.51,-1742.3 809.08,-1728.3 772.46,-1738.1 771.08,-1738.4 769.7,-1738.8 768.32,-1739.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="767.7,-1736.82 761.81,-1741.33 769.22,-1741.48 767.7,-1736.82" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:count&#45;triples -->
+<g class="node" id="node28">
+<title>lem:count-triples</title>
+<g id="a_node28"><a target="_top" xlink:href="index.html#lem:count-triples" xlink:title="Lemma 8.3: R(1,b) = (5b+4)(b+1)/2 realisable triples">
+<path d="M1379.88,-1446.54C1379.88,-1446.54 1281.03,-1446.54 1281.03,-1446.54 1275.03,-1446.54 1269.03,-1440.54 1269.03,-1434.54 1269.03,-1434.54 1269.03,-1397.46 1269.03,-1397.46 1269.03,-1391.46 1275.03,-1385.46 1281.03,-1385.46 1281.03,-1385.46 1379.88,-1385.46 1379.88,-1385.46 1385.88,-1385.46 1391.88,-1391.46 1391.88,-1397.46 1391.88,-1397.46 1391.88,-1434.54 1391.88,-1434.54 1391.88,-1440.54 1385.88,-1446.54 1379.88,-1446.54" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1330.46" xml:space="preserve" y="-1431.53">Lemma 8.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1330.46" xml:space="preserve" y="-1418.78">R(1,b) = (5b+4)(b+1)/2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1330.46" xml:space="preserve" y="-1406.03">realisable triples</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1330.46" xml:space="preserve" y="-1393.28">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:realisable&#45;&gt;lem:count&#45;triples -->
+<g class="edge" id="edge39">
+<title>lem:realisable-&gt;lem:count-triples</title>
+<path d="M1253.56,-1498.9C1266.76,-1484.8 1282.56,-1468 1296.46,-1453.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1298.17,-1454.96 1301.21,-1448.2 1294.61,-1451.58 1298.17,-1454.96" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:profiles -->
+<g class="node" id="node30">
+<title>cor:profiles</title>
+<g id="a_node30"><a target="_top" xlink:href="index.html#cor:profiles" xlink:title="Corollary 8.5: profiles X and Y of the families P′, N′₁, N′₂">
+<path d="M1205.38,-1446.54C1205.38,-1446.54 1109.53,-1446.54 1109.53,-1446.54 1103.53,-1446.54 1097.53,-1440.54 1097.53,-1434.54 1097.53,-1434.54 1097.53,-1397.46 1097.53,-1397.46 1097.53,-1391.46 1103.53,-1385.46 1109.53,-1385.46 1109.53,-1385.46 1205.38,-1385.46 1205.38,-1385.46 1211.38,-1385.46 1217.38,-1391.46 1217.38,-1397.46 1217.38,-1397.46 1217.38,-1434.54 1217.38,-1434.54 1217.38,-1440.54 1211.38,-1446.54 1205.38,-1446.54" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1157.46" xml:space="preserve" y="-1431.53">Corollary 8.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1157.46" xml:space="preserve" y="-1418.78">profiles X and Y of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1157.46" xml:space="preserve" y="-1406.03">families P′, N′₁, N′₂</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1157.46" xml:space="preserve" y="-1393.28">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:realisable&#45;&gt;cor:profiles -->
+<!-- lem:O -->
+<g class="node" id="node31">
+<title>lem:O</title>
+<g id="a_node31"><a target="_top" xlink:href="index.html#lem:O" xlink:title="Lemma 8.6: the triples with word O(s) (five cases)">
+<path d="M1328.38,-1345.46C1328.38,-1345.46 1220.53,-1345.46 1220.53,-1345.46 1214.53,-1345.46 1208.53,-1339.46 1208.53,-1333.46 1208.53,-1333.46 1208.53,-1309.13 1208.53,-1309.13 1208.53,-1303.13 1214.53,-1297.13 1220.53,-1297.13 1220.53,-1297.13 1328.38,-1297.13 1328.38,-1297.13 1334.38,-1297.13 1340.38,-1303.13 1340.38,-1309.13 1340.38,-1309.13 1340.38,-1333.46 1340.38,-1333.46 1340.38,-1339.46 1334.38,-1345.46 1328.38,-1345.46" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1274.46" xml:space="preserve" y="-1330.45">Lemma 8.6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1274.46" xml:space="preserve" y="-1317.7">the triples with word O(s)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1274.46" xml:space="preserve" y="-1304.95">(five cases)</text>
+</a>
+</g>
+</g>
+<!-- lem:realisable&#45;&gt;lem:O -->
+<g class="edge" id="edge42">
+<title>lem:realisable-&gt;lem:O</title>
+<path d="M1231.36,-1498.8C1237.26,-1469.7 1246.76,-1424.4 1256.46,-1385.5 1259.06,-1375.2 1262.16,-1364 1264.96,-1354" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1267.29,-1354.76 1266.93,-1347.35 1262.59,-1353.37 1267.29,-1354.76" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:realisable&#45;&gt;thm:A -->
+<g class="edge" id="edge56">
+<title>lem:realisable-&gt;thm:A</title>
+<path d="M1287.86,-1517.9C1328.56,-1507.2 1378.86,-1486.4 1404.46,-1446.5 1448.16,-1378.4 1405.46,-1163.2 1404.46,-1082.2 1403.76,-1026 1432.96,-1002.3 1401.46,-955.64 1381.26,-925.66 1347.26,-906.8 1313.86,-894.95" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1314.71,-892.65 1307.29,-892.72 1313.13,-897.29 1314.71,-892.65" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:realisable&#45;&gt;lem:vec -->
+<g class="edge" id="edge59">
+<title>lem:realisable-&gt;lem:vec</title>
+<path d="M1287.86,-1516.3C1330.36,-1504.8 1385.16,-1483.7 1420.46,-1446.5 1500.46,-1362.4 1508.66,-1028 1599.46,-955.64 1639.06,-924.08 1666.16,-961.92 1712.46,-941.39 1725.66,-935.53 1738.26,-926.65 1749.36,-917.28" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1750.94,-919.15 1754.61,-912.71 1747.72,-915.45 1750.94,-919.15" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:count&#45;triples&#45;&gt;lem:O -->
+<!-- lem:count&#45;triples&#45;&gt;thm:A -->
+<g class="edge" id="edge55">
+<title>lem:count-triples-&gt;thm:A</title>
+<path d="M1341.36,-1384.9C1345.36,-1372.8 1349.66,-1358.6 1352.46,-1345.5 1370.76,-1260.5 1433.06,-1029.1 1386.46,-955.64 1369.76,-929.33 1341.86,-911.47 1313.46,-899.41" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1314.67,-897.26 1307.26,-896.89 1312.82,-901.8 1314.67,-897.26" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:ratio -->
+<g class="node" id="node43">
+<title>rem:ratio</title>
+<g id="a_node43"><a target="_top" xlink:href="index.html#rem:ratio" xlink:title="Remark 9.5: how many cells are redundant">
+<path d="M1688.13,-898.39C1688.13,-898.39 1608.78,-898.39 1608.78,-898.39 1602.78,-898.39 1596.78,-892.39 1596.78,-886.39 1596.78,-886.39 1596.78,-862.07 1596.78,-862.07 1596.78,-856.07 1602.78,-850.07 1608.78,-850.07 1608.78,-850.07 1688.13,-850.07 1688.13,-850.07 1694.13,-850.07 1700.13,-856.07 1700.13,-862.07 1700.13,-862.07 1700.13,-886.39 1700.13,-886.39 1700.13,-892.39 1694.13,-898.39 1688.13,-898.39" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1648.46" xml:space="preserve" y="-883.38">Remark 9.5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1648.46" xml:space="preserve" y="-870.63">how many cells are</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1648.46" xml:space="preserve" y="-857.88">redundant</text>
+</a>
+</g>
+</g>
+<!-- lem:count&#45;triples&#45;&gt;rem:ratio -->
+<g class="edge lm-aux" id="edge70">
+<title>lem:count-triples-&gt;rem:ratio</title>
+<path d="M1268.56,-1394.3C1181.66,-1363.9 1030.96,-1305.5 1000.46,-1257.1 955.04,-1185 961.99,-1025.1 1042.46,-955.64 1059.26,-941.15 1419.56,-945.2 1441.46,-941.39 1492.16,-932.55 1547.56,-914.35 1588.36,-899.27" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1589.15,-901.59 1594.84,-896.83 1587.43,-897 1589.15,-901.59" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:S&#45;&gt;lem:exchange -->
+<g class="edge" id="edge26">
+<title>lem:S-&gt;lem:exchange</title>
+<path d="M1045.46,-1554.3C1025.86,-1570.4 999.64,-1592.5 977.46,-1613.1 926.89,-1660 929.92,-1692.3 868.46,-1723.6 830.01,-1743.2 813.76,-1725.6 772.46,-1738.1 771.1,-1738.5 769.73,-1738.9 768.36,-1739.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="767.72,-1737.03 761.89,-1741.61 769.31,-1741.66 767.72,-1737.03" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:S&#45;&gt;cor:profiles -->
+<g class="edge" id="edge40">
+<title>lem:S-&gt;cor:profiles</title>
+<path d="M1092.06,-1505.1C1103.16,-1490.2 1117.66,-1470.6 1130.26,-1453.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1132.05,-1455.4 1134.25,-1448.32 1128.11,-1452.48 1132.05,-1455.4" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:Q -->
+<g class="node" id="node32">
+<title>lem:Q</title>
+<g id="a_node32"><a target="_top" xlink:href="index.html#lem:Q" xlink:title="Lemma 8.7: the triples I₁, I₂, J(τ,d) with word Q(τ,d)">
+<path d="M1117.51,-1244.37C1117.51,-1244.37 1025.41,-1244.37 1025.41,-1244.37 1019.41,-1244.37 1013.41,-1238.37 1013.41,-1232.37 1013.41,-1232.37 1013.41,-1208.04 1013.41,-1208.04 1013.41,-1202.04 1019.41,-1196.04 1025.41,-1196.04 1025.41,-1196.04 1117.51,-1196.04 1117.51,-1196.04 1123.51,-1196.04 1129.51,-1202.04 1129.51,-1208.04 1129.51,-1208.04 1129.51,-1232.37 1129.51,-1232.37 1129.51,-1238.37 1123.51,-1244.37 1117.51,-1244.37" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1071.46" xml:space="preserve" y="-1229.35">Lemma 8.7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1071.46" xml:space="preserve" y="-1216.6">the triples I₁, I₂, J(τ,d)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1071.46" xml:space="preserve" y="-1203.85">with word Q(τ,d)</text>
+</a>
+</g>
+</g>
+<!-- lem:S&#45;&gt;lem:Q -->
+<!-- cor:profiles&#45;&gt;lem:O -->
+<g class="edge" id="edge41">
+<title>cor:profiles-&gt;lem:O</title>
+<path d="M1195.46,-1384.9C1209.16,-1374 1224.66,-1361.7 1238.26,-1350.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1239.62,-1352.94 1243.66,-1346.73 1236.62,-1349.07 1239.62,-1352.94" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:profiles&#45;&gt;lem:Q -->
+<g class="edge" id="edge43">
+<title>cor:profiles-&gt;lem:Q</title>
+<path d="M1144.26,-1385.1C1128.16,-1349.1 1101.36,-1288.7 1085.16,-1252.1" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1087.56,-1251.48 1082.47,-1246.08 1083.09,-1253.47 1087.56,-1251.48" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7 -->
+<g class="node" id="node33">
+<title>lem:7</title>
+<g id="a_node33"><a target="_top" xlink:href="index.html#lem:7" xlink:title="Lemma 8.8: a = 1: two realisable triples have the same word iff they have the same label">
+<path d="M1177.88,-1042.19C1177.88,-1042.19 1067.03,-1042.19 1067.03,-1042.19 1061.03,-1042.19 1055.03,-1036.19 1055.03,-1030.19 1055.03,-1030.19 1055.03,-967.61 1055.03,-967.61 1055.03,-961.61 1061.03,-955.61 1067.03,-955.61 1067.03,-955.61 1177.88,-955.61 1177.88,-955.61 1183.88,-955.61 1189.88,-961.61 1189.88,-967.61 1189.88,-967.61 1189.88,-1030.19 1189.88,-1030.19 1189.88,-1036.19 1183.88,-1042.19 1177.88,-1042.19" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1122.46" xml:space="preserve" y="-1027.18">Lemma 8.8</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1122.46" xml:space="preserve" y="-1014.43">a = 1: two realisable</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1122.46" xml:space="preserve" y="-1001.68">triples have the same word</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1122.46" xml:space="preserve" y="-988.93">iff they have the same</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1122.46" xml:space="preserve" y="-976.18">label</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1122.46" xml:space="preserve" y="-963.43">💻 program</text>
+</a>
+</g>
+</g>
+<!-- cor:profiles&#45;&gt;lem:7 -->
+<!-- lem:zeros -->
+<g class="node" id="node34">
+<title>lem:zeros</title>
+<g id="a_node34"><a target="_top" xlink:href="index.html#lem:zeros" xlink:title="Lemma 8.9: the zeros of the profile, by type (P±, P⁰, Pᶜ, N±, N⁰, Nᶜ, N′₂)">
+<path d="M1293.63,-1257.12C1293.63,-1257.12 1193.28,-1257.12 1193.28,-1257.12 1187.28,-1257.12 1181.28,-1251.12 1181.28,-1245.12 1181.28,-1245.12 1181.28,-1195.29 1181.28,-1195.29 1181.28,-1189.29 1187.28,-1183.29 1193.28,-1183.29 1193.28,-1183.29 1293.63,-1183.29 1293.63,-1183.29 1299.63,-1183.29 1305.63,-1189.29 1305.63,-1195.29 1305.63,-1195.29 1305.63,-1245.12 1305.63,-1245.12 1305.63,-1251.12 1299.63,-1257.12 1293.63,-1257.12" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1243.46" xml:space="preserve" y="-1242.1">Lemma 8.9</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1243.46" xml:space="preserve" y="-1229.35">the zeros of the profile,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1243.46" xml:space="preserve" y="-1216.6">by type (P±, P⁰, Pᶜ, N±,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1243.46" xml:space="preserve" y="-1203.85">N⁰, Nᶜ, N′₂)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1243.46" xml:space="preserve" y="-1191.1">💻 program</text>
+</a>
+</g>
+</g>
+<!-- cor:profiles&#45;&gt;lem:zeros -->
+<g class="edge" id="edge48">
+<title>cor:profiles-&gt;lem:zeros</title>
+<path d="M1165.26,-1385.2C1172.06,-1360.9 1182.96,-1326 1196.46,-1297.1 1201.56,-1286.3 1207.76,-1275.1 1214.16,-1264.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1216.09,-1266.24 1217.66,-1258.99 1211.91,-1263.67 1216.09,-1266.24" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:O&#45;&gt;cor:exchange -->
+<g class="edge" id="edge28">
+<title>lem:O-&gt;cor:exchange</title>
+<path d="M1208.16,-1337.2C1170.46,-1347.3 1123.46,-1363.1 1085.46,-1385.5 982.7,-1445.9 885.05,-1546.8 831.9,-1606.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="830.05,-1604.99 827.27,-1611.86 833.73,-1608.23 830.05,-1604.99" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:O&#45;&gt;lem:7 -->
+<g class="edge" id="edge44">
+<title>lem:O-&gt;lem:7</title>
+<path d="M1299.06,-1296.7C1309.46,-1285.6 1320.86,-1271.6 1328.46,-1257.1 1365.06,-1187.3 1405.36,-1145.7 1358.46,-1082.2 1322.56,-1033.6 1285.46,-1062.3 1228.46,-1042.2 1218.56,-1038.7 1208.26,-1034.9 1198.06,-1030.9" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1199.08,-1028.67 1191.67,-1028.44 1197.32,-1033.24 1199.08,-1028.67" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:O&#45;&gt;lem:zeros -->
+<!-- lem:n0zero -->
+<g class="node" id="node35">
+<title>lem:n0zero</title>
+<g id="a_node35"><a target="_top" xlink:href="index.html#lem:n0zero" xlink:title="Lemma 8.10: n₀ = 0 exactly on the list of Lemma 8.6 (label O(τ−1))">
+<path d="M1334.01,-1143.34C1334.01,-1143.34 1232.91,-1143.34 1232.91,-1143.34 1226.91,-1143.34 1220.91,-1137.34 1220.91,-1131.34 1220.91,-1131.34 1220.91,-1094.26 1220.91,-1094.26 1220.91,-1088.26 1226.91,-1082.26 1232.91,-1082.26 1232.91,-1082.26 1334.01,-1082.26 1334.01,-1082.26 1340.01,-1082.26 1346.01,-1088.26 1346.01,-1094.26 1346.01,-1094.26 1346.01,-1131.34 1346.01,-1131.34 1346.01,-1137.34 1340.01,-1143.34 1334.01,-1143.34" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1283.46" xml:space="preserve" y="-1128.33">Lemma 8.10</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1283.46" xml:space="preserve" y="-1115.58">n₀ = 0 exactly on the list</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1283.46" xml:space="preserve" y="-1102.83">of Lemma 8.6 (label</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1283.46" xml:space="preserve" y="-1090.08">O(τ−1))</text>
+</a>
+</g>
+</g>
+<!-- lem:O&#45;&gt;lem:n0zero -->
+<g class="edge" id="edge49">
+<title>lem:O-&gt;lem:n0zero</title>
+<path d="M1296.06,-1296.7C1304.86,-1285.5 1313.96,-1271.5 1318.46,-1257.1 1328.26,-1225.8 1326.06,-1215.2 1318.46,-1183.3 1315.86,-1172.4 1311.26,-1161.3 1306.26,-1151.2" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1308.46,-1150.12 1303.06,-1145.04 1304.11,-1152.38 1308.46,-1150.12" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:Q&#45;&gt;cor:exchange -->
+<g class="edge" id="edge29">
+<title>lem:Q-&gt;cor:exchange</title>
+<path d="M1047.76,-1244.8C1005.36,-1288 916.12,-1383.9 860.46,-1478.5 836.87,-1518.6 818.05,-1568.1 805.89,-1604.6" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="803.59,-1603.75 803.72,-1611.16 808.24,-1605.28 803.59,-1603.75" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:Q&#45;&gt;lem:7 -->
+<g class="edge" id="edge45">
+<title>lem:Q-&gt;lem:7</title>
+<path d="M1076.96,-1195.7C1084.86,-1161.4 1099.96,-1096.7 1110.56,-1051" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1112.95,-1051.55 1112.12,-1044.18 1108.17,-1050.45 1112.95,-1051.55" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:Q&#45;&gt;lem:n0zero -->
+<!-- lem:n0pos -->
+<g class="node" id="node36">
+<title>lem:n0pos</title>
+<g id="a_node36"><a target="_top" xlink:href="index.html#lem:n0pos" xlink:title="Lemma 8.11: equal keys with n₀ ≥ 1: the same triple or a pair I, J(τ,d)">
+<path d="M1088.88,-911.14C1088.88,-911.14 990.03,-911.14 990.03,-911.14 984.03,-911.14 978.03,-905.14 978.03,-899.14 978.03,-899.14 978.03,-849.32 978.03,-849.32 978.03,-843.32 984.03,-837.32 990.03,-837.32 990.03,-837.32 1088.88,-837.32 1088.88,-837.32 1094.88,-837.32 1100.88,-843.32 1100.88,-849.32 1100.88,-849.32 1100.88,-899.14 1100.88,-899.14 1100.88,-905.14 1094.88,-911.14 1088.88,-911.14" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1039.46" xml:space="preserve" y="-896.13">Lemma 8.11</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1039.46" xml:space="preserve" y="-883.38">equal keys with n₀ ≥ 1:</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1039.46" xml:space="preserve" y="-870.63">the same triple or a pair</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1039.46" xml:space="preserve" y="-857.88">I, J(τ,d)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1039.46" xml:space="preserve" y="-845.13">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:Q&#45;&gt;lem:n0pos -->
+<g class="edge" id="edge51">
+<title>lem:Q-&gt;lem:n0pos</title>
+<path d="M1055.96,-1195.6C1047.16,-1181.2 1036.96,-1161.9 1031.46,-1143.3 1007.86,-1063.2 1013.76,-1038.7 1022.46,-955.64 1023.66,-943.88 1025.86,-931.3 1028.36,-919.67" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1030.74,-920.24 1029.83,-912.88 1025.95,-919.2 1030.74,-920.24" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7&#45;&gt;lem:n0pos -->
+<!-- lem:7&#45;&gt;thm:A -->
+<g class="edge" id="edge54">
+<title>lem:7-&gt;thm:A</title>
+<path d="M1154.76,-955.36C1162.56,-945.04 1170.96,-933.94 1178.96,-923.38" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1180.68,-925.16 1182.94,-918.1 1176.77,-922.21 1180.68,-925.16" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:zeros&#45;&gt;lem:n0zero -->
+<g class="edge" id="edge50">
+<title>lem:zeros-&gt;lem:n0zero</title>
+<path d="M1257.26,-1182.9C1261.06,-1172.9 1265.16,-1161.9 1269.06,-1151.8" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1271.36,-1152.63 1271.53,-1145.22 1266.77,-1150.91 1271.36,-1152.63" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:zeros&#45;&gt;lem:n0pos -->
+<g class="edge" id="edge52">
+<title>lem:zeros-&gt;lem:n0pos</title>
+<path d="M1180.76,-1184C1133.16,-1153.4 1071.16,-1104.3 1042.46,-1042.2 1024.66,-1003.7 1026.26,-954.7 1030.86,-919.75" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1033.24,-920.4 1031.75,-913.13 1028.39,-919.74 1033.24,-920.4" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:zeros&#45;&gt;thm:A -->
+<!-- lem:n0zero&#45;&gt;lem:7 -->
+<g class="edge" id="edge47">
+<title>lem:n0zero-&gt;lem:7</title>
+<path d="M1240.36,-1081.8C1225.06,-1071.2 1207.56,-1059.1 1190.86,-1047.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1192.56,-1045.6 1185.4,-1043.66 1189.79,-1049.64 1192.56,-1045.6" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:statusA -->
+<g class="node" id="node38">
+<title>rem:statusA</title>
+<g id="a_node38"><a target="_top" xlink:href="index.html#rem:statusA" xlink:title="Remark 8.13: status of Theorem A: by hand, each lemma also checked by computer (b ≤ 20)">
+<path d="M1361.76,-1035.82C1361.76,-1035.82 1253.16,-1035.82 1253.16,-1035.82 1247.16,-1035.82 1241.16,-1029.82 1241.16,-1023.82 1241.16,-1023.82 1241.16,-973.99 1241.16,-973.99 1241.16,-967.99 1247.16,-961.99 1253.16,-961.99 1253.16,-961.99 1361.76,-961.99 1361.76,-961.99 1367.76,-961.99 1373.76,-967.99 1373.76,-973.99 1373.76,-973.99 1373.76,-1023.82 1373.76,-1023.82 1373.76,-1029.82 1367.76,-1035.82 1361.76,-1035.82" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307.46" xml:space="preserve" y="-1020.8">Remark 8.13</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307.46" xml:space="preserve" y="-1008.05">status of Theorem A: by</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307.46" xml:space="preserve" y="-995.3">hand, each lemma also</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307.46" xml:space="preserve" y="-982.55">checked by computer (b ≤</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1307.46" xml:space="preserve" y="-969.8">20)</text>
+</a>
+</g>
+</g>
+<!-- lem:n0zero&#45;&gt;rem:statusA -->
+<!-- lem:n0pos&#45;&gt;lem:7 -->
+<g class="edge" id="edge46">
+<title>lem:n0pos-&gt;lem:7</title>
+<path d="M1072.76,-911.6C1081.16,-923.09 1090.06,-935.98 1098.06,-948.23" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1095.98,-949.53 1101.84,-954.09 1100.1,-946.88 1095.98,-949.53" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:A&#45;&gt;rem:statusA -->
+<g class="edge lm-aux" id="edge58">
+<title>thm:A-&gt;rem:statusA</title>
+<path d="M1246.46,-916.52C1255.66,-928.8 1265.76,-942.28 1275.06,-954.68" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1273.03,-956.06 1279.16,-960.23 1276.97,-953.15 1273.03,-956.06" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:A&#45;&gt;rem:ratio -->
+<g class="edge lm-aux" id="edge71">
+<title>thm:A-&gt;rem:ratio</title>
+<path d="M1305.56,-874.23C1399.66,-874.23 1493.86,-874.23 1587.96,-874.23" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1587.74,-876.68 1594.74,-874.23 1587.74,-871.78 1587.74,-876.68" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:A&#45;&gt;q:rigidity -->
+<g class="edge" id="edge76">
+<title>thm:A-&gt;q:rigidity</title>
+<path d="M1223.56,-831.6C1232.26,-795.15 1249.06,-742.28 1278.46,-704.61 1294.16,-684.54 1315.86,-667.41 1336.76,-653.89" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1337.89,-656.08 1342.48,-650.25 1335.26,-651.94 1337.89,-656.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:statusA&#45;&gt;lem:vec -->
+<!-- lem:vec&#45;&gt;thm:quasi -->
+<g class="edge" id="edge16">
+<title>lem:vec-&gt;thm:quasi</title>
+<path d="M1744.56,-911.7C1725.96,-927.71 1707.36,-945.2 1701.46,-955.64 1666.46,-1017.2 1669.46,-1040.9 1669.46,-1111.8 1669.46,-1417 1669.46,-1417 1669.46,-1417 1669.46,-1554.5 1700.66,-1606.6 1628.46,-1723.6 1544.06,-1860.4 1478.56,-1867.1 1329.46,-1927.4 1232.06,-1966.7 1195.06,-1930.9 1096.46,-1967.4 1095.26,-1967.8 1094.16,-1968.2 1092.96,-1968.7" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1092.04,-1966.43 1086.55,-1971.41 1093.95,-1970.94 1092.04,-1966.43" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:vec&#45;&gt;lem:R -->
+<g class="edge" id="edge62">
+<title>lem:vec-&gt;lem:R</title>
+<path d="M1817.36,-836.74C1829.46,-821.04 1843.46,-802.72 1855.46,-787.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1857.26,-788.69 1859.63,-781.66 1853.39,-785.68 1857.26,-788.69" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:7prime -->
+<g class="node" id="node41">
+<title>lem:7prime</title>
+<g id="a_node41"><a target="_top" xlink:href="index.html#lem:7prime" xlink:title="Lemma 9.3: a = 2: the classes of size ≥ 2 are exactly the listed ones (O, A–F), pairwise disjoint">
+<path d="M1777.63,-792.81C1777.63,-792.81 1635.28,-792.81 1635.28,-792.81 1629.28,-792.81 1623.28,-786.81 1623.28,-780.81 1623.28,-780.81 1623.28,-718.23 1623.28,-718.23 1623.28,-712.23 1629.28,-706.23 1635.28,-706.23 1635.28,-706.23 1777.63,-706.23 1777.63,-706.23 1783.63,-706.23 1789.63,-712.23 1789.63,-718.23 1789.63,-718.23 1789.63,-780.81 1789.63,-780.81 1789.63,-786.81 1783.63,-792.81 1777.63,-792.81" fill="#e9f8f0" stroke="#1cac78" stroke-dasharray="5,2" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1706.46" xml:space="preserve" y="-777.79">Lemma 9.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1706.46" xml:space="preserve" y="-765.04">a = 2: the classes of size</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1706.46" xml:space="preserve" y="-752.29">≥ 2 are exactly the listed</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1706.46" xml:space="preserve" y="-739.54">ones (O, A–F), pairwise</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1706.46" xml:space="preserve" y="-726.79">disjoint</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1706.46" xml:space="preserve" y="-714.04">◐ part in Isabelle · 💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:vec&#45;&gt;lem:7prime -->
+<g class="edge" id="edge64">
+<title>lem:vec-&gt;lem:7prime</title>
+<path d="M1764.76,-836.74C1756.96,-825.18 1748.16,-812.2 1739.86,-799.88" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1742.08,-798.79 1736.11,-794.38 1738.03,-801.54 1742.08,-798.79" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:vec&#45;&gt;thm:B -->
+<!-- lem:R&#45;&gt;thm:B -->
+<g class="edge" id="edge67">
+<title>lem:R-&gt;thm:B</title>
+<path d="M1834.26,-718.42C1811.16,-704.26 1782.86,-686.98 1756.46,-670.84" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1758,-668.91 1750.75,-667.34 1755.44,-673.09 1758,-668.91" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:R&#45;&gt;rem:ratio -->
+<!-- lem:7prime&#45;&gt;thm:B -->
+<g class="edge" id="edge66">
+<title>lem:7prime-&gt;thm:B</title>
+<path d="M1695.26,-705.9C1692.66,-696.16 1689.86,-685.67 1687.26,-675.47" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1689.65,-674.94 1685.45,-668.83 1684.92,-676.23 1689.65,-674.94" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:B&#45;&gt;rem:ratio -->
+<g class="edge lm-aux" id="edge72">
+<title>thm:B-&gt;rem:ratio</title>
+<path d="M1749.46,-631.3C1826.96,-644.99 1938.56,-670.12 1964.46,-704.61 1994.36,-744.46 1999.16,-780.9 1964.46,-816.68 1954.76,-826.75 1725.66,-820.14 1712.46,-824.81 1700.26,-829.12 1688.56,-836.65 1678.46,-844.51" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1677.17,-842.4 1673.32,-848.74 1680.29,-846.18 1677.17,-842.4" stroke="#9aa8b5"></polygon>
+</g>
+<!-- thm:B&#45;&gt;q:rigidity -->
+<g class="edge" id="edge77">
+<title>thm:B-&gt;q:rigidity</title>
+<path d="M1595.46,-618.44C1556.46,-618.44 1517.46,-618.44 1478.56,-618.44" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1478.77,-615.99 1471.77,-618.44 1478.77,-620.89 1478.77,-615.99" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:ratio&#45;&gt;rem:earliercounts -->
+<!-- rem:earliercounts&#45;&gt;q:rigidity -->
+<!-- q:rigidity&#45;&gt;q:leading -->
+<g class="edge" id="edge80">
+<title>q:rigidity-&gt;q:leading</title>
+<path d="M1364.26,-587.42C1344.76,-572.06 1320.66,-553.1 1299.36,-536.35" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1301.06,-534.57 1294.05,-532.17 1298.03,-538.42 1301.06,-534.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- q:rigidity&#45;&gt;q:period -->
+<!-- q:leading&#45;&gt;q:fibres -->
+<!-- q:a3&#45;&gt;q:several -->
+<!-- q:period&#45;&gt;q:membership -->
+<!-- q:fibres&#45;&gt;q:frequencies -->
+<!-- q:frequencies&#45;&gt;prop:KR -->
+<!-- ex:n3 -->
+<g class="node" id="node54">
+<title>ex:n3</title>
+<g id="a_node54"><a target="_top" xlink:href="index.html#ex:n3" xlink:title="Example A.2: n = 3: P₃(q) = 1 + q + q³ + q⁴, coefficient runs 1, 0, 1 = the heights of the word">
+<path d="M1218.76,-81.83C1218.76,-81.83 1116.16,-81.83 1116.16,-81.83 1110.16,-81.83 1104.16,-75.83 1104.16,-69.83 1104.16,-69.83 1104.16,-20 1104.16,-20 1104.16,-14 1110.16,-8 1116.16,-8 1116.16,-8 1218.76,-8 1218.76,-8 1224.76,-8 1230.76,-14 1230.76,-20 1230.76,-20 1230.76,-69.83 1230.76,-69.83 1230.76,-75.83 1224.76,-81.83 1218.76,-81.83" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1167.46" xml:space="preserve" y="-66.82">Example A.2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1167.46" xml:space="preserve" y="-54.07">n = 3: P₃(q) = 1 + q + q³</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1167.46" xml:space="preserve" y="-41.32">+ q⁴, coefficient runs 1,</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1167.46" xml:space="preserve" y="-28.57">0, 1 = the heights of the</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1167.46" xml:space="preserve" y="-15.82">word</text>
+</a>
+</g>
+</g>
+<!-- prop:KR&#45;&gt;ex:n3 -->
+<g class="edge" id="edge95">
+<title>prop:KR-&gt;ex:n3</title>
+<path d="M1217.96,-121.45C1210.86,-110.92 1203.36,-99.64 1196.36,-89.09" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1198.55,-87.97 1192.6,-83.54 1194.49,-90.71 1198.55,-87.97" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:KRbijection -->
+<g class="node" id="node55">
+<title>cor:KRbijection</title>
+<g id="a_node55"><a target="_top" xlink:href="index.html#cor:KRbijection" xlink:title="Corollary A.3: Lₖ is in bijection with the compressed coefficient profiles of the Pₙ(q) with τ(odd part of n) = k">
+<path d="M1377.13,-81.83C1377.13,-81.83 1267.78,-81.83 1267.78,-81.83 1261.78,-81.83 1255.78,-75.83 1255.78,-69.83 1255.78,-69.83 1255.78,-20 1255.78,-20 1255.78,-14 1261.78,-8 1267.78,-8 1267.78,-8 1377.13,-8 1377.13,-8 1383.13,-8 1389.13,-14 1389.13,-20 1389.13,-20 1389.13,-69.83 1389.13,-69.83 1389.13,-75.83 1383.13,-81.83 1377.13,-81.83" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1322.46" xml:space="preserve" y="-66.82">Corollary A.3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1322.46" xml:space="preserve" y="-54.07">Lₖ is in bijection with</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1322.46" xml:space="preserve" y="-41.32">the compressed coefficient</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1322.46" xml:space="preserve" y="-28.57">profiles of the Pₙ(q) with</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="1322.46" xml:space="preserve" y="-15.82">τ(odd part of n) = k</text>
+</a>
+</g>
+</g>
+<!-- prop:KR&#45;&gt;cor:KRbijection -->
+<g class="edge" id="edge96">
+<title>prop:KR-&gt;cor:KRbijection</title>
+<path d="M1273.86,-121.45C1280.56,-111.02 1287.76,-99.86 1294.46,-89.4" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1296.49,-90.76 1298.23,-83.55 1292.38,-88.1 1296.49,-90.76" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>The language $L$ of the words $\langle\!\langle n\rangle\!\rangle_2$ and the question of describing it are
+Rodríguez Caballero's. Starting from the reduction to the odd part, the paper counts the words of each semilength:</p>
+<ul>
+<li><b>Part I (structure).</b> The words of a pattern are the words of the cells of a hyperplane arrangement in the
+logarithms of the primes, and every cell is realised by primes (Lemma 2.3). $L_k$ is produced by the single finest
+pattern $p_1^{q_1-1}\cdots p_r^{q_r-1}$, $k=q_1\cdots q_r$ (Theorem 3.1), so membership in $L$ is decidable
+(Corollary 4.2). Written proofs.</li>
+<li><b>Part II (general enumeration).</b> An exact formula for the number $R(a,b)$ of cells of the pattern
+$p^ap'^b$, with leading coefficient $C_a\sim12a^2/\pi^2$ (Theorem 5.1, Corollary 5.2); $W(a,b)$ is eventually a
+quasipolynomial in $b$ of degree exactly two (Theorem 6.1, an application of Woods' theorem, existence only; Theorem
+6.3, Corollary 6.4); three mechanisms by which distinct cells give the same word (Section 7). Written proofs.</li>
+<li><b>Part III (explicit counts).</b> $|L_{2q}|=(9q^2-10q+13)/4$ for odd primes $q$ (Theorem A, written proof) and
+$|L_{3q}|=(44q^2-69q+58-3(\tfrac q3))/6$ for primes $q\ge5$ (Theorem B: one lemma is decided by exact SMT queries
+with Z3, without a checked proof object); a table of $|L_k|$ for small $k$ by exact enumeration.</li>
+</ul>
+<p>The paper claims no novelty for the Kassel–Reutenauer reformulation of the appendix, which is implicit in
+Rodríguez Caballero's work (JNT 2018). The arrangements and their link with semiorders go back to Stanley; counting
+cells through vertices is the planar case of Zaslavsky's face-count formula; the quasipolynomiality rests on a theorem
+of Woods.</p></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#lem:reduction"><b>Lemma 2.1</b></a>: reduction to the odd part: Dₙ∖2Dₙ = Dₘ, 2Dₙ∖Dₙ = tDₘ, semilength τ(m).</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:refinement"><b>Theorem 3.1</b></a>: maximal refinement: Lₖ is the set of words of the finest pattern (q₁−1, …, qᵣ−1)</li><li><a href="index.html#thm:Rformula"><b>Theorem 5.1</b></a>: exact formula for the number R(a,b) of cells of the pattern pᵃ p′ᵇ</li><li><a href="index.html#thm:quasi"><b>Theorem 6.1</b></a>: for fixed a, W(a,b) is eventually a quasipolynomial in b of degree ≤ 2 (via Woods)</li><li><a href="index.html#thm:A"><b>Theorem 8.12</b></a>: Theorem A: W(1,b) = ⌊(9b²+8b+12)/4⌋, so |L₂q| = (9q²−10q+13)/4</li><li><a href="index.html#thm:B"><b>Theorem 9.4</b></a>: Theorem B: W(2,b) = (44b²+19b+e_(b mod 6))/6, so |L₃q| = (44q²−69q+58−3(q/3))/6</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Language of divisor words (Rodríguez Caballero)</b> → the word ⟨⟨n⟩⟩₂, its Dyck property and symmetry, the reduction to the odd part, the decision problem (FOM 2020) and the link with the Kassel–Reutenauer polynomials are his — <a href="index.html#lem:reduction">Lemma 2.1</a>, <a href="index.html#cor:decidable">Corollary 4.2</a>, <a href="index.html#prop:KR"> A.1</a></li><li><b>Hyperplane arrangements (Stanley; Zaslavsky; Beck–Zaslavsky)</b> → the word is the cell of a point in an arrangement α·x = 1; cells are counted through vertices (Euler’s relation, the planar case of Zaslavsky’s face count) — <a href="index.html#lem:realise">Lemma 2.3</a>, <a href="index.html#thm:Rformula">Theorem 5.1</a></li><li><b>Presburger arithmetic (Woods 2015)</b> → W(a,b) as a Presburger counting function is eventually a quasipolynomial (existence only) — <a href="index.html#thm:quasi">Theorem 6.1</a></li><li><b>Prime numbers (Bertrand’s postulate) and SMT solving (Z3, cvc5)</b> → every open cell is realised by primes; the completeness and disjointness of the coincidence classes for a = 2 are decided by exact SMT queries — <a href="index.html#lem:realise">Lemma 2.3</a>, <a href="index.html#lem:7prime">Lemma 9.3</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Counting the language L</b> ← |L_q| = q, |L_2q| and |L_3q| in closed form, |L_k| for small k, the growth of W(a,b) and open questions on rigidity, periods and fibres — <a href="index.html#cor:refinement">Corollary 3.3</a>, <a href="index.html#thm:A">Theorem 8.12</a>, <a href="index.html#thm:B">Theorem 9.4</a>, <a href="index.html#cor:degree2">Corollary 6.4</a></li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  if (!panes.length || !box) return;
+  function mark(p){
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+  }
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
+})();
+</script>
+<script defer="" src="../lemmario-assets/mapzoom.js"></script>
+<script data-lm="lm-maphere" src="../lemmario-assets/lm-maphere.js"></script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"auto:definition-1.1": "Definition 1.1", "lem:reduction": "Lemma 2.1", "def:wf": "Definition 2.2", "lem:realise": "Lemma 2.3 — realisation by primes", "thm:refinement": "Theorem 3.1", "lem:radix": "Lemma 3.2 — mixed radix; classical", "cor:refinement": "Corollary 3.3", "prop:box": "Proposition 4.1", "cor:decidable": "Corollary 4.2 — decidability", "rem:complexity": "Remark 4.3 — complexity", "thm:Rformula": "Theorem 5.1", "cor:Ca": "Corollary 5.2", "thm:quasi": "Theorem 6.1", "auto:remark-6.2": "Remark 6.2", "thm:quadratic": "Theorem 6.3", "cor:degree2": "Corollary 6.4", "rem:square": "Remark 6.5", "lem:O0": "Lemma 7.1", "lem:exchange": "Lemma 7.2", "cor:exchange": "Corollary 7.3", "auto:remark-7.4": "Remark 7.4 — what the exchange adds", "lem:reflection": "Lemma 7.5", "auto:remark-7.6": "Remark 7.6", "lem:reflection-q": "Lemma 7.7", "auto:remark-7.8": "Remark 7.8", "lem:triple": "Lemma 8.1 — triples", "lem:realisable": "Lemma 8.2 — realisable triples", "lem:count-triples": "Lemma 8.3", "lem:S": "Lemma 8.4", "cor:profiles": "Corollary 8.5 — profiles", "lem:O": "Lemma 8.6", "lem:Q": "Lemma 8.7", "lem:7": "Lemma 8.8", "lem:zeros": "Lemma 8.9 — zeros", "lem:n0zero": "Lemma 8.10", "lem:n0pos": "Lemma 8.11", "thm:A": "Theorem 8.12 — Theorem A", "rem:statusA": "Remark 8.13 — status of Theorem A", "lem:vec": "Lemma 9.1 — vector", "lem:R": "Lemma 9.2 — cells", "lem:7prime": "Lemma 9.3", "thm:B": "Theorem 9.4 — Theorem B; computer-assisted in Lemma~\\ref{lem:7prime}", "rem:ratio": "Remark 9.5 — how many cells are redundant", "rem:earliercounts": "Remark 10.1", "q:rigidity": "Question 11.1", "q:leading": "Question 11.2", "q:a3": "Question 11.3 — conjecture", "q:period": "Question 11.4", "q:fibres": "Question 11.5", "q:several": "Question 11.6", "q:membership": "Question 11.7", "q:frequencies": "Question 11.8", "prop:KR": "Observation A.1", "ex:n3": "Example A.2", "cor:KRbijection": "Corollary A.3"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    // 24-nov: los cambios DENTRO de una figura viva (3D, niveles, svg, canvas) no cuentan: una figura que se repinta en
+    // cada fotograma relanzaba apply() sobre toda la página cada 300 ms (dilogarithm-clock: Chrome sin ventana no
+    // terminaba nunca y el navegador gastaba CPU sin parar)
+    var FIG = '.l3, .lv, .lm-3d, svg, canvas';
+    new MutationObserver(function (records) {
+      var fuera = records.some(function (r) {
+        var t = r.target.nodeType === 1 ? r.target : r.target.parentElement;
+        return !(t && t.closest && t.closest(FIG));
+      });
+      if (fuera && due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script data-lm="lm-notranslate" src="../lemmario-assets/lm-notranslate.js"></script>
+<script data-lm="lm-print-js" src="../lemmario-assets/lm-print-js.js"></script>
+</body></html>

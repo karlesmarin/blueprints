@@ -1,0 +1,910 @@
+{
+ "schema": "lemmario-blueprint/1",
+ "statements": [
+  {
+   "id": "lem:reduction",
+   "number": "Lemma 2.1",
+   "title": "reduction to the odd part: D_n∖2D_n = D_m, 2D_n∖D_n = tD_m, semilength τ(m)",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:realise",
+   "number": "Lemma 2.3",
+   "title": "every open cell of the arrangement 𝒜_f is realised by distinct odd primes (Bertrand)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:radix",
+   "number": "Lemma 3.2",
+   "title": "mixed radix: N = i + (u+1)j is a bijection {0..u}×{0..v} → {0..F}",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:refinement",
+   "number": "Theorem 3.1",
+   "title": "maximal refinement: L_k is the set of words of the finest pattern (q₁−1, …, q_r−1)",
+   "status": "part",
+   "formal_part": "the combinatorial core: the word is unchanged when x₁ is split into (x₁, (u+1)x₁); the realisation by primes (Lemma 2.3) is not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:radix",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:refinement",
+   "number": "Corollary 3.3",
+   "title": "|L_q| = q (words O_q(N)) and |L_pq| = W(p−1, q−1)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:refinement",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:box",
+   "number": "Proposition 4.1",
+   "title": "every open cell meets the box 0 < x_i < r!·M^(r−1) + 1 (this makes Table 1 exact)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:decidable",
+   "number": "Corollary 4.2",
+   "title": "membership in L is decidable, in time exp(O((log k)²))",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:refinement",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:box",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:Rformula",
+   "number": "Theorem 5.1",
+   "title": "exact formula for the number R(a,b) of cells of the pattern p^a p′^b",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:Ca",
+   "number": "Corollary 5.2",
+   "title": "R(a,b) is a quasipolynomial of degree 2 with leading coefficient C_a ~ 12a²/π²",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:Rformula",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:quasi",
+   "number": "Theorem 6.1",
+   "title": "for fixed a, W(a,b) is eventually a quasipolynomial in b of degree ≤ 2 (via Woods)",
+   "status": "part",
+   "formal_part": "the algebraic part of Step 3 (telescoping of progressions, cancellation of 1 − z^D in ℤ[z], multisets ↔ generating polynomials); the Presburger encoding and Woods’ theorem are not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:triple",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:vec",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:quadratic",
+   "number": "Theorem 6.3",
+   "title": "W(a,b) ≥ #{(u,v): 2u+v ≥ b, u+2v ≥ b} ≥ ⌊2b/3⌋², so W(a,b) = Θ_a(b²)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:quasi",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:Ca",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:degree2",
+   "number": "Corollary 6.4",
+   "title": "every constituent has degree exactly 2, leading coefficient in [2/3, C_a]",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:quasi",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:quadratic",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:Ca",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:O0",
+   "number": "Lemma 7.1",
+   "title": "the empty-graph fibre: |Φ(O(0))| = 1 + Σ_{h≤a} #{j ≤ b : gcd(j,h) = 1}",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:quasi",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:exchange",
+   "number": "Lemma 7.2",
+   "title": "exchange of arithmetic progressions between rows (a = 1): Z(ξ) = Z(T(ξ))",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:realisable",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:S",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:exchange",
+   "number": "Corollary 7.3",
+   "title": "T is injective and produces exactly the pairs of the family Q and b pairs of O(s)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:exchange",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:Q",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:O",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:reflection",
+   "number": "Lemma 7.5",
+   "title": "reflection inside integer levels (a ≥ 2): pairs u^(p,k), v^(p,k) with the same word, height p+1",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:quasi",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:reflection-q",
+   "number": "Lemma 7.7",
+   "title": "reflection around a rational slope m/q: realisable distinct c^± with the same word",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:reflection",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:triple",
+   "number": "Lemma 8.1",
+   "title": "for a = 1 the word depends only on the triple (ν, β, γ): C(n) = S(ν,β) ⊎ S(ν,γ)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:realisable",
+   "number": "Lemma 8.2",
+   "title": "the realisable triples are the clippings of (ν₀, ν₀ − u, ν₀ + u + ε)",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:triple",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:count-triples",
+   "number": "Lemma 8.3",
+   "title": "R(1,b) = (5b+4)(b+1)/2 realisable triples",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:realisable",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:S",
+   "number": "Lemma 8.4",
+   "title": "the multisets S(p,p′) in closed form (three cases)",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:profiles",
+   "number": "Corollary 8.5",
+   "title": "profiles X and Y of the families P′, N′₁, N′₂",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:S",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:O",
+   "number": "Lemma 8.6",
+   "title": "the triples with word O(s) (five cases)",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "cor:profiles",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realisable",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:Q",
+   "number": "Lemma 8.7",
+   "title": "the triples I₁, I₂, J(τ,d) with word Q(τ,d)",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "cor:profiles",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:zeros",
+   "number": "Lemma 8.9",
+   "title": "the zeros of the profile, by type (P±, P⁰, Pᶜ, N±, N⁰, Nᶜ, N′₂)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "cor:profiles",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:n0zero",
+   "number": "Lemma 8.10",
+   "title": "n₀ = 0 exactly on the list of Lemma 8.6 (label O(τ−1))",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:zeros",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:O",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:n0pos",
+   "number": "Lemma 8.11",
+   "title": "equal keys with n₀ ≥ 1: the same triple or a pair {I, J(τ,d)}",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:zeros",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:Q",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:7",
+   "number": "Lemma 8.8",
+   "title": "a = 1: two realisable triples have the same word iff they have the same label",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:O",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:Q",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:n0zero",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:n0pos",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:A",
+   "number": "Theorem 8.12",
+   "title": "Theorem A: W(1,b) = ⌊(9b²+8b+12)/4⌋, so |L_2q| = (9q²−10q+13)/4",
+   "status": "part",
+   "formal_part": "only the closing count: R(1,b), the excesses and the cell lemmas enter as given numbers",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:triple",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realisable",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:7",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:count-triples",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:refinement",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:vec",
+   "number": "Lemma 9.1",
+   "title": "a = 2: C(n) = Z(c), and the vectors that occur are the cells of the lines Λ + hθ = ρ",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:triple",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realisable",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:R",
+   "number": "Lemma 9.2",
+   "title": "R(2,b) = (22b² + 31b + 9 + [b ≡ 1 (3)])/3",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:vec",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:7prime",
+   "number": "Lemma 9.3",
+   "title": "a = 2: the classes of size ≥ 2 are exactly the listed ones (O, A–F), pairwise disjoint",
+   "status": "part",
+   "formal_part": "the algebraic identities behind the event encoding; the SMT queries themselves are not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:vec",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:B",
+   "number": "Theorem 9.4",
+   "title": "Theorem B: W(2,b) = (44b²+19b+e_{b mod 6})/6, so |L_3q| = (44q²−69q+58−3(q/3))/6",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:R",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:7prime",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:vec",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:refinement",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:KR",
+   "number": "",
+   "title": "the coefficients of P_n(q) are runs of the heights h₁, …, h_{2K−1} of the Dyck path of n",
+   "status": "part",
+   "formal_part": "PARTIAL: from the coefficient formula of KR (3.2), taken as given, to the runs of the heights; not covered: that the ε_j are the first K letters of the Dyck word, the palindromy and the second half",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "def:wf",
+   "number": "Definition 2.2",
+   "title": "the arrangement 𝒜_f and the word w_f(x) of a point",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "q:rigidity",
+   "number": "Question 11.1",
+   "title": "rigidity: is the loss E(a,b) = R − W linear in b for every a ≥ 2?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:A",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:B",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:quasi",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:leading",
+   "number": "Question 11.2",
+   "title": "is the leading coefficient of W(a,b) the same on every residue class, and equal to C_a for a ≥ 2?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "cor:Ca",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:quadratic",
+     "kind": "uses"
+    },
+    {
+     "to": "q:rigidity",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:period",
+   "number": "Question 11.4",
+   "title": "does the minimal period of W(a,b) divide lcm(1, …, 2a)?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:quasi",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:Ca",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:several",
+   "number": "Question 11.6",
+   "title": "several primes: is W(a₁, …, a_{r−1}, b) eventually a quasipolynomial of degree r?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:refinement",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:quasi",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:membership",
+   "number": "Question 11.7",
+   "title": "membership in polynomial time, inside Peano arithmetic, or by forbidden factors?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "cor:decidable",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:frequencies",
+   "number": "Question 11.8",
+   "title": "how often does each word occur among n ≤ N?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "def:wf",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:realise",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "ex:n3",
+   "number": "",
+   "title": "n = 3: P₃(q) = 1 + q + q³ + q⁴, coefficient runs 1, 0, 1 = the heights of the word",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:KR",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "rem:complexity",
+   "number": "Remark 4.3",
+   "title": "complexity: membership decided in time exp(O((log k)²)), polynomial for a bounded number of prime factors",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "cor:decidable",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:refinement",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "rem:square",
+   "number": "Remark 6.5",
+   "title": "the smaller square [⌈2b/3⌉, ⌊3b/4⌋]² already gives a quadratic lower bound",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:quadratic",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "rem:statusA",
+   "number": "Remark 8.13",
+   "title": "status of Theorem A: by hand, each lemma also checked by computer (b ≤ 20)",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:A",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "rem:earliercounts",
+   "number": "Remark 10.1",
+   "title": "the earlier public counts 27 (k = 9) and 42 (k = 10) were lower bounds; the exact values are 28 and 47",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:box",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "cor:KRbijection",
+   "number": "",
+   "title": "L_k is in bijection with the compressed coefficient profiles of the P_n(q) with τ(odd part of n) = k",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:KR",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  }
+ ],
+ "counts": {
+  "formal": 2,
+  "part": 5,
+  "computation": 19,
+  "hand": 10,
+  "cited": 11,
+  "to_check": 35
+ }
+}
