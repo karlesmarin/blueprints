@@ -1,0 +1,1045 @@
+{
+ "schema": "lemmario-blueprint/1",
+ "statements": [
+  {
+   "id": "lem:M",
+   "number": "Lemma 2.1",
+   "title": "Lemma M: moving one coordinate by ±1 changes the rows i with 0 ≤ i − h ≤ a by ±1 on an explicit interval J",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:P",
+   "number": "Lemma 2.2",
+   "title": "Lemma P: H_{i′}(j′) counts the positions iθ + j below Λ + i′θ + j′, so Z(c) is a multiset of counts",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "prop:Da",
+   "number": "Proposition 2.3",
+   "title": "R(a,b) = C_a b(b+1) + (a+1) b + π_a(b), with π_a periodic of period dividing P_a (odd primes ≤ 2a)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "rem:Da-lit",
+   "number": "Remark 2.4",
+   "title": "literature: the count is Alekseyev’s, the leading term too; what may be new is at most the explicit D_a and the bound P_a",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:Da",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "prop:wall",
+   "number": "Proposition 3.1",
+   "title": "wall weights: crossing Λ + hθ = ρ upwards raises Σ(c) by exactly ω(h,ρ) = (a+1−|h|)(b+1−|ρ|) > 0",
+   "status": "part",
+   "formal_part": "(a), (c) and the weight ω ≥ 1 of (b); the geometric part of (b), that crossing a wall at a point on no other line changes only c_h, is not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:M",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:antichain",
+   "number": "Corollary 3.2",
+   "title": "adjacent cells have different words; every fibre is an antichain; a coincidence balances the weights of the walls crossed",
+   "status": "part",
+   "formal_part": "(ii) and (iii); (i) rests on the geometric part of Proposition 3.1(b) and is not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "prop:wall",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "rem:presentation",
+   "number": "Remark 3.3",
+   "title": "E is intrinsic: no line can be added or erased, so E counts disconnected realisations of a word; only generic words occur",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:P",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:antichain",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "prop:fibre",
+   "number": "Proposition 3.5",
+   "title": "every fibre has at most 1 + Σ_{q≤2a} Φ_q(2b) ≤ 4ab + 1 vectors (vertical strips + antichain)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "cor:antichain",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:amb",
+   "number": "Lemma 3.6",
+   "title": "E(a,b) ≤ Amb(a,b) ≤ 2E(a,b): rigidity is a statement on the number of ambiguous cells",
+   "status": "part",
+   "formal_part": "the counting argument, for any finite set with a word map; that the set is the set of cells is the paper’s setting",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:moments",
+   "number": "Theorem 3.7",
+   "title": "finitely many power sums of Z(c), a number depending on a only (≤ 2t_a − 1), determine the word",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:momentsQ",
+   "number": "Proposition 3.8",
+   "title": "with the cyclotomic multiplier, 2s_a − 1 = O(a⁴) power sums of Z(c) determine the word",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:moments",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:burnside",
+   "number": "Proposition 3.9",
+   "title": "square patterns: exchanging the primes is an involution with 2a+1 fixed cells, so W(a,a) ≤ (R(a,a) + 2a + 1)/2",
+   "status": "part",
+   "formal_part": "the counting part: 2W ≤ R + f for an involution that preserves words and has f fixed cells; that σ permutes the cells and fixes exactly 2a+1 of them is the geometric part, taken as a hypothesis",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "rem:exchange",
+   "number": "Remark 3.10",
+   "title": "for a ≠ b the exchange maps (a,b) onto (b,a): R(a,b) = R(b,a), W(a,b) = W(b,a), but no symmetry inside one arrangement",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:burnside",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "prop:pair-a2",
+   "number": "Proposition 3.11",
+   "title": "a = 2: the cells c = (−3, −1, 0, 1, 2) and d = (−2, −1, 0, 1, 1) have the same word for every b ≥ 2",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:M",
+     "kind": "uses"
+    },
+    {
+     "to": "rem:exchange",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:dim",
+   "number": "Proposition 4.1",
+   "title": "dimension criterion: E(a,b) = O(b) iff every linear component of the semilinear set B_a has rank ≤ 2",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "rem:effective",
+   "number": "Remark 4.3",
+   "title": "effectivity: for each fixed a, whether E(a,b) = O(b) is decidable (in principle only)",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:dim",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:reduction",
+   "number": "Theorem 5.1",
+   "title": "finite reduction: (C1) rank two on every piece and (C2) on pairs with one signature imply E(a,b) = O(b)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "rem:area",
+   "number": "Remark 5.2",
+   "title": "positive area alone gives no family: integer compatibility, distinct vectors and persistence are also needed",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "thm:rigid",
+   "number": "Theorem 6.1",
+   "title": "rigidity for a ≤ 5: E(a,b) = Θ(b) and W(a,b) = C_a b² + O(b) for a = 2, 3, 4, 5 (computer-assisted)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:Da",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:faith",
+   "number": "Corollary 6.2",
+   "title": "asymptotic faithfulness for a ≤ 5: the proportion of cells whose word is shared is Θ_a(1/b)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:rigid",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:amb",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:twonum",
+   "number": "Proposition 6.3",
+   "title": "two numerations of one progression: θ = 1/(a+1) and θ = b+1 give the same words in distinct cells; lower bounds for the ambiguous share on both sides of 1/(a+1)",
+   "status": "part",
+   "formal_part": "(i) for a ≥ 2, and (ii) as a line of the arrangement that separates the two points (an integer ρ ∈ [−b, b], so the coordinates c_{−a} differ); (iii) and (iv) (segments, lengths and the bounds on each side) and the identification of a cell with a connected region are not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:P",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:persist",
+   "number": "Corollary 6.4",
+   "title": "ambiguity of positive section measure: liminf of the mean ambiguous share ≥ 1/(2a(a+1)|I|), and ≥ 3/(4a(a+1)|I|) with both sides",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:twonum",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:deep",
+   "number": "Corollary 6.5",
+   "title": "no coincidence between two deep cells (a = 3, 4, 5; for a = 5 without the independent reproduction)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:rigid",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:tau",
+   "number": "Proposition 7.1",
+   "title": "the smallest element of Z(c) is τ(c) = (a+1)(n+1) − a(a+1)m/2 + S_−(ε): equal words force (a+1)(n′−n) = S_−(ε) − S_−(ε′)",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "cor:tau",
+   "number": "Corollary 7.2",
+   "title": "in all 109 candidates (a ≤ 5) the shift is exactly (S_−(ε) − S_−(ε′))/(a+1), and the two are not congruent mod a+1",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:tau",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:rigid",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:levels",
+   "number": "Proposition 7.4",
+   "title": "levels: in C_+ the polynomial 𝒬G_c splits into clusters, one per level r ≤ a placed at T_r m, plus a+1 that carry n",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:formal",
+   "number": "Lemma 7.5",
+   "title": "formal sums: the terms of the level identity are the entries of V_P, so every piece of C_+ has rank two (C1)",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:levels",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:allpos",
+   "number": "Theorem 7.6",
+   "title": "pairs in the all-positive chamber, every a ≥ 2: same signature and different vectors ⇒ m′ = m, (N2) and (N3); conversely within one chamber",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:formal",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:levels",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:tau",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:allpos",
+   "number": "Corollary 7.7",
+   "title": "the entries of level r coincide entry by entry; a single one forces m′ = m",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:allpos",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:tau",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:P678",
+   "number": "Proposition 7.8",
+   "title": "for 2 ≤ a ≤ 6 every candidate lies in C_+, one row forces m′ = m; a = 6: 132 candidates, none integer (no regression)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:allpos",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:allpos-count",
+   "number": "Corollary 7.9",
+   "title": "the candidates of the certificate are exactly the pairs of templates with (N2) and (N3): 6, 15, 42, 45, 132 for a = 2..6",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:allpos",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:P678",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:nonint",
+   "number": "Theorem 7.10",
+   "title": "the shift is never an integer: if the window sums of two distinct templates differ by a constant D, then a+1 ∤ D",
+   "status": "formal",
+   "formal_part": "",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "cor:C2plus",
+   "number": "Corollary 7.11",
+   "title": "for every a ≥ 2 every pair of pieces of C_+ satisfies (C1) and (C2): no two-parameter family comes from C_+",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:formal",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:allpos",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:nonint",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:D",
+   "number": "Theorem 8.1",
+   "title": "Lemma D (a = 3, b ≥ 317): a vector with two free coordinates far from 25 fixed lines shares its word with no other",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:C",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:S",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:deep",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "rem:thin-deep",
+   "number": "Remark 8.2",
+   "title": "the condition of two free coordinates is necessary: the thin vectors O₂(s) are deep and share their word",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:D",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:Os",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "lem:C",
+   "number": "Lemma 8.3",
+   "title": "Lemma C: every exceptional or thin vector lies in one of finitely many explicit affine families (strips, thin, rays)",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "lem:S",
+   "number": "Lemma 8.4",
+   "title": "Lemma S: if no recession direction keeps inside the chamber, the depth is bounded on the solution polyhedron",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:Os",
+   "number": "Proposition 9.1",
+   "title": "a = 3: O₁(s) at θ = 1/4 and O₂(s) at θ = b+1 have the word O(s), distinct iff s ≤ 4b+1",
+   "status": "part",
+   "formal_part": "all but the last sentence (for s = 0 both vectors lie in the fibre of O(0))",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:P",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:twonum",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:F",
+   "number": "Theorem 9.2",
+   "title": "the five families F₁, …, F₅ next to the upper clipping: pairs of distinct realisable vectors with one word, for every b",
+   "status": "part",
+   "formal_part": "the five families for every b, i and ε in the stated ranges (affine witnesses, distinct vectors, Z(P) = Z(Q) through an involution of the grid); the numbers of pairs are not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:M",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:S1",
+   "number": "Theorem 9.4",
+   "title": "the family S₁: (x, y, B⁵) and G_{m/5}(s) at the exact point θ = m/5 have the same word, 2(⌊(b+1)/4⌋ + ⌊(b+2)/4⌋) pairs",
+   "status": "part",
+   "formal_part": "only the paragraph on witnesses: for m ∈ {2, 3}, ρ ∈ {0, 1} and n ≥ 1, c and G are realisable and differ in c_{−1}; the words Z(c), Z(G), their equality and the count of pairs are not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "lem:P",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "cor:fibre4",
+   "number": "Corollary 9.5",
+   "title": "a fibre with at least four cells: (b−4, b−1, B⁵), (b−3, b−2, B⁵), (b−2, b−2, b−1, B⁴), (b−2, b−1, b−1, b−1, B³)",
+   "status": "part",
+   "formal_part": "the first sentence: the four vectors have the same multiset Z(c) (the equivalence of Z(c) with the word is taken from [I]); the second sentence is not formalized",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "thm:S1",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "thm:a3-families",
+   "number": "Theorem 9.7",
+   "title": "a = 3: every listed set has one word, so E(3,b) ≥ |𝒰_b| − |π₀(𝒢_b)|",
+   "status": "part",
+   "formal_part": "the counting part: E ≥ |𝒰| − |π₀(𝒢_b)| once each listed set has one word; that they do is Proposition 9.1, Theorems 9.2 and 9.4 and Corollary 9.5",
+   "systems": [
+    "Isabelle/HOL"
+   ],
+   "relations": [
+    {
+     "to": "prop:Os",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:F",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:S1",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:fibre4",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:Nj",
+   "number": "Proposition 10.6",
+   "title": "the number of fibres of a fixed size j is eventually a quasipolynomial in b; of degree ≤ 1 for j ≥ 2 under rigidity",
+   "status": "hand",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:rigid",
+     "kind": "uses"
+    },
+    {
+     "to": "lem:amb",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "prop:wallk",
+   "number": "Proposition 10.10",
+   "title": "wall weights for k primes: crossing Λ = ⟨h, ϑ⟩ raises Σ by exactly ∏(a_i + 1 − |h_i|) ≥ 1",
+   "status": "computation",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:wall",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": true
+  },
+  {
+   "id": "conj:uniform",
+   "number": "Conjecture 7.12",
+   "title": "conjecture: for a ≥ 2 every candidate pair of (C2) lies in C_+ (checked for a ≤ 6)",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:P678",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:C2plus",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "conj:a3",
+   "number": "Conjecture 9.8",
+   "title": "conjecture: E(3,b) = E_fam(b) + g*_{b mod 4}, slope 61/6 (checked by exact enumeration for 5 ≤ b ≤ 170 and some b ≤ 400)",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:a3-families",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:rigid",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:Da",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:uniform",
+   "number": "Question 10.1",
+   "title": "is W(a,b) = C_a b² + O_a(b) for every a ≥ 2? (C1) and (C2) outside C_+",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "cor:C2plus",
+     "kind": "uses"
+    },
+    {
+     "to": "conj:uniform",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:reduction",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:N2N3",
+   "number": "Question 10.2",
+   "title": "do equal window sums up to a constant (N2) force equal multisets of level constants (N3)? (true for a ≤ 15)",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:allpos",
+     "kind": "uses"
+    },
+    {
+     "to": "thm:nonint",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:local",
+   "number": "Question 10.3",
+   "title": "for every a ≥ 2, do shared words with two free coordinates stay within K(a) of the degenerate lines?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:D",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:deep",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:amb",
+   "number": "Question 10.4",
+   "title": "is the set of ambiguous cells a finite union of families with one free parameter per b?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "lem:amb",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:dim",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:moments",
+   "number": "Question 10.5",
+   "title": "is the least number of power sums that separate the words bounded by a small constant?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:moments",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "q:profile",
+   "number": "Question 10.8",
+   "title": "does the ambiguity profile A_{a,b}(θ) converge to a piecewise linear limit, and is the limit of its mean positive?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:twonum",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:persist",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "auto:remark-9.3",
+   "number": "Remark 9.3",
+   "title": "heuristically the five families are clipped reflections around m/q; not made precise",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:F",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "auto:remark-9.6",
+   "number": "Remark 9.6",
+   "title": "a = 2 has its exact point at denominator a+1 = 3; for a = 3 the denominator is 5 (no link proved)",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "thm:S1",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "auto:question-10.7",
+   "number": "Question 10.7",
+   "title": "is the largest fibre other than O(0) eventually constant in b?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:fibre",
+     "kind": "uses"
+    },
+    {
+     "to": "cor:fibre4",
+     "kind": "uses"
+    },
+    {
+     "to": "prop:Nj",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "auto:question-10.9",
+   "number": "Question 10.9",
+   "title": "the diagonal: does E(n,n)/R(n,n) have a limit, and is it 1/2?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:burnside",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  },
+  {
+   "id": "auto:question-10.11",
+   "number": "Question 10.11",
+   "title": "three primes: is the share of ambiguous cells of lower order than the number of cells as a₃ → ∞?",
+   "status": "cited",
+   "formal_part": "",
+   "systems": [],
+   "relations": [
+    {
+     "to": "prop:wallk",
+     "kind": "uses"
+    }
+   ],
+   "fidelity": null,
+   "to_check_by_hand": false
+  }
+ ],
+ "counts": {
+  "formal": 5,
+  "part": 10,
+  "computation": 17,
+  "hand": 6,
+  "cited": 19,
+  "to_check": 33
+ }
+}
