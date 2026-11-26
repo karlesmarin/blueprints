@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Dependency graph</title>
+<meta content="plasTeX" name="generator"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="styles/theme-blue.css" rel="stylesheet"/>
+<link href="styles/dep_graph.css" rel="stylesheet"/>
+<script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" type="text/javascript"> </script>
+<link href="styles/extra_styles.css" rel="stylesheet"/>
+<link data-lm="pdf-css" href="../../lemmario-assets/pdf-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../../lemmario-assets/pc-head-css.css" rel="stylesheet"/></head>
+<body><svg aria-hidden="true" id="lm-icons" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="icon-cross" viewbox="0 0 32 32">
+<title>cross</title>
+<path class="path1" d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
+</symbol></defs></svg>
+<header>
+<a class="toc" href="index.html">Home</a>
+<h1 id="doc_title">Dependencies</h1>
+<nav class="pc-links" style="display:flex;gap:.9em;font-size:.95em"><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a class="on" href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper 1 (<a href="https://doi.org/10.5281/zenodo.24561280" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.24561280</a>) · no errata</span><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
+<div class="wrapper">
+<div class="content">
+<div id="Legend">
+<span class="title" id="legend_title">Legend
+    <div class="btn">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div></span>
+<dl class="legend">
+<dt>Boxes</dt><dd>definitions</dd>
+<dt>Ellipses</dt><dd>theorems and lemmas</dd>
+<dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+<dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+<dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+<dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+<dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+<dt>Dark green border</dt><dd>this is in Mathlib</dd>
+</dl>
+</div>
+<div id="graph"></div>
+<div id="statements">
+<div class="dep-modal-container" id="auto:definition-1_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:definition-1" style="display: none">
+<div class="thm_thmheading">
+<span class="definition_thmcaption">
+      Definition
+      </span>
+<span class="definition_thmlabel">1</span></div>
+<div class="thm_thmcontent"><p> For \(m \ge 1\) let \(\mathrm{T}(m) = \max \tau (G)\) over connected loopless multigraphs with \(m\) edges and any number of vertices; \(S(m)\) is the same maximum over simple graphs and \(M(m)\) over multigraphs with at least one edge of multiplicity \(\ge 2\) (\(M(1)\) is undefined). An <em>extremizer</em> of \(\mathrm{T}(m)\) is a multigraph attaining it. </p>
+</div>
+<a class="latex_link" href="index.html#auto:definition-1">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="auto:remark-13_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="auto:remark-13" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">13</span><span class="remark_thmtitle">what is not proved</span></div>
+<div class="thm_thmcontent"><p>   For the class of non-simple multigraphs the step \(k = 3\) of Lemma <a href="index.html#lem:mult">10</a> fails when \(uv\) is the only multiple edge (\(G'\) is simple, outside the class); so the certificates of \(M(m)\) use the cap \(3\) of Lemma <a href="index.html#lem:mult">10</a>, and “the best non-simple multigraph has multiplicities \(\le 2\)” is proved here only for \(4 \le m \le 22\), through the table (Corollary <a href="index.html#cor:mult2">12</a>), not for all \(m\). Two further bounds that were considered (a reduction to a degree-\(\ge 3\) core and a degree-product bound) were not proved and are not used. </p>
+</div>
+<a class="latex_link" href="index.html#auto:remark-13">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="cor:mult2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="cor:mult2" style="display: none">
+<div class="thm_thmheading">
+<span class="corollary_thmcaption">
+      Corollary
+      </span>
+<span class="corollary_thmlabel">12</span></div>
+<div class="thm_thmcontent"><p>  For \(4 \le m \le 22\), every extremizer of \(M(m)\) has multiplicities \(\le 2\). </p>
+</div>
+<a class="latex_link" href="index.html#cor:mult2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:count_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:count" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">8</span><span class="lemma_thmtitle">counting bounds</span></div>
+<div class="thm_thmcontent"><p>  For connected \(G\) on \(n\) vertices, \(\tau (G) \le \binom {m}{n-1}\) and \(\tau (G) \le \frac1n \bigl(\frac{2m}{n-1}\bigr)^{n-1}\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:count">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:cut_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:cut" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">6</span><span class="lemma_thmtitle">cut vertex</span></div>
+<div class="thm_thmcontent"><p>   If \(G\) has a cut vertex, \(G = G_1 \cup _v G_2\) with \(m_1 + m_2 = m\), \(m_i \ge 1\), and \(\tau (G) = \tau (G_1)\tau (G_2) \le \mathrm{T}(m_1)\mathrm{T}(m_2)\). Moreover, for \(m \ge 2\) (multigraphs), \(m \ge 3\) (simple graphs) and in the class of non-simple multigraphs such a \(G\) is never extremal: there is \(G'\) in the same class with \(m\) edges and \(\tau (G') {\gt} \tau (G)\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:cut">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:deg2_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:deg2" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">7</span><span class="lemma_thmtitle">degree two</span></div>
+<div class="thm_thmcontent"><p>  If \(G\) is biconnected with \(n \ge 3\) and has a vertex of degree \(2\), then \(\tau (G) \le \mathrm{T}(m-1) + \mathrm{T}(m-2)\), with \(\mathrm{T}(0) = 1\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:deg2">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:mono_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:mono" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">5</span><span class="lemma_thmtitle">monotonicity</span></div>
+<div class="thm_thmcontent"><p>  \(\mathrm{T}(m+1) {\gt} \mathrm{T}(m)\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:mono">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:mult_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:mult" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">10</span><span class="lemma_thmtitle">multiplicity</span></div>
+<div class="thm_thmcontent"><p>  If \(m \ge 4\) and \(G\) is biconnected with \(n \ge 3\) and an edge \(uv\) of multiplicity \(k \ge 3\), then removing one copy of \(uv\) and subdividing another gives \(G'\) with \(m\) edges and \(\tau (G') {\gt} \tau (G)\). So the extremizers of \(\mathrm{T}(m)\), \(m \ge 4\), have multiplicities \(\le 2\) (the bundle with \(n = 2\) has \(\tau = m\), while the triangle with multiplicities \(m-2, 1, 1\) has \(\tau = 2m - 3 {\gt} m\)). Among non-simple multigraphs the same holds for \(k \ge 4\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:mult">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:multbound_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:multbound" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">11</span><span class="lemma_thmtitle">a multiple edge</span></div>
+<div class="thm_thmcontent"><p>  If \(G\) has an edge \(uv\) of multiplicity \(k \ge 2\), then \((k-1)\, \tau (G) \le k\, \mathrm{T}(m-1)\), strictly if \(G\) is biconnected with \(n \ge 3\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:multbound">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="lem:skel_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="lem:skel" style="display: none">
+<div class="thm_thmheading">
+<span class="lemma_thmcaption">
+      Lemma
+      </span>
+<span class="lemma_thmlabel">9</span><span class="lemma_thmtitle">bounds on a fixed skeleton</span></div>
+<div class="thm_thmcontent"><p>  Let \(S\) be a simple graph with \(e\) edges, \(G\) a multigraph on it with multiplicities \(m_f = 1 + x_f\) and \(r = m - e = \sum x_f\), and \(N_f\) the number of spanning trees of \(S\) through \(f\). Then </p>
+<div class="displaymath" id="a0000000023">
+  \[  \tau (G) \le \tau (S)\,  P(n-1, r) \quad \text{and}\quad \tau (G) \le \tau (S) \prod _f \Bigl(1 + x_f \frac{N_f}{\tau (S)}\Bigr),  \]
+</div>
+<p> where \(P(k, r)\) is the largest product of \(k\) integers \(\ge 1\) with sum \(k + r\): writing \(k + r = qk + s\) with \(0 \le s {\lt} k\), \(P(k, r) = q^{k-s}(q+1)^{s}\). </p>
+</div>
+<a class="latex_link" href="index.html#lem:skel">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="rem:obs_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="rem:obs" style="display: none">
+<div class="thm_thmheading">
+<span class="remark_thmcaption">
+      Remark
+      </span>
+<span class="remark_thmlabel">4</span><span class="remark_thmtitle">read off the tables, checked by script</span></div>
+<div class="thm_thmcontent">
+<ol class="enumerate">
+<li><p>A multiple edge is needed to attain \(\mathrm{T}(m)\) only for \(m = 2\) and \(m = 4\); for \(m = 3, 5, 7\) a simple and a non-simple extremizer tie. Hence \(S(m) = \mathrm{T}(m)\) for every \(m \le 22\) except \(m = 2, 4\). </p>
+</li>
+<li><p>For \(8 \le m \le 22\) every extremizer is simple with all degrees \(3\) or \(4\), and it is unique except at \(m = 13\) (two). Identified up to isomorphism: \(K_4\) (\(m=6\)), \(K_{3,3}\) (\(9\)), \(K_{3,4}\) (\(12\)), \(K_{4,4}\) minus an edge (\(15\)), \(K_{4,4} \cong C_8(1,3)\) (\(16\)), the circulants \(C_{10}(1,4)\) (\(20\)) and \(C_{11}(1,3)\) (\(22\)). The extremizer for \(m = 14\) is bipartite; those for \(m = 13, 17, 18, 19, 21\) are not. </p>
+</li>
+<li><p>\(\mathrm{T}\) is strictly increasing, \(\mathrm{T}(m)^{1/m}\) decreases only from \(m = 6\) to \(m = 7\) (\(1.5874 \to 1.5746\)), and \(\mathrm{T}(22)^{1/22} = 1.7083\), below \(\sqrt{27/8} = 1.8371\). </p>
+</li>
+<li><p>\(M(m)/S(m) \in [0.81, 0.94]\) for \(6 \le m \le 22\), \(m \ne 7\) (at \(m = 7\) they tie at \(24\)), and every extremizer of \(M(m)\) with \(4 \le m \le 22\) has maximal multiplicity exactly \(2\); this follows from the table by Corollary <a href="index.html#cor:mult2">12</a>. </p>
+</li>
+</ol>
+<p> Majchrzak <span class="cite">
+	[
+	<a href="index.html#Majchrzak2026">5</a>
+	, 
+	§
+	9
+	]
+</span> reports, from an exhaustive computation over multigraphs with at most \(14\) edges, that the maximum of \(\tau ^{1/m}\) is \(1.667031\), at \(\tau = 1280\), \(m = 14\); this agrees with \(\mathrm{T}(14) = 1280\) and with Table <a href="index.html#tab:values">1</a>, where \(\mathrm{T}(m)^{1/m}\) is largest at \(m = 14\) among \(m \le 14\). </p>
+</div>
+<a class="latex_link" href="index.html#rem:obs">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="res:search_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="res:search" style="display: none">
+<div class="thm_thmheading">
+<span class="result_thmcaption">
+      Result
+      </span>
+<span class="result_thmlabel">3</span></div>
+<div class="thm_thmcontent"><p>  For \(19 \le m \le 22\) the exhaustive search of Section 4 gives the values in Table <a href="index.html#tab:values">1</a> and the unique extremizers of Table <a href="index.html#tab:ext">2</a>. These rows rest on the same proved rules, on the completeness of the lists produced by nauty <span class="cite">
+	[
+	<a href="index.html#McKayPiperno2014">7</a>
+	]
+</span>, and on the correctness of the search code; there is no certificate. </p>
+</div>
+<a class="latex_link" href="index.html#res:search">LaTeX</a>
+</div>
+</div>
+</div>
+<div class="dep-modal-container" id="thm:cert_modal">
+<div class="dep-modal-content">
+<button class="dep-closebtn">
+<svg class="icon icon-cross"><use href="#icon-cross"></use></svg>
+</button>
+<div class="thm" id="thm:cert" style="display: none">
+<div class="thm_thmheading">
+<span class="theorem_thmcaption">
+      Theorem
+      </span>
+<span class="theorem_thmlabel">2</span><span class="theorem_thmtitle">computer-assisted</span></div>
+<div class="thm_thmcontent"><p>   For \(1 \le m \le 18\) the values \(\mathrm{T}(m)\), \(S(m)\) and, for \(m \ge 2\), \(M(m)\) in Table <a href="index.html#tab:values">1</a> are exact, and the extremizers of \(\mathrm{T}(m)\) are exactly the multigraphs of Table <a href="index.html#tab:ext">2</a>, up to isomorphism. The extremizers of \(S(m)\) and \(M(m)\) are listed in the data files. </p>
+</div>
+<a class="latex_link" href="index.html#thm:cert">LaTeX</a>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"auto:definition-1"	[color=blue,		fillcolor="#A3D6FF",		label="definition-1",		shape=box,		style=filled];	"lem:deg2"	[color=blue,		fillcolor="#A3D6FF",		label=deg2,		shape=ellipse,		style=filled];	"thm:cert"	[label=cert,		shape=ellipse];	"lem:deg2" -> "thm:cert"	[style=dashed];	"res:search"	[label=search,		shape=ellipse];	"thm:cert" -> "res:search"	[style=dashed];	"cor:mult2"	[label=mult2,		shape=ellipse];	"res:search" -> "cor:mult2"	[style=dashed];	"auto:remark-13"	[label="remark-13",		shape=ellipse];	"cor:mult2" -> "auto:remark-13"	[style=dashed];	"rem:obs"	[label=obs,		shape=ellipse];	"cor:mult2" -> "rem:obs"	[style=dashed];	"lem:mono"	[color=blue,		fillcolor="#A3D6FF",		label=mono,		shape=ellipse,		style=filled];	"lem:cut"	[label=cut,		shape=ellipse];	"lem:mono" -> "lem:cut"	[style=dashed];	"lem:cut" -> "thm:cert"	[style=dashed];	"lem:mult"	[color=blue,		fillcolor="#A3D6FF",		label=mult,		shape=ellipse,		style=filled];	"lem:mult" -> "thm:cert"	[style=dashed];	"lem:count"	[color=blue,		fillcolor="#A3D6FF",		label=count,		shape=ellipse,		style=filled];	"lem:count" -> "thm:cert"	[style=dashed];	"lem:skel"	[color=blue,		fillcolor="#A3D6FF",		label=skel,		shape=ellipse,		style=filled];	"lem:skel" -> "thm:cert"	[style=dashed];	"lem:multbound"	[color=blue,		fillcolor="#A3D6FF",		label=multbound,		shape=ellipse,		style=filled];	"lem:multbound" -> "thm:cert"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+<div id="lm-static-graph" style="display:none;padding:1em;overflow:auto"><p style="font:13px Arial,sans-serif;color:#555">Static copy of the dependency graph (this page is open as a local file, where the interactive graph cannot load).</p><svg height="404pt" viewbox="0.00 0.00 512.00 404.00" width="512pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 400)">
+<!-- auto:definition&#45;1 -->
+<g class="node" id="node1">
+<title>auto:definition-1</title>
+<polygon fill="#a3d6ff" points="79.75,-396 0,-396 0,-360 79.75,-360 79.75,-396" stroke="blue" stroke-width="1.8"></polygon>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="39.88" xml:space="preserve" y="-372.95">definition-1</text>
+</g>
+<!-- lem:deg2 -->
+<g class="node" id="node2">
+<title>lem:deg2</title>
+<ellipse cx="55.88" cy="-306" fill="#a3d6ff" rx="28.83" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="55.88" xml:space="preserve" y="-300.95">deg2</text>
+</g>
+<!-- thm:cert -->
+<g class="node" id="node3">
+<title>thm:cert</title>
+<ellipse cx="241.88" cy="-234" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="241.88" xml:space="preserve" y="-228.95">cert</text>
+</g>
+<!-- lem:deg2&#45;&gt;thm:cert -->
+<g class="edge" id="edge1">
+<title>lem:deg2-&gt;thm:cert</title>
+<path d="M79.07,-294.29C83.93,-292.14 89.05,-289.94 93.88,-288 132.21,-272.59 176.97,-256.87 207.15,-246.59" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="216.41,-243.46 208.37,-250.93 212.82,-244.67 206.93,-246.66 206.93,-246.66 206.93,-246.66 212.82,-244.67 205.49,-242.4 216.41,-243.46" stroke="black"></polygon>
+</g>
+<!-- res:search -->
+<g class="node" id="node4">
+<title>res:search</title>
+<ellipse cx="241.88" cy="-162" fill="none" rx="34.46" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="241.88" xml:space="preserve" y="-156.95">search</text>
+</g>
+<!-- thm:cert&#45;&gt;res:search -->
+<g class="edge" id="edge2">
+<title>thm:cert-&gt;res:search</title>
+<path d="M241.88,-215.34C241.88,-208.07 241.88,-199.47 241.88,-191.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="241.88,-181.64 246.38,-191.64 241.88,-185.42 241.88,-191.64 241.88,-191.64 241.88,-191.64 241.88,-185.42 237.38,-191.64 241.88,-181.64" stroke="black"></polygon>
+</g>
+<!-- cor:mult2 -->
+<g class="node" id="node5">
+<title>cor:mult2</title>
+<ellipse cx="241.88" cy="-90" fill="none" rx="32.93" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="241.88" xml:space="preserve" y="-84.95">mult2</text>
+</g>
+<!-- res:search&#45;&gt;cor:mult2 -->
+<g class="edge" id="edge3">
+<title>res:search-&gt;cor:mult2</title>
+<path d="M241.88,-143.34C241.88,-136.07 241.88,-127.47 241.88,-119.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="241.88,-109.64 246.38,-119.64 241.88,-113.42 241.88,-119.64 241.88,-119.64 241.88,-119.64 241.88,-113.42 237.38,-119.64 241.88,-109.64" stroke="black"></polygon>
+</g>
+<!-- auto:remark&#45;13 -->
+<g class="node" id="node6">
+<title>auto:remark-13</title>
+<ellipse cx="194.88" cy="-18" fill="none" rx="49.82" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="194.88" xml:space="preserve" y="-12.95">remark-13</text>
+</g>
+<!-- cor:mult2&#45;&gt;auto:remark&#45;13 -->
+<g class="edge" id="edge4">
+<title>cor:mult2-&gt;auto:remark-13</title>
+<path d="M230.74,-72.41C225.26,-64.25 218.52,-54.22 212.38,-45.06" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="206.94,-36.97 216.25,-42.76 209.05,-40.11 212.52,-45.27 212.52,-45.27 212.52,-45.27 209.05,-40.11 208.78,-47.78 206.94,-36.97" stroke="black"></polygon>
+</g>
+<!-- rem:obs -->
+<g class="node" id="node7">
+<title>rem:obs</title>
+<ellipse cx="289.88" cy="-18" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="289.88" xml:space="preserve" y="-12.95">obs</text>
+</g>
+<!-- cor:mult2&#45;&gt;rem:obs -->
+<g class="edge" id="edge5">
+<title>cor:mult2-&gt;rem:obs</title>
+<path d="M253.25,-72.41C259.07,-63.92 266.28,-53.41 272.76,-43.96" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="278.22,-35.99 276.28,-46.79 276.08,-39.11 272.57,-44.24 272.57,-44.24 272.57,-44.24 276.08,-39.11 268.86,-41.7 278.22,-35.99" stroke="black"></polygon>
+</g>
+<!-- lem:mono -->
+<g class="node" id="node8">
+<title>lem:mono</title>
+<ellipse cx="129.88" cy="-378" fill="#a3d6ff" rx="32.41" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="129.88" xml:space="preserve" y="-372.95">mono</text>
+</g>
+<!-- lem:cut -->
+<g class="node" id="node9">
+<title>lem:cut</title>
+<ellipse cx="129.88" cy="-306" fill="none" rx="27" ry="18" stroke="black" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="129.88" xml:space="preserve" y="-300.95">cut</text>
+</g>
+<!-- lem:mono&#45;&gt;lem:cut -->
+<g class="edge" id="edge6">
+<title>lem:mono-&gt;lem:cut</title>
+<path d="M129.88,-359.34C129.88,-352.07 129.88,-343.47 129.88,-335.36" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="129.88,-325.64 134.38,-335.64 129.88,-329.42 129.88,-335.64 129.88,-335.64 129.88,-335.64 129.88,-329.42 125.38,-335.64 129.88,-325.64" stroke="black"></polygon>
+</g>
+<!-- lem:cut&#45;&gt;thm:cert -->
+<g class="edge" id="edge7">
+<title>lem:cut-&gt;thm:cert</title>
+<path d="M149.38,-292.81C166.94,-281.83 192.98,-265.56 212.96,-253.07" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="221.18,-247.94 215.08,-257.05 217.97,-249.94 212.7,-253.23 212.7,-253.23 212.7,-253.23 217.97,-249.94 210.31,-249.42 221.18,-247.94" stroke="black"></polygon>
+</g>
+<!-- lem:mult -->
+<g class="node" id="node10">
+<title>lem:mult</title>
+<ellipse cx="202.88" cy="-306" fill="#a3d6ff" rx="28.32" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="202.88" xml:space="preserve" y="-300.95">mult</text>
+</g>
+<!-- lem:mult&#45;&gt;thm:cert -->
+<g class="edge" id="edge8">
+<title>lem:mult-&gt;thm:cert</title>
+<path d="M212.12,-288.41C216.63,-280.3 222.18,-270.35 227.25,-261.25" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="232.11,-252.53 231.17,-263.46 230.27,-255.84 227.24,-261.27 227.24,-261.27 227.24,-261.27 230.27,-255.84 223.31,-259.08 232.11,-252.53" stroke="black"></polygon>
+</g>
+<!-- lem:count -->
+<g class="node" id="node11">
+<title>lem:count</title>
+<ellipse cx="280.88" cy="-306" fill="#a3d6ff" rx="31.39" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="280.88" xml:space="preserve" y="-300.95">count</text>
+</g>
+<!-- lem:count&#45;&gt;thm:cert -->
+<g class="edge" id="edge9">
+<title>lem:count-&gt;thm:cert</title>
+<path d="M271.43,-288.05C266.98,-280.06 261.56,-270.33 256.58,-261.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="251.82,-252.85 260.62,-259.4 253.66,-256.16 256.69,-261.59 256.69,-261.59 256.69,-261.59 253.66,-256.16 252.76,-263.78 251.82,-252.85" stroke="black"></polygon>
+</g>
+<!-- lem:skel -->
+<g class="node" id="node12">
+<title>lem:skel</title>
+<ellipse cx="356.88" cy="-306" fill="#a3d6ff" rx="27" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="356.88" xml:space="preserve" y="-300.95">skel</text>
+</g>
+<!-- lem:skel&#45;&gt;thm:cert -->
+<g class="edge" id="edge10">
+<title>lem:skel-&gt;thm:cert</title>
+<path d="M337.11,-292.97C319,-281.95 291.97,-265.49 271.33,-252.93" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="262.81,-247.74 273.69,-249.1 266.04,-249.71 271.35,-252.94 271.35,-252.94 271.35,-252.94 266.04,-249.71 269.01,-256.79 262.81,-247.74" stroke="black"></polygon>
+</g>
+<!-- lem:multbound -->
+<g class="node" id="node13">
+<title>lem:multbound</title>
+<ellipse cx="452.88" cy="-306" fill="#a3d6ff" rx="51.35" ry="18" stroke="blue" stroke-width="1.8"></ellipse>
+<text font-family="Times New Roman,serif" font-size="14.00" text-anchor="middle" x="452.88" xml:space="preserve" y="-300.95">multbound</text>
+</g>
+<!-- lem:multbound&#45;&gt;thm:cert -->
+<g class="edge" id="edge11">
+<title>lem:multbound-&gt;thm:cert</title>
+<path d="M416.12,-292.81C376.73,-279.74 314.69,-259.16 276.24,-246.4" fill="none" stroke="black" stroke-dasharray="5,2"></path>
+<polygon fill="black" points="267.22,-243.4 278.12,-242.28 270.81,-244.6 276.71,-246.56 276.71,-246.56 276.71,-246.56 270.81,-244.6 275.29,-250.83 267.22,-243.4" stroke="black"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<script>
+(function () {
+  if (location.protocol !== 'file:') return;
+  function swap() {
+    var g = document.getElementById('graph'), s = document.getElementById('lm-static-graph');
+    if (g) g.style.display = 'none';
+    if (s) s.style.display = 'block';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();
+</script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"auto:definition-1": "Definition 1", "thm:cert": "Theorem 2 — computer-assisted", "res:search": "Result 3", "rem:obs": "Remark 4 — read off the tables, checked by script", "lem:mono": "Lemma 5 — monotonicity", "lem:cut": "Lemma 6 — cut vertex", "lem:deg2": "Lemma 7 — degree two", "lem:count": "Lemma 8 — counting bounds", "lem:skel": "Lemma 9 — bounds on a fixed skeleton", "lem:mult": "Lemma 10 — multiplicity", "lem:multbound": "Lemma 11 — a multiple edge", "cor:mult2": "Corollary 12", "auto:remark-13": "Remark 13 — what is not proved"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    // 24-nov: los cambios DENTRO de una figura viva (3D, niveles, svg, canvas) no cuentan: una figura que se repinta en
+    // cada fotograma relanzaba apply() sobre toda la página cada 300 ms (dilogarithm-clock: Chrome sin ventana no
+    // terminaba nunca y el navegador gastaba CPU sin parar)
+    var FIG = '.l3, .lv, .lm-3d, svg, canvas';
+    new MutationObserver(function (records) {
+      var fuera = records.some(function (r) {
+        var t = r.target.nodeType === 1 ? r.target : r.target.parentElement;
+        return !(t && t.closest && t.closest(FIG));
+      });
+      if (fuera && due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script data-lm="lm-notranslate" src="../../lemmario-assets/lm-notranslate.js"></script>
+</body>
+</html>

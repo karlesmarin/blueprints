@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width" name="viewport"/>
+<title>Map: Maximum number of spanning trees of a multigraph with m edges: exact values for m ≤ 22</title><style>
+body{font-family:serif;margin:16px 16px 1em;color:#222}
+.cont{margin:0 auto;max-width:1200px;padding:0 1em}
+h1{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.8em;margin:.5em 0 .3em}
+#vistas{font-family:serif;position:sticky;top:0;z-index:50;background:#e3edf7;border-bottom:1px solid #b9cde2;
+        padding:.6em .2em;font-size:.9em;display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
+#vistas a{font:13.333px Arial,sans-serif;border:1px solid #9fb7cf;background:#fff;border-radius:4px;padding:.2em .8em;
+          color:#222;text-decoration:none}
+#vistas a.on{background:#1cac78;color:#fff;border-color:#1cac78;font-weight:600}
+.aporta{border-left:4px solid #2b6cb0;background:#f5f8fc;padding:.2em 1em;margin:.6em 0 1em}
+.aporta h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.cifras{display:flex;flex-wrap:wrap;gap:.6em;margin:.6em 0;align-items:center}
+.cifra{border-radius:8px;padding:.4em .9em;font-size:.95em;background:#f2f4f7}
+.c-lean{background:#c8f0dc;border:1px solid #1cac78}
+.c-part{background:#e9f8f0;border:1px dashed #1cac78}
+.c-prog{background:#d6e9fb;border:1px solid #2b6cb0}
+.c-paper{background:#fff;border:1px solid #888}
+.nota{font-size:.85em;color:#555}
+.mapa{overflow-x:auto;border:1px solid #e3e8ee;border-radius:8px;padding:.5em;margin-top:.8em}
+.mapa svg{max-width:100%;height:auto}
+a{color:#1a4f8b}
+.campos{border-left:4px solid #8a99a8;background:#f7f8fa;padding:.2em 1em;margin:.6em 0 1em}
+.campos h2{font-family:'Lucida Grande',Arial,Helvetica,sans-serif;font-weight:normal;font-size:1.15em;margin:.6em 0 .2em}
+.campos ul{margin-top:.2em}
+
+.campo-index{justify-content:center}
+.campo{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;margin:.3em 0 .8em;font:13px Arial,sans-serif}
+.campo .campo-main{background:#2b6cb0;color:#fff;border-radius:12px;padding:.15em .8em;font-weight:600}
+.campo a.msc{border:1px solid #9fb7cf;border-radius:12px;padding:.1em .6em;color:#1a4f8b;text-decoration:none;
+             background:#fff}
+.campo a.msc-p{border-color:#2b6cb0;font-weight:600}
+
+</style><link data-lm="pdf-css" href="../../lemmario-assets/pdf-css.css" rel="stylesheet"/><link data-lm="pc-map-css" href="../../lemmario-assets/pc-map-css.css" rel="stylesheet"/><script data-lm="pc-embed" src="../../lemmario-assets/pc-embed.js"></script>
+<link data-lm="pc-embed-css" href="../../lemmario-assets/pc-embed-css.css" rel="stylesheet"/>
+<link data-lm="pc-head-css" href="../../lemmario-assets/pc-head-css.css" rel="stylesheet"/><link data-lm="lm-maphere-css" href="../../lemmario-assets/lm-maphere-css.css" rel="stylesheet"/>
+<style id="lm-print-css" media="print">
+html,body{height:auto !important;overflow:visible !important;background:#fff !important}
+body{display:block !important}
+.pc-wrap,.pc-panel,.wrapper,.content,.cont{display:block !important;height:auto !important;overflow:visible !important;
+  position:static !important;max-height:none !important}
+section.pc-pane,section.pc-pane[hidden]{display:block !important}
+nav.pc-toc,nav.toc,nav.prev_up_next,header.pc-head nav,header nav.pc-opts,.thm_header_hidden_extras,.modal-container,
+button,.lm-figslot,.lm-figform,.lm-figtoggle,details.b-lab,#lm-tour,.lm-tourbtn,.lm-help,.lm-dl,#explore-banner,.toc-toggle{
+  display:none !important}
+a.lm-map,a.lm-cite,a.lm-report,a.icon,.lm-citebox,#lm-cite-box,span.expand-proof,.mz-bar{display:none !important}
+.lm-was-summary{font-weight:600;margin:.2em 0 .4em}
+div.proof_content{display:block !important}  /* a proof folded on screen is printed all the same */
+.b-fig{break-inside:avoid}  /* a figure and its caption move together: no empty box left behind */
+.b-fig img{width:auto !important;max-width:100% !important;max-height:150mm;margin:0 auto}
+header.pc-head,header{position:static !important}
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+img{display:inline !important;max-width:100%;break-inside:avoid}
+[class$="_thmwrapper"]{break-inside:avoid-page}
+a{text-decoration:none}
+@page{size:A4;margin:12mm 12mm 14mm;@bottom-right{content:counter(page) " / " counter(pages);font:9px Arial,sans-serif;color:#777}}
+@page graph{size:1616pt 927pt;margin:24pt}
+header.pc-head,.pc-paneltitle,#pane-deps{page:graph}
+#pane-deps{break-after:page}
+section.pc-pane .mapa{max-width:none !important;overflow:visible !important;height:auto !important;border:0 !important}
+section.pc-pane .mapa svg{width:1568pt !important;height:559pt !important;max-width:none !important;
+  max-height:none !important;min-width:0 !important}
+</style>
+</head><body class="pc-frame"><header class="pc-head"><a class="pc-title" href="index.html" title="Maximum number of spanning trees of a multigraph with m edges: exact values for m ≤ 22: blueprint"><span class="pc-emoji"><svg aria-label="blueprint" class="pc-bp" height="1.15em" role="img" viewbox="0 0 32 32" width="1.15em"><defs><lineargradient id="pc-bp-sheet" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a7fd0"></stop><stop offset="1" stop-color="#123f7a"></stop></lineargradient></defs><rect fill="url(#pc-bp-sheet)" height="30" rx="4" stroke="#0d2f5c" stroke-width="1" width="30" x="1" y="1"></rect><path d="M4.5 2.2H27.5" stroke="#ffffff" stroke-linecap="round" stroke-opacity=".45" stroke-width="1"></path><path d="M5 9H27M5 16H27M5 23H27M9 5V27M16 5V27M23 5V27" stroke="#ffffff" stroke-opacity=".16" stroke-width=".7"></path><g fill="none" stroke="#08264d" stroke-linejoin="round" stroke-opacity=".75" stroke-width="1.5" transform="translate(2.5 1.1)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><g fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" transform="translate(1.7 0)"><path d="M16.00 15.91L16.78 17.30L15.86 18.11L14.57 17.18L13.41 17.73L13.30 19.32L12.10 19.51L11.51 18.03L10.24 17.86L9.29 19.15L8.17 18.65L8.48 17.09L7.50 16.26L6.01 16.83L5.34 15.81L6.44 14.66L6.07 13.43L4.50 13.10L4.49 11.88L6.04 11.51L6.39 10.27L5.25 9.15L5.90 8.12L7.40 8.65L8.36 7.79L8.02 6.24L9.12 5.72L10.10 6.97L11.37 6.77L11.92 5.28L13.13 5.44L13.27 7.02L14.45 7.54L15.72 6.58L16.65 7.37L15.91 8.78L16.62 9.85L18.21 9.73L18.57 10.90L17.18 11.69L17.20 12.97L18.61 13.73L18.28 14.90L16.68 14.82Z"></path><path d="M17.31 16.96L16.07 15.97L16.77 14.85L18.21 15.53L19.21 15.00L19.45 13.43L20.77 13.47L20.90 15.06L21.86 15.66L23.34 15.08L23.96 16.25L22.65 17.15L22.61 18.29L23.86 19.28L23.15 20.40L21.72 19.72L20.71 20.25L20.48 21.82L19.15 21.78L19.03 20.19L18.07 19.59L16.58 20.17L15.96 19.00L17.27 18.10Z"></path><circle cx="11.60" cy="12.40" r="1.90"></circle><circle cx="19.96" cy="17.63" r="1.10"></circle></g><path d="M8.6 27.2H23.4M8.6 25.9V28.5M23.4 25.9V28.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1"></path></svg></span> Blueprint</a><nav><a href="index.html">📘 Blueprint</a><a href="tour.html">📱 In 5 screens</a><a class="on" href="mapa.html">🗺️ Map</a><a href="pdf.html">📕 PDF</a><a href="dep_graph_document.html">🕸️ Graph</a><a href="referee.html">🔎 Referee</a><a href="https://karlesmarin.github.io/blueprints/">🏛️ Atlas</a><span class="lm-version" style="font:12px Arial,sans-serif;color:#d6e2ee;margin-left:.5em;align-self:center">Follows the paper 1 (<a href="https://doi.org/10.5281/zenodo.24561280" rel="noopener" style="color:inherit;text-decoration:underline;border:0;padding:0;background:none;border-radius:0;white-space:nowrap" target="_blank" title="The published paper (Zenodo)">doi:10.5281/zenodo.24561280</a>) · no errata</span><a class="lm-dl" download="kenyon-spanning-trees-map.pdf" href="mapa.pdf" title="The map as a PDF: the graph alone on its first page, at full size (zoom in to read every box)">⬇ Map PDF</a><a class="lm-help" href="guide.html" title="How to use this site">❓ How to use</a></nav></header>
+<div class="pc-wrap"><nav class="pc-toc"><ul><li><a href="#deps">🕸️ Dependency map</a></li><li><a href="#contrib">What the paper contributes</a></li><li><a href="#results">Main results</a></li><li><a href="#fields">Fields and connections</a></li></ul></nav><div class="pc-panel"><div class="cont"><div class="pc-paneltitle"><h1>🗺️ Map of <i>Maximum number of spanning trees of a multigraph with m edges: exact values for m ≤ 22</i></h1><div class="campo" title="Fields of the paper">🏷️ <span class="campo-main">Extremal graph theory · spanning trees of multigraphs · computer-assisted enumeration with certificates</span></div></div><section class="pc-pane" id="pane-deps"><div class="cifras">
+<span class="cifra"><b>13</b> results</span>
+<span class="cifra c-lean" title="statements whose whole statement is proved in Lean">✅ <b>0</b> entirely in Lean</span>
+<span class="cifra c-part" title="statements with a part proved in Lean: the box says which part">◐ <b>0</b> partly in Lean</span>
+<span class="cifra c-prog">💻 <b>7</b> checked by a program</span>
+<span class="cifra c-paper">written proof only</span>
+<span class="nota">(a result can carry several tags)</span>
+</div><p class="nota">Dependencies in the written proof: an arrow A → B means that this proof of B uses A. Every result rests
+on its written proof; the tags record what was checked besides, and each statement's “Evidence &amp; scope” block says
+how far. The colour of a box is its strongest tag, in the order above; the tags in the box give the rest. Boxes with a
+thick border are the main results; click a box to read the statement.</p><div class="mapa"><svg height="559pt" style="min-width:760px" viewbox="0.00 0.00 1568.00 559.00" width="1568pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 555.07)">
+<g class="cluster" id="clust1">
+<title>cluster_0</title>
+<path d="M12,-451.53C12,-451.53 78,-451.53 78,-451.53 84,-451.53 90,-457.53 90,-463.53 90,-463.53 90,-513.78 90,-513.78 90,-519.78 84,-525.78 78,-525.78 78,-525.78 12,-525.78 12,-525.78 6,-525.78 0,-519.78 0,-513.78 0,-513.78 0,-463.53 0,-463.53 0,-457.53 6,-451.53 12,-451.53" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="45" xml:space="preserve" y="-510.38">The problem</text>
+</g>
+<g class="cluster" id="clust2">
+<title>cluster_1</title>
+<path d="M1018,0C1018,0 1321,0 1321,0 1327,0 1333,-6 1333,-12 1333,-12 1333,-285.91 1333,-285.91 1333,-291.91 1327,-297.91 1321,-297.91 1321,-297.91 1018,-297.91 1018,-297.91 1012,-297.91 1006,-291.91 1006,-285.91 1006,-285.91 1006,-12 1006,-12 1006,-6 1012,0 1018,0" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1169.5" xml:space="preserve" y="-282.5">Results</text>
+</g>
+<g class="cluster" id="clust3">
+<title>cluster_2</title>
+<path d="M111,-154.33C111,-154.33 986,-154.33 986,-154.33 992,-154.33 998,-160.33 998,-166.33 998,-166.33 998,-539.07 998,-539.07 998,-545.07 992,-551.07 986,-551.07 986,-551.07 111,-551.07 111,-551.07 105,-551.07 99,-545.07 99,-539.07 99,-539.07 99,-166.33 99,-166.33 99,-160.33 105,-154.33 111,-154.33" fill="none" stroke="#c9d6e3" stroke-dasharray="5,2"></path>
+<text fill="#445566" font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="548.5" xml:space="preserve" y="-535.67">Rules, with proofs</text>
+</g>
+<!-- auto:definition&#45;1 -->
+<g class="node" id="node1">
+<title>auto:definition-1</title>
+<g id="a_node1"><a target="_top" xlink:href="index.html#auto:definition-1" xlink:title="Definition 1">
+<path d="M69.67,-495.53C69.67,-495.53 20.33,-495.53 20.33,-495.53 14.33,-495.53 8.33,-489.53 8.33,-483.53 8.33,-483.53 8.33,-471.53 8.33,-471.53 8.33,-465.53 14.33,-459.53 20.33,-459.53 20.33,-459.53 69.67,-459.53 69.67,-459.53 75.67,-459.53 81.67,-465.53 81.67,-471.53 81.67,-471.53 81.67,-483.53 81.67,-483.53 81.67,-489.53 75.67,-495.53 69.67,-495.53" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="45" xml:space="preserve" y="-473.93">Definition 1</text>
+</a>
+</g>
+</g>
+<!-- thm:cert -->
+<g class="node" id="node2">
+<title>thm:cert</title>
+<g id="a_node2"><a target="_top" xlink:href="index.html#thm:cert" xlink:title="Theorem 2: T(m), S(m), M(m) and all extremizers of T(m) for m ≤ 18 (53 certificates, stand-alone checker)">
+<path d="M1145.92,-253.41C1145.92,-253.41 1026.08,-253.41 1026.08,-253.41 1020.08,-253.41 1014.08,-247.41 1014.08,-241.41 1014.08,-241.41 1014.08,-169.83 1014.08,-169.83 1014.08,-163.83 1020.08,-157.83 1026.08,-157.83 1026.08,-157.83 1145.92,-157.83 1145.92,-157.83 1151.92,-157.83 1157.92,-163.83 1157.92,-169.83 1157.92,-169.83 1157.92,-241.41 1157.92,-241.41 1157.92,-247.41 1151.92,-253.41 1145.92,-253.41" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1086" xml:space="preserve" y="-236.97">Theorem 2</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1086" xml:space="preserve" y="-222.72">T(m), S(m), M(m) and all</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1086" xml:space="preserve" y="-208.47">extremizers of T(m) for m</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1086" xml:space="preserve" y="-194.22">≤ 18 (53 certificates,</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1086" xml:space="preserve" y="-179.97">stand-alone checker)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1086" xml:space="preserve" y="-165.72">💻 program</text>
+</a>
+</g>
+</g>
+<!-- res:search -->
+<g class="node" id="node3">
+<title>res:search</title>
+<g id="a_node3"><a target="_top" xlink:href="index.html#res:search" xlink:title="Result 3: T(m), S(m), M(m) and the unique extremizers for 19 ≤ m ≤ 22, by exhaustive search (no certificate)">
+<path d="M1312.67,-103.58C1312.67,-103.58 1191.33,-103.58 1191.33,-103.58 1185.33,-103.58 1179.33,-97.58 1179.33,-91.58 1179.33,-91.58 1179.33,-20 1179.33,-20 1179.33,-14 1185.33,-8 1191.33,-8 1191.33,-8 1312.67,-8 1312.67,-8 1318.67,-8 1324.67,-14 1324.67,-20 1324.67,-20 1324.67,-91.58 1324.67,-91.58 1324.67,-97.58 1318.67,-103.58 1312.67,-103.58" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1252" xml:space="preserve" y="-87.14">Result 3</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1252" xml:space="preserve" y="-72.89">T(m), S(m), M(m) and the</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1252" xml:space="preserve" y="-58.64">unique extremizers for 19</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1252" xml:space="preserve" y="-44.39">≤ m ≤ 22, by exhaustive</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1252" xml:space="preserve" y="-30.14">search (no certificate)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1252" xml:space="preserve" y="-15.89">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:cert&#45;&gt;res:search -->
+<g class="edge" id="edge13">
+<title>thm:cert-&gt;res:search</title>
+<path d="M1139.9,-156.62C1156.5,-141.83 1174.9,-125.45 1191.9,-110.31" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1193.36,-112.29 1196.97,-105.81 1190.11,-108.62 1193.36,-112.29" stroke="#9aa8b5"></polygon>
+</g>
+<!-- rem:obs -->
+<g class="node" id="node4">
+<title>rem:obs</title>
+<g id="a_node4"><a target="_top" xlink:href="index.html#rem:obs" xlink:title="Remark 4: read off the tables: multiple edges only for m = 2, 4; from m = 8 simple with degrees 3 and 4; T(22)^(1/22) = 1.7083 &lt; √(27/8)">
+<path d="M1313.18,-267.66C1313.18,-267.66 1194.82,-267.66 1194.82,-267.66 1188.82,-267.66 1182.82,-261.66 1182.82,-255.66 1182.82,-255.66 1182.82,-155.58 1182.82,-155.58 1182.82,-149.58 1188.82,-143.58 1194.82,-143.58 1194.82,-143.58 1313.18,-143.58 1313.18,-143.58 1319.18,-143.58 1325.18,-149.58 1325.18,-155.58 1325.18,-155.58 1325.18,-255.66 1325.18,-255.66 1325.18,-261.66 1319.18,-267.66 1313.18,-267.66" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="2.6"></path>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1254" xml:space="preserve" y="-251.22">Remark 4</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1254" xml:space="preserve" y="-236.97">read off the tables:</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1254" xml:space="preserve" y="-222.72">multiple edges only for m</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1254" xml:space="preserve" y="-208.47">= 2, 4; from m = 8 simple</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1254" xml:space="preserve" y="-194.22">with degrees 3 and 4;</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1254" xml:space="preserve" y="-179.97">T(22)^(1/22) = 1.7083 &lt;</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1254" xml:space="preserve" y="-165.72">√(27/8)</text>
+<text font-family="Times New Roman,serif" font-size="12.00" text-anchor="middle" x="1254" xml:space="preserve" y="-151.47">💻 program</text>
+</a>
+</g>
+</g>
+<!-- thm:cert&#45;&gt;rem:obs -->
+<g class="edge lm-aux" id="edge16">
+<title>thm:cert-&gt;rem:obs</title>
+<path d="M1159.2,-205.62C1163.9,-205.62 1168.6,-205.62 1173.3,-205.62" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1173.29,-208.07 1180.29,-205.62 1173.29,-203.17 1173.29,-208.07" stroke="#9aa8b5"></polygon>
+</g>
+<!-- res:search&#45;&gt;rem:obs -->
+<g class="edge lm-aux" id="edge15">
+<title>res:search-&gt;rem:obs</title>
+<path d="M1252.6,-104.61C1252.8,-114.01 1252.9,-124.05 1253,-134.02" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1250.55,-133.91 1253.16,-140.85 1255.45,-133.79 1250.55,-133.91" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:mult2 -->
+<g class="node" id="node12">
+<title>cor:mult2</title>
+<g id="a_node12"><a target="_top" xlink:href="index.html#cor:mult2" xlink:title="Corollary 12: for 4 ≤ m ≤ 22 every extremizer of M(m) has multiplicities ≤ 2 (through the table)">
+<path d="M853.43,-248.91C853.43,-248.91 754.58,-248.91 754.58,-248.91 748.58,-248.91 742.58,-242.91 742.58,-236.91 742.58,-236.91 742.58,-174.33 742.58,-174.33 742.58,-168.33 748.58,-162.33 754.58,-162.33 754.58,-162.33 853.43,-162.33 853.43,-162.33 859.43,-162.33 865.43,-168.33 865.43,-174.33 865.43,-174.33 865.43,-236.91 865.43,-236.91 865.43,-242.91 859.43,-248.91 853.43,-248.91" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-233.9">Corollary 12</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-221.15">for 4 ≤ m ≤ 22 every</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-208.4">extremizer of M(m) has</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-195.65">multiplicities ≤ 2</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-182.9">(through the table)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-170.15">💻 program</text>
+</a>
+</g>
+</g>
+<!-- res:search&#45;&gt;cor:mult2 -->
+<g class="edge" id="edge20">
+<title>res:search-&gt;cor:mult2</title>
+<path d="M1178.3,-70.99C1110,-85.33 1006.2,-110.13 920,-143.58 904.5,-149.59 888.4,-157.14 873.31,-164.86" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="872.42,-162.56 867.33,-167.96 874.67,-166.91 872.42,-162.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:mono -->
+<g class="node" id="node5">
+<title>lem:mono</title>
+<g id="a_node5"><a target="_top" xlink:href="index.html#lem:mono" xlink:title="Lemma 5: monotonicity: T(m+1) &gt; T(m) (add a parallel copy)">
+<path d="M229.43,-508.07C229.43,-508.07 118.57,-508.07 118.57,-508.07 112.57,-508.07 106.58,-502.07 106.58,-496.07 106.58,-496.07 106.58,-458.99 106.58,-458.99 106.58,-452.99 112.58,-446.99 118.58,-446.99 118.58,-446.99 229.43,-446.99 229.43,-446.99 235.43,-446.99 241.43,-452.99 241.43,-458.99 241.43,-458.99 241.43,-496.07 241.43,-496.07 241.43,-502.07 235.43,-508.07 229.43,-508.07" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="174" xml:space="preserve" y="-493.05">Lemma 5</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="174" xml:space="preserve" y="-480.3">monotonicity: T(m+1) &gt;</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="174" xml:space="preserve" y="-467.55">T(m) (add a parallel copy)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="174" xml:space="preserve" y="-454.8">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:mono&#45;&gt;thm:cert -->
+<g class="edge" id="edge4">
+<title>lem:mono-&gt;thm:cert</title>
+<path d="M223,-446.51C232.95,-441.61 243.57,-437.18 254,-434.24 388.37,-396.33 757.21,-458.81 881,-394.24 924.63,-371.48 907.75,-332.89 950,-307.66 970.94,-295.16 982.7,-309.79 1004,-297.91 1020.5,-288.73 1035.3,-275 1047.8,-260.95" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1049.65,-262.56 1052.32,-255.64 1045.92,-259.38 1049.65,-262.56" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:cut -->
+<g class="node" id="node6">
+<title>lem:cut</title>
+<g id="a_node6"><a target="_top" xlink:href="index.html#lem:cut" xlink:title="Lemma 6: cut vertex: τ is a product, and such a multigraph is never extremal (in each class)">
+<path d="M702.67,-394.24C702.67,-394.24 605.33,-394.24 605.33,-394.24 599.33,-394.24 593.33,-388.24 593.33,-382.24 593.33,-382.24 593.33,-319.66 593.33,-319.66 593.33,-313.66 599.33,-307.66 605.33,-307.66 605.33,-307.66 702.67,-307.66 702.67,-307.66 708.67,-307.66 714.67,-313.66 714.67,-319.66 714.67,-319.66 714.67,-382.24 714.67,-382.24 714.67,-388.24 708.67,-394.24 702.67,-394.24" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="654" xml:space="preserve" y="-379.23">Lemma 6</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="654" xml:space="preserve" y="-366.48">cut vertex: τ is a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="654" xml:space="preserve" y="-353.73">product, and such a</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="654" xml:space="preserve" y="-340.98">multigraph is never</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="654" xml:space="preserve" y="-328.23">extremal (in each class)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="654" xml:space="preserve" y="-315.48">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:mono&#45;&gt;lem:cut -->
+<g class="edge" id="edge17">
+<title>lem:mono-&gt;lem:cut</title>
+<path d="M225.53,-446.58C234.8,-441.98 244.54,-437.64 254,-434.24 366.26,-393.95 503.7,-371.08 584.76,-360.13" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="584.8,-362.6 591.41,-359.24 584.15,-357.74 584.8,-362.6" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:cut&#45;&gt;thm:cert -->
+<g class="edge" id="edge2">
+<title>lem:cut-&gt;thm:cert</title>
+<path d="M715.19,-311.77C719.11,-310.19 723.06,-308.79 727,-307.66 756.6,-299.15 976.1,-310.95 1004,-297.91 1021.7,-289.63 1037.3,-275.53 1050,-260.86" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1051.68,-262.68 1054.24,-255.72 1047.89,-259.56 1051.68,-262.68" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:cut&#45;&gt;res:search -->
+<g class="edge" id="edge9">
+<title>lem:cut-&gt;res:search</title>
+<path d="M715.23,-311.9C719.14,-310.29 723.08,-308.85 727,-307.66 759.18,-297.89 848.16,-313.41 878,-297.91 956.08,-257.34 930.08,-194.28 1002,-143.58 1052.3,-108.15 1118.3,-86.04 1169.9,-73.01" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1170.33,-75.43 1176.53,-71.37 1169.15,-70.68 1170.33,-75.43" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:cut&#45;&gt;cor:mult2 -->
+<g class="edge" id="edge18">
+<title>lem:cut-&gt;cor:mult2</title>
+<path d="M698.6,-307.33C715.82,-290.88 735.62,-271.96 753.38,-254.99" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="754.85,-256.97 758.22,-250.37 751.46,-253.43 754.85,-256.97" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:deg2 -->
+<g class="node" id="node7">
+<title>lem:deg2</title>
+<g id="a_node7"><a target="_top" xlink:href="index.html#lem:deg2" xlink:title="Lemma 7: degree two: a biconnected G with a vertex of degree 2 has τ(G) ≤ T(m−1) + T(m−2)">
+<path d="M385.93,-520.82C385.93,-520.82 278.08,-520.82 278.08,-520.82 272.08,-520.82 266.08,-514.82 266.08,-508.82 266.08,-508.82 266.08,-446.24 266.08,-446.24 266.08,-440.24 272.08,-434.24 278.08,-434.24 278.08,-434.24 385.93,-434.24 385.93,-434.24 391.93,-434.24 397.93,-440.24 397.93,-446.24 397.93,-446.24 397.93,-508.82 397.93,-508.82 397.93,-514.82 391.93,-520.82 385.93,-520.82" fill="#d6e9fb" stroke="#2b6cb0" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-505.8">Lemma 7</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-493.05">degree two: a biconnected</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-480.3">G with a vertex of degree</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-467.55">2 has τ(G) ≤ T(m−1) +</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-454.8">T(m−2)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="332" xml:space="preserve" y="-442.05">💻 program</text>
+</a>
+</g>
+</g>
+<!-- lem:deg2&#45;&gt;thm:cert -->
+<g class="edge" id="edge3">
+<title>lem:deg2-&gt;thm:cert</title>
+<path d="M398.42,-438.54C402.6,-436.91 406.82,-435.45 411,-434.24 526.77,-400.62 850.17,-458.76 952,-394.24 989.35,-370.57 975.77,-343.97 1001,-307.66 1012,-291.85 1024.9,-275.53 1037.3,-260.75" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1038.96,-262.58 1041.62,-255.66 1035.22,-259.41 1038.96,-262.58" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:deg2&#45;&gt;res:search -->
+<g class="edge" id="edge10">
+<title>lem:deg2-&gt;res:search</title>
+<path d="M398.41,-438.51C402.6,-436.89 406.81,-435.44 411,-434.24 611.11,-376.72 1212.3,-463.9 1338,-297.91 1379.4,-243.23 1364.1,-207.01 1338,-143.58 1333.2,-131.83 1325.9,-120.83 1317.6,-110.87" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1319.45,-109.27 1313,-105.62 1315.77,-112.5 1319.45,-109.27" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:count -->
+<g class="node" id="node8">
+<title>lem:count</title>
+<g id="a_node8"><a target="_top" xlink:href="index.html#lem:count" xlink:title="Lemma 8: counting bounds: τ(G) ≤ C(m, n−1) and τ(G) ≤ (1/n)(2m/(n−1))^(n−1)">
+<path d="M536.92,-508.07C536.92,-508.07 435.07,-508.07 435.07,-508.07 429.07,-508.07 423.07,-502.07 423.07,-496.07 423.07,-496.07 423.07,-458.99 423.07,-458.99 423.07,-452.99 429.07,-446.99 435.07,-446.99 435.07,-446.99 536.92,-446.99 536.92,-446.99 542.92,-446.99 548.92,-452.99 548.92,-458.99 548.92,-458.99 548.92,-496.07 548.92,-496.07 548.92,-502.07 542.92,-508.07 536.92,-508.07" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="486" xml:space="preserve" y="-493.05">Lemma 8</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="486" xml:space="preserve" y="-480.3">counting bounds: τ(G) ≤</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="486" xml:space="preserve" y="-467.55">C(m, n−1) and τ(G) ≤</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="486" xml:space="preserve" y="-454.8">(1/n)(2m/(n−1))^(n−1)</text>
+</a>
+</g>
+</g>
+<!-- lem:count&#45;&gt;thm:cert -->
+<g class="edge" id="edge1">
+<title>lem:count-&gt;thm:cert</title>
+<path d="M532.23,-446.5C541.45,-441.66 551.29,-437.26 561,-434.24 655.16,-404.92 922.86,-451.73 1003,-394.24 1025.6,-378.02 1051.6,-311.66 1068.3,-262.44" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1070.62,-263.24 1070.52,-255.82 1065.97,-261.68 1070.62,-263.24" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:count&#45;&gt;res:search -->
+<g class="edge" id="edge8">
+<title>lem:count-&gt;res:search</title>
+<path d="M531.32,-446.59C540.78,-441.62 550.95,-437.14 561,-434.24 648.75,-408.91 1319,-460.37 1382,-394.24 1458.8,-313.57 1434.5,-241.82 1382,-143.58 1370.9,-122.82 1352.4,-106.16 1332.8,-93.21" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1334.3,-91.26 1327.08,-89.59 1331.68,-95.4 1334.3,-91.26" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:skel -->
+<g class="node" id="node9">
+<title>lem:skel</title>
+<g id="a_node9"><a target="_top" xlink:href="index.html#lem:skel" xlink:title="Lemma 9: bounds on a fixed skeleton S: τ(G) ≤ τ(S)P(n−1, r) and τ(G) ≤ τ(S)∏(1 + xf Nf/τ(S))">
+<path d="M696.42,-514.44C696.42,-514.44 585.58,-514.44 585.58,-514.44 579.58,-514.44 573.58,-508.44 573.58,-502.44 573.58,-502.44 573.58,-452.61 573.58,-452.61 573.58,-446.61 579.58,-440.61 585.58,-440.61 585.58,-440.61 696.42,-440.61 696.42,-440.61 702.42,-440.61 708.42,-446.61 708.42,-452.61 708.42,-452.61 708.42,-502.44 708.42,-502.44 708.42,-508.44 702.42,-514.44 696.42,-514.44" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="641" xml:space="preserve" y="-499.43">Lemma 9</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="641" xml:space="preserve" y="-486.68">bounds on a fixed skeleton</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="641" xml:space="preserve" y="-473.93">S: τ(G) ≤ τ(S)P(n−1, r)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="641" xml:space="preserve" y="-461.18">and τ(G) ≤ τ(S)∏(1 + xf</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="641" xml:space="preserve" y="-448.43">Nf/τ(S))</text>
+</a>
+</g>
+</g>
+<!-- lem:skel&#45;&gt;thm:cert -->
+<g class="edge" id="edge7">
+<title>lem:skel-&gt;thm:cert</title>
+<path d="M705.19,-440.06C710.44,-437.86 715.75,-435.88 721,-434.24 792.14,-412.01 1000,-445.62 1054,-394.24 1088.8,-361.14 1094.4,-305.16 1092.7,-262.95" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1095.16,-263.08 1092.37,-256.21 1090.27,-263.32 1095.16,-263.08" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:skel&#45;&gt;res:search -->
+<g class="edge" id="edge12">
+<title>lem:skel-&gt;res:search</title>
+<path d="M704.17,-440.05C709.75,-437.79 715.4,-435.8 721,-434.24 797.34,-413.01 1378.6,-451.82 1433,-394.24 1471.3,-353.76 1462.7,-190.72 1433,-143.58 1411,-108.61 1370.5,-87.42 1333.5,-74.74" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1334.45,-72.47 1327.04,-72.63 1332.93,-77.13 1334.45,-72.47" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:mult -->
+<g class="node" id="node10">
+<title>lem:mult</title>
+<g id="a_node10"><a target="_top" xlink:href="index.html#lem:mult" xlink:title="Lemma 10: multiplicity: for m ≥ 4 an extremizer of T(m) has multiplicities ≤ 2 (≤ 3 among non-simple ones)">
+<path d="M852.55,-514.44C852.55,-514.44 745.45,-514.44 745.45,-514.44 739.45,-514.44 733.45,-508.44 733.45,-502.44 733.45,-502.44 733.45,-452.61 733.45,-452.61 733.45,-446.61 739.45,-440.61 745.45,-440.61 745.45,-440.61 852.55,-440.61 852.55,-440.61 858.55,-440.61 864.55,-446.61 864.55,-452.61 864.55,-452.61 864.55,-502.44 864.55,-502.44 864.55,-508.44 858.55,-514.44 852.55,-514.44" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="799" xml:space="preserve" y="-499.43">Lemma 10</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="799" xml:space="preserve" y="-486.68">multiplicity: for m ≥ 4 an</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="799" xml:space="preserve" y="-473.93">extremizer of T(m) has</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="799" xml:space="preserve" y="-461.18">multiplicities ≤ 2 (≤ 3</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="799" xml:space="preserve" y="-448.43">among non-simple ones)</text>
+</a>
+</g>
+</g>
+<!-- lem:mult&#45;&gt;thm:cert -->
+<g class="edge" id="edge5">
+<title>lem:mult-&gt;thm:cert</title>
+<path d="M862.08,-440.17C867.05,-437.97 872.05,-435.96 877,-434.24 974.15,-400.39 1038.8,-473.02 1105,-394.24 1135.3,-358.2 1125.6,-303.49 1111.2,-262.43" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1113.59,-261.85 1108.91,-256.09 1108.99,-263.51 1113.59,-261.85" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:mult&#45;&gt;res:search -->
+<g class="edge" id="edge11">
+<title>lem:mult-&gt;res:search</title>
+<path d="M860.56,-440.11C866,-437.83 871.52,-435.82 877,-434.24 941.93,-415.48 1437.8,-443.58 1484,-394.24 1560.1,-312.92 1547.5,-235.12 1484,-143.58 1450.4,-95.2 1386.4,-73.74 1334.1,-64.25" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1334.61,-61.85 1327.29,-63.08 1333.78,-66.68 1334.61,-61.85" stroke="#9aa8b5"></polygon>
+</g>
+<!-- auto:remark&#45;13 -->
+<g class="node" id="node13">
+<title>auto:remark-13</title>
+<g id="a_node13"><a target="_top" xlink:href="index.html#auto:remark-13" xlink:title="Remark 13: what is not proved">
+<path d="M978.18,-495.53C978.18,-495.53 901.82,-495.53 901.82,-495.53 895.82,-495.53 889.82,-489.53 889.82,-483.53 889.82,-483.53 889.82,-471.53 889.82,-471.53 889.82,-465.53 895.82,-459.53 901.82,-459.53 901.82,-459.53 978.18,-459.53 978.18,-459.53 984.18,-459.53 990.18,-465.53 990.18,-471.53 990.18,-471.53 990.18,-483.53 990.18,-483.53 990.18,-489.53 984.18,-495.53 978.18,-495.53" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="940" xml:space="preserve" y="-480.3">Remark 13</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="940" xml:space="preserve" y="-467.55">what is not proved</text>
+</a>
+</g>
+</g>
+<!-- lem:mult&#45;&gt;auto:remark&#45;13 -->
+<g class="edge lm-aux" id="edge22">
+<title>lem:mult-&gt;auto:remark-13</title>
+<path d="M865.09,-477.53C870.41,-477.53 875.72,-477.53 881.03,-477.53" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="880.87,-479.98 887.87,-477.53 880.87,-475.08 880.87,-479.98" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:multbound -->
+<g class="node" id="node11">
+<title>lem:multbound</title>
+<g id="a_node11"><a target="_top" xlink:href="index.html#lem:multbound" xlink:title="Lemma 11: a multiple edge of multiplicity k: (k−1)τ(G) ≤ k T(m−1), strictly if biconnected">
+<path d="M856.43,-387.87C856.43,-387.87 751.57,-387.87 751.57,-387.87 745.57,-387.87 739.57,-381.87 739.57,-375.87 739.57,-375.87 739.57,-326.04 739.57,-326.04 739.57,-320.04 745.57,-314.04 751.57,-314.04 751.57,-314.04 856.43,-314.04 856.43,-314.04 862.43,-314.04 868.43,-320.04 868.43,-326.04 868.43,-326.04 868.43,-375.87 868.43,-375.87 868.43,-381.87 862.43,-387.87 856.43,-387.87" fill="#ffffff" stroke="#888888" stroke-width="1.2"></path>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-372.85">Lemma 11</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-360.1">a multiple edge of</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-347.35">multiplicity k: (k−1)τ(G)</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-334.6">≤ k T(m−1), strictly if</text>
+<text font-family="Times New Roman,serif" font-size="10.50" text-anchor="middle" x="804" xml:space="preserve" y="-321.85">biconnected</text>
+</a>
+</g>
+</g>
+<!-- lem:multbound&#45;&gt;thm:cert -->
+<g class="edge" id="edge6">
+<title>lem:multbound-&gt;thm:cert</title>
+<path d="M868.84,-321.84C883.47,-316.39 899.09,-311.27 914,-307.66 953.1,-298.2 968.19,-316.25 1004,-297.91 1021.3,-289.07 1036.6,-274.98 1049.2,-260.49" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1050.84,-262.34 1053.52,-255.42 1047.11,-259.16 1050.84,-262.34" stroke="#9aa8b5"></polygon>
+</g>
+<!-- lem:multbound&#45;&gt;cor:mult2 -->
+<g class="edge" id="edge19">
+<title>lem:multbound-&gt;cor:mult2</title>
+<path d="M804,-313.78C804,-296.81 804,-276.28 804,-257.76" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="806.45,-257.92 804,-250.92 801.55,-257.92 806.45,-257.92" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:mult2&#45;&gt;rem:obs -->
+<g class="edge lm-aux" id="edge14">
+<title>cor:mult2-&gt;rem:obs</title>
+<path d="M865.99,-244.56C906.06,-267.12 960.3,-292.97 1012.5,-302.78 1044.2,-308.74 1125.8,-308.74 1157.5,-302.78 1163.4,-301.68 1165.1,-301.29 1170,-297.91 1179.7,-291.23 1189.1,-283.22 1197.9,-274.74" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="1199.53,-276.57 1202.73,-269.88 1196.06,-273.12 1199.53,-276.57" stroke="#9aa8b5"></polygon>
+</g>
+<!-- cor:mult2&#45;&gt;auto:remark&#45;13 -->
+<g class="edge lm-aux" id="edge21">
+<title>cor:mult2-&gt;auto:remark-13</title>
+<path d="M841.31,-249.33C855.1,-266.61 870.03,-287.27 881,-307.66 906.78,-355.56 924.9,-416.97 933.78,-450.98" fill="none" stroke="#9aa8b5"></path>
+<polygon fill="#9aa8b5" points="931.35,-451.37 935.46,-457.54 936.1,-450.15 931.35,-451.37" stroke="#9aa8b5"></polygon>
+</g>
+</g>
+</svg>
+</div></section><section class="pc-pane" id="pane-contrib"><div class="aporta"><h2>What the paper contributes</h2>
+<p>$\mathrm{T}(m)$ is the largest number of spanning trees of a connected loopless multigraph with $m$ edges, the
+number of vertices being free: the first question of Problem 2 of Kenyon (1996). The paper is a data note:</p>
+<ul>
+<li><b>Exact values and all extremizers for $m\le 22$</b>, with the simple maximum $S(m)$ and the non-simple maximum
+$M(m)$ (Table 1, Table 2). The sequence begins $1, 2, 3, 5, 8, 16, 24, 45, 81, 135, \dots$ and ends with
+$\mathrm{T}(22)=130691$, attained only by the circulant $C_{11}(1,3)$.</li>
+<li><b>Certified for $m\le 18$</b> (Theorem 2, computer-assisted): $53$ certificates accepted by a stand-alone checker
+that uses only the Python standard library and checks the completeness of every enumeration by its own counting,
+without nauty. <b>Search only for $19\le m\le 22$</b> (Computational result 3): the same proved rules, skeleton
+lists from nauty, no certificate.</li>
+<li><b>The pruning rules, each with a written proof</b> (Lemmas 5–11, Corollary 12): monotonicity, cut vertices,
+vertices of degree two, counting bounds, bounds on a fixed skeleton, and two lemmas on multiple edges, from
+Kirchhoff's matrix-tree theorem, effective resistance and Rayleigh monotonicity.</li>
+<li><b>Observations read off the tables</b> (Remark 4): from $m=8$ on every extremizer is simple with degrees $3$
+and $4$; a multiple edge is needed only for $m=2,4$.</li>
+</ul>
+<p>The rules rest on three classical facts (Kirchhoff's matrix-tree theorem, effective resistance, Rayleigh
+monotonicity); the bound $\tau(G)^2\,8^m&lt;27^m$ and the answer to Kenyon's second question are Majchrzak's (2026); the
+classical extremal problem with $n$ fixed is Kelmans–Chelnokov's, Shier's, Cheng's and Petingi–Boesch–Suffel's. The
+paper reports that the sequence was not in the OEIS on 25 November 2026. The table below uses the paper's colour
+code.</p>
+<!-- tabla:inicio -->
+<div style="overflow-x:auto"><table class="kt-table" style="border-collapse:collapse;color:#222;font-variant-numeric:tabular-nums"><tr style="background:#dbebf4"><th style="padding:.15em .55em;text-align:right">m</th><th style="padding:.15em .55em;text-align:right">T(m)</th><th style="padding:.15em .55em;text-align:right">#ext.</th><th style="padding:.15em .55em;text-align:right">n</th><th style="padding:.15em .55em;text-align:right">S(m)</th><th style="padding:.15em .55em;text-align:right">M(m)</th><th style="padding:.15em .55em;text-align:right">status</th></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">2</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">–</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">2</td><td style="padding:.15em .55em;text-align:right;background:#efd4e3;font-weight:700">2</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">2</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">2</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">3</td><td style="padding:.15em .55em;text-align:right;background:#efd4e3;font-weight:700">3</td><td style="padding:.15em .55em;text-align:right">2</td><td style="padding:.15em .55em;text-align:right">2, 3</td><td style="padding:.15em .55em;text-align:right">3</td><td style="padding:.15em .55em;text-align:right">3</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">4</td><td style="padding:.15em .55em;text-align:right;background:#efd4e3;font-weight:700">5</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">3</td><td style="padding:.15em .55em;text-align:right">4</td><td style="padding:.15em .55em;text-align:right">5</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">5</td><td style="padding:.15em .55em;text-align:right;background:#efd4e3;font-weight:700">8</td><td style="padding:.15em .55em;text-align:right">2</td><td style="padding:.15em .55em;text-align:right">3, 4</td><td style="padding:.15em .55em;text-align:right">8</td><td style="padding:.15em .55em;text-align:right">8</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">6</td><td style="padding:.15em .55em;text-align:right">16</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">4</td><td style="padding:.15em .55em;text-align:right">16</td><td style="padding:.15em .55em;text-align:right">13</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">7</td><td style="padding:.15em .55em;text-align:right;background:#efd4e3;font-weight:700">24</td><td style="padding:.15em .55em;text-align:right">2</td><td style="padding:.15em .55em;text-align:right">4, 5</td><td style="padding:.15em .55em;text-align:right">24</td><td style="padding:.15em .55em;text-align:right">24</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">8</td><td style="padding:.15em .55em;text-align:right">45</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">5</td><td style="padding:.15em .55em;text-align:right">45</td><td style="padding:.15em .55em;text-align:right">40</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">9</td><td style="padding:.15em .55em;text-align:right">81</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">6</td><td style="padding:.15em .55em;text-align:right">81</td><td style="padding:.15em .55em;text-align:right">69</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">10</td><td style="padding:.15em .55em;text-align:right">135</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">6</td><td style="padding:.15em .55em;text-align:right">135</td><td style="padding:.15em .55em;text-align:right">126</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">11</td><td style="padding:.15em .55em;text-align:right">231</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">7</td><td style="padding:.15em .55em;text-align:right">231</td><td style="padding:.15em .55em;text-align:right">210</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">12</td><td style="padding:.15em .55em;text-align:right">432</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">7</td><td style="padding:.15em .55em;text-align:right">432</td><td style="padding:.15em .55em;text-align:right">366</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">13</td><td style="padding:.15em .55em;text-align:right">720</td><td style="padding:.15em .55em;text-align:right">2</td><td style="padding:.15em .55em;text-align:right">7, 8</td><td style="padding:.15em .55em;text-align:right">720</td><td style="padding:.15em .55em;text-align:right">648</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">14</td><td style="padding:.15em .55em;text-align:right">1280</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">8</td><td style="padding:.15em .55em;text-align:right">1280</td><td style="padding:.15em .55em;text-align:right">1152</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">15</td><td style="padding:.15em .55em;text-align:right">2304</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">8</td><td style="padding:.15em .55em;text-align:right">2304</td><td style="padding:.15em .55em;text-align:right">1992</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">16</td><td style="padding:.15em .55em;text-align:right">4096</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">8</td><td style="padding:.15em .55em;text-align:right">4096</td><td style="padding:.15em .55em;text-align:right">3495</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#f2f8fb"><td style="padding:.15em .55em;text-align:right">17</td><td style="padding:.15em .55em;text-align:right">7168</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">9</td><td style="padding:.15em .55em;text-align:right">7168</td><td style="padding:.15em .55em;text-align:right">6272</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#e3eff7"><td style="padding:.15em .55em;text-align:right">18</td><td style="padding:.15em .55em;text-align:right">12584</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">10</td><td style="padding:.15em .55em;text-align:right">12584</td><td style="padding:.15em .55em;text-align:right">11264</td><td style="padding:.15em .55em;text-align:right">C</td></tr><tr style="background:#fcf4ed;border-top:2px solid #555"><td style="padding:.15em .55em;text-align:right">19</td><td style="padding:.15em .55em;text-align:right">22720</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">10</td><td style="padding:.15em .55em;text-align:right">22720</td><td style="padding:.15em .55em;text-align:right">19712</td><td style="padding:.15em .55em;text-align:right"><b>E</b></td></tr><tr style="background:#f9e8db"><td style="padding:.15em .55em;text-align:right">20</td><td style="padding:.15em .55em;text-align:right">40960</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">10</td><td style="padding:.15em .55em;text-align:right">40960</td><td style="padding:.15em .55em;text-align:right">34944</td><td style="padding:.15em .55em;text-align:right"><b>E</b></td></tr><tr style="background:#fcf4ed"><td style="padding:.15em .55em;text-align:right">21</td><td style="padding:.15em .55em;text-align:right">72657</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">11</td><td style="padding:.15em .55em;text-align:right">72657</td><td style="padding:.15em .55em;text-align:right">62296</td><td style="padding:.15em .55em;text-align:right"><b>E</b></td></tr><tr style="background:#f9e8db"><td style="padding:.15em .55em;text-align:right">22</td><td style="padding:.15em .55em;text-align:right">130691</td><td style="padding:.15em .55em;text-align:right">1</td><td style="padding:.15em .55em;text-align:right">11</td><td style="padding:.15em .55em;text-align:right">130691</td><td style="padding:.15em .55em;text-align:right">112640</td><td style="padding:.15em .55em;text-align:right"><b>E</b></td></tr></table></div>
+<p style="font-size:.9em"><span style="display:inline-block;width:1.1em;height:.8em;border:1px solid #888;background:#f2f8fb;vertical-align:middle"></span><span style="display:inline-block;width:1.1em;height:.8em;border:1px solid #888;background:#e3eff7;vertical-align:middle"></span> certified (Theorem 2, status C) · <span style="display:inline-block;width:1.1em;height:.8em;border:1px solid #888;background:#fcf4ed;vertical-align:middle"></span><span style="display:inline-block;width:1.1em;height:.8em;border:1px solid #888;background:#f9e8db;vertical-align:middle"></span> exhaustive search only (Computational result 3, status <b>E</b>, below the thick rule; the two shades alternate with m) · <span style="display:inline-block;width:1.1em;height:.8em;border:1px solid #888;background:#efd4e3;vertical-align:middle"></span> <b>T(m)</b> in bold: some extremizer has a multiple edge. Generated from <code>extremal_graphs.json</code> of the Zenodo record by <code>lab/hacer_datos.py</code>; this is the paper’s Table 1.</p>
+<!-- tabla:fin --></div></section><section class="pc-pane" id="pane-results"><p>🚀 <b>Start here:</b> <a href="index.html#thm:cert"><b>Theorem 2</b></a>: T(m), S(m), M(m) and all extremizers of T(m) for m ≤ 18 (53 certificates, stand-alone checker).</p><p><b>Main results:</b></p><ul><li><a href="index.html#thm:cert"><b>Theorem 2</b></a>: T(m), S(m), M(m) and all extremizers of T(m) for m ≤ 18 (53 certificates, stand-alone checker)</li><li><a href="index.html#res:search"><b>Result 3</b></a>: T(m), S(m), M(m) and the unique extremizers for 19 ≤ m ≤ 22, by exhaustive search (no certificate)</li><li><a href="index.html#rem:obs"><b>Remark 4</b></a>: read off the tables: multiple edges only for m = 2, 4; from m = 8 simple with degrees 3 and 4; T(22)^(1/22) = 1.7083 &lt; √(27/8)</li></ul></section><section class="pc-pane" id="pane-fields"><div class="campos"><h2>🧭 Fields: where the paper lives and what it connects</h2><p><b>Tools taken from other branches</b></p><ul><li><b>Electrical networks and the matrix-tree theorem (Kirchhoff; Rayleigh)</b> → (K1) the matrix-tree theorem for multigraphs, (K2) the share of spanning trees through a copy is the effective resistance of its ends, (K3) Rayleigh monotonicity: every pruning rule is proved from these three facts — <a href="index.html#lem:mono">Lemma 5</a>, <a href="index.html#lem:cut">Lemma 6</a>, <a href="index.html#lem:skel">Lemma 9</a>, <a href="index.html#lem:mult">Lemma 10</a>, <a href="index.html#lem:multbound">Lemma 11</a></li><li><b>Graph enumeration (nauty; generating functions for labelled graphs)</b> → the search lists skeletons with nauty’s geng and multig; the checker proves each list complete by orbit sums Σ n!/|Aut| against labelled counts from generating functions (OEIS A001187, A013922), without nauty — <a href="index.html#thm:cert">Theorem 2</a>, <a href="index.html#res:search"> 3</a></li><li><b>Kenyon’s Problem 2 and Majchrzak’s sharp bound</b> → the question (Kenyon 1996) and the bound τ(G)²8^m &lt; 27^m with optimal base √(27/8) (Majchrzak 2026), against which the growth of T(m) is compared — <a href="index.html#rem:obs"> 4</a></li></ul><p><b>What the results serve</b></p><ul><li><b>Exact values of T(m), S(m), M(m) and the extremal multigraphs</b> ← a new integer sequence for m ≤ 22 with its 26 extremizers (the paper reports it was not in the OEIS), certified data for m ≤ 18, and observations (degrees 3 and 4, circulants) that a general answer to Kenyon’s first question would have to explain — <a href="index.html#thm:cert">Theorem 2</a>, <a href="index.html#res:search"> 3</a>, <a href="index.html#rem:obs"> 4</a>, <a href="index.html#cor:mult2">Corollary 12</a></li></ul></div></section></div></div></div>
+<script>
+(function(){
+  var panes = [].slice.call(document.querySelectorAll('section.pc-pane')), box = document.querySelector('.pc-panel');
+  if (!panes.length || !box) return;
+  function mark(p){
+    document.querySelectorAll('nav.pc-toc li').forEach(function(li){
+      li.classList.toggle('on', li.querySelector('a').getAttribute('href') === '#' + p.id.slice(5));
+    });
+  }
+  function go(h){
+    var p = document.getElementById('pane-' + h);
+    if (!p) { box.scrollTop = 0; mark(panes[0]); return; }
+    p.scrollIntoView({block: 'start'});
+    mark(p);
+  }
+  box.addEventListener('scroll', function(){
+    var top = box.getBoundingClientRect().top + 90, cur = panes[0];
+    panes.forEach(function(p){ if (p.getBoundingClientRect().top <= top) cur = p; });
+    mark(cur);
+  }, {passive: true});
+  window.addEventListener('hashchange', function(){ go(location.hash.slice(1)); });
+  document.addEventListener('click', function(ev){  // same hash again: no hashchange
+    var a = ev.target.closest && ev.target.closest('nav.pc-toc a');
+    if (a && a.getAttribute('href') === location.hash) { ev.preventDefault(); go(location.hash.slice(1)); }
+  });
+  if (!new URLSearchParams(location.search).get('n')) go(location.hash.slice(1));  // ?n= : maphere places the view
+  else mark(panes[0]);
+})();
+</script>
+<script defer="" src="../../lemmario-assets/mapzoom.js"></script>
+<script data-lm="lm-maphere" src="../../lemmario-assets/lm-maphere.js"></script>
+<script id="lm-tooltips">
+(function(){
+  var RULES = [["a[href$=\"index.html\"]:not([href*=\"#\"])", "The blueprint: every statement of the paper, with its proof"], ["a[href$=\"mapa.html\"]", "The whole paper on one page: main results, tools and what they serve"], ["a[href$=\"pdf.html\"]", "The paper itself, as a PDF (English or Español)"], ["a[href$=\"dep_graph_document.html\"]", "The graph of all the statements and their dependencies"], ["a[download]", "Download the PDF of the paper"], ["a.libbtn", "All the papers: the library of blueprints"], ["button[data-v=\"paper\"]", "Statements and proofs, as in the paper"], ["button[data-v=\"explore\"]", "Adds explanations, figures, other mathematical languages and labs"], ["a[href$=\"completo/index.html\"], a.lm-completo", "The whole paper: every section, its prose and every statement"], ["a[href$=\"../index.html\"]", "Back to the blueprint (the statements and how they depend on each other)"], ["a[href$=\"tour.html\"]", "The paper in five short screens: the result, in words, how it is proved, what is checked, where to try it"], ["a[href$=\"referee.html\"]", "What a referee has to check by hand: every statement with what supports it"], ["#showmore-minus", "Fold every block of the page (proofs, evidence, figures)"], ["#showmore-plus", "Unfold every block of the page"], ["nav.prev_up_next a", "Back to the start of the blueprint"], ["a.icon:has(svg.icon-cogs)", "Go to the proof"], ["button.modal:has(svg.icon-mindmap)", "Its dependencies: what this statement uses and where it is used"], [".closebtn, .dep-closebtn", "Close"], ["a.icon", "Link to this statement"], ["nav.toc a, nav.pc-toc a", "Read this part of the paper"], ["button.modal.lean", "The parts of this statement checked in Lean, with the code"], [".lean_decl, a.lean_decl", "Open the Lean code of this declaration"], ["a.bib-search", "Search for this reference online"], ["summary", null], ["button.lm-run", "Run the computation with these values"], [".lm-ex button", "Fill in this example and run it"], ["button.lm-goto", "Go to the figure, drawn with these values"], ["button.lm-figlink", "Open the lab of this figure: your own values and the exact results"], ["button.lm-figtoggle", "Show or hide the static figure of the paper"], [".lv-tabs button", "Show this panel of the figure"], [".lv-bar input, .l3-bar input", "Move the slider: the figure follows"], ["a.lm-tourbtn", "A guided tour of this page"], ["a[href*=\"doi.org\"], a[href^=\"doi:\"]", "Open the reference (DOI)"], ["a[href*=\"arxiv.org\"]", "Open the reference on arXiv"], ["a.show", "Show this on the page"]], SUMMARY = [["🛡️", "What was checked besides the written proof, and how far"], ["🖼️", "Show the figure"], ["🧪", "Open the lab: run the computation in your browser"], ["📐", "The definitions this statement uses, copied from the paper"], ["🗺️", "The map of the results"], ["🔎", "Show more"]], NAMES = {"auto:definition-1": "Definition 1", "thm:cert": "Theorem 2 — computer-assisted", "res:search": "Result 3", "rem:obs": "Remark 4 — read off the tables, checked by script", "lem:mono": "Lemma 5 — monotonicity", "lem:cut": "Lemma 6 — cut vertex", "lem:deg2": "Lemma 7 — degree two", "lem:count": "Lemma 8 — counting bounds", "lem:skel": "Lemma 9 — bounds on a fixed skeleton", "lem:mult": "Lemma 10 — multiplicity", "lem:multbound": "Lemma 11 — a multiple edge", "cor:mult2": "Corollary 12", "auto:remark-13": "Remark 13 — what is not proved"};
+  function label(a){
+    var h = a.getAttribute('href') || '';
+    var k = h.indexOf('#'); if (k < 0) return null;
+    var id = decodeURIComponent(h.slice(k + 1).split('&')[0]);
+    if (NAMES[id]) return NAMES[id];
+    if (h.charAt(0) !== '#') return null;
+    var t = document.getElementById(id);  // a citation: its entry in the bibliography
+    if (t && /bib|ref/i.test((t.className || '') + ' ' + (t.parentElement && t.parentElement.className || ''))) {
+      var s = (t.closest('li, dd, p') || t).textContent.replace(/\s+/g, ' ').trim();
+      return s.length > 180 ? s.slice(0, 177) + '…' : s;
+    }
+    return null;
+  }
+  function apply(){
+    RULES.forEach(function (r) {
+      if (!r[1]) return;
+      document.querySelectorAll(r[0]).forEach(function (e) { if (!e.getAttribute('title')) e.setAttribute('title', r[1]); });
+    });
+    document.querySelectorAll('summary').forEach(function (e) {
+      if (e.getAttribute('title')) return;
+      var t = e.textContent.trim();
+      for (var i = 0; i < SUMMARY.length; i++) if (t.indexOf(SUMMARY[i][0]) === 0) { e.setAttribute('title', SUMMARY[i][1]); return; }
+    });
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      if (a.getAttribute('title') || a.closest('svg')) return;
+      var t = label(a); if (t) a.setAttribute('title', t);
+    });
+  }
+  function start(){
+    apply();
+    var due = null;
+    // 24-nov: los cambios DENTRO de una figura viva (3D, niveles, svg, canvas) no cuentan: una figura que se repinta en
+    // cada fotograma relanzaba apply() sobre toda la página cada 300 ms (dilogarithm-clock: Chrome sin ventana no
+    // terminaba nunca y el navegador gastaba CPU sin parar)
+    var FIG = '.l3, .lv, .lm-3d, svg, canvas';
+    new MutationObserver(function (records) {
+      var fuera = records.some(function (r) {
+        var t = r.target.nodeType === 1 ? r.target : r.target.parentElement;
+        return !(t && t.closest && t.closest(FIG));
+      });
+      if (fuera && due === null) due = setTimeout(function () { due = null; apply(); }, 300);
+    }).observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+<script data-lm="lm-notranslate" src="../../lemmario-assets/lm-notranslate.js"></script>
+<script data-lm="lm-print-js" src="../../lemmario-assets/lm-print-js.js"></script>
+</body></html>
