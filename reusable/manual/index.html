@@ -1,0 +1,798 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>The Reusable layer — practical guide</title>
+<meta name="description" content="Machine-checked theorems you can use in your own Lean 4 proofs — from installing them to using every one of them."><meta name="reusable-version" content="v0.11.0"><meta name="reusable-entries" content="56"><meta name="reusable-commit" content="72bf7da"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#0F6E8C;--pri2:#6B4C9A;--ok:#2E8B57;--warn:#C8641E;--ink:#1d2530;--muted:#5b6673;--line:#e4e7ec;
+ --bg:#f7f8fa;--card:#ffffff;--soft:#eef4f7;--code:#0d1117;--f-imp:#2f6fd6;--f-ins:#8a94a3;--f-exp:#c8641e;--f-con:#2e8b57}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Inter,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--pri);text-decoration:none}a:hover{text-decoration:underline}
+p{margin:.7em 0}
+main,.cap{overflow-wrap:break-word}p code,li code,td code,p a,li a{overflow-wrap:anywhere}
+code{font-family:"JetBrains Mono","Cascadia Code",Consolas,monospace;font-size:.86em;background:var(--soft);padding:.1em .35em;border-radius:5px;color:inherit}
+h3{font-size:1.15em;margin:1.8em 0 .5em;letter-spacing:-.01em}
+ul,ol{padding-left:1.3em}li{margin:.25em 0}
+.cap{margin:0 0 3.5em}
+.cap-cab{display:flex;align-items:center;gap:1em;margin:0 0 1.2em;padding-bottom:.9em;border-bottom:1px solid var(--line)}
+.cap-num{font:800 2.6em/1 Inter,"Segoe UI",sans-serif;color:transparent;background:linear-gradient(135deg,var(--pri),var(--pri2));-webkit-background-clip:text;background-clip:text;min-width:1.6em}
+.cap-k{text-transform:uppercase;letter-spacing:.12em;font-size:.72em;font-weight:700;color:var(--muted)}
+.cap-cab h2{margin:.05em 0 0;font-size:1.65em;line-height:1.2;letter-spacing:-.02em}
+.cap-e{margin-right:.35em}
+.code{margin:1.1em 0;border-radius:12px;overflow:hidden;background:var(--code);box-shadow:0 6px 20px rgba(13,17,23,.18)}
+.code-cab{display:flex;align-items:center;gap:.7em;padding:.45em .8em;background:#161b22;border-bottom:1px solid #222a35}
+.code-dots i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;background:#ff5f56}
+.code-dots i:nth-child(2){background:#ffbd2e}.code-dots i:nth-child(3){background:#27c93f}
+.code-lang{font:600 .74em/1 Inter,sans-serif;color:#9aa6b2;letter-spacing:.06em;text-transform:uppercase}
+.copiar{margin-left:auto;font:600 .72em Inter,sans-serif;color:#c9d1d9;background:#21262d;border:1px solid #30363d;border-radius:6px;padding:.3em .7em;cursor:pointer}
+.copiar:hover{background:#30363d}
+pre.hl{margin:0;padding:1em 1.1em;overflow-x:auto;color:#e6edf3;font:13.5px/1.6 "JetBrains Mono","Cascadia Code",Consolas,monospace}
+pre.hl code{background:none;padding:0;font-size:inherit}
+.call{display:flex;gap:.8em;border-radius:12px;padding:.9em 1.1em;margin:1.2em 0;border:1px solid var(--line);background:var(--card)}
+.call-i{font-size:1.3em;line-height:1.3}
+.call-c{flex:1;min-width:0}.call-c>p:first-of-type{margin-top:0}.call-c>p:last-child{margin-bottom:0}
+.call-t{font-weight:700;font-size:.78em;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.2em}
+.idea{background:#f0f9f3;border-color:#bfe3cc}.idea .call-t{color:var(--ok)}
+.nota{background:#eff5fd;border-color:#c8d9f2}.nota .call-t{color:#2f6fd6}
+.aviso{background:#fff6ec;border-color:#f3d2ae}.aviso .call-t{color:var(--warn)}
+.al-dia{background:linear-gradient(135deg,#eaf4f8,#f1ecf8);border-color:#cfdbe8}
+.tabla-problemas ul{list-style:none;padding:0;margin:0;display:grid;gap:.6em}
+.tabla-problemas li{background:var(--soft);border-radius:8px;padding:.55em .8em;margin:0}
+.pasos{position:relative;margin:1.2em 0}
+.paso{display:grid;grid-template-columns:2.6em 1fr;gap:.9em;position:relative;padding-bottom:.6em}
+.paso:not(:last-child)::before{content:"";position:absolute;left:1.25em;top:2.6em;bottom:0;width:2px;background:linear-gradient(var(--pri),var(--pri2));opacity:.35}
+.paso-n{width:2.5em;height:2.5em;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;background:linear-gradient(135deg,var(--pri),var(--pri2));box-shadow:0 3px 10px rgba(15,110,140,.3)}
+.paso-c{min-width:0}.paso-t{margin-top:.45em}
+.receta{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:2em 0;overflow:hidden;box-shadow:0 4px 18px rgba(16,24,40,.06)}
+.receta>*:not(.receta-cab){margin-left:1.3em;margin-right:1.3em}
+.receta-cab{display:flex;align-items:center;flex-wrap:wrap;gap:.4em .9em;padding:.9em 1.3em;background:linear-gradient(120deg,#0f6e8c,#6b4c9a);color:#fff}
+.receta-cab h3{margin:0;font-size:1.15em;color:#fff;flex:1 1 14em}
+.receta-n{font:800 .7em Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.18);border-radius:999px;padding:.35em .8em}
+.receta-ficha{color:#fff;font-size:.8em;font-weight:600;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:.25em .8em}
+.receta-ficha:hover{background:rgba(255,255,255,.15);text-decoration:none}
+.et-l{display:inline-flex;align-items:center;gap:.35em;font-weight:700;margin-right:.35em}
+.et-problema .et-l{color:#b03a5b}.et-teorema .et-l{color:var(--pri2)}.et-codigo .et-l{color:var(--pri)}
+.resultado{display:grid;grid-template-columns:1fr 1fr;gap:.8em;margin:1em 1.3em 1.3em!important}
+.resultado .et{margin:0;border-radius:10px;padding:.8em .9em;font-size:.94em}
+.et-check{background:#eef8f1;border:1px solid #c6e6d1}.et-check .et-l{color:var(--ok);display:flex}
+.et-prueba{background:#fff5ea;border:1px solid #f2d3b1}.et-prueba .et-l{color:var(--warn);display:flex}
+.receta>.et-prueba{border-radius:10px;padding:.8em .9em;margin-bottom:1.3em}
+.fig{margin:1.4em 0;text-align:center;background:#fff;border-radius:12px;padding:.8em;border:1px solid var(--line)}
+.fig img,.fig svg{max-width:100%;height:auto;display:block;margin:0 auto}
+.fig.dib{background:linear-gradient(135deg,#f6f9fb,#f6f3fa)}
+.firma{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:1.2em 0}
+.firma-cab{font:600 .72em Inter,sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:.45em 1em;border-bottom:1px solid var(--line);background:var(--soft)}
+.firma code{display:block;background:none;font-size:.86em;line-height:2;padding:.8em 1em}
+.f-kw{color:var(--pri2);font-weight:700}.f-imp{color:var(--f-imp)}.f-ins{color:var(--f-ins)}.f-exp{color:var(--f-exp);font-weight:600}.f-con{color:var(--f-con);font-weight:600}
+.f-ley{display:flex;flex-wrap:wrap;gap:.4em 1.2em;font-size:.82em;color:var(--muted);padding:.6em 1em;border-top:1px dashed var(--line)}
+.tabla{overflow-x:auto;margin:1.2em 0;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.tabla table{border-collapse:collapse;width:100%;font-size:.88em}
+.tabla th{text-align:left;font-size:.78em;text-transform:uppercase;letter-spacing:.08em;color:#fff;background:linear-gradient(120deg,#0f6e8c,#6b4c9a);padding:.6em .8em}
+.tabla td{padding:.55em .8em;border-top:1px solid var(--line);vertical-align:top}
+.tabla tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 60%,transparent)}
+.tabla td code{word-break:break-all}
+.area{display:flex;align-items:center;gap:.5em;margin:1.8em 0 .7em;font-weight:800;font-size:1.05em;color:var(--c)}
+.area-e{display:grid;place-items:center;width:1.9em;height:1.9em;border-radius:8px;background:color-mix(in srgb,var(--c) 14%,transparent)}
+.fichas{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7em}
+.ficha{display:flex;flex-direction:column;gap:.25em;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:10px;padding:.6em .8em .7em;color:var(--ink);font-size:.82em;line-height:1.45}
+.ficha:hover{text-decoration:none;box-shadow:0 6px 16px rgba(16,24,40,.1);transform:translateY(-1px)}
+.ficha-cab{display:flex;justify-content:space-between;align-items:center}
+.ficha-id{font:700 .85em "JetBrains Mono",Consolas,monospace;color:var(--c)}
+.ficha-n{font:600 .9em "JetBrains Mono",Consolas,monospace;word-break:break-all;color:var(--pri)}
+.ficha-t{color:var(--muted)}
+.chuleta{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.9em}
+.chu{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8em 1em;font-size:.88em}
+.chu-t{display:flex;gap:.5em;align-items:center;font-weight:800;margin-bottom:.4em;color:var(--pri)}
+.chu-n{font-size:.9em;color:var(--muted);margin:.5em 0 0}
+.area{flex-wrap:wrap}.area-n{font:700 .72em Inter,sans-serif;color:var(--muted);background:var(--soft);border-radius:999px;padding:.15em .6em}
+.area-imp{font-weight:500;font-size:.72em;color:var(--muted);margin-left:auto}
+.edicion{display:inline-block;font:700 .8em "JetBrains Mono",monospace}
+.chu ul{margin:.2em 0;padding-left:1.1em}.chu table{border-collapse:collapse;width:100%}
+.chu td{padding:.25em .3em;border-bottom:1px solid var(--line);vertical-align:top}.chu td:first-child{white-space:nowrap}
+pre.mini{background:var(--code);color:#e6edf3;border-radius:8px;padding:.7em .8em;font:12px/1.5 "JetBrains Mono",Consolas,monospace;margin:0;white-space:pre-wrap;word-break:break-all}
+
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:.8em;padding:.6em 1.2em;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .marca{font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+.top .marca b{background:linear-gradient(135deg,var(--pri),var(--pri2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.top .esp{flex:1}
+.btn{display:inline-flex;align-items:center;gap:.35em;font-size:.85em;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:.35em .85em;cursor:pointer}
+.btn:hover{text-decoration:none;border-color:var(--pri)}
+.btn.pri{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border:none}
+.menu{display:none}
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1240px;margin:0 auto}
+nav.lado{position:sticky;top:3.4em;height:calc(100vh - 3.4em);overflow:auto;padding:1.6em 1em 2em 1.4em;border-right:1px solid var(--line)}
+nav.lado .k{font-size:.72em;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 .6em .6em}
+nav.lado a{display:flex;gap:.55em;align-items:baseline;padding:.38em .6em;border-radius:8px;color:var(--muted);font-size:.9em;line-height:1.35}
+nav.lado a .n{font:700 .8em "JetBrains Mono",monospace;opacity:.6;min-width:1.6em}
+nav.lado a:hover{background:var(--soft);text-decoration:none;color:var(--ink)}
+nav.lado a.activo{background:color-mix(in srgb,var(--pri) 12%,transparent);color:var(--pri);font-weight:700}
+main{padding:2em 2.6em 5em;max-width:900px}
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:3em 2.6em 2.4em;margin:0 0 2.6em;color:#fff;background:radial-gradient(1200px 400px at 110% -10%,rgba(255,255,255,.18),transparent 60%),linear-gradient(135deg,#0b4f66 0%,#0f6e8c 40%,#6b4c9a 100%)}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:28px 28px;-webkit-mask-image:linear-gradient(120deg,transparent 30%,#000 100%);mask-image:linear-gradient(120deg,transparent 30%,#000 100%);pointer-events:none}
+.hero .eti{display:inline-block;font-size:.75em;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.16);border-radius:999px;padding:.35em .9em}
+.hero h1{font-size:2.6em;line-height:1.08;letter-spacing:-.03em;margin:.45em 0 .3em}
+.hero .sub{font-size:1.15em;opacity:.92;max-width:36em;margin:0 0 1.4em}
+.hero .chips{display:flex;flex-wrap:wrap;gap:.5em}
+.hero .chip{font:600 .8em "JetBrains Mono",monospace;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:.35em .7em;color:#fff}
+.hero .acc{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1.5em;position:relative;z-index:1}
+.hero .acc a{background:#fff;color:#0f3f52;font-weight:700;border-radius:999px;padding:.55em 1.1em;font-size:.9em}
+.hero .acc a.sec{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.cap{scroll-margin-top:4em}.cap h2,.cap h3{scroll-margin-top:4.5em}
+@media (max-width:900px){
+ .layout{grid-template-columns:minmax(0,1fr)}
+ nav.lado{position:fixed;left:0;top:3.2em;bottom:0;height:auto;width:min(300px,85vw);background:var(--bg);z-index:30;transform:translateX(-105%);transition:transform .2s;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+ nav.lado.abierto{transform:none}
+ .menu{display:inline-flex}
+ main{padding:1.2em 16px 4em}
+ .hero{padding:2em 1.3em;border-radius:16px}.hero h1{font-size:1.9em}
+ .resultado{grid-template-columns:1fr}
+ .top .ocultar-movil{display:none}
+ .top{gap:.4em;padding:.5em 10px}.top .btn{padding:.3em .6em;white-space:nowrap}.top .marca{white-space:nowrap;font-size:.92em}
+ .top .txt{display:none}
+}
+:root[data-theme="dark"]{--ink:#e6e9ee;--muted:#9aa4b2;--line:#2a313c;--bg:#0f141a;--card:#151b23;--soft:#1c2430;--f-imp:#79a8ff;--f-ins:#8b95a5;--f-exp:#f0a35e;--f-con:#5fd08f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e6e9ee;--muted:#9aa4b2;--line:#2a313c;--bg:#0f141a;--card:#151b23;--soft:#1c2430;--f-imp:#79a8ff;--f-ins:#8b95a5;--f-exp:#f0a35e;--f-con:#5fd08f}}
+:root[data-theme="dark"] :is(.idea,.nota,.aviso,.al-dia,.et-check,.et-prueba){background:var(--soft);border-color:var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) :is(.idea,.nota,.aviso,.al-dia,.et-check,.et-prueba){background:var(--soft);border-color:var(--line)}}
+</style></head><body>
+<div class="top"><button class="btn menu" id="menu" type="button">☰</button><span class="marca">🧩 <b>Reusable · Guide</b></span><span class="esp"></span>
+<a class="btn ocultar-movil" href="../index.html">← Showcase</a><a class="btn" href="es/index.html">🌐 <span class="txt">Español</span></a>
+<button class="btn" id="tema" type="button" title="Theme">◐</button><a class="btn pri" href="reusable-guide-en.pdf">⬇ PDF</a></div>
+<div class="layout"><nav class="lado"><div class="k">Contents</div><a href="#s1-what-you-will-be-able-to-do"><span class="n">01</span><span>🎯 What you will be able to do</span></a><a href="#s2-what-the-reusable-layer-is"><span class="n">02</span><span>🧱 What the Reusable layer is</span></a><a href="#s3-before-you-start"><span class="n">03</span><span>🧰 Before you start</span></a><a href="#s4-installing-the-layer"><span class="n">04</span><span>🚀 Installing the layer</span></a><a href="#s5-your-first-theorem-word-by-word"><span class="n">05</span><span>✍️ Your first theorem, word by word</span></a><a href="#s6-finding-the-theorem-you-need"><span class="n">06</span><span>🔎 Finding the theorem you need</span></a><a href="#s7-all-the-ways-of-using-a-theorem"><span class="n">07</span><span>🛠️ All the ways of using a theorem</span></a><a href="#s8-six-recipes"><span class="n">08</span><span>🧪 Six recipes</span></a><a href="#s9-practical-examples-start-to-finish"><span class="n">09</span><span>🧭 Practical examples, start to finish</span></a><a href="#s10-every-theorem-of-the-layer-by-area"><span class="n">10</span><span>📚 Every theorem of the layer, by area</span></a><a href="#s11-when-something-goes-wrong"><span class="n">11</span><span>🩺 When something goes wrong</span></a><a href="#s12-versions-updates-citing-and-contact"><span class="n">12</span><span>📦 Versions, updates, citing and contact</span></a><a href="#s13-quick-reference"><span class="n">13</span><span>🗂️ Quick reference</span></a></nav>
+<main><div class="hero"><span class="eti">Practical guide · Lean 4</span><h1>The Reusable layer: a practical guide</h1><p class="sub">Machine-checked theorems you can use in your own Lean 4 proofs — from installing them to using every one of them.</p>
+<div class="chips"><span class="chip">v0.11.0 · 56 theorems</span><span class="chip">Lean 4</span><span class="chip">Mathlib</span><span class="chip">machine-checked</span><span class="chip">open source</span></div>
+<div class="acc"><a href="#s4-installing-the-layer">🚀 Installing the layer</a><a class="sec" href="https://karlesmarin.github.io/blueprints/reusable/">🏛️ Showcase</a><a class="sec" href="reusable-guide-en.pdf">⬇ PDF</a></div></div>
+<section class="cap" id="sec-s1-what-you-will-be-able-to-do"><header class="cap-cab"><span class="cap-num">01</span><div><div class="cap-k">Chapter 1</div><h2 id="s1-what-you-will-be-able-to-do"><span class="cap-e">🎯</span><span class="cap-t">What you will be able to do</span></h2></div></header>
+<p>By the end of this guide you will have a Lean project that uses the Reusable layer, and you will know how to find,
+read, apply and combine any of its theorems. You do not need to read their proofs: Lean has checked each one, and
+you use its statement the way you use a theorem from a textbook.</p>
+<p>The layer is useful when Mathlib does not (yet) have the statement you need, or has it in a form that is awkward to
+apply. Three things it does for you, all worked out in this guide:</p>
+<ul>
+<li>🔢 <strong>Count real roots</strong> of a polynomial from a few sign changes, without computing the roots (Recipe 2).</li>
+<li>✅ <strong>Certify that a quadratic form is a sum of k squares</strong>: two theorems turn a check of signs into the
+  decomposition (Recipe 4).</li>
+<li>📐 <strong>Prove a classical inequality in two lines</strong> once the right identity is available (Recipe 1).</li>
+</ul>
+<div class="call idea">
+<div class="call-i">💡</div>
+<div class="call-c">
+<div class="call-t">Idea</div>
+<p><strong>The whole method in one sentence.</strong> Find the theorem, give it its arguments, prove its hypotheses, and take the part
+of its conclusion you need. Everything else in this guide is that sentence in detail.</p>
+</div>
+</div>
+</section><section class="cap" id="sec-s2-what-the-reusable-layer-is"><header class="cap-cab"><span class="cap-num">02</span><div><div class="cap-k">Chapter 2</div><h2 id="s2-what-the-reusable-layer-is"><span class="cap-e">🧱</span><span class="cap-t">What the Reusable layer is</span></h2></div></header>
+<figure class="fig"><img src="fig/capas_en.svg" alt="capas"></figure>
+<p>The repository <code>karlesmarin/formalizations</code> holds thousands of machine-checked results, most of them written for my
+research papers. The <strong>Reusable layer</strong> is a small, curated part of it: theorems that are useful outside the paper they
+came from, under stable names of the form <code>Formalizations.Reusable.&lt;name&gt;</code>. Release
+<a href="https://github.com/karlesmarin/formalizations/releases/tag/v0.11.0"><code>v0.11.0</code></a>, the one this edition describes, has 56 of them in 9 areas.</p>
+<p>Every entry of the layer:</p>
+<ul>
+<li>is a <strong>theorem proved in the archive</strong>: the layer re-exports it, no proof is copied or rewritten;</li>
+<li>depends only on Lean's <strong>standard axioms</strong> (<code>propext</code>, <code>Classical.choice</code>, <code>Quot.sound</code>), checked in every release;</li>
+<li>has a <strong>role</strong>: 🔌 <code>API</code>, a lemma meant to be used inside other proofs, or 🏛️ <code>showcase</code>, a classical theorem,
+  complete in itself, more often consulted than imported;</li>
+<li>has a <strong>card</strong> in the showcase: the statement in words, the exact Lean signature, the import it needs, a compiled
+  example, where it comes from and which axioms it uses.</li>
+</ul>
+<p>What it is <strong>not</strong>: it does not replace Mathlib (it is built on Mathlib and pins one Mathlib commit), and it is not a
+collection of tactics. It is a set of theorems.</p>
+<div class="call nota">
+<div class="call-i">📌</div>
+<div class="call-c">
+<div class="call-t">Note</div>
+<p><strong>Stability.</strong> Names under <code>Formalizations.Reusable</code> are not removed within a major series. If a statement has to
+change incompatibly, the old name stays as a deprecated alias for two releases.</p>
+</div>
+</div>
+</section><section class="cap" id="sec-s3-before-you-start"><header class="cap-cab"><span class="cap-num">03</span><div><div class="cap-k">Chapter 3</div><h2 id="s3-before-you-start"><span class="cap-e">🧰</span><span class="cap-t">Before you start</span></h2></div></header>
+<p>You need:</p>
+<ul>
+<li><strong>Lean 4 with <code>elan</code></strong>, the Lean version manager. If you have never installed Lean, follow
+  <a href="https://lean-lang.org/install/">https://lean-lang.org/install/</a>; it takes a few minutes and installs VS Code support as well.</li>
+<li><strong>git</strong>.</li>
+<li>About <strong>5 GB of disk</strong>: Mathlib, already compiled, is downloaded once.</li>
+<li><strong>Basic Lean</strong>: what <code>theorem</code>, <code>example</code>, <code>by</code>, <code>exact</code> and <code>have</code> mean. If these words are new, the first chapters
+  of <em>Mathematics in Lean</em> (<a href="https://leanprover-community.github.io/mathematics_in_lean/">https://leanprover-community.github.io/mathematics_in_lean/</a>) are the best start; come
+  back here after them.</li>
+</ul>
+</section><section class="cap" id="sec-s4-installing-the-layer"><header class="cap-cab"><span class="cap-num">04</span><div><div class="cap-k">Chapter 4</div><h2 id="s4-installing-the-layer"><span class="cap-e">🚀</span><span class="cap-t">Installing the layer</span></h2></div></header>
+<figure class="fig dib"><svg viewBox="0 0 960 190" xmlns="http://www.w3.org/2000/svg" role="img"><defs><marker id="fl" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9aa6b2"/></marker></defs><rect x="8" y="22" width="166" height="150" rx="16" fill="#fff" stroke="#dfe4ea"/><rect x="8" y="22" width="166" height="8" rx="4" fill="#0F6E8C"/><circle cx="91" cy="62" r="20" fill="#0F6E8C"/><text x="91" y="69" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="19" fill="#fff">1</text><text x="91" y="108" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="17" fill="#1d2530">Create</text><text x="91" y="128" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">a project</text><rect x="18" y="140" width="146" height="22" rx="6" fill="#0d1117"/><text x="91" y="155" text-anchor="middle" font-family="'JetBrains Mono',Consolas,monospace" font-size="10.5" fill="#e6edf3">lake new … std.toml</text><line x1="178" y1="97" x2="194" y2="97" stroke="#9aa6b2" stroke-width="2.5" marker-end="url(#fl)"/><rect x="198" y="22" width="166" height="150" rx="16" fill="#fff" stroke="#dfe4ea"/><rect x="198" y="22" width="166" height="8" rx="4" fill="#256F9E"/><circle cx="281" cy="62" r="20" fill="#256F9E"/><text x="281" y="69" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="19" fill="#fff">2</text><text x="281" y="108" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="17" fill="#1d2530">Require</text><text x="281" y="128" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">the layer</text><rect x="208" y="140" width="146" height="22" rx="6" fill="#0d1117"/><text x="281" y="155" text-anchor="middle" font-family="'JetBrains Mono',Consolas,monospace" font-size="10.5" fill="#e6edf3">[[require]] · rev</text><line x1="368" y1="97" x2="384" y2="97" stroke="#9aa6b2" stroke-width="2.5" marker-end="url(#fl)"/><rect x="388" y="22" width="166" height="150" rx="16" fill="#fff" stroke="#dfe4ea"/><rect x="388" y="22" width="166" height="8" rx="4" fill="#3D66A8"/><circle cx="471" cy="62" r="20" fill="#3D66A8"/><text x="471" y="69" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="19" fill="#fff">3</text><text x="471" y="108" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="17" fill="#1d2530">Download</text><text x="471" y="128" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">once</text><rect x="398" y="140" width="146" height="22" rx="6" fill="#0d1117"/><text x="471" y="155" text-anchor="middle" font-family="'JetBrains Mono',Consolas,monospace" font-size="10.5" fill="#e6edf3">lake update</text><line x1="558" y1="97" x2="574" y2="97" stroke="#9aa6b2" stroke-width="2.5" marker-end="url(#fl)"/><rect x="578" y="22" width="166" height="150" rx="16" fill="#fff" stroke="#dfe4ea"/><rect x="578" y="22" width="166" height="8" rx="4" fill="#5A57A3"/><circle cx="661" cy="62" r="20" fill="#5A57A3"/><text x="661" y="69" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="19" fill="#fff">4</text><text x="661" y="108" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="17" fill="#1d2530">Import</text><text x="661" y="128" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">an area</text><rect x="588" y="140" width="146" height="22" rx="6" fill="#0d1117"/><text x="661" y="155" text-anchor="middle" font-family="'JetBrains Mono',Consolas,monospace" font-size="10.5" fill="#e6edf3">import Formalizations…</text><line x1="748" y1="97" x2="764" y2="97" stroke="#9aa6b2" stroke-width="2.5" marker-end="url(#fl)"/><rect x="768" y="22" width="166" height="150" rx="16" fill="#fff" stroke="#dfe4ea"/><rect x="768" y="22" width="166" height="8" rx="4" fill="#6B4C9A"/><circle cx="851" cy="62" r="20" fill="#6B4C9A"/><text x="851" y="69" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="19" fill="#fff">5</text><text x="851" y="108" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="17" fill="#1d2530">Use</text><text x="851" y="128" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">a theorem</text><rect x="778" y="140" width="146" height="22" rx="6" fill="#0d1117"/><text x="851" y="155" text-anchor="middle" font-family="'JetBrains Mono',Consolas,monospace" font-size="10.5" fill="#e6edf3">exact thm …</text></svg></figure>
+<h3 id="s41-in-a-new-project-step-by-step">4.1 In a new project, step by step</h3>
+<div class="pasos"><div class="paso"><div class="paso-n">0</div><div class="paso-c"><p class="paso-t"><strong>Create the project.</strong></p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Terminal</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code>lake<span class="w"> </span>+leanprover/lean4:v4.35.0<span class="w"> </span>new<span class="w"> </span>myproject<span class="w"> </span>std.toml
+<span class="nb">cd</span><span class="w"> </span>myproject
+</code></pre></div>
+<div class="call aviso">
+<div class="call-i">⚠️</div>
+<div class="call-c">
+<div class="call-t">Watch out</div>
+<p>Use the <strong>standard</strong> template (<code>std.toml</code>), not <code>math</code>. The <code>math</code> template adds its own Mathlib, pinned to a
+different commit from the one this layer is built with, and you would end up with two Mathlibs that disagree. Mathlib
+comes into your project through this layer.</p>
+</div>
+</div>
+</div></div><div class="paso"><div class="paso-n">1</div><div class="paso-c"><p class="paso-t"><strong>Declare the dependency.</strong> Open <code>lakefile.toml</code> and add at the end:</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">lakefile.toml</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="k">[[require]]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;formalizations&quot;</span>
+<span class="n">git</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/karlesmarin/formalizations&quot;</span>
+<span class="n">rev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;v0.11.0&quot;</span>
+</code></pre></div>
+<p><code>rev</code> pins the release: your project keeps working the same way until you change it.</p>
+<div class="call nota">
+<div class="call-i">📌</div>
+<div class="call-c">
+<div class="call-t">Note</div>
+<p><strong>Where the values come from.</strong> This edition of the guide is generated from release <code>v0.11.0</code>: its tag goes in
+<code>rev</code>, and its Lean version (<code>leanprover/lean4:v4.35.0</code>, the file <code>lean-toolchain</code> at the tag) in the <code>lake new</code> line. For a later
+release, take its tag from <a href="https://github.com/karlesmarin/formalizations/releases">https://github.com/karlesmarin/formalizations/releases</a> and the <code>lean-toolchain</code> at that tag; the showcase always names both.</p>
+</div>
+</div>
+</div></div><div class="paso"><div class="paso-n">2</div><div class="paso-c"><p class="paso-t"><strong>Download.</strong></p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Terminal</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code>lake<span class="w"> </span>update
+</code></pre></div>
+<p>This fetches the layer and Mathlib, and downloads Mathlib already compiled. The first time takes a while (several
+gigabytes); later updates are quick.</p>
+</div></div><div class="paso"><div class="paso-n">3</div><div class="paso-c"><p class="paso-t"><strong>A first file.</strong> Create <code>Example.lean</code> in the project folder:</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">import</span><span class="w"> </span><span class="n">Formalizations</span><span class="bp">.</span><span class="n">Reusable</span><span class="bp">.</span><span class="n">NumberTheory</span>
+
+<span class="kn">open</span><span class="w"> </span><span class="n">Formalizations</span><span class="bp">.</span><span class="n">Reusable</span>
+
+<span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">wolstenholme_choose_modEq</span>
+</code></pre></div>
+</div></div><div class="paso"><div class="paso-n">4</div><div class="paso-c"><p class="paso-t"><strong>Check it.</strong></p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Terminal</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code>lake<span class="w"> </span>lean<span class="w"> </span>Example.lean
+</code></pre></div>
+<p>Lean prints the statement of the theorem: your project is ready. On Linux and Windows Lake downloads the layer already
+compiled; on macOS it compiles it once.</p>
+<div class="call aviso">
+<div class="call-i">⚠️</div>
+<div class="call-c">
+<div class="call-t">Watch out</div>
+<p>Avoid a bare <code>lake build</code> in a project from the standard template: its default target is an executable, and building
+it compiles every imported Mathlib module to native code, which takes hours. <code>lake lean &lt;file&gt;</code> is what you want; if
+your files belong to a library of your project, <code>lake build &lt;library&gt;</code> does the same.</p>
+</div>
+</div>
+</div></div></div><h3 id="s42-in-a-project-you-already-have">4.2 In a project you already have</h3>
+<p>If your project uses <strong>the same Lean and Mathlib</strong> (the ones named in <code>lean-toolchain</code> and <code>lake-manifest.json</code> of the repository at the tag you pin; for
+<code>v0.11.0</code>, Lean <code>v4.35.0</code> and Mathlib commit <code>f0b4c81</code>), add the <code>[[require]]</code> block of step 1 to
+its <code>lakefile.toml</code> (or the equivalent <code>require</code> line in a <code>lakefile.lean</code>) and run <code>lake update</code>. If it uses another
+Mathlib, Lake will report a conflict: either move your project to these versions or wait for a release of the layer
+on yours.</p>
+<h3 id="s43-working-in-vs-code">4.3 Working in VS Code</h3>
+<p>Open the project folder in VS Code with the Lean 4 extension installed. When you open <code>Example.lean</code>, the <strong>infoview</strong>
+panel shows, at the cursor, the goal still to prove and the type of what is under the cursor. Hovering over a name such
+as <code>wolstenholme_choose_modEq</code> shows its statement; Ctrl-click (Cmd-click) jumps to where it is defined. This is the
+fastest way to read a theorem while you use it.</p>
+</section><section class="cap" id="sec-s5-your-first-theorem-word-by-word"><header class="cap-cab"><span class="cap-num">05</span><div><div class="cap-k">Chapter 5</div><h2 id="s5-your-first-theorem-word-by-word"><span class="cap-e">✍️</span><span class="cap-t">Your first theorem, word by word</span></h2></div></header>
+<p>Replace the <code>#check</code> line of <code>Example.lean</code> with:</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="bp">≡</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">[</span><span class="n">MOD</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">3</span><span class="o">]</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="o">(</span><span class="n">wolstenholme_choose_modEq</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">))</span><span class="bp">.</span><span class="m">1</span>
+</code></pre></div>
+<p>Run <code>lake lean Example.lean</code> again. No output means Lean accepted the proof. Piece by piece:</p>
+<ul>
+<li><code>example : …</code> states something without naming it. Here: the binomial coefficient C(13, 6) = 1716 is congruent to 1
+  modulo 7³ = 343.</li>
+<li><code>wolstenholme_choose_modEq</code> is the theorem of the layer (Wolstenholme, 1862): <em>for a prime p ≥ 5,
+  C(2p − 1, p − 1) ≡ 1 (mod p³) and C(2p, p) ≡ 2 (mod p³)</em>.</li>
+<li><code>7</code> is the value of p. Lean then asks for the two hypotheses of the theorem: that 7 is prime and that 5 ≤ 7. Each
+  <code>(by norm_num)</code> proves one of them by computation.</li>
+<li>The theorem gives two congruences joined by "and"; <code>.1</code> takes the first, which is exactly our statement
+  (2·7 − 1 = 13 and 7 − 1 = 6).</li>
+</ul>
+</section><section class="cap" id="sec-s6-finding-the-theorem-you-need"><header class="cap-cab"><span class="cap-num">06</span><div><div class="cap-k">Chapter 6</div><h2 id="s6-finding-the-theorem-you-need"><span class="cap-e">🔎</span><span class="cap-t">Finding the theorem you need</span></h2></div></header>
+<p><strong>The showcase</strong> (<a href="https://karlesmarin.github.io/blueprints/reusable/">https://karlesmarin.github.io/blueprints/reusable/</a>) lists every theorem with a search box. Search
+in words ("rank", "real roots", "triangle", "congruence") or browse by area. Each card shows:</p>
+<ul>
+<li>the statement in words and the exact <strong>Lean signature</strong>;</li>
+<li>the <strong>import</strong>: the module you write after <code>import</code> (the area of the theorem, for example
+  <code>Formalizations.Reusable.LinearAlgebra</code>); <code>import Formalizations.Reusable</code> imports every area at once;</li>
+<li>a <strong>compiled example</strong>: code Lean checked in this release, ready to paste;</li>
+<li>the <strong>axioms</strong> it uses, the <strong>release</strong> (with its Lean and Mathlib versions), and the <strong>paper</strong> or classical source
+  it comes from.</li>
+</ul>
+<figure class="fig dib"><svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" role="img"><rect x="14" y="14" width="470" height="372" rx="18" fill="#fff" stroke="#dfe4ea"/><rect x="14" y="14" width="470" height="6" rx="3" fill="#1B6F8C"/><rect x="34" y="38" width="62" height="24" rx="12" fill="#e7f1f5"/><text x="65" y="55" text-anchor="middle" font-family="'JetBrains Mono',Consolas,monospace" font-weight="700" font-size="12" fill="#1B6F8C">R0033</text><text x="108" y="56" font-family="'JetBrains Mono',Consolas,monospace" font-weight="700" font-size="14" fill="#0F6E8C">psd_quadForm_eq_sum_rank_sq</text><rect x="34" y="78" width="420" height="10" rx="5" fill="#d9dee5"/><rect x="34" y="96" width="360" height="10" rx="5" fill="#d9dee5"/><rect x="34" y="122" width="430" height="58" rx="10" fill="#f3f6f9" stroke="#e1e6ec"/><text x="48" y="146" font-family="'JetBrains Mono',Consolas,monospace" font-size="12" fill="#6B4C9A" font-weight="700">theorem <tspan fill="#1d2530" font-weight="400">psd_… </tspan><tspan fill="#2f6fd6">{A}</tspan> <tspan fill="#c8641e">(hA : A.PosSemidef)</tspan></text><text x="48" y="166" font-family="'JetBrains Mono',Consolas,monospace" font-size="12" fill="#2e8b57">  : ∃ v, ∀ u, uᵀAu = ∑ (vᵢ·u)²</text><text x="34" y="206" font-family="'JetBrains Mono',Consolas,monospace" font-size="12.5" fill="#5b6673">import <tspan fill="#0F6E8C">Formalizations.Reusable.LinearAlgebra</tspan></text><rect x="34" y="222" width="430" height="88" rx="10" fill="#0d1117"/><text x="48" y="248" font-family="'JetBrains Mono',Consolas,monospace" font-size="12" fill="#ff7b72">example <tspan fill="#e6edf3">… :=</tspan></text><text x="48" y="270" font-family="'JetBrains Mono',Consolas,monospace" font-size="12" fill="#e6edf3">  psd_quadForm_eq_sum_rank_sq hA hk</text><circle cx="440" cy="292" r="9" fill="#27c93f"/><path d="M435,292 l4,4 l7,-8" stroke="#fff" stroke-width="2.2" fill="none"/><rect x="34" y="326" width="132" height="26" rx="13" fill="#eef8f1"/><text x="100" y="344" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-size="11.5" fill="#2E8B57" font-weight="700">standard axioms</text><rect x="176" y="326" width="96" height="26" rx="13" fill="#f1ecf8"/><text x="224" y="344" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-size="11.5" fill="#6B4C9A" font-weight="700">release</text><rect x="282" y="326" width="96" height="26" rx="13" fill="#fff5ea"/><text x="330" y="344" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-size="11.5" fill="#C8641E" font-weight="700">source</text><path d="M488,50 C520,50 520,54 548,54" stroke="#b7c0cc" stroke-width="1.6" fill="none" stroke-dasharray="4 3"/><circle cx="566" cy="54" r="15" fill="#1B6F8C"/><text x="566" y="59" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="14" fill="#fff">1</text><text x="592" y="52" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="16" fill="#1d2530">Id and role</text><text x="592" y="72" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">🔌 API lemma or 🏛️ showcase</text><path d="M488,92 C520,92 520,116 548,116" stroke="#b7c0cc" stroke-width="1.6" fill="none" stroke-dasharray="4 3"/><circle cx="566" cy="116" r="15" fill="#5b6673"/><text x="566" y="121" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="14" fill="#fff">2</text><text x="592" y="114" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="16" fill="#1d2530">Statement in words</text><text x="592" y="134" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">read this first</text><path d="M488,151 C520,151 520,178 548,178" stroke="#b7c0cc" stroke-width="1.6" fill="none" stroke-dasharray="4 3"/><circle cx="566" cy="178" r="15" fill="#6B4C9A"/><text x="566" y="183" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="14" fill="#fff">3</text><text x="592" y="176" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="16" fill="#1d2530">Exact Lean signature</text><text x="592" y="196" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">what you write in Lean</text><path d="M488,202 C520,202 520,240 548,240" stroke="#b7c0cc" stroke-width="1.6" fill="none" stroke-dasharray="4 3"/><circle cx="566" cy="240" r="15" fill="#0F6E8C"/><text x="566" y="245" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="14" fill="#fff">4</text><text x="592" y="238" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="16" fill="#1d2530">Import line</text><text x="592" y="258" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">paste it at the top</text><path d="M488,266 C520,266 520,302 548,302" stroke="#b7c0cc" stroke-width="1.6" fill="none" stroke-dasharray="4 3"/><circle cx="566" cy="302" r="15" fill="#1d2530"/><text x="566" y="307" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="14" fill="#fff">5</text><text x="592" y="300" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="16" fill="#1d2530">Compiled example</text><text x="592" y="320" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">checked in this release</text><path d="M488,339 C520,339 520,364 548,364" stroke="#b7c0cc" stroke-width="1.6" fill="none" stroke-dasharray="4 3"/><circle cx="566" cy="364" r="15" fill="#2E8B57"/><text x="566" y="369" text-anchor="middle" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="14" fill="#fff">6</text><text x="592" y="362" font-family="Inter,'Segoe UI',sans-serif" font-weight="800" font-size="16" fill="#1d2530">Axioms, release, source</text><text x="592" y="382" font-family="Inter,'Segoe UI',sans-serif" font-size="13" fill="#5b6673">trust and citation</text></svg></figure>
+<p><strong>The manifest</strong> <code>Formalizations/Reusable/manifest.toml</code> holds the same information as data, one entry per theorem,
+if you prefer to search it with your own scripts. <strong>Section 10</strong> of this guide lists every theorem by area.</p>
+<p><strong>Inside Lean</strong> you can ask directly:</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="bp">#</span><span class="n">check</span><span class="w"> </span><span class="n">psd_quadForm_eq_sum_rank_sq</span><span class="w">        </span><span class="c1">-- its statement</span>
+<span class="bp">#</span><span class="n">print</span><span class="w"> </span><span class="n">axioms</span><span class="w"> </span><span class="n">psd_quadForm_eq_sum_rank_sq</span><span class="w"> </span><span class="c1">-- which axioms it rests on</span>
+</code></pre></div>
+<h3 id="reading-a-signature">Reading a signature</h3>
+<div class="firma"><div class="firma-cab">Lean · R0033 · Formalizations.Reusable.LinearAlgebra</div><code><span class="f-kw">theorem</span> psd_quadForm_eq_sum_rank_sq <span class="f-imp">{n : Type*}</span> <span class="f-ins">[Fintype n]</span> <span class="f-ins">[DecidableEq n]</span> <span class="f-imp">{A : Matrix n n ℝ}</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="f-exp">(hA : A.PosSemidef)</span> <span class="f-imp">{k : ℕ}</span> <span class="f-exp">(hk : A.rank = k)</span> :<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="f-con">∃ v : Fin k → (n → ℝ), ∀ u, u ⬝ᵥ (A *ᵥ u) = ∑ i, (v i ⬝ᵥ u) ^ 2</span></code><div class="f-ley"><span><b class="f-imp">{ }</b> implicit: Lean deduces it</span><span><b class="f-ins">[ ]</b> instance: Lean finds it</span><span><b class="f-exp">( )</b> you supply it</span><span><b class="f-con">▮</b> the conclusion: what you get</span></div></div>
+<ul>
+<li>Arguments in <strong>braces</strong> <code>{n}</code>, <code>{A}</code>, <code>{k}</code> are <em>implicit</em>: Lean deduces them from the others; you do not write them.</li>
+<li>Arguments in <strong>square brackets</strong> <code>[Fintype n]</code> are <em>instances</em>: Lean finds them itself for the usual types (<code>Fin 3</code>,
+  <code>ℕ</code>, <code>ℝ</code>, …).</li>
+<li>Arguments in <strong>parentheses</strong> <code>(hA : …)</code>, <code>(hk : …)</code> are the ones you supply: here, a proof that <code>A</code> is positive
+  semidefinite and a proof that its rank is <code>k</code>.</li>
+<li>What follows the last colon is the <strong>conclusion</strong>: what you get.</li>
+</ul>
+</section><section class="cap" id="sec-s7-all-the-ways-of-using-a-theorem"><header class="cap-cab"><span class="cap-num">07</span><div><div class="cap-k">Chapter 7</div><h2 id="s7-all-the-ways-of-using-a-theorem"><span class="cap-e">🛠️</span><span class="cap-t">All the ways of using a theorem</span></h2></div></header>
+<p>The same theorem can enter a proof in several ways. Here they are with one theorem, <code>matrix_rank_add_le</code>
+(the rank of a sum is at most the sum of the ranks).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Tactic</th>
+<th>Use it when</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exact</code></td>
+<td>the goal is exactly the conclusion</td>
+<td><code>exact matrix_rank_add_le A B</code></td>
+</tr>
+<tr>
+<td><code>have</code></td>
+<td>you want the conclusion as a fact for later</td>
+<td><code>have h := matrix_rank_add_le A A</code></td>
+</tr>
+<tr>
+<td><code>refine … ?_</code></td>
+<td>some hypotheses are proved afterwards</td>
+<td>Recipe 2</td>
+</tr>
+<tr>
+<td><code>rw</code>, <code>simpa using</code></td>
+<td>the conclusion is an equation, or almost your goal</td>
+<td>Recipe 6</td>
+</tr>
+<tr>
+<td><code>.1</code>, <code>.2</code>, <code>obtain</code></td>
+<td>the conclusion is an “and” or an “exists”</td>
+<td>Section 5</td>
+</tr>
+<tr>
+<td>combine</td>
+<td>one theorem’s output is another’s input</td>
+<td>Recipe 4</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Directly, when your goal is the conclusion</strong> — <code>exact</code>:</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">B</span><span class="o">)</span><span class="bp">.</span><span class="n">rank</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">A</span><span class="bp">.</span><span class="n">rank</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">B</span><span class="bp">.</span><span class="n">rank</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="n">matrix_rank_add_le</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">B</span>
+</code></pre></div>
+<p><strong>As a fact you then use</strong> — <code>have</code> and a tactic that finishes:</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">A</span><span class="o">)</span><span class="bp">.</span><span class="n">rank</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">A</span><span class="bp">.</span><span class="n">rank</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">matrix_rank_add_le</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">A</span>
+<span class="w">  </span><span class="n">omega</span>
+</code></pre></div>
+<p><strong>Leaving some arguments for later</strong> — <code>refine</code> with <code>?_</code>, each <code>?_</code> becomes a new goal (Recipe 2 does this).</p>
+<p><strong>When the conclusion is an equation</strong> — <code>rw</code> rewrites with it; <code>simp only [...]</code> or <code>simpa using ...</code> let Lean adjust
+small differences of form (Recipe 6).</p>
+<p><strong>Specializing</strong> — give values to the variables (<code>wolstenholme_choose_modEq 7 …</code>) and take a part of an "and" with
+<code>.1</code> / <code>.2</code> (Section 5), or of an "exists" with <code>obtain ⟨v, hv⟩ := …</code>.</p>
+<p><strong>Combining two theorems</strong> — the output of one is the hypothesis of the other (Recipe 4).</p>
+<p><strong>Inside a longer proof that uses Mathlib</strong> — a theorem of the layer is an ordinary Lean theorem: mix it with Mathlib
+lemmas and any tactic.</p>
+</section><section class="cap" id="sec-s8-six-recipes"><header class="cap-cab"><span class="cap-num">08</span><div><div class="cap-k">Chapter 8</div><h2 id="s8-six-recipes"><span class="cap-e">🧪</span><span class="cap-t">Six recipes</span></h2></div></header>
+<p>Each recipe has the same parts: 🧩 the problem, 📜 the theorem, 💻 the code, ✅ what Lean checked, and 🎯 a
+variation to try. All the code is in the file <a href="https://karlesmarin.github.io/blueprints/reusable/manual/lean/ReusableManualDemo.lean"><code>ReusableManualDemo.lean</code></a>,
+compiled against release <code>v0.11.0</code>; paste it after <code>open Formalizations.Reusable Matrix Polynomial</code> in a file that
+imports <code>Formalizations.Reusable</code>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th></th>
+<th>Area</th>
+<th>Theorem</th>
+<th>You get</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>📐 Geometry</td>
+<td><code>wolstenholme_defect_eq_sq_add_sq</code></td>
+<td>an inequality for every triangle</td>
+</tr>
+<tr>
+<td>2</td>
+<td>🧬 Polynomials</td>
+<td><code>card_roots_toFinset_ge_of_alternating_sign</code></td>
+<td>a lower bound on real roots</td>
+</tr>
+<tr>
+<td>3</td>
+<td>🧬 Polynomials</td>
+<td><code>newton_inequality_esymm_roots</code></td>
+<td>constraints on the coefficients</td>
+</tr>
+<tr>
+<td>4</td>
+<td>🔢 Linear algebra</td>
+<td><code>posSemidef_of_charpoly_alternating</code>, <code>psd_quadForm_eq_sum_rank_sq</code></td>
+<td>a sum-of-squares certificate</td>
+</tr>
+<tr>
+<td>5</td>
+<td>🔣 Number theory</td>
+<td><code>wolstenholme_choose_modEq</code></td>
+<td>a congruence modulo p³</td>
+</tr>
+<tr>
+<td>6</td>
+<td>🔢 Linear algebra</td>
+<td><code>matrix_rank_add_rank_le_rank_fromBlocks</code></td>
+<td>a rank bound</td>
+</tr>
+</tbody>
+</table></div>
+<div class="receta">
+<div class="receta-cab"><span class="receta-n">Recipe 1</span><h3 id="recipe-1-an-inequality-of-a-triangle-in-two-lines">an inequality of a triangle in two lines</h3><a class="receta-ficha" href="https://karlesmarin.github.io/blueprints/reusable/R0002.html">Open card ↗</a></div>
+<figure class="fig"><img src="fig/triangulo_en.svg" alt="triangulo"></figure>
+<p class="et et-problema"><span class="et-l"><span class="et-e">🧩</span>The problem.</span> For the angles A, B, C of a triangle and any real numbers x, y, z:
+2yz cos A + 2zx cos B + 2xy cos C ≤ x² + y² + z² (Wolstenholme's inequality).</p>
+<p class="et et-teorema"><span class="et-l"><span class="et-e">📜</span>The theorem.</span> <code>wolstenholme_defect_eq_sq_add_sq</code> (<a href="https://karlesmarin.github.io/blueprints/reusable/R0002.html">card R0002</a>) says <em>why</em>: when A + B + C = π, the difference
+between the two sides is exactly a sum of two squares.</p>
+<p class="et et-codigo"><span class="et-l"><span class="et-e">💻</span>The code.</span></p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">pi</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<span class="w">    </span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">C</span>
+<span class="w">      </span><span class="bp">≤</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">wolstenholme_defect_eq_sq_add_sq</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">h</span>
+<span class="w">  </span><span class="n">nlinarith</span><span class="w"> </span><span class="o">[</span><span class="n">sq_nonneg</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">C</span><span class="o">),</span>
+<span class="w">    </span><span class="n">sq_nonneg</span><span class="w"> </span><span class="o">(</span><span class="n">z</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">C</span><span class="o">)]</span>
+</code></pre></div>
+<div class="resultado"><p class="et et-check"><span class="et-l"><span class="et-e">✅</span>What Lean checked.</span> <code>have key := …</code> puts the identity among the facts; <code>nlinarith</code> combines it with the fact
+that both squares are non-negative. The inequality holds for <em>every</em> triangle and <em>every</em> x, y, z.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Try it.</span> With x = y = z = 1 you get cos A + cos B + cos C ≤ 3/2, the classical bound for a triangle.</p></div>
+</div>
+<div class="receta">
+<div class="receta-cab"><span class="receta-n">Recipe 2</span><h3 id="recipe-2-real-roots-counted-by-sign-changes">real roots counted by sign changes</h3><a class="receta-ficha" href="https://karlesmarin.github.io/blueprints/reusable/R0011.html">Open card ↗</a></div>
+<figure class="fig"><img src="fig/raices_en.svg" alt="raices"></figure>
+<p class="et et-problema"><span class="et-l"><span class="et-e">🧩</span>The problem.</span> Show that a polynomial has at least n distinct real roots without finding them.</p>
+<p class="et et-teorema"><span class="et-l"><span class="et-e">📜</span>The theorem.</span> <code>card_roots_toFinset_ge_of_alternating_sign</code> (<a href="https://karlesmarin.github.io/blueprints/reusable/R0011.html">card R0011</a>): if a nonzero real polynomial changes
+sign between consecutive points of n + 1 increasing points, it has at least n distinct real roots, one in each gap.</p>
+<p class="et et-codigo"><span class="et-l"><span class="et-e">💻</span>The code.</span> For X² − 2 at the points −2, 0, 2:</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="o">((</span><span class="n">X</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">[</span><span class="n">X</span><span class="o">])</span><span class="bp">.</span><span class="n">roots</span><span class="bp">.</span><span class="n">toFinset</span><span class="bp">.</span><span class="n">card</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">hne</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">X</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">[</span><span class="n">X</span><span class="o">])</span><span class="w"> </span><span class="bp">≠</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">    </span><span class="n">intro</span><span class="w"> </span><span class="n">h</span>
+<span class="w">    </span><span class="k">have</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">congrArg</span><span class="w"> </span><span class="o">(</span><span class="n">Polynomial</span><span class="bp">.</span><span class="n">eval</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="n">h</span>
+<span class="w">    </span><span class="n">simp</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">this</span>
+<span class="w">  </span><span class="n">refine</span><span class="w"> </span><span class="n">card_roots_toFinset_ge_of_alternating_sign</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="n">hne</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">!</span><span class="o">[</span><span class="bp">-</span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">2</span><span class="o">]</span><span class="w"> </span><span class="bp">?_</span><span class="w"> </span><span class="bp">?_</span>
+<span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">refine</span><span class="w"> </span><span class="n">Fin</span><span class="bp">.</span><span class="n">strictMono_iff_lt_succ</span><span class="bp">.</span><span class="m">2</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="bp">?_</span>
+<span class="w">    </span><span class="n">fin_cases</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="bp">&lt;;&gt;</span><span class="w"> </span><span class="n">norm_num</span>
+<span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">intro</span><span class="w"> </span><span class="n">i</span>
+<span class="w">    </span><span class="n">fin_cases</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="bp">&lt;;&gt;</span><span class="w"> </span><span class="n">norm_num</span>
+</code></pre></div>
+<div class="resultado"><p class="et et-check"><span class="et-l"><span class="et-e">✅</span>What Lean checked.</span> The three things you supply: the polynomial is not zero (at 0 it is −2), the points
+−2 &lt; 0 &lt; 2 increase, and the values at consecutive points have opposite signs: 2·(−2) &lt; 0 and (−2)·2 &lt; 0.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Try it.</span> For X³ − 3X take the points −2, −1, 1, 2 (values −2, 2, −2, 2) and n = 3: three real roots.</p></div>
+</div>
+<div class="receta">
+<div class="receta-cab"><span class="receta-n">Recipe 3</span><h3 id="recipe-3-the-coefficients-of-a-real-rooted-polynomial">the coefficients of a real-rooted polynomial</h3><a class="receta-ficha" href="https://karlesmarin.github.io/blueprints/reusable/R0015.html">Open card ↗</a></div>
+<p class="et et-problema"><span class="et-l"><span class="et-e">🧩</span>The problem.</span> If all the roots of a polynomial are real, its coefficients cannot be arbitrary.</p>
+<p class="et et-teorema"><span class="et-l"><span class="et-e">📜</span>The theorem.</span> <code>newton_inequality_esymm_roots</code> (<a href="https://karlesmarin.github.io/blueprints/reusable/R0015.html">card R0015</a>), Newton's inequalities: for a monic real polynomial
+whose roots are all real (it <em>splits</em> over ℝ), the elementary symmetric functions eₖ of the roots satisfy
+eₖ² · C(n,k−1) C(n,k+1) ≥ eₖ₋₁ eₖ₊₁ · C(n,k)².</p>
+<p class="et et-codigo"><span class="et-l"><span class="et-e">💻</span>The code.</span> The case k = 1, for every degree n ≥ 2:</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">[</span><span class="n">X</span><span class="o">])</span><span class="w"> </span><span class="o">(</span><span class="n">hp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">Splits</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hm</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">Monic</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">natDegree</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<span class="w">    </span><span class="o">(</span><span class="n">p</span><span class="bp">.</span><span class="n">roots</span><span class="bp">.</span><span class="n">esymm</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="o">((</span><span class="n">p</span><span class="bp">.</span><span class="n">natDegree</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="o">(</span><span class="n">p</span><span class="bp">.</span><span class="n">natDegree</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">))</span>
+<span class="w">      </span><span class="bp">≥</span><span class="w"> </span><span class="o">(</span><span class="n">p</span><span class="bp">.</span><span class="n">roots</span><span class="bp">.</span><span class="n">esymm</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="o">(</span><span class="n">p</span><span class="bp">.</span><span class="n">roots</span><span class="bp">.</span><span class="n">esymm</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="o">((</span><span class="n">p</span><span class="bp">.</span><span class="n">natDegree</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">))</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="n">newton_inequality_esymm_roots</span><span class="w"> </span><span class="n">hp</span><span class="w"> </span><span class="n">hm</span><span class="w"> </span><span class="n">le_rfl</span><span class="w"> </span><span class="n">h2</span>
+</code></pre></div>
+<div class="resultado"><p class="et et-check"><span class="et-l"><span class="et-e">✅</span>What Lean checked.</span> The theorem needs k ≥ 1 (here <code>le_rfl</code>, because k = 1) and k + 1 ≤ n (here <code>h2</code>). With
+e₀ = 1, e₁ = sum of the roots and e₂ = sum of the products of pairs, it reads (n − 1) e₁² ≥ 2n e₂.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Try it.</span> For a quadratic X² + bX + c with real roots, this is b² ≥ 4c: the discriminant is non-negative.</p></div>
+</div>
+<div class="receta">
+<div class="receta-cab"><span class="receta-n">Recipe 4</span><h3 id="recipe-4-a-certificate-that-a-quadratic-form-is-a-sum-of-k-squares">a certificate that a quadratic form is a sum of k squares</h3><a class="receta-ficha" href="https://karlesmarin.github.io/blueprints/reusable/R0032.html">Open card ↗</a></div>
+<figure class="fig"><img src="fig/cadena_en.svg" alt="cadena"></figure>
+<p class="et et-problema"><span class="et-l"><span class="et-e">🧩</span>The problem.</span> You have a symmetric matrix A, known exactly (for example a Gram matrix found by a computer
+search), and you want a <em>proof</em> that its quadratic form uᵀAu is a sum of exactly k squares of linear forms.</p>
+<p class="et et-teorema"><span class="et-l"><span class="et-e">📜</span>The theorems.</span> Two steps:</p>
+<ol>
+<li><code>posSemidef_of_charpoly_alternating</code> (<a href="https://karlesmarin.github.io/blueprints/reusable/R0032.html">card R0032</a>): if the coefficients of the characteristic polynomial of a
+   symmetric real matrix alternate in sign, the matrix is positive semidefinite. Checking the signs of finitely many
+   rational numbers is an exact computation.</li>
+<li><code>psd_quadForm_eq_sum_rank_sq</code> (<a href="https://karlesmarin.github.io/blueprints/reusable/R0033.html">card R0033</a>): a positive semidefinite matrix of rank k has a quadratic form that is a
+   sum of exactly k squares.</li>
+</ol>
+<p class="et et-codigo"><span class="et-l"><span class="et-e">💻</span>The code.</span></p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">{</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">Type</span><span class="bp">*</span><span class="o">}</span><span class="w"> </span><span class="o">[</span><span class="n">Fintype</span><span class="w"> </span><span class="n">n</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">DecidableEq</span><span class="w"> </span><span class="n">n</span><span class="o">]</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hA</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="bp">.</span><span class="n">IsSymm</span><span class="o">)</span>
+<span class="w">    </span><span class="o">(</span><span class="n">halt</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">A</span><span class="bp">.</span><span class="n">charpoly</span><span class="bp">.</span><span class="n">natDegree</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="bp">.</span><span class="n">charpoly</span><span class="bp">.</span><span class="n">natDegree</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">k</span><span class="o">)</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">A</span><span class="bp">.</span><span class="n">charpoly</span><span class="bp">.</span><span class="n">coeff</span><span class="w"> </span><span class="n">k</span><span class="o">)</span>
+<span class="w">    </span><span class="o">(</span><span class="n">k</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">hk</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="bp">.</span><span class="n">rank</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">k</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<span class="w">    </span><span class="bp">∃</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Fin</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">ℝ</span><span class="o">),</span><span class="w"> </span><span class="bp">∀</span><span class="w"> </span><span class="n">u</span><span class="o">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="bp">⬝ᵥ</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="bp">*ᵥ</span><span class="w"> </span><span class="n">u</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="bp">∑</span><span class="w"> </span><span class="n">i</span><span class="o">,</span><span class="w"> </span><span class="o">(</span><span class="n">v</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="bp">⬝ᵥ</span><span class="w"> </span><span class="n">u</span><span class="o">)</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="n">psd_quadForm_eq_sum_rank_sq</span><span class="w"> </span><span class="o">(</span><span class="n">posSemidef_of_charpoly_alternating</span><span class="w"> </span><span class="n">hA</span><span class="w"> </span><span class="n">halt</span><span class="o">)</span><span class="w"> </span><span class="n">hk</span>
+</code></pre></div>
+<div class="resultado"><p class="et et-check"><span class="et-l"><span class="et-e">✅</span>What Lean checked.</span> The first theorem turns the sign condition <code>halt</code> into positive semidefiniteness; the second
+turns that and the rank into the k squares. This is the chain I use in my own research on sums of squares: a
+computer finds a candidate, an exact computation checks signs and rank, and these two theorems make the conclusion a
+theorem.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Try it.</span> For the matrix ((2, 1), (1, 2)) the characteristic polynomial is X² − 4X + 3: the signs +, −, +
+alternate and the rank is 2, so the form 2u₁² + 2u₁u₂ + 2u₂² is a sum of two squares.</p></div>
+</div>
+<div class="receta">
+<div class="receta-cab"><span class="receta-n">Recipe 5</span><h3 id="recipe-5-a-congruence-of-wolstenholme">a congruence of Wolstenholme</h3><a class="receta-ficha" href="https://karlesmarin.github.io/blueprints/reusable/R0026.html">Open card ↗</a></div>
+<p>The example of Section 5 is this recipe: <code>wolstenholme_choose_modEq</code> (<a href="https://karlesmarin.github.io/blueprints/reusable/R0026.html">card R0026</a>) with p = 7.</p>
+<p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Try it.</span> With p = 11 and the second congruence <code>.2</code>: C(22, 11) ≡ 2 (mod 11³).</p>
+</div>
+<div class="receta">
+<div class="receta-cab"><span class="receta-n">Recipe 6</span><h3 id="recipe-6-rank-bounds-for-block-matrices">rank bounds for block matrices</h3><a class="receta-ficha" href="https://karlesmarin.github.io/blueprints/reusable/R0023.html">Open card ↗</a></div>
+<p class="et et-problema"><span class="et-l"><span class="et-e">🧩</span>The problem.</span> Bound the rank of a matrix given in blocks, without computing it.</p>
+<p class="et et-teorema"><span class="et-l"><span class="et-e">📜</span>The theorem.</span> <code>matrix_rank_add_rank_le_rank_fromBlocks</code> (<a href="https://karlesmarin.github.io/blueprints/reusable/R0023.html">card R0023</a>): over a field, the rank of a block
+upper-triangular matrix [[A, B], [0, D]] is at least rank A + rank D, whatever B is.</p>
+<p class="et et-codigo"><span class="et-l"><span class="et-e">💻</span>The code.</span></p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<span class="w">    </span><span class="mi">4</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="o">(</span><span class="n">fromBlocks</span><span class="w"> </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">)</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">))</span><span class="bp">.</span><span class="n">rank</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">matrix_rank_add_rank_le_rank_fromBlocks</span><span class="w"> </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">)</span><span class="w"> </span><span class="n">B</span>
+<span class="w">    </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">)</span>
+<span class="w">  </span><span class="n">simpa</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="o">[</span><span class="n">rank_one</span><span class="o">,</span><span class="w"> </span><span class="n">Fintype</span><span class="bp">.</span><span class="n">card_fin</span><span class="o">]</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">h</span>
+</code></pre></div>
+<div class="resultado"><p class="et et-check"><span class="et-l"><span class="et-e">✅</span>What Lean checked.</span> With identity blocks on the diagonal, rank A + rank D = 2 + 2 = 4: the 4 × 4 matrix is
+invertible, for every corner B.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Try it.</span> Replace the second identity block by a matrix of rank 1: the bound becomes 3.</p></div>
+</div>
+</section><section class="cap" id="sec-s9-practical-examples-start-to-finish"><header class="cap-cab"><span class="cap-num">09</span><div><div class="cap-k">Chapter 9</div><h2 id="s9-practical-examples-start-to-finish"><span class="cap-e">🧭</span><span class="cap-t">Practical examples, start to finish</span></h2></div></header>
+<p>Six problems as you would meet them, solved from the question to the checked proof. Each one shows a different way of
+working with the layer. All the code is in the file
+<a href="https://karlesmarin.github.io/blueprints/reusable/manual/lean/ReusableManualPractice.lean"><code>ReusableManualPractice.lean</code></a>, compiled against release <code>v0.11.0</code>; it
+starts with <code>open Formalizations.Reusable Matrix Polynomial</code> and <code>open scoped Kronecker</code>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th></th>
+<th>You want to show</th>
+<th>You use</th>
+<th>The idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>a cubic has three real roots</td>
+<td>your own lemma on top of R0011</td>
+<td>build once, reuse</td>
+</tr>
+<tr>
+<td>2</td>
+<td>cos A + cos B + cos C ≤ 3/2</td>
+<td>R0002 with x = y = z = 1</td>
+<td>specialise a general identity</td>
+</tr>
+<tr>
+<td>3</td>
+<td>the rank of a 6 × 6 tensor product</td>
+<td>R0024</td>
+<td>never write the matrix</td>
+</tr>
+<tr>
+<td>4</td>
+<td>B(7) ≡ 2 (mod 7)</td>
+<td>R0031 with n = 0</td>
+<td>rewrite, then compute</td>
+</tr>
+<tr>
+<td>5</td>
+<td>C(26, 13) ≡ 2 (mod 13³)</td>
+<td>R0026, second part</td>
+<td>take the part you need</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2 sin(π/3) · 2 sin(2π/3) = 3</td>
+<td>R0006 with n = 3</td>
+<td>let <code>exact_mod_cast</code> fix the casts</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="example-1-your-own-lemma-then-a-concrete-cubic">Example 1 — your own lemma, then a concrete cubic</h3>
+<p><strong>The question.</strong> Does X³ − 3X + 1 have three real roots? You will meet this kind of question again, so first write a
+small lemma of your own on top of the layer (<a href="https://karlesmarin.github.io/blueprints/reusable/R0011.html">card R0011</a>): four increasing points with alternating signs give three
+distinct real roots. Then the cubic is one line.</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">theorem</span><span class="w"> </span><span class="n">three_real_roots</span><span class="w"> </span><span class="o">(</span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">[</span><span class="n">X</span><span class="o">])</span><span class="w"> </span><span class="o">(</span><span class="n">hp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="bp">≠</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">d</span><span class="o">)</span>
+<span class="w">    </span><span class="o">(</span><span class="n">s1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">eval</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">eval</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">s2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">eval</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">eval</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">s3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">eval</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">eval</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">:</span>
+<span class="w">    </span><span class="mi">3</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="n">p</span><span class="bp">.</span><span class="n">roots</span><span class="bp">.</span><span class="n">toFinset</span><span class="bp">.</span><span class="n">card</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="n">refine</span><span class="w"> </span><span class="n">card_roots_toFinset_ge_of_alternating_sign</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">hp</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">!</span><span class="o">[</span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="o">,</span><span class="w"> </span><span class="n">c</span><span class="o">,</span><span class="w"> </span><span class="n">d</span><span class="o">]</span><span class="w"> </span><span class="bp">?_</span><span class="w"> </span><span class="bp">?_</span>
+<span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">refine</span><span class="w"> </span><span class="n">Fin</span><span class="bp">.</span><span class="n">strictMono_iff_lt_succ</span><span class="bp">.</span><span class="m">2</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="bp">?_</span>
+<span class="w">    </span><span class="n">fin_cases</span><span class="w"> </span><span class="n">i</span>
+<span class="w">    </span><span class="bp">·</span><span class="w"> </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">h1</span>
+<span class="w">    </span><span class="bp">·</span><span class="w"> </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">h2</span>
+<span class="w">    </span><span class="bp">·</span><span class="w"> </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">h3</span>
+<span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">intro</span><span class="w"> </span><span class="n">i</span>
+<span class="w">    </span><span class="n">fin_cases</span><span class="w"> </span><span class="n">i</span>
+<span class="w">    </span><span class="bp">·</span><span class="w"> </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">s1</span>
+<span class="w">    </span><span class="bp">·</span><span class="w"> </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">s2</span>
+<span class="w">    </span><span class="bp">·</span><span class="w"> </span><span class="n">simpa</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">s3</span>
+
+<span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="o">((</span><span class="n">X</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">[</span><span class="n">X</span><span class="o">])</span><span class="bp">.</span><span class="n">roots</span><span class="bp">.</span><span class="n">toFinset</span><span class="bp">.</span><span class="n">card</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">hne</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">X</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">[</span><span class="n">X</span><span class="o">])</span><span class="w"> </span><span class="bp">≠</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">    </span><span class="n">intro</span><span class="w"> </span><span class="n">h</span>
+<span class="w">    </span><span class="k">have</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">congrArg</span><span class="w"> </span><span class="o">(</span><span class="n">Polynomial</span><span class="bp">.</span><span class="n">eval</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="n">h</span>
+<span class="w">    </span><span class="n">simp</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">this</span>
+<span class="w">  </span><span class="n">exact</span><span class="w"> </span><span class="n">three_real_roots</span><span class="w"> </span><span class="bp">_</span><span class="w"> </span><span class="n">hne</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span>
+<span class="w">    </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span>
+</code></pre></div>
+<p><strong>What happened.</strong> <code>three_real_roots</code> turns the general theorem (points given as a vector <code>![a, b, c, d]</code>) into a
+statement with plain hypotheses <code>a &lt; b</code>, <code>eval a p * eval b p &lt; 0</code>, … that are easy to supply. For the cubic, <code>norm_num</code>
+evaluates the polynomial at −2, 0, 1, 2 (values −1, 1, −1, 3) and checks every hypothesis. <em>Lesson:</em> when you will use
+a theorem many times, wrap it once in the form your problems have.</p>
+<h3 id="example-2-a-classical-bound-for-every-triangle">Example 2 — a classical bound for every triangle</h3>
+<p><strong>The question.</strong> Show cos A + cos B + cos C ≤ 3/2 for the angles of any triangle.</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">(</span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">pi</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">wolstenholme_defect_eq_sq_add_sq</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">h</span>
+<span class="w">  </span><span class="n">nlinarith</span><span class="w"> </span><span class="o">[</span><span class="n">key</span><span class="o">,</span><span class="w"> </span><span class="n">sq_nonneg</span><span class="w"> </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">cos</span><span class="w"> </span><span class="n">C</span><span class="o">),</span><span class="w"> </span><span class="n">sq_nonneg</span><span class="w"> </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">C</span><span class="o">)]</span>
+</code></pre></div>
+<p><strong>What happened.</strong> The identity of card R0002 holds for all x, y, z; with x = y = z = 1 it says that
+3 − 2(cos A + cos B + cos C) is a sum of two squares. <code>nlinarith</code> only has to add the two facts "a square is ≥ 0".
+<em>Lesson:</em> a general identity is a family of results; choosing the values is the proof.</p>
+<h3 id="example-3-the-rank-of-a-tensor-product-without-the-matrix">Example 3 — the rank of a tensor product, without the matrix</h3>
+<p><strong>The question.</strong> What is the rank of the Kronecker product of the 2 × 2 and 3 × 3 identity matrices?</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">((</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">2</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">)</span><span class="w"> </span><span class="bp">⊗ₖ</span><span class="w"> </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Matrix</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Fin</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="n">ℚ</span><span class="o">))</span><span class="bp">.</span><span class="n">rank</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">matrix_rank_kronecker</span><span class="o">]</span>
+<span class="w">  </span><span class="n">simp</span><span class="w"> </span><span class="o">[</span><span class="n">rank_one</span><span class="o">]</span>
+</code></pre></div>
+<p><strong>What happened.</strong> <code>rw [matrix_rank_kronecker]</code> (<a href="https://karlesmarin.github.io/blueprints/reusable/R0024.html">card R0024</a>) replaces the rank of the 6 × 6 matrix by the product of two
+ranks, and <code>simp</code> knows that an identity of size n has rank n. <em>Lesson:</em> rewrite with the theorem first, then let <code>simp</code>
+finish the small computation.</p>
+<h3 id="example-4-bell-numbers-modulo-a-prime">Example 4 — Bell numbers modulo a prime</h3>
+<p><strong>The question.</strong> The Bell number B(7) counts the partitions of a 7-element set (it is 877). What is it modulo 7?</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">((</span><span class="n">Nat</span><span class="bp">.</span><span class="n">bell</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ZMod</span><span class="w"> </span><span class="mi">7</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Fact</span><span class="w"> </span><span class="o">(</span><span class="n">Nat</span><span class="bp">.</span><span class="n">Prime</span><span class="w"> </span><span class="mi">7</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">⟨</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="bp">⟩</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">touchard_bell_add_prime</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">zero_add</span><span class="o">,</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">bell_zero</span><span class="o">,</span><span class="w"> </span><span class="n">zero_add</span><span class="o">,</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">bell_one</span><span class="o">]</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">h</span>
+<span class="w">  </span><span class="n">rw</span><span class="w"> </span><span class="o">[</span><span class="n">h</span><span class="o">]</span>
+<span class="w">  </span><span class="n">rfl</span>
+</code></pre></div>
+<p><strong>What happened.</strong> Touchard's congruence (<a href="https://karlesmarin.github.io/blueprints/reusable/R0031.html">card R0031</a>) needs to know that 7 is prime: the line <code>have : Fact …</code> provides
+it. With n = 0 it reads B(7) = B(0) + B(1) in <code>ZMod 7</code>; rewriting B(0) = B(1) = 1 leaves 1 + 1 = 2, which <code>rfl</code>
+checks. <em>Lesson:</em> some theorems take a hypothesis as an instance in square brackets; you give it with <code>have : Fact …</code>.</p>
+<h3 id="example-5-a-central-binomial-coefficient-modulo-p3">Example 5 — a central binomial coefficient modulo p³</h3>
+<p><strong>The question.</strong> Is C(26, 13) = 10 400 600 congruent to 2 modulo 13³ = 2197?</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="bp">.</span><span class="n">choose</span><span class="w"> </span><span class="mi">26</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="bp">≡</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">[</span><span class="n">MOD</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="bp">^</span><span class="w"> </span><span class="mi">3</span><span class="o">]</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="o">(</span><span class="n">wolstenholme_choose_modEq</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">))</span><span class="bp">.</span><span class="m">2</span>
+</code></pre></div>
+<p><strong>What happened.</strong> Wolstenholme's theorem (<a href="https://karlesmarin.github.io/blueprints/reusable/R0026.html">card R0026</a>) gives two congruences joined by "and"; <code>.2</code> takes the second.
+Lean checks by itself that 2 · 13 = 26. <em>Lesson:</em> <code>.1</code> and <code>.2</code> pick the half of an "and" you need.</p>
+<h3 id="example-6-an-exact-trigonometric-product">Example 6 — an exact trigonometric product</h3>
+<p><strong>The question.</strong> Compute 2 sin(π/3) · 2 sin(2π/3) exactly.</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Lean 4</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code><span class="kn">example</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="bp">∏</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="bp">∈</span><span class="w"> </span><span class="n">Finset</span><span class="bp">.</span><span class="n">Ico</span><span class="w"> </span><span class="o">(</span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℕ</span><span class="o">)</span><span class="w"> </span><span class="mi">3</span><span class="o">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="o">(</span><span class="n">k</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">pi</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span>
+<span class="w">  </span><span class="k">have</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">prod_two_sin_mul_pi_div</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">(</span><span class="k">by</span><span class="w"> </span><span class="n">norm_num</span><span class="o">)</span>
+<span class="w">  </span><span class="n">exact_mod_cast</span><span class="w"> </span><span class="n">h</span>
+</code></pre></div>
+<p><strong>What happened.</strong> Card R0006 says that the product of 2 sin(kπ/n) over k = 1, …, n − 1 is n. The theorem is stated with
+a natural number n turned into a real one; <code>exact_mod_cast</code> removes those conversions so that the statement with
+n = 3 matches yours. <em>Lesson:</em> when the only difference is a cast between ℕ and ℝ, <code>exact_mod_cast</code> (or <code>push_cast</code>)
+bridges it.</p>
+</section><section class="cap" id="sec-s10-every-theorem-of-the-layer-by-area"><header class="cap-cab"><span class="cap-num">10</span><div><div class="cap-k">Chapter 10</div><h2 id="s10-every-theorem-of-the-layer-by-area"><span class="cap-e">📚</span><span class="cap-t">Every theorem of the layer, by area</span></h2></div></header>
+<p>The 56 theorems of release <code>v0.11.0</code>, in 9 areas, read from its manifest. 🔌 marks an <code>API</code> lemma,
+🏛️ a <code>showcase</code> theorem; each name links to its card, and each area gives the line that imports it.</p>
+<div class="call al-dia"><div class="call-i">🔄</div><div class="call-c"><b>This list grows with every release.</b> The theorems available today — with their cards, search and examples — are always at <a href="https://karlesmarin.github.io/blueprints/reusable/">https://karlesmarin.github.io/blueprints/reusable/</a>. Follow the link from this PDF to see the current list.</div></div>
+<div class="area" style="--c:#1B6F8C"><span class="area-e">🔢</span>Linear algebra<span class="area-n">16</span><code class="area-imp">import Formalizations.Reusable.LinearAlgebra</code></div><div class="fichas">
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0009.html"><span class="ficha-cab"><span class="ficha-id">R0009</span>🔌</span><span class="ficha-n">rank_fromBlocks_zero₂₁_le_card_add_rank</span><span class="ficha-t">Over a field, the rank of the block upper-triangular matrix [[A, B], [0, D]] is at most the number of rows of A plus the rank of D.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0017.html"><span class="ficha-cab"><span class="ficha-id">R0017</span>🔌</span><span class="ficha-n">matrix_rank_add_le</span><span class="ficha-t">Over a field, rank (A + B) ≤ rank A + rank B for matrices.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0018.html"><span class="ficha-cab"><span class="ficha-id">R0018</span>🔌</span><span class="ficha-n">det_mul_eq_sum_det_submatrix_mul_det_submatrix</span><span class="ficha-t">Cauchy–Binet: for A : m × n and B : n × m over a commutative ring (n linearly ordered), det (A B) is the sum over the |m|-subsets S of n of det A[:, S] · det B[S, :].</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0019.html"><span class="ficha-cab"><span class="ficha-id">R0019</span>🔌</span><span class="ficha-n">derivative_det_eq_trace_adjugate_mul</span><span class="ficha-t">Jacobi&#x27;s formula: for a square matrix A of polynomials over a commutative ring, derivative (det A) = trace (adjugate A · A.map derivative).</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0023.html"><span class="ficha-cab"><span class="ficha-id">R0023</span>🔌</span><span class="ficha-n">matrix_rank_add_rank_le_rank_fromBlocks</span><span class="ficha-t">Over a field, rank A + rank D ≤ rank of the block upper-triangular matrix fromBlocks A B 0 D.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0024.html"><span class="ficha-cab"><span class="ficha-id">R0024</span>🔌</span><span class="ficha-n">matrix_rank_kronecker</span><span class="ficha-t">Over a field, the rank of the Kronecker product A ⊗ₖ B of two matrices is rank A · rank B.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0025.html"><span class="ficha-cab"><span class="ficha-id">R0025</span>🔌</span><span class="ficha-n">adjugate_apply_self_eq_det_principal_submatrix</span><span class="ficha-t">For a square matrix A over a commutative ring, indexed by any finite type, adjugate A i i is the determinant of the principal submatrix obtained by deleting row and column i.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0032.html"><span class="ficha-cab"><span class="ficha-id">R0032</span>🔌</span><span class="ficha-n">posSemidef_of_charpoly_alternating</span><span class="ficha-t">A real symmetric matrix whose characteristic polynomial has coefficients alternating in sign is positive semidefinite (the polynomial rule is a corollary of Descartes&#x27; rule of signs).</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0033.html"><span class="ficha-cab"><span class="ficha-id">R0033</span>🔌</span><span class="ficha-n">psd_quadForm_eq_sum_rank_sq</span><span class="ficha-t">The quadratic form of a real positive semidefinite matrix of rank k is a sum of exactly k squares of linear forms.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0034.html"><span class="ficha-cab"><span class="ficha-id">R0034</span>🔌</span><span class="ficha-n">rank_fromBlocks_of_isUnit₁₁</span><span class="ficha-t">Over a field, a block matrix with invertible top-left block A has rank card m + rank (D - C A⁻¹ B); with A positive definite and zero Schur complement it is PSD of rank card m.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0037.html"><span class="ficha-cab"><span class="ficha-id">R0037</span>🔌</span><span class="ficha-n">biquadratic_sos_transport</span><span class="ficha-t">For P_H(x, y) = (x₀² + x₁²)(y·y) + 2x₀x₁(y·Hy) over a commutative ring and DᵀD = 1, every sum-of-squares representation of P_H by bilinear forms x·(B_i y) transports to one of P_{DᵀHD} by the forms B_i D (same number of squares); signed-graph switching is D = diag(s), s_i² = 1.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0038.html"><span class="ficha-cab"><span class="ficha-id">R0038</span>🔌</span><span class="ficha-n">int_columns_of_transpose_mul_self</span><span class="ficha-t">If an integer m × n matrix A satisfies AᵀA = I, every column j is ±e_{f(j)} for an injective f : n → m (signed unit vectors in distinct rows); in particular an integer vector with v·v = 1 is ±e_i. False over ℚ.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0042.html"><span class="ficha-cab"><span class="ficha-id">R0042</span>🏛️</span><span class="ficha-n">schur_commuting_finrank_le</span><span class="ficha-t">Schur&#x27;s bound: a subspace of M_n(K) over a field K whose elements pairwise commute has dimension ≤ ⌊n²/4⌋ + 1 (sharp: R0056).</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0047.html"><span class="ficha-cab"><span class="ficha-id">R0047</span>🔌</span><span class="ficha-n">hua_identity</span><span class="ficha-t">Hua&#x27;s identity in a division ring: for a ≠ 0, b ≠ 0 and ab ≠ 1, a − (a⁻¹ + (b⁻¹ − a)⁻¹)⁻¹ = aba.</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0053.html"><span class="ficha-cab"><span class="ficha-id">R0053</span>🔌</span><span class="ficha-n">derivative_coe_charpolyRev</span><span class="ficha-t">Newton&#x27;s identity for traces: for a square matrix M over a commutative ring R, d/dX (charpolyRev M) = − charpolyRev M · Σₖ trace(M^(k+1)) Xᵏ in R⟦X⟧, with charpolyRev M = det(1 − X • M).</span></a>
+<a class="ficha" style="--c:#1B6F8C" href="https://karlesmarin.github.io/blueprints/reusable/R0056.html"><span class="ficha-cab"><span class="ficha-id">R0056</span>🏛️</span><span class="ficha-n">schur_commuting_finrank_attained</span><span class="ficha-t">Schur&#x27;s bound is sharp: for every field K and n ≥ 1 there is a subspace of M_n(K) whose elements pairwise commute, of dimension exactly ⌊n²/4⌋ + 1 (the companion of R0042).</span></a>
+</div>
+<div class="area" style="--c:#2E8B57"><span class="area-e">🧩</span>Combinatorics<span class="area-n">13</span><code class="area-imp">import Formalizations.Reusable.Combinatorics</code></div><div class="fichas">
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0008.html"><span class="ficha-cab"><span class="ficha-id">R0008</span>🏛️</span><span class="ficha-n">pomerance_density_add_dvd_centralBinom</span><span class="ficha-t">For every integer k ≥ 1, the set of n with n + k dividing the central binomial coefficient C(2n, n) has asymptotic density 1.</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0020.html"><span class="ficha-cab"><span class="ficha-id">R0020</span>🏛️</span><span class="ficha-n">det_lapMatrix_submatrix_eq_card_spanningTrees</span><span class="ficha-t">Kirchhoff&#x27;s matrix-tree theorem: over an integral domain, deleting the row and column of any vertex from the Laplacian (Mathlib&#x27;s lapMatrix) of a finite simple graph leaves a matrix whose determinant is the number of spanning trees.</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0028.html"><span class="ficha-cab"><span class="ficha-id">R0028</span>🔌</span><span class="ficha-n">card_biUnion_submodular</span><span class="ficha-t">For an indexed family of finite sets t, the neighbourhood function s ↦ |s.biUnion t| is submodular: |N(s ∪ u)| + |N(s ∩ u)| ≤ |N(s)| + |N(u)|.</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0029.html"><span class="ficha-cab"><span class="ficha-id">R0029</span>🔌</span><span class="ficha-n">card_biUnion_union_inter_eq_of_tight</span><span class="ficha-t">Under Hall&#x27;s condition |v| ≤ |v.biUnion t| for all v, the union and the intersection of two tight sets (|s.biUnion t| = |s|) are tight.</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0030.html"><span class="ficha-cab"><span class="ficha-id">R0030</span>🏛️</span><span class="ficha-n">bondy_exists_erase_injOn</span><span class="ficha-t">Bondy&#x27;s theorem: if X is a nonempty finite set and F a family of at most |X| distinct finite sets, some x ∈ X can be deleted from every member of F keeping them distinct.</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0035.html"><span class="ficha-cab"><span class="ficha-id">R0035</span>🏛️</span><span class="ficha-n">godsil_gutman</span><span class="ficha-t">Godsil–Gutman: the sum over all ±1 edge signings of the characteristic polynomials of the signed adjacency matrices is (number of signings) times the matching polynomial.</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0036.html"><span class="ficha-cab"><span class="ficha-id">R0036</span>🏛️</span><span class="ficha-n">bass_determinant_commRing</span><span class="ficha-t">Bass&#x27;s determinant formula over any commutative ring: (1-u²)^|V| det(1-uB) = (1-u²)^|E| det(1-uA+u²(D-1)) with B the Hashimoto matrix.</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0040.html"><span class="ficha-cab"><span class="ficha-id">R0040</span>🏛️</span><span class="ficha-n">bregman_permanent_le</span><span class="ficha-t">Brégman&#x27;s theorem (Minc&#x27;s conjecture): for an n × n (0,1)-matrix A with row sums r_i, per A ≤ ∏ (r_i!)^(1/r_i); zero rows allowed (factor 1).</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0041.html"><span class="ficha-cab"><span class="ficha-id">R0041</span>🔌</span><span class="ficha-n">colorable_iff_forall_finite_induce</span><span class="ficha-t">De Bruijn–Erdős: a graph G is n-colourable iff every finite induced subgraph is n-colourable (no finiteness hypothesis on the vertex type).</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0043.html"><span class="ficha-cab"><span class="ficha-id">R0043</span>🏛️</span><span class="ficha-n">bruck_ryser_chowla</span><span class="ficha-t">Bruck–Ryser–Chowla: if a finite projective plane of order n exists and n ≡ 1 or 2 (mod 4), then n is a sum of two squares (so no plane of order 6 or 14).</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0044.html"><span class="ficha-cab"><span class="ficha-id">R0044</span>🔌</span><span class="ficha-n">transversalMatroid_indep</span><span class="ficha-t">For a finite family A : Fin t → Finset α, the independent finite sets of the transversal matroid presented by A are exactly the partial transversals of A (by Hall, the I with |S| ≤ |⋃_{x∈S} {i | x ∈ A i}| for all S ⊆ I).</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0046.html"><span class="ficha-cab"><span class="ficha-id">R0046</span>🔌</span><span class="ficha-n">orientedIncMatrix_mul_transpose</span><span class="ficha-t">For a finite simple graph on a linearly ordered vertex type, over any ring, the oriented incidence matrix N satisfies N Nᵀ = D − A, the Laplacian (Mathlib&#x27;s SimpleGraph.lapMatrix).</span></a>
+<a class="ficha" style="--c:#2E8B57" href="https://karlesmarin.github.io/blueprints/reusable/R0048.html"><span class="ficha-cab"><span class="ficha-id">R0048</span>🏛️</span><span class="ficha-n">ncard_choose_eq_le_two_mul_log</span><span class="ficha-t">Singmaster&#x27;s bound: an integer a ≥ 2 occurs at most 2⌊log₂ a⌋ times in Pascal&#x27;s triangle (the set of positions (n,k), k ≤ n, with C(n,k) = a is finite with at most that many elements; Singmaster states 2 + 2⌊log₂ a⌋).</span></a>
+</div>
+<div class="area" style="--c:#6B4C9A"><span class="area-e">🧬</span>Polynomials<span class="area-n">9</span><code class="area-imp">import Formalizations.Reusable.Polynomial</code></div><div class="fichas">
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0007.html"><span class="ficha-cab"><span class="ficha-id">R0007</span>🔌</span><span class="ficha-n">splits_of_alternating_sign</span><span class="ficha-t">A nonzero real polynomial of degree at most n that alternates sign at n + 1 strictly increasing points splits over ℝ (is real-rooted).</span></a>
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0011.html"><span class="ficha-cab"><span class="ficha-id">R0011</span>🔌</span><span class="ficha-n">card_roots_toFinset_ge_of_alternating_sign</span><span class="ficha-t">If a nonzero real polynomial takes strictly alternating signs at n + 1 strictly increasing points, it has at least n distinct real roots.</span></a>
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0012.html"><span class="ficha-cab"><span class="ficha-id">R0012</span>🔌</span><span class="ficha-n">splits_of_isRoot_mem_Ioo_of_gaps</span><span class="ficha-t">A nonzero real polynomial of degree at most n with a root in each of the n open gaps between n + 1 strictly increasing points splits over ℝ.</span></a>
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0013.html"><span class="ficha-cab"><span class="ficha-id">R0013</span>🔌</span><span class="ficha-n">sturm_signVariations_sub_eq_card_roots</span><span class="ficha-t">Sturm&#x27;s theorem: for squarefree p ∈ ℝ[X] and a &lt; b with p(a), p(b) ≠ 0, the sign variations of Mathlib&#x27;s Polynomial.sturmSeq p p&#x27; at a minus those at b equal the number of distinct roots of p in (a, b].</span></a>
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0014.html"><span class="ficha-cab"><span class="ficha-id">R0014</span>🔌</span><span class="ficha-n">budan_fourier_card_roots_le</span><span class="ficha-t">The Budan–Fourier theorem: for nonzero p ∈ ℝ[X] and a &lt; b with p(a), p(b) ≠ 0, the number of roots of p in (a, b] counted with multiplicity is at most V(a) − V(b), with even difference, where V(x) is the number of sign variations of p, p′, …, p^(deg p) at x.</span></a>
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0015.html"><span class="ficha-cab"><span class="ficha-id">R0015</span>🔌</span><span class="ficha-n">newton_inequality_esymm_roots</span><span class="ficha-t">Newton&#x27;s inequalities: for a monic real polynomial p of degree n that splits over ℝ and 1 ≤ k ≤ n − 1, e_k² · C(n,k−1) C(n,k+1) ≥ e_{k−1} e_{k+1} · C(n,k)², with e_j the elementary symmetric functions of the roots.</span></a>
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0021.html"><span class="ficha-cab"><span class="ficha-id">R0021</span>🔌</span><span class="ficha-n">splits_derivative</span><span class="ficha-t">If a real polynomial splits over ℝ (all its roots are real), so does its derivative.</span></a>
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0022.html"><span class="ficha-cab"><span class="ficha-id">R0022</span>🔌</span><span class="ficha-n">splits_reverse</span><span class="ficha-t">If a real polynomial splits over ℝ, so does its reverse (the reciprocal polynomial X^deg · p(1/X)).</span></a>
+<a class="ficha" style="--c:#6B4C9A" href="https://karlesmarin.github.io/blueprints/reusable/R0050.html"><span class="ficha-cab"><span class="ficha-id">R0050</span>🔌</span><span class="ficha-n">chebyshev_S_docagne</span><span class="ficha-t">d&#x27;Ocagne&#x27;s identity for the Vieta–Fibonacci polynomials: over a commutative ring, for Mathlib&#x27;s Polynomial.Chebyshev.S and all p, q : ℤ, S p · S (q−1) − S q · S (p−1) = − S (p−q−1); the case q = p+1 is S_sq_add_S_sq.</span></a>
+</div>
+<div class="area" style="--c:#C8641E"><span class="area-e">📈</span>Analysis<span class="area-n">7</span><code class="area-imp">import Formalizations.Reusable.Analysis</code></div><div class="fichas">
+<a class="ficha" style="--c:#C8641E" href="https://karlesmarin.github.io/blueprints/reusable/R0004.html"><span class="ficha-cab"><span class="ficha-id">R0004</span>🏛️</span><span class="ficha-n">airy_eq_zeros_unbounded_below</span><span class="ficha-t">Every solution f of the Airy equation f&#x27;&#x27; = x f on ℝ has zeros unbounded below: for every M there is x &lt; M with f x = 0.</span></a>
+<a class="ficha" style="--c:#C8641E" href="https://karlesmarin.github.io/blueprints/reusable/R0005.html"><span class="ficha-cab"><span class="ficha-id">R0005</span>🏛️</span><span class="ficha-n">glasser_integral</span><span class="ficha-t">For a ≥ 0 and b &gt; 0, ∫_{v&gt;0} v^{-1/2} exp(−a/v − b v) dv = √(π/b) exp(−2√(ab)) (the modified Bessel K_{1/2} integral).</span></a>
+<a class="ficha" style="--c:#C8641E" href="https://karlesmarin.github.io/blueprints/reusable/R0006.html"><span class="ficha-cab"><span class="ficha-id">R0006</span>🔌</span><span class="ficha-n">prod_two_sin_mul_pi_div</span><span class="ficha-t">For every n ≥ 1, ∏_{k=1}^{n−1} 2 sin(kπ/n) = n.</span></a>
+<a class="ficha" style="--c:#C8641E" href="https://karlesmarin.github.io/blueprints/reusable/R0016.html"><span class="ficha-cab"><span class="ficha-id">R0016</span>🔌</span><span class="ficha-n">enestrom_kakeya_ne_zero</span><span class="ficha-t">The Eneström–Kakeya theorem: a polynomial ∑_{k ≤ n} a_k z^k with real coefficients a_0 ≥ a_1 ≥ ⋯ ≥ a_n &gt; 0 has no zero in the open unit disc ‖z‖ &lt; 1.</span></a>
+<a class="ficha" style="--c:#C8641E" href="https://karlesmarin.github.io/blueprints/reusable/R0039.html"><span class="ficha-cab"><span class="ficha-id">R0039</span>🏛️</span><span class="ficha-n">hlawka_generalised</span><span class="ficha-t">Generalised Hlawka inequality: for n ≥ 3 vectors of a real inner product space, with d_k the sum of the norms of all k-element subsums, d_2 + ⋯ + d_{n-1} ≤ (2^(n-2) − 1)(d_1 + d_n); n = 3 is Hlawka&#x27;s ‖x+y‖+‖y+z‖+‖z+x‖ ≤ ‖x‖+‖y‖+‖z‖+‖x+y+z‖.</span></a>
+<a class="ficha" style="--c:#C8641E" href="https://karlesmarin.github.io/blueprints/reusable/R0051.html"><span class="ficha-cab"><span class="ficha-id">R0051</span>🏛️</span><span class="ficha-n">zielinski_zych_inequality</span><span class="ficha-t">The Zieliński–Zych inequality: for every α &gt; 0 and x ≥ 0, 0 ≤ x^α − π^α/2 + (π^α/2) cos x + α π^(α−1) sin x; the analytic core of the fractional-moment speed limit π^α ≤ 2 M_α τ^α (α = 1 is Margolus–Levitin).</span></a>
+<a class="ficha" style="--c:#C8641E" href="https://karlesmarin.github.io/blueprints/reusable/R0054.html"><span class="ficha-cab"><span class="ficha-id">R0054</span>🏛️</span><span class="ficha-n">margolus_levitin</span><span class="ficha-t">The Margolus–Levitin quantum speed limit (ℏ = 1): for a normalized population p over nonnegative energies E with mean Ebar, if the autocorrelation Σ pₙ e^(−i Eₙ τ) vanishes at τ ≥ 0, then π ≤ 2 · Ebar · τ.</span></a>
+</div>
+<div class="area" style="--c:#B03A5B"><span class="area-e">🔣</span>Number theory<span class="area-n">4</span><code class="area-imp">import Formalizations.Reusable.NumberTheory</code></div><div class="fichas">
+<a class="ficha" style="--c:#B03A5B" href="https://karlesmarin.github.io/blueprints/reusable/R0026.html"><span class="ficha-cab"><span class="ficha-id">R0026</span>🏛️</span><span class="ficha-n">wolstenholme_choose_modEq</span><span class="ficha-t">Wolstenholme&#x27;s theorem: for a prime p ≥ 5, C(2p − 1, p − 1) ≡ 1 and C(2p, p) ≡ 2 (mod p³).</span></a>
+<a class="ficha" style="--c:#B03A5B" href="https://karlesmarin.github.io/blueprints/reusable/R0031.html"><span class="ficha-cab"><span class="ficha-id">R0031</span>🏛️</span><span class="ficha-n">touchard_bell_add_prime</span><span class="ficha-t">Touchard&#x27;s congruence: for every prime p and every n, the Bell numbers satisfy B(n + p) ≡ B(n) + B(n + 1) (mod p); in particular B(p) ≡ 2 (mod p).</span></a>
+<a class="ficha" style="--c:#B03A5B" href="https://karlesmarin.github.io/blueprints/reusable/R0045.html"><span class="ficha-cab"><span class="ficha-id">R0045</span>🔌</span><span class="ficha-n">ded_reciprocity</span><span class="ficha-t">Dedekind reciprocity: for coprime positive integers h, k, s(h,k) + s(k,h) = (h² + k² + 1)/(12hk) − 1/4, with s(h,k) = Σ_{r&lt;k} ((r/k))((hr/k)) the Dedekind sum.</span></a>
+<a class="ficha" style="--c:#B03A5B" href="https://karlesmarin.github.io/blueprints/reusable/R0049.html"><span class="ficha-cab"><span class="ficha-id">R0049</span>🔌</span><span class="ficha-n">sum_card_divisors_mul_totient</span><span class="ficha-t">The Dirichlet identity τ ∗ φ = σ: for every n, Σ_{d∣n} τ(d) φ(n/d) = σ(n), with τ the number of divisors, φ Euler&#x27;s totient and σ the sum of divisors.</span></a>
+</div>
+<div class="area" style="--c:#3A7BD5"><span class="area-e">🔄</span>Group theory<span class="area-n">3</span><code class="area-imp">import Formalizations.Reusable.GroupTheory</code></div><div class="fichas">
+<a class="ficha" style="--c:#3A7BD5" href="https://karlesmarin.github.io/blueprints/reusable/R0027.html"><span class="ficha-cab"><span class="ficha-id">R0027</span>🏛️</span><span class="ficha-n">polya_redfield_card_mul_sum_orbit_weight</span><span class="ficha-t">Pólya–Redfield enumeration theorem: for a finite group G acting on a finite set α and colour weights w, |G| · Σ over orbits of colourings of Π_a w(F a) equals Σ_g p₁^(fixed points of g) · Π over the cycles of g of p_length, where p_k = Σ_c w(c)^k.</span></a>
+<a class="ficha" style="--c:#3A7BD5" href="https://karlesmarin.github.io/blueprints/reusable/R0052.html"><span class="ficha-cab"><span class="ficha-id">R0052</span>🔌</span><span class="ficha-n">separation_lemma_of_pretransitive</span><span class="ficha-t">Separation lemma, transitive case: if G acts pretransitively on Ω and A, B are finite subsets with #A · #B &lt; #Ω, some g ∈ G satisfies g • a ∉ B for all a ∈ A (no finiteness of G or Ω assumed).</span></a>
+<a class="ficha" style="--c:#3A7BD5" href="https://karlesmarin.github.io/blueprints/reusable/R0055.html"><span class="ficha-cab"><span class="ficha-id">R0055</span>🏛️</span><span class="ficha-n">praeger_bounded_movement</span><span class="ficha-t">Praeger&#x27;s theorem on bounded movement: if a group acts on Ω with no fixed point and every finite set moved off itself by some element has at most m ≥ 1 points, then Ω is finite, there are at most 2m − 1 orbits, every orbit has at most 3m points and |Ω| ≤ 3m + t − 1, t the number of orbits.</span></a>
+</div>
+<div class="area" style="--c:#8A6D1E"><span class="area-e">📐</span>Geometry<span class="area-n">2</span><code class="area-imp">import Formalizations.Reusable.Geometry</code></div><div class="fichas">
+<a class="ficha" style="--c:#8A6D1E" href="https://karlesmarin.github.io/blueprints/reusable/R0001.html"><span class="ficha-cab"><span class="ficha-id">R0001</span>🔌</span><span class="ficha-n">pappus_hexagon</span><span class="ficha-t">Pappus&#x27;s hexagon theorem in homogeneous coordinates over any commutative ring: if A, B, C are collinear and a, b, c are collinear, the meets Ab∩aB, Ac∩aC, Bc∩bC are collinear, with no non-degeneracy hypothesis.</span></a>
+<a class="ficha" style="--c:#8A6D1E" href="https://karlesmarin.github.io/blueprints/reusable/R0002.html"><span class="ficha-cab"><span class="ficha-id">R0002</span>🏛️</span><span class="ficha-n">wolstenholme_defect_eq_sq_add_sq</span><span class="ficha-t">If A + B + C = π, then x² + y² + z² − (2yz cos A + 2zx cos B + 2xy cos C) = (x − z cos B − y cos C)² + (z sin B − y sin C)² for all real x, y, z; hence Wolstenholme&#x27;s inequality.</span></a>
+</div>
+<div class="area" style="--c:#7A4E2D"><span class="area-e">🌀</span>Algebraic geometry<span class="area-n">1</span><code class="area-imp">import Formalizations.Reusable.AlgebraicGeometry</code></div><div class="fichas">
+<a class="ficha" style="--c:#7A4E2D" href="https://karlesmarin.github.io/blueprints/reusable/R0010.html"><span class="ficha-cab"><span class="ficha-id">R0010</span>🏛️</span><span class="ficha-n">cotes_harmonic_mean_polar</span><span class="ficha-t">Cotes&#x27; harmonic means theorem: if a line p + t v meets a real plane curve f = 0 in deg g real points (g(t) = f(p + t v) splits), the harmonic-mean point lies on the polar line ∇f(p)·(q − p) = −d f(p) of p.</span></a>
+</div>
+<div class="area" style="--c:#4A8C8C"><span class="area-e">📏</span>Measure theory<span class="area-n">1</span><code class="area-imp">import Formalizations.Reusable.MeasureTheory</code></div><div class="fichas">
+<a class="ficha" style="--c:#4A8C8C" href="https://karlesmarin.github.io/blueprints/reusable/R0003.html"><span class="ficha-cab"><span class="ficha-id">R0003</span>🏛️</span><span class="ficha-n">torricelli_trumpet</span><span class="ficha-t">The solid of revolution of y = 1/x, x ≥ 1 (Torricelli&#x27;s trumpet, Gabriel&#x27;s horn) has Lebesgue volume π, while its plane section {x ≥ 1, |y| ≤ 1/x} has infinite area.</span></a>
+</div>
+</section><section class="cap" id="sec-s11-when-something-goes-wrong"><header class="cap-cab"><span class="cap-num">11</span><div><div class="cap-k">Chapter 11</div><h2 id="s11-when-something-goes-wrong"><span class="cap-e">🩺</span><span class="cap-t">When something goes wrong</span></h2></div></header>
+<div class="call tabla-problemas">
+<div class="call-i">🩺</div>
+<div class="call-c">
+<ul>
+<li><strong><code>unknown identifier</code></strong> — the import is missing or wrong. Check the <em>Import</em> line of the card, or use
+  <code>import Formalizations.Reusable</code> for everything; write <code>open Formalizations.Reusable</code> (or the full name).</li>
+<li><strong><code>type mismatch</code></strong> — your statement is close to the theorem's but not equal: an <code>≥</code> written as <code>≤</code>, a coercion
+  from <code>ℕ</code> to <code>ℝ</code> missing, a different order of factors. Compare with the signature on the card; <code>simpa</code>, <code>push_cast</code>
+  and <code>ring_nf</code> bridge small differences.</li>
+<li><strong><code>failed to synthesize</code></strong> — a bracket argument (<code>[Fintype n]</code>) that Lean cannot find for your type; use a standard
+  type (<code>Fin k</code>) or add the instance as a hypothesis.</li>
+<li><strong>Two Mathlibs, or a first build that never ends</strong> — the project was created with the <code>math</code> template, or <code>rev</code>
+  points to another version. Recreate it as in Section 4.1.</li>
+<li><strong><code>lake build</code> takes hours</strong> — use <code>lake lean &lt;file&gt;</code> (Section 4.1, step 4).</li>
+</ul>
+</div>
+</div>
+</section><section class="cap" id="sec-s12-versions-updates-citing-and-contact"><header class="cap-cab"><span class="cap-num">12</span><div><div class="cap-k">Chapter 12</div><h2 id="s12-versions-updates-citing-and-contact"><span class="cap-e">📦</span><span class="cap-t">Versions, updates, citing and contact</span></h2></div></header>
+<ul>
+<li><strong>Pin a release</strong> (<code>rev = "v0.11.0"</code>). The notes of each release list its new theorems
+  (<a href="https://github.com/karlesmarin/formalizations/releases/tag/v0.11.0">notes of v0.11.0</a>); names stay stable within a major series.</li>
+<li><strong>Updating</strong>: change <code>rev</code> to the new tag and run <code>lake update</code>. Read the release notes first: a deprecated alias
+  tells you the new name.</li>
+<li><strong>Prebuilt archives</strong>: each release attaches compiled archives for Linux and Windows, which Lake downloads instead of
+  compiling.</li>
+<li><strong>Trust</strong>: continuous integration checks, on every push to the repository, that each theorem depends only on the standard axioms
+  and that the usage examples compile; <code>#print axioms</code> lets you check it yourself.</li>
+<li><strong>Citing</strong>: cite the repository and the release tag, and the paper or classical source given on the card.</li>
+<li><strong>Questions, errors, or a theorem you would like</strong>: open an issue at <a href="https://github.com/karlesmarin/formalizations/issues">https://github.com/karlesmarin/formalizations/issues</a>.</li>
+</ul>
+<p><em>I worked with an AI assistant on this guide and its examples; every Lean example in it is compiled against release
+<code>v0.11.0</code>.</em></p>
+</section><section class="cap" id="sec-s13-quick-reference"><header class="cap-cab"><span class="cap-num">13</span><div><div class="cap-k">Chapter 13</div><h2 id="s13-quick-reference"><span class="cap-e">🗂️</span><span class="cap-t">Quick reference</span></h2></div></header>
+<div class="chuleta"><div class="chu"><div class="chu-t"><span>🚀</span>Install</div><pre class="mini">lake +leanprover/lean4:v4.35.0 new myproject std.toml
+# lakefile.toml
+[[require]]
+name = "formalizations"
+git  = "https://github.com/karlesmarin/formalizations"
+rev  = "v0.11.0"
+
+lake update
+lake lean Example.lean</pre><p class="chu-n">Values of release <a href="https://github.com/karlesmarin/formalizations/releases/tag/v0.11.0">v0.11.0</a>; for a later one, its tag at <a href="https://github.com/karlesmarin/formalizations/releases">releases</a> and its <code>lean-toolchain</code>.</p></div><div class="chu"><div class="chu-t"><span>🔎</span>Find</div><ul><li>Showcase: <a href="https://karlesmarin.github.io/blueprints/reusable/">https://karlesmarin.github.io/blueprints/reusable/</a></li><li><code>#check name</code> — the statement</li><li><code>#print axioms name</code> — the axioms</li><li><code>import Formalizations.Reusable</code> — every area</li></ul></div><div class="chu"><div class="chu-t"><span>✍️</span>Use</div><div class="tabla"><table><tr><td><code>exact t …</code></td><td>the goal is the conclusion</td></tr><tr><td><code>have h := t …</code></td><td>a fact for later tactics</td></tr><tr><td><code>refine t … ?_</code></td><td>hypotheses become goals</td></tr><tr><td><code>rw [t]</code>, <code>simpa using t</code></td><td>equations, small differences</td></tr><tr><td><code>(t …).1</code>, <code>obtain</code></td><td>parts of “and” / “exists”</td></tr></table></div></div><div class="chu"><div class="chu-t"><span>🧾</span>Read a signature</div><ul><li><b class="f-imp">{ }</b> implicit — Lean deduces it</li><li><b class="f-ins">[ ]</b> instance — Lean finds it</li><li><b class="f-exp">( )</b> you supply it</li><li><b class="f-con">after the last :</b> what you get</li></ul></div><div class="chu"><div class="chu-t"><span>🩺</span>Errors</div><ul><li><code>unknown identifier</code> → import / <code>open</code></li><li><code>type mismatch</code> → compare with the card; <code>simpa</code>, <code>push_cast</code></li><li><code>failed to synthesize</code> → a standard type such as <code>Fin k</code></li><li>build takes hours → <code>lake lean &lt;file&gt;</code></li></ul></div><div class="chu"><div class="chu-t"><span>📦</span>Releases</div><ul><li>Pin <code>rev</code>: nothing changes until you change it</li><li>Update: new tag in <code>rev</code>, then <code>lake update</code></li><li>Cite the repository, the tag and the source on the card</li><li>Issues: <a href="https://github.com/karlesmarin/formalizations/issues">https://github.com/karlesmarin/formalizations/issues</a></li></ul></div></div></section></main></div><script>
+(function(){
+ var raiz=document.documentElement;
+ try{var g=localStorage.getItem('manual-tema');if(g)raiz.dataset.theme=g;}catch(e){}
+ document.getElementById('tema').onclick=function(){
+  var osc=raiz.dataset.theme?raiz.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+  raiz.dataset.theme=osc?'light':'dark';try{localStorage.setItem('manual-tema',raiz.dataset.theme);}catch(e){}};
+ var nav=document.querySelector('nav.lado');
+ document.getElementById('menu').onclick=function(){nav.classList.toggle('abierto');};
+ nav.addEventListener('click',function(e){if(e.target.closest('a'))nav.classList.remove('abierto');});
+ document.querySelectorAll('.copiar').forEach(function(b){b.onclick=function(){
+  var t=b.closest('.code').querySelector('pre').innerText;
+  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){var o=b.textContent;b.textContent=b.dataset.ok;setTimeout(function(){b.textContent=o;},1400);},function(){});};});
+ var enl={};nav.querySelectorAll('a').forEach(function(a){enl[a.getAttribute('href').slice(1)]=a;});
+ var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+  nav.querySelectorAll('a.activo').forEach(function(a){a.classList.remove('activo');});
+  var a=enl[e.target.querySelector('h2').id];if(a)a.classList.add('activo');}});},{rootMargin:'-30% 0px -60% 0px'});
+ document.querySelectorAll('section.cap').forEach(function(s){obs.observe(s);});
+})();
+</script></body></html>
