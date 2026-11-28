@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Simulaciones · Reusable</title>
+<style>
+  :root{--bg:#0a1526;--panel:#111f34;--border:#294663;--ink:#eef5ff;--muted:#bccde0;
+    --teal:#77efd7;--yellow:#ffd997;--blue:#9ac4ff;color-scheme:dark}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.55 system-ui,sans-serif}
+  main{max-width:1150px;margin:auto;padding:1.5rem 1rem 4rem}
+  h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.08;margin:.5rem 0}
+  h2{font-size:clamp(1.45rem,3vw,2.3rem);margin:.25rem 0}
+  p{color:var(--muted);margin:.5rem 0 1rem} a{color:var(--blue)}
+  .panel{border:1px solid var(--border);border-radius:1rem;background:var(--panel);padding:clamp(.75rem,3vw,1.5rem);margin-top:1.5rem}
+  .layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:1.25rem;align-items:start}
+  .chart{width:100%;display:block;background:var(--bg);border:1px solid var(--border);border-radius:.6rem}
+  .controls{display:grid;gap:.45rem;min-width:0} .controls label{display:flex;justify-content:space-between}
+  input[type=range]{width:100%;accent-color:var(--teal);margin:0 0 .7rem}
+  button{cursor:pointer;background:#162e45;color:var(--ink);font:inherit;text-align:left;border:1px solid #426180;
+    border-radius:.45rem;padding:.42rem .7rem}
+  button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--teal);outline-offset:.2rem}
+  output,.math{font-variant-numeric:tabular-nums;color:var(--teal)} .note{font-size:.9rem;margin:.8rem 0 0}
+  .stats{display:grid;gap:.35rem;margin:.8rem 0 0}.stats div{border-top:1px solid var(--border);padding:.4rem 0}
+  .stats dt{color:var(--muted)} .stats dd{margin:0}.stats output{font-weight:700}
+  table{width:100%;border-collapse:collapse;color:var(--ink);font-variant-numeric:tabular-nums}
+  th,td{border-bottom:1px solid var(--border);padding:.35rem;text-align:right}
+  th:first-child,td:first-child{text-align:left}
+  .status{color:var(--teal);font-weight:660} .status[data-fails]{color:var(--yellow)}
+  select{width:100%;font:inherit;padding:.4rem;background:var(--bg);color:var(--ink);border:1px solid var(--border)}
+  .desk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1rem 0}
+  .desk > div{padding:.85rem;background:var(--bg);border:1px solid var(--border);border-radius:.6rem}
+  .desk [data-selected]{border-color:var(--teal)} .desk h3{margin:0 0 .5rem;font-size:1rem}
+  .desk p{margin:0}.steps{display:flex;gap:.6rem;flex-wrap:wrap}.steps [aria-pressed=true]{border-color:var(--teal)}
+  pre{padding:.85rem 1rem;background:var(--bg);overflow:auto;border:1px solid var(--border);border-radius:.5rem;color:var(--teal)}
+  @media(max-width:750px){.layout{grid-template-columns:1fr}}
+  @media(max-width:600px){.desk{grid-template-columns:1fr}}
+</style>
+<main>
+  <h1>Explora los datos de la prueba</h1>
+  <p>Dos visualizaciones numéricas. Los archivos de la guía contienen las demostraciones que Lean comprueba para todas las entradas que cumplen sus hipótesis.</p>
+  <section class="panel" aria-labelledby="geometry">
+    <h2 id="geometry">Geometría · de la diferencia a dos cuadrados</h2>
+    <p>Elige los ángulos y los pesos. Para la cota de cosenos usa x = y = z = 1.</p>
+    <div class="layout">
+      <svg class="chart" id="triangle" viewBox="0 0 610 345" role="img" aria-label="Triángulo con ángulos A, B y C y base horizontal"></svg>
+      <div class="controls">
+        <label for="angleB">Ángulo B <output id="valueB"></output></label>
+        <input id="angleB" type="range" min="10" max="160" step="1" value="45">
+        <label for="angleC">Ángulo C <output id="valueC"></output></label>
+        <input id="angleC" type="range" min="10" max="125" step="1" value="75">
+        <label for="weightX">Peso x <output id="valueX"></output></label>
+        <input id="weightX" type="range" min="-2" max="2" step=".25" value="1">
+        <label for="weightY">Peso y <output id="valueY"></output></label>
+        <input id="weightY" type="range" min="-2" max="2" step=".25" value="1">
+        <label for="weightZ">Peso z <output id="valueZ"></output></label>
+        <input id="weightZ" type="range" min="-2" max="2" step=".25" value="1">
+        <button type="button" id="equality">Ver el caso de igualdad · 60°, 60°, 60° · pesos 1</button>
+        <button type="button" id="removeHypothesis" aria-pressed="false">Quitar A + B + C = π</button>
+      </div>
+    </div>
+    <dl class="stats">
+      <div><dt>cos A + cos B + cos C</dt><dd><output id="cosSum"></output></dd></div>
+      <div><dt>x² + y² + z² − (2yz cos A + 2zx cos B + 2xy cos C)</dt><dd><output id="defect"></output></dd></div>
+      <div><dt>(x − z cos B − y cos C)² + (z sin B − y sin C)²</dt><dd><output id="squares"></output></dd></div>
+    </dl>
+    <p class="note">Los valores se redondean a cuatro decimales. La igualdad de ambas expresiones para todos los datos admitidos es el enunciado de <a href="https://karlesmarin.github.io/blueprints/reusable/R0002.html">R0002</a>.</p>
+    <p class="status" id="hypothesisResult" role="status" hidden>Con A = B = C = 0 y x = y = z = 1, la desigualdad ponderada afirmaría 6 ≤ 3. Excovery conserva el contraejemplo comprobado por Lean en el control <code>c3_wineq_sin_suma</code>.</p>
+  </section>
+  <section class="panel" aria-labelledby="polynomial">
+    <h2 id="polynomial">Polinomios · certifica tres raíces distintas</h2>
+    <p>Observa p(t) = t³ − 3t + c. La ficha R0011 usa signos estrictamente opuestos entre muestras consecutivas.</p>
+    <div class="layout">
+      <svg class="chart" id="cubic" viewBox="0 0 610 345" role="img" aria-label="Cúbica con cuatro muestras marcadas"></svg>
+      <div class="controls">
+        <label for="constant">Término constante c <output id="valueConstant"></output></label>
+        <input id="constant" type="range" min="-3" max="3" step=".25" value="1">
+        <label for="witness">Puntos de evaluación</label>
+        <select id="witness"><option value="main">−2, 0, 1, 2 · ejemplo de la guía</option>
+          <option value="alternative">−2, −1, 1, 2 · otros testigos</option></select>
+        <table><thead><tr><th scope="col">t</th><th scope="col">p(t)</th><th scope="col">Signo</th></tr></thead>
+          <tbody id="values"></tbody></table>
+        <p id="certificate" class="status" role="status"></p>
+      </div>
+    </div>
+    <p class="note">La curva se dibuja numéricamente. Para el caso c = 1, la guía comprueba en Lean las hipótesis con las evaluaciones exactas −1, 1, −1, 3 y deriva al menos tres raíces reales distintas. Consulta <a href="https://karlesmarin.github.io/blueprints/reusable/R0011.html">R0011</a>.</p>
+  </section>
+  <section class="panel" id="mesa" aria-labelledby="mesa-titulo">
+    <h2 id="mesa-titulo">Mesa de composición · maqueta</h2>
+    <p>Objetivo: expresar la forma cuadrática de una matriz simétrica real de rango k como suma de k cuadrados. Recorre los pasos para ver qué datos consume cada teorema.</p>
+    <div class="steps" aria-label="Pasos de la composición">
+      <button type="button" data-step="0">Objetivo</button>
+      <button type="button" data-step="1">Obligaciones</button>
+      <button type="button" data-step="2">Composición</button>
+      <button type="button" data-step="3">Verificación</button>
+    </div>
+    <div class="desk">
+      <div data-node="input"><h3>Hipótesis</h3><p>Simetría hA, signos de coeficientes halt y rango hk.</p></div>
+      <div data-node="psd"><h3><a href="https://karlesmarin.github.io/blueprints/reusable/R0032.html">R0032</a> · Semidefinitud</h3><p>Usa hA y halt. Produce que A es semidefinida positiva.</p></div>
+      <div data-node="square"><h3><a href="https://karlesmarin.github.io/blueprints/reusable/R0033.html">R0033</a> · Suma de cuadrados</h3><p>Usa semidefinitud y hk. Produce las k formas lineales.</p></div>
+    </div>
+    <pre id="composition" hidden><code>psd_quadForm_eq_sum_rank_sq (posSemidef_of_charpoly_alternating hA halt) hk</code></pre>
+    <p id="deskStatus" role="status"></p>
+    <p class="note">La mesa es una propuesta de interfaz. El término Lean mostrado es el de la Receta 4 de la guía. La composición abstracta tiene un recibo de compilación para v0.15.0.</p>
+  </section>
+</main>
+<script>
+  const byId = id => document.getElementById(id);
+  const fmt = new Intl.NumberFormat('es', {maximumFractionDigits:4});
+  const degrees = Math.PI/180;
+  const triangleInputs = ['angleB','angleC','weightX','weightY','weightZ'];
+  function drawTriangle() {
+    byId('removeHypothesis').setAttribute('aria-pressed','false');
+    byId('removeHypothesis').textContent = 'Quitar A + B + C = π';
+    byId('hypothesisResult').hidden = true;
+    const b = Number(byId('angleB').value);
+    const controlC = byId('angleC');
+    controlC.max = 170-b;
+    const c = Number(controlC.value);
+    const a = 180-b-c;
+    const [x,y,z] = ['weightX','weightY','weightZ'].map(id => Number(byId(id).value));
+    for (const [key,value] of Object.entries({B:b+'°',C:c+'°',X:fmt.format(x),Y:fmt.format(y),Z:fmt.format(z)})) {
+      byId('value'+key).value = value;
+    }
+    const [cosA,cosB,cosC] = [a,b,c].map(value => Math.cos(value*degrees));
+    const termOne = (x-z*cosB-y*cosC)**2;
+    const termTwo = (z*Math.sin(b*degrees)-y*Math.sin(c*degrees))**2;
+    const defect = x*x+y*y+z*z-(2*y*z*cosA+2*z*x*cosB+2*x*y*cosC);
+    byId('cosSum').value = fmt.format(cosA+cosB+cosC)+' ≤ 1,5';
+    byId('defect').value = fmt.format(Math.abs(defect)<1e-12 ? 0 : defect);
+    byId('squares').value = fmt.format(termOne)+' + '+fmt.format(termTwo)+' = '+fmt.format(termOne+termTwo);
+    const ab = Math.sin(c*degrees)/Math.sin(a*degrees);
+    const top = [ab*cosB,ab*Math.sin(b*degrees)];
+    const min = Math.min(0,top[0]), max = Math.max(1,top[0]);
+    const scale = Math.min(475/(max-min),225/top[1]);
+    const left = (610-(max-min)*scale)/2-min*scale;
+    const tipX = left+top[0]*scale, tipY = 282-top[1]*scale;
+    const right = left+scale;
+    byId('triangle').innerHTML = `
+      <path d="M ${left} 282 L ${tipX} ${tipY} L ${right} 282 Z"
+        fill="#17384b" stroke="#77efd7" stroke-width="3"/>
+      <g font-family="system-ui" fill="#eef5ff" font-size="19" text-anchor="middle">
+        <text x="${tipX}" y="${tipY-16}">A · ${a}°</text>
+        <text x="${left}" y="314">B · ${b}°</text>
+        <text x="${right}" y="314">C · ${c}°</text>
+      </g>`;
+  }
+  for (const id of triangleInputs) byId(id).addEventListener('input',drawTriangle);
+  byId('equality').addEventListener('click',()=>{
+    byId('angleC').max = 110;
+    for (const [id,value] of Object.entries({angleB:60,angleC:60,weightX:1,weightY:1,weightZ:1})) byId(id).value = value;
+    drawTriangle();
+  });
+  byId('removeHypothesis').addEventListener('click',event=>{
+    const button = event.currentTarget;
+    if (button.getAttribute('aria-pressed')==='true') {
+      drawTriangle();
+      return;
+    }
+    button.setAttribute('aria-pressed','true');
+    button.textContent = 'Restaurar A + B + C = π';
+    byId('hypothesisResult').hidden = false;
+    byId('cosSum').value = '3';
+    byId('defect').value = '3 − 6 = −3';
+    byId('squares').value = '1 + 0 = 1';
+    byId('triangle').innerHTML = `
+      <g font-family="system-ui" text-anchor="middle">
+        <text x="305" y="125" fill="#eef5ff" font-size="32">A = B = C = 0</text>
+        <text x="305" y="190" fill="#ffd997" font-size="25">Suma de ángulos: 0</text>
+        <text x="305" y="247" fill="#bbcde0" font-size="24">Fuera de la hipótesis del teorema</text>
+      </g>`;
+  });
+
+  const pixelX = x => 305+x*105;
+  const pixelY = y => 165-y*25;
+  function drawCubic() {
+    const c = Number(byId('constant').value), p = x => x**3-3*x+c;
+    const inputs = byId('witness').value==='main' ? [-2,0,1,2] : [-2,-1,1,2];
+    const values = inputs.map(p);
+    const color = y => y > 0 ? '#77efd7' : y < 0 ? '#ffd997' : '#9ac4ff';
+    const sign = y => y > 0 ? '+' : y < 0 ? '−' : '0';
+    const coordinates = [];
+    for (let n=0;n<=160;n++) {
+      const x = -2.6+5.2*n/160;
+      coordinates.push(pixelX(x).toFixed(2)+','+pixelY(p(x)).toFixed(2));
+    }
+    const alternating = values.slice(1).every((value,i)=>value*values[i]<0);
+    let series = '';
+    for (let i=0;i<inputs.length-1;i++) {
+      if (values[i]*values[i+1]<0) {
+        const start = pixelX(inputs[i]), end = pixelX(inputs[i+1]);
+        series += `<line x1="${start+4}" y1="165" x2="${end-4}" y2="165" stroke="#46749d" stroke-width="7"/>`;
+      }
+    }
+    const marks = inputs.map((x,i)=>{
+      const posX = pixelX(x), posY = pixelY(values[i]);
+      return `<line x1="${posX}" y1="165" x2="${posX}" y2="${posY}" stroke="${color(values[i])}" stroke-dasharray="4 4"/>
+      <circle cx="${posX}" cy="${posY}" r="6" fill="${color(values[i])}" stroke="#0a1526" stroke-width="2"/>
+      <text x="${posX}" y="315" text-anchor="middle" font-size="18" fill="#bbcde0">${fmt.format(x)}</text>`;
+    }).join('');
+    byId('cubic').innerHTML = `
+      <path d="M 30 165 H 580 M 305 25 V 300" stroke="#426181" stroke-width="1.5"/>
+      ${series}<polyline points="${coordinates.join(' ')}" stroke="#a0caff" fill="none" stroke-width="3"/>
+      <g font-family="system-ui">${marks}</g>`;
+    byId('valueConstant').value = fmt.format(c);
+    byId('values').innerHTML = inputs.map((x,i)=>
+      `<tr><th scope="row">${fmt.format(x)}</th><td>${fmt.format(values[i])}</td><td style="color:${color(values[i])}">${sign(values[i])}</td></tr>`).join('');
+    const status = byId('certificate');
+    status.toggleAttribute('data-fails',!alternating);
+    status.textContent = alternating ? 'Tres cambios de signo estrictos → al menos tres raíces distintas.'
+      : 'Estos cuatro puntos no cumplen la hipótesis de signos alternos.';
+  }
+  byId('constant').addEventListener('input',drawCubic);
+  byId('witness').addEventListener('change',drawCubic);
+  drawTriangle();
+  drawCubic();
+
+  const steps = [
+    {nodes:['square'], status:'R0033 termina en la conclusión buscada. Requiere semidefinitud positiva y rango k.'},
+    {nodes:['input','psd'], status:'R0032 aporta la semidefinitud. Quedan por justificar la simetría, los signos de los coeficientes y el rango.'},
+    {nodes:['psd','square'], status:'La salida de R0032 encaja como argumento de R0033. El término conserva hk como segunda entrada.'},
+    {nodes:['input','psd','square'], status:'Composición abstracta comprobada en la guía. Para usarla con una matriz concreta, Lean también debe comprobar sus tres hipótesis.'}
+  ];
+  function deskStep(index) {
+    const step = steps[index];
+    document.querySelectorAll('[data-step]').forEach(button=>{
+      button.setAttribute('aria-pressed',String(Number(button.dataset.step)===index));
+    });
+    document.querySelectorAll('[data-node]').forEach(node=>{
+      node.toggleAttribute('data-selected',step.nodes.includes(node.dataset.node));
+    });
+    byId('composition').hidden = index < 2;
+    byId('deskStatus').textContent = step.status;
+  }
+  document.querySelectorAll('[data-step]').forEach(button=>{
+    button.addEventListener('click',()=>deskStep(Number(button.dataset.step)));
+  });
+  deskStep(0);
+</script>

@@ -1,0 +1,389 @@
+WEBVTT
+
+00:00:00.583 --> 00:00:04.500
+Choose a triangle and call its angles A, B,
+and C.
+
+00:00:05.375 --> 00:00:09.000
+Add the cosines of those three angles. How
+large can the sum be?
+
+00:00:09.917 --> 00:00:14.250
+The answer is three halves. An equilateral
+triangle reaches that value.
+
+00:00:15.167 --> 00:00:19.333
+To prove the bound for every triangle, we'll
+use a theorem from Reusable,
+
+00:00:19.333 --> 00:00:20.792
+a library of Lean proofs.
+
+00:00:21.708 --> 00:00:26.042
+The theorem gives us an identity that turns
+the inequality into two squares.
+
+00:00:27.875 --> 00:00:32.583
+Open the Reusable showcase. In the search
+box, enter Wolstenholme defect.
+
+00:00:33.500 --> 00:00:36.833
+This card is Wolstenholme's inequality, in
+defect form.
+
+00:00:37.750 --> 00:00:42.458
+The Lean statement shows the exact name and
+assumptions. The minimal import is the
+
+00:00:42.458 --> 00:00:43.625
+Geometry module.
+
+00:00:44.542 --> 00:00:47.708
+The provenance links you to the original
+theorem in the archive.
+
+00:00:48.625 --> 00:00:51.958
+The trust row lists the axioms Lean reports
+for this result.
+
+00:00:53.792 --> 00:00:59.542
+The identity assumes the three angles add to
+pi. The weights x, y, and z can be any real
+
+00:00:59.542 --> 00:01:00.083
+numbers.
+
+00:01:01.000 --> 00:01:04.958
+Start with the sum of the squares of the
+weights, then subtract the weighted cosine
+
+00:01:04.958 --> 00:01:05.542
+expression.
+
+00:01:06.458 --> 00:01:10.375
+The theorem says this difference equals the
+sum of the two squares shown below.
+
+00:01:11.167 --> 00:01:14.708
+Each square is nonnegative, so the
+difference is nonnegative too.
+
+00:01:15.583 --> 00:01:19.958
+That gives us the weighted inequality. The
+identity does the trigonometric work.
+
+00:01:20.875 --> 00:01:26.458
+The angle sum matters. Drop that hypothesis
+and set every angle to zero and every weight
+
+00:01:26.458 --> 00:01:30.417
+to one. The claimed inequality becomes six
+at most three.
+
+00:01:30.417 --> 00:01:32.083
+Lean checks this counterexample.
+
+00:01:33.917 --> 00:01:37.250
+Here's the example from Recipe One of the
+guide, with its import.
+
+00:01:38.167 --> 00:01:42.250
+The example takes six real numbers and the
+angle sum as a hypothesis.
+
+00:01:43.125 --> 00:01:47.875
+have key applies the theorem to those inputs
+and puts the equality in the local context.
+
+00:01:48.750 --> 00:01:53.542
+The next command passes the nonnegativity of
+each square to Lean's nonlinear arithmetic
+
+00:01:53.542 --> 00:01:54.083
+tactic.
+
+00:01:55.000 --> 00:01:59.042
+Using the equality and those two facts, the
+tactic closes the goal.
+
+00:02:00.875 --> 00:02:02.792
+Now use one for each of the three weights.
+
+00:02:03.708 --> 00:02:07.958
+The right side is three, and the left side
+is twice the sum of the cosines.
+
+00:02:08.875 --> 00:02:12.250
+Divide both sides by two to recover our
+bound of three halves.
+
+00:02:13.167 --> 00:02:18.000
+The practice file checks this specialization
+in Lean. It applies the same theorem to
+
+00:02:18.000 --> 00:02:20.250
+three ones and closes the resulting goal.
+
+00:02:21.167 --> 00:02:26.042
+That is the first reuse pattern: a general
+identity becomes the particular result you
+
+00:02:26.042 --> 00:02:26.417
+need.
+
+00:02:28.250 --> 00:02:32.667
+Now imagine you need to prove that this
+cubic has three distinct real roots.
+
+00:02:32.667 --> 00:02:36.000
+The graph suggests three crossings of the
+horizontal axis.
+
+00:02:36.917 --> 00:02:42.208
+How could we turn that picture into evidence
+Lean can use? R0011 asks for
+
+00:02:42.208 --> 00:02:44.667
+ordered sample points and alternating signs.
+
+00:02:45.542 --> 00:02:52.625
+At minus two, zero, one, and two, the exact
+values are minus one, one, minus one,
+
+00:02:52.625 --> 00:02:53.125
+and three.
+
+00:02:54.042 --> 00:02:59.250
+Notice the three open intervals. Each pair
+of consecutive values has strictly opposite
+
+00:02:59.250 --> 00:03:01.542
+signs, so each interval contains a root.
+
+00:03:02.458 --> 00:03:07.042
+The intervals are disjoint. This is why
+there are at least three distinct roots.
+
+00:03:07.042 --> 00:03:09.167
+We never need to compute the roots
+themselves.
+
+00:03:10.083 --> 00:03:15.250
+Watch what happens if we remove the constant
+term. One selected sample is now zero,
+
+00:03:15.250 --> 00:03:19.167
+so this particular certificate no longer
+meets the strict sign condition.
+
+00:03:20.083 --> 00:03:24.667
+Move that sample from zero to minus one. The
+four signs alternate again.
+
+00:03:24.667 --> 00:03:28.167
+Different witnesses can certify a different
+instance of the same problem.
+
+00:03:30.000 --> 00:03:34.625
+The practice file does something more
+general. It defines a lemma named three real
+
+00:03:34.625 --> 00:03:38.125
+roots, with four ordered points and three
+sign conditions.
+
+00:03:39.042 --> 00:03:44.125
+First supply the nonzero polynomial and the
+vector of sample points to R zero zero one
+
+00:03:44.125 --> 00:03:46.250
+one. Two obligations remain.
+
+00:03:47.167 --> 00:03:50.958
+The first obligation is that the vector is
+strictly increasing.
+
+00:03:50.958 --> 00:03:54.875
+Split into its three adjacent pairs and use
+the order hypotheses.
+
+00:03:55.792 --> 00:04:00.458
+The second is that the product of each
+adjacent pair of evaluations is negative.
+
+00:04:00.458 --> 00:04:02.875
+Each case is one of our sign hypotheses.
+
+00:04:03.833 --> 00:04:08.792
+We can now apply our lemma to the original
+cubic. Evaluating the polynomial at zero
+
+00:04:08.792 --> 00:04:10.167
+shows it is nonzero.
+
+00:04:11.083 --> 00:04:15.500
+Then norm_num checks the three inequalities
+between sample points and the three
+
+00:04:15.500 --> 00:04:18.250
+inequalities between products of
+evaluations.
+
+00:04:19.167 --> 00:04:24.125
+In the guide, Lean checks this chain from
+the generic theorem to the particular cubic.
+
+00:04:24.125 --> 00:04:26.250
+The plot helps us choose inputs for the
+proof.
+
+00:04:28.042 --> 00:04:32.792
+The next problem begins with a symmetric
+real matrix. We want a certificate that its
+
+00:04:32.792 --> 00:04:35.042
+quadratic form is a sum of squares.
+
+00:04:35.958 --> 00:04:40.542
+Here is a two by two example with twos on
+the diagonal and ones off the diagonal.
+
+00:04:40.542 --> 00:04:44.958
+Its characteristic polynomial is t squared
+minus four t plus three.
+
+00:04:45.875 --> 00:04:51.208
+The coefficients have signs plus, minus,
+plus. The determinant is three,
+
+00:04:51.208 --> 00:04:53.417
+so the two by two matrix has rank two.
+
+00:04:54.292 --> 00:04:59.375
+R0032 uses symmetry and the sign condition
+on the coefficients to give
+
+00:04:59.375 --> 00:05:00.958
+positive semidefiniteness.
+
+00:05:01.875 --> 00:05:06.333
+R0033 takes positive semidefiniteness and
+the rank.
+
+00:05:06.333 --> 00:05:08.667
+It gives a number of squares equal to the
+rank.
+
+00:05:09.542 --> 00:05:14.208
+For this matrix we can illustrate the result
+along the two diagonal directions.
+
+00:05:14.208 --> 00:05:18.667
+In ordinary coordinates, the displayed two
+squares expand to the original form.
+
+00:05:19.583 --> 00:05:25.292
+Recipe Four checks the general composition
+with symmetry, signs and rank as hypotheses.
+
+00:05:25.292 --> 00:05:30.125
+The companion file checks all three for this
+matrix and separately proves the displayed
+
+00:05:30.125 --> 00:05:30.667
+identity.
+
+00:05:32.500 --> 00:05:36.417
+This suggests a way to build a specialized
+mathematical workflow.
+
+00:05:36.417 --> 00:05:40.458
+Begin with a concrete problem and state the
+guarantee you want before choosing a
+
+00:05:40.458 --> 00:05:40.917
+theorem.
+
+00:05:41.833 --> 00:05:46.333
+Suppose the requested output is a
+certificate that the quadratic form is a sum
+
+00:05:46.333 --> 00:05:50.583
+of exactly k squares. Find a theorem whose
+conclusion has that shape.
+
+00:05:51.500 --> 00:05:56.167
+Read the argument slots. Positive
+semidefiniteness can come from the preceding
+
+00:05:56.167 --> 00:06:00.667
+theorem. Symmetry, coefficient signs, and
+rank still need evidence.
+
+00:06:01.625 --> 00:06:07.042
+A calculation with exact coefficients can
+propose witnesses. The proof needs the exact
+
+00:06:07.042 --> 00:06:09.375
+facts accepted at the input of each theorem.
+
+00:06:10.292 --> 00:06:15.333
+The guide already contains the composed Lean
+term. A successful check of the abstract
+
+00:06:15.333 --> 00:06:18.583
+theorem confirms that the pieces fit under
+its hypotheses.
+
+00:06:19.458 --> 00:06:24.000
+To obtain a certificate for a specific
+matrix, you also need Lean proofs of those
+
+00:06:24.000 --> 00:06:25.792
+hypotheses for that matrix.
+
+00:06:26.708 --> 00:06:30.917
+Excovery already has a planner for tools
+with typed inputs and outputs.
+
+00:06:30.917 --> 00:06:35.250
+This view sketches a future interface for
+working at the level of theorem cards.
+
+00:06:36.167 --> 00:06:42.083
+It connects a problem, candidate theorems,
+open obligations, and the final Lean check.
+
+00:06:42.083 --> 00:06:44.500
+The guide already gives us examples to build
+from.
+
+00:06:46.333 --> 00:06:50.792
+Pick the next case you would like to prove.
+In the triangle, change the weights.
+
+00:06:50.792 --> 00:06:53.125
+In the cubic, change the sample points.
+
+00:06:54.042 --> 00:06:59.083
+For the matrix, start from the conclusion
+and work back to the exact coefficients and
+
+00:06:59.083 --> 00:07:00.167
+rank you can certify.
+
+00:07:01.042 --> 00:07:06.042
+A further design uses signs and a degree
+bound to certify all roots are real,
+
+00:07:06.042 --> 00:07:09.792
+then monicity and a valid index to apply
+Newton's inequalities.
+
+00:07:10.708 --> 00:07:15.125
+Use the guide and the theorem cards to
+follow each step to its Lean statement.
+
+00:07:15.125 --> 00:07:18.375
+The downloadable Lean files give you a
+working starting point.

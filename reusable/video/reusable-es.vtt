@@ -1,0 +1,407 @@
+WEBVTT
+
+00:00:00.583 --> 00:00:03.917
+Elige un triángulo y llama A, B y C a sus
+ángulos.
+
+00:00:05.500 --> 00:00:10.792
+Suma los cosenos de esos tres ángulos.
+¿Hasta dónde puede llegar la suma?
+
+00:00:12.333 --> 00:00:17.542
+La respuesta es tres medios. El triángulo
+equilátero alcanza ese valor.
+
+00:00:19.083 --> 00:00:23.750
+Para demostrar la cota para cualquier
+triángulo, usaremos un teorema de Reusable,
+
+00:00:23.750 --> 00:00:25.542
+una biblioteca de pruebas en Lean.
+
+00:00:27.042 --> 00:00:31.292
+El teorema nos da una identidad que
+convierte la desigualdad en dos cuadrados.
+
+00:00:33.708 --> 00:00:39.083
+Abre la vitrina de Reusable. En el buscador,
+escribe Wolstenholme defect.
+
+00:00:40.583 --> 00:00:44.000
+Es la ficha de la desigualdad de
+Wolstenholme, en forma de defecto.
+
+00:00:45.542 --> 00:00:51.417
+El enunciado en Lean indica el nombre exacto
+y las hipótesis. La importación mínima es el
+
+00:00:51.417 --> 00:00:52.625
+módulo de geometría.
+
+00:00:54.125 --> 00:00:57.167
+La procedencia te lleva al teorema original
+en el archivo.
+
+00:00:58.708 --> 00:01:03.000
+La fila de confianza enumera los axiomas que
+Lean declara para este resultado.
+
+00:01:05.458 --> 00:01:10.375
+La identidad supone que los tres ángulos
+suman pi. Los pesos equis,
+
+00:01:10.375 --> 00:01:13.167
+ye y zeta pueden ser cualesquiera números
+reales.
+
+00:01:14.792 --> 00:01:19.167
+Parte de la suma de los cuadrados de los
+pesos y resta la expresión ponderada con
+
+00:01:19.167 --> 00:01:19.750
+cosenos.
+
+00:01:21.250 --> 00:01:25.583
+El teorema dice que esa diferencia es igual
+a la suma de los dos cuadrados que ves
+
+00:01:25.583 --> 00:01:25.958
+abajo.
+
+00:01:27.500 --> 00:01:31.208
+Cada cuadrado es no negativo, así que la
+diferencia también lo es.
+
+00:01:32.750 --> 00:01:38.708
+Así obtenemos la desigualdad ponderada. La
+identidad resuelve la parte trigonométrica.
+
+00:01:40.250 --> 00:01:46.167
+La suma de los ángulos importa. Quita esa
+hipótesis, pon los tres ángulos a cero y los
+
+00:01:46.167 --> 00:01:52.667
+tres pesos a uno. La desigualdad afirmaría
+que seis es menor o igual que tres.
+
+00:01:52.667 --> 00:01:54.708
+Lean comprueba este contraejemplo.
+
+00:01:57.167 --> 00:02:01.125
+Aquí tienes el ejemplo de la primera receta
+de la guía, con su importación.
+
+00:02:02.625 --> 00:02:06.750
+El ejemplo toma seis números reales y la
+suma de los ángulos como hipótesis.
+
+00:02:08.250 --> 00:02:12.958
+La línea resaltada aplica el teorema a esos
+datos y guarda la igualdad en el contexto
+
+00:02:12.958 --> 00:02:13.333
+local.
+
+00:02:14.792 --> 00:02:18.792
+La instrucción siguiente da a la táctica de
+aritmética no lineal de Lean la no
+
+00:02:18.792 --> 00:02:20.208
+negatividad de cada cuadrado.
+
+00:02:21.750 --> 00:02:25.667
+Con la igualdad y esos dos datos, la táctica
+cierra la demostración.
+
+00:02:28.083 --> 00:02:30.917
+Ahora toma uno para cada uno de los tres
+pesos.
+
+00:02:32.417 --> 00:02:36.542
+A la derecha queda tres y a la izquierda
+queda el doble de la suma de los cosenos.
+
+00:02:38.042 --> 00:02:41.917
+Divide los dos lados entre dos y recuperas
+la cota de tres medios.
+
+00:02:43.458 --> 00:02:47.625
+El archivo de práctica comprueba esta
+especialización en Lean.
+
+00:02:47.625 --> 00:02:51.917
+Aplica el mismo teorema con los tres pesos
+iguales a uno y cierra el objetivo.
+
+00:02:53.417 --> 00:02:58.125
+Así usamos la biblioteca por primera vez:
+una identidad general se convierte en el
+
+00:02:58.125 --> 00:03:00.167
+resultado particular que necesitamos.
+
+00:03:02.583 --> 00:03:07.833
+Ahora queremos demostrar que esta cúbica
+tiene tres raíces reales distintas.
+
+00:03:07.833 --> 00:03:11.167
+En la gráfica parecen verse tres cruces con
+el eje horizontal.
+
+00:03:12.625 --> 00:03:18.208
+¿Cómo convertimos esa imagen en datos que
+Lean pueda usar? La ficha erre cero cero
+
+00:03:18.208 --> 00:03:20.958
+once pide puntos ordenados y signos
+alternos.
+
+00:03:22.458 --> 00:03:27.083
+En menos dos, cero, uno y dos, los valores
+exactos son menos uno, uno,
+
+00:03:27.083 --> 00:03:28.167
+menos uno y tres.
+
+00:03:29.708 --> 00:03:35.500
+Fíjate en los tres intervalos abiertos. Cada
+par de valores consecutivos tiene signos
+
+00:03:35.500 --> 00:03:39.333
+estrictamente opuestos, así que cada
+intervalo contiene una raíz.
+
+00:03:40.917 --> 00:03:46.000
+Como los intervalos son disjuntos, hay al
+menos tres raíces distintas.
+
+00:03:46.000 --> 00:03:48.458
+Podemos probarlo sin calcular las raíces.
+
+00:03:50.042 --> 00:03:55.458
+Mira lo que pasa si quitamos el término
+constante. Una de las muestras vale cero y
+
+00:03:55.458 --> 00:03:59.083
+este certificado deja de cumplir la
+condición de signos estrictos.
+
+00:04:00.583 --> 00:04:07.000
+Cambia esa muestra de cero a menos uno. Los
+cuatro signos vuelven a alternar.
+
+00:04:07.000 --> 00:04:10.583
+Otros testigos permiten certificar otro caso
+del mismo problema.
+
+00:04:13.042 --> 00:04:18.958
+El archivo de práctica va un paso más allá.
+Define un lema para tres raíces reales,
+
+00:04:18.958 --> 00:04:21.875
+con cuatro puntos ordenados y tres
+condiciones de signo.
+
+00:04:23.375 --> 00:04:27.958
+Primero damos a la ficha R0011 el polinomio
+no nulo y el vector de puntos
+
+00:04:27.958 --> 00:04:31.083
+de evaluación. Quedan dos obligaciones.
+
+00:04:32.667 --> 00:04:36.958
+La primera es que los puntos del vector
+estén en orden estricto.
+
+00:04:36.958 --> 00:04:40.958
+Separamos los tres pares consecutivos y
+usamos las hipótesis de orden.
+
+00:04:42.417 --> 00:04:47.750
+La segunda es que el producto de cada par de
+evaluaciones consecutivas sea negativo.
+
+00:04:47.750 --> 00:04:50.625
+Cada caso corresponde a una de las hipótesis
+de signo.
+
+00:04:52.167 --> 00:04:57.708
+Ya podemos aplicar nuestro lema a la cúbica
+inicial. Al evaluar el polinomio en cero
+
+00:04:57.708 --> 00:05:00.000
+queda demostrado que el polinomio no es
+nulo.
+
+00:05:01.542 --> 00:05:05.958
+Después, la táctica norm_num comprueba las
+tres desigualdades entre los puntos y las
+
+00:05:05.958 --> 00:05:08.792
+tres desigualdades entre los productos de
+evaluaciones.
+
+00:05:10.333 --> 00:05:15.208
+Lean comprueba la cadena desde el teorema
+general hasta la cúbica concreta.
+
+00:05:15.208 --> 00:05:18.083
+La gráfica nos ayuda a elegir los datos de
+la prueba.
+
+00:05:20.542 --> 00:05:24.875
+El siguiente problema empieza con una matriz
+real simétrica.
+
+00:05:24.875 --> 00:05:28.958
+Queremos un certificado de que su forma
+cuadrática es una suma de cuadrados.
+
+00:05:30.458 --> 00:05:35.875
+Aquí hay una matriz dos por dos con doses en
+la diagonal y unos fuera de ella.
+
+00:05:35.875 --> 00:05:39.708
+Su polinomio característico es te al
+cuadrado menos cuatro te más tres.
+
+00:05:41.250 --> 00:05:46.917
+Los coeficientes tienen signos más, menos,
+más. El determinante vale tres,
+
+00:05:46.917 --> 00:05:49.458
+así que la matriz dos por dos tiene rango
+dos.
+
+00:05:50.958 --> 00:05:55.583
+La ficha R0032 usa la simetría y los signos
+de los coeficientes
+
+00:05:55.583 --> 00:05:57.583
+para obtener semidefinitud positiva.
+
+00:05:59.083 --> 00:06:04.500
+La ficha R0033 toma la semidefinitud
+positiva y el rango.
+
+00:06:04.500 --> 00:06:07.083
+Devuelve tantos cuadrados como indica el
+rango.
+
+00:06:08.625 --> 00:06:14.417
+En esta matriz podemos ilustrar el resultado
+a lo largo de sus direcciones diagonales.
+
+00:06:14.417 --> 00:06:18.417
+Al desarrollar los dos cuadrados de la
+pantalla se obtiene la forma original.
+
+00:06:19.875 --> 00:06:24.083
+La cuarta receta comprueba la composición
+general con hipótesis de simetría,
+
+00:06:24.083 --> 00:06:29.375
+signos y rango. El archivo complementario
+comprueba las tres para esta matriz y
+
+00:06:29.375 --> 00:06:31.833
+demuestra por separado la identidad
+explícita.
+
+00:06:34.292 --> 00:06:39.750
+Podemos llevar esta idea a una mesa para
+diseñar un flujo matemático especializado.
+
+00:06:39.750 --> 00:06:43.167
+Parte de un problema concreto y fija la
+garantía que necesitas.
+
+00:06:44.708 --> 00:06:49.375
+Supongamos que quieres un certificado de que
+una forma cuadrática es suma de exactamente
+
+00:06:49.375 --> 00:06:54.083
+ka cuadrados. Busca un teorema cuya
+conclusión tenga esa forma.
+
+00:06:55.625 --> 00:07:00.708
+Mira qué argumentos necesita. La
+semidefinitud positiva puede venir del
+
+00:07:00.708 --> 00:07:06.417
+teorema anterior. Todavía hay que justificar
+la simetría, los signos y el rango.
+
+00:07:07.958 --> 00:07:12.542
+Un cálculo con coeficientes exactos puede
+proponer testigos.
+
+00:07:12.542 --> 00:07:16.583
+La prueba necesita los hechos exactos que
+exige cada uno de los teoremas.
+
+00:07:18.125 --> 00:07:23.750
+La guía incluye el término Lean compuesto.
+Al comprobar el teorema abstracto,
+
+00:07:23.750 --> 00:07:26.958
+Lean confirma que las piezas encajan con
+esas hipótesis.
+
+00:07:28.500 --> 00:07:32.750
+Para obtener un certificado de una matriz
+concreta también necesitas pruebas,
+
+00:07:32.750 --> 00:07:35.542
+en Lean, de que esa matriz cumple cada
+hipótesis.
+
+00:07:37.083 --> 00:07:42.458
+Excovery ya tiene un planificador de
+herramientas con entradas y salidas tipadas.
+
+00:07:42.458 --> 00:07:46.542
+Esta mesa es una propuesta de interfaz para
+trabajar con fichas de teoremas.
+
+00:07:48.083 --> 00:07:52.458
+Conecta el problema, los teoremas
+candidatos, las obligaciones abiertas y la
+
+00:07:52.458 --> 00:07:57.458
+comprobación final en Lean. Los ejemplos de
+la guía son el punto de partida.
+
+00:07:59.917 --> 00:08:04.208
+Elige el siguiente caso que quieres
+demostrar. En el triángulo,
+
+00:08:04.208 --> 00:08:09.042
+cambia los pesos. Para la cúbica, prueba
+otros puntos de evaluación.
+
+00:08:10.542 --> 00:08:14.958
+En la matriz, parte de la conclusión y
+vuelve a los coeficientes exactos y al rango
+
+00:08:14.958 --> 00:08:16.042
+que puedes certificar.
+
+00:08:17.542 --> 00:08:22.208
+Otro diseño usa signos y una cota de grado
+para certificar que todas las raíces son
+
+00:08:22.208 --> 00:08:27.833
+reales. Con un polinomio mónico y un índice
+válido podemos aplicar las desigualdades de
+
+00:08:27.833 --> 00:08:28.292
+Newton.
+
+00:08:29.792 --> 00:08:34.583
+Usa la guía y las fichas para seguir cada
+paso hasta su enunciado Lean.
+
+00:08:34.583 --> 00:08:38.000
+Los archivos Lean de la guía te dan un
+ejemplo que puedes ejecutar.
