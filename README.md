@@ -10,6 +10,7 @@ was checked besides the written proof.
 - ✅ What is checked is said statement by statement: 🔗 Lean (linked to karlesmarin/formalizations), 💻 programs,
   🔍 audits.
 - 🎬 The paper's figures come alive (3D, sliders), and 🧪 the labs run the paper's own code in the browser.
+- 🎥 Papers with a video show its cover in the blueprint; press Play to start and choose English or Spanish. [How videos work](docs/videos.md).
 - 🤖 Generated: do not edit by hand.
 
 ## 🧭 How it works
