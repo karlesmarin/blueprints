@@ -162,6 +162,24 @@ apply. Three things it does for you, all worked out in this guide:</p>
 of its conclusion you need. Everything else in this guide is that sentence in detail.</p>
 </div>
 </div>
+<section class="ruta">
+<h3 id="from-a-showcase-card-to-a-lean-proof">From a showcase card to a Lean proof</h3>
+<p>Can you prove <strong>cos A + cos B + cos C ≤ 3/2</strong> for the angles of a triangle? This route takes you from a
+search to the proof.</p>
+<figure class="fig"><img src="fig/ruta_en.svg" alt="ruta"></figure>
+<ol>
+<li><strong>Find the theorem.</strong> Search for <code>triangle</code> in the <a href="https://karlesmarin.github.io/blueprints/reusable/">showcase</a>
+   and open Wolstenholme’s identity (<a href="https://karlesmarin.github.io/blueprints/reusable/R0002.html">card R0002</a>).</li>
+<li><strong>Read the signature and copy the import.</strong> Start your file with <code>import Formalizations.Reusable.Geometry</code>
+   and <code>open Formalizations.Reusable</code>. In the signature, <code>h</code> is the proof you supply that A + B + C = π.</li>
+<li><strong>Apply the identity.</strong> <a href="#recipe-1-an-inequality-of-a-triangle-in-two-lines">Recipe 1</a> uses the two squares
+   to prove the general inequality. In <a href="#example-2-a-classical-bound-for-every-triangle">Example 2</a>,
+   supply x = y = z = 1 and <code>h</code>. The identity makes 3 − 2(cos A + cos B + cos C) a sum of two squares.</li>
+<li><strong>Check the proof.</strong> Paste Example 2 into <code>Example.lean</code>. The proof uses <code>sq_nonneg</code> for each square and
+   <code>nlinarith</code> to derive the bound. Run <code>lake lean Example.lean</code> in your <a href="#s4-installing-the-layer">configured project</a>.
+   Lean accepts the proof if the command exits successfully.</li>
+</ol>
+</section>
 </section><section class="cap" id="sec-s2-what-the-reusable-layer-is"><header class="cap-cab"><span class="cap-num">02</span><div><div class="cap-k">Chapter 2</div><h2 id="s2-what-the-reusable-layer-is"><span class="cap-e">🧱</span><span class="cap-t">What the Reusable layer is</span></h2></div></header>
 <figure class="fig"><img src="fig/capas_en.svg" alt="capas"></figure>
 <p>The repository <code>karlesmarin/formalizations</code> holds thousands of machine-checked results, most of them written for my
@@ -441,7 +459,7 @@ between the two sides is exactly a sum of two squares.</p>
 <span class="w">    </span><span class="n">sq_nonneg</span><span class="w"> </span><span class="o">(</span><span class="n">z</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">C</span><span class="o">)]</span>
 </code></pre></div>
 <div class="resultado"><p class="et et-check"><span class="et-l"><span class="et-e">✅</span>What Lean checked.</span> <code>have key := …</code> puts the identity among the facts; <code>nlinarith</code> combines it with the fact
-that both squares are non-negative. The inequality holds for <em>every</em> triangle and <em>every</em> x, y, z.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Try it.</span> With x = y = z = 1 you get cos A + cos B + cos C ≤ 3/2, the classical bound for a triangle.</p></div>
+that both squares are non-negative. The inequality holds for <em>every</em> triangle and <em>every</em> x, y, z.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Try it.</span> Set x = y = z = 1 to get cos A + cos B + cos C ≤ 3/2. <a href="#example-2-a-classical-bound-for-every-triangle">Example 2</a> checks this special case in Lean.</p></div>
 </div>
 <div class="receta">
 <div class="receta-cab"><span class="receta-n">Recipe 2</span><h3 id="recipe-2-real-roots-counted-by-sign-changes">real roots counted by sign changes</h3><a class="receta-ficha" href="https://karlesmarin.github.io/blueprints/reusable/R0011.html">Open card ↗</a></div>

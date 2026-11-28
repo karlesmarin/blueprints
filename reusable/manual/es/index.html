@@ -162,6 +162,24 @@ aplicar. Tres cosas que hace por ti, todas resueltas en esta guía:</p>
 de su conclusión que necesitas. El resto de la guía es esa frase en detalle.</p>
 </div>
 </div>
+<section class="ruta">
+<h3 id="de-la-ficha-a-la-prueba-en-lean">De la ficha a la prueba en Lean</h3>
+<p>¿Puedes demostrar que <strong>cos A + cos B + cos C ≤ 3/2</strong> para los ángulos de un triángulo? Este recorrido te
+lleva de la búsqueda a la prueba.</p>
+<figure class="fig"><img src="../fig/ruta_es.svg" alt="ruta"></figure>
+<ol>
+<li><strong>Encuentra el teorema.</strong> Busca <code>triangle</code> en la <a href="https://karlesmarin.github.io/blueprints/reusable/">vitrina</a>
+   y abre la identidad de Wolstenholme (<a href="https://karlesmarin.github.io/blueprints/reusable/R0002.html">ficha R0002</a>).</li>
+<li><strong>Lee la firma y copia el import.</strong> Empieza el fichero con <code>import Formalizations.Reusable.Geometry</code>
+   y <code>open Formalizations.Reusable</code>. En la firma, <code>h</code> es la prueba que debes aportar de que A + B + C = π.</li>
+<li><strong>Aplica la identidad.</strong> La <a href="#receta-1-una-desigualdad-del-triangulo-en-dos-lineas">Receta 1</a> usa los dos
+   cuadrados para demostrar la desigualdad general. En el <a href="#ejemplo-2-una-cota-clasica-para-todo-triangulo">Ejemplo 2</a>,
+   da los valores x = y = z = 1 y la prueba <code>h</code>. La identidad expresa 3 − 2(cos A + cos B + cos C) como suma de dos cuadrados.</li>
+<li><strong>Comprueba la prueba.</strong> Pega el Ejemplo 2 en <code>Example.lean</code>. La prueba usa <code>sq_nonneg</code> para cada cuadrado
+   y <code>nlinarith</code> para deducir la cota. Ejecuta <code>lake lean Example.lean</code> en tu <a href="#s4-instalar-la-capa">proyecto configurado</a>.
+   Si el comando termina correctamente, Lean ha aceptado la prueba.</li>
+</ol>
+</section>
 </section><section class="cap" id="sec-s2-que-es-la-capa-reusable"><header class="cap-cab"><span class="cap-num">02</span><div><div class="cap-k">Capítulo 2</div><h2 id="s2-que-es-la-capa-reusable"><span class="cap-e">🧱</span><span class="cap-t">Qué es la capa Reusable</span></h2></div></header>
 <figure class="fig"><img src="../fig/capas_es.svg" alt="capas"></figure>
 <p>El repositorio <code>karlesmarin/formalizations</code> reúne miles de resultados comprobados por máquina, casi todos escritos
@@ -446,7 +464,7 @@ diferencia entre los dos lados es exactamente una suma de dos cuadrados.</p>
 <span class="w">    </span><span class="n">sq_nonneg</span><span class="w"> </span><span class="o">(</span><span class="n">z</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">sin</span><span class="w"> </span><span class="n">C</span><span class="o">)]</span>
 </code></pre></div>
 <div class="resultado"><p class="et et-check"><span class="et-l"><span class="et-e">✅</span>Lo que Lean comprobó.</span> <code>have key := …</code> pone la identidad entre los datos; <code>nlinarith</code> la combina con que los dos
-cuadrados son no negativos. La desigualdad vale para <em>todo</em> triángulo y <em>todos</em> x, y, z.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Pruébalo.</span> Con x = y = z = 1 sale cos A + cos B + cos C ≤ 3/2, la cota clásica de un triángulo.</p></div>
+cuadrados son no negativos. La desigualdad vale para <em>todo</em> triángulo y <em>todos</em> x, y, z.</p><p class="et et-prueba"><span class="et-l"><span class="et-e">🎯</span>Pruébalo.</span> Toma x = y = z = 1 para obtener cos A + cos B + cos C ≤ 3/2. El <a href="#ejemplo-2-una-cota-clasica-para-todo-triangulo">Ejemplo 2</a> comprueba este caso particular en Lean.</p></div>
 </div>
 <div class="receta">
 <div class="receta-cab"><span class="receta-n">Receta 2</span><h3 id="receta-2-raices-reales-contadas-por-cambios-de-signo">raíces reales contadas por cambios de signo</h3><a class="receta-ficha" href="https://karlesmarin.github.io/blueprints/reusable/R0011.html">Abrir ficha ↗</a></div>
