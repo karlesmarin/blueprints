@@ -683,6 +683,26 @@ Lean comprueba solo que 2 · 13 = 26. <em>Lección:</em> <code>.1</code> y <code
 enunciado con un natural n convertido en real; <code>exact_mod_cast</code> quita esas conversiones para que el enunciado con
 n = 3 coincida con el tuyo. <em>Lección:</em> cuando la única diferencia es una conversión entre ℕ y ℝ, <code>exact_mod_cast</code> (o
 <code>push_cast</code>) la salva.</p>
+<h3 id="de-teoremas-a-maquinas-matematicas">De teoremas a máquinas matemáticas</h3>
+<p>Una máquina matemática encadena pasos con entradas y salidas explícitas. En la
+<a href="#receta-4-un-certificado-de-que-una-forma-cuadratica-es-suma-de-k-cuadrados">Receta 4</a>, el objetivo es demostrar
+que la forma cuadrática de A = ((2, 1), (1, 2)) es suma de dos cuadrados.</p>
+<p><strong>Planifica el cálculo.</strong> Desde el repositorio de Excovery, pide a la mesa de diseño herramientas que reciban
+una matriz de Gram racional y den información sobre su rango.</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Terminal</span><button class="copiar" data-ok="Copiado ✓" type="button">Copiar</button></div><pre class="hl"><code>python<span class="w"> </span>-m<span class="w"> </span>excovery<span class="w"> </span>disenar<span class="w"> </span>planificar<span class="w"> </span>--tengo<span class="w"> </span>gram_racional<span class="w"> </span>--quiero<span class="w"> </span>cota_rango
+</code></pre></div>
+<p>La mesa propone dos comprobaciones según el tipo de entrada y salida, por polinomio característico o por
+complemento de Schur. Tú ejecutas la herramienta. Registrar cada ficha Reusable es una ampliación futura.</p>
+<p><strong>Calcula con aritmética exacta.</strong> Ejecuta la comprobación por polinomio característico sobre A.</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Terminal</span><button class="copiar" data-ok="Copiado ✓" type="button">Copiar</button></div><pre class="hl"><code>python<span class="w"> </span>-m<span class="w"> </span>excovery.charpoly_psd<span class="w"> </span><span class="s1">&#39;[[2,1],[1,2]]&#39;</span>
+</code></pre></div>
+<p>El resultado da simetría, semidefinitud positiva, rango 2 y los coeficientes [1, −4, 3] en grado decreciente.</p>
+<p><strong>Comprueba la cadena en Lean.</strong> Demuestra la simetría y la alternancia de signos de X² − 4X + 3.
+De ahí sale la semidefinitud positiva (<a href="https://karlesmarin.github.io/blueprints/reusable/R0032.html">ficha R0032</a>). El determinante no nulo, 3, da rango 2. Con ambos
+datos, demuestra que uᵀAu es una suma de dos cuadrados de formas lineales (<a href="https://karlesmarin.github.io/blueprints/reusable/R0033.html">ficha R0033</a>).</p>
+<p><strong>Pon a prueba una hipótesis.</strong> La herramienta <code>necesidad</code> de Excovery busca contraejemplos a un enunciado
+debilitado que tú modelas. Quita A + B + C = π de la Receta 1 y toma A = B = C = 0 y x = y = z = 1.
+La desigualdad se convierte en 6 ≤ 3. Una búsqueda sin contraejemplos solo informa sobre los casos que examinó.</p>
 </section><section class="cap" id="sec-s10-todos-los-teoremas-de-la-capa-por-area"><header class="cap-cab"><span class="cap-num">10</span><div><div class="cap-k">Capítulo 10</div><h2 id="s10-todos-los-teoremas-de-la-capa-por-area"><span class="cap-e">📚</span><span class="cap-t">Todos los teoremas de la capa, por área</span></h2></div></header>
 <p>Los 82 teoremas de la versión <code>v0.15.0</code>, en 9 áreas, leídos de su manifiesto. 🔌 marca un lema
 <code>API</code>, 🏛️ un teorema <code>showcase</code>; cada nombre enlaza con su ficha, y cada área da la línea que la importa.</p>

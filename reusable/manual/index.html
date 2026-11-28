@@ -674,6 +674,26 @@ Lean checks by itself that 2 · 13 = 26. <em>Lesson:</em> <code>.1</code> and <c
 a natural number n turned into a real one; <code>exact_mod_cast</code> removes those conversions so that the statement with
 n = 3 matches yours. <em>Lesson:</em> when the only difference is a cast between ℕ and ℝ, <code>exact_mod_cast</code> (or <code>push_cast</code>)
 bridges it.</p>
+<h3 id="from-theorems-to-mathematical-machines">From theorems to mathematical machines</h3>
+<p>A mathematical machine chains steps with explicit inputs and outputs. In
+<a href="#recipe-4-a-certificate-that-a-quadratic-form-is-a-sum-of-k-squares">Recipe 4</a>, the goal is to prove that the
+quadratic form of A = ((2, 1), (1, 2)) is a sum of two squares.</p>
+<p><strong>Plan the calculation.</strong> From an Excovery checkout, ask the design planner for tools that take a rational Gram
+matrix and return rank information.</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Terminal</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code>python<span class="w"> </span>-m<span class="w"> </span>excovery<span class="w"> </span>disenar<span class="w"> </span>planificar<span class="w"> </span>--tengo<span class="w"> </span>gram_racional<span class="w"> </span>--quiero<span class="w"> </span>cota_rango
+</code></pre></div>
+<p>The planner proposes two checks by input and output type, one using the characteristic polynomial and one using
+the Schur complement. You run the tool. Registering individual Reusable cards as planner steps is future work.</p>
+<p><strong>Compute exactly.</strong> Run the characteristic-polynomial check on A.</p>
+<div class="code"><div class="code-cab"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-lang">Terminal</span><button class="copiar" data-ok="Copied ✓" type="button">Copy</button></div><pre class="hl"><code>python<span class="w"> </span>-m<span class="w"> </span>excovery.charpoly_psd<span class="w"> </span><span class="s1">&#39;[[2,1],[1,2]]&#39;</span>
+</code></pre></div>
+<p>The result gives symmetry, positive semidefiniteness, rank 2 and coefficients [1, −4, 3] in descending degree.</p>
+<p><strong>Check the chain in Lean.</strong> Prove symmetry and verify the alternating signs of X² − 4X + 3.
+These facts imply positive semidefiniteness (<a href="https://karlesmarin.github.io/blueprints/reusable/R0032.html">card R0032</a>). The nonzero determinant 3 gives rank 2.
+With both facts, prove that uᵀAu is a sum of two squares of linear forms (<a href="https://karlesmarin.github.io/blueprints/reusable/R0033.html">card R0033</a>).</p>
+<p><strong>Test a hypothesis.</strong> Excovery's <code>necesidad</code> tool searches for counterexamples to a weakened statement you model.
+Drop A + B + C = π from Recipe 1 and take A = B = C = 0 and x = y = z = 1. The claimed inequality becomes 6 ≤ 3.
+A search that finds no counterexample only tells you about the cases it tried.</p>
 </section><section class="cap" id="sec-s10-every-theorem-of-the-layer-by-area"><header class="cap-cab"><span class="cap-num">10</span><div><div class="cap-k">Chapter 10</div><h2 id="s10-every-theorem-of-the-layer-by-area"><span class="cap-e">📚</span><span class="cap-t">Every theorem of the layer, by area</span></h2></div></header>
 <p>The 82 theorems of release <code>v0.15.0</code>, in 9 areas, read from its manifest. 🔌 marks an <code>API</code> lemma,
 🏛️ a <code>showcase</code> theorem; each name links to its card, and each area gives the line that imports it.</p>
