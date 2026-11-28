@@ -1,0 +1,379 @@
+WEBVTT
+
+00:00:00.583 --> 00:00:05.125
+These graphs have four vertices. How many
+roots of their matching polynomials lie
+
+00:00:05.125 --> 00:00:07.833
+above seven fifths, counting multiplicities?
+
+00:00:08.750 --> 00:00:13.292
+We will design an atlas to answer that
+question. Each component must contribute to
+
+00:00:13.292 --> 00:00:15.708
+the count, coverage, or diagnosis.
+
+00:00:16.625 --> 00:00:21.500
+First try the method on a cubic. Its Lean
+proof is small, and it shows how to turn
+
+00:00:21.500 --> 00:00:23.917
+input conditions into a uniform guarantee.
+
+00:00:25.750 --> 00:00:31.833
+For this cubic, p_c(t), the input is a real
+number c. The output we want is a proof
+
+00:00:31.833 --> 00:00:33.708
+of at least three distinct real roots.
+
+00:00:34.625 --> 00:00:39.500
+Look at the obligations that card opens.
+Supply a nonzero polynomial,
+
+00:00:39.500 --> 00:00:43.458
+four strictly increasing points, and a
+negative product for each pair of
+
+00:00:43.458 --> 00:00:44.917
+neighboring evaluations.
+
+00:00:46.750 --> 00:00:53.083
+Our four witnesses are minus two, minus one,
+one and two. Move c and the curve changes,
+
+00:00:53.083 --> 00:00:55.292
+while those four sample locations stay put.
+
+00:00:56.167 --> 00:01:02.167
+Evaluate exactly. The first value is c minus
+two, the second is c plus two,
+
+00:01:02.167 --> 00:01:04.583
+and those same two values repeat in that
+order.
+
+00:01:05.500 --> 00:01:11.500
+To get minus, plus, minus, plus, require c
+minus two to be negative and c plus two
+
+00:01:11.500 --> 00:01:15.500
+positive. This is equivalent to minus two
+less than c less than two.
+
+00:01:17.333 --> 00:01:22.333
+Here is the checked theorem. It keeps a real
+parameter and takes the two strict bounds.
+
+00:01:22.333 --> 00:01:25.125
+Its conclusion asserts at least three
+distinct roots.
+
+00:01:26.042 --> 00:01:31.125
+Apply the alternating-sign theorem to the
+nonzero polynomial and the witness vector.
+
+00:01:31.125 --> 00:01:34.750
+Two holes remain, one for the ordering and
+another for the signs.
+
+00:01:35.667 --> 00:01:39.958
+The card turns those facts into three
+disjoint intervals containing roots.
+
+00:01:39.958 --> 00:01:44.208
+Lean checks a single declaration for every c
+satisfying its assumptions.
+
+00:01:45.125 --> 00:01:50.417
+We tried a Newton branch. It checks, but
+substituting the coefficients reduces it to
+
+00:01:50.417 --> 00:01:54.667
+zero at least minus twenty-seven. We leave
+that branch out of the machine.
+
+00:01:56.500 --> 00:02:01.583
+The polynomial and its goal stay the same,
+but one evaluation becomes zero.
+
+00:02:01.583 --> 00:02:05.958
+The diagnostic can identify the first
+product that is no longer negative.
+
+00:02:06.833 --> 00:02:11.208
+Now set c to two with the original
+witnesses. The product fails for a different
+
+00:02:11.208 --> 00:02:14.333
+reason. We have reached the boundary of the
+uniform proof.
+
+00:02:15.208 --> 00:02:20.083
+At the boundary we have a different proof.
+The factorization into t minus one squared
+
+00:02:20.083 --> 00:02:25.000
+times t plus two exhibits a double root.
+Lean checks the identity by expansion.
+
+00:02:26.792 --> 00:02:31.667
+Return to the atlas. The input is a graph
+and a rational threshold.
+
+00:02:31.667 --> 00:02:36.333
+We want disjoint intervals, multiplicities,
+and the number of roots strictly above the
+
+00:02:36.333 --> 00:02:36.875
+threshold.
+
+00:02:37.792 --> 00:02:42.250
+Work backwards: obtain the coefficients from
+the graph, bound the search,
+
+00:02:42.250 --> 00:02:44.542
+justify the counts, and prove coverage.
+
+00:02:45.458 --> 00:02:49.625
+This actual Excovery query, from a
+polynomial to a root count,
+
+00:02:49.625 --> 00:02:52.667
+proposes the Budan Fourier bound among other
+candidates.
+
+00:02:53.583 --> 00:02:58.292
+A bound can rule out intervals. But our
+answer also requires an exact count with
+
+00:02:58.292 --> 00:03:01.333
+multiplicities. Select a rule by that
+guarantee.
+
+00:03:02.208 --> 00:03:07.042
+If the bridge from graph to coefficients
+remains open, a proof about that polynomial
+
+00:03:07.042 --> 00:03:09.000
+does not yet answer the graph question.
+
+00:03:10.792 --> 00:03:15.000
+The matching polynomial uses counts of
+disjoint edge sets of each size as
+
+00:03:15.000 --> 00:03:17.417
+coefficients, with alternating signs.
+
+00:03:18.292 --> 00:03:23.750
+The four-vertex path has three edges and one
+two-edge matching. Its polynomial is t to
+
+00:03:23.750 --> 00:03:26.333
+the fourth minus three t squared plus one.
+
+00:03:27.208 --> 00:03:32.167
+Two disjoint edges give another polynomial,
+t to the fourth minus two t squared plus
+
+00:03:32.167 --> 00:03:32.417
+one.
+
+00:03:33.333 --> 00:03:37.958
+Heilmann and Lieb's results in cards sixty-
+nine and seventy give real roots and a
+
+00:03:37.958 --> 00:03:42.875
+degree-based bound. With maximum degree at
+most two, start from minus two to two.
+
+00:03:43.792 --> 00:03:49.375
+Sturm certifies exact counts for square-free
+factors. If an endpoint is itself a root,
+
+00:03:49.375 --> 00:03:51.667
+check that zero and record it separately.
+
+00:03:52.542 --> 00:03:57.125
+The factors, raised to their multiplicities,
+must recover the polynomial.
+
+00:03:57.125 --> 00:04:00.917
+With real splitting established, the
+weighted counts must sum to its degree.
+
+00:04:01.792 --> 00:04:07.167
+Each piece has a concrete job: establish the
+input data, decide where to search,
+
+00:04:07.167 --> 00:04:09.083
+or prove that the atlas is complete.
+
+00:04:10.917 --> 00:04:15.458
+Let's check the count for the four-vertex
+path. We want roots strictly above seven
+
+00:04:15.458 --> 00:04:21.542
+fifths. The global bound is two and the
+polynomial at two is five, so we can use two
+
+00:04:21.542 --> 00:04:22.583
+as the upper endpoint.
+
+00:04:23.542 --> 00:04:28.583
+Sturm works on a finite interval. Card
+thirteen needs a square-free factor,
+
+00:04:28.583 --> 00:04:32.250
+ordered endpoints, and neither endpoint can
+be a root of that factor.
+
+00:04:33.167 --> 00:04:36.458
+Start the sequence with the polynomial and
+its derivative.
+
+00:04:36.458 --> 00:04:40.208
+Each step appends the negative remainder of
+the preceding division.
+
+00:04:40.208 --> 00:04:42.542
+These are the five polynomials for the path.
+
+00:04:43.458 --> 00:04:49.667
+Evaluate the sequence. At seven fifths, a
+minus sign is followed by four plus signs.
+
+00:04:49.667 --> 00:04:51.500
+At two every sign is positive.
+
+00:04:52.417 --> 00:04:57.833
+The variation difference is one minus zero.
+That is why the interval contains one root.
+
+00:04:57.833 --> 00:05:01.167
+Since the factor occurs once, the weighted
+count is also one.
+
+00:05:02.083 --> 00:05:06.667
+For two disjoint edges, the factor t squared
+minus one occurs twice.
+
+00:05:06.667 --> 00:05:11.083
+At a threshold of one, the endpoint is a
+root, so the Sturm hypothesis needs
+
+00:05:11.083 --> 00:05:11.625
+attention.
+
+00:05:12.542 --> 00:05:17.583
+Record one as an exact point of multiplicity
+two, exclude it from the strict query,
+
+00:05:17.583 --> 00:05:21.458
+and remove its linear factor before counting
+the remaining roots.
+
+00:05:21.458 --> 00:05:24.417
+The remaining factor no longer vanishes at
+the endpoint.
+
+00:05:25.333 --> 00:05:29.958
+The prototype computes the coefficients two
+ways and uses exact arithmetic for the
+
+00:05:29.958 --> 00:05:34.500
+count. This panel shows how a Lean machine
+would reproduce and check that count.
+
+00:05:36.292 --> 00:05:40.875
+Return to seven fifths. Compare the path and
+the two disjoint edges at the same
+
+00:05:40.875 --> 00:05:41.458
+threshold.
+
+00:05:42.375 --> 00:05:48.000
+For the path, the largest positive root lies
+between eight fifths and thirteen eighths.
+
+00:05:48.000 --> 00:05:50.958
+The other lies between three fifths and five
+eighths.
+
+00:05:51.875 --> 00:05:56.000
+The negative intervals are reflections. All
+four roots are simple,
+
+00:05:56.000 --> 00:05:58.917
+and only the largest interval lies above
+seven fifths.
+
+00:05:59.792 --> 00:06:04.417
+In the other graph, the polynomial is t
+squared minus one, squared.
+
+00:06:04.417 --> 00:06:07.500
+The roots minus one and one each have
+multiplicity two.
+
+00:06:08.375 --> 00:06:13.125
+At seven fifths the count is zero. If the
+threshold is one, the double root at the
+
+00:06:13.125 --> 00:06:15.667
+threshold is excluded by strict comparison.
+
+00:06:16.583 --> 00:06:21.167
+At three quarters, the double root
+contributes two. The same atlas can answer
+
+00:06:21.167 --> 00:06:23.792
+the new question without approximating the
+roots again.
+
+00:06:24.708 --> 00:06:29.208
+These worked examples have exact
+calculations. For general inputs,
+
+00:06:29.208 --> 00:06:34.500
+those calculations still need to be wired to
+Lean checks of origin, factors, and counts.
+
+00:06:36.292 --> 00:06:40.292
+Each piece must close an obligation that
+affects the answer, coverage,
+
+00:06:40.292 --> 00:06:42.875
+or diagnosis. Otherwise leave it out.
+
+00:06:43.792 --> 00:06:48.583
+Card sixty-eight transfers the matching
+polynomial to the adjacency characteristic
+
+00:06:48.583 --> 00:06:52.917
+polynomial for forests. Connect it only if
+the query needs that spectrum.
+
+00:06:53.833 --> 00:06:59.042
+The cubic prototype already has a Lean
+check. The atlas has exact worked examples
+
+00:06:59.042 --> 00:07:00.917
+and formal adapters still to build.
+
+00:07:01.792 --> 00:07:06.208
+Test the design by accepting the same counts
+on a suite of graphs and rejecting an
+
+00:07:06.208 --> 00:07:10.167
+altered coefficient, an omitted root, and a
+false multiplicity.
+
+00:07:11.083 --> 00:07:15.417
+Try a threshold in the simulation and
+download the Lean proof for the family.
+
+00:07:15.417 --> 00:07:19.667
+A reproducible result and a diagnostic turn
+the pieces into a machine.

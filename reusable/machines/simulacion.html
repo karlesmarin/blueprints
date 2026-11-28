@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Atlas exacto · Reusable</title>
+<style>
+  :root{--bg:#0a1526;--panel:#111f34;--border:#294663;--ink:#eef5ff;--muted:#bccde0;--teal:#77efd7;--yellow:#ffd997;--blue:#9ac4ff}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.55 system-ui,sans-serif}
+  header{background:#14263d;border-bottom:1px solid var(--border)} header nav,main{width:min(100% - 2rem,68rem);margin:auto}
+  nav{display:flex;flex-wrap:wrap;gap:1rem;padding:.85rem 0} header a:first-child{margin-right:auto;font-weight:700}
+  a{color:var(--blue)} [aria-current=true]{color:var(--teal);font-weight:700} main{padding:1.45rem 0 3rem}
+  h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.1;margin:.25rem 0} h2{font-size:clamp(1.35rem,4vw,2.1rem);margin:0}
+  p{color:var(--muted);margin:.5rem 0 1rem}.panel{margin:1.4rem 0;background:var(--panel);border:1px solid var(--border);border-radius:.9rem;padding:clamp(.8rem,3vw,1.45rem)}
+  .form{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin:.9rem 0} button,input{font:inherit}
+  button,input[type=text]{color:var(--ink);background:#112a41;border:1px solid #456786;border-radius:.4rem;padding:.35rem .65rem}
+  button{cursor:pointer} button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offset:.2rem}
+  input[type=text]{width:8rem} input[type=range]{width:min(100%,15rem);accent-color:var(--teal)}
+  .cases,.family{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}
+  .case,.plot{background:var(--bg);border:1px solid var(--border);border-radius:.55rem;padding:.7rem;min-width:0}
+  .case h3{margin:0;color:var(--teal)} svg{width:100%;display:block;height:auto}
+  .count{font-size:1.45rem;font-weight:700;color:var(--teal)} .failure{color:var(--yellow)}
+  .numeric{font-variant-numeric:tabular-nums} output{color:var(--teal);font-weight:680} table{width:100%;border-collapse:collapse}
+  th,td{border-bottom:1px solid var(--border);padding:.35rem;text-align:left} .note{font-size:.9rem;margin:.65rem 0 0}
+  [hidden]{display:none}@media(max-width:680px){.cases,.family{grid-template-columns:1fr}}
+</style>
+<header><nav><a id="episode" href="index.html#es">◇ Reusable</a><a href="#es" lang="es">Español</a><a href="#en" lang="en">English</a></nav></header>
+<main>
+  <h1 data-key="title"></h1>
+  <p data-key="intro"></p>
+  <section class="panel" aria-labelledby="atlas-title">
+    <h2 id="atlas-title" data-key="atlas"></h2>
+    <p data-key="question"></p>
+    <form id="threshold-form" class="form">
+      <label for="threshold" data-key="threshold"></label><input id="threshold" type="text" value="7/5" maxlength="60" required>
+      <button type="submit" data-key="apply"></button>
+      <button type="button" data-threshold="7/5">7/5</button><button type="button" data-threshold="1">1</button><button type="button" data-threshold="3/4">3/4</button>
+    </form>
+    <p id="threshold-error" class="failure" role="alert" hidden data-key="invalid"></p>
+    <div class="cases">
+      <article class="case"><h3>P₄</h3><p>μ(t) = t⁴ − 3t² + 1</p>
+        <svg id="path-atlas" viewBox="0 0 440 150" role="img" aria-label="P4"></svg>
+        <p class="note">[−13/8, −8/5], [−5/8, −3/5], [3/5, 5/8], [8/5, 13/8]. <span data-key="simple"></span></p>
+        <p class="count"><output id="path-count"></output> <span data-key="weighted"></span></p>
+      </article>
+      <article class="case"><h3>2K₂</h3><p>μ(t) = (t² − 1)²</p>
+        <svg id="edges-atlas" viewBox="0 0 440 150" role="img" aria-label="2K2"></svg>
+        <p class="note">{−1}, {1}. <span data-key="double"></span></p>
+        <p class="count"><output id="edges-count"></output> <span data-key="weighted"></span></p>
+      </article>
+    </div>
+    <p class="note" data-key="atlasStatus"></p>
+    <nav><a href="atlas_matching_demo.py" download data-key="python"></a>
+      <a href="atlas_input_example.json" download data-key="json"></a></nav>
+  </section>
+  <section class="panel" aria-labelledby="family-title">
+    <h2 id="family-title" data-key="family"></h2>
+    <p data-key="familyIntro"></p>
+    <div class="form">
+      <label for="parameter">c = <output id="parameter-value"></output></label>
+      <input id="parameter" type="range" min="-12" max="12" step="1" value="0">
+      <button type="button" data-c="-8">−2</button><button type="button" data-c="0">0</button><button type="button" data-c="8">2</button>
+      <label><input id="mutate" type="checkbox"> <span data-key="mutate"></span></label>
+    </div>
+    <div class="family">
+      <div class="plot"><svg id="cubic" viewBox="0 0 440 270" role="img" aria-label="p(t) = t³ − 3t + c"></svg><p class="note" data-key="visual"></p></div>
+      <div><table class="numeric"><thead><tr><th scope="col">t</th><th scope="col">p(t)</th><th scope="col">±</th></tr></thead><tbody id="family-values"></tbody></table>
+      <p id="diagnostic" role="status"></p><p id="factor"></p></div>
+    </div>
+    <p><a href="ReusableCubicFamily.lean" download data-key="lean"></a></p>
+  </section>
+</main>
+<script>
+const text = {
+  es: {
+    title:'Consulta un atlas de raíces',intro:'Dos ejemplos exactos y un prototipo de prueba. Cambia el umbral del atlas o fuerza un fallo en los testigos de la cúbica.',
+    atlas:'P₄ frente a 2K₂',question:'¿Cuántas raíces del polinomio de emparejamientos quedan estrictamente por encima del umbral?',
+    threshold:'Umbral racional',apply:'Aplicar',invalid:'Escribe un entero o una fracción con denominador positivo, como 7/5.',
+    simple:'Una raíz simple por intervalo.',double:'Dos raíces, cada una de multiplicidad dos.',weighted:'con multiplicidad',
+    atlasStatus:'El conteo exacto de estos ejemplos usa aritmética entera. La posición de los trazos es orientativa. El atlas general todavía requiere comprobadores Lean de procedencia, factorización y conteos.',
+    python:'Descarga el prototipo exacto en Python',json:'Grafo de ejemplo en JSON',family:'Cúbica · testigos y diagnóstico',familyIntro:'Prueba p(t) = t³ − 3t + c con testigos −2, −1, 1, 2. El control de c avanza en cuartos.',
+    mutate:'Sustituir el testigo −1 por 0',visual:'Gráfica numérica. La tabla de la derecha muestra evaluaciones exactas.',
+    pass:'Los tres productos son negativos. Se cierra la obligación de signos de R0011.',
+    fail:i=>`Falla la obligación ${i}: el producto de las evaluaciones consecutivas debe ser negativo.`,
+    factor:'Factorización comprobada en Lean',lean:'Descarga la prueba Lean de la familia'
+  },
+  en: {
+    title:'Query a root atlas',intro:'Two exact examples and a proof prototype. Change the atlas threshold or make a cubic witness fail.',
+    atlas:'P₄ versus 2K₂',question:'How many roots of the matching polynomial lie strictly above the threshold?',
+    threshold:'Rational threshold',apply:'Apply',invalid:'Enter an integer or a fraction with a positive denominator, such as 7/5.',
+    simple:'One simple root in each interval.',double:'Two roots, each of multiplicity two.',weighted:'with multiplicity',
+    atlasStatus:'The examples use integer arithmetic for exact counts. The marks show approximate positions. The general atlas still needs Lean checks for origin, factorization and interval counts.',
+    python:'Download the exact Python prototype',json:'Sample graph JSON',family:'Cubic · witnesses and diagnosis',familyIntro:'Try p(t) = t³ − 3t + c with witnesses −2, −1, 1, 2. The c control moves in quarters.',
+    mutate:'Replace witness −1 with 0',visual:'Numerical plot. The table shows exact evaluations.',
+    pass:'All three products are negative. The sign obligation of R0011 is met.',
+    fail:i=>`Obligation ${i} fails: the product of the neighboring evaluations must be negative.`,
+    factor:'Factorization checked in Lean',lean:'Download the Lean family proof'
+  }
+};
+const by = id => document.getElementById(id);
+let language = 'es';
+let accepted = [7n,5n];
+const parse = value => {
+  const parts = /^([+-]?[0-9]+)(?:\/([0-9]+))?$/.exec(value.trim());
+  if (!parts) return null;
+  const n = BigInt(parts[1]), d = BigInt(parts[2] || '1');
+  return d > 0n ? [n,d] : null;
+};
+
+// φ and 1/φ are the positive roots of t²−t−1 and t²+t−1, respectively.
+function pathCount(n,d) {
+  if (n === 0n) return 2;
+  const positive = n > 0n, t = positive ? n : -n;
+  const comparisons = [t*t-t*d-d*d,t*t+t*d-d*d];
+  return positive ? comparisons.filter(v=>v<0n).length : 2+comparisons.filter(v=>v>0n).length;
+}
+
+function atlasPlot(id, disconnected, cutoff) {
+  const x = t=>220+t*93, vertices=[66,169,272,375];
+  const edges = disconnected ? [[0,1],[2,3]] : [[0,1],[1,2],[2,3]];
+  const wire = edges.map(([u,v])=>`<path d="M ${vertices[u]} 37 H ${vertices[v]}" stroke="#77efd7" stroke-width="3"/>`).join('');
+  const nodes = vertices.map((v,i)=>`<circle cx="${v}" cy="37" r="12" fill="#17354d" stroke="#77efd7"/><text x="${v}" y="41.5" text-anchor="middle" fill="#eef5ff" font-size="12">${i+1}</text>`).join('');
+  const places = disconnected ? [-1,1] : [-1.6125,-.6125,.6125,1.6125];
+  const roots = places.map(t=>`<circle cx="${x(t)}" cy="112" r="${disconnected?6:4}" fill="#9ac4ff"/>`).join('');
+  const boundary = Math.abs(cutoff) <= 2 ? `<path d="M ${x(cutoff)} 83 V 134" stroke="#ffd997" stroke-width="2"/>` : '';
+  by(id).innerHTML = wire+nodes+'<path d="M 32 112 H 408" stroke="#476584"/>'+boundary+roots;
+}
+
+function drawAtlas() {
+  const [n,d] = accepted;
+  by('path-count').value = pathCount(n,d);
+  by('edges-count').value = Number(-d>n)*2+Number(d>n)*2;
+  const cutoff = Number(n)/Number(d);
+  atlasPlot('path-atlas',false,cutoff);
+  atlasPlot('edges-atlas',true,cutoff);
+}
+by('threshold-form').addEventListener('submit',event=>{
+  event.preventDefault();
+  const parsed = parse(by('threshold').value);
+  by('threshold-error').hidden = Boolean(parsed);
+  if (parsed) { accepted = parsed; drawAtlas(); }
+});
+document.querySelectorAll('[data-threshold]').forEach(button=>button.addEventListener('click',()=>{
+  by('threshold').value = button.dataset.threshold;
+  by('threshold-form').requestSubmit();
+}));
+
+function fraction(quarters) {
+  const divisor = quarters%4===0 ? 4 : quarters%2===0 ? 2 : 1;
+  return (divisor===4 ? String(quarters/4) : (quarters/divisor)+'/'+(4/divisor)).replace('-','−');
+}
+function drawFamily() {
+  const quarter = Number(by('parameter').value), x2 = by('mutate').checked ? 0 : -1;
+  const points = [-2,x2,1,2];
+  const exact = points.map(x=>4*(x*x*x-3*x)+quarter);
+  const fail = exact.slice(1).findIndex((value,i)=>value*exact[i]>=0);
+  by('parameter-value').value = fraction(quarter);
+  by('family-values').innerHTML = points.map((x,i)=>`<tr><th scope="row">${String(x).replace('-','−')}</th><td>${fraction(exact[i])}</td><td>${exact[i]<0?'−':exact[i]>0?'+':'0'}</td></tr>`).join('');
+  by('diagnostic').classList.toggle('failure',fail>=0);
+  by('diagnostic').textContent = fail>=0 ? text[language].fail(fail+1) : text[language].pass;
+  by('factor').textContent = Math.abs(quarter)===8 ?
+    text[language].factor+' · '+(quarter===8?'(t − 1)²(t + 2)':'(t + 1)²(t − 2)') : '';
+  const sx = x=>220+71*x, sy = y=>135-20*y;
+  const samples = Array.from({length:161},(_,i)=>{
+    const x = -2.65+5.3*i/160, y = x*x*x-3*x+quarter/4;
+    return sx(x).toFixed(2)+','+sy(y).toFixed(2);
+  }).join(' ');
+  const marks = points.map((x,i)=>`<circle cx="${sx(x)}" cy="${sy(exact[i]/4)}" r="5" fill="${exact[i]<0?'#ffd997':'#77efd7'}"/>`).join('');
+  by('cubic').innerHTML = '<path d="M 28 135 H 411 M 220 17 V 253" stroke="#476584"/>'+
+    `<polyline points="${samples}" fill="none" stroke="#9ac4ff" stroke-width="3"/>`+marks;
+}
+document.querySelectorAll('[data-c]').forEach(button=>button.addEventListener('click',()=>{
+  by('parameter').value = button.dataset.c; drawFamily();
+}));
+by('parameter').addEventListener('input',drawFamily);
+by('mutate').addEventListener('change',drawFamily);
+function localize() {
+  language = location.hash==='#en' ? 'en' : 'es';
+  document.documentElement.lang = language;
+  document.querySelectorAll('[data-key]').forEach(element=>element.textContent=text[language][element.dataset.key]);
+  document.querySelectorAll('header a[lang]').forEach(anchor=>anchor.setAttribute('aria-current',String(anchor.lang===language)));
+  document.title = text[language].title+' · Reusable';
+  by('episode').href = 'index.html#'+language;
+  drawAtlas(); drawFamily();
+}
+addEventListener('hashchange',localize);
+localize();
+</script>
