@@ -103,10 +103,7 @@ a{text-decoration:none}
 <span class="author">Carles Marín</span>
 </p>
 </div></div><section class="pc-pane"><section class="overview" id="top"><h2 class="ov-title">At a glance</h2><details class="paper-video" id="paper-video" style="margin:1rem 0">
-<summary role="button" style="display:block;cursor:pointer;max-width:360px;list-style:none">
-<img src="https://huggingface.co/datasets/karlexmarin/research-videos/resolve/main/fisica/computacion-cuantica/relevo-cuantico/poster.jpg" alt="Video cover / Portada del vídeo" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px">
-<span style="display:inline-block;margin-top:.45rem;padding:.65rem 1rem;border-radius:8px;background:#245f99;color:#fff;font-weight:600">🎬 Watch video / Ver vídeo</span>
-</summary>
+<summary role="button" style="display:inline-block;cursor:pointer;padding:.65rem 1rem;border-radius:8px;background:#245f99;color:#fff;font-weight:600">🎬 Watch video / Ver vídeo</summary>
 <div style="margin-top:.8rem">
 <p><label for="paper-video-language"><b>Language / Idioma:</b></label>
 <select id="paper-video-language" aria-label="Video language / Idioma del vídeo" style="font:inherit;padding:.35rem .5rem;margin-left:.4rem;border-radius:6px"><option value="en" selected>English</option><option value="es">Español</option></select></p>
@@ -120,14 +117,12 @@ Your browser does not support video playback. / Tu navegador no admite vídeo.
 (function () {
   const root = document.currentScript.closest('details.paper-video');
   const video = root.querySelector('video');
-  const cover = root.querySelector('summary img');
   const source = video.querySelector('source');
   const select = root.querySelector('select');
   function choose(lang) {
     video.pause();
     source.src = lang === 'es' ? video.dataset.srcEs : video.dataset.srcEn;
     video.poster = lang === 'es' ? video.dataset.posterEs : video.dataset.posterEn;
-    cover.src = video.poster;
     video.load();
     select.value = lang;
   }
